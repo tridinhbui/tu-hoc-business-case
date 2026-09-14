@@ -1,0 +1,1754 @@
+<title>Lộ trình Business Case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#F3F4F1; --surface:#FBFCFA; --surface-2:#EAEDE8;
+  --ink:#14201E; --ink-2:#4A5956; --ink-3:#6E7C79;
+  --rule:#D7DCD6; --rule-strong:#BCC4BC;
+  --accent:#0F6F67; --accent-soft:#DDEBE7; --accent-ink:#0A4F49;
+  --l1:#5C837D; --l2:#0F6F67; --l3:#1D4E6B; --l4:#8A5E0F;
+  --l1-bg:#E4EBE9; --l2-bg:#DCEBE7; --l3-bg:#DFE8EE; --l4-bg:#F0E7D3;
+  --warn:#8C4A1F;
+  --maxw:1180px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1513; --surface:#161E1C; --surface-2:#1C2624;
+    --ink:#E9EEEA; --ink-2:#A3B2AD; --ink-3:#7E8D89;
+    --rule:#283330; --rule-strong:#3A4844;
+    --accent:#54C2B4; --accent-soft:#153330; --accent-ink:#8AD8CC;
+    --l1:#8FB6AF; --l2:#54C2B4; --l3:#7BB0D2; --l4:#D8A93F;
+    --l1-bg:#1B2624; --l2-bg:#13302C; --l3-bg:#17272F; --l4-bg:#2C2413;
+    --warn:#D9915F;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1513; --surface:#161E1C; --surface-2:#1C2624;
+  --ink:#E9EEEA; --ink-2:#A3B2AD; --ink-3:#7E8D89;
+  --rule:#283330; --rule-strong:#3A4844;
+  --accent:#54C2B4; --accent-soft:#153330; --accent-ink:#8AD8CC;
+  --l1:#8FB6AF; --l2:#54C2B4; --l3:#7BB0D2; --l4:#D8A93F;
+  --l1-bg:#1B2624; --l2-bg:#13302C; --l3-bg:#17272F; --l4-bg:#2C2413;
+  --warn:#D9915F;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:Newsreader,Georgia,"Times New Roman",serif; font-weight:500; text-wrap:balance; margin:0; line-height:1.2}
+p{margin:0}
+a{color:var(--accent-ink)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+
+/* ---------- shell ---------- */
+.shell{max-width:var(--maxw); margin:0 auto; padding:0 24px 100px; display:block}
+@media (min-width:1060px){
+  .shell{display:grid; grid-template-columns:212px minmax(0,1fr); gap:56px; align-items:start}
+}
+nav.toc{display:none}
+@media (min-width:1060px){
+  nav.toc{
+    display:block; position:sticky; top:24px; padding:8px 0 24px;
+    max-height:calc(100vh - 48px); overflow-y:auto;
+  }
+}
+.toc-title{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); padding-bottom:10px; border-bottom:1px solid var(--rule); margin-bottom:10px}
+.toc a{display:grid; grid-template-columns:22px 1fr; gap:6px; padding:4.5px 0; font-size:12.5px; color:var(--ink-2); text-decoration:none; line-height:1.35}
+.toc a:hover{color:var(--accent-ink)}
+.toc a span:first-child{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3); padding-top:1.5px}
+
+/* ---------- masthead ---------- */
+header.mast{max-width:var(--maxw); margin:0 auto; padding:56px 24px 36px}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.eyebrow::after{content:""; flex:1; height:1px; background:var(--rule); min-width:24px}
+h1{font-size:clamp(34px,5.2vw,54px); letter-spacing:-.015em; margin:18px 0 0; max-width:16ch}
+.standfirst{margin-top:18px; max-width:64ch; font-size:16.5px; color:var(--ink-2)}
+.mast-meta{display:flex; flex-wrap:wrap; margin-top:30px; border-top:1px solid var(--rule)}
+.mast-meta div{padding:14px 22px 12px 0; margin-right:22px; border-right:1px solid var(--rule)}
+.mast-meta div:last-child{border-right:0; margin-right:0}
+.mast-meta dt{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+.mast-meta dd{margin:3px 0 0; font-size:14px; font-weight:500}
+
+/* ---------- sections ---------- */
+section{padding-top:58px; scroll-margin-top:16px}
+.sec-head{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:baseline; border-bottom:2px solid var(--ink); padding-bottom:10px; margin-bottom:22px}
+.sec-num{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--accent); letter-spacing:.06em}
+.sec-head h2{font-size:clamp(23px,3vw,30px); letter-spacing:-.01em}
+.lede{max-width:72ch; color:var(--ink-2); margin-bottom:24px}
+h3.sub{font-size:19px; margin:38px 0 14px; padding-bottom:6px; border-bottom:1px solid var(--rule); display:flex; gap:10px; align-items:baseline; flex-wrap:wrap}
+
+/* ---------- generic blocks ---------- */
+.grid{display:grid; gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(228px,1fr))}
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:18px 20px}
+.card h4{font-size:17px; margin-bottom:6px}
+.card p{font-size:13.6px; color:var(--ink-2)}
+.kicker{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:7px}
+
+ol.principles{list-style:none; padding:0; margin:0; border-top:1px solid var(--rule)}
+ol.principles li{display:grid; grid-template-columns:52px 1fr; gap:16px; padding:18px 0; border-bottom:1px solid var(--rule)}
+ol.principles .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); padding-top:3px}
+ol.principles b{display:block; font-family:Newsreader,serif; font-weight:500; font-size:18.5px; margin-bottom:4px}
+ol.principles p{color:var(--ink-2); font-size:14px; max-width:74ch}
+
+/* tables */
+.tw{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:13.2px; min-width:680px}
+th,td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--rule); vertical-align:top}
+thead th{
+  position:sticky; top:0; background:var(--surface-2); z-index:2;
+  font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:10.5px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2);
+  border-bottom:1px solid var(--rule-strong); white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface-2)}
+td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; color:var(--ink-3); white-space:nowrap}
+td strong{font-weight:600}
+
+.lv{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:500; letter-spacing:.04em; padding:2px 7px; border-radius:2px; white-space:nowrap; display:inline-block}
+.lv1{background:var(--l1-bg); color:var(--l1); border:1px solid var(--l1)}
+.lv2{background:var(--l2-bg); color:var(--l2); border:1px solid var(--l2)}
+.lv3{background:var(--l3-bg); color:var(--l3); border:1px solid var(--l3)}
+.lv4{background:var(--l4-bg); color:var(--l4); border:1px solid var(--l4)}
+.tag{font-family:"IBM Plex Mono",monospace; font-size:10.5px; padding:2px 7px; border:1px solid var(--rule-strong); border-radius:2px; color:var(--ink-2); white-space:nowrap; display:inline-block}
+
+/* module block */
+.mod{border:1px solid var(--rule); border-left:3px solid var(--accent); border-radius:3px; background:var(--surface); padding:20px 22px; display:grid; gap:13px}
+.mod-head{display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:baseline}
+.mod-code{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--accent)}
+.mod-head h4{font-size:18.5px}
+@media (max-width:560px){ .mod-head{grid-template-columns:auto 1fr} .mod-head .tag{grid-column:1/-1} }
+.mod dl{display:grid; gap:9px; margin:0}
+.row{display:grid; grid-template-columns:118px minmax(0,1fr); gap:14px; align-items:start}
+@media (max-width:640px){ .row{grid-template-columns:1fr; gap:2px} }
+.row dt{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); padding-top:3px}
+.row dd{margin:0; font-size:13.6px; color:var(--ink-2)}
+.row dd b{color:var(--ink); font-weight:600}
+.row ul{margin:0; padding-left:17px}
+.row li{margin-bottom:2px}
+.row.check dd{color:var(--ink)}
+.row.err dd{color:var(--warn)}
+.stack{display:grid; gap:16px}
+
+.note{border-left:2px solid var(--accent); background:var(--accent-soft); padding:14px 18px; border-radius:0 3px 3px 0; font-size:13.8px; color:var(--ink-2)}
+.note b{color:var(--ink)}
+
+.filters{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px}
+.filters label{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3)}
+select,input[type=search]{
+  font-family:"IBM Plex Sans",sans-serif; font-size:13px; padding:6px 9px;
+  background:var(--surface); color:var(--ink); border:1px solid var(--rule-strong); border-radius:2px;
+}
+input[type=search]{min-width:170px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.count{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3); margin-left:auto}
+
+/* readiness bars */
+.bars{display:grid; gap:7px; margin-top:4px}
+.bar{display:grid; grid-template-columns:172px minmax(0,1fr) 30px; gap:12px; align-items:center; font-size:12.5px}
+@media (max-width:560px){ .bar{grid-template-columns:118px minmax(0,1fr) 28px; gap:8px; font-size:11.5px} }
+.bl{color:var(--ink-2)}
+.bt{position:relative; display:block; height:10px; background:var(--surface-2); border:1px solid var(--rule); border-radius:1px; overflow:hidden}
+.bt i{display:block; height:100%; background:var(--l2)}
+.bar.low .bt i{background:var(--l4)}
+.bt::after{content:""; position:absolute; left:70%; top:-1px; bottom:-1px; width:1px; background:var(--rule-strong)}
+.bv{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; text-align:right; color:var(--ink)}
+
+footer{max-width:var(--maxw); margin:0 auto; padding:44px 24px 80px; border-top:1px solid var(--rule); color:var(--ink-3); font-size:12.5px; max-width:var(--maxw)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<header class="mast">
+  <div class="eyebrow">Curriculum Blueprint · v1.0</div>
+  <h1>Lộ trình Business Case</h1>
+  <p class="standfirst">Kiến trúc chương trình học từ “không biết bắt đầu case thế nào” đến “nộp được một full deck hoặc đi trọn một consulting interview có cấu trúc”. Sắp xếp theo năng lực, không theo danh sách framework. Mỗi bài học kết thúc bằng một output nhìn thấy được.</p>
+  <dl class="mast-meta">
+    <div><dt>Tracks</dt><dd>10 (A–J)</dd></div>
+    <div><dt>Modules</dt><dd>34</dd></div>
+    <div><dt>Levels</dt><dd>4 bậc năng lực</dd></div>
+    <div><dt>Learning paths</dt><dd>6</dd></div>
+    <div><dt>Bài/case đầu tiên</dt><dd>100</dd></div>
+    <div><dt>Capstones</dt><dd>8</dd></div>
+  </dl>
+</header>
+
+<div class="shell">
+<nav class="toc" aria-label="Mục lục">
+  <div class="toc-title">Mục lục</div>
+  <a href="#s1"><span>01</span><span>Learning philosophy</span></a>
+  <a href="#s2"><span>02</span><span>Learner personas</span></a>
+  <a href="#s3"><span>03</span><span>Skill map</span></a>
+  <a href="#s4"><span>04</span><span>Curriculum structure</span></a>
+  <a href="#s5"><span>05</span><span>Module design</span></a>
+  <a href="#s6"><span>06</span><span>Difficulty progression</span></a>
+  <a href="#s7"><span>07</span><span>Learning paths</span></a>
+  <a href="#s8"><span>08</span><span>Practice architecture</span></a>
+  <a href="#s9"><span>09</span><span>Assessment system</span></a>
+  <a href="#s10"><span>10</span><span>Sequencing rules</span></a>
+  <a href="#s11"><span>11</span><span>100 bài đầu tiên</span></a>
+  <a href="#s12"><span>12</span><span>Capstone projects</span></a>
+  <a href="#s13"><span>13</span><span>Quality standards</span></a>
+</nav>
+
+<main>
+
+<!-- ============ 01 ============ -->
+<section id="s1">
+  <div class="sec-head"><span class="sec-num">§ 01</span><h2>Learning philosophy</h2></div>
+  <p class="lede">Người học không thiếu framework. Họ thiếu khả năng biến một đề bài mơ hồ thành một chuỗi câu hỏi trả lời được bằng số liệu. Toàn bộ chương trình được xây quanh sáu nguyên tắc dưới đây, và mọi quyết định về module, bài tập, rubric đều phải truy ngược về được một trong sáu nguyên tắc đó.</p>
+  <ol class="principles">
+    <li><span class="n">P—1</span><div>
+      <b>Học qua case, không học qua mục lục</b>
+      <p>Mỗi khái niệm xuất hiện lần đầu bên trong một tình huống cần đến nó, không phải trong một bài định nghĩa đứng riêng. Người học gặp vấn đề “lợi nhuận chuỗi cà phê giảm 18% dù doanh thu tăng” trước, rồi mới gặp cây profitability. Framework là công cụ được rút ra từ case, không phải nội dung được minh hoạ bằng case.</p>
+    </div></li>
+    <li><span class="n">P—2</span><div>
+      <b>Học theo năng lực, không theo danh sách framework</b>
+      <p>Chương trình không tổ chức thành “bài 3: SWOT, bài 4: Porter’s Five Forces”. Nó tổ chức thành các năng lực xếp chồng: đọc đề → chia vấn đề → định lượng → đọc số → rút insight → ra khuyến nghị → kể lại. Một framework có thể xuất hiện ở ba module khác nhau với ba độ sâu khác nhau.</p>
+    </div></li>
+    <li><span class="n">P—3</span><div>
+      <b>Học bằng output, không bằng cảm giác đã hiểu</b>
+      <p>Không có bài nào kết thúc bằng “đã đọc xong”. Mỗi bài kết thúc bằng một vật thể: một issue tree, một bảng market sizing, một câu “so what”, một chart có tiêu đề dạng insight, một slide, một recommendation 3 dòng, một bản ghi âm 90 giây. Vật thể đó là bằng chứng duy nhất được chấm.</p>
+    </div></li>
+    <li><span class="n">P—4</span><div>
+      <b>Từ mini case đến full case, không nhảy cóc</b>
+      <p>Một full case là hợp của khoảng tám kỹ năng nhỏ. Người học luyện từng kỹ năng đó ở dạng drill 5–15 phút cho đến khi tự động, rồi mới ghép hai kỹ năng, rồi mini case 30 phút, rồi full case 60–90 phút, rồi timed case. Người học chỉ chạm full case khi các drill thành phần đã đạt ngưỡng.</p>
+    </div></li>
+    <li><span class="n">P—5</span><div>
+      <b>Từ phân tích cá nhân đến trình bày như team thi</b>
+      <p>Kỹ năng phân tích được xây một mình; kỹ năng thắng giải được xây trong team. Nửa sau của lộ trình chuyển dần sang chế độ nhóm: chia việc theo issue tree, hợp nhất phân tích của bốn người thành một storyline, xử lý bất đồng, tổng duyệt, và chịu Q&amp;A từ ban giám khảo.</p>
+    </div></li>
+    <li><span class="n">P—6</span><div>
+      <b>Sai lầm được gắn nhãn, không chỉ được sửa</b>
+      <p>Mỗi lỗi trong bài nộp được gán một mã lỗi chuẩn (ví dụ <span class="mono">TRE-02 cây không MECE</span>, <span class="mono">QNT-05 không sanity check</span>). Người học tích luỹ một hồ sơ lỗi cá nhân; hệ thống dùng hồ sơ đó để đề xuất drill tiếp theo thay vì đẩy bài theo thứ tự cố định.</p>
+    </div></li>
+  </ol>
+</section>
+
+<!-- ============ 02 ============ -->
+<section id="s2">
+  <div class="sec-head"><span class="sec-num">§ 02</span><h2>Learner personas</h2></div>
+  <p class="lede">Sáu nhóm người học, khác nhau ở điểm xuất phát và ở định nghĩa “thành công”. Mỗi persona ánh xạ vào một entry point và một learning path ở <a href="#s7">§ 07</a>.</p>
+  <div class="grid g2">
+    <div class="card">
+      <span class="kicker">P1 · Entry: A1</span>
+      <h4>Người mới hoàn toàn với business</h4>
+      <p><b>Chân dung:</b> sinh viên năm 1–2, hoặc người trái ngành. Chưa phân biệt được doanh thu và lợi nhuận gộp, chưa từng đọc P&amp;L.<br>
+      <b>Nỗi đau:</b> đọc đề case xong không biết câu hỏi thật sự là gì.<br>
+      <b>Thành công:</b> giải được một mini case profitability 30 phút và giải thích được vì sao lợi nhuận giảm.<br>
+      <b>Path:</b> Path 6 → Path 1.</p>
+    </div>
+    <div class="card">
+      <span class="kicker">P2 · Entry: A2</span>
+      <h4>Sinh viên luyện case competition</h4>
+      <p><b>Chân dung:</b> đã đi thi 1–2 lần, dừng ở vòng loại hoặc top 20. Biết làm slide đẹp nhưng nội dung rời rạc.<br>
+      <b>Nỗi đau:</b> phân tích nhiều nhưng không ra được recommendation sắc; deck không có storyline.<br>
+      <b>Thành công:</b> deck 12 slide có mạch lập luận, bảo vệ được trong Q&amp;A 10 phút.<br>
+      <b>Path:</b> Path 1 (8 tuần).</p>
+    </div>
+    <div class="card">
+      <span class="kicker">P3 · Entry: B1</span>
+      <h4>Người luyện consulting case interview</h4>
+      <p><b>Chân dung:</b> sinh viên cuối khoá hoặc fresh grad nhắm MBB, Big4 Consulting, boutique.<br>
+      <b>Nỗi đau:</b> structure nghe giống template, math chậm và sai, không dẫn dắt được case.<br>
+      <b>Thành công:</b> chạy 20+ live case, math chính xác dưới áp lực, candidate-led được.<br>
+      <b>Path:</b> Path 2 (6 tuần).</p>
+    </div>
+    <div class="card">
+      <span class="kicker">P4 · Entry: E1</span>
+      <h4>Người học marketing strategy</h4>
+      <p><b>Chân dung:</b> sinh viên marketing, intern brand hoặc growth, thi các case FMCG-style.<br>
+      <b>Nỗi đau:</b> dừng ở ý tưởng campaign, không nối được với P&amp;L và funnel.<br>
+      <b>Thành công:</b> một brand/growth plan có sizing, funnel math, CAC–LTV và trade-off ngân sách.<br>
+      <b>Path:</b> Path 3.</p>
+    </div>
+    <div class="card">
+      <span class="kicker">P5 · Entry: F1</span>
+      <h4>Người học operations / supply chain</h4>
+      <p><b>Chân dung:</b> sinh viên logistics hoặc kỹ thuật, thi supply chain case, ứng tuyển ops management trainee.<br>
+      <b>Nỗi đau:</b> thuộc thuật ngữ (EOQ, safety stock) nhưng không gắn được vào bài toán chi phí – mức dịch vụ.<br>
+      <b>Thành công:</b> một network/inventory redesign có bảng trade-off cost vs service level.<br>
+      <b>Path:</b> Path 4.</p>
+    </div>
+    <div class="card">
+      <span class="kicker">P6 · Entry: A3 + B1</span>
+      <h4>Business analyst / product / strategy</h4>
+      <p><b>Chân dung:</b> người đi làm 0–3 năm, cần structure vấn đề và thuyết phục bằng dữ liệu.<br>
+      <b>Nỗi đau:</b> phân tích ra bảng nhưng không ra quyết định; sếp hỏi “so what” thì tắc.<br>
+      <b>Thành công:</b> một decision memo có phương án, tiêu chí, khuyến nghị và rủi ro.<br>
+      <b>Path:</b> Path 5.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 ============ -->
+<section id="s3">
+  <div class="sec-head"><span class="sec-num">§ 03</span><h2>Skill map</h2></div>
+  <p class="lede">16 năng lực lõi. Đây là xương sống của chương trình: mọi module, bài tập và rubric đều tag về một hoặc nhiều skill trong bảng này. Cột <b>Evidence</b> là vật thể duy nhất được chấp nhận làm bằng chứng đạt skill — không chấp nhận quiz lý thuyết thay thế.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Skill</th><th>Beginner</th><th>Intermediate</th><th>Advanced</th><th>Evidence / Output</th></tr></thead>
+    <tbody>
+      <tr><td><strong>S01 · Problem framing</strong></td>
+        <td>Xác định được câu hỏi chính và mục tiêu định lượng của đề.</td>
+        <td>Viết được problem statement dạng SCQ kèm tiêu chí thành công và phạm vi loại trừ.</td>
+        <td>Phát hiện đề sai trọng tâm, tái định nghĩa vấn đề và bảo vệ được việc tái định nghĩa.</td>
+        <td>Problem statement 3 dòng + 5 clarifying question</td></tr>
+      <tr><td><strong>S02 · Hypothesis-driven thinking</strong></td>
+        <td>Nêu được 2–3 giả thuyết cho nguyên nhân.</td>
+        <td>Xếp hạng giả thuyết theo impact × khả năng, chọn dữ liệu cần để bác bỏ.</td>
+        <td>Dẫn dắt cả case bằng hypothesis tree, cập nhật giả thuyết khi có dữ liệu mới.</td>
+        <td>Hypothesis board: giả thuyết → test → dữ liệu → kết luận</td></tr>
+      <tr><td><strong>S03 · Issue tree / MECE</strong></td>
+        <td>Vẽ cây 2 tầng theo công thức (Revenue = P × Q).</td>
+        <td>Chọn trục chia phù hợp ngữ cảnh; cây 3 tầng, MECE, driver đo được.</td>
+        <td>Thiết kế cây theo quyết định cần ra, cắt nhánh bằng 80/20 và giải thích lý do cắt.</td>
+        <td>Issue tree có driver và nguồn dữ liệu ở mỗi lá</td></tr>
+      <tr><td><strong>S04 · Business model understanding</strong></td>
+        <td>Mô tả được cách công ty kiếm tiền và ai trả tiền.</td>
+        <td>Vẽ được value chain, cost structure và điểm khác biệt so với đối thủ.</td>
+        <td>Nhận diện đòn bẩy kinh tế của mô hình (asset-light, network effect, take rate) và giới hạn của nó.</td>
+        <td>Canvas 1 trang + 3 đòn bẩy lợi nhuận</td></tr>
+      <tr><td><strong>S05 · Market sizing</strong></td>
+        <td>Top-down 3 bước, giả định ghi rõ.</td>
+        <td>Bottom-up, chọn được hướng phù hợp, sanity check bằng benchmark.</td>
+        <td>Sizing đa kịch bản, tách TAM/SAM/SOM, nêu độ nhạy theo giả định yếu nhất.</td>
+        <td>Bảng sizing: giả định, phép tính, sanity check, khoảng dao động</td></tr>
+      <tr><td><strong>S06 · Quantitative analysis</strong></td>
+        <td>Tính % thay đổi, tỷ trọng, trung bình có trọng số không dùng máy tính.</td>
+        <td>Growth rate, CAGR, breakeven, contribution margin, phân rã chênh lệch.</td>
+        <td>Sensitivity, scenario, phân rã variance nhiều biến, ước lượng nhanh có kiểm soát sai số.</td>
+        <td>Bảng tính hiện công thức + 1 dòng kết luận mỗi bảng</td></tr>
+      <tr><td><strong>S07 · Financial logic</strong></td>
+        <td>Đọc được P&amp;L cơ bản, phân biệt fixed và variable cost.</td>
+        <td>Unit economics, contribution margin, payback, vốn lưu động.</td>
+        <td>NPV/IRR ở mức ra quyết định, đánh giá chất lượng lợi nhuận và rủi ro dòng tiền.</td>
+        <td>Mô hình unit economics + bảng đánh giá đầu tư</td></tr>
+      <tr><td><strong>S08 · Customer &amp; marketing analysis</strong></td>
+        <td>Phân biệt segment, nêu được nhu cầu chính của một nhóm.</td>
+        <td>Segmentation có tiêu chí, phân tích funnel, định vị và value proposition.</td>
+        <td>CAC–LTV theo kênh, trade-off ngân sách marketing, đọc cohort và retention.</td>
+        <td>Bảng segment × funnel + CAC/LTV theo kênh</td></tr>
+      <tr><td><strong>S09 · Operations &amp; supply chain logic</strong></td>
+        <td>Vẽ được flow từ nhà cung cấp đến khách hàng, nhận diện bottleneck.</td>
+        <td>Tính capacity, utilization, lead time, tồn kho an toàn, chi phí phục vụ.</td>
+        <td>Thiết kế lại network hoặc chính sách tồn kho với trade-off cost–service–risk định lượng.</td>
+        <td>Process map có số + bảng trade-off cost vs service</td></tr>
+      <tr><td><strong>S10 · Competitive strategy</strong></td>
+        <td>So sánh ta với 2 đối thủ trên 3 tiêu chí.</td>
+        <td>Phân tích cấu trúc ngành, lợi thế cạnh tranh, phản ứng của đối thủ.</td>
+        <td>Đề xuất nước đi có tính đến phản ứng đối thủ và độ bền của lợi thế.</td>
+        <td>Positioning map + kịch bản phản ứng đối thủ</td></tr>
+      <tr><td><strong>S11 · Data / chart interpretation</strong></td>
+        <td>Đọc đúng trục, đơn vị và xu hướng của một chart.</td>
+        <td>So sánh nhiều chart, phát hiện mâu thuẫn, tách mix effect khỏi rate effect.</td>
+        <td>Chọn chart đúng cho luận điểm, phát hiện chart gây hiểu nhầm, tự thiết kế exhibit.</td>
+        <td>Chart có action title + 3 gạch “so what”</td></tr>
+      <tr><td><strong>S12 · Insight synthesis</strong></td>
+        <td>Tóm tắt phát hiện chính thành một câu.</td>
+        <td>Gộp nhiều phân tích thành 3 thông điệp không chồng lấn, có bằng chứng số.</td>
+        <td>Xây governing thought và nhóm lập luận theo pyramid principle.</td>
+        <td>Pyramid 1 trang: governing thought + 3 nhánh + bằng chứng</td></tr>
+      <tr><td><strong>S13 · Recommendation design</strong></td>
+        <td>Đưa được một đề xuất rõ ràng, không mơ hồ.</td>
+        <td>Đề xuất có đối tượng, hành động, thời gian, chi phí, impact ước lượng.</td>
+        <td>So sánh phương án theo tiêu chí, nêu rủi ro và cách giảm thiểu, có roadmap và điều kiện dừng.</td>
+        <td>Recommendation table: option, tiêu chí, impact, rủi ro, mitigation</td></tr>
+      <tr><td><strong>S14 · Slide storyline</strong></td>
+        <td>Viết được action title cho một slide.</td>
+        <td>Sắp xếp storyline 10–12 slide theo mạch SCR, mỗi slide một thông điệp.</td>
+        <td>Thiết kế deck theo đối tượng nghe, có appendix phòng thủ và ghost deck dựng trước khi phân tích.</td>
+        <td>Ghost deck + deck hoàn chỉnh có action title</td></tr>
+      <tr><td><strong>S15 · Pitching &amp; Q&amp;A</strong></td>
+        <td>Trình bày 90 giây rõ ràng, không đọc slide.</td>
+        <td>Pitch 7 phút theo mạch, phân vai trong team, trả lời câu hỏi trực diện.</td>
+        <td>Xử lý câu hỏi phản biện, thừa nhận giới hạn mà không mất thế, điều hướng về luận điểm chính.</td>
+        <td>Bản ghi pitch + Q&amp;A log chấm theo rubric</td></tr>
+      <tr><td><strong>S16 · Business judgment</strong></td>
+        <td>Nhận ra đề xuất nào bất khả thi về nguồn lực.</td>
+        <td>Cân nhắc trade-off ngắn hạn – dài hạn, khả thi vận hành, phản ứng các bên.</td>
+        <td>Ra khuyến nghị khi dữ liệu thiếu, nêu rõ điều gì sẽ làm mình đổi ý.</td>
+        <td>Risk &amp; feasibility memo + “what would change my mind”</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============ 04 ============ -->
+<section id="s4">
+  <div class="sec-head"><span class="sec-num">§ 04</span><h2>Curriculum structure</h2></div>
+  <p class="lede">10 track. A–B là nền bắt buộc cho mọi persona. C–D là trục chính cho case competition và consulting. E–G là nhánh chuyên sâu theo chức năng. H–J là lớp áp dụng và mô phỏng, chạy song song chứ không xếp cuối.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Track</th><th>Vai trò trong lộ trình</th><th>Modules</th><th>Skill chính</th><th>Level</th><th>Bắt buộc cho</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A · Business Case Foundations</strong></td><td>Biến đề bài thành câu hỏi trả lời được; hiểu doanh nghiệp kiếm tiền thế nào.</td><td class="num">A1–A4</td><td>S01 S03 S04 S16</td><td><span class="lv lv1">L1</span></td><td>Tất cả</td></tr>
+      <tr><td><strong>B · Quantitative Case Skills</strong></td><td>Làm chủ số: math dưới áp lực, sizing, đọc chart, phân rã chênh lệch.</td><td class="num">B1–B4</td><td>S05 S06 S11</td><td><span class="lv lv1">L1</span> <span class="lv lv2">L2</span></td><td>Tất cả</td></tr>
+      <tr><td><strong>C · Strategy &amp; Consulting Cases</strong></td><td>Các dạng case chuẩn: profitability, market entry, growth, pricing, M&amp;A.</td><td class="num">C1–C4</td><td>S02 S03 S10 S13</td><td><span class="lv lv2">L2</span> <span class="lv lv3">L3</span></td><td>P2 P3 P6</td></tr>
+      <tr><td><strong>D · Case Competition Mastery</strong></td><td>Quy trình 24–72 giờ theo team: chia việc, hợp nhất, deck, pitch, Q&amp;A.</td><td class="num">D1–D4</td><td>S12 S14 S15 S16</td><td><span class="lv lv3">L3</span> <span class="lv lv4">L4</span></td><td>P2</td></tr>
+      <tr><td><strong>E · Marketing Cases</strong></td><td>Consumer, segmentation, funnel, pricing, go-to-market, growth.</td><td class="num">E1–E3</td><td>S08 S05 S13</td><td><span class="lv lv2">L2</span> <span class="lv lv3">L3</span></td><td>P4</td></tr>
+      <tr><td><strong>F · Supply Chain &amp; Operations</strong></td><td>Process, capacity, tồn kho, network, cost-to-serve, S&amp;OP.</td><td class="num">F1–F3</td><td>S09 S06 S16</td><td><span class="lv lv2">L2</span> <span class="lv lv3">L3</span></td><td>P5</td></tr>
+      <tr><td><strong>G · Finance for Business Cases</strong></td><td>Đọc báo cáo, unit economics, đánh giá đầu tư ở mức đủ dùng cho case.</td><td class="num">G1–G3</td><td>S07 S06</td><td><span class="lv lv2">L2</span> <span class="lv lv3">L3</span></td><td>P3 P6</td></tr>
+      <tr><td><strong>H · Industry Case Library</strong></td><td>Kiến thức ngành đủ để đặt câu hỏi đúng: retail, F&amp;B, FMCG, banking, healthcare, logistics, tech, năng lượng.</td><td class="num">H1–H3</td><td>S04 S10 S16</td><td><span class="lv lv3">L3</span></td><td>P2 P3</td></tr>
+      <tr><td><strong>I · Presentation &amp; Storytelling</strong></td><td>Pyramid, action title, exhibit design, storyboard, deck, thuyết trình.</td><td class="num">I1–I3</td><td>S12 S14 S15</td><td><span class="lv lv2">L2</span> <span class="lv lv3">L3</span></td><td>P2 P4 P6</td></tr>
+      <tr><td><strong>J · Interview Simulation</strong></td><td>Live case, candidate-led, math dưới áp lực, fit, mock panel.</td><td class="num">J1–J3</td><td>S15 S02 S06</td><td><span class="lv lv4">L4</span></td><td>P3</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:18px"><b>Quy ước phụ thuộc:</b> A hoàn tất trước khi mở C. B1–B2 chạy song song với A2. I1 mở ngay sau C1 — người học phải biết viết kết luận trước khi học phân tích sâu. D chỉ mở khi đã qua checkpoint Level 3. J chỉ mở khi B2 và C3 đạt.</div>
+</section>
+
+<!-- ============ 05 ============ -->
+<section id="s5">
+  <div class="sec-head"><span class="sec-num">§ 05</span><h2>Module design</h2></div>
+  <p class="lede">34 module. Mỗi module là một đơn vị đóng: vào bằng prerequisite rõ ràng, ra bằng một checkpoint có rubric. Danh sách bài học là gợi ý nội dung, không phải nội dung chi tiết. Cột <span class="mono">Lỗi phổ biến</span> là phần được dùng để sinh drill sửa lỗi tự động.</p>
+
+  <h3 class="sub">Track A · Business Case Foundations <span class="lv lv1">L1</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">A1</span><h4>Đọc đề và định khung vấn đề</h4><span class="tag">S01 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Sau module này người học <b>biến một đề case dài 1 trang thành một problem statement 3 dòng</b> có câu hỏi chính, tiêu chí thành công định lượng, và phạm vi loại trừ.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>Không</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Một case thực sự hỏi gì: phân biệt triệu chứng, nguyên nhân và quyết định cần ra</li>
+          <li>SCQ: Situation – Complication – Question</li>
+          <li>Viết success criteria có số và có mốc thời gian</li>
+          <li>Scope in / scope out: nghệ thuật nói “không phân tích phần này”</li>
+          <li>5 clarifying question đắt giá nhất và 5 câu vô ích</li>
+          <li>Ràng buộc: ngân sách, thời gian, năng lực, pháp lý</li>
+          <li>Stakeholder map: ai quyết định, ai chịu ảnh hưởng</li>
+          <li>Mini case: “Chuỗi nhà sách muốn mở thêm 20 cửa hàng” — câu hỏi thật là gì?</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Mini drill viết lại đề (10 phút/đề, 8 đề), drill clarifying question, 1 mini case 30 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Nhận 3 đề case thô, nộp 3 problem statement + bộ câu hỏi làm rõ trong 35 phút.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Câu hỏi chính đúng trọng tâm (30) · Tiêu chí thành công định lượng (25) · Scope hợp lý (20) · Câu hỏi làm rõ có giá trị phân tích (25)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">FRM-01</span> nhắc lại đề thay vì định khung · <span class="mono">FRM-02</span> mục tiêu không có số · <span class="mono">FRM-03</span> hỏi làm rõ những thứ không đổi được hướng phân tích · <span class="mono">FRM-04</span> nhảy vào giải pháp ngay câu đầu</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">A2</span><h4>Issue tree và tư duy MECE</h4><span class="tag">S03 S02</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>chia một vấn đề thành cây 3 tầng MECE</b>, mỗi lá gắn với một driver đo được và một nguồn dữ liệu.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>A1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Ba kiểu cây: theo công thức, theo quy trình, theo phân khúc</li>
+          <li>MECE trong thực tế: khi nào chấp nhận chồng lấn nhỏ</li>
+          <li>Chọn trục chia đầu tiên — quyết định quan trọng nhất của cả case</li>
+          <li>Từ issue tree sang hypothesis tree</li>
+          <li>Gắn driver và nguồn dữ liệu vào từng lá</li>
+          <li>Cắt cây bằng 80/20: bỏ nhánh nào và giải thích ra sao</li>
+          <li>Drill: 10 đề, mỗi đề vẽ cây trong 6 phút</li>
+          <li>Mini case: “Doanh thu ứng dụng gọi xe giảm 12% quý này”</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Tree drill có bấm giờ, bài tập “chữa cây sai”, so sánh 3 cách chia cho cùng một đề.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Vẽ cây cho 2 đề mới trong 20 phút, kèm 1 đoạn 5 câu giải thích vì sao chọn trục chia đó và cắt nhánh nào.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>MECE (25) · Trục chia phù hợp mục tiêu (25) · Driver đo được ở lá (20) · Độ sâu hợp lý, không lan man (15) · Lý do cắt nhánh (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">TRE-01</span> cây template dán vào mọi đề · <span class="mono">TRE-02</span> nhánh chồng lấn · <span class="mono">TRE-03</span> lá không đo được · <span class="mono">TRE-04</span> cây 5 tầng không ai dùng được · <span class="mono">TRE-05</span> chia theo framework thay vì theo vấn đề</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">A3</span><h4>Hiểu mô hình kinh doanh</h4><span class="tag">S04 S07</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>giải thích được một doanh nghiệp kiếm tiền thế nào, mất tiền ở đâu</b>, và ba đòn bẩy lợi nhuận lớn nhất của nó.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>A1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Revenue = Price × Quantity, và những cách Q bị chia nhỏ</li>
+          <li>Cấu trúc chi phí: fixed, variable, step-fixed</li>
+          <li>Value chain và nơi giá trị bị giữ lại</li>
+          <li>7 mô hình doanh thu: bán đứt, thuê bao, marketplace/take rate, quảng cáo, freemium, franchise, dịch vụ theo giờ</li>
+          <li>Ai là khách hàng, ai là người trả tiền, ai là người dùng</li>
+          <li>Đòn bẩy lợi nhuận: giá, mix, tần suất, chi phí biến đổi, tỷ lệ lấp đầy</li>
+          <li>Drill: đọc mô tả 1 công ty, vẽ dòng tiền vào–ra trong 8 phút</li>
+          <li>Mini case: so sánh kinh tế của một quán cà phê tự vận hành và một quán nhượng quyền</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Business model teardown (8 công ty Việt Nam và quốc tế), drill “ba đòn bẩy”, so sánh hai mô hình cùng ngành.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Teardown 1 công ty lạ trong 40 phút: canvas 1 trang + 3 đòn bẩy lợi nhuận + 1 rủi ro mô hình.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Dòng doanh thu đúng (25) · Cấu trúc chi phí đúng (25) · Đòn bẩy chọn đúng và giải thích được (30) · Nhận diện rủi ro mô hình (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">BIZ-01</span> nhầm doanh thu với lợi nhuận · <span class="mono">BIZ-02</span> liệt kê canvas mà không rút ra đòn bẩy · <span class="mono">BIZ-03</span> bỏ qua chi phí phục vụ khách hàng · <span class="mono">BIZ-04</span> giả định biên lợi nhuận không có cơ sở</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">A4</span><h4>Từ phân tích đến khuyến nghị đầu tiên</h4><span class="tag">S12 S13</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>kết thúc một mini case bằng một khuyến nghị cụ thể</b>: làm gì, ai làm, tốn bao nhiêu, được gì, rủi ro gì.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>A2, A3</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>“So what?” — kỹ thuật ép một phát hiện thành hệ quả hành động</li>
+          <li>Answer-first: nói kết luận trước, bằng chứng sau</li>
+          <li>Cấu trúc khuyến nghị: hành động – lý do – impact – rủi ro – bước tiếp theo</li>
+          <li>Khuyến nghị mơ hồ vs khuyến nghị thực thi được: 12 ví dụ đối chiếu</li>
+          <li>Ước lượng impact thô khi thiếu dữ liệu</li>
+          <li>Nêu rủi ro mà không làm yếu đề xuất</li>
+          <li>Drill: cho 1 bảng số, viết 1 khuyến nghị trong 5 phút</li>
+          <li>Mini case tổng hợp Track A: “Cửa hàng tiện lợi lỗ ở 6/20 điểm bán”</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>So-what drill, viết lại 10 khuyến nghị yếu thành mạnh, mini case 45 phút có nộp recommendation table.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd><b>Checkpoint Level 1.</b> Mini case 45 phút: problem statement + issue tree + 1 phép tính + 1 khuyến nghị có impact ước lượng.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Khuyến nghị cụ thể, thực thi được (30) · Gắn với phân tích phía trên (25) · Impact có ước lượng (20) · Rủi ro và cách giảm thiểu (15) · Diễn đạt answer-first (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">REC-01</span> “cần cải thiện marketing” · <span class="mono">REC-02</span> khuyến nghị không dùng dữ liệu vừa phân tích · <span class="mono">REC-03</span> liệt kê 8 đề xuất ngang hàng, không ưu tiên · <span class="mono">REC-04</span> impact ghi “tăng đáng kể”</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track B · Quantitative Case Skills <span class="lv lv1">L1</span> <span class="lv lv2">L2</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">B1</span><h4>Case math nền</h4><span class="tag">S06</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>tính nhẩm chính xác dưới áp lực</b>: phần trăm, tỷ lệ, trung bình có trọng số, breakeven — nói ra được từng bước khi đang tính.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>Không (chạy song song A1–A2)</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Làm tròn có kiểm soát và biết sai số của mình</li>
+          <li>Phần trăm, điểm phần trăm, phần trăm của phần trăm</li>
+          <li>Nhân chia số lớn, luỹ thừa 10, đơn vị tỷ/triệu</li>
+          <li>Trung bình có trọng số và mix effect</li>
+          <li>Growth rate, CAGR xấp xỉ, quy tắc 72</li>
+          <li>Breakeven: sản lượng, thời gian, giá</li>
+          <li>Sanity check: ba câu hỏi trước khi đọc to kết quả</li>
+          <li>Nói số ra tiếng: cách trình bày phép tính cho người nghe theo kịp</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Calculation drill hằng ngày 10 phút (chấm tự động), drill nói-trong-lúc-tính có ghi âm.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>20 phép tính trong 12 phút không máy tính, ≥85% đúng, kèm 3 bài nói-trong-lúc-tính.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Độ chính xác (40) · Tốc độ (20) · Trình bày bước tính rõ ràng (20) · Có sanity check (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">QNT-01</span> sai đơn vị · <span class="mono">QNT-02</span> nhầm % với điểm % · <span class="mono">QNT-03</span> làm tròn quá tay rồi kết luận sai · <span class="mono">QNT-04</span> im lặng khi tính · <span class="mono">QNT-05</span> không sanity check</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">B2</span><h4>Market sizing</h4><span class="tag">S05 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>ước lượng quy mô một thị trường lạ trong 8 phút</b> bằng cả top-down lẫn bottom-up, ghi rõ giả định và kiểm tra tính hợp lý.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>B1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Top-down: dân số → tỷ lệ dùng → tần suất → giá</li>
+          <li>Bottom-up: đơn vị cung → công suất → lấp đầy</li>
+          <li>Chọn hướng nào: quy tắc quyết định theo loại sản phẩm</li>
+          <li>TAM / SAM / SOM và lý do đừng nhầm chúng</li>
+          <li>Ngân hàng giả định: 30 con số nền nên thuộc (dân số, thu nhập, tỷ lệ đô thị hoá…)</li>
+          <li>Sanity check bằng benchmark và bằng “so với cái gì tôi đã biết”</li>
+          <li>Khoảng dao động và độ nhạy theo giả định yếu nhất</li>
+          <li>Sizing drill: 12 thị trường từ dễ đến lạ</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Sizing drill bấm giờ, bài “tìm giả định sai” trong bảng sizing của người khác, sizing cùng đề theo 2 hướng rồi so lệch.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>3 sizing lạ trong 30 phút, mỗi bài nộp bảng giả định + phép tính + sanity check + khoảng dao động.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Cấu trúc sizing hợp lý (30) · Giả định ghi rõ và có cơ sở (25) · Tính toán đúng (20) · Sanity check (15) · Nêu được độ nhạy (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">SIZ-01</span> giả định không nói ra · <span class="mono">SIZ-02</span> con số cuối lệch 100 lần mà không nhận ra · <span class="mono">SIZ-03</span> nhầm TAM với SOM · <span class="mono">SIZ-04</span> quên tần suất mua · <span class="mono">SIZ-05</span> dùng độ chính xác giả (ghi 4 chữ số thập phân)</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">B3</span><h4>Đọc chart và exhibit</h4><span class="tag">S11</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>rút ra 3 “so what” từ một exhibit trong 4 phút</b>, và phát hiện được chart trình bày gây hiểu nhầm.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>B1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Quy trình đọc chart 60 giây: tiêu đề → trục → đơn vị → mẫu hình → ngoại lệ</li>
+          <li>Các dạng exhibit hay gặp: waterfall, stacked bar, scatter, bridge, cohort, bảng chéo</li>
+          <li>Tách mix effect khỏi rate effect</li>
+          <li>Đối chiếu hai exhibit mâu thuẫn</li>
+          <li>Chart gây hiểu nhầm: trục cắt gốc, tỷ lệ méo, mẫu nhỏ, so sánh không cùng kỳ</li>
+          <li>Từ quan sát đến insight: công thức “X, trong khi Y, nghĩa là Z”</li>
+          <li>Drill: 20 exhibit, mỗi cái 3 phút</li>
+          <li>Mini case exhibit-heavy 30 phút</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Chart interpretation drill hằng ngày, bài “chart này nói dối ở đâu”, viết action title cho 15 exhibit.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>5 exhibit lạ trong 20 phút: mỗi cái 1 action title + 2 gạch “so what” + 1 câu hỏi cần hỏi thêm.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Đọc đúng dữ liệu (25) · Insight thật, không mô tả lại (35) · Phát hiện ngoại lệ/mâu thuẫn (20) · Câu hỏi tiếp theo có giá trị (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">CHT-01</span> mô tả chart thay vì diễn giải · <span class="mono">CHT-02</span> bỏ qua đơn vị · <span class="mono">CHT-03</span> suy nhân quả từ tương quan · <span class="mono">CHT-04</span> chỉ nhìn tổng, không nhìn cấu phần</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">B4</span><h4>Phân rã chênh lệch, scenario và sensitivity</h4><span class="tag">S06 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>giải thích được một khoản chênh lệch bằng các cấu phần định lượng</b> và chỉ ra giả định nào chi phối kết quả.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>B1, B3</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Bridge analysis: đi từ con số năm ngoái đến năm nay qua từng driver</li>
+          <li>Phân rã giá – lượng – mix</li>
+          <li>Variance theo phân khúc, kênh, khu vực</li>
+          <li>Scenario: base / upside / downside và cách chọn giả định biên</li>
+          <li>Sensitivity: biến nào làm kết quả đổi dấu</li>
+          <li>Ngưỡng và điểm hoà vốn của một quyết định</li>
+          <li>Drill: 10 bài bridge, mỗi bài 8 phút</li>
+          <li>Mini case: “Biên lợi nhuận gộp giảm 3 điểm dù giá bán tăng”</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Bridge drill, scenario table drill, bài “biến nào quan trọng nhất”.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd><b>Checkpoint Level 2 (phần định lượng).</b> Một dataset thô: dựng bridge, 3 kịch bản, bảng sensitivity 2 biến và 1 kết luận trong 60 phút.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Phân rã đúng và khép kín (30) · Chọn driver đúng (20) · Kịch bản hợp lý (20) · Sensitivity chỉ ra biến chi phối (20) · Kết luận rõ (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">VAR-01</span> bridge không khớp tổng · <span class="mono">VAR-02</span> trộn lẫn mix và rate · <span class="mono">VAR-03</span> kịch bản chỉ đổi một con số làm cảnh · <span class="mono">VAR-04</span> sensitivity không dẫn tới quyết định nào</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track C · Strategy &amp; Consulting Cases <span class="lv lv2">L2</span> <span class="lv lv3">L3</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">C1</span><h4>Profitability &amp; cost case</h4><span class="tag">S03 S06 S07</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>tìm ra nguyên nhân thật sự của một khoản lợi nhuận sụt giảm</b> bằng cách đi từ tổng xuống đến phân khúc, sản phẩm hoặc điểm bán cụ thể.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>A4, B4</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Cây profitability và ba cách mở rộng nó</li>
+          <li>Doanh thu giảm hay chi phí tăng: xác định hướng trước khi đào sâu</li>
+          <li>Phân rã theo sản phẩm, kênh, khách hàng, khu vực</li>
+          <li>Chi phí: cố định bị phân bổ sai, chi phí ẩn, chi phí phục vụ</li>
+          <li>Nguyên nhân bên trong và bên ngoài: phân biệt bằng dữ liệu ngành</li>
+          <li>Full case: chuỗi F&amp;B 40 điểm bán, biên lợi nhuận giảm 4 điểm</li>
+          <li>Full case: nhà sản xuất bao bì mất khách lớn nhất</li>
+          <li>Full case: doanh nghiệp SaaS tăng trưởng nhưng lỗ sâu hơn</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>3 full case 60 phút, mỗi case nộp cây + bridge + 1 trang kết luận. 1 timed case 45 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Full case profitability 70 phút với 4 exhibit: nộp cây, phân rã, nguyên nhân gốc, khuyến nghị có impact.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Cấu trúc (20) · Định lượng đúng (25) · Tìm đúng nguyên nhân gốc (25) · Khuyến nghị gắn nguyên nhân (20) · Diễn đạt (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">PRF-01</span> dừng ở “chi phí tăng” mà không nói chi phí nào · <span class="mono">PRF-02</span> bỏ qua mix sản phẩm · <span class="mono">PRF-03</span> quy hết cho “thị trường khó” · <span class="mono">PRF-04</span> cắt chi phí mà không xét tác động doanh thu</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">C2</span><h4>Market entry &amp; growth strategy</h4><span class="tag">S05 S10 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>ra được quyết định vào hay không vào một thị trường</b>, dựa trên sizing, cấu trúc cạnh tranh, năng lực nội tại và phương thức thâm nhập.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>B2, C1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Khung 4 câu hỏi: thị trường có hấp dẫn không, ta có thắng được không, vào bằng cách nào, đáng không</li>
+          <li>Sizing cho quyết định đầu tư, không phải sizing để cho vui</li>
+          <li>Cấu trúc ngành và rào cản gia nhập</li>
+          <li>Build / buy / partner: tiêu chí chọn</li>
+          <li>Growth: thị phần, thị trường mới, sản phẩm mới, tần suất</li>
+          <li>Điều kiện dừng: mốc nào thì rút</li>
+          <li>Full case: chuỗi cà phê Việt Nam mở rộng sang Philippines</li>
+          <li>Full case: hãng xe điện hai bánh bước vào phân khúc giao hàng B2B</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>2 full case 75 phút, 1 bài so sánh 3 phương thức thâm nhập, 1 bài viết điều kiện rút lui.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Full case market entry 75 phút: sizing + đánh giá cạnh tranh + phương thức vào + go/no-go có ngưỡng số.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Sizing có cơ sở (20) · Đánh giá cạnh tranh (20) · Lập luận go/no-go có ngưỡng (25) · Phương thức thâm nhập hợp lý (20) · Rủi ro (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">ENT-01</span> sizing xong không dùng vào quyết định · <span class="mono">ENT-02</span> bỏ qua năng lực nội tại · <span class="mono">ENT-03</span> giả định chiếm 10% thị phần không cơ sở · <span class="mono">ENT-04</span> kết luận “nên vào” mà không nêu điều kiện</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">C3</span><h4>Pricing, product &amp; portfolio</h4><span class="tag">S07 S08 S10</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>định giá một sản phẩm bằng ba cách tiếp cận</b> và chọn được cách phù hợp, đồng thời đánh giá được nên giữ hay bỏ một dòng sản phẩm.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>C1, G2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Ba cách định giá: chi phí cộng, theo đối thủ, theo giá trị</li>
+          <li>Willingness to pay và cách ước lượng khi không có nghiên cứu</li>
+          <li>Độ co giãn giá và tác động lên doanh thu – lợi nhuận</li>
+          <li>Cấu trúc giá: gói, bậc, freemium, phụ phí</li>
+          <li>Cannibalization và tác động lên danh mục</li>
+          <li>Quyết định giữ hay bỏ một dòng sản phẩm: contribution margin thay vì doanh thu</li>
+          <li>Full case: chuỗi phòng gym thiết kế lại gói thành viên</li>
+          <li>Full case: nhà sản xuất gia dụng cắt 40% mã sản phẩm</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Pricing math drill, bài so sánh 3 cấu trúc giá trên cùng tập khách, 2 full case 70 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Case pricing 70 phút: đề xuất mức giá và cấu trúc giá, kèm mô hình tác động lợi nhuận và phản ứng đối thủ.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Chọn đúng cách định giá (25) · Mô hình tác động lợi nhuận (25) · Xét độ co giãn và cannibalization (20) · Phản ứng đối thủ (15) · Khả thi triển khai (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">PRC-01</span> chỉ dùng chi phí cộng biên · <span class="mono">PRC-02</span> quên phản ứng đối thủ · <span class="mono">PRC-03</span> bỏ qua cannibalization · <span class="mono">PRC-04</span> tăng giá mà giả định sản lượng không đổi</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">C4</span><h4>M&amp;A, đầu tư và turnaround</h4><span class="tag">S07 S16 S13</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>đánh giá một thương vụ hoặc một khoản đầu tư lớn</b>: lý do chiến lược, con số, synergy, rủi ro tích hợp, và điều kiện để nói không.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>C2, G3</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Vì sao mua: năng lực, thị phần, kênh, công nghệ, quy mô</li>
+          <li>Khung định giá nhanh trong case: dòng tiền, bội số, tài sản</li>
+          <li>Synergy doanh thu và synergy chi phí: cái nào đáng tin hơn</li>
+          <li>Rủi ro tích hợp và chi phí ẩn sau thương vụ</li>
+          <li>Turnaround: thứ tự can thiệp trong 90 ngày đầu</li>
+          <li>Điều kiện nói không: giá trần và điểm rút</li>
+          <li>Full case: chuỗi bán lẻ mua lại đối thủ khu vực</li>
+          <li>Full case: nhà máy thua lỗ, đóng cửa hay tái cấu trúc</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Deal screening drill, bài “định giá trần”, 2 full case 80 phút, 1 investment memo 2 trang.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd><b>Checkpoint Level 3.</b> Investment memo 2 trang cho một thương vụ: lý do chiến lược, con số, synergy có ước lượng, rủi ro, khuyến nghị kèm giá trần.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Lập luận chiến lược (20) · Con số và định giá (25) · Synergy thực tế (20) · Rủi ro và tích hợp (20) · Khuyến nghị có điều kiện (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">MNA-01</span> synergy doanh thu phóng đại · <span class="mono">MNA-02</span> bỏ qua chi phí tích hợp · <span class="mono">MNA-03</span> không có giá trần · <span class="mono">MNA-04</span> lẫn lộn giá trị doanh nghiệp và giá trị vốn chủ</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track D · Case Competition Mastery <span class="lv lv3">L3</span> <span class="lv lv4">L4</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">D1</span><h4>Quy trình 24–72 giờ</h4><span class="tag">S01 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>điều hành được một team 4 người qua một vòng thi có hạn</b>: chia việc theo issue tree, đặt mốc, và luôn có một bản nộp được ở mọi thời điểm.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>Checkpoint Level 3</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Giờ đầu tiên: đọc đề, định khung, chốt câu hỏi chính</li>
+          <li>Dựng ghost deck trước khi phân tích — bản nộp được đầu tiên</li>
+          <li>Chia việc theo nhánh của issue tree, không theo slide</li>
+          <li>Lịch mốc: 3 lần hợp nhất bắt buộc, không hợp nhất phút chót</li>
+          <li>Quy tắc nguồn dữ liệu và cách ghi giả định trong lúc chạy</li>
+          <li>Xử lý bất đồng bằng tiêu chí, không bằng giọng nói to</li>
+          <li>Quản lý phạm vi: cắt gì khi còn 6 giờ</li>
+          <li>Mô phỏng: vòng thi 24 giờ với đề thật</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Team case simulation 24 giờ, nhật ký mốc thời gian, bài “cắt phạm vi” khi bị rút ngắn thời gian.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Chạy trọn một vòng 24 giờ theo team, nộp ghost deck ở giờ thứ 3 và deck hoàn chỉnh đúng hạn.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Ghost deck đúng hạn (20) · Chia việc theo cây (20) · Giữ mốc hợp nhất (20) · Quản lý phạm vi (20) · Bản nộp hoàn chỉnh đúng giờ (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">CMP-01</span> phân tích 20 giờ rồi làm slide 4 giờ · <span class="mono">CMP-02</span> mỗi người một file, ghép không khớp · <span class="mono">CMP-03</span> đổi hướng ở giờ thứ 18 · <span class="mono">CMP-04</span> không ai giữ vai trò tổng hợp</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">D2</span><h4>Hợp nhất phân tích thành một storyline</h4><span class="tag">S12 S14</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>gộp phân tích của 4 người thành một mạch lập luận duy nhất</b>, loại bỏ phần thừa, và viết được governing thought cho cả bài.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>D1, I1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Governing thought: một câu trả lời cho câu hỏi của đề</li>
+          <li>Pyramid principle áp dụng cho bài thi 12 slide</li>
+          <li>Quy tắc loại bỏ: phân tích nào không đổi khuyến nghị thì cắt</li>
+          <li>Chuyển phân tích thành thông điệp: từ bảng số sang câu khẳng định</li>
+          <li>Kiểm tra mạch: đọc riêng các action title có hiểu được toàn bài không</li>
+          <li>Xử lý phát hiện mâu thuẫn giữa hai thành viên</li>
+          <li>Phân biệt nội dung chính và appendix</li>
+          <li>Drill: hợp nhất 4 bộ phân tích rời thành 1 storyline trong 45 phút</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Synthesis drill theo nhóm, bài “cắt 20 slide còn 10”, viết governing thought cho 8 case đã giải.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Từ một bộ tài liệu thô 25 trang, nộp storyline 12 dòng action title đọc liền mạch, kèm danh sách phần đã cắt và lý do.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Governing thought rõ (25) · Mạch liền, không lặp (25) · Nhánh MECE (20) · Quyết định cắt hợp lý (15) · Mỗi thông điệp có bằng chứng (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">SYN-01</span> deck là bản ghép 4 phần rời · <span class="mono">SYN-02</span> giữ phân tích chỉ vì tốn công làm · <span class="mono">SYN-03</span> action title mô tả nội dung thay vì nêu kết luận · <span class="mono">SYN-04</span> không có câu trả lời chính ở slide đầu</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">D3</span><h4>Deck thi và exhibit thuyết phục</h4><span class="tag">S14 S11</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>dựng một deck 12–15 slide thi đấu được</b>: mỗi slide một thông điệp, exhibit tự giải thích, appendix đủ để phòng thủ.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>D2, I2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Cấu trúc deck thi: bối cảnh, chẩn đoán, giải pháp, con số, lộ trình, rủi ro</li>
+          <li>Một slide một thông điệp: kiểm tra bằng cách che phần thân</li>
+          <li>Chọn dạng exhibit theo loại lập luận</li>
+          <li>Slide con số: cách trình bày mô hình tài chính trong 1 slide</li>
+          <li>Lộ trình triển khai: mốc, người chịu trách nhiệm, chi phí</li>
+          <li>Appendix phòng thủ: đoán trước 10 câu hỏi và chuẩn bị slide cho chúng</li>
+          <li>Kiểm tra nhất quán số liệu toàn deck</li>
+          <li>Dựng deck hoàn chỉnh cho case đã giải ở C2</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Deck rebuild (làm lại deck yếu), exhibit design drill, kiểm tra chéo số liệu giữa các team.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Nộp deck 13 slide + 6 slide appendix cho một đề thi thật, chấm chéo bởi một team khác theo rubric deck.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Action title nêu kết luận (20) · Exhibit tự giải thích (20) · Con số nhất quán (20) · Lộ trình khả thi (20) · Appendix phòng thủ (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">DCK-01</span> slide nhồi 3 thông điệp · <span class="mono">DCK-02</span> chart đẹp nhưng không có kết luận · <span class="mono">DCK-03</span> con số slide 6 khác slide 11 · <span class="mono">DCK-04</span> lộ trình chung chung không có mốc</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">D4</span><h4>Pitch và Q&amp;A trước ban giám khảo</h4><span class="tag">S15 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>trình bày 7 phút theo team và chịu được 10 phút phản biện</b>, giữ được luận điểm chính khi bị chất vấn.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>D3, I3</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Phân vai trong 7 phút: ai mở, ai giữ phần số, ai chốt</li>
+          <li>Chuyển đoạn giữa các người nói mà không gãy mạch</li>
+          <li>Ba mươi giây đầu quyết định phần còn lại</li>
+          <li>Trả lời trực diện: kết luận trước, lý do sau, dừng đúng lúc</li>
+          <li>Bốn dạng câu hỏi khó và cách xử lý từng dạng</li>
+          <li>Thừa nhận giới hạn mà không mất thế</li>
+          <li>Ngôn ngữ cơ thể, nhịp nói, xử lý im lặng</li>
+          <li>Mock panel với giám khảo đóng vai khó tính</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Pitch có quay hình, Q&amp;A simulation 10 phút, drill “câu hỏi ác ý”, tự chấm lại bản ghi.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd><b>Checkpoint Level 4 (nhánh competition).</b> Pitch 7 phút + Q&amp;A 10 phút trước panel 3 người, đạt ≥75/100 rubric pitching.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Mở đầu có thông điệp chính (15) · Mạch trình bày (20) · Làm chủ con số (20) · Trả lời trực diện (25) · Phối hợp team (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">PIT-01</span> đọc slide · <span class="mono">PIT-02</span> trả lời vòng vo không chốt · <span class="mono">PIT-03</span> cãi giám khảo · <span class="mono">PIT-04</span> một người nói hết · <span class="mono">PIT-05</span> không ai nắm được con số khi bị hỏi</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track E · Marketing Cases <span class="lv lv2">L2</span> <span class="lv lv3">L3</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">E1</span><h4>Khách hàng, phân khúc và định vị</h4><span class="tag">S08 S04</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>chia thị trường thành các phân khúc có thể hành động được</b> và viết được value proposition cho phân khúc mục tiêu.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>A3, B2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Tiêu chí phân khúc: nhân khẩu, hành vi, nhu cầu, giá trị vòng đời</li>
+          <li>Phân khúc hành động được: đo được, tiếp cận được, đủ lớn</li>
+          <li>Jobs to be done và cách phỏng vấn để tìm nhu cầu thật</li>
+          <li>Chọn phân khúc mục tiêu bằng bảng chấm điểm</li>
+          <li>Định vị và điểm khác biệt có thể chứng minh</li>
+          <li>Đọc dữ liệu khảo sát và nhận ra giới hạn của nó</li>
+          <li>Mini case: thương hiệu sữa hạt chọn phân khúc ưu tiên</li>
+          <li>Mini case: ứng dụng học tiếng Anh mất người dùng ở nhóm trưởng thành</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Segmentation drill, bài “phân khúc này có hành động được không”, viết 10 value proposition và chấm chéo.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Bảng segment × nhu cầu × quy mô × khả năng thắng cho một thị trường thật, kèm phân khúc ưu tiên và lý do.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Tiêu chí phân khúc hợp lý (25) · Phân khúc hành động được (25) · Chọn ưu tiên có lập luận (25) · Định vị có điểm khác biệt chứng minh được (25)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">MKT-01</span> phân khúc theo tuổi mà không giải thích vì sao tuổi quan trọng · <span class="mono">MKT-02</span> chọn tất cả các phân khúc · <span class="mono">MKT-03</span> định vị chung chung kiểu “chất lượng cao giá hợp lý”</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">E2</span><h4>Funnel, growth và kinh tế kênh</h4><span class="tag">S08 S06 S07</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>tìm ra điểm rò rỉ trong funnel và phân bổ lại ngân sách theo CAC–LTV</b>, chứ không theo cảm tính kênh nào “đang hot”.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>E1, G2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Funnel math: từ hiển thị đến khách trả tiền, tỷ lệ chuyển đổi từng bước</li>
+          <li>Tìm bước rò rỉ có giá trị sửa cao nhất</li>
+          <li>CAC theo kênh và cách phân bổ chi phí chung</li>
+          <li>LTV: biên đóng góp, tần suất, tỷ lệ giữ chân</li>
+          <li>Đọc cohort và đường retention</li>
+          <li>Trade-off ngân sách: đường cong hiệu suất giảm dần theo kênh</li>
+          <li>Full case: sàn thương mại điện tử có CAC tăng 60% trong một năm</li>
+          <li>Full case: chuỗi bán lẻ chuyển 30% ngân sách sang kênh số</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Funnel drill, CAC–LTV calculation drill, bài phân bổ ngân sách 3 kênh, 2 full case 70 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Với dataset funnel và chi phí kênh thật: chỉ ra 2 điểm rò rỉ, đề xuất phân bổ lại ngân sách, ước lượng tác động lên doanh thu và lợi nhuận.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Funnel math đúng (25) · Chẩn đoán đúng điểm rò rỉ (25) · CAC–LTV theo kênh (20) · Phân bổ có lập luận (20) · Ước lượng tác động (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">MKT-04</span> tối ưu bước có tỷ lệ thấp nhất thay vì bước có giá trị cao nhất · <span class="mono">MKT-05</span> LTV tính bằng doanh thu thay vì biên đóng góp · <span class="mono">MKT-06</span> giả định hiệu suất kênh không giảm dần khi tăng ngân sách</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">E3</span><h4>Brand, go-to-market và marketing plan</h4><span class="tag">S13 S14 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>viết được một marketing plan nối liền với P&amp;L</b>: mục tiêu, phân khúc, thông điệp, kênh, ngân sách, chỉ số theo dõi.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>E2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Từ mục tiêu kinh doanh đến mục tiêu marketing đến chỉ số</li>
+          <li>Kế hoạch ra mắt: trước, trong và sau khi tung sản phẩm</li>
+          <li>Marketing mix và trade-off giữa các thành phần</li>
+          <li>Ngân sách: xây dựng thương hiệu và kích hoạt bán hàng</li>
+          <li>Đo lường: chỉ số dẫn dắt và chỉ số kết quả</li>
+          <li>Chọn cái không làm — phần khó nhất của một plan</li>
+          <li>Full case: ra mắt dòng sản phẩm chăm sóc da nam giới</li>
+          <li>Full case: thương hiệu sữa giành lại thị phần từ đối thủ quốc tế</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Plan-on-a-page drill, bài “cắt 40% ngân sách thì bỏ gì”, 2 full case 80 phút kèm deck 10 slide.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd><b>Checkpoint nhánh Marketing.</b> Marketing plan 10 slide cho một thương hiệu thật, có sizing, funnel math, ngân sách và bảng chỉ số.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Nối với mục tiêu kinh doanh (20) · Phân khúc và thông điệp (20) · Kênh và ngân sách có lập luận (20) · Chỉ số đo được (20) · Nêu rõ cái không làm (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">MKT-07</span> plan là danh sách ý tưởng campaign · <span class="mono">MKT-08</span> không có ngân sách · <span class="mono">MKT-09</span> chỉ số là lượt xem thay vì doanh thu · <span class="mono">MKT-10</span> làm tất cả kênh cùng lúc</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track F · Supply Chain &amp; Operations <span class="lv lv2">L2</span> <span class="lv lv3">L3</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">F1</span><h4>Process, capacity và bottleneck</h4><span class="tag">S09 S06</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>vẽ được process map có số và tìm ra nút thắt thật</b>, rồi tính được sản lượng tăng thêm nếu gỡ nút đó.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>B1, A3</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Process map: bước, thời gian chu kỳ, hàng chờ, tỷ lệ lỗi</li>
+          <li>Công suất lý thuyết, công suất thực tế và tỷ lệ sử dụng</li>
+          <li>Định luật Little và quan hệ giữa tồn kho, lưu lượng và thời gian</li>
+          <li>Tìm bottleneck và điều gì xảy ra sau khi gỡ nó</li>
+          <li>Thời gian chuyển đổi, lô sản xuất và ảnh hưởng lên công suất</li>
+          <li>Chất lượng: chi phí của lỗi và làm lại</li>
+          <li>Mini case: xưởng may không kịp đơn hàng mùa cao điểm</li>
+          <li>Mini case: bếp trung tâm của chuỗi nhà hàng bị quá tải khung trưa</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Capacity drill, bài “gỡ nút nào trước”, process mapping từ mô tả văn bản.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Process map có số cho một dây chuyền thật, xác định bottleneck, tính sản lượng tăng thêm và chi phí để gỡ.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Map đầy đủ và có số (25) · Xác định đúng bottleneck (25) · Tính toán công suất (25) · Đề xuất có chi phí và lợi ích (25)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">OPS-01</span> nhầm bước chậm nhất với bước có hàng chờ dài nhất · <span class="mono">OPS-02</span> bỏ qua tỷ lệ lỗi · <span class="mono">OPS-03</span> gỡ nút này rồi không kiểm tra nút tiếp theo</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">F2</span><h4>Tồn kho và thiết kế mạng lưới</h4><span class="tag">S09 S06 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>đặt được chính sách tồn kho và bố trí kho vận</b> với trade-off giữa chi phí và mức dịch vụ được định lượng.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>F1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Vì sao có tồn kho: chu kỳ, an toàn, vận chuyển, đầu cơ</li>
+          <li>Tồn kho an toàn theo biến động nhu cầu và thời gian giao hàng</li>
+          <li>Mức dịch vụ và chi phí của 1 điểm phần trăm thêm</li>
+          <li>Quy mô lô đặt hàng và chi phí lưu kho</li>
+          <li>Tập trung hay phân tán kho: hiệu ứng gộp rủi ro</li>
+          <li>Số lượng và vị trí kho: chi phí vận chuyển đối đầu chi phí cố định</li>
+          <li>Hiệu ứng roi da và cách giảm</li>
+          <li>Full case: nhà phân phối dược phẩm tái thiết kế mạng lưới 5 kho</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Safety stock drill, bài gộp kho, mô hình mạng lưới đơn giản trên bảng tính, 1 full case 75 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Đề xuất số lượng và vị trí kho cho một mạng lưới thật, kèm bảng trade-off chi phí và mức dịch vụ cho 3 phương án.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Mô hình chi phí đầy đủ (25) · Định lượng mức dịch vụ (25) · So sánh phương án (20) · Rủi ro vận hành (15) · Khuyến nghị rõ (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">SCM-01</span> tối ưu chi phí kho mà quên chi phí vận chuyển · <span class="mono">SCM-02</span> đặt mức dịch vụ 99% cho mọi mã hàng · <span class="mono">SCM-03</span> bỏ qua biến động thời gian giao hàng · <span class="mono">SCM-04</span> không phân loại hàng theo giá trị</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">F3</span><h4>Cost-to-serve, sourcing và S&amp;OP</h4><span class="tag">S09 S07 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>tính được chi phí phục vụ từng khách hàng hoặc kênh</b> và chỉ ra khách nào đang làm mất tiền của công ty.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>F2, G2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Cost-to-serve: phân bổ chi phí theo hoạt động thay vì theo doanh thu</li>
+          <li>Khách hàng có lãi và khách hàng ẩn lỗ</li>
+          <li>Sourcing: tổng chi phí sở hữu, không chỉ giá mua</li>
+          <li>Đàm phán với nhà cung cấp: đòn bẩy và rủi ro phụ thuộc</li>
+          <li>S&amp;OP: nối dự báo bán hàng với kế hoạch cung ứng</li>
+          <li>Độ chính xác dự báo và chi phí của sai lệch</li>
+          <li>Rủi ro chuỗi cung ứng và phương án dự phòng</li>
+          <li>Full case: nhà sản xuất FMCG có 200 khách B2B, 30% đang lỗ</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Cost-to-serve model trên bảng tính, bài sourcing so sánh 3 nhà cung cấp, 1 full case 80 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd><b>Checkpoint nhánh Supply Chain.</b> Mô hình cost-to-serve cho một danh mục khách hàng, kèm khuyến nghị giữ, tái đàm phán hay ngừng phục vụ từng nhóm.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Phân bổ chi phí hợp lý (30) · Phân nhóm khách hàng (20) · Khuyến nghị theo nhóm (25) · Xét rủi ro mất doanh thu (15) · Khả thi triển khai (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">SCM-05</span> phân bổ chi phí theo doanh thu rồi kết luận sai · <span class="mono">SCM-06</span> đề xuất bỏ khách lỗ mà quên chi phí cố định vẫn còn · <span class="mono">SCM-07</span> chọn nhà cung cấp rẻ nhất mà bỏ qua rủi ro phụ thuộc</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track G · Finance for Business Cases <span class="lv lv2">L2</span> <span class="lv lv3">L3</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">G1</span><h4>Đọc báo cáo tài chính cho người làm case</h4><span class="tag">S07 S11</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>đọc một bộ báo cáo tài chính trong 15 phút</b> và nêu được ba điều đáng lo nhất về sức khoẻ doanh nghiệp.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>A3, B1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>P&amp;L: từ doanh thu đến lợi nhuận sau thuế, các tầng biên lợi nhuận</li>
+          <li>Bảng cân đối: tài sản, nợ, vốn chủ và ý nghĩa vận hành</li>
+          <li>Dòng tiền: vì sao có lãi vẫn hết tiền</li>
+          <li>Vốn lưu động và chu kỳ tiền mặt</li>
+          <li>Nhóm chỉ số cần thuộc: biên lợi nhuận, vòng quay, đòn bẩy, thanh khoản</li>
+          <li>So sánh với đối thủ và với chính mình theo thời gian</li>
+          <li>Dấu hiệu cảnh báo trong báo cáo</li>
+          <li>Drill: 10 bộ báo cáo, mỗi bộ 12 phút, nộp 3 phát hiện</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Financial statement drill, bài so sánh 2 đối thủ cùng ngành, bài “có lãi nhưng sắp hết tiền”.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Đọc báo cáo của một công ty niêm yết lạ trong 25 phút, nộp 5 chỉ số chính, 3 phát hiện và 1 câu hỏi cho ban giám đốc.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Tính đúng chỉ số (25) · Phát hiện có ý nghĩa (30) · So sánh có bối cảnh (20) · Câu hỏi sắc (15) · Trình bày gọn (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">FIN-01</span> đọc số tuyệt đối không so sánh · <span class="mono">FIN-02</span> bỏ qua dòng tiền · <span class="mono">FIN-03</span> so sánh chỉ số giữa hai ngành khác nhau · <span class="mono">FIN-04</span> liệt kê 15 chỉ số không rút kết luận</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">G2</span><h4>Unit economics</h4><span class="tag">S07 S06</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>dựng được mô hình kinh tế trên một đơn vị</b> (một khách, một đơn hàng, một cửa hàng) và biết đơn vị đó có lãi ở mức nào.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>G1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Chọn đơn vị đúng: khách, đơn, chuyến, cửa hàng, thuê bao</li>
+          <li>Biên đóng góp trên một đơn vị</li>
+          <li>Chi phí cố định và sản lượng hoà vốn</li>
+          <li>Thời gian hoàn vốn của một khách hàng</li>
+          <li>Kinh tế một cửa hàng: doanh thu, nhân sự, mặt bằng, hao hụt</li>
+          <li>Khi nào tăng trưởng làm lỗ nặng hơn</li>
+          <li>Drill: dựng unit economics cho 8 mô hình khác nhau</li>
+          <li>Mini case: ứng dụng giao đồ ăn lỗ 12.000đ mỗi đơn</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Unit economics drill trên bảng tính, bài “sửa mô hình để hoà vốn”, mini case 45 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Mô hình unit economics cho một doanh nghiệp thật: biên đóng góp, điểm hoà vốn, hai đòn bẩy cải thiện có định lượng.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Chọn đơn vị đúng (20) · Cấu trúc chi phí đúng (25) · Tính toán chính xác (25) · Đòn bẩy cải thiện định lượng (20) · Giả định ghi rõ (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">FIN-05</span> tính biên gộp rồi gọi là lợi nhuận · <span class="mono">FIN-06</span> bỏ chi phí thu hút khách ra khỏi mô hình · <span class="mono">FIN-07</span> chọn đơn vị không khớp cách công ty vận hành</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">G3</span><h4>Đánh giá đầu tư và định giá nhanh</h4><span class="tag">S07 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>quyết định một khoản đầu tư có đáng làm không</b> bằng dòng tiền, thời gian hoàn vốn và ngưỡng rủi ro — trong khung thời gian của một case.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>G2, B4</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Dòng tiền tự do và cách ước lượng nhanh trong case</li>
+          <li>Giá trị hiện tại, NPV và IRR ở mức đủ dùng</li>
+          <li>Thời gian hoàn vốn: khi nào dùng, khi nào gây hiểu nhầm</li>
+          <li>Chi phí vốn và vì sao tỷ lệ chiết khấu quan trọng</li>
+          <li>Định giá bằng bội số và cách chọn công ty so sánh</li>
+          <li>Chi phí chìm, chi phí cơ hội và chi phí tăng thêm</li>
+          <li>Ra quyết định khi NPV gần bằng không</li>
+          <li>Mini case: đầu tư dây chuyền tự động hoá 40 tỷ đồng</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>NPV drill, bài “tìm chi phí chìm trong đề”, bảng so sánh 3 phương án đầu tư.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Đánh giá một khoản đầu tư: mô hình dòng tiền 5 năm, NPV, hoàn vốn, sensitivity 2 biến và khuyến nghị kèm điều kiện.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Mô hình dòng tiền hợp lý (25) · Tính toán đúng (25) · Sensitivity (20) · Xử lý chi phí chìm và cơ hội (15) · Khuyến nghị có điều kiện (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">FIN-08</span> đưa chi phí chìm vào quyết định · <span class="mono">FIN-09</span> dùng lợi nhuận kế toán thay dòng tiền · <span class="mono">FIN-10</span> chọn tỷ lệ chiết khấu tuỳ tiện · <span class="mono">FIN-11</span> bỏ qua vốn lưu động tăng thêm</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track H · Industry Case Library <span class="lv lv3">L3</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">H1</span><h4>Tiêu dùng: retail, F&amp;B, FMCG</h4><span class="tag">S04 S10</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>đặt được đúng câu hỏi đầu tiên khi gặp một case ngành tiêu dùng</b>, nhờ nắm các chỉ số và động lực kinh tế đặc thù của ngành.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>C1, G2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Retail: doanh thu trên mét vuông, giá trị giỏ hàng, hao hụt, vòng quay hàng tồn</li>
+          <li>F&amp;B: vòng quay bàn, chi phí nguyên liệu, chi phí nhân sự, kinh tế một cửa hàng</li>
+          <li>FMCG: độ phủ, thị phần, chiết khấu thương mại, kinh tế nhà phân phối</li>
+          <li>Kênh truyền thống và kênh hiện đại tại Việt Nam</li>
+          <li>Tính mùa vụ và quản trị khuyến mãi</li>
+          <li>Nhãn hàng riêng và áp lực lên thương hiệu</li>
+          <li>3 case ngắn mỗi tiểu ngành</li>
+          <li>Bộ chỉ số nền cần thuộc cho ngành tiêu dùng</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Industry primer quiz (chỉ tính vào tiến độ khi kèm case), 9 case ngắn 25 phút, bảng chỉ số tự lập.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Một case ngành tiêu dùng lạ trong 60 phút, chấm riêng tiêu chí “dùng đúng chỉ số ngành”.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Dùng đúng chỉ số ngành (30) · Cấu trúc (20) · Định lượng (25) · Khuyến nghị khả thi trong bối cảnh ngành (25)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">IND-01</span> áp cây tổng quát mà bỏ qua chỉ số ngành · <span class="mono">IND-02</span> bỏ qua tính mùa vụ · <span class="mono">IND-03</span> giả định kênh phân phối giống thị trường phương Tây</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">H2</span><h4>Dịch vụ và tài chính: banking, bảo hiểm, healthcare, giáo dục</h4><span class="tag">S04 S07</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>xử lý được case trong ngành có quy định chặt và mô hình doanh thu phi truyền thống</b>, nơi rủi ro và tuân thủ là biến số thật.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>H1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Ngân hàng: biên lãi thuần, chi phí huy động, nợ xấu, thu nhập ngoài lãi</li>
+          <li>Bảo hiểm: tỷ lệ bồi thường, tỷ lệ chi phí, kinh tế phí bảo hiểm</li>
+          <li>Healthcare: công suất giường, chi phí trên ca, cơ chế chi trả</li>
+          <li>Giáo dục: chi phí thu hút học viên, tỷ lệ hoàn thành, doanh thu trên học viên</li>
+          <li>Quy định pháp lý như một ràng buộc trong phân tích</li>
+          <li>Rủi ro và vốn: vì sao ngành tài chính không tối ưu như ngành sản xuất</li>
+          <li>3 case ngắn mỗi tiểu ngành</li>
+          <li>Case dài: ngân hàng số giành khách hàng trẻ</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>9 case ngắn 25 phút, bài “ràng buộc pháp lý làm đổi khuyến nghị thế nào”, 1 case dài 70 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Case ngành dịch vụ có ràng buộc pháp lý, 70 phút; khuyến nghị phải nêu rõ ràng buộc đã tính đến.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Hiểu mô hình doanh thu ngành (30) · Xử lý ràng buộc (25) · Định lượng (25) · Khuyến nghị khả thi (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">IND-04</span> bỏ qua quy định · <span class="mono">IND-05</span> áp logic bán lẻ vào ngân hàng · <span class="mono">IND-06</span> bỏ qua rủi ro tín dụng khi tính lợi nhuận</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">H3</span><h4>Tech, logistics và năng lượng</h4><span class="tag">S04 S10 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>phân tích được các mô hình có hiệu ứng mạng, chi phí biến đổi thấp hoặc tài sản nặng</b> — ba dạng kinh tế lệch chuẩn hay xuất hiện trong đề thi.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>H1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>SaaS: doanh thu định kỳ, tỷ lệ rời bỏ, mở rộng doanh thu, quy tắc tăng trưởng và lợi nhuận</li>
+          <li>Marketplace: tỷ lệ ăn chia, hiệu ứng mạng, bài toán quả trứng và con gà</li>
+          <li>Logistics: chi phí trên kilômét, tỷ lệ lấp đầy, chặng cuối</li>
+          <li>Năng lượng: chi phí cố định lớn, chu kỳ đầu tư dài, chính sách</li>
+          <li>Mô hình tài sản nặng và đòn bẩy vận hành</li>
+          <li>Chuyển đổi số như một case về chi phí và năng lực, không phải về công nghệ</li>
+          <li>3 case ngắn mỗi tiểu ngành</li>
+          <li>Case dài: sàn giao hàng cân bằng trợ giá tài xế và phí người dùng</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>9 case ngắn 25 phút, bài so sánh kinh tế SaaS và marketplace, 1 case dài 75 phút.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd><b>Checkpoint nhánh Industry.</b> Ba case ngắn thuộc ba ngành khác nhau trong 90 phút, đạt ≥70 điểm trung bình.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Nhận diện đúng dạng kinh tế (30) · Chỉ số ngành (25) · Định lượng (25) · Khuyến nghị (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">IND-07</span> dùng biên lợi nhuận sản xuất cho SaaS · <span class="mono">IND-08</span> bỏ qua hiệu ứng mạng hai chiều · <span class="mono">IND-09</span> bỏ qua chu kỳ đầu tư dài trong ngành tài sản nặng</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track I · Presentation &amp; Storytelling <span class="lv lv2">L2</span> <span class="lv lv3">L3</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">I1</span><h4>Pyramid principle và action title</h4><span class="tag">S12 S14</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>viết được một trang pyramid cho bất kỳ case nào đã giải</b>: một kết luận chủ đạo, ba nhánh lập luận, bằng chứng số ở mỗi nhánh.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>A4</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Answer first và vì sao nó khó với người mới</li>
+          <li>Nhóm lập luận: theo thời gian, theo cấu trúc, theo mức độ quan trọng</li>
+          <li>Action title: câu khẳng định có động từ và có kết luận</li>
+          <li>Viết lại 20 tiêu đề mô tả thành tiêu đề kết luận</li>
+          <li>Kiểm tra “đọc dọc”: chỉ đọc tiêu đề có hiểu toàn bài không</li>
+          <li>Cấu trúc SCR cho phần mở đầu</li>
+          <li>Độ dài và nhịp câu trong slide</li>
+          <li>Drill: 1 trang pyramid cho 8 case đã giải</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Action title drill hằng ngày, pyramid drill, bài “đọc dọc” chấm chéo.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Một trang pyramid + 12 action title cho một case chưa từng làm, người chấm phải hiểu toàn bộ lập luận chỉ qua tiêu đề.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Kết luận chủ đạo rõ (25) · Nhánh MECE (20) · Tiêu đề nêu kết luận (25) · Bằng chứng số (20) · Đọc dọc liền mạch (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">STO-01</span> tiêu đề dạng “Phân tích doanh thu” · <span class="mono">STO-02</span> kết luận nằm ở slide cuối · <span class="mono">STO-03</span> ba nhánh chồng lấn · <span class="mono">STO-04</span> tiêu đề dài 3 dòng</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">I2</span><h4>Thiết kế exhibit</h4><span class="tag">S11 S14</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>chọn và dựng được exhibit phù hợp với luận điểm</b>, sao cho người xem hiểu trong 5 giây mà không cần giải thích.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>B3, I1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Luận điểm nào cần dạng chart nào: so sánh, cấu phần, xu hướng, tương quan, phân rã</li>
+          <li>Waterfall và bridge: dạng exhibit thuyết phục nhất trong case</li>
+          <li>Bớt đi: bỏ lưới, bỏ chú thích thừa, ghi nhãn trực tiếp</li>
+          <li>Dùng màu để nhấn một thứ, không phải để trang trí</li>
+          <li>Bảng khi nào tốt hơn chart</li>
+          <li>Ghi nguồn và ghi giả định ngay trên exhibit</li>
+          <li>Trung thực với dữ liệu: trục, tỷ lệ, cỡ mẫu</li>
+          <li>Drill: dựng lại 12 exhibit yếu thành exhibit tốt</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Exhibit redesign drill, bài “chọn chart cho luận điểm này”, chấm chéo exhibit theo tiêu chí 5 giây.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Nộp 5 exhibit cho một case đã giải; người chấm xem 5 giây mỗi cái và phải nói đúng thông điệp.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Chọn dạng chart đúng (25) · Hiểu trong 5 giây (25) · Tiêu đề nêu kết luận (20) · Trung thực với dữ liệu (20) · Ghi nguồn và giả định (10)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">EXH-01</span> chart 3D và hiệu ứng thừa · <span class="mono">EXH-02</span> 7 màu không có ý nghĩa · <span class="mono">EXH-03</span> trục không bắt đầu từ 0 khi so sánh cột · <span class="mono">EXH-04</span> exhibit cần người thuyết minh mới hiểu</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">I3</span><h4>Storyboard, deck và trình bày</h4><span class="tag">S14 S15</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>đi từ storyboard đến deck đến bài nói 7 phút</b> mà không mất mạch, và tự chấm lại bản ghi của mình.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>I2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Storyboard trên giấy trước khi mở phần mềm</li>
+          <li>Từ 12 action title thành 12 slide</li>
+          <li>Nhịp của một bài nói 7 phút: phân bổ thời gian theo slide</li>
+          <li>Kịch bản nói và cách thoát khỏi việc học thuộc</li>
+          <li>Chuyển đoạn và câu nối</li>
+          <li>Tự chấm bản ghi: ba tiêu chí nghe lại</li>
+          <li>Trình bày cho hai đối tượng khác nhau: ban giám khảo và ban điều hành</li>
+          <li>Bài tổng hợp: một case, một deck, một bản ghi 7 phút</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Storyboard drill, ghi hình 90 giây hằng ngày, bài trình bày lại cùng nội dung cho hai đối tượng.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>Storyboard + deck 12 slide + bản ghi 7 phút cho một case mới, đạt ≥70 rubric pitching.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Storyboard khớp deck (20) · Mạch trình bày (25) · Làm chủ con số (20) · Nhịp và thời lượng (15) · Tự đánh giá chính xác (20)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">STO-05</span> làm slide trước khi có mạch · <span class="mono">STO-06</span> học thuộc rồi quên giữa chừng · <span class="mono">STO-07</span> vượt thời gian 40% · <span class="mono">STO-08</span> không tự nghe lại bản ghi</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <h3 class="sub">Track J · Interview Simulation <span class="lv lv4">L4</span></h3>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">J1</span><h4>Interviewer-led case</h4><span class="tag">S15 S06</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>chạy trọn một case interviewer-led 30 phút</b>: nhận đề, làm rõ, structure, xử lý exhibit, tính toán, kết luận.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>B2 và C3 đạt</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Nhịp chuẩn của một case 30 phút và ngân sách thời gian từng phần</li>
+          <li>Làm rõ đề trong 90 giây</li>
+          <li>Trình bày structure thành tiếng, không đọc từ giấy</li>
+          <li>Xin thời gian suy nghĩ đúng cách</li>
+          <li>Nhận exhibit: quy trình 60 giây trước khi nói</li>
+          <li>Nói trong lúc tính và kiểm tra lại kết quả</li>
+          <li>Chốt cuối: kết luận, rủi ro, bước tiếp theo trong 60 giây</li>
+          <li>10 live case với người đóng vai interviewer</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Live case theo cặp, đổi vai người phỏng vấn, mistake log sau mỗi case.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>3 live case liên tiếp với 3 người khác nhau, đạt ≥70 rubric interview ở cả ba.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Structure (25) · Định lượng (25) · Đọc exhibit (15) · Giao tiếp và dẫn dắt (20) · Kết luận (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">ITV-01</span> structure đọc như học thuộc · <span class="mono">ITV-02</span> im lặng quá 20 giây · <span class="mono">ITV-03</span> quên tóm tắt trước khi chuyển nhánh · <span class="mono">ITV-04</span> hết giờ chưa kịp kết luận</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">J2</span><h4>Candidate-led và case khó</h4><span class="tag">S02 S15 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>tự dẫn dắt cả case</b>: chọn nhánh phân tích tiếp theo, xin đúng dữ liệu cần, và điều chỉnh hướng khi dữ liệu bác bỏ giả thuyết.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>J1</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Candidate-led: ai giữ quyền điều khiển và giữ thế nào</li>
+          <li>Xin dữ liệu đúng: hỏi cái mình sẽ dùng, không hỏi cho có</li>
+          <li>Đổi hướng khi giả thuyết bị bác bỏ mà không tỏ ra hoảng</li>
+          <li>Case mơ hồ và case không đủ dữ liệu</li>
+          <li>Câu hỏi ước lượng lạ và câu hỏi phán đoán</li>
+          <li>Case có yếu tố định tính: văn hoá, tổ chức, thay đổi</li>
+          <li>Khi bị interviewer đẩy ngược lại</li>
+          <li>10 live case candidate-led ở độ khó tăng dần</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Live case candidate-led, drill “xin dữ liệu”, drill xoay hướng giữa case.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd>2 case candidate-led khó liên tiếp, trong đó một case có dữ liệu bác bỏ giả thuyết ban đầu; vẫn ra được kết luận đúng hạn.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Dẫn dắt chủ động (25) · Chất lượng câu hỏi dữ liệu (20) · Xoay hướng hợp lý (20) · Định lượng (20) · Kết luận dưới điều kiện thiếu dữ liệu (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">ITV-05</span> chờ interviewer dẫn · <span class="mono">ITV-06</span> hỏi dữ liệu không dùng đến · <span class="mono">ITV-07</span> bám giả thuyết đã bị bác bỏ · <span class="mono">ITV-08</span> đào quá sâu một nhánh</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">J3</span><h4>Full loop: case + fit + mock panel</h4><span class="tag">S15 S16</span></div>
+      <dl>
+        <div class="row"><dt>Năng lực</dt><dd>Người học <b>đi trọn một vòng phỏng vấn mô phỏng</b>: hai case và một phần fit liên tiếp, giữ được chất lượng ở vòng cuối.</dd></div>
+        <div class="row"><dt>Prerequisite</dt><dd>J2</dd></div>
+        <div class="row"><dt>Bài học</dt><dd><ul>
+          <li>Cấu trúc một vòng phỏng vấn thật và cách giữ sức</li>
+          <li>Fit: câu chuyện lãnh đạo, xung đột, thất bại theo cấu trúc STAR</li>
+          <li>Nối câu chuyện cá nhân với lý do chọn nghề tư vấn</li>
+          <li>Câu hỏi ngược lại cho interviewer</li>
+          <li>Xử lý một case tệ ở giữa vòng</li>
+          <li>Chuẩn bị 8 câu chuyện dùng lại được cho 20 câu hỏi fit</li>
+          <li>Mock panel với 3 người phỏng vấn</li>
+          <li>Bản đánh giá cuối và kế hoạch 2 tuần trước ngày phỏng vấn thật</li>
+        </ul></dd></div>
+        <div class="row"><dt>Bài tập</dt><dd>Full loop simulation, fit drill có bấm giờ, ghi hình và tự chấm, mistake review tổng hợp.</dd></div>
+        <div class="row check"><dt>Checkpoint</dt><dd><b>Checkpoint Level 4 (nhánh consulting).</b> Full loop 2 case + fit trong một buổi, đạt ≥75 ở cả hai case và ≥70 phần fit.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Chất lượng case 1 (30) · Chất lượng case 2 (30) · Fit có cấu trúc và cụ thể (25) · Giữ phong độ cuối vòng (15)</dd></div>
+        <div class="row err"><dt>Lỗi phổ biến</dt><dd><span class="mono">ITV-09</span> câu chuyện fit không có kết quả đo được · <span class="mono">ITV-10</span> mất bình tĩnh sau một case tệ · <span class="mono">ITV-11</span> dùng cùng một câu chuyện cho mọi câu hỏi · <span class="mono">ITV-12</span> không có câu hỏi ngược</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 ============ -->
+<section id="s6">
+  <div class="sec-head"><span class="sec-num">§ 06</span><h2>Difficulty progression</h2></div>
+  <p class="lede">Bốn bậc năng lực. Người học không lên bậc bằng số bài đã học mà bằng bằng chứng: một checkpoint đạt ngưỡng, chấm theo rubric của bậc đó. Bậc là thứ mở khoá nội dung, không phải huy hiệu.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Bậc</th><th>Người học làm được gì</th><th>Loại case phù hợp</th><th>Dạng bài tập</th><th>Tiêu chí lên bậc</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="lv lv1">L1</span><br><strong>Case Beginner</strong></td>
+        <td>Đọc đề và nói được câu hỏi chính. Vẽ cây 2 tầng. Tính phần trăm và tỷ trọng không cần máy tính. Đọc được một chart đơn giản. Viết được một khuyến nghị không mơ hồ.</td>
+        <td>Mini case 20–30 phút, một vấn đề, tối đa 1 exhibit, số liệu tròn.</td>
+        <td>Mini drill, calculation drill, tree drill, so-what drill.</td>
+        <td>Checkpoint A4 ≥70/100 và calculation drill ≥85% chính xác trong 3 lần liên tiếp.</td>
+      </tr>
+      <tr>
+        <td><span class="lv lv2">L2</span><br><strong>Structured Thinker</strong></td>
+        <td>Chia vấn đề MECE 3 tầng theo ngữ cảnh. Sizing cả hai chiều có sanity check. Phân rã chênh lệch. Đọc 3–4 exhibit và nối chúng lại. Viết recommendation table.</td>
+        <td>Full case 45–60 phút, 3–4 exhibit, số liệu không tròn, có một cái bẫy.</td>
+        <td>Sizing drill, bridge drill, chart drill, full case không bấm giờ.</td>
+        <td>Checkpoint B4 ≥70 và Checkpoint C1 ≥70, không mắc lỗi nhóm <span class="mono">QNT</span> nghiêm trọng trong 2 bài gần nhất.</td>
+      </tr>
+      <tr>
+        <td><span class="lv lv3">L3</span><br><strong>Insight Builder</strong></td>
+        <td>Rút insight thay vì mô tả. Xây governing thought. So sánh phương án theo tiêu chí. Nêu rủi ro và điều kiện. Viết action title đọc dọc liền mạch.</td>
+        <td>Full case 60–80 phút nhiều nhánh, dữ liệu mâu thuẫn, có ràng buộc ngành.</td>
+        <td>Timed case, exhibit-heavy case, pyramid drill, mistake review bắt buộc.</td>
+        <td>Checkpoint C4 (investment memo) ≥75 và Checkpoint I1 ≥75.</td>
+      </tr>
+      <tr>
+        <td><span class="lv lv4">L4</span><br><strong>Competition / Consultant Ready</strong></td>
+        <td>Chạy trọn quy trình thi 24–72 giờ theo team, hoặc trọn một vòng phỏng vấn. Bảo vệ được kết luận dưới phản biện. Ra quyết định khi dữ liệu thiếu.</td>
+        <td>Đề thi thật, full loop phỏng vấn, case mơ hồ không đủ dữ liệu.</td>
+        <td>Team case simulation, Q&amp;A simulation, mock panel, capstone.</td>
+        <td>Checkpoint D4 ≥75 (nhánh competition) hoặc Checkpoint J3 (nhánh consulting), cộng 1 capstone đạt.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:18px"><b>Quy tắc rớt bậc mềm:</b> nếu hai bài liên tiếp ở bậc hiện tại rơi dưới 60 điểm, hệ thống không hạ bậc mà chèn một gói drill sửa lỗi theo mã lỗi đang lặp, rồi cho làm lại checkpoint. Bậc phản ánh năng lực ổn định, không phản ánh phong độ một ngày.</div>
+</section>
+
+<!-- ============ 07 ============ -->
+<section id="s7">
+  <div class="sec-head"><span class="sec-num">§ 07</span><h2>Learning paths</h2></div>
+  <p class="lede">Sáu lộ trình đóng gói sẵn. Mỗi path là một lát cắt qua các track, không phải một kho nội dung riêng — cùng một module phục vụ nhiều path ở độ sâu khác nhau.</p>
+
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">Path 1</span><h4>Case Competition in 8 weeks</h4><span class="tag">P2 · 10–12h/tuần</span></div>
+      <dl>
+        <div class="row"><dt>Modules</dt><dd>A1–A4 · B1–B4 · C1 C2 · I1 I2 I3 · D1–D4 · H1</dd></div>
+        <div class="row"><dt>Weekly focus</dt><dd><ul>
+          <li><b>T1</b> Đọc đề, issue tree, mô hình kinh doanh — 4 mini case</li>
+          <li><b>T2</b> Case math và market sizing — drill hằng ngày + 6 sizing</li>
+          <li><b>T3</b> Đọc chart, phân rã chênh lệch — 2 mini case exhibit-heavy</li>
+          <li><b>T4</b> Profitability và growth — 3 full case 60 phút</li>
+          <li><b>T5</b> Pyramid, action title, exhibit — dựng lại deck cho case tuần 4</li>
+          <li><b>T6</b> Quy trình 24 giờ và hợp nhất theo team — 1 mô phỏng 24 giờ</li>
+          <li><b>T7</b> Deck thi và pitch — 2 vòng pitch có quay hình</li>
+          <li><b>T8</b> Mô phỏng thi đầy đủ + Q&amp;A trước panel</li>
+        </ul></dd></div>
+        <div class="row"><dt>Case cần luyện</dt><dd>12 mini case, 6 full case, 2 team simulation, 1 đề thi thật.</dd></div>
+        <div class="row check"><dt>Final</dt><dd>Capstone CP-01: vòng thi 48 giờ theo team, nộp deck 15 slide, pitch 7 phút, Q&amp;A 10 phút trước panel 3 người.</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">Path 2</span><h4>Consulting Case Interview in 6 weeks</h4><span class="tag">P3 · 12–15h/tuần</span></div>
+      <dl>
+        <div class="row"><dt>Modules</dt><dd>A1 A2 A3 · B1–B4 · C1–C4 · G1 G2 · H1 H2 · J1–J3</dd></div>
+        <div class="row"><dt>Weekly focus</dt><dd><ul>
+          <li><b>T1</b> Framing, issue tree, math nền — drill 30 phút/ngày</li>
+          <li><b>T2</b> Sizing và đọc exhibit — 10 sizing + 15 exhibit</li>
+          <li><b>T3</b> Profitability và unit economics — 4 full case</li>
+          <li><b>T4</b> Market entry, pricing, M&amp;A — 5 full case + 1 investment memo</li>
+          <li><b>T5</b> Live case interviewer-led — 8 live case theo cặp</li>
+          <li><b>T6</b> Candidate-led, fit, mock panel — 6 live case + 2 full loop</li>
+        </ul></dd></div>
+        <div class="row"><dt>Case cần luyện</dt><dd>20+ live case, 10 full case tự giải, 20 sizing, drill math hằng ngày.</dd></div>
+        <div class="row check"><dt>Final</dt><dd>Capstone CP-02: full loop 2 case + fit trong một buổi với 3 người phỏng vấn khác nhau, kèm bản đánh giá theo rubric interview.</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">Path 3</span><h4>Marketing Case Specialist</h4><span class="tag">P4 · 8–10h/tuần · 7 tuần</span></div>
+      <dl>
+        <div class="row"><dt>Modules</dt><dd>A1–A4 · B1 B2 B3 · G2 · E1 E2 E3 · I1 I2 I3 · H1</dd></div>
+        <div class="row"><dt>Weekly focus</dt><dd><ul>
+          <li><b>T1</b> Nền tảng case và mô hình kinh doanh tiêu dùng</li>
+          <li><b>T2</b> Sizing thị trường tiêu dùng và đọc dữ liệu khảo sát</li>
+          <li><b>T3</b> Phân khúc, nhu cầu, định vị</li>
+          <li><b>T4</b> Unit economics và funnel math</li>
+          <li><b>T5</b> CAC–LTV và phân bổ ngân sách theo kênh</li>
+          <li><b>T6</b> Go-to-market và marketing plan</li>
+          <li><b>T7</b> Storyline, exhibit và trình bày plan</li>
+        </ul></dd></div>
+        <div class="row"><dt>Case cần luyện</dt><dd>8 mini case tiêu dùng, 4 full case marketing, 2 bài phân bổ ngân sách, 1 plan-on-a-page mỗi tuần.</dd></div>
+        <div class="row check"><dt>Final</dt><dd>Capstone CP-04: marketing strategy cho một thương hiệu thật — sizing, phân khúc, funnel math, ngân sách, deck 12 slide.</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">Path 4</span><h4>Supply Chain Case Specialist</h4><span class="tag">P5 · 8–10h/tuần · 7 tuần</span></div>
+      <dl>
+        <div class="row"><dt>Modules</dt><dd>A1–A4 · B1 B3 B4 · G1 G2 · F1 F2 F3 · I1 I2 · H3</dd></div>
+        <div class="row"><dt>Weekly focus</dt><dd><ul>
+          <li><b>T1</b> Nền tảng case và đọc dòng tiền vào–ra của doanh nghiệp sản xuất</li>
+          <li><b>T2</b> Math vận hành và phân rã chi phí</li>
+          <li><b>T3</b> Process, capacity, bottleneck</li>
+          <li><b>T4</b> Tồn kho và mức dịch vụ</li>
+          <li><b>T5</b> Thiết kế mạng lưới kho vận</li>
+          <li><b>T6</b> Cost-to-serve, sourcing, S&amp;OP</li>
+          <li><b>T7</b> Trình bày phương án vận hành cho ban điều hành</li>
+        </ul></dd></div>
+        <div class="row"><dt>Case cần luyện</dt><dd>6 mini case vận hành, 4 full case supply chain, 3 mô hình bảng tính, 1 case ngành logistics.</dd></div>
+        <div class="row check"><dt>Final</dt><dd>Capstone CP-05: tái thiết kế mạng lưới phân phối — mô hình chi phí, 3 phương án, bảng trade-off cost vs service, deck 10 slide.</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">Path 5</span><h4>Business Analyst Starter</h4><span class="tag">P6 · 6–8h/tuần · 6 tuần</span></div>
+      <dl>
+        <div class="row"><dt>Modules</dt><dd>A1 A2 A3 A4 · B1 B3 B4 · G1 G2 · C1 · I1 I2</dd></div>
+        <div class="row"><dt>Weekly focus</dt><dd><ul>
+          <li><b>T1</b> Định khung vấn đề và viết problem statement cho việc thật</li>
+          <li><b>T2</b> Issue tree cho bài toán nội bộ, chọn chỉ số theo dõi</li>
+          <li><b>T3</b> Đọc chart, phân rã chênh lệch, tìm nguyên nhân</li>
+          <li><b>T4</b> Đọc báo cáo tài chính và unit economics</li>
+          <li><b>T5</b> Từ phân tích đến quyết định: so sánh phương án theo tiêu chí</li>
+          <li><b>T6</b> Viết decision memo và trình bày cho người ra quyết định</li>
+        </ul></dd></div>
+        <div class="row"><dt>Case cần luyện</dt><dd>10 mini case nội bộ (churn, chi phí, hiệu suất kênh), 3 full case, 4 bài phân rã dữ liệu thật.</dd></div>
+        <div class="row check"><dt>Final</dt><dd>Capstone CP-07: decision memo 2 trang cho một quyết định thật ở nơi làm việc hoặc một dataset mở, kèm bảng phương án và rủi ro.</dd></div>
+      </dl>
+    </div>
+
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">Path 6</span><h4>Zero to Business Case Fundamentals</h4><span class="tag">P1 · 5–6h/tuần · 5 tuần</span></div>
+      <dl>
+        <div class="row"><dt>Modules</dt><dd>A1 A2 A3 A4 · B1 B2 B3 · I1</dd></div>
+        <div class="row"><dt>Weekly focus</dt><dd><ul>
+          <li><b>T1</b> Case là gì, đọc đề, câu hỏi chính — 3 mini case rất ngắn</li>
+          <li><b>T2</b> Doanh nghiệp kiếm tiền thế nào — 5 teardown</li>
+          <li><b>T3</b> Chia vấn đề: issue tree và MECE</li>
+          <li><b>T4</b> Số trong case: phần trăm, sizing đơn giản, đọc chart</li>
+          <li><b>T5</b> Viết kết luận và khuyến nghị đầu tiên</li>
+        </ul></dd></div>
+        <div class="row"><dt>Case cần luyện</dt><dd>12 mini case 20–30 phút, 8 teardown mô hình kinh doanh, drill math 10 phút mỗi ngày.</dd></div>
+        <div class="row check"><dt>Final</dt><dd>Mini case tổng hợp 45 phút + một trang pyramid. Đạt ngưỡng Level 1 là điều kiện vào Path 1 hoặc Path 3.</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 ============ -->
+<section id="s8">
+  <div class="sec-head"><span class="sec-num">§ 08</span><h2>Practice architecture</h2></div>
+  <p class="lede">Chín loại bài luyện. Mỗi loại có một lý do tồn tại riêng và rèn một nhóm skill xác định — không loại nào thay thế được loại khác. Tỷ lệ thời gian gợi ý trong một tuần điển hình ở bậc L2 ghi ở cột cuối.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Loại</th><th>Hình thức</th><th>Rèn skill</th><th>Thời lượng</th><th>Chấm bằng</th><th>% thời gian</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Mini drill</strong></td><td>Một thao tác đơn lẻ: viết lại đề, vẽ 1 nhánh cây, viết 1 action title.</td><td>S01 S03 S12 S14</td><td>5–10 phút</td><td>Đối chiếu mẫu + tự chấm</td><td class="num">10%</td></tr>
+      <tr><td><strong>Calculation drill</strong></td><td>Chuỗi phép tính không máy tính, có bấm giờ, chấm tự động.</td><td>S06 S05</td><td>10 phút/ngày</td><td>Tự động</td><td class="num">10%</td></tr>
+      <tr><td><strong>Chart interpretation drill</strong></td><td>Một exhibit, ba câu hỏi: đọc gì, nghĩa là gì, cần hỏi thêm gì.</td><td>S11 S12</td><td>3–5 phút/chart</td><td>Rubric ngắn + mẫu</td><td class="num">10%</td></tr>
+      <tr><td><strong>Mini case</strong></td><td>Một vấn đề, 1–2 exhibit, kết thúc bằng 1 khuyến nghị.</td><td>S01 S03 S06 S13</td><td>20–30 phút</td><td>Rubric mini case</td><td class="num">15%</td></tr>
+      <tr><td><strong>Full case</strong></td><td>Nhiều nhánh, 3–5 exhibit, có bẫy, kết thúc bằng recommendation table.</td><td>Toàn bộ S01–S13</td><td>60–80 phút</td><td>Rubric full case</td><td class="num">20%</td></tr>
+      <tr><td><strong>Timed case</strong></td><td>Full case nhưng cắt 30% thời gian, buộc phải cắt phạm vi.</td><td>S03 S16 + quản trị thời gian</td><td>40–50 phút</td><td>Rubric full case + tiêu chí thời gian</td><td class="num">10%</td></tr>
+      <tr><td><strong>Team case simulation</strong></td><td>Nhóm 3–5 người, đề thi thật, có mốc hợp nhất bắt buộc.</td><td>S12 S14 S16 + phối hợp</td><td>24–48 giờ</td><td>Rubric deck + nhật ký quy trình</td><td class="num">15%</td></tr>
+      <tr><td><strong>Q&amp;A simulation</strong></td><td>Panel đặt 8–12 câu hỏi phản biện sau phần trình bày.</td><td>S15 S16</td><td>10–15 phút</td><td>Rubric pitching + Q&amp;A log</td><td class="num">5%</td></tr>
+      <tr><td><strong>Mistake review</strong></td><td>Xem lại bài đã chấm, gán mã lỗi, viết lại phần sai, không làm case mới.</td><td>Sửa lỗi theo mã</td><td>20–30 phút</td><td>Mistake log cá nhân</td><td class="num">5%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:18px"><b>Quy tắc vận hành:</b> một buổi luyện không bao giờ chỉ gồm full case. Mẫu buổi chuẩn là 1 drill ngắn khởi động → 1 case chính → 1 mistake review. Người học không được mở full case mới khi mistake review của case trước chưa hoàn tất — đây là ràng buộc cứng của hệ thống, không phải lời khuyên.</div>
+</section>
+
+<!-- ============ 09 ============ -->
+<section id="s9">
+  <div class="sec-head"><span class="sec-num">§ 09</span><h2>Assessment system</h2></div>
+  <p class="lede">Hệ đánh giá có hai nhiệm vụ: nói cho người học biết họ đang ở đâu trên từng skill, và nói cho hệ thống biết nên đẩy bài gì tiếp theo. Mọi rubric đều thang 100, chia theo tiêu chí có trọng số, và mọi tiêu chí đều mô tả được bằng hành vi quan sát được.</p>
+
+  <h3 class="sub">9.1 · Các lớp đánh giá</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Lớp</th><th>Dùng khi nào</th><th>Chấm bởi</th><th>Trọng số vào readiness</th><th>Giới hạn</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Framework check</strong></td><td>Ngay sau bài lý thuyết ngắn, để chặn hiểu sai khái niệm.</td><td>Tự động</td><td class="num">5%</td><td>Không bao giờ đủ để lên bậc. Tối đa 8 câu, luôn gắn với một tình huống.</td></tr>
+      <tr><td><strong>Case answer scoring</strong></td><td>Sau mỗi mini case và full case.</td><td>Tự động phần định lượng + người chấm phần lập luận</td><td class="num">40%</td><td>Phần lập luận cần người chấm hoặc chấm chéo có mẫu.</td></tr>
+      <tr><td><strong>Deliverable rubric</strong></td><td>Recommendation, deck, memo, mô hình bảng tính.</td><td>Chấm chéo + giảng viên ở checkpoint</td><td class="num">25%</td><td>Chấm chéo chỉ có giá trị khi người chấm đã qua bậc tương ứng.</td></tr>
+      <tr><td><strong>Live rubric</strong></td><td>Pitch, Q&amp;A, live case, full loop.</td><td>Người phỏng vấn hoặc panel</td><td class="num">25%</td><td>Bắt buộc có bản ghi để đối chiếu.</td></tr>
+      <tr><td><strong>Mistake log</strong></td><td>Liên tục, sau mỗi bài được chấm.</td><td>Người chấm gán mã + người học xác nhận</td><td class="num">5%</td><td>Không tính điểm, dùng để định tuyến bài tiếp theo.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 class="sub">9.2 · Rubric chuẩn</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Rubric</th><th>Tiêu chí và trọng số</th><th>Ngưỡng đạt</th><th>Mô tả mức 4/4 của tiêu chí nặng nhất</th></tr></thead>
+    <tbody>
+      <tr><td><strong>R1 · Case answer</strong><br><span class="mono">mini &amp; full case</span></td>
+        <td>Problem framing 15 · Structure 20 · Định lượng 25 · Insight 20 · Khuyến nghị 20</td><td class="num">70/100</td>
+        <td><b>Định lượng:</b> phép tính đúng, đơn vị đúng, có sanity check, và mỗi bảng số kết thúc bằng một câu kết luận dùng được.</td></tr>
+      <tr><td><strong>R2 · Recommendation</strong><br><span class="mono">mọi bài có đề xuất</span></td>
+        <td>Cụ thể và thực thi được 30 · Gắn với phân tích 25 · Impact định lượng 20 · Rủi ro và giảm thiểu 15 · Thứ tự ưu tiên 10</td><td class="num">70/100</td>
+        <td><b>Cụ thể:</b> nêu rõ ai làm, làm gì, trong bao lâu, tốn bao nhiêu — người đọc có thể giao việc ngay mà không cần hỏi lại.</td></tr>
+      <tr><td><strong>R3 · Slide deck</strong><br><span class="mono">competition &amp; memo deck</span></td>
+        <td>Storyline và đọc dọc 25 · Action title 20 · Exhibit 20 · Nhất quán số liệu 20 · Appendix phòng thủ 15</td><td class="num">75/100</td>
+        <td><b>Storyline:</b> chỉ đọc tiêu đề của 12 slide là hiểu trọn lập luận và biết được khuyến nghị là gì.</td></tr>
+      <tr><td><strong>R4 · Pitching</strong><br><span class="mono">7 phút + Q&amp;A</span></td>
+        <td>Mở đầu có thông điệp 15 · Mạch trình bày 20 · Làm chủ con số 20 · Trả lời trực diện 25 · Phối hợp team 20</td><td class="num">75/100</td>
+        <td><b>Trả lời trực diện:</b> câu đầu tiên là câu trả lời, hai câu sau là lý do, rồi dừng — không lặp lại nội dung slide.</td></tr>
+      <tr><td><strong>R5 · Consulting interview</strong><br><span class="mono">live case</span></td>
+        <td>Structure 25 · Định lượng 25 · Đọc exhibit 15 · Giao tiếp và dẫn dắt 20 · Kết luận 15</td><td class="num">70/100</td>
+        <td><b>Structure:</b> cây được xây riêng cho đề này, nói thành tiếng mạch lạc, và người nghe biết ngay nhánh nào sẽ đào trước cùng lý do.</td></tr>
+      <tr><td><strong>R6 · Quantitative model</strong><br><span class="mono">bảng tính, unit economics</span></td>
+        <td>Cấu trúc mô hình 25 · Giả định ghi rõ 20 · Tính toán đúng 25 · Sensitivity 20 · Dễ kiểm tra lại 10</td><td class="num">70/100</td>
+        <td><b>Cấu trúc:</b> tách rõ đầu vào, tính toán và kết quả; đổi một giả định là toàn mô hình cập nhật đúng.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="lede" style="margin-top:14px">Mỗi tiêu chí chấm theo 4 mức: <b>1</b> chưa đạt · <b>2</b> có làm nhưng sai hướng · <b>3</b> đạt yêu cầu · <b>4</b> ở mức dùng được thật. Người chấm phải viết một câu bằng chứng cho mỗi mức 1 hoặc 4 — không cho điểm biên mà không chỉ ra được chỗ cụ thể trong bài.</p>
+
+  <h3 class="sub">9.3 · Mistake tagging system</h3>
+  <p class="lede">Mã lỗi gồm ba chữ nhóm và hai số thứ tự, gắn trực tiếp vào vị trí sai trong bài nộp. Mỗi mã liên kết sẵn với một drill sửa lỗi tương ứng, nên hồ sơ lỗi tự sinh ra bài tập kế tiếp.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Nhóm</th><th>Phạm vi</th><th>Ví dụ mã</th><th>Drill sửa lỗi tương ứng</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mono">FRM</span></td><td>Định khung vấn đề</td><td>FRM-01 nhắc lại đề · FRM-04 nhảy vào giải pháp</td><td>Mini drill viết lại đề, 8 đề × 10 phút</td></tr>
+      <tr><td><span class="mono">TRE</span></td><td>Issue tree và MECE</td><td>TRE-02 nhánh chồng lấn · TRE-05 chia theo framework</td><td>Tree drill có chấm MECE tự động</td></tr>
+      <tr><td><span class="mono">QNT</span></td><td>Tính toán</td><td>QNT-02 nhầm % với điểm % · QNT-05 không sanity check</td><td>Calculation drill nhắm đúng dạng lỗi</td></tr>
+      <tr><td><span class="mono">SIZ</span></td><td>Market sizing</td><td>SIZ-02 lệch bậc độ lớn · SIZ-04 quên tần suất</td><td>Sizing drill có bắt buộc điền ô sanity check</td></tr>
+      <tr><td><span class="mono">CHT</span></td><td>Đọc chart</td><td>CHT-01 mô tả thay vì diễn giải</td><td>Chart drill dạng “viết action title”</td></tr>
+      <tr><td><span class="mono">VAR</span></td><td>Phân rã chênh lệch</td><td>VAR-01 bridge không khớp tổng</td><td>Bridge drill có kiểm tra tổng tự động</td></tr>
+      <tr><td><span class="mono">REC</span></td><td>Khuyến nghị</td><td>REC-01 mơ hồ · REC-04 impact không có số</td><td>Viết lại 10 khuyến nghị yếu thành mạnh</td></tr>
+      <tr><td><span class="mono">SYN / STO</span></td><td>Tổng hợp và storyline</td><td>STO-01 tiêu đề mô tả · SYN-04 thiếu câu trả lời chính</td><td>Pyramid drill và bài đọc dọc</td></tr>
+      <tr><td><span class="mono">DCK / EXH</span></td><td>Deck và exhibit</td><td>DCK-03 số liệu không nhất quán · EXH-04 exhibit cần thuyết minh</td><td>Deck rebuild và exhibit redesign</td></tr>
+      <tr><td><span class="mono">PIT / ITV</span></td><td>Trình bày và phỏng vấn</td><td>PIT-02 trả lời vòng vo · ITV-05 chờ interviewer dẫn</td><td>Q&amp;A simulation có ghi hình và tự chấm</td></tr>
+      <tr><td><span class="mono">FIN / MKT / SCM / OPS / IND</span></td><td>Lỗi theo lĩnh vực chuyên sâu</td><td>FIN-08 tính chi phí chìm · MKT-05 LTV tính bằng doanh thu</td><td>Mini case chuyên đề của track tương ứng</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 class="sub">9.4 · Readiness score</h3>
+  <p class="lede">Readiness không phải một con số tổng. Nó là 16 con số — một cho mỗi skill — tính bằng trung bình có trọng số của 3 lần đánh giá gần nhất trên skill đó, giảm dần theo thời gian nếu không luyện lại. Người học thấy ngay mình yếu ở đâu chứ không thấy “bạn đạt 68%”.</p>
+  <div class="card" style="padding:22px">
+    <span class="kicker">Ví dụ hiển thị — hồ sơ giả định của một người học Path 1 ở tuần 5</span>
+    <div class="bars">
+      <div class="bar"><span class="bl">S01 Problem framing</span><span class="bt"><i style="width:84%"></i></span><span class="bv">84</span></div>
+      <div class="bar"><span class="bl">S03 Issue tree / MECE</span><span class="bt"><i style="width:78%"></i></span><span class="bv">78</span></div>
+      <div class="bar"><span class="bl">S05 Market sizing</span><span class="bt"><i style="width:71%"></i></span><span class="bv">71</span></div>
+      <div class="bar low"><span class="bl">S06 Quantitative analysis</span><span class="bt"><i style="width:62%"></i></span><span class="bv">62</span></div>
+      <div class="bar low"><span class="bl">S11 Chart interpretation</span><span class="bt"><i style="width:69%"></i></span><span class="bv">69</span></div>
+      <div class="bar low"><span class="bl">S12 Insight synthesis</span><span class="bt"><i style="width:55%"></i></span><span class="bv">55</span></div>
+      <div class="bar low"><span class="bl">S13 Recommendation</span><span class="bt"><i style="width:58%"></i></span><span class="bv">58</span></div>
+      <div class="bar low"><span class="bl">S14 Slide storyline</span><span class="bt"><i style="width:47%"></i></span><span class="bv">47</span></div>
+      <div class="bar low"><span class="bl">S15 Pitching &amp; Q&amp;A</span><span class="bt"><i style="width:41%"></i></span><span class="bv">41</span></div>
+    </div>
+    <p style="margin-top:14px; font-size:13px; color:var(--ink-2)">Ngưỡng sẵn sàng thi đấu là <b>70</b> trên mọi skill của path. Hồ sơ trên cho thấy người học đã vững phần phân tích nhưng chưa chạm ngưỡng ở nhóm trình bày — hệ thống sẽ ưu tiên đẩy I2, I3 và D4 thay vì thêm full case.</p>
+  </div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section id="s10">
+  <div class="sec-head"><span class="sec-num">§ 10</span><h2>Content sequencing rules</h2></div>
+  <p class="lede">Mười quy tắc ràng buộc thứ tự bài. Đây là luật của hệ thống nội dung: một bài mới chỉ được xuất bản khi thoả toàn bộ quy tắc áp dụng cho nó. Mỗi quy tắc có một lý do vận hành, không phải một sở thích sư phạm.</p>
+  <ol class="principles">
+    <li><span class="n">R—01</span><div><b>Mục tiêu trước framework</b><p>Người học phải biết mình đang cố trả lời câu hỏi gì trước khi được giới thiệu bất kỳ công cụ nào. Framework dạy trong chân không sẽ được dùng như bùa hộ mệnh cho mọi đề.</p></div></li>
+    <li><span class="n">R—02</span><div><b>Problem framing trước analysis</b><p>Không cho phép mở module phân tích khi checkpoint A1 chưa đạt. Phân tích sai đề là dạng lãng phí đắt nhất trong case.</p></div></li>
+    <li><span class="n">R—03</span><div><b>Unit economics trước profitability case</b><p>Một case profitability chỉ dạy được điều gì đó nếu người học hiểu biên đóng góp. Vì vậy G2 là prerequisite mềm của C1, và bắt buộc cho C3.</p></div></li>
+    <li><span class="n">R—04</span><div><b>Chart reading trước insight synthesis</b><p>Không thể tổng hợp từ những thứ đọc sai. B3 luôn đứng trước I1 trong mọi path.</p></div></li>
+    <li><span class="n">R—05</span><div><b>Recommendation trước slide deck</b><p>Deck chỉ là cách trình bày một kết luận đã có. Dạy slide trước khiến người học tối ưu hình thức cho một nội dung rỗng — lỗi phổ biến nhất trong các đội thi.</p></div></li>
+    <li><span class="n">R—06</span><div><b>Mini case trước full case</b><p>Một full case chỉ được mở khi người học đã qua ít nhất 4 mini case chạm đúng các skill mà full case đó đòi hỏi.</p></div></li>
+    <li><span class="n">R—07</span><div><b>Phân tích cá nhân trước team competition</b><p>Track D chỉ mở sau checkpoint Level 3 cá nhân. Người chưa tự giải được case sẽ trở thành người làm slide trong team, và không học được gì thêm.</p></div></li>
+    <li><span class="n">R—08</span><div><b>Skill nền trước skill ngành</b><p>Track H không bao giờ là điểm bắt đầu. Kiến thức ngành chỉ có giá trị khi đã có bộ khung để treo nó vào, nếu không nó biến thành trí nhớ rời rạc.</p></div></li>
+    <li><span class="n">R—09</span><div><b>Không bấm giờ trước khi đúng</b><p>Timed case chỉ mở sau khi người học đạt ngưỡng ở phiên bản không bấm giờ của cùng dạng case. Luyện tốc độ trên một quy trình sai chỉ làm cái sai nhanh hơn.</p></div></li>
+    <li><span class="n">R—10</span><div><b>Mistake review chặn bài kế tiếp</b><p>Bài mới cùng loại bị khoá cho đến khi mistake review của bài trước hoàn tất. Đây là ràng buộc cứng, vì học từ case xảy ra lúc xem lại chứ không phải lúc làm.</p></div></li>
+  </ol>
+</section>
+
+<!-- ============ 11 ============ -->
+<section id="s11">
+  <div class="sec-head"><span class="sec-num">§ 11</span><h2>100 bài / case đầu tiên</h2></div>
+  <p class="lede">Thứ tự này tuân thủ toàn bộ quy tắc ở <a href="#s10">§ 10</a>. Đây là đường trục chính; các path ở <a href="#s7">§ 07</a> là những lát cắt qua nó, có thể bỏ qua một số nhánh chuyên sâu nhưng không đảo thứ tự trong cùng một track.</p>
+  <div class="filters">
+    <label for="ftrack">Track</label>
+    <select id="ftrack">
+      <option value="">Tất cả</option>
+      <option value="A">A · Foundations</option>
+      <option value="B">B · Quantitative</option>
+      <option value="C">C · Strategy &amp; Consulting</option>
+      <option value="D">D · Competition</option>
+      <option value="E">E · Marketing</option>
+      <option value="F">F · Supply Chain</option>
+      <option value="G">G · Finance</option>
+      <option value="H">H · Industry</option>
+      <option value="I">I · Presentation</option>
+      <option value="J">J · Interview</option>
+    </select>
+    <label for="flv">Level</label>
+    <select id="flv">
+      <option value="">Tất cả</option>
+      <option value="1">L1</option><option value="2">L2</option>
+      <option value="3">L3</option><option value="4">L4</option>
+    </select>
+    <input type="search" id="fq" placeholder="Tìm theo tên bài…" aria-label="Tìm theo tên bài">
+    <span class="count" id="fcount">100 / 100 bài</span>
+  </div>
+  <div class="tw">
+  <table id="lessons">
+    <thead><tr><th>#</th><th>Bài / Case</th><th>Module</th><th>Skill</th><th>Output người học phải tạo</th><th>Lv</th></tr></thead>
+    <tbody>
+      <tr data-t="A" data-l="1"><td class="num">001</td><td>Case là gì và đề bài thật sự hỏi gì</td><td class="num">A1</td><td class="num">S01</td><td>Problem statement 3 dòng</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">002</td><td>SCQ: viết lại đề thành Situation – Complication – Question</td><td class="num">A1</td><td class="num">S01</td><td>SCQ 1 trang cho 3 đề</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">003</td><td>Tiêu chí thành công và phạm vi loại trừ</td><td class="num">A1</td><td class="num">S01 S16</td><td>Bảng scope in / scope out</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">004</td><td>Mini case — Chuỗi nhà sách muốn mở thêm 20 cửa hàng</td><td class="num">A1</td><td class="num">S01</td><td>Problem statement + 5 clarifying question</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">005</td><td>Chia vấn đề theo công thức: Revenue = P × Q</td><td class="num">A2</td><td class="num">S03</td><td>Issue tree 2 tầng</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">006</td><td>MECE trong thực tế và khi nào chấp nhận chồng lấn</td><td class="num">A2</td><td class="num">S03</td><td>Bài chữa 5 cây sai</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">007</td><td>Chọn trục chia đầu tiên</td><td class="num">A2</td><td class="num">S03</td><td>3 cây cho cùng một đề + lý do chọn</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">008</td><td>Mini case — Doanh thu ứng dụng gọi xe giảm 12% một quý</td><td class="num">A2</td><td class="num">S03 S02</td><td>Issue tree 3 tầng có driver</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">009</td><td>Doanh nghiệp kiếm tiền thế nào, mất tiền ở đâu</td><td class="num">A3</td><td class="num">S04</td><td>Sơ đồ dòng tiền vào – ra</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">010</td><td>Bảy mô hình doanh thu và kinh tế của từng mô hình</td><td class="num">A3</td><td class="num">S04</td><td>Bảng so sánh 7 mô hình kèm ví dụ Việt Nam</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">011</td><td>Teardown — Quán cà phê tự vận hành và quán nhượng quyền</td><td class="num">A3</td><td class="num">S04 S07</td><td>Canvas 1 trang + 3 đòn bẩy lợi nhuận</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">012</td><td>“So what?” — ép một phát hiện thành hệ quả hành động</td><td class="num">A4</td><td class="num">S12</td><td>10 câu so-what từ 10 phát hiện</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">013</td><td>Viết khuyến nghị thực thi được</td><td class="num">A4</td><td class="num">S13</td><td>10 khuyến nghị yếu viết lại thành mạnh</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="A" data-l="1"><td class="num">014</td><td>Checkpoint L1 — Cửa hàng tiện lợi lỗ ở 6 trong 20 điểm bán</td><td class="num">A4</td><td class="num">S01 S03 S13</td><td>Mini case 45 phút hoàn chỉnh</td><td><span class="lv lv1">L1</span></td></tr>
+
+      <tr data-t="B" data-l="1"><td class="num">015</td><td>Làm tròn có kiểm soát và ba câu sanity check</td><td class="num">B1</td><td class="num">S06</td><td>Bảng 20 phép tính kèm sai số ước lượng</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="B" data-l="1"><td class="num">016</td><td>Phần trăm, điểm phần trăm, trung bình có trọng số</td><td class="num">B1</td><td class="num">S06</td><td>Drill 30 câu, nói bước tính thành tiếng</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="B" data-l="1"><td class="num">017</td><td>Breakeven và tốc độ tăng trưởng tính nhẩm</td><td class="num">B1</td><td class="num">S06</td><td>3 bài breakeven + bản ghi giải thích</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="B" data-l="1"><td class="num">018</td><td>Market sizing top-down ba bước</td><td class="num">B2</td><td class="num">S05</td><td>Bảng sizing có giả định ghi rõ</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="B" data-l="2"><td class="num">019</td><td>Market sizing bottom-up và khi nào nên dùng</td><td class="num">B2</td><td class="num">S05</td><td>Bảng sizing + so lệch với kết quả top-down</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="B" data-l="2"><td class="num">020</td><td>Ngân hàng giả định: 30 con số nền nên thuộc</td><td class="num">B2</td><td class="num">S05</td><td>Bộ thẻ ghi nhớ tự lập + nguồn</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="B" data-l="2"><td class="num">021</td><td>Drill — 6 thị trường lạ trong 45 phút</td><td class="num">B2</td><td class="num">S05 S16</td><td>6 bảng sizing kèm sanity check</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="B" data-l="1"><td class="num">022</td><td>Quy trình đọc chart 60 giây</td><td class="num">B3</td><td class="num">S11</td><td>10 chart × 3 gạch “so what”</td><td><span class="lv lv1">L1</span></td></tr>
+      <tr data-t="B" data-l="2"><td class="num">023</td><td>Waterfall, cohort, scatter, bảng chéo</td><td class="num">B3</td><td class="num">S11</td><td>Action title cho 12 exhibit</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="B" data-l="2"><td class="num">024</td><td>Chart gây hiểu nhầm và cách phát hiện</td><td class="num">B3</td><td class="num">S11 S16</td><td>8 bài “chart này nói dối ở đâu”</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="B" data-l="2"><td class="num">025</td><td>Bridge analysis: tách giá, lượng và mix</td><td class="num">B4</td><td class="num">S06</td><td>Bridge khép kín + 1 câu kết luận</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="B" data-l="2"><td class="num">026</td><td>Checkpoint L2 định lượng — Biên lợi nhuận gộp giảm 3 điểm</td><td class="num">B4</td><td class="num">S06 S11</td><td>Bridge + 3 kịch bản + sensitivity 2 biến</td><td><span class="lv lv2">L2</span></td></tr>
+
+      <tr data-t="G" data-l="2"><td class="num">027</td><td>Đọc P&amp;L trong 10 phút</td><td class="num">G1</td><td class="num">S07</td><td>5 chỉ số chính + 3 phát hiện</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="G" data-l="2"><td class="num">028</td><td>Vì sao có lãi vẫn hết tiền</td><td class="num">G1</td><td class="num">S07</td><td>Phân tích dòng tiền của một công ty thật</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="G" data-l="2"><td class="num">029</td><td>Vốn lưu động và chu kỳ tiền mặt</td><td class="num">G1</td><td class="num">S07 S06</td><td>Bảng chu kỳ tiền mặt + 1 khuyến nghị</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="G" data-l="2"><td class="num">030</td><td>Chọn đơn vị đúng cho unit economics</td><td class="num">G2</td><td class="num">S07</td><td>Mô hình 1 trang cho 3 doanh nghiệp</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="G" data-l="2"><td class="num">031</td><td>Biên đóng góp và điểm hoà vốn</td><td class="num">G2</td><td class="num">S07 S06</td><td>Mô hình bảng tính + điểm hoà vốn</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="G" data-l="2"><td class="num">032</td><td>Mini case — Ứng dụng giao đồ ăn lỗ 12.000đ mỗi đơn</td><td class="num">G2</td><td class="num">S07</td><td>Unit economics + 2 đòn bẩy có định lượng</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="G" data-l="2"><td class="num">033</td><td>NPV, IRR và thời gian hoàn vốn ở mức đủ dùng</td><td class="num">G3</td><td class="num">S07</td><td>Mô hình dòng tiền 5 năm</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="G" data-l="2"><td class="num">034</td><td>Chi phí chìm, chi phí cơ hội, chi phí tăng thêm</td><td class="num">G3</td><td class="num">S07 S16</td><td>6 bài “tìm chi phí chìm trong đề”</td><td><span class="lv lv2">L2</span></td></tr>
+
+      <tr data-t="C" data-l="2"><td class="num">035</td><td>Cây profitability và ba cách mở rộng nó</td><td class="num">C1</td><td class="num">S03</td><td>Cây có driver và nguồn dữ liệu</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="C" data-l="2"><td class="num">036</td><td>Doanh thu giảm hay chi phí tăng: xác định hướng trước</td><td class="num">C1</td><td class="num">S03 S06</td><td>Bảng chẩn đoán hướng cho 5 đề</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="C" data-l="2"><td class="num">037</td><td>Full case — Chuỗi F&amp;B 40 điểm bán, biên giảm 4 điểm</td><td class="num">C1</td><td class="num">S06 S13</td><td>Cây + bridge + 1 trang kết luận</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="C" data-l="2"><td class="num">038</td><td>Full case — Nhà sản xuất bao bì mất khách hàng lớn nhất</td><td class="num">C1</td><td class="num">S03 S16</td><td>Recommendation table</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="C" data-l="2"><td class="num">039</td><td>Checkpoint — Full case profitability 70 phút, 4 exhibit</td><td class="num">C1</td><td class="num">S03 S06 S13</td><td>Bài nộp đầy đủ theo rubric R1</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">040</td><td>Khung bốn câu hỏi cho market entry</td><td class="num">C2</td><td class="num">S05 S10</td><td>Khung áp cho 3 đề khác nhau</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">041</td><td>Build, buy hay partner</td><td class="num">C2</td><td class="num">S10 S16</td><td>Bảng tiêu chí chọn phương thức</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">042</td><td>Full case — Chuỗi cà phê Việt mở rộng sang Philippines</td><td class="num">C2</td><td class="num">S05 S10</td><td>Sizing + go/no-go có ngưỡng số</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">043</td><td>Điều kiện rút lui: mốc nào thì dừng</td><td class="num">C2</td><td class="num">S16</td><td>Bảng mốc và điểm dừng</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">044</td><td>Ba cách định giá và cách chọn</td><td class="num">C3</td><td class="num">S07 S08</td><td>Bảng so sánh + mức giá đề xuất</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">045</td><td>Độ co giãn giá và tác động lên lợi nhuận</td><td class="num">C3</td><td class="num">S06</td><td>Mô hình giá – sản lượng – lợi nhuận</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">046</td><td>Full case — Chuỗi phòng gym thiết kế lại gói thành viên</td><td class="num">C3</td><td class="num">S08 S07</td><td>Cấu trúc giá + mô hình tác động</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">047</td><td>Cannibalization và quyết định cắt danh mục</td><td class="num">C3</td><td class="num">S07 S16</td><td>Bảng giữ / bỏ theo biên đóng góp</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">048</td><td>Vì sao mua: lý do chiến lược và chất lượng synergy</td><td class="num">C4</td><td class="num">S10</td><td>Bảng đánh giá synergy có ước lượng</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">049</td><td>Giá trần và điều kiện nói không</td><td class="num">C4</td><td class="num">S07 S16</td><td>Mô hình định giá + mức giá trần</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="C" data-l="3"><td class="num">050</td><td>Checkpoint L3 — Investment memo cho thương vụ bán lẻ</td><td class="num">C4</td><td class="num">S07 S13 S16</td><td>Memo 2 trang theo rubric R2</td><td><span class="lv lv3">L3</span></td></tr>
+
+      <tr data-t="E" data-l="2"><td class="num">051</td><td>Tiêu chí phân khúc hành động được</td><td class="num">E1</td><td class="num">S08</td><td>Bảng segment có tiêu chí và quy mô</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="E" data-l="2"><td class="num">052</td><td>Jobs to be done và phỏng vấn tìm nhu cầu thật</td><td class="num">E1</td><td class="num">S08</td><td>5 insight rút từ 3 cuộc phỏng vấn</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="E" data-l="2"><td class="num">053</td><td>Định vị và điểm khác biệt chứng minh được</td><td class="num">E1</td><td class="num">S08</td><td>10 value proposition chấm chéo</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="E" data-l="2"><td class="num">054</td><td>Mini case — Thương hiệu sữa hạt chọn phân khúc ưu tiên</td><td class="num">E1</td><td class="num">S08 S05</td><td>Bảng chấm điểm phân khúc + lựa chọn</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="E" data-l="2"><td class="num">055</td><td>Funnel math và điểm rò rỉ đáng sửa nhất</td><td class="num">E2</td><td class="num">S08 S06</td><td>Funnel table + 2 điểm rò rỉ ưu tiên</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="E" data-l="3"><td class="num">056</td><td>CAC theo kênh và LTV tính bằng biên đóng góp</td><td class="num">E2</td><td class="num">S08 S07</td><td>Bảng CAC / LTV theo kênh</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="E" data-l="3"><td class="num">057</td><td>Full case — Sàn thương mại điện tử có CAC tăng 60%</td><td class="num">E2</td><td class="num">S08 S06</td><td>Phân bổ lại ngân sách + ước lượng tác động</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="E" data-l="3"><td class="num">058</td><td>Từ mục tiêu kinh doanh đến chỉ số marketing</td><td class="num">E3</td><td class="num">S13</td><td>Bảng mục tiêu – chỉ số dẫn dắt – chỉ số kết quả</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="E" data-l="3"><td class="num">059</td><td>Ngân sách: xây thương hiệu và kích hoạt bán hàng</td><td class="num">E3</td><td class="num">S13 S16</td><td>Bảng phân bổ + danh sách “không làm”</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="E" data-l="3"><td class="num">060</td><td>Checkpoint Marketing — Ra mắt dòng chăm sóc da nam giới</td><td class="num">E3</td><td class="num">S13 S14</td><td>Marketing plan 10 slide</td><td><span class="lv lv3">L3</span></td></tr>
+
+      <tr data-t="F" data-l="2"><td class="num">061</td><td>Process map có số</td><td class="num">F1</td><td class="num">S09</td><td>Map kèm thời gian chu kỳ và tỷ lệ lỗi</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="F" data-l="2"><td class="num">062</td><td>Công suất, tỷ lệ sử dụng và định luật Little</td><td class="num">F1</td><td class="num">S09 S06</td><td>Bảng công suất lý thuyết và thực tế</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="F" data-l="2"><td class="num">063</td><td>Mini case — Bếp trung tâm quá tải khung giờ trưa</td><td class="num">F1</td><td class="num">S09</td><td>Bottleneck + sản lượng tăng thêm nếu gỡ</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="F" data-l="2"><td class="num">064</td><td>Tồn kho an toàn và chi phí của một điểm dịch vụ</td><td class="num">F2</td><td class="num">S09 S06</td><td>Bảng safety stock theo mức dịch vụ</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="F" data-l="3"><td class="num">065</td><td>Tập trung hay phân tán kho: hiệu ứng gộp rủi ro</td><td class="num">F2</td><td class="num">S09</td><td>Mô hình so sánh 2 cấu hình kho</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="F" data-l="3"><td class="num">066</td><td>Full case — Nhà phân phối dược tái thiết kế mạng lưới 5 kho</td><td class="num">F2</td><td class="num">S09 S16</td><td>Bảng trade-off cost vs service cho 3 phương án</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="F" data-l="3"><td class="num">067</td><td>Cost-to-serve phân bổ theo hoạt động</td><td class="num">F3</td><td class="num">S09 S07</td><td>Mô hình cost-to-serve trên bảng tính</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="F" data-l="3"><td class="num">068</td><td>Checkpoint Supply Chain — 200 khách B2B, 30% đang lỗ</td><td class="num">F3</td><td class="num">S09 S13</td><td>Khuyến nghị giữ / tái đàm phán / ngừng theo nhóm</td><td><span class="lv lv3">L3</span></td></tr>
+
+      <tr data-t="I" data-l="2"><td class="num">069</td><td>Answer first và vì sao nó khó</td><td class="num">I1</td><td class="num">S12</td><td>10 đoạn viết lại theo lối kết luận trước</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="I" data-l="2"><td class="num">070</td><td>Pyramid một trang</td><td class="num">I1</td><td class="num">S12</td><td>Pyramid cho 3 case đã giải</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="I" data-l="2"><td class="num">071</td><td>Action title: từ mô tả sang kết luận</td><td class="num">I1</td><td class="num">S14</td><td>20 tiêu đề viết lại</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="I" data-l="2"><td class="num">072</td><td>Checkpoint — Đọc dọc 12 action title</td><td class="num">I1</td><td class="num">S12 S14</td><td>Pyramid + 12 tiêu đề liền mạch</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="I" data-l="2"><td class="num">073</td><td>Luận điểm nào cần dạng chart nào</td><td class="num">I2</td><td class="num">S11 S14</td><td>Bảng ánh xạ luận điểm – chart + 8 exhibit</td><td><span class="lv lv2">L2</span></td></tr>
+      <tr data-t="I" data-l="3"><td class="num">074</td><td>Waterfall và bridge trong deck</td><td class="num">I2</td><td class="num">S11</td><td>4 exhibit dựng lại từ dữ liệu thô</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="I" data-l="3"><td class="num">075</td><td>Bớt đi: exhibit hiểu trong 5 giây</td><td class="num">I2</td><td class="num">S14</td><td>12 exhibit redesign + biên bản chấm chéo</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="I" data-l="3"><td class="num">076</td><td>Storyboard trên giấy trước khi mở phần mềm</td><td class="num">I3</td><td class="num">S14</td><td>Storyboard 12 khung</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="I" data-l="3"><td class="num">077</td><td>Nhịp của một bài nói 7 phút</td><td class="num">I3</td><td class="num">S15</td><td>Bản ghi 7 phút + bảng phân bổ thời gian</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="I" data-l="3"><td class="num">078</td><td>Checkpoint — Storyboard, deck và bản ghi</td><td class="num">I3</td><td class="num">S14 S15</td><td>Bộ ba sản phẩm cho một case mới</td><td><span class="lv lv3">L3</span></td></tr>
+
+      <tr data-t="D" data-l="3"><td class="num">079</td><td>Giờ đầu tiên của một vòng thi</td><td class="num">D1</td><td class="num">S01 S16</td><td>Nhật ký giờ đầu + ghost deck</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="D" data-l="3"><td class="num">080</td><td>Chia việc theo nhánh cây, không theo slide</td><td class="num">D1</td><td class="num">S03</td><td>Bảng phân công gắn với issue tree</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="D" data-l="3"><td class="num">081</td><td>Simulation — Vòng thi 24 giờ theo team</td><td class="num">D1</td><td class="num">S12 S14 S16</td><td>Ghost deck giờ thứ 3 + deck cuối đúng hạn</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="D" data-l="3"><td class="num">082</td><td>Governing thought cho cả bài</td><td class="num">D2</td><td class="num">S12</td><td>Một câu chủ đạo + 3 nhánh có bằng chứng</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="D" data-l="3"><td class="num">083</td><td>Cắt 20 slide còn 10</td><td class="num">D2</td><td class="num">S12 S16</td><td>Danh sách phần cắt kèm lý do</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="D" data-l="4"><td class="num">084</td><td>Xử lý phát hiện mâu thuẫn giữa các thành viên</td><td class="num">D2</td><td class="num">S12 S16</td><td>Biên bản quyết định theo tiêu chí</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="D" data-l="4"><td class="num">085</td><td>Cấu trúc deck thi 13 slide</td><td class="num">D3</td><td class="num">S14</td><td>Deck hoàn chỉnh theo rubric R3</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="D" data-l="4"><td class="num">086</td><td>Appendix phòng thủ: đoán trước 10 câu hỏi</td><td class="num">D3</td><td class="num">S14 S16</td><td>6 slide appendix + danh sách câu hỏi dự kiến</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="D" data-l="4"><td class="num">087</td><td>Phân vai và chuyển đoạn trong 7 phút</td><td class="num">D4</td><td class="num">S15</td><td>Kịch bản phân vai + bản ghi tổng duyệt</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="D" data-l="4"><td class="num">088</td><td>Checkpoint L4 — Pitch 7 phút và Q&amp;A 10 phút trước panel</td><td class="num">D4</td><td class="num">S15 S16</td><td>Bản ghi + Q&amp;A log chấm theo rubric R4</td><td><span class="lv lv4">L4</span></td></tr>
+
+      <tr data-t="H" data-l="3"><td class="num">089</td><td>Chỉ số ngành bán lẻ và F&amp;B</td><td class="num">H1</td><td class="num">S04</td><td>Bảng chỉ số tự lập kèm khoảng tham chiếu</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="H" data-l="3"><td class="num">090</td><td>Case ngắn — FMCG: độ phủ, chiết khấu, kinh tế nhà phân phối</td><td class="num">H1</td><td class="num">S04 S10</td><td>Case 25 phút + khuyến nghị</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="H" data-l="3"><td class="num">091</td><td>Ngân hàng và bảo hiểm: doanh thu đến từ đâu</td><td class="num">H2</td><td class="num">S04 S07</td><td>Bảng chỉ số + 3 phát hiện</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="H" data-l="3"><td class="num">092</td><td>Case dài — Ngân hàng số giành khách hàng trẻ</td><td class="num">H2</td><td class="num">S04 S13</td><td>Case 60 phút, khuyến nghị nêu rõ ràng buộc pháp lý</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="H" data-l="3"><td class="num">093</td><td>SaaS, marketplace và logistics: ba dạng kinh tế lệch chuẩn</td><td class="num">H3</td><td class="num">S04 S10</td><td>Bảng so sánh 3 mô hình kèm chỉ số riêng</td><td><span class="lv lv3">L3</span></td></tr>
+      <tr data-t="H" data-l="3"><td class="num">094</td><td>Checkpoint Industry — 3 case ngắn, 3 ngành, 90 phút</td><td class="num">H3</td><td class="num">S04 S16</td><td>3 bài nộp, chấm riêng tiêu chí chỉ số ngành</td><td><span class="lv lv3">L3</span></td></tr>
+
+      <tr data-t="J" data-l="4"><td class="num">095</td><td>Nhịp một case 30 phút interviewer-led</td><td class="num">J1</td><td class="num">S15</td><td>Bản ghi live case + mistake log</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="J" data-l="4"><td class="num">096</td><td>Nói trong lúc tính và chốt cuối trong 60 giây</td><td class="num">J1</td><td class="num">S06 S15</td><td>3 bản ghi live case đạt rubric R5</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="J" data-l="4"><td class="num">097</td><td>Candidate-led: giữ quyền dẫn dắt</td><td class="num">J2</td><td class="num">S02 S15</td><td>Bản ghi + danh sách câu hỏi dữ liệu đã dùng</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="J" data-l="4"><td class="num">098</td><td>Xoay hướng khi giả thuyết bị dữ liệu bác bỏ</td><td class="num">J2</td><td class="num">S02 S16</td><td>Bản ghi case có dữ liệu nghịch + kết luận đúng hạn</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="J" data-l="4"><td class="num">099</td><td>Fit: 8 câu chuyện dùng cho 20 câu hỏi</td><td class="num">J3</td><td class="num">S15</td><td>Bộ 8 câu chuyện STAR có kết quả đo được</td><td><span class="lv lv4">L4</span></td></tr>
+      <tr data-t="J" data-l="4"><td class="num">100</td><td>Checkpoint L4 — Full loop: 2 case và phần fit</td><td class="num">J3</td><td class="num">S15 S16</td><td>Bản đánh giá đầy đủ theo rubric R5</td><td><span class="lv lv4">L4</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section id="s12">
+  <div class="sec-head"><span class="sec-num">§ 12</span><h2>Capstone projects</h2></div>
+  <p class="lede">Tám capstone. Mỗi cái là bài kiểm tra cuối của một nhánh: người học làm việc trên một đề mở, trong khung thời gian thật, và nộp đúng thứ mà nghề đó yêu cầu. Capstone không có đáp án mẫu — chỉ có rubric và một panel chấm.</p>
+  <div class="stack">
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">CP-01</span><h4>Vòng thi 48 giờ theo team</h4><span class="tag">Path 1 · L4</span></div>
+      <dl>
+        <div class="row"><dt>Objective</dt><dd>Trả lời một đề thi mở theo nhóm 4 người trong 48 giờ, từ đọc đề đến bảo vệ trước ban giám khảo.</dd></div>
+        <div class="row"><dt>Industry</dt><dd>Bán lẻ hiện đại hoặc chuỗi F&amp;B tại Việt Nam, đề do doanh nghiệp đối tác đặt hàng.</dd></div>
+        <div class="row"><dt>Deliverable</dt><dd>Deck 15 slide + 8 slide appendix · Ghost deck nộp ở giờ thứ 6 · Pitch 7 phút · Q&amp;A 10 phút · Nhật ký quy trình của team.</dd></div>
+        <div class="row"><dt>Rubric chính</dt><dd>R3 Slide deck (40) · R4 Pitching (30) · R2 Recommendation (20) · Quy trình và mốc (10). Đạt khi ≥75 tổng và không tiêu chí nào dưới mức 2.</dd></div>
+      </dl>
+    </div>
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">CP-02</span><h4>Full loop consulting interview</h4><span class="tag">Path 2 · L4</span></div>
+      <dl>
+        <div class="row"><dt>Objective</dt><dd>Đi trọn một vòng phỏng vấn mô phỏng trong một buổi: hai case và một phần fit, với ba người phỏng vấn khác nhau.</dd></div>
+        <div class="row"><dt>Industry</dt><dd>Hai ngành ngẫu nhiên rút từ thư viện H, người học không biết trước.</dd></div>
+        <div class="row"><dt>Deliverable</dt><dd>Bản ghi ba phần · Ghi chú của người phỏng vấn · Mistake log tự lập · Kế hoạch hai tuần trước ngày phỏng vấn thật.</dd></div>
+        <div class="row"><dt>Rubric chính</dt><dd>R5 Consulting interview ×2 (60) · Fit có cấu trúc và kết quả đo được (25) · Giữ phong độ ở phần cuối (15). Đạt khi ≥75 ở cả hai case.</dd></div>
+      </dl>
+    </div>
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">CP-03</span><h4>Business expansion: vào một thị trường mới</h4><span class="tag">Path 1 / 2 · L4</span></div>
+      <dl>
+        <div class="row"><dt>Objective</dt><dd>Quyết định có nên đưa một mô hình đang vận hành tốt ở Việt Nam sang một thị trường Đông Nam Á khác, và vào bằng cách nào.</dd></div>
+        <div class="row"><dt>Industry</dt><dd>Chuỗi dịch vụ tiêu dùng (cà phê, phòng tập, giáo dục ngắn hạn).</dd></div>
+        <div class="row"><dt>Deliverable</dt><dd>Mô hình sizing hai chiều · Đánh giá cạnh tranh · Mô hình tài chính 5 năm · Khuyến nghị go/no-go kèm ngưỡng và điều kiện rút · Deck 12 slide.</dd></div>
+        <div class="row"><dt>Rubric chính</dt><dd>R1 Case answer (30) · R6 Quantitative model (30) · R2 Recommendation (25) · R3 Deck (15).</dd></div>
+      </dl>
+    </div>
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">CP-04</span><h4>Marketing strategy cho một thương hiệu thật</h4><span class="tag">Path 3 · L3–L4</span></div>
+      <dl>
+        <div class="row"><dt>Objective</dt><dd>Giành lại hai điểm thị phần trong 12 tháng với ngân sách cho trước, không được tăng ngân sách.</dd></div>
+        <div class="row"><dt>Industry</dt><dd>FMCG hoặc chăm sóc cá nhân, dữ liệu thị trường công khai.</dd></div>
+        <div class="row"><dt>Deliverable</dt><dd>Sizing và phân khúc · Funnel math hiện trạng · Bảng CAC/LTV theo kênh · Kế hoạch phân bổ ngân sách kèm danh sách “không làm” · Bảng chỉ số theo dõi · Deck 12 slide.</dd></div>
+        <div class="row"><dt>Rubric chính</dt><dd>Nối với mục tiêu kinh doanh (25) · Định lượng funnel và kênh (30) · R2 Recommendation (25) · R3 Deck (20).</dd></div>
+      </dl>
+    </div>
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">CP-05</span><h4>Tối ưu mạng lưới chuỗi cung ứng</h4><span class="tag">Path 4 · L3–L4</span></div>
+      <dl>
+        <div class="row"><dt>Objective</dt><dd>Giảm 12% tổng chi phí logistics mà không hạ mức dịch vụ dưới ngưỡng cam kết với khách hàng.</dd></div>
+        <div class="row"><dt>Industry</dt><dd>Phân phối dược phẩm hoặc hàng tiêu dùng nhanh, mạng lưới đa kho.</dd></div>
+        <div class="row"><dt>Deliverable</dt><dd>Mô hình chi phí mạng lưới trên bảng tính · Ba phương án cấu hình kho · Bảng trade-off cost vs service · Phân tích rủi ro vận hành và lộ trình chuyển đổi · Deck 10 slide.</dd></div>
+        <div class="row"><dt>Rubric chính</dt><dd>R6 Quantitative model (35) · Định lượng mức dịch vụ (25) · R2 Recommendation (25) · Khả thi chuyển đổi (15).</dd></div>
+      </dl>
+    </div>
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">CP-06</span><h4>Turnaround: doanh nghiệp đang lỗ</h4><span class="tag">Path 1 / 2 · L4</span></div>
+      <dl>
+        <div class="row"><dt>Objective</dt><dd>Đưa một doanh nghiệp từ lỗ về hoà vốn trong 18 tháng, với thứ tự can thiệp rõ ràng cho 90 ngày đầu.</dd></div>
+        <div class="row"><dt>Industry</dt><dd>Sản xuất công nghiệp nhẹ hoặc chuỗi bán lẻ quy mô vừa.</dd></div>
+        <div class="row"><dt>Deliverable</dt><dd>Chẩn đoán nguyên nhân gốc có bridge · Mô hình đường về hoà vốn · Kế hoạch 90 ngày với người chịu trách nhiệm · Đánh giá rủi ro nhân sự và khách hàng · Memo 3 trang.</dd></div>
+        <div class="row"><dt>Rubric chính</dt><dd>Chẩn đoán đúng nguyên nhân gốc (30) · R6 Mô hình (25) · Thứ tự can thiệp (25) · Rủi ro và tính khả thi (20).</dd></div>
+      </dl>
+    </div>
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">CP-07</span><h4>Decision memo cho một quyết định thật</h4><span class="tag">Path 5 · L3</span></div>
+      <dl>
+        <div class="row"><dt>Objective</dt><dd>Biến một câu hỏi mơ hồ ở nơi làm việc thành một quyết định có bằng chứng, đủ để một người quản lý ký duyệt.</dd></div>
+        <div class="row"><dt>Industry</dt><dd>Do người học chọn: công ty đang làm, hoặc một dataset mở được duyệt trước.</dd></div>
+        <div class="row"><dt>Deliverable</dt><dd>Memo 2 trang: vấn đề, phương án, tiêu chí so sánh, phân tích dữ liệu, khuyến nghị, rủi ro · Phụ lục mô hình · Bài trình bày 10 phút.</dd></div>
+        <div class="row"><dt>Rubric chính</dt><dd>R2 Recommendation (35) · Chất lượng phân tích dữ liệu (30) · Tiêu chí so sánh phương án (20) · Trình bày cho người ra quyết định (15).</dd></div>
+      </dl>
+    </div>
+    <div class="mod">
+      <div class="mod-head"><span class="mod-code">CP-08</span><h4>Kinh tế nền tảng: cân bằng hai phía của một marketplace</h4><span class="tag">Path 2 / mở rộng · L4</span></div>
+      <dl>
+        <div class="row"><dt>Objective</dt><dd>Thiết kế lại cơ chế giá và trợ giá để nền tảng đạt hoà vốn trên mỗi giao dịch mà không mất thanh khoản ở một phía.</dd></div>
+        <div class="row"><dt>Industry</dt><dd>Giao hàng chặng cuối, gọi xe hoặc sàn dịch vụ tại nhà.</dd></div>
+        <div class="row"><dt>Deliverable</dt><dd>Unit economics hai phía · Mô hình độ nhạy của cung và cầu theo giá · Ba phương án cơ chế giá · Phân tích phản ứng đối thủ · Deck 12 slide.</dd></div>
+        <div class="row"><dt>Rubric chính</dt><dd>R6 Mô hình hai phía (35) · Hiểu hiệu ứng mạng (25) · R2 Recommendation (25) · Phản ứng đối thủ (15).</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 ============ -->
+<section id="s13">
+  <div class="sec-head"><span class="sec-num">§ 13</span><h2>Curriculum quality standards</h2></div>
+  <p class="lede">Mười tiêu chuẩn để chương trình không bị loãng khi mở rộng. Mỗi tiêu chuẩn đi kèm một cách kiểm tra máy móc và một hành động bắt buộc khi vi phạm — đây là hàng rào biên tập cho mọi nội dung mới, không phải lời khuyên chung.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>#</th><th>Tiêu chuẩn</th><th>Cách kiểm tra</th><th>Hành động khi vi phạm</th></tr></thead>
+    <tbody>
+      <tr><td class="num">Q1</td><td><strong>Không có bài chỉ dạy định nghĩa</strong></td><td>Mỗi bài phải khai báo một tình huống áp dụng. Bài không có tình huống bị chặn ở khâu duyệt.</td><td>Gộp vào bài có case, hoặc chuyển thành thẻ tra cứu trong thư viện tham khảo — không tính là bài học.</td></tr>
+      <tr><td class="num">Q2</td><td><strong>Mỗi bài có đúng một output</strong></td><td>Trường <span class="mono">output</span> bắt buộc, và phải là danh từ chỉ vật thể nộp được.</td><td>Viết lại output. “Hiểu được…” và “nắm được…” không phải output.</td></tr>
+      <tr><td class="num">Q3</td><td><strong>Mỗi module có checkpoint</strong></td><td>Module không có checkpoint không được xuất bản.</td><td>Thiết kế checkpoint trước khi viết bài học — checkpoint là thứ được viết đầu tiên.</td></tr>
+      <tr><td class="num">Q4</td><td><strong>Mỗi case có rubric</strong></td><td>Mỗi case trỏ tới một trong sáu rubric chuẩn ở <a href="#s9">§ 09</a> hoặc khai báo rubric riêng có trọng số.</td><td>Không xuất bản case cho đến khi rubric được duyệt.</td></tr>
+      <tr><td class="num">Q5</td><td><strong>Không dùng framework khi không có tình huống áp dụng</strong></td><td>Mỗi framework có một danh sách case dùng nó. Danh sách rỗng thì framework bị gỡ.</td><td>Gỡ khỏi chương trình hoặc viết case cho nó. Không giữ lại vì “kinh điển”.</td></tr>
+      <tr><td class="num">Q6</td><td><strong>Không lặp nội dung giữa các module</strong></td><td>Đối chiếu bảng skill × module: một cặp (skill, độ sâu) chỉ được dạy một lần.</td><td>Nếu cần nhắc lại thì phải ở độ khó cao hơn và phải nêu rõ nó khác lần trước ở đâu.</td></tr>
+      <tr><td class="num">Q7</td><td><strong>Skill quan trọng được luyện nhiều lần ở độ khó tăng dần</strong></td><td>Sáu skill lõi (S01 S03 S05 S06 S12 S13) phải xuất hiện ở ít nhất ba bậc khó khác nhau.</td><td>Bổ sung bài ở bậc còn thiếu trước khi mở nội dung mới.</td></tr>
+      <tr><td class="num">Q8</td><td><strong>Mỗi bài lý thuyết ngắn kèm ít nhất một drill</strong></td><td>Tỷ lệ thời gian đọc trên thời gian làm không vượt 1:3 trong bất kỳ module nào.</td><td>Cắt phần đọc hoặc thêm drill cho đến khi tỷ lệ đạt.</td></tr>
+      <tr><td class="num">Q9</td><td><strong>Case phải có bẫy hoặc điểm quyết định</strong></td><td>Mỗi case khai báo ít nhất một chỗ người học dễ sai và lý do vì sao.</td><td>Case không có điểm quyết định là bài tập tính toán — đổi nhãn thành drill.</td></tr>
+      <tr><td class="num">Q10</td><td><strong>Mọi lỗi trong lời giải mẫu đều có mã</strong></td><td>Lời giải mẫu phải liệt kê các mã lỗi mà bài này nhắm sửa.</td><td>Bổ sung mã lỗi, hoặc mở mã mới vào hệ thống tagging ở <a href="#s9">§ 09</a>.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:18px"><b>Kiểm định định kỳ:</b> mỗi quý rà lại toàn bộ thư viện theo Q1–Q10, cộng thêm một chỉ số vận hành: tỷ lệ người học bỏ dở theo module. Module có tỷ lệ bỏ dở vượt 35% được mổ xẻ như một lỗi thiết kế, không phải như một vấn đề động lực của người học.</div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  Curriculum blueprint · 10 tracks · 34 modules · 16 skills · 100 bài đầu tiên · 8 capstone. Tài liệu kiến trúc chương trình, không phải nội dung bài học chi tiết.
+</footer>
+
+<script>
+(function(){
+  var tbody = document.querySelector('#lessons tbody');
+  if(!tbody) return;
+  var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+  var ft = document.getElementById('ftrack'),
+      fl = document.getElementById('flv'),
+      fq = document.getElementById('fq'),
+      fc = document.getElementById('fcount');
+  function apply(){
+    var t = ft.value, l = fl.value, q = fq.value.trim().toLowerCase(), n = 0;
+    rows.forEach(function(r){
+      var ok = (!t || r.dataset.t === t) &&
+               (!l || r.dataset.l === l) &&
+               (!q || r.cells[1].textContent.toLowerCase().indexOf(q) !== -1);
+      r.hidden = !ok;
+      if(ok) n++;
+    });
+    fc.textContent = n + ' / ' + rows.length + ' bài';
+  }
+  ft.addEventListener('change', apply);
+  fl.addEventListener('change', apply);
+  fq.addEventListener('input', apply);
+})();
+</script>

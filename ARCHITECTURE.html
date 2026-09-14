@@ -1,0 +1,999 @@
+<title>Kiến trúc nền tảng Business Case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#F3F4F1; --surface:#FBFCFA; --surface-2:#EAEDE8;
+  --ink:#14201E; --ink-2:#4A5956; --ink-3:#6E7C79;
+  --rule:#D7DCD6; --rule-strong:#BCC4BC;
+  --accent:#0F6F67; --accent-soft:#DDEBE7; --accent-ink:#0A4F49;
+  --cf:#B45309; --cf-bg:#F6EADB;
+  --ok:#2F6B3A; --ok-bg:#E2EEDF;
+  --warn:#8C4A1F; --warn-bg:#F3E7DE;
+  --code-bg:#EEF0EC;
+  --maxw:1120px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1513; --surface:#161E1C; --surface-2:#1C2624;
+    --ink:#E9EEEA; --ink-2:#A3B2AD; --ink-3:#7E8D89;
+    --rule:#283330; --rule-strong:#3A4844;
+    --accent:#54C2B4; --accent-soft:#153330; --accent-ink:#8AD8CC;
+    --cf:#F0A55A; --cf-bg:#2B2015;
+    --ok:#7CC48A; --ok-bg:#16271A;
+    --warn:#D9915F; --warn-bg:#2A1E16;
+    --code-bg:#121917;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1513; --surface:#161E1C; --surface-2:#1C2624;
+  --ink:#E9EEEA; --ink-2:#A3B2AD; --ink-3:#7E8D89;
+  --rule:#283330; --rule-strong:#3A4844;
+  --accent:#54C2B4; --accent-soft:#153330; --accent-ink:#8AD8CC;
+  --cf:#F0A55A; --cf-bg:#2B2015;
+  --ok:#7CC48A; --ok-bg:#16271A;
+  --warn:#D9915F; --warn-bg:#2A1E16;
+  --code-bg:#121917;
+}
+*{box-sizing:border-box}
+body{background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.62; -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:Newsreader,Georgia,"Times New Roman",serif; font-weight:500; text-wrap:balance; margin:0; line-height:1.2}
+p{margin:0}
+a{color:var(--accent-ink)}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+p code, li code, td code, dd code{font-size:12.2px; background:var(--code-bg); border:1px solid var(--rule); padding:0 5px; border-radius:2px; white-space:nowrap}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+header.mast{padding:56px 0 34px}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--cf); display:flex; gap:10px; align-items:center}
+.eyebrow::after{content:""; flex:1; height:1px; background:var(--rule)}
+h1{font-size:clamp(32px,4.8vw,48px); letter-spacing:-.015em; margin:16px 0 0; max-width:18ch}
+.standfirst{margin-top:16px; max-width:68ch; font-size:16.5px; color:var(--ink-2)}
+.mast-meta{display:flex; flex-wrap:wrap; margin-top:28px; border-top:1px solid var(--rule)}
+.mast-meta div{padding:13px 20px 11px 0; margin-right:20px; border-right:1px solid var(--rule)}
+.mast-meta div:last-child{border-right:0; margin-right:0}
+.mast-meta dt{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+.mast-meta dd{margin:3px 0 0; font-size:14px; font-weight:500}
+section{padding-top:54px; scroll-margin-top:16px}
+.sec-head{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:baseline; border-bottom:2px solid var(--ink); padding-bottom:10px; margin-bottom:22px}
+.sec-num{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--accent); letter-spacing:.06em}
+.sec-head h2{font-size:clamp(22px,2.9vw,29px); letter-spacing:-.01em}
+.lede{max-width:74ch; color:var(--ink-2); margin-bottom:22px}
+h3.sub{font-size:18.5px; margin:34px 0 13px; padding-bottom:6px; border-bottom:1px solid var(--rule)}
+.tw{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:13.2px; min-width:680px}
+th,td{text-align:left; padding:9px 13px; border-bottom:1px solid var(--rule); vertical-align:top}
+thead th{position:sticky; top:0; background:var(--surface-2); z-index:2; font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2); border-bottom:1px solid var(--rule-strong); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.m{font-family:"IBM Plex Mono",monospace; font-size:12.2px; white-space:nowrap; color:var(--ink)}
+td.r{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+.svc{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--cf); background:var(--cf-bg); border:1px solid var(--cf); padding:1px 6px; border-radius:2px; white-space:nowrap; display:inline-block}
+.pass{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ok); background:var(--ok-bg); border:1px solid var(--ok); padding:1px 6px; border-radius:2px; white-space:nowrap}
+.todo{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--warn); background:var(--warn-bg); border:1px solid var(--warn); padding:1px 6px; border-radius:2px; white-space:nowrap}
+ol.dec{list-style:none; padding:0; margin:0; border-top:1px solid var(--rule)}
+ol.dec li{display:grid; grid-template-columns:52px 1fr; gap:14px; padding:16px 0; border-bottom:1px solid var(--rule)}
+ol.dec .n{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--accent); padding-top:3px}
+ol.dec b{display:block; font-family:Newsreader,serif; font-weight:500; font-size:17.5px; margin-bottom:3px}
+ol.dec p{color:var(--ink-2); font-size:13.8px; max-width:76ch}
+.note{border-left:2px solid var(--accent); background:var(--accent-soft); padding:14px 18px; border-radius:0 3px 3px 0; font-size:13.8px; color:var(--ink-2)}
+.note b{color:var(--ink)}
+.caution{border-left:2px solid var(--warn); background:var(--warn-bg); padding:14px 18px; border-radius:0 3px 3px 0; font-size:13.6px; color:var(--ink-2)}
+.caution b{color:var(--ink)}
+.diagram{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:18px; overflow-x:auto}
+pre.mermaid{margin:0; background:transparent; text-align:center}
+pre.code{margin:0; background:var(--code-bg); border:1px solid var(--rule); border-radius:3px; padding:14px 16px; overflow-x:auto; font-family:"IBM Plex Mono",monospace; font-size:12px; line-height:1.6; color:var(--ink)}
+details{border:1px solid var(--rule); border-radius:3px; background:var(--surface); margin-top:12px}
+summary{cursor:pointer; padding:12px 16px; font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink)}
+details[open] summary{border-bottom:1px solid var(--rule)}
+details pre.code{border:0; border-radius:0}
+ul.plain{margin:0; padding-left:19px; color:var(--ink-2); font-size:13.8px}
+ul.plain li{margin-bottom:5px}
+.grid{display:grid; gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:17px 19px}
+.card h4{font-size:17px; margin-bottom:8px}
+.kicker{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:7px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+footer{border-top:1px solid var(--rule); margin-top:56px; padding:34px 0 76px; color:var(--ink-3); font-size:12.5px}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="eyebrow">Bước 1 · Data model &amp; kiến trúc · 100% Cloudflare</div>
+  <h1>Kiến trúc nền tảng Business Case</h1>
+  <p class="standfirst">Toàn bộ backend chạy trên Cloudflare: Workers, D1, R2, KV, Durable Objects, Queues, Stream, Email Service, Turnstile, Access. Schema D1 dưới đây đã được chạy thử trên SQLite với dữ liệu mẫu, và mọi quy tắc khoá/mở bài trong curriculum đều có truy vấn hoặc ràng buộc tương ứng.</p>
+  <dl class="mast-meta">
+    <div><dt>Dịch vụ</dt><dd>10 sản phẩm Cloudflare</dd></div>
+    <div><dt>D1</dt><dd>2 database · 45 bảng</dd></div>
+    <div><dt>Kiểm thử</dt><dd>18/18 đạt trên SQLite</dd></div>
+    <div><dt>Gói bắt buộc</dt><dd>Workers Paid</dd></div>
+    <div><dt>Giới hạn kiểm chứng</dt><dd>13/09/2026</dd></div>
+  </dl>
+</header>
+<main>
+
+<section id="a1">
+  <div class="sec-head"><span class="sec-num">§ 01</span><h2>Bảy quyết định kiến trúc</h2></div>
+  <p class="lede">Mỗi quyết định kèm lý do lấy từ giới hạn thật của nền tảng, đã tra trên tài liệu Cloudflare ngày 13/09/2026 (xem <a href="#a9">§ 09</a>).</p>
+  <ol class="dec">
+    <li><span class="n">K—1</span><div><b>Bắt buộc gói Workers Paid, kể cả khi mới thử nghiệm</b><p>Gói Free chỉ cho 10 ms CPU mỗi request, mỗi database D1 tối đa 500 MB, và từ 01/09/2026 truy vấn D1 trên gói Free bị chặn khi vượt hạn mức đọc/ghi trong ngày. Email Sending — thứ cần cho đăng nhập — cũng chỉ có trên gói Paid.</p></div></li>
+    <li><span class="n">K—2</span><div><b>Một Worker duy nhất cho phiên bản đầu</b><p>Cùng một Worker phục vụ frontend (static assets), API, hai queue consumer, cron và class Durable Object <code>LiveRoom</code>. Ít thứ phải deploy, ít binding phải đồng bộ. Tách thành nhiều Worker chỉ khi có lý do đo được, ví dụ consumer chấm bài cần giới hạn CPU riêng.</p></div></li>
+    <li><span class="n">K—3</span><div><b>Hai database D1: nội dung và hoạt động người học</b><p><code>bc_content</code> nhỏ, ít ghi, xuất bản theo version và được cache trong KV. <code>bc_learning</code> lớn dần theo số người học. Tách ra vì mỗi database D1 bị giới hạn cứng 10 GB và giới hạn này không nâng được — dữ liệu người học không được phép chiếm chỗ của nội dung, và hai loại dữ liệu cần Time Travel, sao lưu, quyền ghi khác nhau.</p></div></li>
+    <li><span class="n">K—4</span><div><b>File không bao giờ nằm trong D1</b><p>Mỗi hàng D1 tối đa 2 MB. Deck, bảng tính, dataset exhibit nằm trong R2; bản ghi pitch và live case nằm trong Stream. D1 chỉ giữ khoá tham chiếu — bảng <code>attempt_artifacts</code> có ràng buộc buộc mỗi hàng trỏ đúng một nơi.</p></div></li>
+    <li><span class="n">K—5</span><div><b>Queues chỉ chở ID</b><p>Mỗi message tối đa 128 KB. Message chỉ mang <code>attempt_id</code> hoặc <code>user_id</code>; consumer đọc lại dữ liệu mới nhất từ D1. Consumer phải idempotent vì message có thể được giao lại — mọi thao tác ghi dùng upsert và chỉ mục duy nhất.</p></div></li>
+    <li><span class="n">K—6</span><div><b>Realtime bằng Durable Objects dùng SQLite</b><p>Mỗi phiên live case, team simulation hay panel Q&amp;A là một <code>LiveRoom</code>. WebSocket Hibernation giữ kết nối mà không tốn phí khi phòng im lặng; trạng thái phiên lưu trong SQLite của chính Durable Object vì bộ nhớ trong bị xoá khi hibernate.</p></div></li>
+    <li><span class="n">K—7</span><div><b>Đăng nhập bằng magic link, admin sau Cloudflare Access</b><p>Người học đăng nhập bằng link gửi qua Email Sending, có Turnstile chống bot, session lưu trong KV có TTL. Khu vực <code>/admin</code> và <code>/grader</code> đặt sau Cloudflare Access, Worker kiểm tra thêm <code>users.role</code>. Email Sending đang ở giai đoạn beta và yêu cầu tên miền dùng Cloudflare DNS.</p></div></li>
+  </ol>
+</section>
+
+<section id="a2">
+  <div class="sec-head"><span class="sec-num">§ 02</span><h2>Sơ đồ hệ thống</h2></div>
+  <div class="diagram"><pre class="mermaid">
+flowchart LR
+  U[Người học / Người chấm] -->|HTTPS + WebSocket| W
+
+  subgraph CF[Cloudflare]
+    W[Worker bc-platform<br/>static assets + API]
+    W --> DC[(D1 bc_content)]
+    W --> DL[(D1 bc_learning)]
+    W --> KC[KV CONTENT_CACHE]
+    W --> KS[KV SESSIONS]
+    W --> RC[R2 bc-content]
+    W --> RS[R2 bc-submissions]
+    W --> ST[Stream<br/>bản ghi]
+    W --> LR[Durable Object<br/>LiveRoom]
+    W --> QG[Queue bc-grading]
+    W --> QR[Queue bc-readiness]
+    QG --> CG[Consumer chấm bài]
+    QR --> CR[Consumer readiness<br/>+ khoá/mở bài]
+    CG --> DL
+    CG --> QR
+    CR --> DL
+    CRON[Cron Triggers] --> W
+    W --> EM[Email Sending<br/>magic link]
+    ACC[Access] -.bảo vệ /admin /grader.- W
+    TS[Turnstile] -.đăng nhập, nộp bài.- W
+    LR -->|kết thúc phiên| DL
+  end
+</pre></div>
+</section>
+
+<section id="a3">
+  <div class="sec-head"><span class="sec-num">§ 03</span><h2>Tài nguyên và bindings</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>Binding</th><th>Dịch vụ</th><th>Tên tài nguyên</th><th>Dùng để</th></tr></thead>
+    <tbody>
+      <tr><td class="m">ASSETS</td><td><span class="svc">Workers Assets</span></td><td class="m">./dist</td><td>Frontend dạng SPA</td></tr>
+      <tr><td class="m">DB_CONTENT</td><td><span class="svc">D1</span></td><td class="m">bc_content</td><td>Skill map, module, bài học, rubric, mã lỗi, thư viện case, lộ trình</td></tr>
+      <tr><td class="m">DB_LEARNING</td><td><span class="svc">D1</span></td><td class="m">bc_learning</td><td>Người dùng, bài làm, điểm, mã lỗi đã gắn, remediation, readiness, phiên live</td></tr>
+      <tr><td class="m">CONTENT_CACHE</td><td><span class="svc">KV</span></td><td class="m">—</td><td>Nội dung bài học đã xuất bản, khoá theo <code>lesson:{id}:v{version}</code></td></tr>
+      <tr><td class="m">SESSIONS</td><td><span class="svc">KV</span></td><td class="m">—</td><td>Session đăng nhập và token magic link (băm, TTL 15 phút, dùng một lần)</td></tr>
+      <tr><td class="m">R2_CONTENT</td><td><span class="svc">R2</span></td><td class="m">bc-content</td><td>Dataset và ảnh exhibit, template, lời giải mẫu — riêng tư</td></tr>
+      <tr><td class="m">R2_SUBMISSIONS</td><td><span class="svc">R2</span></td><td class="m">bc-submissions</td><td>File người học nộp — riêng tư, tải xuống qua Worker có kiểm tra quyền</td></tr>
+      <tr><td class="m">STREAM</td><td><span class="svc">Stream</span></td><td class="m">—</td><td>Bản ghi pitch, live case, full loop; người học tải lên trực tiếp qua direct creator upload</td></tr>
+      <tr><td class="m">LIVE_ROOM</td><td><span class="svc">Durable Objects</span></td><td class="m">class LiveRoom</td><td>Phòng live case, team simulation 24–48 giờ, panel Q&amp;A</td></tr>
+      <tr><td class="m">Q_GRADING</td><td><span class="svc">Queues</span></td><td class="m">bc-grading (+dlq)</td><td>Chấm tự động hoặc chuyển cho người chấm</td></tr>
+      <tr><td class="m">Q_READINESS</td><td><span class="svc">Queues</span></td><td class="m">bc-readiness (+dlq)</td><td>Tính lại readiness, kích hoạt remediation, cập nhật khoá/mở bài</td></tr>
+      <tr><td class="m">EMAIL</td><td><span class="svc">Email Service</span></td><td class="m">send_email</td><td>Magic link, thông báo có điểm</td></tr>
+      <tr><td class="m">TURNSTILE_SECRET</td><td><span class="svc">Turnstile</span></td><td class="m">secret</td><td>Xác minh form đăng nhập và nộp bài</td></tr>
+      <tr><td class="m">crons</td><td><span class="svc">Cron Triggers</span></td><td class="m">0 19 * * *</td><td>02:00 giờ Việt Nam: suy giảm readiness hằng ngày</td></tr>
+      <tr><td class="m">crons</td><td><span class="svc">Cron Triggers</span></td><td class="m">*/15 * * * *</td><td>Nhả bài chấm bị giữ quá hạn, dọn bài nháp bỏ dở</td></tr>
+    </tbody>
+  </table></div>
+  <details><summary>wrangler.jsonc — bản phác thảo, sẽ kiểm tra bằng wrangler ở bước 2</summary><pre class="code">{
+  &quot;$schema&quot;: &quot;node_modules/wrangler/config-schema.json&quot;,
+  &quot;name&quot;: &quot;bc-platform&quot;,
+  &quot;main&quot;: &quot;src/index.ts&quot;,
+  &quot;compatibility_date&quot;: &quot;2026-09-13&quot;,
+  &quot;observability&quot;: { &quot;enabled&quot;: true },
+
+  &quot;assets&quot;: { &quot;directory&quot;: &quot;./dist&quot;, &quot;binding&quot;: &quot;ASSETS&quot;,
+              &quot;not_found_handling&quot;: &quot;single-page-application&quot; },
+
+  &quot;d1_databases&quot;: [
+    { &quot;binding&quot;: &quot;DB_CONTENT&quot;,  &quot;database_name&quot;: &quot;bc_content&quot;,
+      &quot;database_id&quot;: &quot;&lt;tạo ở bước 2&gt;&quot;, &quot;migrations_dir&quot;: &quot;migrations/content&quot; },
+    { &quot;binding&quot;: &quot;DB_LEARNING&quot;, &quot;database_name&quot;: &quot;bc_learning&quot;,
+      &quot;database_id&quot;: &quot;&lt;tạo ở bước 2&gt;&quot;, &quot;migrations_dir&quot;: &quot;migrations/learning&quot; }
+  ],
+  &quot;kv_namespaces&quot;: [
+    { &quot;binding&quot;: &quot;CONTENT_CACHE&quot;, &quot;id&quot;: &quot;&lt;tạo ở bước 2&gt;&quot; },
+    { &quot;binding&quot;: &quot;SESSIONS&quot;,      &quot;id&quot;: &quot;&lt;tạo ở bước 2&gt;&quot; }
+  ],
+  &quot;r2_buckets&quot;: [
+    { &quot;binding&quot;: &quot;R2_CONTENT&quot;,     &quot;bucket_name&quot;: &quot;bc-content&quot; },
+    { &quot;binding&quot;: &quot;R2_SUBMISSIONS&quot;, &quot;bucket_name&quot;: &quot;bc-submissions&quot; }
+  ],
+  &quot;stream&quot;: { &quot;binding&quot;: &quot;STREAM&quot; },
+  &quot;send_email&quot;: [ { &quot;name&quot;: &quot;EMAIL&quot; } ],
+
+  &quot;durable_objects&quot;: { &quot;bindings&quot;: [ { &quot;name&quot;: &quot;LIVE_ROOM&quot;, &quot;class_name&quot;: &quot;LiveRoom&quot; } ] },
+  &quot;migrations&quot;: [ { &quot;tag&quot;: &quot;v1&quot;, &quot;new_sqlite_classes&quot;: [&quot;LiveRoom&quot;] } ],
+
+  &quot;queues&quot;: {
+    &quot;producers&quot;: [
+      { &quot;binding&quot;: &quot;Q_GRADING&quot;,   &quot;queue&quot;: &quot;bc-grading&quot; },
+      { &quot;binding&quot;: &quot;Q_READINESS&quot;, &quot;queue&quot;: &quot;bc-readiness&quot; }
+    ],
+    &quot;consumers&quot;: [
+      { &quot;queue&quot;: &quot;bc-grading&quot;,   &quot;max_batch_size&quot;: 10,  &quot;max_retries&quot;: 5,
+        &quot;dead_letter_queue&quot;: &quot;bc-grading-dlq&quot; },
+      { &quot;queue&quot;: &quot;bc-readiness&quot;, &quot;max_batch_size&quot;: 50, &quot;max_batch_timeout&quot;: 5,
+        &quot;max_retries&quot;: 5, &quot;dead_letter_queue&quot;: &quot;bc-readiness-dlq&quot; }
+    ]
+  },
+
+  &quot;triggers&quot;: { &quot;crons&quot;: [ &quot;0 19 * * *&quot;, &quot;*/15 * * * *&quot; ] }
+}</pre></details>
+</section>
+
+<section id="a4">
+  <div class="sec-head"><span class="sec-num">§ 04</span><h2>Data model</h2></div>
+  <p class="lede">45 bảng chia hai database. D1 không ràng buộc khoá ngoại xuyên database, nên các tham chiếu từ <code>bc_learning</code> sang <code>bc_content</code> (mã bài, mã skill, mã tiêu chí, mã lỗi) là tham chiếu logic do Worker kiểm tra khi ghi.</p>
+  <div class="grid g2">
+    <div class="card"><span class="kicker">bc_content · 25 bảng</span>
+      <ul class="plain">
+        <li><b>Skill map:</b> <code>skills</code>, <code>skill_levels</code></li>
+        <li><b>Cấu trúc:</b> <code>tracks</code>, <code>modules</code>, <code>module_prereqs</code>, <code>module_skills</code>, <code>lessons</code>, <code>lesson_skills</code></li>
+        <li><b>Chấm điểm:</b> <code>rubrics</code>, <code>rubric_criteria</code>, <code>rubric_criterion_levels</code>, <code>lesson_rubrics</code></li>
+        <li><b>Mã lỗi:</b> <code>mistake_codes</code>, <code>lesson_target_mistakes</code></li>
+        <li><b>Thư viện case:</b> <code>cases</code>, <code>case_reveal_items</code>, <code>case_traps</code>, <code>case_answer_frames</code>, <code>exhibits</code>, <code>case_exhibits</code>, <code>panel_questions</code></li>
+        <li><b>Dữ liệu nền:</b> <code>assumption_bank</code></li>
+        <li><b>Lộ trình:</b> <code>learning_paths</code>, <code>path_items</code>, <code>capstones</code></li>
+      </ul>
+    </div>
+    <div class="card"><span class="kicker">bc_learning · 20 bảng</span>
+      <ul class="plain">
+        <li><b>Người dùng:</b> <code>users</code>, <code>enrollments</code>, <code>level_history</code></li>
+        <li><b>Tiến độ:</b> <code>lesson_progress</code> — trạng thái khoá/mở đã tính sẵn</li>
+        <li><b>Bài làm:</b> <code>attempts</code>, <code>attempt_artifacts</code></li>
+        <li><b>Chấm điểm:</b> <code>grading_queue</code>, <code>grades</code>, <code>grade_criteria</code>, <code>grader_calibrations</code></li>
+        <li><b>Mã lỗi:</b> <code>mistake_tags</code>, <code>mistake_reviews</code>, <code>remediation_assignments</code></li>
+        <li><b>Readiness:</b> <code>skill_evidence</code>, <code>readiness</code></li>
+        <li><b>Nhóm và live:</b> <code>teams</code>, <code>team_members</code>, <code>live_sessions</code>, <code>live_session_participants</code></li>
+        <li><b>Vận hành:</b> <code>audit_log</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Quy tắc curriculum được ép ở đâu</h3>
+  <p class="lede">Những quy tắc quan trọng nhất trong blueprint không nằm trong lời hướng dẫn cho người biên soạn — chúng nằm trong database. Dữ liệu vi phạm bị từ chối ngay khi ghi.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Quy tắc trong curriculum</th><th>Cách ép</th><th>Mức ép</th></tr></thead>
+    <tbody>
+      <tr><td>Mỗi bài phải có output (Q2)</td><td><code>lessons.output_spec</code> CHECK không rỗng</td><td><span class="pass">database</span></td></tr>
+      <tr><td>Chấm mức 1 hoặc 4 phải kèm bằng chứng</td><td><code>grade_criteria</code> CHECK <code>evidence</code> khi level ∈ {1,4}</td><td><span class="pass">database</span></td></tr>
+      <tr><td>Mỗi bài làm chỉ có một điểm cuối cùng</td><td>Chỉ mục duy nhất một phần <code>WHERE is_final = 1</code></td><td><span class="pass">database</span></td></tr>
+      <tr><td>Đề phải chạy thử 3 lần trước khi xuất bản</td><td><code>cases</code> CHECK <code>status &lt;&gt; 'published' OR pilot_runs &gt;= 3</code></td><td><span class="pass">database</span></td></tr>
+      <tr><td>Mỗi bẫy phải khai báo mã lỗi nó kiểm tra</td><td><code>case_traps.mistake_code</code> NOT NULL + khoá ngoại</td><td><span class="pass">database</span></td></tr>
+      <tr><td>Mã lỗi phải đúng nhóm</td><td>CHECK <code>substr(code,1,3) = group_code</code></td><td><span class="pass">database</span></td></tr>
+      <tr><td>Mỗi mã lỗi chỉ có một gói remediation đang chạy</td><td>Chỉ mục duy nhất một phần <code>WHERE status = 'active'</code></td><td><span class="pass">database</span></td></tr>
+      <tr><td>Bài bị khoá phải có lý do</td><td><code>lesson_progress</code> CHECK <code>(status = 'locked') = (lock_reason IS NOT NULL)</code></td><td><span class="pass">database</span></td></tr>
+      <tr><td>Mistake review chặn bài cùng loại kế tiếp (R-10)</td><td>Bảng <code>mistake_reviews</code> + truy vấn G1</td><td><span class="pass">database + Worker</span></td></tr>
+      <tr><td>Mã lỗi lặp 2 trong 3 bài gần nhất kích hoạt drill</td><td>Truy vấn G2 → <code>remediation_assignments</code></td><td><span class="pass">database + Worker</span></td></tr>
+      <tr><td>Timed case chỉ mở sau bản không bấm giờ (R-09)</td><td><code>lessons.timed_variant_of</code> + kiểm tra bài gốc đã đạt</td><td><span class="pass">database + Worker</span></td></tr>
+      <tr><td>Mỗi case trỏ tới một rubric (Q4)</td><td><code>lesson_rubrics</code>; kiểm tra ở bước xuất bản</td><td><span class="todo">Worker</span></td></tr>
+      <tr><td>Đáp án khung chỉ người chấm được xem</td><td>Bảng riêng <code>case_answer_frames</code>; API kiểm tra role</td><td><span class="todo">Worker</span></td></tr>
+      <tr><td>Số liệu nền phải có nguồn trước khi dùng</td><td><code>assumption_bank</code> CHECK có <code>source_url</code> khi đã verified</td><td><span class="pass">database</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">Dung lượng và đường mở rộng</h3>
+  <p class="lede">Giới hạn 10 GB của một database D1 là giới hạn thật cần tính trước, không phải chuyện xa vời.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Hạng mục</th><th class="r">Ước lượng</th><th>Ghi chú</th></tr></thead>
+    <tbody>
+      <tr><td>Một bài case đã chấm (attempt + ~5 tiêu chí + ~5 evidence + ~2 mã lỗi + chỉ mục)</td><td class="r">~5 KB</td><td>Ước lượng, phải đo lại bằng dữ liệu thật ở bước 2</td></tr>
+      <tr><td>Sức chứa của một <code>bc_learning</code> 10 GB</td><td class="r">~2 triệu bài</td><td>Tương đương vài nghìn người học đi hết lộ trình với nhiều lượt làm lại</td></tr>
+      <tr><td>Ngưỡng bắt đầu chia shard</td><td class="r">6 GB</td><td>Theo dõi bằng dashboard D1 và cảnh báo</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note" style="margin-top:14px"><b>Đã chuẩn bị sẵn cho việc chia shard:</b> mọi dữ liệu con của một bài làm đều đi theo <code>attempts.user_id</code>, nên toàn bộ dữ liệu của một người học nằm trọn trong một shard. Khi cần, <code>bc_learning</code> tách thành <code>bc_learning_00…N</code> theo băm <code>user_id</code>, còn các bảng dùng chung giữa nhiều người (<code>grading_queue</code>, <code>grader_calibrations</code>, <code>teams</code>, <code>live_sessions</code>, <code>audit_log</code>) chuyển sang <code>bc_ops</code>. Mã <code>attempt_id</code> sẽ mang tiền tố shard để định tuyến không cần tra cứu. <b>Drill tính toán không lưu từng câu thành một bài làm</b> — một phiên drill là một attempt, chi tiết từng câu nằm trong R2.</div>
+</section>
+
+<section id="a5">
+  <div class="sec-head"><span class="sec-num">§ 05</span><h2>Luồng nộp bài → chấm → mở khoá</h2></div>
+  <div class="diagram"><pre class="mermaid">
+sequenceDiagram
+  autonumber
+  participant L as Người học
+  participant W as Worker
+  participant R2 as R2 / Stream
+  participant D as D1 bc_learning
+  participant QG as Queue bc-grading
+  participant G as Người chấm
+  participant QR as Queue bc-readiness
+
+  L->>W: Tải file / bản ghi lên
+  W->>R2: Lưu, trả về khoá
+  L->>W: Nộp bài (Turnstile)
+  W->>D: attempts.status = submitted
+  W->>QG: gửi attempt_id
+  QG->>W: consumer chấm bài
+  alt Có phần tự chấm được
+    W->>D: grades (auto) + grade_criteria + skill_evidence
+  else Cần người chấm
+    W->>D: grading_queue
+    G->>W: Chấm theo rubric (Access)
+    W->>D: grades + grade_criteria + mistake_tags + skill_evidence
+  end
+  W->>D: attempts.status = graded
+  W->>QR: gửi user_id
+  QR->>W: consumer readiness (theo lô)
+  W->>D: R1 tính readiness · G2 tạo remediation
+  W->>D: tính lại lesson_progress
+  L->>W: Mở trang lộ trình
+  W->>D: đọc lesson_progress
+</pre></div>
+  <div class="note" style="margin-top:14px"><b>Vì sao readiness chạy qua queue riêng:</b> một người chấm có thể chấm 20 bài liên tiếp của cùng một người học. Queue <code>bc-readiness</code> gom lô tối đa 50 message hoặc 5 giây, bỏ trùng <code>user_id</code> trong lô, và chỉ tính lại một lần cho mỗi người.</div>
+</section>
+
+<section id="a6">
+  <div class="sec-head"><span class="sec-num">§ 06</span><h2>Logic khoá và mở bài</h2></div>
+  <p class="lede">Năm cổng kiểm tra theo thứ tự cố định. Cổng đầu tiên không qua sẽ quyết định <code>lock_reason</code> — người học luôn thấy đúng một lý do cụ thể, không phải một danh sách.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Thứ tự</th><th>Cổng</th><th><code>lock_reason</code></th><th>Điều kiện mở</th><th>Nguồn quy tắc</th></tr></thead>
+    <tbody>
+      <tr><td class="r">1</td><td>Cấp độ</td><td class="m">level</td><td><code>users.level</code> ≥ level tối thiểu của track (Track D cần L3)</td><td>Blueprint § 04</td></tr>
+      <tr><td class="r">2</td><td>Tiên quyết</td><td class="m">prereq</td><td>Mọi <code>module_prereqs</code> loại hard đã đạt checkpoint với điểm tối thiểu</td><td>Blueprint § 05</td></tr>
+      <tr><td class="r">3</td><td>Không bấm giờ trước</td><td class="m">untimed_first</td><td>Bài gốc trong <code>timed_variant_of</code> đã đạt</td><td>R-09</td></tr>
+      <tr><td class="r">4</td><td>Remediation</td><td class="m">remediation</td><td>Không có gói remediation đang chạy chặn loại bài này (G3)</td><td>Hệ thống mã lỗi</td></tr>
+      <tr><td class="r">5</td><td>Mistake review</td><td class="m">mistake_review</td><td>Mọi bài đã chấm cùng loại đều đã review (G1)</td><td>R-10</td></tr>
+    </tbody>
+  </table></div>
+  <details><summary>queries/gates.sql — G1, G2, G3, R1, R2</summary><pre class="code">-- Gate &amp; routing queries used by the Worker against bc_learning.
+-- Parameters: ?1 = user_id, ?2 = lesson_kind, ?3 = now_ms
+
+-- G1 · Mistake-review gate (rule R-10):
+-- graded attempts of the same kind that the learner has not reviewed yet.
+-- name: pending_reviews
+SELECT a.id, a.lesson_id, a.graded_at
+FROM attempts a
+LEFT JOIN mistake_reviews r ON r.attempt_id = a.id
+WHERE a.user_id = ?1 AND a.lesson_kind = ?2 AND a.status = &#x27;graded&#x27; AND r.attempt_id IS NULL;
+
+-- G2 · Remediation trigger:
+-- codes seen in ≥2 of the learner&#x27;s last 3 graded attempts, with no active assignment yet.
+-- name: remediation_triggers
+WITH last3 AS (
+  SELECT id FROM attempts
+  WHERE user_id = ?1 AND status = &#x27;graded&#x27;
+  ORDER BY graded_at DESC LIMIT 3
+)
+SELECT t.code, COUNT(DISTINCT t.attempt_id) AS hits
+FROM mistake_tags t
+JOIN last3 ON last3.id = t.attempt_id
+WHERE t.user_id = ?1
+  AND NOT EXISTS (SELECT 1 FROM remediation_assignments ra
+                  WHERE ra.user_id = ?1 AND ra.code = t.code AND ra.status = &#x27;active&#x27;)
+GROUP BY t.code
+HAVING COUNT(DISTINCT t.attempt_id) &gt;= 2;
+
+-- G3 · Active remediation locks: lesson kinds blocked for this learner.
+-- name: blocked_kinds
+SELECT DISTINCT blocks_kind, code, reps_done, reps_required
+FROM remediation_assignments
+WHERE user_id = ?1 AND status = &#x27;active&#x27;;
+
+-- R1 · Readiness recompute for one learner:
+-- last 3 evidence rows per skill, weighted by assessment layer
+-- (framework 5 · case 40 · deliverable 25 · live 25), then decay after 42 days
+-- at 1% of raw per day, floored at 60% of raw.
+-- name: readiness_recompute
+WITH ranked AS (
+  SELECT user_id, skill_id, score, observed_at,
+         CASE layer WHEN &#x27;framework&#x27; THEN 5 WHEN &#x27;case&#x27; THEN 40
+                    WHEN &#x27;deliverable&#x27; THEN 25 WHEN &#x27;live&#x27; THEN 25 END AS w,
+         ROW_NUMBER() OVER (PARTITION BY skill_id ORDER BY observed_at DESC) AS rn
+  FROM skill_evidence WHERE user_id = ?1
+),
+agg AS (
+  SELECT user_id, skill_id,
+         CAST(ROUND(SUM(score * w) * 1.0 / SUM(w)) AS INTEGER) AS raw_score,
+         MAX(observed_at) AS last_evidence_at
+  FROM ranked WHERE rn &lt;= 3
+  GROUP BY user_id, skill_id
+)
+INSERT INTO readiness (user_id, skill_id, raw_score, score, last_evidence_at, updated_at)
+SELECT user_id, skill_id, raw_score,
+       CAST(ROUND(raw_score * MAX(0.6, 1.0 - 0.01 * MAX(0, (?3 - last_evidence_at) / 86400000.0 - 42))) AS INTEGER),
+       last_evidence_at, ?3
+FROM agg WHERE true
+ON CONFLICT (user_id, skill_id) DO UPDATE SET
+  raw_score = excluded.raw_score, score = excluded.score,
+  last_evidence_at = excluded.last_evidence_at, updated_at = excluded.updated_at;
+
+-- R2 · Daily decay (Cron Trigger) across all learners, in pages by user_id.
+-- name: readiness_decay_page   (?1 = now_ms, ?2 = after_user_id, ?3 = page_size)
+UPDATE readiness
+SET score = CAST(ROUND(raw_score * MAX(0.6, 1.0 - 0.01 * MAX(0, (?1 - last_evidence_at) / 86400000.0 - 42))) AS INTEGER),
+    updated_at = ?1
+WHERE user_id IN (SELECT DISTINCT user_id FROM readiness WHERE user_id &gt; ?2 ORDER BY user_id LIMIT ?3);
+</pre></details>
+</section>
+
+<section id="a7">
+  <div class="sec-head"><span class="sec-num">§ 07</span><h2>Durable Object LiveRoom</h2></div>
+  <div class="grid g2">
+    <div class="card"><span class="kicker">Trạng thái lưu trong SQLite của DO</span>
+      <ul class="plain">
+        <li>Giai đoạn phiên, hạn chót, người tham gia và vai trò</li>
+        <li>Dữ liệu phát khi được hỏi: mục nào đã phát, cho ai, lúc nào</li>
+        <li>Ngân sách câu hỏi — C-081 cho team tối đa 5 câu, trả lời sau 2 giờ</li>
+        <li>Mốc bắt buộc — ghost deck giờ thứ 3, các lần hợp nhất</li>
+        <li>Nhật ký sự kiện có dấu thời gian, dùng làm bằng chứng chấm quy trình</li>
+      </ul>
+    </div>
+    <div class="card"><span class="kicker">Cách vận hành</span>
+      <ul class="plain">
+        <li>Mỗi <code>live_sessions.id</code> ánh xạ tới một DO bằng tên cố định</li>
+        <li>WebSocket Hibernation; vai trò mỗi kết nối gắn qua <code>serializeAttachment</code> để khôi phục sau hibernate</li>
+        <li>Mọi mốc hẹn giờ nằm trong một bảng; DO chỉ đặt alarm cho mốc gần nhất, xử lý xong thì đặt mốc kế tiếp</li>
+        <li>Handler alarm có giới hạn 15 phút wall time — đủ cho mọi thao tác trong phòng</li>
+        <li>Khi phiên kết thúc: ghi tóm tắt vào <code>live_sessions.summary</code>, tạo <code>attempts</code> cho từng người, gửi vào <code>bc-grading</code></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="a8">
+  <div class="sec-head"><span class="sec-num">§ 08</span><h2>Bảo mật và phân quyền</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>Vai trò</th><th>Đăng nhập</th><th>Được làm</th><th>Không được</th></tr></thead>
+    <tbody>
+      <tr><td><b>learner</b></td><td>Magic link + Turnstile</td><td>Làm bài, nộp bài, xem điểm và mã lỗi của mình, làm mistake review</td><td>Xem đáp án khung, action title của lời giải, bài của người khác</td></tr>
+      <tr><td><b>grader</b> (peer)</td><td>Magic link; chấm chéo cần đạt cấp tương ứng</td><td>Nhận bài từ <code>grading_queue</code> ở cấp mình đã qua, chấm theo rubric, xem đáp án khung</td><td>Sửa điểm đã chốt, chấm bài của chính mình</td></tr>
+      <tr><td><b>instructor</b></td><td>Cloudflare Access</td><td>Chấm checkpoint, hiệu chuẩn rubric, điều phối live room</td><td>Sửa nội dung đã xuất bản</td></tr>
+      <tr><td><b>admin</b></td><td>Cloudflare Access</td><td>Xuất bản nội dung, quản lý người dùng, xem audit log</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="plain" style="margin-top:14px">
+    <li>Token magic link lưu dạng băm trong KV, TTL 15 phút, xoá ngay khi dùng. Cookie session <code>HttpOnly</code>, <code>Secure</code>, <code>SameSite=Lax</code>.</li>
+    <li>KV là kho nhất quán cuối (eventually consistent). Nếu cần thu hồi session tức thì trên mọi vùng — ví dụ khoá tài khoản — Worker kiểm tra thêm cờ trong D1 cho các thao tác nhạy cảm.</li>
+    <li>Cả hai bucket R2 đều riêng tư. File chỉ được tải qua Worker sau khi kiểm tra quyền sở hữu hoặc vai trò chấm.</li>
+    <li>Mọi thao tác chấm, sửa điểm, xuất bản nội dung đều ghi <code>audit_log</code>.</li>
+  </ul>
+</section>
+
+<section id="a9">
+  <div class="sec-head"><span class="sec-num">§ 09</span><h2>Giới hạn Cloudflare đã kiểm chứng</h2></div>
+  <p class="lede">Tra trên developers.cloudflare.com ngày 13/09/2026. Những con số này quyết định thiết kế ở trên — kiểm tra lại khi nền tảng cập nhật.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Sản phẩm</th><th>Giới hạn</th><th class="r">Free</th><th class="r">Paid</th><th>Ảnh hưởng tới thiết kế</th></tr></thead>
+    <tbody>
+      <tr><td><span class="svc">D1</span></td><td>Dung lượng mỗi database</td><td class="r">500 MB</td><td class="r">10 GB, không nâng được</td><td>K—3, kế hoạch chia shard</td></tr>
+      <tr><td><span class="svc">D1</span></td><td>Truy vấn mỗi lần gọi Worker</td><td class="r">50</td><td class="r">1.000</td><td>Tính lại <code>lesson_progress</code> theo lô, không từng bài</td></tr>
+      <tr><td><span class="svc">D1</span></td><td>Tham số bind mỗi truy vấn · kích thước hàng</td><td class="r">100 · 2 MB</td><td class="r">100 · 2 MB</td><td>Insert hàng loạt chia lô; file ra R2 (K—4)</td></tr>
+      <tr><td><span class="svc">D1</span></td><td>Time Travel</td><td class="r">7 ngày</td><td class="r">30 ngày</td><td>Khôi phục khi chấm nhầm hàng loạt</td></tr>
+      <tr><td><span class="svc">Workers</span></td><td>CPU mỗi request HTTP</td><td class="r">10 ms</td><td class="r">5 phút (mặc định 30 giây)</td><td>K—1</td></tr>
+      <tr><td><span class="svc">Workers</span></td><td>Cron Triggers mỗi tài khoản</td><td class="r">5</td><td class="r">250</td><td>Dùng 2</td></tr>
+      <tr><td><span class="svc">Queues</span></td><td>Kích thước message · lô tối đa</td><td class="r">128 KB · 100</td><td class="r">128 KB · 100</td><td>K—5</td></tr>
+      <tr><td><span class="svc">Queues</span></td><td>Thời gian lưu message</td><td class="r">24 giờ cố định</td><td class="r">tới 14 ngày</td><td>DLQ phải được xử lý trong ngày nếu dùng Free</td></tr>
+      <tr><td><span class="svc">Durable Objects</span></td><td>Dung lượng SQLite mỗi object</td><td class="r">~1 GB</td><td class="r">10 GB</td><td>Thừa cho một phòng live</td></tr>
+      <tr><td><span class="svc">Durable Objects</span></td><td>Wall time handler alarm · WebSocket nhận</td><td class="r">15 phút · 32 MiB</td><td class="r">15 phút · 32 MiB</td><td>§ 07</td></tr>
+      <tr><td><span class="svc">Stream</span></td><td>Kích thước một video tải lên</td><td class="r" colspan="2">30 GB</td><td>Bản ghi 7–30 phút không chạm giới hạn</td></tr>
+      <tr><td><span class="svc">Email Service</span></td><td>Email Sending</td><td class="r">—</td><td class="r">Beta</td><td>K—7; domain phải dùng Cloudflare DNS</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="a10">
+  <div class="sec-head"><span class="sec-num">§ 10</span><h2>Kết quả kiểm thử schema</h2></div>
+  <p class="lede">Hai migration được nạp vào SQLite 3.43 cùng một kịch bản mẫu: một người học có ba bài đã chấm, mã lỗi <code>SIZ-02</code> lặp lại, một bài chưa review, và dữ liệu skill ở nhiều độ tuổi khác nhau.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Kiểm tra</th><th>Kỳ vọng</th><th>Kết quả</th></tr></thead>
+    <tbody>
+      <tr><td>G1 · bài chưa review chặn bài cùng loại</td><td>Chỉ <code>a2</code></td><td><span class="pass">đạt</span></td></tr>
+      <tr><td>G2 · mã lỗi lặp trong 3 bài gần nhất</td><td><code>SIZ-02</code> xuất hiện ở 2 bài</td><td><span class="pass">đạt</span></td></tr>
+      <tr><td>R1 · readiness S05, 3 bằng chứng gần nhất có trọng số</td><td>(40×25 + 70×25 + 80×40) ÷ 90 = 66</td><td><span class="pass">đạt</span></td></tr>
+      <tr><td>R1 · S06 cũ 60 ngày bị suy giảm</td><td>90 × 0,82 = 74</td><td><span class="pass">đạt</span></td></tr>
+      <tr><td>R1 · chạy lại không nhân đôi dữ liệu</td><td>Vẫn 2 hàng</td><td><span class="pass">đạt</span></td></tr>
+      <tr><td>R2 · suy giảm dừng ở sàn 60%</td><td>90 × 0,6 = 54</td><td><span class="pass">đạt</span></td></tr>
+      <tr><td>12 ràng buộc phải từ chối dữ liệu sai</td><td>Cả 12 bị từ chối</td><td><span class="pass">đạt</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="caution" style="margin-top:14px"><b>Giới hạn của lần kiểm thử này:</b> chạy trên SQLite cục bộ, chưa chạy trên D1 thật. D1 dựa trên SQLite nên cú pháp tương thích, nhưng bước 2 phải chạy lại cùng bộ kiểm thử bằng <code>wrangler d1 migrations apply --local</code> rồi trên database từ xa trước khi coi schema là đã chốt.</div>
+</section>
+
+<section id="a11">
+  <div class="sec-head"><span class="sec-num">§ 11</span><h2>Cần bạn quyết trước bước 2</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>Việc</th><th>Vì sao cần</th><th>Đề xuất mặc định</th></tr></thead>
+    <tbody>
+      <tr><td><b>Thư mục dự án lâu dài</b></td><td>Workspace hiện tại là tạm, sẽ mất khi session kết thúc</td><td>Một thư mục mới trên Desktop, ví dụ <code>~/Desktop/business-case-platform</code></td></tr>
+      <tr><td><b>Tài khoản Cloudflare gói Workers Paid</b></td><td>K—1; không có thì D1, Email Sending và CPU đều không đủ</td><td>Nâng cấp trước khi deploy</td></tr>
+      <tr><td><b>Tên miền trên Cloudflare DNS</b></td><td>Email Sending bắt buộc; magic link cần domain gửi thư</td><td>Dùng domain chính của website</td></tr>
+      <tr><td><b>Frontend</b></td><td>Quyết định cấu trúc thư mục <code>dist</code> và cách gọi API</td><td>React + Vite dạng SPA trên Workers static assets</td></tr>
+      <tr><td><b>Quyền truy cập Cloudflare cho Claude</b></td><td>Để tạo D1, KV, R2, Queues và deploy</td><td>Đăng nhập <code>wrangler</code> trên máy bạn, hoặc cấp quyền Cloudflare connector</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="a12">
+  <div class="sec-head"><span class="sec-num">§ 12</span><h2>Phụ lục · Schema đầy đủ</h2></div>
+  <details><summary>migrations/content/0001_init.sql — bc_content, 25 bảng</summary><pre class="code">-- D1 database: bc_content
+-- Catalog of the curriculum. Small, read-heavy, versioned, cached in KV.
+-- Timestamps are unix epoch milliseconds (INTEGER).
+
+CREATE TABLE skills (
+  id          TEXT PRIMARY KEY CHECK (id GLOB &#x27;S[0-9][0-9]&#x27;),
+  name        TEXT NOT NULL,
+  description TEXT NOT NULL,
+  sort        INTEGER NOT NULL
+);
+
+CREATE TABLE skill_levels (
+  skill_id   TEXT NOT NULL REFERENCES skills(id),
+  level      TEXT NOT NULL CHECK (level IN (&#x27;beginner&#x27;,&#x27;intermediate&#x27;,&#x27;advanced&#x27;)),
+  descriptor TEXT NOT NULL,
+  evidence   TEXT NOT NULL,
+  PRIMARY KEY (skill_id, level)
+);
+
+CREATE TABLE tracks (
+  id    TEXT PRIMARY KEY CHECK (id GLOB &#x27;[A-J]&#x27;),
+  name  TEXT NOT NULL,
+  role  TEXT NOT NULL,
+  sort  INTEGER NOT NULL
+);
+
+CREATE TABLE modules (
+  id           TEXT PRIMARY KEY,                    -- &#x27;B2&#x27;
+  track_id     TEXT NOT NULL REFERENCES tracks(id),
+  title        TEXT NOT NULL,
+  level_min    INTEGER NOT NULL CHECK (level_min BETWEEN 1 AND 4),
+  level_max    INTEGER NOT NULL CHECK (level_max BETWEEN 1 AND 4),
+  outcome      TEXT NOT NULL,                       -- can-do statement
+  out_of_scope TEXT NOT NULL DEFAULT &#x27;[]&#x27; CHECK (json_valid(out_of_scope)),
+  est_minutes  INTEGER NOT NULL,
+  status       TEXT NOT NULL DEFAULT &#x27;draft&#x27; CHECK (status IN (&#x27;draft&#x27;,&#x27;review&#x27;,&#x27;published&#x27;,&#x27;retired&#x27;)),
+  version      INTEGER NOT NULL DEFAULT 1,
+  published_at INTEGER,
+  CHECK (level_min &lt;= level_max)
+);
+
+CREATE TABLE module_prereqs (
+  module_id          TEXT NOT NULL REFERENCES modules(id),
+  requires_module_id TEXT NOT NULL REFERENCES modules(id),
+  kind               TEXT NOT NULL CHECK (kind IN (&#x27;hard&#x27;,&#x27;soft&#x27;)),
+  min_checkpoint_score INTEGER CHECK (min_checkpoint_score BETWEEN 0 AND 100),
+  PRIMARY KEY (module_id, requires_module_id),
+  CHECK (module_id &lt;&gt; requires_module_id)
+);
+
+CREATE TABLE module_skills (
+  module_id TEXT NOT NULL REFERENCES modules(id),
+  skill_id  TEXT NOT NULL REFERENCES skills(id),
+  role      TEXT NOT NULL CHECK (role IN (&#x27;primary&#x27;,&#x27;secondary&#x27;)),
+  PRIMARY KEY (module_id, skill_id)
+);
+
+-- One row per item in the learning spine (the &quot;100 bài&quot;).
+CREATE TABLE lessons (
+  id           TEXT PRIMARY KEY CHECK (id GLOB &#x27;[0-9][0-9][0-9]&#x27;),   -- &#x27;026&#x27;
+  module_id    TEXT NOT NULL REFERENCES modules(id),
+  title        TEXT NOT NULL,
+  kind         TEXT NOT NULL CHECK (kind IN
+                 (&#x27;lesson&#x27;,&#x27;drill&#x27;,&#x27;mini_case&#x27;,&#x27;full_case&#x27;,&#x27;timed_case&#x27;,
+                  &#x27;team_sim&#x27;,&#x27;qa_sim&#x27;,&#x27;live_case&#x27;,&#x27;checkpoint&#x27;)),
+  level        INTEGER NOT NULL CHECK (level BETWEEN 1 AND 4),
+  est_minutes  INTEGER NOT NULL,
+  output_spec  TEXT NOT NULL,                       -- &quot;Output người học phải tạo&quot; — required (standard Q2)
+  timed_variant_of TEXT REFERENCES lessons(id),     -- rule R-09: timed case unlocks after its untimed twin
+  status       TEXT NOT NULL DEFAULT &#x27;draft&#x27; CHECK (status IN (&#x27;draft&#x27;,&#x27;review&#x27;,&#x27;published&#x27;,&#x27;retired&#x27;)),
+  version      INTEGER NOT NULL DEFAULT 1,
+  published_at INTEGER,
+  CHECK (length(trim(output_spec)) &gt; 0)
+);
+CREATE INDEX idx_lessons_module ON lessons(module_id);
+
+CREATE TABLE lesson_skills (
+  lesson_id TEXT NOT NULL REFERENCES lessons(id),
+  skill_id  TEXT NOT NULL REFERENCES skills(id),
+  PRIMARY KEY (lesson_id, skill_id)
+);
+
+-- Rubrics R1..R6 plus module-specific ones.
+CREATE TABLE rubrics (
+  id             TEXT PRIMARY KEY,                  -- &#x27;R1&#x27;, &#x27;RB2&#x27;
+  name           TEXT NOT NULL,
+  pass_threshold INTEGER NOT NULL CHECK (pass_threshold BETWEEN 0 AND 100),
+  version        INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE rubric_criteria (
+  id        TEXT PRIMARY KEY,                       -- &#x27;R1.quant&#x27;
+  rubric_id TEXT NOT NULL REFERENCES rubrics(id),
+  name      TEXT NOT NULL,
+  weight    INTEGER NOT NULL CHECK (weight BETWEEN 1 AND 100),
+  skill_id  TEXT REFERENCES skills(id),             -- which skill this criterion is evidence for
+  sort      INTEGER NOT NULL
+);
+CREATE INDEX idx_criteria_rubric ON rubric_criteria(rubric_id);
+
+CREATE TABLE rubric_criterion_levels (
+  criterion_id TEXT NOT NULL REFERENCES rubric_criteria(id),
+  level        INTEGER NOT NULL CHECK (level BETWEEN 1 AND 4),
+  descriptor   TEXT NOT NULL,
+  PRIMARY KEY (criterion_id, level)
+);
+
+-- A lesson that is graded points to one rubric (standard Q4).
+CREATE TABLE lesson_rubrics (
+  lesson_id               TEXT PRIMARY KEY REFERENCES lessons(id),
+  rubric_id               TEXT NOT NULL REFERENCES rubrics(id),
+  weight_overrides        TEXT NOT NULL DEFAULT &#x27;{}&#x27; CHECK (json_valid(weight_overrides)),  -- {&quot;R1.quant&quot;:30}
+  pass_threshold_override INTEGER CHECK (pass_threshold_override BETWEEN 0 AND 100)
+);
+
+CREATE TABLE mistake_codes (
+  code                  TEXT PRIMARY KEY CHECK (code GLOB &#x27;[A-Z][A-Z][A-Z]-[0-9][0-9]&#x27;),
+  group_code            TEXT NOT NULL,                           -- &#x27;SIZ&#x27;
+  skill_id              TEXT REFERENCES skills(id),
+  title                 TEXT NOT NULL,
+  symptom               TEXT NOT NULL,
+  root_cause            TEXT NOT NULL,
+  remediation_lesson_id TEXT REFERENCES lessons(id),
+  remediation_reps      INTEGER NOT NULL DEFAULT 1 CHECK (remediation_reps &gt;= 1),
+  CHECK (substr(code,1,3) = group_code)
+);
+
+CREATE TABLE lesson_target_mistakes (
+  lesson_id TEXT NOT NULL REFERENCES lessons(id),
+  code      TEXT NOT NULL REFERENCES mistake_codes(code),
+  PRIMARY KEY (lesson_id, code)
+);
+
+-- Case library (29 spec&#x27;d cases). Answer frames are grader-only.
+CREATE TABLE cases (
+  id           TEXT PRIMARY KEY CHECK (id GLOB &#x27;C-[0-9][0-9][0-9]*&#x27;),  -- &#x27;C-026&#x27;, &#x27;C-039a&#x27;
+  lesson_id    TEXT NOT NULL REFERENCES lessons(id),
+  title        TEXT NOT NULL,
+  industry     TEXT NOT NULL,
+  context      TEXT NOT NULL,
+  question     TEXT NOT NULL,
+  duration_min INTEGER NOT NULL,
+  is_fictional INTEGER NOT NULL DEFAULT 1 CHECK (is_fictional IN (0,1)),
+  status       TEXT NOT NULL DEFAULT &#x27;draft&#x27; CHECK (status IN (&#x27;draft&#x27;,&#x27;pilot&#x27;,&#x27;published&#x27;,&#x27;retired&#x27;)),
+  pilot_runs   INTEGER NOT NULL DEFAULT 0,           -- production rule: 3 pilot runs before publish
+  version      INTEGER NOT NULL DEFAULT 1,
+  CHECK (status &lt;&gt; &#x27;published&#x27; OR pilot_runs &gt;= 3)
+);
+CREATE INDEX idx_cases_lesson ON cases(lesson_id);
+
+-- &quot;Dữ liệu phát khi được hỏi&quot;: released only when the learner asks the matching thing.
+CREATE TABLE case_reveal_items (
+  id        TEXT PRIMARY KEY,
+  case_id   TEXT NOT NULL REFERENCES cases(id),
+  trigger   TEXT NOT NULL,                          -- &quot;Nếu hỏi số tài xế hoạt động&quot;
+  content   TEXT NOT NULL,
+  sort      INTEGER NOT NULL
+);
+
+CREATE TABLE case_traps (
+  id           TEXT PRIMARY KEY,
+  case_id      TEXT NOT NULL REFERENCES cases(id),
+  description  TEXT NOT NULL,
+  mistake_code TEXT NOT NULL REFERENCES mistake_codes(code)   -- every trap names what it tests
+);
+
+CREATE TABLE case_answer_frames (
+  case_id          TEXT PRIMARY KEY REFERENCES cases(id),
+  structure_md     TEXT NOT NULL,
+  key_numbers      TEXT NOT NULL DEFAULT &#x27;{}&#x27; CHECK (json_valid(key_numbers)),
+  quick_scoring_md TEXT NOT NULL
+);
+
+CREATE TABLE exhibits (
+  id                    TEXT PRIMARY KEY,
+  family                TEXT NOT NULL CHECK (family GLOB &#x27;E[0-9]*&#x27;),  -- E1 bridge … E11 distractor
+  title                 TEXT NOT NULL,
+  r2_data_key           TEXT NOT NULL,              -- raw dataset always ships with the exhibit
+  r2_render_key         TEXT,
+  unit                  TEXT NOT NULL,
+  source_note           TEXT NOT NULL,
+  solution_action_title TEXT                        -- shown in solutions only, never to learners
+);
+
+CREATE TABLE case_exhibits (
+  case_id       TEXT NOT NULL REFERENCES cases(id),
+  exhibit_id    TEXT NOT NULL REFERENCES exhibits(id),
+  sort          INTEGER NOT NULL,
+  is_distractor INTEGER NOT NULL DEFAULT 0 CHECK (is_distractor IN (0,1)),
+  PRIMARY KEY (case_id, exhibit_id)
+);
+
+CREATE TABLE panel_questions (
+  id            TEXT PRIMARY KEY,
+  case_id       TEXT NOT NULL REFERENCES cases(id),
+  category      TEXT NOT NULL CHECK (category IN (&#x27;numbers&#x27;,&#x27;feasibility&#x27;,&#x27;challenge&#x27;)),
+  text          TEXT NOT NULL,
+  from_appendix INTEGER NOT NULL DEFAULT 0 CHECK (from_appendix IN (0,1))
+);
+
+CREATE TABLE assumption_bank (
+  id          TEXT PRIMARY KEY,
+  label       TEXT NOT NULL,
+  low         REAL,
+  high        REAL,
+  unit        TEXT NOT NULL,
+  confidence  TEXT NOT NULL CHECK (confidence IN (&#x27;lookup&#x27;,&#x27;derived&#x27;,&#x27;guess&#x27;,&#x27;convention&#x27;)),
+  source_url  TEXT,
+  verified_at INTEGER,
+  -- nothing goes live without a source (case-library caution)
+  CHECK (confidence = &#x27;convention&#x27; OR verified_at IS NULL OR source_url IS NOT NULL)
+);
+
+CREATE TABLE learning_paths (
+  id             TEXT PRIMARY KEY,                  -- &#x27;P1&#x27;
+  name           TEXT NOT NULL,
+  weeks          INTEGER NOT NULL,
+  hours_per_week TEXT NOT NULL,
+  persona        TEXT NOT NULL,
+  capstone_id    TEXT
+);
+
+CREATE TABLE path_items (
+  path_id   TEXT NOT NULL REFERENCES learning_paths(id),
+  week      INTEGER NOT NULL,
+  lesson_id TEXT NOT NULL REFERENCES lessons(id),
+  sort      INTEGER NOT NULL,
+  PRIMARY KEY (path_id, lesson_id)
+);
+
+CREATE TABLE capstones (
+  id          TEXT PRIMARY KEY,                     -- &#x27;CP-01&#x27;
+  title       TEXT NOT NULL,
+  objective   TEXT NOT NULL,
+  industry    TEXT NOT NULL,
+  deliverable TEXT NOT NULL,
+  rubric_mix  TEXT NOT NULL CHECK (json_valid(rubric_mix))   -- {&quot;R3&quot;:40,&quot;R4&quot;:30,...}
+);
+</pre></details>
+  <details><summary>migrations/learning/0001_init.sql — bc_learning, 20 bảng</summary><pre class="code">-- D1 database: bc_learning
+-- Learner activity. Grows with usage. References to bc_content ids
+-- (lesson_id, skill_id, rubric criterion ids, mistake codes) are logical,
+-- validated in the Worker — D1 cannot enforce foreign keys across databases.
+-- Large payloads (submission files, recordings) live in R2 / Stream; rows keep keys only.
+
+CREATE TABLE users (
+  id           TEXT PRIMARY KEY,                    -- uuid
+  email        TEXT NOT NULL UNIQUE COLLATE NOCASE,
+  display_name TEXT NOT NULL,
+  role         TEXT NOT NULL DEFAULT &#x27;learner&#x27; CHECK (role IN (&#x27;learner&#x27;,&#x27;grader&#x27;,&#x27;instructor&#x27;,&#x27;admin&#x27;)),
+  persona      TEXT CHECK (persona IN (&#x27;P1&#x27;,&#x27;P2&#x27;,&#x27;P3&#x27;,&#x27;P4&#x27;,&#x27;P5&#x27;,&#x27;P6&#x27;)),
+  level        INTEGER NOT NULL DEFAULT 1 CHECK (level BETWEEN 1 AND 4),
+  created_at   INTEGER NOT NULL
+);
+
+CREATE TABLE enrollments (
+  user_id    TEXT NOT NULL REFERENCES users(id),
+  path_id    TEXT NOT NULL,
+  started_at INTEGER NOT NULL,
+  status     TEXT NOT NULL DEFAULT &#x27;active&#x27; CHECK (status IN (&#x27;active&#x27;,&#x27;paused&#x27;,&#x27;completed&#x27;,&#x27;dropped&#x27;)),
+  PRIMARY KEY (user_id, path_id)
+);
+
+CREATE TABLE level_history (
+  user_id             TEXT NOT NULL REFERENCES users(id),
+  level               INTEGER NOT NULL CHECK (level BETWEEN 1 AND 4),
+  achieved_at         INTEGER NOT NULL,
+  evidence_attempt_id TEXT NOT NULL,
+  PRIMARY KEY (user_id, level)
+);
+
+-- Materialised gate state per learner × lesson. Recomputed by the readiness consumer.
+CREATE TABLE lesson_progress (
+  user_id        TEXT NOT NULL REFERENCES users(id),
+  lesson_id      TEXT NOT NULL,
+  status         TEXT NOT NULL DEFAULT &#x27;locked&#x27;
+                   CHECK (status IN (&#x27;locked&#x27;,&#x27;available&#x27;,&#x27;in_progress&#x27;,&#x27;passed&#x27;,&#x27;failed&#x27;)),
+  lock_reason    TEXT CHECK (lock_reason IN
+                   (&#x27;prereq&#x27;,&#x27;level&#x27;,&#x27;mistake_review&#x27;,&#x27;remediation&#x27;,&#x27;untimed_first&#x27;)),
+  best_score     INTEGER CHECK (best_score BETWEEN 0 AND 100),
+  attempts_count INTEGER NOT NULL DEFAULT 0,
+  updated_at     INTEGER NOT NULL,
+  passed_at      INTEGER,
+  PRIMARY KEY (user_id, lesson_id),
+  CHECK ((status = &#x27;locked&#x27;) = (lock_reason IS NOT NULL))
+);
+
+CREATE TABLE teams (
+  id         TEXT PRIMARY KEY,
+  name       TEXT NOT NULL,
+  created_by TEXT NOT NULL REFERENCES users(id),
+  created_at INTEGER NOT NULL
+);
+
+CREATE TABLE team_members (
+  team_id TEXT NOT NULL REFERENCES teams(id),
+  user_id TEXT NOT NULL REFERENCES users(id),
+  role    TEXT NOT NULL DEFAULT &#x27;member&#x27; CHECK (role IN (&#x27;lead&#x27;,&#x27;member&#x27;)),
+  PRIMARY KEY (team_id, user_id)
+);
+
+-- Live case, team simulation, Q&amp;A panel. Realtime state lives in the LiveRoom Durable Object;
+-- this row is the durable record and the DO&#x27;s name.
+CREATE TABLE live_sessions (
+  id           TEXT PRIMARY KEY,
+  kind         TEXT NOT NULL CHECK (kind IN (&#x27;live_case&#x27;,&#x27;team_sim&#x27;,&#x27;qa_panel&#x27;,&#x27;full_loop&#x27;)),
+  lesson_id    TEXT NOT NULL,
+  case_id      TEXT,
+  team_id      TEXT REFERENCES teams(id),
+  scheduled_at INTEGER,
+  started_at   INTEGER,
+  deadline_at  INTEGER,
+  ended_at     INTEGER,
+  status       TEXT NOT NULL DEFAULT &#x27;scheduled&#x27; CHECK (status IN (&#x27;scheduled&#x27;,&#x27;running&#x27;,&#x27;ended&#x27;,&#x27;cancelled&#x27;)),
+  summary      TEXT CHECK (summary IS NULL OR json_valid(summary))   -- flushed from the DO at the end
+);
+
+CREATE TABLE live_session_participants (
+  session_id TEXT NOT NULL REFERENCES live_sessions(id),
+  user_id    TEXT NOT NULL REFERENCES users(id),
+  role       TEXT NOT NULL CHECK (role IN (&#x27;candidate&#x27;,&#x27;interviewer&#x27;,&#x27;panelist&#x27;,&#x27;team_member&#x27;,&#x27;observer&#x27;)),
+  PRIMARY KEY (session_id, user_id)
+);
+
+CREATE TABLE attempts (
+  id              TEXT PRIMARY KEY,
+  user_id         TEXT NOT NULL REFERENCES users(id),
+  lesson_id       TEXT NOT NULL,
+  lesson_kind     TEXT NOT NULL,                    -- denormalised from content for gate queries
+  case_id         TEXT,
+  content_version INTEGER NOT NULL,                 -- which version of the lesson/case was attempted
+  team_id         TEXT REFERENCES teams(id),
+  live_session_id TEXT REFERENCES live_sessions(id),
+  status          TEXT NOT NULL DEFAULT &#x27;draft&#x27;
+                    CHECK (status IN (&#x27;draft&#x27;,&#x27;submitted&#x27;,&#x27;grading&#x27;,&#x27;graded&#x27;,&#x27;void&#x27;)),
+  started_at      INTEGER NOT NULL,
+  submitted_at    INTEGER,
+  graded_at       INTEGER,
+  duration_sec    INTEGER,
+  final_score     INTEGER CHECK (final_score BETWEEN 0 AND 100),
+  passed          INTEGER CHECK (passed IN (0,1)),
+  CHECK (status &lt;&gt; &#x27;graded&#x27; OR (final_score IS NOT NULL AND passed IS NOT NULL AND graded_at IS NOT NULL))
+);
+CREATE INDEX idx_attempts_user_graded ON attempts(user_id, status, graded_at);
+CREATE INDEX idx_attempts_user_lesson ON attempts(user_id, lesson_id);
+
+CREATE TABLE attempt_artifacts (
+  id         TEXT PRIMARY KEY,
+  attempt_id TEXT NOT NULL REFERENCES attempts(id),
+  kind       TEXT NOT NULL CHECK (kind IN (&#x27;deck&#x27;,&#x27;sheet&#x27;,&#x27;doc&#x27;,&#x27;image&#x27;,&#x27;recording&#x27;,&#x27;transcript&#x27;)),
+  r2_key     TEXT,
+  stream_uid TEXT,
+  mime       TEXT,
+  bytes      INTEGER,
+  created_at INTEGER NOT NULL,
+  CHECK ((r2_key IS NOT NULL) + (stream_uid IS NOT NULL) = 1)
+);
+CREATE INDEX idx_artifacts_attempt ON attempt_artifacts(attempt_id);
+
+-- Work waiting for a human grader (peer or instructor).
+CREATE TABLE grading_queue (
+  attempt_id   TEXT PRIMARY KEY REFERENCES attempts(id),
+  needs        TEXT NOT NULL CHECK (needs IN (&#x27;peer&#x27;,&#x27;instructor&#x27;)),
+  min_grader_level INTEGER NOT NULL DEFAULT 1,     -- peer graders must have passed this level
+  claimed_by   TEXT REFERENCES users(id),
+  claimed_at   INTEGER,
+  enqueued_at  INTEGER NOT NULL
+);
+CREATE INDEX idx_grading_queue_open ON grading_queue(needs, claimed_by, enqueued_at);
+
+CREATE TABLE grades (
+  id          TEXT PRIMARY KEY,
+  attempt_id  TEXT NOT NULL REFERENCES attempts(id),
+  grader_id   TEXT REFERENCES users(id),
+  grader_type TEXT NOT NULL CHECK (grader_type IN (&#x27;auto&#x27;,&#x27;peer&#x27;,&#x27;instructor&#x27;,&#x27;interviewer&#x27;,&#x27;panel&#x27;)),
+  rubric_id   TEXT NOT NULL,
+  total_score INTEGER NOT NULL CHECK (total_score BETWEEN 0 AND 100),
+  is_final    INTEGER NOT NULL DEFAULT 0 CHECK (is_final IN (0,1)),
+  created_at  INTEGER NOT NULL,
+  CHECK (grader_type = &#x27;auto&#x27; OR grader_id IS NOT NULL)
+);
+CREATE INDEX idx_grades_attempt ON grades(attempt_id);
+CREATE UNIQUE INDEX uq_grades_one_final ON grades(attempt_id) WHERE is_final = 1;
+
+-- Rubric rule: level 1 or 4 needs a written evidence note pointing at the submission.
+CREATE TABLE grade_criteria (
+  grade_id     TEXT NOT NULL REFERENCES grades(id),
+  criterion_id TEXT NOT NULL,
+  skill_id     TEXT,
+  level        INTEGER NOT NULL CHECK (level BETWEEN 1 AND 4),
+  points       REAL NOT NULL CHECK (points &gt;= 0),
+  evidence     TEXT,
+  PRIMARY KEY (grade_id, criterion_id),
+  CHECK (level IN (2,3) OR length(trim(coalesce(evidence,&#x27;&#x27;))) &gt; 0)
+);
+
+CREATE TABLE mistake_tags (
+  id           TEXT PRIMARY KEY,
+  attempt_id   TEXT NOT NULL REFERENCES attempts(id),
+  user_id      TEXT NOT NULL REFERENCES users(id),
+  code         TEXT NOT NULL,
+  grade_id     TEXT REFERENCES grades(id),
+  location_ref TEXT,                                 -- slide 6 / row 12 / 04:32 in recording
+  learner_ack  INTEGER NOT NULL DEFAULT 0 CHECK (learner_ack IN (0,1)),
+  created_at   INTEGER NOT NULL
+);
+CREATE INDEX idx_mistakes_user_code ON mistake_tags(user_id, code, created_at);
+CREATE INDEX idx_mistakes_attempt ON mistake_tags(attempt_id);
+
+-- Rule R-10: a graded attempt must be reviewed before the next attempt of the same kind.
+CREATE TABLE mistake_reviews (
+  attempt_id   TEXT PRIMARY KEY REFERENCES attempts(id),
+  user_id      TEXT NOT NULL REFERENCES users(id),
+  rewrite_note TEXT NOT NULL CHECK (length(trim(rewrite_note)) &gt; 0),
+  completed_at INTEGER NOT NULL
+);
+
+CREATE TABLE remediation_assignments (
+  id             TEXT PRIMARY KEY,
+  user_id        TEXT NOT NULL REFERENCES users(id),
+  code           TEXT NOT NULL,
+  lesson_id      TEXT NOT NULL,                     -- drill lesson to repeat
+  blocks_kind    TEXT NOT NULL,                     -- lesson kind locked until done
+  reps_required  INTEGER NOT NULL CHECK (reps_required &gt;= 1),
+  reps_done      INTEGER NOT NULL DEFAULT 0,
+  status         TEXT NOT NULL DEFAULT &#x27;active&#x27; CHECK (status IN (&#x27;active&#x27;,&#x27;done&#x27;,&#x27;waived&#x27;)),
+  triggered_at   INTEGER NOT NULL,
+  completed_at   INTEGER,
+  CHECK (reps_done &lt;= reps_required),
+  CHECK ((status = &#x27;done&#x27;) = (completed_at IS NOT NULL AND reps_done = reps_required) OR status = &#x27;waived&#x27;)
+);
+CREATE UNIQUE INDEX uq_remediation_active ON remediation_assignments(user_id, code) WHERE status = &#x27;active&#x27;;
+
+-- One row per criterion-level observation of a skill. Readiness is derived from this.
+CREATE TABLE skill_evidence (
+  id          TEXT PRIMARY KEY,
+  user_id     TEXT NOT NULL REFERENCES users(id),
+  skill_id    TEXT NOT NULL,
+  attempt_id  TEXT NOT NULL REFERENCES attempts(id),
+  layer       TEXT NOT NULL CHECK (layer IN (&#x27;framework&#x27;,&#x27;case&#x27;,&#x27;deliverable&#x27;,&#x27;live&#x27;)),
+  score       INTEGER NOT NULL CHECK (score BETWEEN 0 AND 100),
+  observed_at INTEGER NOT NULL
+);
+CREATE INDEX idx_evidence_user_skill ON skill_evidence(user_id, skill_id, observed_at DESC);
+
+CREATE TABLE readiness (
+  user_id          TEXT NOT NULL REFERENCES users(id),
+  skill_id         TEXT NOT NULL,
+  raw_score        INTEGER NOT NULL CHECK (raw_score BETWEEN 0 AND 100),
+  score            INTEGER NOT NULL CHECK (score BETWEEN 0 AND 100),   -- after decay
+  last_evidence_at INTEGER NOT NULL,
+  updated_at       INTEGER NOT NULL,
+  PRIMARY KEY (user_id, skill_id),
+  CHECK (score &lt;= raw_score)
+);
+
+-- Rubric calibration (production plan: 2 graders within 10 points in 80% of cases).
+CREATE TABLE grader_calibrations (
+  id              TEXT PRIMARY KEY,
+  grader_id       TEXT NOT NULL REFERENCES users(id),
+  rubric_id       TEXT NOT NULL,
+  attempt_id      TEXT NOT NULL REFERENCES attempts(id),
+  score_given     INTEGER NOT NULL,
+  reference_score INTEGER NOT NULL,
+  created_at      INTEGER NOT NULL
+);
+CREATE INDEX idx_calibration_rubric ON grader_calibrations(rubric_id, created_at);
+
+CREATE TABLE audit_log (
+  id        TEXT PRIMARY KEY,
+  actor_id  TEXT,
+  action    TEXT NOT NULL,
+  entity    TEXT NOT NULL,
+  entity_id TEXT NOT NULL,
+  meta      TEXT CHECK (meta IS NULL OR json_valid(meta)),
+  at        INTEGER NOT NULL
+);
+CREATE INDEX idx_audit_entity ON audit_log(entity, entity_id, at);
+</pre></details>
+</section>
+
+</main>
+<footer>Bước 1 · Data model &amp; kiến trúc · toàn bộ backend trên Cloudflare · schema kiểm thử 18/18 trên SQLite · đi kèm curriculum blueprint, module spec B2 và thư viện đề.</footer>
+</div>

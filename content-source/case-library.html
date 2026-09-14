@@ -1,0 +1,829 @@
+<title>Thư viện đề Business Case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#F3F4F1; --surface:#FBFCFA; --surface-2:#EAEDE8;
+  --ink:#14201E; --ink-2:#4A5956; --ink-3:#6E7C79;
+  --rule:#D7DCD6; --rule-strong:#BCC4BC;
+  --accent:#0F6F67; --accent-soft:#DDEBE7; --accent-ink:#0A4F49;
+  --l1:#5C837D; --l2:#0F6F67; --l3:#1D4E6B; --l4:#8A5E0F;
+  --l1-bg:#E4EBE9; --l2-bg:#DCEBE7; --l3-bg:#DFE8EE; --l4-bg:#F0E7D3;
+  --warn:#8C4A1F; --warn-bg:#F3E7DE;
+  --maxw:1180px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1513; --surface:#161E1C; --surface-2:#1C2624;
+    --ink:#E9EEEA; --ink-2:#A3B2AD; --ink-3:#7E8D89;
+    --rule:#283330; --rule-strong:#3A4844;
+    --accent:#54C2B4; --accent-soft:#153330; --accent-ink:#8AD8CC;
+    --l1:#8FB6AF; --l2:#54C2B4; --l3:#7BB0D2; --l4:#D8A93F;
+    --l1-bg:#1B2624; --l2-bg:#13302C; --l3-bg:#17272F; --l4-bg:#2C2413;
+    --warn:#D9915F; --warn-bg:#2A1E16;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1513; --surface:#161E1C; --surface-2:#1C2624;
+  --ink:#E9EEEA; --ink-2:#A3B2AD; --ink-3:#7E8D89;
+  --rule:#283330; --rule-strong:#3A4844;
+  --accent:#54C2B4; --accent-soft:#153330; --accent-ink:#8AD8CC;
+  --l1:#8FB6AF; --l2:#54C2B4; --l3:#7BB0D2; --l4:#D8A93F;
+  --l1-bg:#1B2624; --l2-bg:#13302C; --l3-bg:#17272F; --l4-bg:#2C2413;
+  --warn:#D9915F; --warn-bg:#2A1E16;
+}
+*{box-sizing:border-box}
+body{background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.62; -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:Newsreader,Georgia,"Times New Roman",serif; font-weight:500; text-wrap:balance; margin:0; line-height:1.2}
+p{margin:0}
+a{color:var(--accent-ink)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+header.mast{padding:56px 0 34px}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center}
+.eyebrow::after{content:""; flex:1; height:1px; background:var(--rule)}
+h1{font-size:clamp(32px,4.8vw,48px); letter-spacing:-.015em; margin:16px 0 0; max-width:18ch}
+.standfirst{margin-top:16px; max-width:68ch; font-size:16.5px; color:var(--ink-2)}
+.mast-meta{display:flex; flex-wrap:wrap; margin-top:28px; border-top:1px solid var(--rule)}
+.mast-meta div{padding:13px 20px 11px 0; margin-right:20px; border-right:1px solid var(--rule)}
+.mast-meta div:last-child{border-right:0; margin-right:0}
+.mast-meta dt{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+.mast-meta dd{margin:3px 0 0; font-size:14px; font-weight:500}
+
+section{padding-top:54px; scroll-margin-top:16px}
+.sec-head{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:baseline; border-bottom:2px solid var(--ink); padding-bottom:10px; margin-bottom:22px}
+.sec-num{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--accent); letter-spacing:.06em}
+.sec-head h2{font-size:clamp(22px,2.9vw,29px); letter-spacing:-.01em}
+.lede{max-width:74ch; color:var(--ink-2); margin-bottom:22px}
+h3.sub{font-size:18.5px; margin:34px 0 13px; padding-bottom:6px; border-bottom:1px solid var(--rule)}
+
+.grid{display:grid; gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:18px 20px}
+.card h4{font-size:17px; margin-bottom:6px}
+.card p,.card li{font-size:13.6px; color:var(--ink-2)}
+.kicker{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:7px}
+
+.tw{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:13.2px; min-width:680px}
+th,td{text-align:left; padding:9px 13px; border-bottom:1px solid var(--rule); vertical-align:top}
+thead th{position:sticky; top:0; background:var(--surface-2); z-index:2;
+  font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:10.5px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2);
+  border-bottom:1px solid var(--rule-strong); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface-2)}
+td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; color:var(--ink-3); white-space:nowrap}
+td.r{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+th.r{text-align:right}
+
+.lv{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:500; padding:2px 7px; border-radius:2px; white-space:nowrap; display:inline-block}
+.lv1{background:var(--l1-bg); color:var(--l1); border:1px solid var(--l1)}
+.lv2{background:var(--l2-bg); color:var(--l2); border:1px solid var(--l2)}
+.lv3{background:var(--l3-bg); color:var(--l3); border:1px solid var(--l3)}
+.lv4{background:var(--l4-bg); color:var(--l4); border:1px solid var(--l4)}
+.tag{font-family:"IBM Plex Mono",monospace; font-size:10.5px; padding:2px 7px; border:1px solid var(--rule-strong); border-radius:2px; color:var(--ink-2); white-space:nowrap; display:inline-block}
+.code{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--warn); background:var(--warn-bg); padding:1px 6px; border-radius:2px; white-space:nowrap}
+.pri{font-family:"IBM Plex Mono",monospace; font-size:10.5px; padding:1px 6px; border-radius:2px; white-space:nowrap; display:inline-block; border:1px solid}
+.p1{color:var(--l4); border-color:var(--l4); background:var(--l4-bg)}
+.p2{color:var(--l2); border-color:var(--l2); background:var(--l2-bg)}
+.p3{color:var(--ink-3); border-color:var(--rule-strong); background:transparent}
+
+/* case sheet */
+.stack{display:grid; gap:16px}
+.sheet{border:1px solid var(--rule-strong); border-radius:3px; background:var(--surface); overflow:hidden}
+.sheet-h{background:var(--surface-2); padding:13px 19px; border-bottom:1px solid var(--rule-strong); display:flex; gap:11px; align-items:baseline; flex-wrap:wrap}
+.sheet-h h4{font-size:17.5px}
+.sid{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--accent)}
+.sheet-b{padding:17px 19px; display:grid; gap:13px}
+.row{display:grid; grid-template-columns:118px minmax(0,1fr); gap:14px; align-items:start}
+@media (max-width:640px){ .row{grid-template-columns:1fr; gap:2px} }
+.row dt{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); padding-top:3px}
+.row dd{margin:0; font-size:13.6px; color:var(--ink-2)}
+.row dd b{color:var(--ink); font-weight:600}
+.row ul{margin:0; padding-left:18px}
+.row li{margin-bottom:2px}
+.row.trap dd{color:var(--warn)}
+.sheet-b dl{display:grid; gap:9px; margin:0}
+
+.note{border-left:2px solid var(--accent); background:var(--accent-soft); padding:14px 18px; border-radius:0 3px 3px 0; font-size:13.8px; color:var(--ink-2)}
+.note b{color:var(--ink)}
+.caution{border-left:2px solid var(--warn); background:var(--warn-bg); padding:14px 18px; border-radius:0 3px 3px 0; font-size:13.6px; color:var(--ink-2)}
+.caution b{color:var(--ink)}
+
+.filters{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px}
+.filters label{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3)}
+select,input[type=search]{font-family:"IBM Plex Sans",sans-serif; font-size:13px; padding:6px 9px;
+  background:var(--surface); color:var(--ink); border:1px solid var(--rule-strong); border-radius:2px}
+input[type=search]{min-width:170px}
+.count{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3); margin-left:auto}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+footer{border-top:1px solid var(--rule); margin-top:56px; padding:34px 0 76px; color:var(--ink-3); font-size:12.5px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="eyebrow">Case Library Spec · kèm kế hoạch sản xuất</div>
+  <h1>Thư viện đề Business Case</h1>
+  <p class="standfirst">Đặc tả đầy đủ 29 đề case trong 100 bài đầu tiên — bối cảnh, exhibit cần dựng, bẫy đã cài, đáp án khung và rubric — cộng danh mục tài sản luyện tập cho trọn 100 bài, sắp theo thứ tự ưu tiên sản xuất.</p>
+  <dl class="mast-meta">
+    <div><dt>Đề đặc tả đầy đủ</dt><dd>29</dd></div>
+    <div><dt>Tài sản luyện tập</dt><dd>100 mục</dd></div>
+    <div><dt>Exhibit cần dựng</dt><dd>~95</dd></div>
+    <div><dt>Ngành phủ</dt><dd>12</dd></div>
+    <div><dt>Ưu tiên P1</dt><dd>34 mục</dd></div>
+  </dl>
+</header>
+<main>
+
+<!-- 01 -->
+<section id="k1">
+  <div class="sec-head"><span class="sec-num">§ 01</span><h2>Chuẩn đặc tả một đề</h2></div>
+  <p class="lede">Tám trường bắt buộc. Một đề thiếu bất kỳ trường nào không được đưa vào thư viện — kể cả đề hay. Ba trường hay bị bỏ nhất là <b>bẫy đã cài</b>, <b>dữ liệu phát khi được hỏi</b> và <b>cách chấm nhanh</b>; thiếu chúng thì đề không dùng được cho người điều phối không phải tác giả.</p>
+  <div class="grid g2">
+    <div class="card">
+      <span class="kicker">Bốn trường nội dung</span>
+      <ul style="padding-left:18px; margin:0">
+        <li><b>Bối cảnh</b> — 2–4 câu, có tên ngành, quy mô, và một chi tiết khiến tình huống cụ thể</li>
+        <li><b>Câu hỏi</b> — một câu duy nhất, có động từ quyết định</li>
+        <li><b>Dữ liệu phát khi được hỏi</b> — danh sách có điều kiện: hỏi gì thì được cho gì</li>
+        <li><b>Exhibit</b> — dạng chart hoặc bảng, kèm thông điệp mà exhibit đó mang</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="kicker">Bốn trường vận hành</span>
+      <ul style="padding-left:18px; margin:0">
+        <li><b>Bẫy đã cài</b> — ít nhất một, kèm mã lỗi mà bẫy đó nhắm kiểm tra</li>
+        <li><b>Đáp án khung</b> — cấu trúc kỳ vọng và các con số then chốt, không phải một lời giải văn xuôi</li>
+        <li><b>Rubric</b> — trỏ về một rubric chuẩn kèm điều chỉnh trọng số riêng</li>
+        <li><b>Cách chấm nhanh</b> — 3–5 dòng để người điều phối chấm tại chỗ</li>
+      </ul>
+    </div>
+  </div>
+  <div class="caution" style="margin-top:16px"><b>Về số liệu trong đề:</b> mọi con số dưới đây là số dựng cho bài tập, chọn ở bậc độ lớn hợp lý để đề chạy được, không phải số liệu thật của doanh nghiệp nào. Khi đưa lên web, mỗi đề phải ghi rõ đây là tình huống hư cấu; nếu lấy cảm hứng từ một công ty có thật thì đổi tên và làm mờ các con số nhận dạng được.</div>
+</section>
+
+<!-- 02 -->
+<section id="k2">
+  <div class="sec-head"><span class="sec-num">§ 02</span><h2>Danh mục tài sản luyện tập — 100 bài</h2></div>
+  <p class="lede">Mỗi bài trong lộ trình cần một loại tài sản khác nhau để sản xuất. Bảng này là backlog nội dung: lọc theo loại để giao cho đúng người, lọc theo ưu tiên để biết làm gì trước. <b>P1</b> là những thứ chặn việc mở lớp; <b>P2</b> mở rộng độ phủ; <b>P3</b> làm sau khi có người học thật.</p>
+  <div class="filters">
+    <label for="fa">Loại</label>
+    <select id="fa">
+      <option value="">Tất cả</option>
+      <option value="CASE">CASE · đề case đặc tả đầy đủ</option>
+      <option value="DRILL">DRILL · bộ đề luyện</option>
+      <option value="EXH">EXH · exhibit / chart</option>
+      <option value="DATA">DATA · bảng số, dataset</option>
+      <option value="SOLN">SOLN · lời giải mẫu</option>
+      <option value="REC">REC · bản ghi mẫu</option>
+      <option value="TPL">TPL · biểu mẫu, template</option>
+    </select>
+    <label for="fp">Ưu tiên</label>
+    <select id="fp"><option value="">Tất cả</option><option value="1">P1</option><option value="2">P2</option><option value="3">P3</option></select>
+    <input type="search" id="fq" placeholder="Tìm…" aria-label="Tìm trong danh mục">
+    <span class="count" id="fc">100 / 100</span>
+  </div>
+  <div class="tw">
+  <table id="assets">
+    <thead><tr><th>#</th><th>Bài</th><th>Loại</th><th>Tài sản cần sản xuất</th><th class="r">SL</th><th>Ưu tiên</th></tr></thead>
+    <tbody>
+      <tr data-a="DRILL" data-p="1"><td class="num">001</td><td>Đề bài thật sự hỏi gì</td><td><span class="tag">DRILL</span></td><td>8 đề case thô để viết lại + 8 problem statement mẫu</td><td class="r">16</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">002</td><td>SCQ</td><td><span class="tag">DRILL</span></td><td>3 đề dài + 3 bản SCQ mẫu có chú giải từng phần</td><td class="r">6</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="TPL" data-p="1"><td class="num">003</td><td>Tiêu chí thành công và scope</td><td><span class="tag">TPL</span></td><td>Biểu mẫu scope in / scope out + 6 ví dụ đã điền</td><td class="r">7</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">004</td><td>Chuỗi nhà sách mở 20 cửa hàng</td><td><span class="tag">CASE</span></td><td>Đề đặc tả đầy đủ 8 trường — xem <a href="#C004">C-004</a></td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">005</td><td>Revenue = P × Q</td><td><span class="tag">DRILL</span></td><td>10 đề vẽ cây 2 tầng + 10 cây mẫu</td><td class="r">20</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">006</td><td>MECE trong thực tế</td><td><span class="tag">DRILL</span></td><td>5 cây sai cố ý + bản chữa có chú giải lỗi</td><td class="r">10</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="SOLN" data-p="1"><td class="num">007</td><td>Chọn trục chia đầu tiên</td><td><span class="tag">SOLN</span></td><td>1 đề, 3 cây khác nhau, 3 đoạn lý giải đối chiếu</td><td class="r">4</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">008</td><td>Ứng dụng gọi xe giảm 12%</td><td><span class="tag">CASE</span></td><td>Đề đầy đủ + 1 exhibit doanh thu theo tuần — xem <a href="#C008">C-008</a></td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DATA" data-p="1"><td class="num">009</td><td>Doanh nghiệp kiếm tiền thế nào</td><td><span class="tag">DATA</span></td><td>6 mô tả doanh nghiệp + 6 sơ đồ dòng tiền mẫu</td><td class="r">12</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DATA" data-p="1"><td class="num">010</td><td>Bảy mô hình doanh thu</td><td><span class="tag">DATA</span></td><td>Bảng so sánh 7 mô hình + 14 ví dụ doanh nghiệp Việt Nam</td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">011</td><td>Cà phê tự vận hành vs nhượng quyền</td><td><span class="tag">CASE</span></td><td>Đề teardown + 2 bộ số kinh tế cửa hàng — xem <a href="#C011">C-011</a></td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">012</td><td>So what</td><td><span class="tag">DRILL</span></td><td>10 phát hiện thô + 10 câu so-what mẫu ở 2 mức chất lượng</td><td class="r">20</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">013</td><td>Khuyến nghị thực thi được</td><td><span class="tag">DRILL</span></td><td>10 cặp khuyến nghị yếu / mạnh có chú giải khác biệt</td><td class="r">20</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">014</td><td>Cửa hàng tiện lợi lỗ 6/20 điểm bán</td><td><span class="tag">CASE</span></td><td>Đề checkpoint L1 + 2 exhibit — xem <a href="#C014">C-014</a></td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+
+      <tr data-a="DRILL" data-p="1"><td class="num">015</td><td>Làm tròn có kiểm soát</td><td><span class="tag">DRILL</span></td><td>Bộ 60 phép tính chấm tự động + bảng sai số kỳ vọng</td><td class="r">60</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">016</td><td>Phần trăm và điểm phần trăm</td><td><span class="tag">DRILL</span></td><td>Bộ 90 câu chia 3 mức khó, chấm tự động</td><td class="r">90</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">017</td><td>Breakeven và growth nhẩm</td><td><span class="tag">DRILL</span></td><td>30 bài breakeven + 3 bản ghi mẫu giải thích thành tiếng</td><td class="r">33</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">018</td><td>Sizing top-down</td><td><span class="tag">DRILL</span></td><td>12 đề sizing quen thuộc + 12 bảng mẫu 4 dòng</td><td class="r">24</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">019</td><td>Sizing bottom-up</td><td><span class="tag">DRILL</span></td><td>12 đề phía cung + 12 bảng mẫu có dòng tỷ lệ lấp đầy</td><td class="r">24</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DATA" data-p="1"><td class="num">020</td><td>Ngân hàng giả định</td><td><span class="tag">DATA</span></td><td>Bảng 30 chỉ số nền có nguồn, khoảng, ngày cập nhật</td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">021</td><td>6 thị trường lạ trong 45 phút</td><td><span class="tag">CASE</span></td><td>Ngân hàng 24 đề sizing lạ, 3 nhóm cơ cấu — xem <a href="#C021">C-021</a></td><td class="r">24</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="EXH" data-p="1"><td class="num">022</td><td>Đọc chart 60 giây</td><td><span class="tag">EXH</span></td><td>10 exhibit cơ bản + 10 bộ 3 gạch so-what mẫu</td><td class="r">20</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="EXH" data-p="1"><td class="num">023</td><td>Waterfall, cohort, bảng chéo</td><td><span class="tag">EXH</span></td><td>12 exhibit nâng cao + 12 action title mẫu</td><td class="r">24</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="EXH" data-p="2"><td class="num">024</td><td>Chart gây hiểu nhầm</td><td><span class="tag">EXH</span></td><td>8 exhibit cài lỗi trình bày + bản chú giải lỗi</td><td class="r">16</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">025</td><td>Bridge giá – lượng – mix</td><td><span class="tag">DRILL</span></td><td>10 dataset bridge + 10 bridge mẫu khép kín</td><td class="r">20</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">026</td><td>Biên gộp giảm 3 điểm</td><td><span class="tag">CASE</span></td><td>Đề checkpoint L2 + dataset + 3 exhibit — xem <a href="#C026">C-026</a></td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+
+      <tr data-a="DATA" data-p="1"><td class="num">027</td><td>Đọc P&amp;L trong 10 phút</td><td><span class="tag">DATA</span></td><td>10 bộ P&amp;L rút gọn + 10 bản phát hiện mẫu</td><td class="r">20</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DATA" data-p="2"><td class="num">028</td><td>Có lãi vẫn hết tiền</td><td><span class="tag">DATA</span></td><td>3 bộ báo cáo có mâu thuẫn lãi / dòng tiền</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DRILL" data-p="2"><td class="num">029</td><td>Vốn lưu động và chu kỳ tiền mặt</td><td><span class="tag">DRILL</span></td><td>8 bài tính chu kỳ tiền mặt + bảng mẫu</td><td class="r">9</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="1"><td class="num">030</td><td>Chọn đơn vị cho unit economics</td><td><span class="tag">TPL</span></td><td>Template bảng tính unit economics + 3 bản đã điền</td><td class="r">4</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">031</td><td>Biên đóng góp và hoà vốn</td><td><span class="tag">DRILL</span></td><td>12 bài + 12 mô hình mẫu có công thức hiện</td><td class="r">24</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">032</td><td>Giao đồ ăn lỗ 12.000đ mỗi đơn</td><td><span class="tag">CASE</span></td><td>Đề đầy đủ + bảng cấu phần chi phí đơn hàng — xem <a href="#C032">C-032</a></td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="TPL" data-p="2"><td class="num">033</td><td>NPV, IRR, hoàn vốn</td><td><span class="tag">TPL</span></td><td>Template dòng tiền 5 năm + 3 bộ số bài tập</td><td class="r">4</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DRILL" data-p="2"><td class="num">034</td><td>Chi phí chìm và chi phí cơ hội</td><td><span class="tag">DRILL</span></td><td>6 đề có cài chi phí chìm + bản chú giải</td><td class="r">12</td><td><span class="pri p2">P2</span></td></tr>
+
+      <tr data-a="SOLN" data-p="1"><td class="num">035</td><td>Cây profitability</td><td><span class="tag">SOLN</span></td><td>3 biến thể cây profitability kèm điều kiện dùng</td><td class="r">3</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">036</td><td>Doanh thu giảm hay chi phí tăng</td><td><span class="tag">DRILL</span></td><td>5 bộ số + bảng chẩn đoán hướng mẫu</td><td class="r">6</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">037</td><td>Chuỗi F&amp;B 40 điểm bán</td><td><span class="tag">CASE</span></td><td>Full case + 4 exhibit + dataset điểm bán — xem <a href="#C037">C-037</a></td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">038</td><td>Nhà sản xuất bao bì mất khách lớn</td><td><span class="tag">CASE</span></td><td>Full case + 3 exhibit — xem <a href="#C038">C-038</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">039</td><td>Checkpoint profitability 70 phút</td><td><span class="tag">CASE</span></td><td>3 đề tương đương để luân phiên thi lại — xem <a href="#C039">C-039</a></td><td class="r">3</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="SOLN" data-p="2"><td class="num">040</td><td>Khung 4 câu hỏi market entry</td><td><span class="tag">SOLN</span></td><td>3 đề áp khung + 3 bản áp mẫu</td><td class="r">6</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="2"><td class="num">041</td><td>Build / buy / partner</td><td><span class="tag">TPL</span></td><td>Bảng tiêu chí chọn + 2 ví dụ đã chấm điểm</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">042</td><td>Cà phê Việt sang Philippines</td><td><span class="tag">CASE</span></td><td>Full case + 4 exhibit + bộ số thị trường — xem <a href="#C042">C-042</a></td><td class="r">1</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="TPL" data-p="3"><td class="num">043</td><td>Điều kiện rút lui</td><td><span class="tag">TPL</span></td><td>Bảng mốc và điểm dừng + 2 ví dụ</td><td class="r">3</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="SOLN" data-p="2"><td class="num">044</td><td>Ba cách định giá</td><td><span class="tag">SOLN</span></td><td>1 sản phẩm, 3 cách định giá, 3 kết quả đối chiếu</td><td class="r">4</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DRILL" data-p="2"><td class="num">045</td><td>Độ co giãn giá</td><td><span class="tag">DRILL</span></td><td>10 bài tính tác động giá – sản lượng – lợi nhuận</td><td class="r">10</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">046</td><td>Phòng gym thiết kế lại gói</td><td><span class="tag">CASE</span></td><td>Full case + dataset hội viên theo gói — xem <a href="#C046">C-046</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DATA" data-p="2"><td class="num">047</td><td>Cannibalization và cắt danh mục</td><td><span class="tag">DATA</span></td><td>Dataset 40 mã sản phẩm có biên đóng góp và doanh số</td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="3"><td class="num">048</td><td>Lý do chiến lược và synergy</td><td><span class="tag">TPL</span></td><td>Bảng đánh giá synergy + 2 ví dụ ước lượng</td><td class="r">3</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="DRILL" data-p="3"><td class="num">049</td><td>Giá trần và điều kiện nói không</td><td><span class="tag">DRILL</span></td><td>5 bài định giá trần + mô hình mẫu</td><td class="r">6</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">050</td><td>Investment memo thương vụ bán lẻ</td><td><span class="tag">CASE</span></td><td>Đề checkpoint L3 + bộ tài liệu thương vụ — xem <a href="#C050">C-050</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+
+      <tr data-a="TPL" data-p="2"><td class="num">051</td><td>Tiêu chí phân khúc</td><td><span class="tag">TPL</span></td><td>Bảng segment mẫu + 3 ví dụ ngành khác nhau</td><td class="r">4</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DATA" data-p="3"><td class="num">052</td><td>Jobs to be done</td><td><span class="tag">DATA</span></td><td>3 bản ghi phỏng vấn khách hàng mô phỏng + bản rút insight</td><td class="r">6</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="DRILL" data-p="2"><td class="num">053</td><td>Định vị và điểm khác biệt</td><td><span class="tag">DRILL</span></td><td>10 value proposition yếu + 10 bản viết lại</td><td class="r">20</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">054</td><td>Sữa hạt chọn phân khúc ưu tiên</td><td><span class="tag">CASE</span></td><td>Mini case + dataset khảo sát mô phỏng — xem <a href="#C054">C-054</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DATA" data-p="2"><td class="num">055</td><td>Funnel math</td><td><span class="tag">DATA</span></td><td>6 dataset funnel có điểm rò rỉ cài sẵn</td><td class="r">6</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="2"><td class="num">056</td><td>CAC theo kênh và LTV</td><td><span class="tag">TPL</span></td><td>Template CAC/LTV + 2 bộ số 4 kênh</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">057</td><td>Sàn TMĐT có CAC tăng 60%</td><td><span class="tag">CASE</span></td><td>Full case + 5 exhibit cohort và kênh — xem <a href="#C057">C-057</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="3"><td class="num">058</td><td>Mục tiêu kinh doanh sang chỉ số</td><td><span class="tag">TPL</span></td><td>Bảng mục tiêu – chỉ số + 3 ví dụ</td><td class="r">4</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="DRILL" data-p="3"><td class="num">059</td><td>Ngân sách thương hiệu và bán hàng</td><td><span class="tag">DRILL</span></td><td>4 bài phân bổ ngân sách + bản mẫu có danh sách không làm</td><td class="r">5</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">060</td><td>Ra mắt dòng chăm sóc da nam</td><td><span class="tag">CASE</span></td><td>Checkpoint marketing + bộ dữ liệu thị trường — xem <a href="#C060">C-060</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+
+      <tr data-a="TPL" data-p="2"><td class="num">061</td><td>Process map có số</td><td><span class="tag">TPL</span></td><td>Ký hiệu chuẩn + 4 mô tả dây chuyền để vẽ</td><td class="r">5</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DRILL" data-p="2"><td class="num">062</td><td>Capacity và định luật Little</td><td><span class="tag">DRILL</span></td><td>12 bài tính công suất và hàng chờ</td><td class="r">12</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">063</td><td>Bếp trung tâm quá tải giờ trưa</td><td><span class="tag">CASE</span></td><td>Mini case + sơ đồ dây chuyền có số — xem <a href="#C063">C-063</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DRILL" data-p="2"><td class="num">064</td><td>Tồn kho an toàn</td><td><span class="tag">DRILL</span></td><td>10 bài safety stock theo mức dịch vụ + bảng tra</td><td class="r">11</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="SOLN" data-p="3"><td class="num">065</td><td>Tập trung hay phân tán kho</td><td><span class="tag">SOLN</span></td><td>Mô hình gộp rủi ro + 2 kịch bản đối chiếu</td><td class="r">3</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">066</td><td>Phân phối dược, mạng lưới 5 kho</td><td><span class="tag">CASE</span></td><td>Full case + dataset chi phí vận chuyển và nhu cầu — xem <a href="#C066">C-066</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="3"><td class="num">067</td><td>Cost-to-serve</td><td><span class="tag">TPL</span></td><td>Template phân bổ theo hoạt động + 1 bộ số mẫu</td><td class="r">2</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">068</td><td>200 khách B2B, 30% đang lỗ</td><td><span class="tag">CASE</span></td><td>Checkpoint supply chain + dataset 200 khách — xem <a href="#C068">C-068</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+
+      <tr data-a="DRILL" data-p="1"><td class="num">069</td><td>Answer first</td><td><span class="tag">DRILL</span></td><td>10 đoạn viết theo lối kể lể + 10 bản viết lại</td><td class="r">20</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="SOLN" data-p="1"><td class="num">070</td><td>Pyramid một trang</td><td><span class="tag">SOLN</span></td><td>3 case đã giải + 3 pyramid mẫu</td><td class="r">6</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="DRILL" data-p="1"><td class="num">071</td><td>Action title</td><td><span class="tag">DRILL</span></td><td>20 tiêu đề mô tả + 20 bản viết lại thành kết luận</td><td class="r">40</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">072</td><td>Checkpoint đọc dọc 12 title</td><td><span class="tag">CASE</span></td><td>2 case mới + 2 bộ 12 action title mẫu — xem <a href="#C072">C-072</a></td><td class="r">2</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="EXH" data-p="2"><td class="num">073</td><td>Luận điểm nào cần chart nào</td><td><span class="tag">EXH</span></td><td>Bảng ánh xạ + 8 cặp luận điểm / exhibit đúng sai</td><td class="r">9</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="EXH" data-p="2"><td class="num">074</td><td>Waterfall và bridge trong deck</td><td><span class="tag">EXH</span></td><td>4 dataset thô + 4 exhibit mẫu đã dựng</td><td class="r">8</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="EXH" data-p="2"><td class="num">075</td><td>Exhibit hiểu trong 5 giây</td><td><span class="tag">EXH</span></td><td>12 exhibit yếu + 12 bản redesign kèm chú giải</td><td class="r">24</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="2"><td class="num">076</td><td>Storyboard trên giấy</td><td><span class="tag">TPL</span></td><td>Biểu mẫu storyboard 12 khung + 2 bản đã điền</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="REC" data-p="2"><td class="num">077</td><td>Nhịp bài nói 7 phút</td><td><span class="tag">REC</span></td><td>3 bản ghi mẫu: tốt, trung bình, vượt giờ — có chú giải mốc</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">078</td><td>Checkpoint storyboard + deck + ghi</td><td><span class="tag">CASE</span></td><td>2 đề + 2 bộ deliverable mẫu — xem <a href="#C078">C-078</a></td><td class="r">2</td><td><span class="pri p2">P2</span></td></tr>
+
+      <tr data-a="TPL" data-p="2"><td class="num">079</td><td>Giờ đầu tiên của vòng thi</td><td><span class="tag">TPL</span></td><td>Biểu mẫu nhật ký giờ đầu + ghost deck mẫu 6 slide</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="2"><td class="num">080</td><td>Chia việc theo nhánh cây</td><td><span class="tag">TPL</span></td><td>Bảng phân công gắn issue tree + 2 ví dụ team 4 người</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">081</td><td>Vòng thi 24 giờ theo team</td><td><span class="tag">CASE</span></td><td>Đề thi mở + bộ tài liệu nền + lịch mốc — xem <a href="#C081">C-081</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DRILL" data-p="2"><td class="num">082</td><td>Governing thought</td><td><span class="tag">DRILL</span></td><td>8 bộ phân tích thô + 8 governing thought mẫu</td><td class="r">16</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DRILL" data-p="3"><td class="num">083</td><td>Cắt 20 slide còn 10</td><td><span class="tag">DRILL</span></td><td>2 deck 20 slide + 2 bản cắt mẫu kèm lý do</td><td class="r">4</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="TPL" data-p="3"><td class="num">084</td><td>Mâu thuẫn trong team</td><td><span class="tag">TPL</span></td><td>Biểu mẫu biên bản quyết định theo tiêu chí + 2 tình huống</td><td class="r">3</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="TPL" data-p="2"><td class="num">085</td><td>Cấu trúc deck thi 13 slide</td><td><span class="tag">TPL</span></td><td>Khung deck + 2 deck mẫu hoàn chỉnh ở 2 mức điểm</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="3"><td class="num">086</td><td>Appendix phòng thủ</td><td><span class="tag">TPL</span></td><td>Danh sách 10 câu hỏi hay gặp + 6 slide appendix mẫu</td><td class="r">2</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="REC" data-p="2"><td class="num">087</td><td>Phân vai và chuyển đoạn</td><td><span class="tag">REC</span></td><td>2 bản ghi tổng duyệt có chú giải điểm gãy mạch</td><td class="r">2</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">088</td><td>Checkpoint pitch + Q&amp;A</td><td><span class="tag">CASE</span></td><td>Kịch bản panel + 12 câu hỏi phản biện phân loại — xem <a href="#C088">C-088</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+
+      <tr data-a="DATA" data-p="2"><td class="num">089</td><td>Chỉ số ngành bán lẻ và F&amp;B</td><td><span class="tag">DATA</span></td><td>Bảng chỉ số ngành có khoảng tham chiếu và nguồn</td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">090</td><td>FMCG: độ phủ và nhà phân phối</td><td><span class="tag">CASE</span></td><td>Case ngắn + 2 exhibit kênh phân phối — xem <a href="#C090">C-090</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="DATA" data-p="3"><td class="num">091</td><td>Ngân hàng và bảo hiểm</td><td><span class="tag">DATA</span></td><td>Bảng chỉ số ngành tài chính + 3 bộ báo cáo rút gọn</td><td class="r">4</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="CASE" data-p="3"><td class="num">092</td><td>Ngân hàng số giành khách trẻ</td><td><span class="tag">CASE</span></td><td>Case dài + 4 exhibit + ghi chú ràng buộc pháp lý — xem <a href="#C092">C-092</a></td><td class="r">1</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="DATA" data-p="3"><td class="num">093</td><td>SaaS, marketplace, logistics</td><td><span class="tag">DATA</span></td><td>Bảng so sánh 3 dạng kinh tế + chỉ số riêng từng dạng</td><td class="r">1</td><td><span class="pri p3">P3</span></td></tr>
+      <tr data-a="CASE" data-p="3"><td class="num">094</td><td>Checkpoint 3 ngành, 90 phút</td><td><span class="tag">CASE</span></td><td>9 case ngắn để rút ngẫu nhiên 3 — xem <a href="#C094">C-094</a></td><td class="r">9</td><td><span class="pri p3">P3</span></td></tr>
+
+      <tr data-a="REC" data-p="1"><td class="num">095</td><td>Nhịp case 30 phút</td><td><span class="tag">REC</span></td><td>3 bản ghi live case mẫu + bản chú giải theo mốc phút</td><td class="r">3</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="CASE" data-p="1"><td class="num">096</td><td>Nói trong lúc tính</td><td><span class="tag">CASE</span></td><td>Bộ 20 live case interviewer-led có kịch bản điều phối — xem <a href="#C096">C-096</a></td><td class="r">20</td><td><span class="pri p1">P1</span></td></tr>
+      <tr data-a="TPL" data-p="2"><td class="num">097</td><td>Candidate-led</td><td><span class="tag">TPL</span></td><td>Kịch bản điều phối candidate-led + danh mục dữ liệu phát theo yêu cầu</td><td class="r">2</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">098</td><td>Xoay hướng khi giả thuyết bị bác</td><td><span class="tag">CASE</span></td><td>6 case có dữ liệu nghịch cài sẵn — xem <a href="#C098">C-098</a></td><td class="r">6</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="TPL" data-p="2"><td class="num">099</td><td>8 câu chuyện fit</td><td><span class="tag">TPL</span></td><td>Biểu mẫu STAR + 20 câu hỏi fit + 4 câu chuyện mẫu</td><td class="r">3</td><td><span class="pri p2">P2</span></td></tr>
+      <tr data-a="CASE" data-p="2"><td class="num">100</td><td>Full loop: 2 case + fit</td><td><span class="tag">CASE</span></td><td>Kịch bản buổi full loop + phiếu chấm cho 3 người phỏng vấn — xem <a href="#C100">C-100</a></td><td class="r">1</td><td><span class="pri p2">P2</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:16px"><b>Đọc bảng này thế nào:</b> cột SL là số vật thể phải sản xuất, không phải số bài. Tổng cộng khoảng 900 vật thể cho 100 bài — phần lớn là đề drill ngắn có thể sản xuất theo lô. Ba mươi mục <span class="tag">CASE</span> là phần tốn công nhất và được đặc tả đầy đủ ở <a href="#k3">§ 03</a>.</div>
+</section>
+
+<!-- 03 -->
+<section id="k3">
+  <div class="sec-head"><span class="sec-num">§ 03</span><h2>Đặc tả 29 đề case</h2></div>
+  <p class="lede">Mỗi đề dưới đây đủ để một người điều phối không phải tác giả cầm lên chạy ngay. Phần <b>đáp án khung</b> không phải lời giải duy nhất đúng — nó là cấu trúc và các con số then chốt mà một bài đạt mức 3 phải chạm tới.</p>
+
+  <h3 class="sub">Track A — Foundations</h3>
+  <div class="stack">
+    <div class="sheet" id="C004">
+      <div class="sheet-h"><span class="sid">C-004</span><h4>Chuỗi nhà sách muốn mở thêm 20 cửa hàng</h4><span class="lv lv1">L1</span><span class="tag">25 phút</span><span class="tag">S01</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một chuỗi nhà sách có 12 cửa hàng tại Hà Nội và TP.HCM, doanh thu đi ngang ba năm liền. Ban giám đốc vừa chốt kế hoạch mở thêm 20 cửa hàng trong hai năm và muốn bạn “giúp triển khai cho nhanh”.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd>Trước khi bàn cách triển khai, <b>vấn đề thật sự cần giải ở đây là gì?</b> Viết problem statement và năm câu hỏi làm rõ.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Nếu hỏi doanh thu: đi ngang quanh mức 180 tỷ đồng/năm · Nếu hỏi lợi nhuận: 4 cửa hàng đang lỗ · Nếu hỏi vì sao mở rộng: “để tăng doanh thu” · Nếu hỏi ngân sách: chưa có con số.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Đề mời người học nhảy thẳng vào “mở ở đâu, mở thế nào”. Nhưng khi 4 trong 12 cửa hàng đang lỗ, nhân rộng một mô hình chưa lành là cách nhanh nhất để lỗ to hơn. Nhắm mã <span class="code">FRM-04</span> và <span class="code">FRM-01</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Problem statement phải tái định nghĩa: câu hỏi đúng là “mô hình cửa hàng hiện tại có đủ lành để nhân rộng không, và điều kiện nào phải đạt trước khi mở thêm”. Năm câu hỏi làm rõ phải có ít nhất một câu về kinh tế một cửa hàng và một câu về lý do 4 cửa hàng lỗ.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 điều chỉnh: Problem framing 60 · Chất lượng câu hỏi làm rõ 25 · Nhận diện ràng buộc 15. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Có tái định nghĩa vấn đề: mức 3 trở lên · Chỉ nhắc lại kế hoạch mở rộng: trần mức 2 · Hỏi được về kinh tế một cửa hàng: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C008">
+      <div class="sheet-h"><span class="sid">C-008</span><h4>Doanh thu ứng dụng gọi xe giảm 12% một quý</h4><span class="lv lv1">L1</span><span class="tag">30 phút</span><span class="tag">S03 S02</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một ứng dụng gọi xe hai bánh hoạt động ở bốn thành phố. Quý vừa rồi tổng giá trị giao dịch giảm 12% so với quý trước, trong khi số người dùng mở ứng dụng không đổi.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Vẽ cây phân tích để tìm nguyên nhân</b>, và nói bạn sẽ đào nhánh nào trước cùng lý do.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — doanh thu theo tuần trong 26 tuần, có một bậc gãy ở tuần 14 · Nếu hỏi số chuyến: giảm 15% · Nếu hỏi giá trung bình mỗi chuyến: tăng 4% · Nếu hỏi số tài xế hoạt động: giảm 18% · Nếu hỏi khuyến mãi: ngân sách khuyến mãi bị cắt từ tuần 13.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Số người mở ứng dụng không đổi khiến người học tập trung vào phía cầu. Nguyên nhân nằm ở phía cung: tài xế rời đi sau khi cắt thưởng, thời gian chờ tăng, chuyến bị huỷ. Nhắm <span class="code">TRE-05</span> chia theo framework thay vì theo vấn đề.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Cây phải tách GMV = số chuyến × giá trị mỗi chuyến, rồi số chuyến = nhu cầu đặt × tỷ lệ ghép thành công. Nhánh đáng đào trước là tỷ lệ ghép, vì dữ liệu cho thấy cầu giữ nguyên mà cung giảm. Bậc gãy ở tuần 14 khớp với mốc cắt thưởng tuần 13.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 điều chỉnh: Structure 45 · Chọn nhánh ưu tiên có lý do 25 · Đọc exhibit 20 · Diễn đạt 10. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Tách được tỷ lệ ghép ra khỏi nhu cầu: mức 4 · Chỉ chia theo 4P hoặc theo phòng ban: trần mức 2 · Nối được bậc gãy tuần 14 với mốc chính sách: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C011">
+      <div class="sheet-h"><span class="sid">C-011</span><h4>Quán cà phê tự vận hành và quán nhượng quyền</h4><span class="lv lv1">L1</span><span class="tag">35 phút</span><span class="tag">S04 S07</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Hai quán cà phê cùng quy mô, cùng vị trí tương đương ở quận trung tâm. Một quán do chủ tự vận hành, một quán nhượng quyền từ một thương hiệu chuỗi.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Hai mô hình khác nhau ở đâu về mặt kinh tế</b>, và mô hình nào rủi ro hơn cho người bỏ vốn?</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Hai bảng P&amp;L rút gọn 12 tháng, cùng doanh thu ~2,4 tỷ đồng/năm · Quán nhượng quyền có phí nhượng quyền 5% doanh thu và phí marketing 2% · Quán tự vận hành có chi phí nguyên liệu cao hơn 4 điểm phần trăm và chi phí marketing thấp hơn.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Người học dễ so sánh lợi nhuận cuối cùng rồi kết luận. Điểm thật là cấu trúc: nhượng quyền biến một phần chi phí cố định thành biến đổi, nên lỗ ít hơn khi doanh thu thấp nhưng lãi ít hơn khi doanh thu cao. Nhắm <span class="code">BIZ-01</span> và <span class="code">BIZ-03</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Canvas cho mỗi mô hình · Ba đòn bẩy lợi nhuận: giá bán trung bình, chi phí nguyên liệu trên ly, số ly mỗi ngày · Kết luận phải nói về <b>độ nhạy với doanh thu</b>, không chỉ về mức lợi nhuận. Điểm hoà vốn của quán nhượng quyền thấp hơn nhưng trần lợi nhuận cũng thấp hơn.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 điều chỉnh: Hiểu mô hình 35 · Định lượng 30 · Đòn bẩy 20 · Nhận diện rủi ro 15. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Nói được về cấu trúc cố định / biến đổi: mức 4 · Chỉ so lợi nhuận tuyệt đối: trần mức 2 · Tính được điểm hoà vốn của cả hai: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C014">
+      <div class="sheet-h"><span class="sid">C-014</span><h4>Cửa hàng tiện lợi lỗ ở 6 trong 20 điểm bán</h4><span class="lv lv1">L1</span><span class="tag">45 phút</span><span class="tag">Checkpoint L1</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một chuỗi cửa hàng tiện lợi 20 điểm bán tại một thành phố lớn. Tổng thể vẫn có lãi mỏng, nhưng 6 điểm bán lỗ và ban giám đốc đang cân nhắc đóng cả 6.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Có nên đóng 6 điểm bán này không?</b> Nếu không đóng hết thì đóng cái nào.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — bảng 20 điểm bán: doanh thu, biên gộp, tiền thuê, lương, lợi nhuận · Exhibit 2 — doanh thu theo giờ của 3 điểm bán đại diện · Nếu hỏi hợp đồng thuê: còn 1–4 năm tuỳ điểm · Nếu hỏi chi phí chung phân bổ: 60 triệu đồng/tháng chia đều cho 20 điểm.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Chi phí chung được phân bổ đều. Ba trong sáu điểm bán có biên đóng góp dương và chỉ lỗ sau khi gánh chi phí chung — đóng chúng sẽ làm tổng lợi nhuận chuỗi <b>giảm</b>. Nhắm <span class="code">FIN-05</span> và <span class="code">SCM-06</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Tách biên đóng góp khỏi lợi nhuận sau phân bổ · Phân 6 điểm thành ba nhóm: đóng ngay (biên đóng góp âm, hợp đồng sắp hết), cứu (biên dương, có vấn đề vận hành cụ thể), giữ nguyên · Khuyến nghị đóng 2, cứu 3, theo dõi 1, kèm ước lượng tác động lợi nhuận.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 đầy đủ. Ngưỡng 70. Đây là checkpoint Level 1.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Nhận ra bẫy phân bổ chi phí chung: mức 4 ở tiêu chí định lượng · Đề xuất đóng cả 6: trần mức 2 toàn bài · Có ước lượng tác động của khuyến nghị: +1 mức ở tiêu chí khuyến nghị.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track B — Quantitative</h3>
+  <div class="stack">
+    <div class="sheet" id="C021">
+      <div class="sheet-h"><span class="sid">C-021</span><h4>Ngân hàng 24 đề sizing lạ</h4><span class="lv lv2">L2</span><span class="tag">8 phút/đề</span><span class="tag">S05</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Không phải một đề mà là một ngân hàng đề, chia ba nhóm cơ cấu để mỗi lượt rút ra một bộ cân bằng.</dd></div>
+        <div class="row"><dt>Cơ cấu</dt><dd><b>Nhóm cầu (8 đề):</b> nước giặt, kính mắt, sách giáo khoa cũ, dịch vụ trông trẻ theo giờ, thức ăn thú cưng, bảo hiểm xe máy, vé xe khách liên tỉnh, đồ chơi trẻ em.<br><b>Nhóm cung (8 đề):</b> tiệm giặt sấy, sân pickleball, phòng khám nha khoa, tiệm sửa xe máy, quán karaoke, nhà thuốc, cửa hàng điện thoại, studio chụp ảnh.<br><b>Nhóm B2B (8 đề):</b> phần mềm kế toán cho SME, dịch vụ vệ sinh văn phòng, in ấn bao bì, tuyển dụng nhân sự cấp trung, thuê máy photocopy, kiểm định thang máy, đồng phục doanh nghiệp, phần mềm chấm công.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Không phát gì. Người điều phối chỉ trả lời “bạn tự ước lượng” cho mọi câu hỏi về số liệu, trừ giá bán khi người học đã nêu một khoảng và chỉ xin xác nhận.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Nhóm B2B là bẫy hệ thống: người học quen mở bài bằng dân số sẽ tắc. Nhắm <span class="code">SIZ-07</span>. Ít nhất hai đề trong mỗi bộ rút ra phải thuộc nhóm không quen.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Mỗi đề có một file khung gồm: hướng khuyến nghị, chuỗi tính mẫu, khoảng kết quả chấp nhận được theo bậc độ lớn, và giả định chi phối. Xem mẫu đầy đủ ở đặc tả module B2.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Rubric B2 bốn mức: Cấu trúc 30 · Giả định 25 · Tính toán 20 · Sanity check 15 · Khoảng 10.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Kết quả trong khoảng chấp nhận về bậc độ lớn: đạt tiêu chí tính toán · Không sanity check: trần mức 2 ở tiêu chí đó bất kể kết quả đúng.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C026">
+      <div class="sheet-h"><span class="sid">C-026</span><h4>Biên lợi nhuận gộp giảm 3 điểm dù giá bán tăng</h4><span class="lv lv2">L2</span><span class="tag">60 phút</span><span class="tag">Checkpoint L2</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một doanh nghiệp sản xuất đồ gia dụng bán qua ba kênh: hiện đại, truyền thống và trực tuyến. Năm nay giá bán trung bình tăng 6% nhưng biên lợi nhuận gộp giảm từ 34% xuống 31%.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Giải thích chênh lệch 3 điểm này bằng các cấu phần định lượng</b>, rồi cho biết cấu phần nào cần can thiệp trước.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Dataset: doanh thu, sản lượng, giá, giá vốn theo 3 kênh × 4 dòng sản phẩm × 2 năm · Exhibit 1 — cơ cấu doanh thu theo kênh hai năm · Exhibit 2 — giá vốn đơn vị theo dòng sản phẩm · Exhibit 3 — chiết khấu thương mại theo kênh.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Giá tăng thật, nhưng tỷ trọng kênh truyền thống (chiết khấu cao, biên thấp) tăng từ 28% lên 41%. Đây là mix effect thuần. Người học nhìn giá vốn sẽ không tìm ra. Nhắm <span class="code">VAR-02</span> trộn mix và rate.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Bridge từ 34% xuống 31% với bốn cấu phần: hiệu ứng giá +1,8 điểm · hiệu ứng giá vốn −1,5 điểm · hiệu ứng mix kênh −2,9 điểm · hiệu ứng mix sản phẩm −0,4 điểm. Bridge phải khép kín. Can thiệp trước vào mix kênh, không phải vào giá vốn.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R6 điều chỉnh: Phân rã khép kín 30 · Tách đúng mix và rate 25 · Kịch bản 20 · Sensitivity 15 · Kết luận 10. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Bridge lệch quá 0,3 điểm so với tổng: trần mức 2 · Tách được mix kênh thành một cấu phần riêng: mức 4 · Kết luận can thiệp vào giá vốn: sai trọng tâm, trần mức 2 ở tiêu chí kết luận.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track G — Finance</h3>
+  <div class="stack">
+    <div class="sheet" id="C032">
+      <div class="sheet-h"><span class="sid">C-032</span><h4>Ứng dụng giao đồ ăn lỗ 12.000đ mỗi đơn</h4><span class="lv lv2">L2</span><span class="tag">45 phút</span><span class="tag">S07</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một ứng dụng giao đồ ăn đang xử lý 40.000 đơn mỗi ngày và lỗ khoảng 12.000 đồng trên mỗi đơn. Nhà đầu tư yêu cầu đạt hoà vốn trên mỗi đơn trong 12 tháng.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Dựng unit economics một đơn hàng</b> và chỉ ra hai đòn bẩy có thể đưa về hoà vốn, kèm mức cần thay đổi.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Giá trị đơn trung bình 120.000đ · Hoa hồng nhà hàng 20% · Phí giao thu của khách 15.000đ · Trả tài xế 28.000đ/đơn · Khuyến mãi trung bình 12.000đ/đơn · Chi phí xử lý thanh toán 1.500đ · Chi phí chăm sóc khách hàng 1.500đ.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Khuyến mãi 12.000đ trông như đòn bẩy dễ nhất, nhưng cắt khuyến mãi làm giảm số đơn — và chi phí tài xế mỗi đơn sẽ tăng vì mật độ đơn thưa hơn. Nhắm <span class="code">FIN-06</span> và tư duy một chiều.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Doanh thu mỗi đơn: 24.000 + 15.000 = 39.000đ · Chi phí: 28.000 + 12.000 + 1.500 + 1.500 = 43.000đ · Lỗ 4.000đ trước chi phí cố định phân bổ, lỗ 12.000đ sau. Hai đòn bẩy đáng bàn: tăng giá trị đơn trung bình qua gợi ý món (mỗi 10% tăng thêm ~2.400đ doanh thu) và giảm chi phí tài xế qua ghép đơn (ghép 2 đơn giảm ~30% chi phí giao). Phải nêu ràng buộc: ghép đơn làm tăng thời gian giao.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R6: Cấu trúc mô hình 30 · Tính toán 25 · Đòn bẩy định lượng 25 · Nêu ràng buộc đánh đổi 20. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Tách đúng biên đóng góp và lợi nhuận sau phân bổ: mức 4 · Chỉ đề xuất cắt khuyến mãi mà không xét tác động lên số đơn: trần mức 2 · Ước lượng được mức thay đổi cần thiết: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track C — Strategy &amp; Consulting</h3>
+  <div class="stack">
+    <div class="sheet" id="C037">
+      <div class="sheet-h"><span class="sid">C-037</span><h4>Chuỗi F&amp;B 40 điểm bán, biên giảm 4 điểm</h4><span class="lv lv2">L2</span><span class="tag">60 phút</span><span class="tag">S06 S13</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Chuỗi trà sữa 40 cửa hàng, doanh thu tăng 9% năm ngoái nhưng biên lợi nhuận hoạt động giảm từ 14% xuống 10%. Ban điều hành muốn biết chuyện gì đang xảy ra.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Vì sao biên lợi nhuận giảm</b>, và làm gì để lấy lại ít nhất 2 điểm trong 12 tháng?</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — P&amp;L hai năm theo nhóm chi phí · Exhibit 2 — doanh thu và lợi nhuận theo 40 cửa hàng, chia theo năm mở · Exhibit 3 — giá nguyên liệu chính theo quý · Exhibit 4 — số lượng khuyến mãi theo tháng.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Doanh thu tăng 9% chủ yếu đến từ 8 cửa hàng mới mở, vốn chưa đạt điểm hoà vốn. Biên của các cửa hàng cũ thực ra ổn định. Vấn đề không phải chi phí mà là tốc độ mở rộng vượt khả năng hấp thụ. Nhắm <span class="code">PRF-02</span> bỏ qua mix.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Tách 40 cửa hàng theo năm mở → 32 cửa hàng cũ biên ~14,5%, 8 cửa hàng mới biên −6% · Bridge biên: hiệu ứng cửa hàng mới −3,2 điểm, giá nguyên liệu −1,1 điểm, khuyến mãi −0,6 điểm, cải thiện năng suất +0,9 điểm · Khuyến nghị: hoãn mở mới hai quý, đặt điều kiện hoà vốn trước khi mở tiếp, xử lý riêng 3 cửa hàng mới yếu nhất.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 đầy đủ, trọng số định lượng nâng lên 30. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Tách cửa hàng theo năm mở: mức 4 ở structure · Kết luận “chi phí nguyên liệu tăng”: trần mức 2 · Khuyến nghị có điều kiện mở tiếp: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C038">
+      <div class="sheet-h"><span class="sid">C-038</span><h4>Nhà sản xuất bao bì mất khách hàng lớn nhất</h4><span class="lv lv2">L2</span><span class="tag">60 phút</span><span class="tag">S03 S16</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một nhà sản xuất bao bì giấy vừa mất hợp đồng với khách hàng chiếm 34% doanh thu. Hợp đồng kết thúc sau 4 tháng nữa.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Doanh nghiệp nên làm gì trong 12 tháng tới?</b></dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — cơ cấu doanh thu theo 20 khách hàng lớn nhất · Exhibit 2 — công suất nhà máy và tỷ lệ sử dụng · Exhibit 3 — cấu trúc chi phí cố định và biến đổi · Nếu hỏi lý do mất khách: khách chuyển sang nhà cung cấp có nhà máy gần hơn, rẻ hơn 8%.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Tỷ lệ chi phí cố định cao khiến việc mất 34% doanh thu đẩy doanh nghiệp xuống dưới điểm hoà vốn, chứ không chỉ giảm lợi nhuận 34%. Người học không tính lại điểm hoà vốn sẽ đề xuất giải pháp quá nhẹ. Nhắm <span class="code">PRF-04</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Tính lại điểm hoà vốn sau khi mất khách → thiếu ~18% sản lượng · Ba hướng song song: lấp công suất (khách mới, gia công cho đối thủ), cắt chi phí cố định (một ca sản xuất, thuê ngoài khâu cắt), và giữ khách còn lại (rủi ro tập trung: 3 khách tiếp theo chiếm 29%) · Khuyến nghị phải có thứ tự và mốc thời gian trong 4 tháng còn hợp đồng.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 đầy đủ + tiêu chí bổ sung “nhận diện rủi ro tập trung” 10 điểm. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Tính lại điểm hoà vốn: mức 4 · Chỉ đề xuất “tìm khách mới”: trần mức 2 · Nêu rủi ro tập trung với 3 khách còn lại: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C039">
+      <div class="sheet-h"><span class="sid">C-039</span><h4>Checkpoint profitability — ba đề tương đương</h4><span class="lv lv2">L2</span><span class="tag">70 phút</span><span class="tag">Checkpoint</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Ba đề cùng độ khó, cùng cấu trúc chấm, để luân phiên khi người học thi lại. <b>Đề A:</b> chuỗi phòng khám nha khoa 15 cơ sở, lợi nhuận giảm dù số bệnh nhân tăng. <b>Đề B:</b> doanh nghiệp may gia công mất biên khi chuyển từ đơn lớn sang đơn nhỏ. <b>Đề C:</b> chuỗi siêu thị mini có 3 khu vực, một khu vực kéo tụt toàn hệ thống.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd>Cùng khuôn: <b>nguyên nhân gốc là gì và làm gì để phục hồi biên lợi nhuận?</b></dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Mỗi đề có đúng 4 exhibit: P&amp;L hai kỳ · phân rã theo đơn vị kinh doanh · một chỉ số vận hành đặc thù ngành · một exhibit gây nhiễu không dẫn tới kết luận.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Mỗi đề có đúng một exhibit gây nhiễu. Người học dành quá nhiều thời gian cho nó sẽ không kịp kết luận. Nhắm kỹ năng cắt nhánh bằng 80/20.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Mỗi đề có một file khung riêng: cây kỳ vọng, bridge với các cấu phần và con số, nguyên nhân gốc, và hai khuyến nghị kèm ước lượng tác động. Ba đề phải cho ra độ khó chấm tương đương, kiểm chứng bằng phân bố điểm sau 20 lượt thi đầu.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 đầy đủ. Ngưỡng 70, không tiêu chí nào ở mức 1.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Bỏ qua exhibit gây nhiễu và nói được vì sao bỏ: +1 mức ở structure · Không kịp đưa khuyến nghị: trần mức 2 toàn bài.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C042">
+      <div class="sheet-h"><span class="sid">C-042</span><h4>Chuỗi cà phê Việt mở rộng sang Philippines</h4><span class="lv lv3">L3</span><span class="tag">75 phút</span><span class="tag">S05 S10</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một chuỗi cà phê Việt Nam có 180 cửa hàng trong nước, biên lợi nhuận hoạt động 12%, đang cân nhắc mở rộng sang Philippines với mục tiêu 50 cửa hàng trong 5 năm.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Có nên vào thị trường này không?</b> Nếu có thì vào bằng cách nào và với điều kiện gì?</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — quy mô và tăng trưởng thị trường cà phê chuỗi tại 4 nước ASEAN · Exhibit 2 — thị phần 5 chuỗi lớn nhất tại Philippines · Exhibit 3 — kinh tế một cửa hàng tại Việt Nam · Exhibit 4 — chi phí mặt bằng và nhân công so sánh hai nước · Nếu hỏi khẩu vị: người tiêu dùng Philippines ưa cà phê ngọt, pha sẵn.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Chi phí mặt bằng tại Manila cao hơn ~60% và chi phí nhân công cao hơn ~40%, nhưng giá bán chỉ chịu được mức cao hơn ~20%. Kinh tế một cửa hàng chuyển từ 12% xuống âm nếu bê nguyên mô hình. Nhắm <span class="code">ENT-03</span> và <span class="code">ENT-02</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Sizing SAM: dân số đô thị Philippines × tỷ lệ uống cà phê chuỗi × tần suất × giá · Dựng lại kinh tế một cửa hàng với chi phí địa phương → cần doanh thu cao hơn ~35% hoặc mô hình cửa hàng nhỏ hơn · Khuyến nghị khung: vào bằng nhượng quyền tổng với đối tác địa phương thay vì tự vận hành, thử 5 cửa hàng trong 18 tháng, điều kiện tiếp tục là biên cửa hàng ≥8% sau tháng thứ 12.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 + tiêu chí “go/no-go có ngưỡng số” nâng lên 25. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Dựng lại kinh tế cửa hàng theo chi phí địa phương: mức 4 · Giả định chiếm x% thị phần mà không có cơ sở: trần mức 2 · Có điều kiện tiếp tục hoặc rút: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <div class="stack" style="margin-top:16px">
+    <div class="sheet" id="C046">
+      <div class="sheet-h"><span class="sid">C-046</span><h4>Chuỗi phòng gym thiết kế lại gói thành viên</h4><span class="lv lv3">L3</span><span class="tag">70 phút</span><span class="tag">S08 S07</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Chuỗi phòng gym 12 cơ sở, 24.000 hội viên, đang bán ba gói: tháng, 6 tháng và năm. Tỷ lệ gia hạn thấp và doanh thu trên mỗi hội viên đi ngang hai năm.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Thiết kế lại cấu trúc gói</b> để tăng doanh thu trên mỗi hội viên ít nhất 15% mà không làm giảm số hội viên quá 5%.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Dataset 24.000 hội viên: gói, giá thực trả, số lần đến mỗi tháng, thời gian gắn bó · Exhibit 1 — phân bố tần suất đến · Exhibit 2 — tỷ lệ gia hạn theo gói · Exhibit 3 — chi phí phục vụ theo mức sử dụng · Nếu hỏi công suất: giờ cao điểm đã đầy 85%.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Nhóm đến nhiều nhất lại là nhóm sinh lời ít nhất do chi phí phục vụ và do họ chiếm giờ cao điểm. Tăng giá đều tay sẽ đuổi mất nhóm đến ít — vốn là nhóm sinh lời nhất. Nhắm <span class="code">PRC-04</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Phân nhóm hội viên theo tần suất × thời gian gắn bó → 4 nhóm có biên đóng góp khác nhau · Đề xuất gói theo khung giờ (ngoài cao điểm rẻ hơn), gói theo số lần, và gói năm trả trước có ưu đãi · Mô hình tác động: doanh thu trên hội viên +17%, số hội viên −3%, đồng thời giảm tải giờ cao điểm · Phải nêu rủi ro hội viên cũ phản ứng khi đổi cấu trúc.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R1 + R6: Phân nhóm khách 25 · Mô hình tác động 30 · Cấu trúc giá 25 · Rủi ro triển khai 20. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Nhận ra nghịch lý nhóm đến nhiều: mức 4 · Đề xuất tăng giá đồng loạt: trần mức 2 · Dùng được ràng buộc công suất giờ cao điểm: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C050">
+      <div class="sheet-h"><span class="sid">C-050</span><h4>Investment memo — chuỗi bán lẻ mua lại đối thủ khu vực</h4><span class="lv lv3">L3</span><span class="tag">2 buổi</span><span class="tag">Checkpoint L3</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một chuỗi siêu thị mini 210 cửa hàng ở miền Nam cân nhắc mua lại một chuỗi 60 cửa hàng ở miền Trung. Bên bán đưa giá tương đương 9 lần lợi nhuận trước lãi vay, thuế và khấu hao.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Có nên mua không, và ở mức giá nào?</b> Nộp memo 2 trang.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Báo cáo tài chính 3 năm của bên mua và bên bán · Exhibit 1 — bản đồ phủ cửa hàng hai chuỗi · Exhibit 2 — biên lợi nhuận theo quy mô cửa hàng · Exhibit 3 — bội số giao dịch của 5 thương vụ so sánh trong ngành · Nếu hỏi hợp đồng thuê: 40% cửa hàng bên bán có hợp đồng hết hạn trong 2 năm.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Synergy chi phí mua hàng nghe hấp dẫn nhưng bên bán đã mua qua cùng nhà phân phối, nên phần chồng lấn nhỏ. Synergy thật nằm ở chi phí quản lý vùng và logistics. Bẫy thứ hai là 40% hợp đồng thuê sắp hết hạn — một khoản chi phí ẩn lớn. Nhắm <span class="code">MNA-01</span> và <span class="code">MNA-02</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Định giá độc lập bằng dòng tiền → khoảng 6,5–7,5 lần · Synergy đáng tin: quản lý vùng và logistics, tương đương ~0,8–1,2 lần bội số · Chi phí tích hợp và rủi ro thuê trừ đi ~0,5 lần · Giá trần hợp lý ~8 lần, thấp hơn giá chào · Khuyến nghị: đàm phán xuống hoặc bỏ, kèm điều kiện gia hạn hợp đồng thuê trước khi chốt.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R2 + R6: Lập luận chiến lược 20 · Định giá 25 · Synergy có ước lượng 20 · Rủi ro và tích hợp 20 · Khuyến nghị có giá trần 15. Ngưỡng 75.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Có giá trần bằng số: bắt buộc để đạt · Không nhắc hợp đồng thuê: trần mức 2 ở tiêu chí rủi ro · Phân biệt synergy đáng tin và không đáng tin: mức 4.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track E — Marketing</h3>
+  <div class="stack">
+    <div class="sheet" id="C054">
+      <div class="sheet-h"><span class="sid">C-054</span><h4>Thương hiệu sữa hạt chọn phân khúc ưu tiên</h4><span class="lv lv2">L2</span><span class="tag">40 phút</span><span class="tag">S08 S05</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một thương hiệu sữa hạt nội địa mới có ngân sách hạn chế, đang bán dàn trải cho mọi nhóm khách và không nhóm nào nhớ tới thương hiệu.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Chọn một phân khúc ưu tiên cho 12 tháng tới</b> và viết value proposition cho phân khúc đó.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Dataset khảo sát mô phỏng 1.200 người: tuổi, thu nhập, lý do dùng, tần suất, thương hiệu đang dùng · Exhibit 1 — quy mô và tăng trưởng 5 nhóm nhu cầu · Exhibit 2 — mức độ trung thành với thương hiệu hiện tại theo nhóm · Exhibit 3 — sẵn sàng chi trả theo nhóm.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Nhóm lớn nhất (người ăn kiêng) cũng là nhóm trung thành nhất với thương hiệu quốc tế đang dẫn đầu — chi phí giành khách rất cao. Nhóm nhỏ hơn (người không dung nạp lactose) nhỏ nhưng chưa ai phục vụ riêng. Nhắm <span class="code">MKT-02</span> chọn tất cả các phân khúc.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Bảng chấm điểm 5 nhóm trên 4 tiêu chí: quy mô, tăng trưởng, khả năng thắng, sẵn sàng chi trả · Nhóm được chọn phải là nhóm ta có khả năng thắng, không phải nhóm to nhất · Value proposition phải có một điểm khác biệt chứng minh được, không phải “tự nhiên và tốt cho sức khoẻ”.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Tiêu chí phân khúc 25 · Phân khúc hành động được 25 · Lập luận chọn ưu tiên 25 · Value proposition 25. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Chọn nhóm to nhất mà không xét khả năng thắng: trần mức 2 · Value proposition có điểm chứng minh được: mức 4 · Nêu rõ nhóm nào bỏ qua và vì sao: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C057">
+      <div class="sheet-h"><span class="sid">C-057</span><h4>Sàn thương mại điện tử có CAC tăng 60%</h4><span class="lv lv3">L3</span><span class="tag">70 phút</span><span class="tag">S08 S06</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một sàn thương mại điện tử ngành hàng mẹ và bé. Trong 12 tháng, chi phí thu hút một khách hàng mới tăng từ 180.000đ lên 290.000đ, trong khi số khách mới mỗi tháng chỉ tăng 8%.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Điều gì đang xảy ra, và nên phân bổ lại ngân sách marketing thế nào?</b></dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — chi tiêu và khách mới theo 5 kênh, 12 tháng · Exhibit 2 — funnel từ truy cập đến đơn đầu tiên · Exhibit 3 — cohort giữ chân theo tháng đăng ký · Exhibit 4 — giá trị đơn và tần suất mua theo kênh · Exhibit 5 — biên đóng góp theo ngành hàng.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Kênh có CAC thấp nhất lại mang về khách có tỷ lệ quay lại thấp nhất. Tính theo LTV thì kênh đắt nhất mới là kênh sinh lời nhất. Bẫy thứ hai: CAC trung bình tăng phần lớn do một kênh đã chạm điểm bão hoà — tăng chi thêm không ra thêm khách. Nhắm <span class="code">MKT-05</span> và <span class="code">MKT-06</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Tính LTV theo biên đóng góp cho từng kênh, không theo doanh thu · Vẽ đường hiệu suất giảm dần của kênh bão hoà → điểm nên dừng tăng chi · Phân bổ lại: giảm 30% ở kênh bão hoà, chuyển sang kênh có LTV/CAC cao nhất và sang giữ chân · Ước lượng tác động: CAC trung bình giảm về ~230.000đ, số khách mới giữ nguyên, lợi nhuận đóng góp tăng.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Funnel math 25 · Chẩn đoán đúng 25 · CAC–LTV theo kênh 20 · Phân bổ có lập luận 20 · Ước lượng tác động 10. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Dùng biên đóng góp để tính LTV: bắt buộc để đạt · Đề xuất dồn tiền vào kênh CAC thấp nhất: trần mức 2 · Nhận ra điểm bão hoà kênh: mức 4.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C060">
+      <div class="sheet-h"><span class="sid">C-060</span><h4>Ra mắt dòng chăm sóc da nam giới</h4><span class="lv lv3">L3</span><span class="tag">2 buổi</span><span class="tag">Checkpoint Marketing</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một công ty mỹ phẩm nội địa đang mạnh ở dòng nữ, muốn ra mắt dòng chăm sóc da nam giới với ngân sách 25 tỷ đồng cho năm đầu.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Xây kế hoạch ra mắt 12 tháng</b>: phân khúc, định vị, kênh, ngân sách, chỉ số theo dõi. Nộp deck 10 slide.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — quy mô thị trường chăm sóc da nam và tăng trưởng · Exhibit 2 — thị phần 6 thương hiệu dẫn đầu · Exhibit 3 — hành vi mua theo nhóm tuổi · Exhibit 4 — cơ cấu kênh phân phối ngành mỹ phẩm · Exhibit 5 — chi phí trưng bày và chiết khấu theo kênh.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Ngân sách 25 tỷ nghe lớn nhưng không đủ để vừa xây thương hiệu vừa phủ kênh hiện đại toàn quốc. Kế hoạch không nêu rõ <b>cái không làm</b> sẽ không khả thi. Nhắm <span class="code">MKT-10</span> làm tất cả kênh cùng lúc.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Sizing SAM và mục tiêu doanh thu năm đầu có cơ sở · Chọn một phân khúc và một kênh chủ lực · Funnel math từ ngân sách ra số khách mua ước tính · Bảng phân bổ ngân sách có tỷ lệ xây thương hiệu / kích hoạt bán hàng và danh sách ba việc không làm · Bảng chỉ số dẫn dắt và chỉ số kết quả theo quý.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Nối mục tiêu kinh doanh 20 · Phân khúc và định vị 20 · Kênh và ngân sách 20 · Chỉ số đo được 20 · Nêu rõ cái không làm 20. Ngưỡng 70. Deck chấm thêm bằng R3.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Không có danh sách “không làm”: trần mức 2 toàn bài · Funnel math nối ngân sách với doanh thu: mức 4 · Chỉ số là lượt xem thay vì doanh thu: trừ một mức.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track F — Supply Chain &amp; Operations</h3>
+  <div class="stack">
+    <div class="sheet" id="C063">
+      <div class="sheet-h"><span class="sid">C-063</span><h4>Bếp trung tâm quá tải khung giờ trưa</h4><span class="lv lv2">L2</span><span class="tag">40 phút</span><span class="tag">S09</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một chuỗi cơm văn phòng dùng một bếp trung tâm cung cấp cho 18 điểm giao. Từ 11h đến 13h, đơn bị trễ trung bình 22 phút và tỷ lệ huỷ đơn tăng.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Nút thắt nằm ở đâu</b>, và nếu gỡ thì phục vụ thêm được bao nhiêu suất mỗi ngày?</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Sơ đồ dây chuyền 6 bước với thời gian chu kỳ mỗi bước và số nhân sự · Exhibit 1 — số đơn theo khung 15 phút · Exhibit 2 — thời gian chờ tại từng bước · Nếu hỏi thiết bị: 2 lò hấp, mỗi lò 40 suất mỗi mẻ, mỗi mẻ 18 phút.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Bước có hàng chờ dài nhất là đóng gói, nhưng nút thắt thật là lò hấp — hàng chờ dồn về sau nó. Gỡ khâu đóng gói không tăng được sản lượng. Nhắm <span class="code">OPS-01</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Công suất lò: 2 lò × 40 suất ÷ 18 phút ≈ 267 suất/giờ · Nhu cầu giờ cao điểm ~380 suất/giờ → thiếu ~30% · Thêm một lò đưa công suất lên ~400 suất/giờ, khi đó nút thắt chuyển sang đóng gói ở ~420 suất/giờ · Phương án không cần đầu tư: nấu trước một phần món giữ nhiệt, dời 15% đơn sang khung 10h45.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Map đầy đủ 25 · Xác định đúng bottleneck 25 · Tính toán công suất 25 · Đề xuất có chi phí và lợi ích 25. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Chỉ đúng lò hấp và kiểm tra nút tiếp theo sau khi gỡ: mức 4 · Chỉ đúng khâu đóng gói: trần mức 2 · Có phương án không cần đầu tư: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C066">
+      <div class="sheet-h"><span class="sid">C-066</span><h4>Nhà phân phối dược tái thiết kế mạng lưới 5 kho</h4><span class="lv lv3">L3</span><span class="tag">75 phút</span><span class="tag">S09 S16</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một nhà phân phối dược phẩm phục vụ 3.400 nhà thuốc qua 5 kho vùng. Chi phí logistics chiếm 7,2% doanh thu, cao hơn mức tham chiếu ngành. Cam kết giao trong 24 giờ cho 95% đơn.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Nên bố trí lại mạng lưới thế nào</b> để giảm chi phí mà vẫn giữ cam kết dịch vụ?</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Dataset: nhu cầu theo 63 tỉnh, chi phí cố định từng kho, chi phí vận chuyển theo cự ly, tồn kho bình quân từng kho · Exhibit 1 — bản đồ nhu cầu · Exhibit 2 — cơ cấu chi phí logistics · Exhibit 3 — tỷ lệ giao đúng hạn theo kho · Nếu hỏi hàng lạnh: 18% mã hàng cần bảo quản lạnh.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Gộp kho giảm chi phí cố định và giảm tồn kho nhờ gộp rủi ro, nhưng làm tăng cự ly giao và phá cam kết 24 giờ ở vùng xa. Bẫy thứ hai: 18% hàng lạnh không thể gộp tuỳ tiện. Nhắm <span class="code">SCM-01</span> và <span class="code">SCM-02</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Ba phương án: giữ 5 kho tối ưu tuyến · gộp còn 3 kho lớn · mô hình 2 kho lớn cộng 3 điểm trung chuyển nhỏ · Bảng trade-off cho từng phương án: chi phí cố định, chi phí vận chuyển, tồn kho, tỷ lệ giao đúng hạn · Phương án 3 thường thắng: giữ được cam kết dịch vụ, giảm tồn kho nhờ gộp, chi phí cố định trung gian.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Mô hình chi phí đầy đủ 25 · Định lượng mức dịch vụ 25 · So sánh phương án 20 · Rủi ro vận hành 15 · Khuyến nghị 15. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Có định lượng tác động lên tỷ lệ giao đúng hạn: bắt buộc để đạt · Bỏ qua hàng lạnh: trần mức 2 ở rủi ro · Tính được lợi ích gộp rủi ro lên tồn kho: mức 4.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C068">
+      <div class="sheet-h"><span class="sid">C-068</span><h4>200 khách B2B, 30% đang lỗ</h4><span class="lv lv3">L3</span><span class="tag">80 phút</span><span class="tag">Checkpoint SC</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một nhà sản xuất hàng tiêu dùng bán cho 200 khách B2B: chuỗi siêu thị, nhà phân phối, cửa hàng lớn. Kế toán quản trị vừa báo 30% số khách có lợi nhuận âm sau khi phân bổ chi phí phục vụ.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Nên làm gì với nhóm khách đang lỗ?</b></dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Dataset 200 khách: doanh thu, biên gộp, số đơn, quy mô đơn trung bình, số lần giao, chiết khấu, chi phí hỗ trợ trưng bày, số lần trả hàng · Exhibit 1 — phân bố lợi nhuận theo khách · Exhibit 2 — chi phí phục vụ theo quy mô đơn · Nếu hỏi chi phí cố định: 35% chi phí phục vụ là cố định ở cấp hệ thống.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Ngừng phục vụ nhóm lỗ không làm chi phí cố định biến mất — nó chỉ dồn sang các khách còn lại. Bẫy thứ hai: một số khách lỗ là khách lớn có tác dụng lấp công suất và có sức mặc cả. Nhắm <span class="code">SCM-06</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Phân 200 khách thành bốn nhóm theo biên đóng góp và quy mô · Nhóm A biên dương cao: giữ và mở rộng · Nhóm B biên dương thấp, chi phí phục vụ cao: tái đàm phán quy mô đơn tối thiểu và tần suất giao · Nhóm C biên âm nhưng lấp công suất: giữ có điều kiện · Nhóm D biên âm và nhỏ: ngừng hoặc chuyển sang nhà phân phối · Ước lượng tác động: cải thiện lợi nhuận mà chỉ mất ~4% doanh thu.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Phân bổ chi phí hợp lý 30 · Phân nhóm khách 20 · Khuyến nghị theo nhóm 25 · Xét rủi ro mất doanh thu 15 · Khả thi 10. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Đề xuất bỏ hết nhóm lỗ: trần mức 2 · Phân biệt chi phí cố định và biến đổi trong chi phí phục vụ: mức 4 · Có phương án tái đàm phán thay vì chỉ giữ hoặc bỏ: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track I — Presentation</h3>
+  <div class="stack">
+    <div class="sheet" id="C072">
+      <div class="sheet-h"><span class="sid">C-072</span><h4>Checkpoint đọc dọc — 12 action title</h4><span class="lv lv2">L2</span><span class="tag">50 phút</span><span class="tag">Checkpoint I1</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Hai bộ tài liệu thô, mỗi bộ khoảng 15 trang gồm bảng số, ghi chú phỏng vấn và exhibit rời, chưa có kết luận nào.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Viết một trang pyramid và 12 action title</b> sao cho người chấm chỉ đọc tiêu đề là hiểu trọn lập luận và biết khuyến nghị là gì.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Bộ A — chuỗi rửa xe muốn tăng doanh thu. Bộ B — công ty phần mềm kế toán mất khách hàng nhỏ. Mỗi bộ có ít nhất hai dữ kiện mâu thuẫn nhau để buộc người học chọn phía.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Tài liệu thô chứa nhiều thông tin thú vị nhưng không dẫn tới khuyến nghị. Người học ôm hết sẽ có 12 tiêu đề rời rạc. Nhắm <span class="code">STO-01</span> và <span class="code">SYN-02</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Mỗi bộ có một governing thought mẫu và ba nhánh mẫu, kèm danh sách các dữ kiện <b>nên bị cắt</b> và lý do. Bản chấm đối chiếu theo cấu trúc, không theo câu chữ.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Kết luận chủ đạo 25 · Nhánh MECE 20 · Tiêu đề nêu kết luận 25 · Bằng chứng số 20 · Đọc dọc liền mạch 10. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Người chấm đọc 12 tiêu đề, không xem gì khác, và phải nói lại được khuyến nghị. Không nói được: trần mức 2 bất kể nội dung bên dưới.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C078">
+      <div class="sheet-h"><span class="sid">C-078</span><h4>Checkpoint storyboard, deck và bản ghi</h4><span class="lv lv3">L3</span><span class="tag">2 buổi</span><span class="tag">Checkpoint I3</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một case đã được giải sẵn, có đầy đủ phân tích và số liệu. Người học không phải phân tích lại — nhiệm vụ chỉ là trình bày.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd>Nộp ba thứ: <b>storyboard 12 khung trên giấy, deck 12 slide, và bản ghi 7 phút.</b></dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Bộ phân tích hoàn chỉnh của case C-037 hoặc C-057 · Hai đối tượng nghe được chỉ định ngẫu nhiên: ban giám khảo cuộc thi, hoặc ban điều hành doanh nghiệp.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Đối tượng nghe khác nhau đòi cấu trúc khác nhau: giám khảo cần thấy độ chặt của phân tích, ban điều hành cần thấy quyết định và nguồn lực. Người học dùng chung một deck cho cả hai sẽ mất điểm. Nhắm <span class="code">STO-05</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Hai storyline mẫu cho hai đối tượng, cùng dữ liệu nhưng khác thứ tự và khác độ sâu ở phần phương pháp. Bản ghi mẫu ở hai mức điểm để đối chiếu.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R3 cho deck · R4 cho bản ghi · Tiêu chí riêng “storyboard khớp deck” 20 điểm. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Storyboard làm sau deck (nhận ra qua thứ tự nộp hoặc qua độ khớp quá hoàn hảo): trừ một mức · Vượt 7 phút quá 40%: trần mức 2 ở nhịp trình bày.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track D — Case Competition</h3>
+  <div class="stack">
+    <div class="sheet" id="C081">
+      <div class="sheet-h"><span class="sid">C-081</span><h4>Vòng thi 24 giờ theo team</h4><span class="lv lv3">L3</span><span class="tag">24 giờ</span><span class="tag">Simulation</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một đề thi mở do doanh nghiệp đối tác đặt hàng, phát cho nhóm 4 người. Mô phỏng đúng thể thức một vòng loại: đề mơ hồ, dữ liệu không đầy đủ, hạn nộp cứng.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd>Tuỳ đề. Yêu cầu nộp: <b>ghost deck ở giờ thứ 3, deck hoàn chỉnh đúng hạn, và nhật ký quy trình.</b></dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Bộ tài liệu nền 20–30 trang: báo cáo ngành, số liệu công ty, ghi chú phỏng vấn nội bộ · Một hộp thư hỏi đáp: team được gửi tối đa 5 câu hỏi trong 24 giờ và nhận trả lời sau 2 giờ.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Bộ tài liệu chứa khoảng 40% thông tin không dẫn tới kết luận. Giới hạn 5 câu hỏi buộc team phải chọn hỏi cái gì. Nhắm <span class="code">CMP-01</span> phân tích quá lâu rồi làm slide vội.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Không có đáp án đúng. Thay vào đó có <b>bộ tiêu chí chấm quy trình</b>: ghost deck nộp đúng giờ thứ 3, có ít nhất ba mốc hợp nhất ghi trong nhật ký, và phạm vi được cắt ít nhất một lần có ghi lý do. Deck chấm bằng R3.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R3 deck 40 · R2 khuyến nghị 25 · Quy trình và mốc 20 · Chất lượng 5 câu hỏi đã gửi 15. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Không có ghost deck giờ thứ 3: trần mức 2 ở tiêu chí quy trình · Nộp trễ: không chấm, làm lại vòng khác · Năm câu hỏi đều về dữ liệu team tự ước lượng được: trừ một mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C088">
+      <div class="sheet-h"><span class="sid">C-088</span><h4>Checkpoint pitch 7 phút và Q&amp;A 10 phút</h4><span class="lv lv4">L4</span><span class="tag">20 phút/team</span><span class="tag">Checkpoint L4</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Panel ba người đóng vai ban giám khảo: một người hỏi về con số, một người hỏi về tính khả thi, một người hỏi phản biện chiến lược.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd>Team trình bày deck của C-081 trong 7 phút, sau đó chịu 10 phút hỏi đáp.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Ngân hàng 12 câu hỏi phân loại: 4 câu về con số (“con số 18% ở slide 6 từ đâu ra”), 4 câu về khả thi (“ai trong tổ chức sẽ làm việc này”), 4 câu phản biện (“nếu đối thủ hạ giá ngay tháng sau thì sao”). Panel chọn 8 câu, bắt buộc đủ ba loại.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Một câu hỏi cố ý dựa trên một con số trong appendix chứ không phải trong deck chính — kiểm tra xem team có thật sự làm phần phụ lục hay không. Nhắm <span class="code">PIT-05</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Với mỗi câu hỏi có một khung trả lời tốt: câu đầu là câu trả lời, hai câu sau là lý do, rồi dừng. Bản ghi mẫu ba mức để người chấm hiệu chuẩn.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R4 đầy đủ. Ngưỡng 75, không tiêu chí nào ở mức 1.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Không ai trong team trả lời được câu về con số: trần mức 2 toàn bài · Trả lời vòng vo quá 60 giây cho một câu: trừ một mức ở tiêu chí trả lời trực diện · Thừa nhận giới hạn rồi nêu cách kiểm chứng: mức 4.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track H — Industry</h3>
+  <div class="stack">
+    <div class="sheet" id="C090">
+      <div class="sheet-h"><span class="sid">C-090</span><h4>FMCG — độ phủ, chiết khấu và kinh tế nhà phân phối</h4><span class="lv lv3">L3</span><span class="tag">25 phút</span><span class="tag">S04 S10</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một thương hiệu nước giặt nội địa có độ phủ 42% cửa hàng tạp hoá ở miền Bắc nhưng chỉ 18% ở miền Nam, dù chi cho kênh phân phối như nhau.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Vì sao chênh lệch, và nên làm gì?</b></dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — độ phủ và doanh số theo vùng · Exhibit 2 — cơ cấu chiết khấu cho nhà phân phối và cho cửa hàng · Nếu hỏi số nhà phân phối: miền Bắc 34, miền Nam 11 · Nếu hỏi biên của nhà phân phối: miền Nam thấp hơn 2 điểm do cự ly giao xa hơn.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Vấn đề không nằm ở người tiêu dùng mà ở kinh tế của nhà phân phối: biên quá mỏng nên họ không đẩy hàng. Người học quen tư duy thương hiệu sẽ đề xuất tăng quảng cáo. Nhắm <span class="code">IND-03</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Tính lợi nhuận một nhà phân phối miền Nam → thấp hơn ngưỡng họ chấp nhận · Ba đòn bẩy: tăng chiết khấu có điều kiện theo độ phủ, chia nhỏ địa bàn để giảm cự ly giao, hoặc chuyển một phần sang mô hình giao trực tiếp cho cửa hàng lớn · Chọn theo chi phí trên một điểm phủ tăng thêm.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Dùng đúng chỉ số ngành 30 · Cấu trúc 20 · Định lượng 25 · Khuyến nghị khả thi 25. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Tính được kinh tế của nhà phân phối: mức 4 · Đề xuất tăng quảng cáo: trần mức 2 · Nêu chi phí trên một điểm phủ tăng thêm: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C092">
+      <div class="sheet-h"><span class="sid">C-092</span><h4>Ngân hàng số giành khách hàng trẻ</h4><span class="lv lv3">L3</span><span class="tag">60 phút</span><span class="tag">S04 S13</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Một ngân hàng thương mại cỡ trung muốn tăng thị phần khách hàng 18–28 tuổi. Hiện nhóm này chiếm 9% số tài khoản và 2% lợi nhuận bán lẻ.</dd></div>
+        <div class="row"><dt>Câu hỏi</dt><dd><b>Có đáng theo đuổi nhóm này không, và nếu có thì theo đuổi thế nào?</b></dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Exhibit 1 — lợi nhuận trên mỗi khách theo nhóm tuổi · Exhibit 2 — chi phí thu hút theo kênh · Exhibit 3 — sản phẩm sử dụng theo nhóm tuổi · Exhibit 4 — đường lợi nhuận theo thời gian gắn bó · Ghi chú ràng buộc: quy định về mở tài khoản từ xa và về cho vay tín chấp với khách chưa có lịch sử tín dụng.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Nhóm trẻ hiện lỗ trên mỗi khách, nhưng exhibit 4 cho thấy lợi nhuận tăng mạnh sau năm thứ 4. Đây là bài toán đầu tư dài hạn, không phải bài toán lợi nhuận năm nay. Bẫy thứ hai: ràng buộc pháp lý giới hạn các sản phẩm có thể bán. Nhắm <span class="code">IND-04</span> và <span class="code">IND-06</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Tính giá trị vòng đời có chiết khấu cho khách trẻ → dương nếu giữ được trên 5 năm · Điều kiện then chốt là tỷ lệ giữ chân, không phải chi phí thu hút · Khuyến nghị: theo đuổi với sản phẩm được phép (tài khoản thanh toán, tiết kiệm, thẻ ghi nợ), đặt chỉ số theo dõi là tỷ lệ giữ chân năm thứ hai, và đặt ngưỡng dừng nếu chỉ số đó dưới mức nào đó.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Hiểu mô hình doanh thu ngành 30 · Xử lý ràng buộc 25 · Định lượng 25 · Khuyến nghị khả thi 20. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Dùng giá trị vòng đời thay vì lợi nhuận năm hiện tại: mức 4 · Không nhắc ràng buộc pháp lý: trần mức 2 · Có ngưỡng dừng: +1 mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C094">
+      <div class="sheet-h"><span class="sid">C-094</span><h4>Checkpoint Industry — chín case ngắn, rút ba</h4><span class="lv lv3">L3</span><span class="tag">90 phút</span><span class="tag">Checkpoint H</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Chín case ngắn thuộc chín ngành, mỗi case 25 phút. Người học rút ba, bắt buộc khác nhóm ngành.</dd></div>
+        <div class="row"><dt>Danh mục</dt><dd><b>Tiêu dùng:</b> chuỗi cửa hàng thời trang giảm doanh thu trên mét vuông · nhà hàng buffet giảm vòng quay bàn · hãng nước giải khát mất kệ trưng bày.<br><b>Dịch vụ &amp; tài chính:</b> công ty bảo hiểm có tỷ lệ bồi thường tăng · bệnh viện tư thiếu công suất giường · trung tâm tiếng Anh có tỷ lệ hoàn thành khoá thấp.<br><b>Tech &amp; hạ tầng:</b> công ty SaaS có tỷ lệ rời bỏ tăng ở gói nhỏ · hãng giao hàng có chi phí chặng cuối tăng · nhà máy điện mặt trời có sản lượng thấp hơn dự báo.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Mỗi case có đúng 2 exhibit và một bộ chỉ số ngành. Không phát thêm.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Mỗi case có một chỉ số ngành mà nếu không dùng thì không thể ra kết luận đúng — ví dụ doanh thu trên mét vuông, vòng quay bàn, tỷ lệ bồi thường, công suất giường. Nhắm <span class="code">IND-01</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Mỗi case có file khung: chỉ số ngành then chốt, phép tính chính, nguyên nhân gốc, một khuyến nghị. Độ khó phải tương đương giữa chín case, kiểm chứng bằng phân bố điểm.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Dùng đúng chỉ số ngành 30 · Cấu trúc 20 · Định lượng 25 · Khuyến nghị 25. Trung bình ba case ≥70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Không dùng chỉ số ngành đặc thù: trần mức 2 ở tiêu chí đó, bất kể kết luận đúng hay sai.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Track J — Interview Simulation</h3>
+  <div class="stack">
+    <div class="sheet" id="C096">
+      <div class="sheet-h"><span class="sid">C-096</span><h4>Bộ 20 live case interviewer-led</h4><span class="lv lv4">L4</span><span class="tag">30 phút/case</span><span class="tag">S15 S06</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Hai mươi case ngắn viết theo khuôn interviewer-led, mỗi case có kịch bản điều phối chi tiết để người đóng vai interviewer không cần là chuyên gia.</dd></div>
+        <div class="row"><dt>Cấu trúc mỗi case</dt><dd>Phần mở 2 phút · Yêu cầu structure 5 phút · Một câu hỏi định lượng 8 phút · Một exhibit 7 phút · Một câu hỏi phán đoán 3 phút · Chốt cuối 60 giây. Kịch bản ghi rõ interviewer nói gì ở từng mốc và can thiệp khi nào.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Mỗi case có một trang dữ liệu chỉ interviewer thấy, chia theo điều kiện: hỏi gì thì cho gì. Có ba con số mồi mà nếu người học không hỏi thì không được cho.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Kịch bản có một điểm interviewer ngắt lời để đổi hướng đột ngột, kiểm tra khả năng giữ mạch. Nhắm <span class="code">ITV-03</span> quên tóm tắt trước khi chuyển nhánh.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Mỗi case có cây kỳ vọng, đáp số của câu định lượng, thông điệp của exhibit, và hai câu chốt mẫu ở hai mức chất lượng.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R5 đầy đủ. Ngưỡng 70. Interviewer chấm ngay sau case, không để sang hôm sau.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Im lặng quá 20 giây mà không xin thời gian: trừ một mức ở giao tiếp · Hết giờ chưa kết luận: trần mức 2 ở tiêu chí kết luận · Tự tóm tắt trước mỗi lần chuyển nhánh: mức 4.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C098">
+      <div class="sheet-h"><span class="sid">C-098</span><h4>Sáu case có dữ liệu bác bỏ giả thuyết</h4><span class="lv lv4">L4</span><span class="tag">35 phút/case</span><span class="tag">S02 S16</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Sáu case candidate-led, mỗi case được thiết kế để giả thuyết tự nhiên nhất của người học bị dữ liệu bác bỏ ở khoảng phút thứ 15.</dd></div>
+        <div class="row"><dt>Ví dụ thiết kế</dt><dd>Case 1: doanh thu giảm, mọi dấu hiệu chỉ về đối thủ mới, nhưng dữ liệu cho thấy thị phần không đổi — vấn đề là cả thị trường co lại. Case 2: chi phí tăng, người học nghĩ do giá nguyên liệu, dữ liệu cho thấy giá nguyên liệu giảm — vấn đề là hao hụt.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Dữ liệu bác bỏ chỉ được phát khi người học hỏi đúng câu. Nếu sau phút 20 vẫn chưa hỏi, interviewer chủ động đưa ra để case không bế tắc, và ghi lại việc đó vào phiếu chấm.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Bẫy chính là tâm lý: người học đã đầu tư công sức vào một hướng sẽ cố bám. Nhắm <span class="code">ITV-07</span>.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Mỗi case có hai cây: cây người học thường vẽ ban đầu, và cây đúng sau khi có dữ liệu mới. Phần chấm tập trung vào <b>cách chuyển</b> giữa hai cây, không phải vào việc có đoán đúng từ đầu hay không.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>Dẫn dắt chủ động 25 · Chất lượng câu hỏi dữ liệu 20 · Xoay hướng hợp lý 20 · Định lượng 20 · Kết luận khi thiếu dữ liệu 15. Ngưỡng 70.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Thừa nhận giả thuyết cũ sai và nói rõ hướng mới: mức 4 · Tiếp tục đào hướng cũ sau khi có dữ liệu bác bỏ: trần mức 2 toàn bài · Phải được interviewer mớm mới đổi hướng: trừ một mức.</dd></div>
+      </dl></div>
+    </div>
+
+    <div class="sheet" id="C100">
+      <div class="sheet-h"><span class="sid">C-100</span><h4>Full loop — hai case và phần fit</h4><span class="lv lv4">L4</span><span class="tag">2,5 giờ</span><span class="tag">Checkpoint L4</span></div>
+      <div class="sheet-b"><dl>
+        <div class="row"><dt>Bối cảnh</dt><dd>Mô phỏng trọn một buổi phỏng vấn: ba người phỏng vấn khác nhau, không trao đổi với nhau trước, gặp người học liên tiếp trong 2,5 giờ.</dd></div>
+        <div class="row"><dt>Cấu trúc</dt><dd>Vòng 1 — case interviewer-led 30 phút rút từ C-096 · Vòng 2 — case candidate-led 35 phút rút từ C-098 · Vòng 3 — fit 30 phút với 6 câu hỏi rút từ ngân hàng 20 câu · Nghỉ 10 phút giữa các vòng, đúng như thực tế.</dd></div>
+        <div class="row"><dt>Dữ liệu phát</dt><dd>Người phỏng vấn nhận phiếu chấm riêng, không biết điểm của vòng trước. Người học không được biết kết quả cho tới khi kết thúc cả ba vòng.</dd></div>
+        <div class="row trap"><dt>Bẫy</dt><dd>Vòng 2 được thiết kế khó hơn vòng 1 để kiểm tra phản ứng sau một case không suôn sẻ. Nhắm <span class="code">ITV-10</span> mất bình tĩnh sau một case tệ.</dd></div>
+        <div class="row"><dt>Đáp án khung</dt><dd>Không có. Thay vào đó là bản tổng hợp cuối buổi: ba phiếu chấm, mistake log gộp, và một kế hoạch hai tuần do chính người học viết dựa trên ba phiếu đó.</dd></div>
+        <div class="row"><dt>Rubric</dt><dd>R5 cho mỗi case (30 + 30) · Fit có cấu trúc và kết quả đo được 25 · Giữ phong độ cuối buổi 15. Đạt khi ≥75 ở cả hai case và ≥70 phần fit.</dd></div>
+        <div class="row"><dt>Chấm nhanh</dt><dd>Điểm vòng 2 thấp hơn vòng 1 quá 15 điểm: ghi nhận vấn đề phong độ, đề xuất luyện thêm áp lực liên tiếp · Câu chuyện fit không có kết quả đo được: trần mức 2 ở phần fit · Không có câu hỏi ngược cho người phỏng vấn: trừ một mức.</dd></div>
+      </dl></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section id="k4">
+  <div class="sec-head"><span class="sec-num">§ 04</span><h2>Ngân hàng exhibit dùng chung</h2></div>
+  <p class="lede">Khoảng 95 exhibit phải dựng cho 100 bài. Đừng dựng lẻ từng cái theo từng đề — dựng theo <b>họ exhibit</b>, mỗi họ một khuôn dữ liệu và một khuôn trình bày, rồi thay số cho từng đề. Cách này cắt khoảng một nửa công sức và giữ cho người học đọc quen một ngôn ngữ hình ảnh duy nhất.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Họ exhibit</th><th class="r">SL</th><th>Dùng ở</th><th>Thông điệp nó luôn mang</th><th>Quy cách bắt buộc</th></tr></thead>
+    <tbody>
+      <tr><td><strong>E1 · Bridge / waterfall</strong></td><td class="r">14</td><td>025 026 037 038 C-026 C-037</td><td>Chênh lệch giữa hai kỳ được giải thích bằng các cấu phần cộng lại khép kín.</td><td>Tổng các cấu phần phải khớp chênh lệch đúng đến 0,1 điểm; cột đầu và cột cuối tô khác cấu phần.</td></tr>
+      <tr><td><strong>E2 · Bảng đơn vị kinh doanh</strong></td><td class="r">16</td><td>014 037 068 C-014 C-068</td><td>Phân bố hiệu quả giữa các cửa hàng, khách hàng hoặc sản phẩm — luôn có đuôi dài.</td><td>Sắp xếp giảm dần theo lợi nhuận; có cả cột biên đóng góp và cột lợi nhuận sau phân bổ.</td></tr>
+      <tr><td><strong>E3 · Chuỗi funnel</strong></td><td class="r">8</td><td>055 057 C-057</td><td>Tỷ lệ chuyển đổi từng bước, với một bước rò rỉ rõ rệt.</td><td>Ghi cả số tuyệt đối và tỷ lệ; tỷ lệ tính trên bước liền trước, không phải trên đầu phễu.</td></tr>
+      <tr><td><strong>E4 · Cohort / retention</strong></td><td class="r">6</td><td>057 092 C-057 C-092</td><td>Hành vi theo thời gian gắn bó khác hẳn hành vi tại một thời điểm.</td><td>Trục ngang là số tháng kể từ khi gia nhập, không phải tháng dương lịch.</td></tr>
+      <tr><td><strong>E5 · Cơ cấu theo kênh hoặc vùng</strong></td><td class="r">12</td><td>026 066 090 C-026 C-090</td><td>Tỷ trọng dịch chuyển giữa hai kỳ — nguồn của mọi mix effect.</td><td>Luôn có hai kỳ cạnh nhau; ghi tỷ trọng lên từng khối.</td></tr>
+      <tr><td><strong>E6 · Chuỗi thời gian có điểm gãy</strong></td><td class="r">10</td><td>008 037 C-008</td><td>Một thay đổi xảy ra tại một thời điểm cụ thể, mời người học đi tìm nguyên nhân ở mốc đó.</td><td>Đủ dài để thấy nền trước khi gãy; không chú thích sẵn nguyên nhân.</td></tr>
+      <tr><td><strong>E7 · So sánh đối thủ</strong></td><td class="r">9</td><td>042 050 090 C-042</td><td>Vị thế tương đối trên hai trục có ý nghĩa quyết định.</td><td>Hai trục phải là hai yếu tố dẫn tới quyết định, không phải hai chỉ số sẵn có.</td></tr>
+      <tr><td><strong>E8 · P&amp;L rút gọn</strong></td><td class="r">13</td><td>027 028 011 C-011 C-050</td><td>Cấu trúc chi phí và các tầng biên lợi nhuận.</td><td>Hai kỳ cạnh nhau, có cột tỷ lệ trên doanh thu; gộp dòng nhỏ vào “khác” tối đa 5%.</td></tr>
+      <tr><td><strong>E9 · Sơ đồ dây chuyền có số</strong></td><td class="r">7</td><td>061 063 C-063</td><td>Thời gian chu kỳ và hàng chờ ở từng bước, đủ để tìm nút thắt.</td><td>Ghi thời gian chu kỳ, số nhân sự, hàng chờ ở mỗi bước; không đánh dấu sẵn nút thắt.</td></tr>
+      <tr><td><strong>E10 · Bản đồ nhu cầu và mạng lưới</strong></td><td class="r">4</td><td>066 C-066</td><td>Nhu cầu phân bố không đều so với vị trí kho hiện tại.</td><td>Kích thước điểm theo nhu cầu; vẽ cự ly chứ không chỉ vẽ vị trí.</td></tr>
+      <tr><td><strong>E11 · Exhibit gây nhiễu</strong></td><td class="r">6</td><td>039 081 C-039</td><td>Không mang thông điệp nào dẫn tới kết luận — có mặt để kiểm tra kỹ năng cắt nhánh.</td><td>Phải trông hợp lý và thú vị, nếu không thì bẫy vô tác dụng.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:16px"><b>Quy cách chung cho mọi exhibit:</b> có action title dạng kết luận ở bản lời giải nhưng <b>không có</b> ở bản phát cho người học · ghi nguồn và đơn vị · đọc được ở cả nền sáng và nền tối · không dùng màu làm thông tin duy nhất · bản dữ liệu thô luôn đi kèm để người học có thể tính lại.</div>
+</section>
+
+<!-- 05 -->
+<section id="k5">
+  <div class="sec-head"><span class="sec-num">§ 05</span><h2>Kế hoạch sản xuất</h2></div>
+  <p class="lede">Bốn đợt. Nguyên tắc xếp đợt: <b>mỗi đợt phải mở được một lộ trình hoàn chỉnh cho ít nhất một persona</b>, thay vì làm dàn đều mọi track rồi không lộ trình nào chạy được. Đợt 1 đủ để mở lớp thật và bắt đầu thu phản hồi.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Đợt</th><th>Nội dung</th><th class="r">Mục</th><th>Mở được gì</th><th>Điều kiện chuyển đợt</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Đợt 1</strong><br><span class="pri p1">P1</span></td>
+        <td>Bài 001–039 và 069–072 · 9 đề case đặc tả đầy đủ · họ exhibit E1, E2, E6, E8 · ngân hàng giả định</td>
+        <td class="r">34</td>
+        <td><b>Path 6</b> trọn vẹn và <b>Path 1</b> đến tuần 5. Đủ để mở lớp cho persona P1 và P2.</td>
+        <td>20 người học đi hết Path 6; phân bố điểm checkpoint L1 nằm trong khoảng kỳ vọng; không quá 35% bỏ dở ở bất kỳ module nào.</td>
+      </tr>
+      <tr>
+        <td><strong>Đợt 2</strong><br><span class="pri p2">P2</span></td>
+        <td>Bài 040–068 · 11 đề case · họ exhibit E3, E4, E5, E7 · template unit economics và CAC/LTV</td>
+        <td class="r">29</td>
+        <td><b>Path 3</b> và <b>Path 4</b> trọn vẹn; <b>Path 5</b> trọn vẹn. Mở cho P4, P5, P6.</td>
+        <td>Rubric R1 và R6 được hiệu chuẩn qua ít nhất 60 lượt chấm; độ lệch giữa hai người chấm dưới 10 điểm ở 80% trường hợp.</td>
+      </tr>
+      <tr>
+        <td><strong>Đợt 3</strong><br><span class="pri p2">P2</span></td>
+        <td>Bài 073–088 và 095–100 · 7 đề case · bản ghi mẫu · kịch bản panel và ngân hàng câu hỏi</td>
+        <td class="r">22</td>
+        <td><b>Path 1</b> trọn vẹn đến capstone; <b>Path 2</b> trọn vẹn. Mở cho P3.</td>
+        <td>Có đủ đội ngũ đóng vai interviewer và giám khảo; mỗi người được hiệu chuẩn trên ít nhất 5 bản ghi mẫu.</td>
+      </tr>
+      <tr>
+        <td><strong>Đợt 4</strong><br><span class="pri p3">P3</span></td>
+        <td>Bài 089–094 · thư viện ngành · 2 đề case · mở rộng ngân hàng đề cho mọi drill lên gấp đôi</td>
+        <td class="r">15</td>
+        <td>Độ phủ ngành và khả năng cho người học lặp lại mà không gặp lại đề cũ.</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 class="sub">Thứ tự trong một đợt</h3>
+  <ol class="rules">
+    <li><span class="n">01</span><div><b>Rubric và checkpoint trước</b><p>Viết tiêu chí chấm trước khi viết đề. Đề viết sau sẽ tự động nhắm đúng cái cần đo; làm ngược lại thì rubric luôn phải uốn theo đề.</p></div></li>
+    <li><span class="n">02</span><div><b>Đề case trước drill</b><p>Đề case xác định người học cần thành thạo cái gì. Drill là thứ được rút ra từ chỗ người học vấp trong đề, không phải ngược lại.</p></div></li>
+    <li><span class="n">03</span><div><b>Dữ liệu thô trước exhibit</b><p>Luôn tạo dataset trước rồi mới vẽ. Exhibit vẽ tay không có dữ liệu nền sẽ không chịu nổi câu hỏi “con số này ở đâu ra” của người học giỏi.</p></div></li>
+    <li><span class="n">04</span><div><b>Chạy thử với 3 người trước khi hoàn thiện</b><p>Mỗi đề mới phải được ba người làm thử trước khi lên web. Ba lần thử đủ để lộ chỗ đề bị hiểu sai và chỗ bẫy không hoạt động.</p></div></li>
+    <li><span class="n">05</span><div><b>Hiệu chuẩn rubric sau 20 lượt chấm đầu</b><p>Nếu phân bố điểm dồn về một phía hoặc hai người chấm lệch nhau quá 15 điểm, sửa mô tả mức trong rubric chứ đừng sửa người chấm.</p></div></li>
+  </ol>
+
+  <div class="caution" style="margin-top:20px"><b>Rủi ro lớn nhất của kế hoạch này</b> không phải là không kịp sản xuất, mà là sản xuất nhanh hơn tốc độ hiệu chuẩn. Một đề chưa chạy thử và một rubric chưa hiệu chuẩn sẽ tạo ra điểm số vô nghĩa, và readiness score — thứ toàn bộ logic định tuyến dựa vào — sẽ dẫn người học đi sai. Nếu phải chọn, hãy làm ít đề hơn và hiệu chuẩn kỹ hơn.</div>
+</section>
+
+</main>
+<footer>
+  Case library spec · 29 đề đặc tả đầy đủ · 100 mục tài sản luyện tập · 11 họ exhibit · 4 đợt sản xuất. Đi kèm curriculum blueprint và module spec B2.
+</footer>
+</div>
+
+<script>
+(function(){
+  var tb = document.querySelector('#assets tbody');
+  if(!tb) return;
+  var rows = Array.prototype.slice.call(tb.querySelectorAll('tr'));
+  var fa = document.getElementById('fa'), fp = document.getElementById('fp'),
+      fq = document.getElementById('fq'), fc = document.getElementById('fc');
+  function apply(){
+    var a = fa.value, p = fp.value, q = fq.value.trim().toLowerCase(), n = 0;
+    rows.forEach(function(r){
+      var ok = (!a || r.dataset.a === a) && (!p || r.dataset.p === p) &&
+               (!q || r.textContent.toLowerCase().indexOf(q) !== -1);
+      r.hidden = !ok; if(ok) n++;
+    });
+    fc.textContent = n + ' / ' + rows.length;
+  }
+  fa.addEventListener('change', apply);
+  fp.addEventListener('change', apply);
+  fq.addEventListener('input', apply);
+})();
+</script>

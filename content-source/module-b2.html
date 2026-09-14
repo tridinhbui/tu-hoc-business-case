@@ -1,0 +1,580 @@
+<title>Module B2 — Market Sizing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#F3F4F1; --surface:#FBFCFA; --surface-2:#EAEDE8;
+  --ink:#14201E; --ink-2:#4A5956; --ink-3:#6E7C79;
+  --rule:#D7DCD6; --rule-strong:#BCC4BC;
+  --accent:#0F6F67; --accent-soft:#DDEBE7; --accent-ink:#0A4F49;
+  --l1:#5C837D; --l2:#0F6F67; --l3:#1D4E6B; --l4:#8A5E0F;
+  --l1-bg:#E4EBE9; --l2-bg:#DCEBE7; --l3-bg:#DFE8EE; --l4-bg:#F0E7D3;
+  --warn:#8C4A1F; --warn-bg:#F3E7DE;
+  --maxw:1120px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1513; --surface:#161E1C; --surface-2:#1C2624;
+    --ink:#E9EEEA; --ink-2:#A3B2AD; --ink-3:#7E8D89;
+    --rule:#283330; --rule-strong:#3A4844;
+    --accent:#54C2B4; --accent-soft:#153330; --accent-ink:#8AD8CC;
+    --l1:#8FB6AF; --l2:#54C2B4; --l3:#7BB0D2; --l4:#D8A93F;
+    --l1-bg:#1B2624; --l2-bg:#13302C; --l3-bg:#17272F; --l4-bg:#2C2413;
+    --warn:#D9915F; --warn-bg:#2A1E16;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1513; --surface:#161E1C; --surface-2:#1C2624;
+  --ink:#E9EEEA; --ink-2:#A3B2AD; --ink-3:#7E8D89;
+  --rule:#283330; --rule-strong:#3A4844;
+  --accent:#54C2B4; --accent-soft:#153330; --accent-ink:#8AD8CC;
+  --l1:#8FB6AF; --l2:#54C2B4; --l3:#7BB0D2; --l4:#D8A93F;
+  --l1-bg:#1B2624; --l2-bg:#13302C; --l3-bg:#17272F; --l4-bg:#2C2413;
+  --warn:#D9915F; --warn-bg:#2A1E16;
+}
+*{box-sizing:border-box}
+body{background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.62; -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:Newsreader,Georgia,"Times New Roman",serif; font-weight:500; text-wrap:balance; margin:0; line-height:1.2}
+p{margin:0}
+a{color:var(--accent-ink)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+header.mast{padding:56px 0 34px}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center}
+.eyebrow::after{content:""; flex:1; height:1px; background:var(--rule)}
+h1{font-size:clamp(32px,4.8vw,48px); letter-spacing:-.015em; margin:16px 0 0; max-width:18ch}
+.standfirst{margin-top:16px; max-width:66ch; font-size:16.5px; color:var(--ink-2)}
+.mast-meta{display:flex; flex-wrap:wrap; margin-top:28px; border-top:1px solid var(--rule)}
+.mast-meta div{padding:13px 20px 11px 0; margin-right:20px; border-right:1px solid var(--rule)}
+.mast-meta div:last-child{border-right:0; margin-right:0}
+.mast-meta dt{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+.mast-meta dd{margin:3px 0 0; font-size:14px; font-weight:500}
+
+section{padding-top:54px; scroll-margin-top:16px}
+.sec-head{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:baseline; border-bottom:2px solid var(--ink); padding-bottom:10px; margin-bottom:22px}
+.sec-num{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--accent); letter-spacing:.06em}
+.sec-head h2{font-size:clamp(22px,2.9vw,29px); letter-spacing:-.01em}
+.lede{max-width:72ch; color:var(--ink-2); margin-bottom:22px}
+h3.sub{font-size:18.5px; margin:34px 0 13px; padding-bottom:6px; border-bottom:1px solid var(--rule)}
+
+.grid{display:grid; gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:18px 20px}
+.card h4{font-size:17px; margin-bottom:6px}
+.kicker{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:7px}
+
+.tw{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:13.2px; min-width:660px}
+th,td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--rule); vertical-align:top}
+thead th{position:sticky; top:0; background:var(--surface-2); z-index:2;
+  font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:10.5px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2);
+  border-bottom:1px solid var(--rule-strong); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--surface-2)}
+td.num,.tnum{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+td.num{color:var(--ink-3)}
+td.r{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+th.r{text-align:right}
+
+.lv{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:500; padding:2px 7px; border-radius:2px; white-space:nowrap; display:inline-block}
+.lv1{background:var(--l1-bg); color:var(--l1); border:1px solid var(--l1)}
+.lv2{background:var(--l2-bg); color:var(--l2); border:1px solid var(--l2)}
+.tag{font-family:"IBM Plex Mono",monospace; font-size:10.5px; padding:2px 7px; border:1px solid var(--rule-strong); border-radius:2px; color:var(--ink-2); white-space:nowrap; display:inline-block}
+.code{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--warn); background:var(--warn-bg); padding:1px 6px; border-radius:2px; white-space:nowrap}
+
+/* lesson block */
+.stack{display:grid; gap:15px}
+.les{border:1px solid var(--rule); border-left:3px solid var(--accent); border-radius:3px; background:var(--surface); padding:19px 21px; display:grid; gap:12px}
+.les-head{display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:baseline}
+.les-code{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; color:var(--accent)}
+.les-head h4{font-size:18px}
+@media (max-width:560px){ .les-head{grid-template-columns:auto 1fr} .les-head .tag{grid-column:1/-1} }
+.les dl{display:grid; gap:8px; margin:0}
+.row{display:grid; grid-template-columns:112px minmax(0,1fr); gap:14px; align-items:start}
+@media (max-width:640px){ .row{grid-template-columns:1fr; gap:2px} }
+.row dt{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); padding-top:3px}
+.row dd{margin:0; font-size:13.6px; color:var(--ink-2)}
+.row dd b{color:var(--ink); font-weight:600}
+.row ul{margin:0; padding-left:17px}
+.row li{margin-bottom:2px}
+.row.out dd{color:var(--ink)}
+
+.note{border-left:2px solid var(--accent); background:var(--accent-soft); padding:14px 18px; border-radius:0 3px 3px 0; font-size:13.8px; color:var(--ink-2)}
+.note b{color:var(--ink)}
+.caution{border-left:2px solid var(--warn); background:var(--warn-bg); padding:14px 18px; border-radius:0 3px 3px 0; font-size:13.6px; color:var(--ink-2)}
+.caution b{color:var(--ink)}
+
+/* case sheet */
+.sheet{border:1px solid var(--rule-strong); border-radius:3px; background:var(--surface); overflow:hidden}
+.sheet-h{background:var(--surface-2); padding:14px 20px; border-bottom:1px solid var(--rule-strong); display:flex; gap:12px; align-items:baseline; flex-wrap:wrap}
+.sheet-h h4{font-size:18px}
+.sheet-b{padding:18px 20px; display:grid; gap:16px}
+.block{display:grid; gap:7px}
+.block > .kicker{margin-bottom:0}
+.block p, .block li{font-size:13.8px; color:var(--ink-2)}
+.block ul,.block ol{margin:0; padding-left:19px}
+.block li{margin-bottom:3px}
+.calc{font-family:"IBM Plex Mono",monospace; font-size:12.5px; background:var(--surface-2); border:1px solid var(--rule); border-radius:3px; padding:12px 14px; overflow-x:auto; color:var(--ink); line-height:1.75}
+.calc .cm{color:var(--ink-3)}
+
+ol.rules{list-style:none; padding:0; margin:0; border-top:1px solid var(--rule)}
+ol.rules li{display:grid; grid-template-columns:46px 1fr; gap:14px; padding:15px 0; border-bottom:1px solid var(--rule)}
+ol.rules .n{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--accent); padding-top:3px}
+ol.rules b{display:block; font-family:Newsreader,serif; font-weight:500; font-size:17.5px; margin-bottom:3px}
+ol.rules p{color:var(--ink-2); font-size:13.8px; max-width:74ch}
+
+footer{border-top:1px solid var(--rule); margin-top:56px; padding:34px 0 76px; color:var(--ink-3); font-size:12.5px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="eyebrow">Module Spec · mẫu chuẩn để nhân bản</div>
+  <h1>Module B2 — Market Sizing</h1>
+  <p class="standfirst">Đặc tả đầy đủ một module: tám bài học, ngân hàng giả định, đề case có lời giải khung, rubric bốn mức, mã lỗi và drill sửa lỗi. Đây là khuôn mẫu cho 33 module còn lại — mọi trường trong tài liệu này đều bắt buộc ở module khác.</p>
+  <dl class="mast-meta">
+    <div><dt>Track</dt><dd>B · Quantitative</dd></div>
+    <div><dt>Level</dt><dd>L1 → L2</dd></div>
+    <div><dt>Prerequisite</dt><dd>B1 đạt ≥85%</dd></div>
+    <div><dt>Bài học</dt><dd>8</dd></div>
+    <div><dt>Thời lượng</dt><dd>6–8 giờ</dd></div>
+    <div><dt>Skill</dt><dd>S05 chính · S06 S16 phụ</dd></div>
+  </dl>
+</header>
+
+<main>
+
+<!-- 01 -->
+<section id="m1">
+  <div class="sec-head"><span class="sec-num">§ 01</span><h2>Vị trí và cam kết đầu ra</h2></div>
+  <p class="lede">Module này tồn tại vì một lý do cụ thể: market sizing là kỹ năng duy nhất trong chương trình mà người học phải tạo ra con số từ hư không, và nó là bài kiểm tra sớm nhất về việc họ có dám ghi giả định ra giấy hay không.</p>
+  <div class="grid g2">
+    <div class="card">
+      <span class="kicker">Cam kết đầu ra — can-do</span>
+      <p style="font-size:13.8px; color:var(--ink-2)">Kết thúc module, người học <b>ước lượng được quy mô một thị trường chưa từng gặp trong 8 phút</b>, bằng cả hai hướng, ghi rõ giả định, kiểm tra tính hợp lý và nêu được khoảng dao động. Cụ thể:</p>
+      <ul style="font-size:13.6px; color:var(--ink-2); padding-left:19px; margin:8px 0 0">
+        <li>Chọn đúng hướng tiếp cận trong 30 giây đầu và nói được lý do chọn</li>
+        <li>Viết bảng sizing mà người khác đọc lại kiểm tra được từng dòng</li>
+        <li>Phát hiện kết quả lệch bậc độ lớn trước khi đọc to</li>
+        <li>Chỉ ra giả định nào chi phối kết quả nhiều nhất</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="kicker">Không thuộc phạm vi module</span>
+      <p style="font-size:13.8px; color:var(--ink-2)">Ba thứ người học hay tưởng sẽ học ở đây nhưng không:</p>
+      <ul style="font-size:13.6px; color:var(--ink-2); padding-left:19px; margin:8px 0 0">
+        <li><b>Dự báo tăng trưởng thị trường</b> — thuộc B4 và C2, cần kỹ thuật kịch bản</li>
+        <li><b>Nghiên cứu thị trường thật</b> — thuộc E1, là kỹ năng thu thập chứ không phải ước lượng</li>
+        <li><b>Sizing để ra quyết định đầu tư</b> — thuộc C2; ở đây sizing dừng ở con số, chưa gắn với go/no-go</li>
+      </ul>
+      <p style="font-size:13.2px; color:var(--ink-3); margin-top:10px">Ranh giới này phải hiện trên trang module để người học không kỳ vọng sai.</p>
+    </div>
+  </div>
+  <div class="note" style="margin-top:16px"><b>Điều kiện vào:</b> B1 đạt ≥85% chính xác trong ba lần calculation drill liên tiếp. Không cho vào sớm — sizing sai vì tính sai là một dạng thất bại khác hẳn sizing sai vì cấu trúc sai, và nó làm nhiễu toàn bộ chẩn đoán của hệ thống.</p></div>
+</section>
+
+<!-- 02 -->
+<section id="m2">
+  <div class="sec-head"><span class="sec-num">§ 02</span><h2>Tám bài học</h2></div>
+  <p class="lede">Mỗi bài gồm sáu trường bắt buộc: mục tiêu, nội dung dạy, ví dụ trong bài, drill kèm theo, output nộp, mã lỗi nhắm sửa. Phần “nội dung dạy” không bao giờ dài quá 6 phút đọc — tỷ lệ đọc trên làm giữ ở mức 1:3 theo tiêu chuẩn Q8.</p>
+  <div class="stack">
+
+    <div class="les">
+      <div class="les-head"><span class="les-code">B2.1</span><h4>Top-down ba bước</h4><span class="tag">35 phút</span></div>
+      <dl>
+        <div class="row"><dt>Mục tiêu</dt><dd>Ước lượng một thị trường tiêu dùng bằng chuỗi dân số → tỷ lệ dùng → tần suất → giá, và trình bày nó thành một bảng bốn dòng.</dd></div>
+        <div class="row"><dt>Nội dung dạy</dt><dd><ul>
+          <li>Bộ khung ba bước và vì sao bước cuối luôn là giá hoặc giá trị đơn vị</li>
+          <li>Đơn vị của từng dòng phải khớp nhau — cách kiểm tra bằng phép nhân đơn vị</li>
+          <li>Mỗi dòng phải là một con số người học dám bảo vệ, không phải con số làm cho đẹp</li>
+          <li>Quy ước ghi bảng: giả định bên trái, phép tính ở giữa, kết quả bên phải</li>
+        </ul></dd></div>
+        <div class="row"><dt>Ví dụ</dt><dd>Thị trường cà phê pha máy tại nhà ở khu vực thành thị Việt Nam — dựng trực tiếp trên bảng, giảng viên nói to từng giả định và vì sao chọn con số đó.</dd></div>
+        <div class="row"><dt>Drill</dt><dd>4 thị trường quen thuộc, mỗi thị trường 6 phút: nước đóng chai, vé xem phim, bột giặt, dịch vụ rửa xe máy.</dd></div>
+        <div class="row out"><dt>Output</dt><dd>4 bảng sizing bốn dòng, có ô giả định điền đầy đủ.</dd></div>
+        <div class="row"><dt>Nhắm sửa</dt><dd><span class="code">SIZ-01</span> giả định không nói ra · <span class="code">SIZ-05</span> độ chính xác giả</dd></div>
+      </dl>
+    </div>
+
+    <div class="les">
+      <div class="les-head"><span class="les-code">B2.2</span><h4>Bottom-up: đếm từ đơn vị cung</h4><span class="tag">35 phút</span></div>
+      <dl>
+        <div class="row"><dt>Mục tiêu</dt><dd>Ước lượng thị trường bằng cách đếm điểm cung, công suất mỗi điểm và tỷ lệ lấp đầy — dùng khi phía cầu quá mơ hồ để chia nhỏ.</dd></div>
+        <div class="row"><dt>Nội dung dạy</dt><dd><ul>
+          <li>Chuỗi chuẩn: số điểm cung × công suất × tỷ lệ lấp đầy × giá × số kỳ</li>
+          <li>Ba cách ước lượng số điểm cung khi không tra được: theo mật độ, theo tỷ lệ trên dân số, theo mẫu đã biết</li>
+          <li>Tỷ lệ lấp đầy là con số hay bị bỏ quên nhất</li>
+          <li>Khi nào bottom-up cho kết quả đáng tin hơn top-down</li>
+        </ul></dd></div>
+        <div class="row"><dt>Ví dụ</dt><dd>Thị trường phòng gym tại TP.HCM: đếm từ số phòng tập, số hội viên trung bình, phí tháng, tỷ lệ duy trì.</dd></div>
+        <div class="row"><dt>Drill</dt><dd>4 thị trường phía cung: tiệm cắt tóc, sân bóng cỏ nhân tạo, quán karaoke, nhà thuốc.</dd></div>
+        <div class="row out"><dt>Output</dt><dd>4 bảng sizing bottom-up + một dòng giải thích vì sao chọn hướng này.</dd></div>
+        <div class="row"><dt>Nhắm sửa</dt><dd><span class="code">SIZ-06</span> quên tỷ lệ lấp đầy · <span class="code">SIZ-01</span></dd></div>
+      </dl>
+    </div>
+
+    <div class="les">
+      <div class="les-head"><span class="les-code">B2.3</span><h4>Chọn hướng: quy tắc quyết định 30 giây</h4><span class="tag">30 phút</span></div>
+      <dl>
+        <div class="row"><dt>Mục tiêu</dt><dd>Trong 30 giây đầu, chọn được hướng tiếp cận phù hợp và nói được lý do — thay vì mặc định luôn dùng top-down.</dd></div>
+        <div class="row"><dt>Nội dung dạy</dt><dd><ul>
+          <li>Cây quyết định: cầu dễ chia nhỏ → top-down; cung đếm được → bottom-up; cả hai đều mơ hồ → chọn cái có ít giả định hơn</li>
+          <li>Dấu hiệu đề bài gợi ý hướng: “có bao nhiêu người…” và “thị trường X lớn cỡ nào”</li>
+          <li>Làm cả hai hướng khi thời gian cho phép và dùng độ lệch như một tín hiệu</li>
+          <li>Độ lệch bao nhiêu là chấp nhận được, bao nhiêu là dấu hiệu sai cấu trúc</li>
+        </ul></dd></div>
+        <div class="row"><dt>Ví dụ</dt><dd>Một đề duy nhất — thị trường thức ăn cho chó mèo — giải theo cả hai hướng trước lớp, so lệch và mổ xẻ nguyên nhân lệch.</dd></div>
+        <div class="row"><dt>Drill</dt><dd>10 đề chỉ yêu cầu trả lời “hướng nào và vì sao”, mỗi đề 45 giây. Không tính toán.</dd></div>
+        <div class="row out"><dt>Output</dt><dd>Bảng 10 dòng: đề · hướng chọn · lý do một câu.</dd></div>
+        <div class="row"><dt>Nhắm sửa</dt><dd><span class="code">SIZ-07</span> luôn dùng một hướng cho mọi đề</dd></div>
+      </dl>
+    </div>
+
+    <div class="les">
+      <div class="les-head"><span class="les-code">B2.4</span><h4>TAM, SAM, SOM</h4><span class="tag">30 phút</span></div>
+      <dl>
+        <div class="row"><dt>Mục tiêu</dt><dd>Phân biệt ba tầng thị trường và biết đề bài đang hỏi tầng nào — lỗi nhầm tầng làm sai kết quả nhiều hơn mọi lỗi tính toán cộng lại.</dd></div>
+        <div class="row"><dt>Nội dung dạy</dt><dd><ul>
+          <li>Định nghĩa qua ràng buộc: TAM bỏ mọi ràng buộc, SAM thêm ràng buộc địa lý và sản phẩm, SOM thêm ràng buộc năng lực của chính công ty</li>
+          <li>Bộ lọc chuyển từ tầng này sang tầng kia phải là con số, không phải lời</li>
+          <li>Vì sao “chiếm 10% thị phần” không phải là SOM</li>
+          <li>Cách đề bài nói gián tiếp rằng nó muốn SAM</li>
+        </ul></dd></div>
+        <div class="row"><dt>Ví dụ</dt><dd>Một thương hiệu sữa chua uống: TAM toàn ngành sữa, SAM phân khúc uống liền ở kênh hiện đại, SOM theo độ phủ hiện có.</dd></div>
+        <div class="row"><dt>Drill</dt><dd>8 đề, với mỗi đề ghi rõ đề đang hỏi tầng nào và viết bộ lọc chuyển tầng bằng số.</dd></div>
+        <div class="row out"><dt>Output</dt><dd>8 bảng ba tầng có bộ lọc định lượng giữa các tầng.</dd></div>
+        <div class="row"><dt>Nhắm sửa</dt><dd><span class="code">SIZ-03</span> nhầm TAM với SOM</dd></div>
+      </dl>
+    </div>
+
+    <div class="les">
+      <div class="les-head"><span class="les-code">B2.5</span><h4>Ngân hàng giả định</h4><span class="tag">45 phút</span></div>
+      <dl>
+        <div class="row"><dt>Mục tiêu</dt><dd>Xây một bộ số nền cá nhân để không phải bịa giữa chừng, và quan trọng hơn: biết con số nào mình chắc, con số nào mình đoán.</dd></div>
+        <div class="row"><dt>Nội dung dạy</dt><dd><ul>
+          <li>Ba tầng độ tin cậy: số tra được, số suy ra được, số phải đoán</li>
+          <li>Cách neo một con số lạ vào một con số quen</li>
+          <li>Ghi khoảng thay vì ghi một điểm</li>
+          <li>Quy tắc cập nhật và trích nguồn</li>
+        </ul></dd></div>
+        <div class="row"><dt>Ví dụ</dt><dd>Bảng ở <a href="#m3">§ 03</a> — người học không nhận bảng có sẵn mà tự dựng, sau đó đối chiếu.</dd></div>
+        <div class="row"><dt>Drill</dt><dd>Điền 30 ô từ trí nhớ, sau đó tra nguồn và đánh dấu ô nào lệch quá 30%.</dd></div>
+        <div class="row out"><dt>Output</dt><dd>Bộ thẻ ghi nhớ cá nhân, mỗi thẻ có khoảng, nguồn và ngày cập nhật.</dd></div>
+        <div class="row"><dt>Nhắm sửa</dt><dd><span class="code">SIZ-08</span> dùng số nhớ mang máng không kiểm chứng</dd></div>
+      </dl>
+    </div>
+
+    <div class="les">
+      <div class="les-head"><span class="les-code">B2.6</span><h4>Sanity check</h4><span class="tag">40 phút</span></div>
+      <dl>
+        <div class="row"><dt>Mục tiêu</dt><dd>Phát hiện kết quả vô lý <b>trước khi</b> đọc to. Đây là bài quan trọng nhất module.</dd></div>
+        <div class="row"><dt>Nội dung dạy</dt><dd><ul>
+          <li>Ba câu hỏi bắt buộc: con số này chia cho dân số ra bao nhiêu, nó so với một thị trường tôi đã biết thì thế nào, nó có hợp với thu nhập trung bình không</li>
+          <li>Kiểm tra bậc độ lớn trước khi kiểm tra chữ số</li>
+          <li>Quy đổi về chi tiêu đầu người mỗi tháng — phép thử nhanh nhất</li>
+          <li>Nói ra kết quả sanity check thành lời, kể cả khi nó xác nhận mình đúng</li>
+        </ul></dd></div>
+        <div class="row"><dt>Ví dụ</dt><dd>Ba kết quả sizing sai lệch 10, 100 và 1.000 lần; người học phải tìm ra chỗ sai chỉ bằng sanity check, không được xem lại phép tính.</dd></div>
+        <div class="row"><dt>Drill</dt><dd>12 bảng sizing của người khác, mỗi bảng 2 phút: hợp lý hay không, và nếu không thì sai ở dòng nào.</dd></div>
+        <div class="row out"><dt>Output</dt><dd>12 nhận xét, mỗi nhận xét chỉ đúng một dòng sai.</dd></div>
+        <div class="row"><dt>Nhắm sửa</dt><dd><span class="code">SIZ-02</span> lệch bậc độ lớn · <span class="code">QNT-05</span> không sanity check</dd></div>
+      </dl>
+    </div>
+
+    <div class="les">
+      <div class="les-head"><span class="les-code">B2.7</span><h4>Khoảng dao động và giả định chi phối</h4><span class="tag">40 phút</span></div>
+      <dl>
+        <div class="row"><dt>Mục tiêu</dt><dd>Trình bày kết quả dưới dạng khoảng, và chỉ ra giả định nào làm khoảng đó rộng ra nhiều nhất.</dd></div>
+        <div class="row"><dt>Nội dung dạy</dt><dd><ul>
+          <li>Vì sao một con số đơn lẻ luôn sai và một khoảng thì có thể đúng</li>
+          <li>Dựng khoảng bằng cách cho hai giả định yếu nhất chạy biên</li>
+          <li>Xác định giả định chi phối: đổi ±20% dòng nào thì kết quả đổi nhiều nhất</li>
+          <li>Câu kết chuẩn: con số, khoảng, giả định chi phối, việc cần làm để thu hẹp khoảng</li>
+        </ul></dd></div>
+        <div class="row"><dt>Ví dụ</dt><dd>Lấy lại bảng ở B2.1, chạy biên hai giả định và cho thấy kết quả dao động gấp ba lần.</dd></div>
+        <div class="row"><dt>Drill</dt><dd>6 bảng sizing đã có sẵn, với mỗi bảng nêu giả định chi phối và khoảng dao động.</dd></div>
+        <div class="row out"><dt>Output</dt><dd>6 câu kết chuẩn bốn thành phần.</dd></div>
+        <div class="row"><dt>Nhắm sửa</dt><dd><span class="code">SIZ-05</span> độ chính xác giả · <span class="code">SIZ-09</span> không nêu giả định chi phối</dd></div>
+      </dl>
+    </div>
+
+    <div class="les">
+      <div class="les-head"><span class="les-code">B2.8</span><h4>Drill tổng hợp — sáu thị trường lạ trong 45 phút</h4><span class="tag">45 phút</span></div>
+      <dl>
+        <div class="row"><dt>Mục tiêu</dt><dd>Chạy toàn bộ quy trình dưới áp lực thời gian, mỗi thị trường 7–8 phút, không được tra cứu.</dd></div>
+        <div class="row"><dt>Nội dung dạy</dt><dd>Không có nội dung mới. Buổi này chỉ có làm và chấm chéo.</dd></div>
+        <div class="row"><dt>Ví dụ</dt><dd>Sáu đề rút ngẫu nhiên từ ngân hàng đề, bảo đảm có ít nhất một đề phía cung và một đề dịch vụ B2B.</dd></div>
+        <div class="row"><dt>Drill</dt><dd>Làm theo cặp: một người sizing thành tiếng, một người ghi lại giả định và bắt lỗi, sau đó đổi vai.</dd></div>
+        <div class="row out"><dt>Output</dt><dd>6 bảng sizing đầy đủ bốn thành phần + biên bản bắt lỗi của bạn cùng cặp.</dd></div>
+        <div class="row"><dt>Nhắm sửa</dt><dd>Toàn bộ nhóm <span class="code">SIZ</span> dưới áp lực thời gian</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section id="m3">
+  <div class="sec-head"><span class="sec-num">§ 03</span><h2>Ngân hàng giả định</h2></div>
+  <p class="lede">Bộ số nền cho bài B2.5. Đây là <b>khoảng tham chiếu dùng để luyện tập</b>, không phải số liệu thống kê chính thức — mục đích là cho người học một mỏ neo để ước lượng, và dạy họ thói quen ghi khoảng thay vì ghi một điểm.</p>
+  <div class="caution"><b>Bắt buộc trước khi lên web:</b> mỗi dòng phải được gắn nguồn thật (Tổng cục Thống kê, báo cáo ngành, khảo sát công bố) và ngày cập nhật. Các khoảng dưới đây là ước lượng bậc độ lớn để dựng khuôn bảng, không được đưa lên sản phẩm dưới dạng dữ kiện. Cột <b>Độ tin cậy</b> chính là thứ người học cần học cách tự đánh giá.</div>
+  <div class="tw" style="margin-top:16px">
+  <table>
+    <thead><tr><th>#</th><th>Chỉ số nền</th><th class="r">Khoảng tham chiếu</th><th>Độ tin cậy</th><th>Dùng cho dạng đề</th></tr></thead>
+    <tbody>
+      <tr><td class="num">01</td><td>Dân số Việt Nam</td><td class="r">~100 triệu</td><td>Tra được</td><td>Mọi đề tiêu dùng</td></tr>
+      <tr><td class="num">02</td><td>Tỷ lệ dân số đô thị</td><td class="r">~38–42%</td><td>Tra được</td><td>Đề phân theo thành thị / nông thôn</td></tr>
+      <tr><td class="num">03</td><td>Số hộ gia đình</td><td class="r">~28–30 triệu</td><td>Suy ra được</td><td>Hàng gia dụng, dịch vụ hộ</td></tr>
+      <tr><td class="num">04</td><td>Quy mô hộ trung bình</td><td class="r">~3,3–3,6 người</td><td>Tra được</td><td>Chuyển đổi cá nhân ↔ hộ</td></tr>
+      <tr><td class="num">05</td><td>Dân số TP.HCM</td><td class="r">~9–10 triệu</td><td>Tra được</td><td>Đề khu vực</td></tr>
+      <tr><td class="num">06</td><td>Dân số Hà Nội</td><td class="r">~8–8,5 triệu</td><td>Tra được</td><td>Đề khu vực</td></tr>
+      <tr><td class="num">07</td><td>Thu nhập bình quân đầu người / tháng</td><td class="r">~4,5–5,5 triệu đồng</td><td>Tra được</td><td>Sanity check chi tiêu</td></tr>
+      <tr><td class="num">08</td><td>Tỷ trọng chi cho ăn uống trong chi tiêu hộ</td><td class="r">~45–50%</td><td>Tra được</td><td>F&amp;B, FMCG</td></tr>
+      <tr><td class="num">09</td><td>Tỷ lệ người dùng internet</td><td class="r">~78–82%</td><td>Tra được</td><td>Đề số hoá</td></tr>
+      <tr><td class="num">10</td><td>Tỷ lệ người trưởng thành dùng smartphone</td><td class="r">~75–85%</td><td>Suy ra được</td><td>Ứng dụng, ví điện tử</td></tr>
+      <tr><td class="num">11</td><td>Xe máy đang lưu hành</td><td class="r">~65–72 triệu</td><td>Tra được</td><td>Phụ tùng, xăng, bảo dưỡng</td></tr>
+      <tr><td class="num">12</td><td>Ô tô cá nhân đang lưu hành</td><td class="r">~5–6 triệu</td><td>Suy ra được</td><td>Dịch vụ ô tô</td></tr>
+      <tr><td class="num">13</td><td>Cửa hàng tạp hoá truyền thống</td><td class="r">~1,2–1,5 triệu</td><td>Phải đoán</td><td>Phân phối FMCG</td></tr>
+      <tr><td class="num">14</td><td>Cửa hàng tiện lợi và siêu thị mini</td><td class="r">~6.000–9.000</td><td>Phải đoán</td><td>Kênh hiện đại</td></tr>
+      <tr><td class="num">15</td><td>Chợ truyền thống</td><td class="r">~8.000–9.000</td><td>Suy ra được</td><td>Thực phẩm tươi</td></tr>
+      <tr><td class="num">16</td><td>Số trường đại học và cao đẳng</td><td class="r">~450–470</td><td>Tra được</td><td>Đề giáo dục</td></tr>
+      <tr><td class="num">17</td><td>Sinh viên đại học</td><td class="r">~2,1–2,5 triệu</td><td>Tra được</td><td>Đề giáo dục, tiêu dùng trẻ</td></tr>
+      <tr><td class="num">18</td><td>Học sinh phổ thông</td><td class="r">~17–18 triệu</td><td>Tra được</td><td>Đề giáo dục</td></tr>
+      <tr><td class="num">19</td><td>Lực lượng lao động</td><td class="r">~51–53 triệu</td><td>Tra được</td><td>Đề B2B, nhân sự</td></tr>
+      <tr><td class="num">20</td><td>Doanh nghiệp đang hoạt động</td><td class="r">~900 nghìn – 1 triệu</td><td>Suy ra được</td><td>Mọi đề B2B</td></tr>
+      <tr><td class="num">21</td><td>Tỷ lệ doanh nghiệp siêu nhỏ và nhỏ</td><td class="r">~95–97%</td><td>Tra được</td><td>Phân tầng khách B2B</td></tr>
+      <tr><td class="num">22</td><td>Giá một bữa ăn ngoài phổ thông</td><td class="r">~35–60 nghìn đồng</td><td>Suy ra được</td><td>F&amp;B</td></tr>
+      <tr><td class="num">23</td><td>Giá một ly cà phê chuỗi</td><td class="r">~35–60 nghìn đồng</td><td>Suy ra được</td><td>F&amp;B</td></tr>
+      <tr><td class="num">24</td><td>Phí phòng gym phổ thông / tháng</td><td class="r">~300–800 nghìn đồng</td><td>Phải đoán</td><td>Dịch vụ thuê bao</td></tr>
+      <tr><td class="num">25</td><td>Tiền thuê mặt bằng bán lẻ đường phụ / m² / tháng</td><td class="r">~300–800 nghìn đồng</td><td>Phải đoán</td><td>Kinh tế một cửa hàng</td></tr>
+      <tr><td class="num">26</td><td>Lương nhân viên bán hàng toàn thời gian / tháng</td><td class="r">~6–9 triệu đồng</td><td>Suy ra được</td><td>Chi phí vận hành</td></tr>
+      <tr><td class="num">27</td><td>Số ngày làm việc trong năm</td><td class="r">~250–260 ngày</td><td>Tra được</td><td>Quy đổi năm ↔ ngày</td></tr>
+      <tr><td class="num">28</td><td>Dân số thế giới</td><td class="r">~8,1–8,3 tỷ</td><td>Tra được</td><td>Đề quốc tế</td></tr>
+      <tr><td class="num">29</td><td>Dân số Đông Nam Á</td><td class="r">~680–700 triệu</td><td>Tra được</td><td>Đề mở rộng khu vực</td></tr>
+      <tr><td class="num">30</td><td>Tỷ giá quy đổi USD dùng trong lớp</td><td class="r">Chốt một con số duy nhất mỗi kỳ</td><td>Quy ước</td><td>Mọi đề có ngoại tệ</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:16px"><b>Quy tắc lớp học:</b> người học được dùng con số khác bảng này, miễn là ghi rõ và bảo vệ được. Người chấm không trừ điểm vì giả định khác mẫu — chỉ trừ điểm khi giả định không được ghi ra hoặc không thể bảo vệ.</div>
+</section>
+
+<!-- 04 -->
+<section id="m4">
+  <div class="sec-head"><span class="sec-num">§ 04</span><h2>Đề case mẫu và lời giải khung</h2></div>
+  <p class="lede">Đây là mẫu đầy đủ của một đề trong thư viện: bối cảnh, câu hỏi, dữ liệu phát cho người học, bẫy đã cài, hai hướng giải, sanity check và cách chấm. Mọi đề khác trong chương trình phải có đúng những phần này.</p>
+
+  <div class="sheet">
+    <div class="sheet-h">
+      <span class="les-code">CASE B2-021-a</span>
+      <h4>Thị trường dịch vụ giặt sấy tự động tại TP.HCM</h4>
+      <span class="lv lv2">L2</span><span class="tag">8 phút</span><span class="tag">S05 S16</span>
+    </div>
+    <div class="sheet-b">
+      <div class="block">
+        <span class="kicker">Bối cảnh phát cho người học</span>
+        <p>Một quỹ đầu tư nhỏ đang cân nhắc rót vốn vào một chuỗi tiệm giặt sấy tự động ở TP.HCM. Trước khi đi vào chi tiết, họ muốn biết thị trường này mỗi năm lớn khoảng bao nhiêu.</p>
+      </div>
+      <div class="block">
+        <span class="kicker">Câu hỏi</span>
+        <p><b>Quy mô doanh thu hằng năm của dịch vụ giặt sấy tự động tại TP.HCM là bao nhiêu?</b> Người học có 8 phút, không được tra cứu, phải nói giả định thành tiếng.</p>
+      </div>
+      <div class="block">
+        <span class="kicker">Dữ liệu người điều phối được phép cung cấp khi bị hỏi</span>
+        <ul>
+          <li>Dịch vụ tính theo mẻ giặt, mỗi mẻ khoảng 8 kg</li>
+          <li>Khách chủ yếu là người thuê trọ, sinh viên, hộ độc thân và hộ nhỏ ở khu vực nội thành</li>
+          <li>Giá một mẻ giặt kèm sấy vào khoảng 50–70 nghìn đồng</li>
+          <li>Nếu người học hỏi số tiệm hiện có: “không có số liệu, bạn tự ước lượng”</li>
+        </ul>
+      </div>
+      <div class="block">
+        <span class="kicker">Bẫy đã cài — mỗi đề phải khai báo ít nhất một</span>
+        <ul>
+          <li><b>Bẫy chính:</b> đề gợi ý đếm theo hộ gia đình, nhưng phần lớn hộ gia đình ở TP.HCM có máy giặt riêng. Người học không lọc ra nhóm khách thật sẽ ra con số lớn gấp nhiều lần.</li>
+          <li><b>Bẫy phụ:</b> tần suất. Một hộ dùng dịch vụ không giặt mỗi ngày; bỏ qua tần suất là lỗi <span class="code">SIZ-04</span> kinh điển.</li>
+          <li><b>Bẫy thời gian:</b> nếu người học chọn bottom-up, việc ước lượng số tiệm sẽ ngốn hết 8 phút. Đây là phép thử cho bài B2.3.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <span class="kicker">Lời giải khung — hướng A: top-down theo cầu</span>
+        <div class="calc">Dân số TP.HCM                        ~9.500.000 người
+<span class="cm">× tỷ lệ sống ở khu vực có dịch vụ    ~60%            → 5.700.000</span>
+<span class="cm">× tỷ lệ thuộc nhóm không có máy giặt ~25%            → 1.425.000 người</span>
+<span class="cm">÷ quy mô nhóm dùng chung một mẻ      ~1,5 người      →   950.000 "đơn vị khách"</span>
+<span class="cm">× tỷ lệ thực sự dùng dịch vụ         ~30%            →   285.000 khách</span>
+<span class="cm">× số mẻ mỗi tháng                    ~5 mẻ           → 1.425.000 mẻ/tháng</span>
+<span class="cm">× 12 tháng                                           →    17,1 triệu mẻ/năm</span>
+<span class="cm">× giá mỗi mẻ                         ~60.000đ        →   ~1.030 tỷ đồng/năm</span>
+
+Kết quả khung: <b>~0,8 – 1,3 nghìn tỷ đồng mỗi năm</b></div>
+      </div>
+      <div class="block">
+        <span class="kicker">Lời giải khung — hướng B: bottom-up theo cung</span>
+        <div class="calc">Số tiệm giặt sấy tự động ở TP.HCM    ~1.200 tiệm   <span class="cm">(neo: ~1 tiệm / 8.000 dân nội thành)</span>
+<span class="cm">× số máy mỗi tiệm                    ~6 máy</span>
+<span class="cm">× số mẻ tối đa mỗi máy mỗi ngày      ~10 mẻ          →    72.000 mẻ/ngày (công suất)</span>
+<span class="cm">× tỷ lệ lấp đầy                      ~45%            →    32.400 mẻ/ngày</span>
+<span class="cm">× 360 ngày                                           →    11,7 triệu mẻ/năm</span>
+<span class="cm">× giá mỗi mẻ                         ~60.000đ        →     ~700 tỷ đồng/năm</span>
+
+Kết quả khung: <b>~0,6 – 0,9 nghìn tỷ đồng mỗi năm</b></div>
+        <p style="margin-top:8px">Hai hướng lệch khoảng 1,4 lần. Độ lệch dưới 2 lần là bình thường và nên được nêu ra như một điểm mạnh của câu trả lời, không phải như một sự bối rối.</p>
+      </div>
+      <div class="block">
+        <span class="kicker">Sanity check bắt buộc</span>
+        <ul>
+          <li><b>Chi tiêu đầu người:</b> 1.000 tỷ chia cho 9,5 triệu dân ≈ 105 nghìn đồng mỗi người mỗi năm. Nhưng chỉ ~3% dân số thực sự dùng, nên mỗi khách chi ~3,5 triệu đồng mỗi năm, tức ~290 nghìn mỗi tháng. Hợp lý với nhóm thuê trọ.</li>
+          <li><b>Bậc độ lớn:</b> nghìn tỷ đồng, tức vài chục triệu USD. Một thị trường ngách trong một đô thị 9 triệu dân ở bậc này là hợp lý.</li>
+          <li><b>Đối chiếu:</b> nhỏ hơn nhiều lần thị trường bột giặt bán lẻ cùng địa bàn — đúng như kỳ vọng, vì đây là dịch vụ thay thế một phần nhỏ nhu cầu giặt.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <span class="kicker">Giả định chi phối</span>
+        <p><b>Tỷ lệ thực sự dùng dịch vụ (30%)</b> là dòng yếu nhất: cho nó chạy từ 15% đến 45% thì kết quả dao động từ ~500 tỷ đến ~1.550 tỷ. Câu trả lời đạt mức 4 phải nêu đúng dòng này và nói được cách thu hẹp khoảng — ví dụ đếm mẫu tại ba phường có mật độ nhà trọ khác nhau.</p>
+      </div>
+      <div class="block">
+        <span class="kicker">Cách chấm nhanh cho người điều phối</span>
+        <ul>
+          <li>Kết quả nằm trong khoảng 0,3 – 3 nghìn tỷ: chấp nhận về bậc độ lớn</li>
+          <li>Lọc được nhóm khách thật: +1 mức ở tiêu chí cấu trúc</li>
+          <li>Bỏ qua tần suất hoặc bỏ qua tỷ lệ lấp đầy: trần điểm ở mức 2 cho tiêu chí tính toán</li>
+          <li>Không sanity check dù kết quả đúng: trần điểm ở mức 2 cho tiêu chí sanity check</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section id="m5">
+  <div class="sec-head"><span class="sec-num">§ 05</span><h2>Rubric chi tiết bốn mức</h2></div>
+  <p class="lede">Rubric riêng của B2, dẫn xuất từ R1 nhưng dồn trọng số về định lượng. Mỗi ô mô tả hành vi quan sát được — người chấm không cần diễn giải, chỉ cần đối chiếu. Ngưỡng đạt module: <b>70/100</b>, và không tiêu chí nào ở mức 1.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Tiêu chí</th><th class="r">Trọng số</th><th>Mức 1 — chưa đạt</th><th>Mức 2 — sai hướng</th><th>Mức 3 — đạt</th><th>Mức 4 — dùng được thật</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Cấu trúc sizing</strong></td><td class="r">30</td>
+        <td>Không có chuỗi logic; nhảy thẳng đến một con số.</td>
+        <td>Có chuỗi nhưng các dòng không nhân được với nhau về đơn vị, hoặc chọn hướng không phù hợp với đề.</td>
+        <td>Chuỗi khép kín, đơn vị khớp, hướng tiếp cận hợp lý và nói được lý do chọn.</td>
+        <td>Chuỗi khép kín và có bộ lọc thu hẹp về đúng nhóm khách thật; giải thích được vì sao bỏ nhóm nào.</td>
+      </tr>
+      <tr>
+        <td><strong>Giả định</strong></td><td class="r">25</td>
+        <td>Con số xuất hiện mà không nói ở đâu ra.</td>
+        <td>Có nêu giả định nhưng không có cơ sở, hoặc nêu sau khi đã ra kết quả.</td>
+        <td>Mọi giả định được nói ra trước khi dùng, mỗi cái kèm một câu lý do.</td>
+        <td>Giả định được neo vào một con số quen thuộc hoặc một quan sát thực tế, và người nghe kiểm tra lại được.</td>
+      </tr>
+      <tr>
+        <td><strong>Tính toán</strong></td><td class="r">20</td>
+        <td>Sai số học, hoặc sai đơn vị làm lệch bậc độ lớn.</td>
+        <td>Đúng phép tính nhưng bỏ sót một nhân tử bắt buộc (tần suất, tỷ lệ lấp đầy, số kỳ).</td>
+        <td>Tính đúng, đủ nhân tử, làm tròn hợp lý.</td>
+        <td>Tính đúng và nhanh, làm tròn có kiểm soát, nói bước tính thành tiếng để người nghe theo kịp.</td>
+      </tr>
+      <tr>
+        <td><strong>Sanity check</strong></td><td class="r">15</td>
+        <td>Không kiểm tra gì.</td>
+        <td>Nói “có vẻ hợp lý” mà không dẫn ra phép so sánh nào.</td>
+        <td>Thực hiện ít nhất một phép kiểm tra cụ thể và nói kết quả kiểm tra.</td>
+        <td>Kiểm tra bằng hai góc độc lập (chi tiêu đầu người và đối chiếu thị trường quen), và điều chỉnh nếu thấy lệch.</td>
+      </tr>
+      <tr>
+        <td><strong>Khoảng và giả định chi phối</strong></td><td class="r">10</td>
+        <td>Đưa một con số duy nhất, nhiều chữ số thập phân.</td>
+        <td>Có nói “khoảng” nhưng không dựng được biên.</td>
+        <td>Nêu khoảng dao động dựa trên biên của một giả định.</td>
+        <td>Nêu khoảng, chỉ đúng giả định chi phối, và đề xuất cách thu hẹp khoảng đó.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:16px"><b>Quy đổi điểm:</b> mức 1 = 25% trọng số · mức 2 = 50% · mức 3 = 75% · mức 4 = 100%. Người chấm phải viết một câu bằng chứng cho mỗi ô cho mức 1 hoặc mức 4, trích đúng dòng trong bài nộp hoặc đúng mốc thời gian trong bản ghi.</div>
+</section>
+
+<!-- 06 -->
+<section id="m6">
+  <div class="sec-head"><span class="sec-num">§ 06</span><h2>Mã lỗi và drill sửa lỗi</h2></div>
+  <p class="lede">Chín mã lỗi thuộc nhóm <span class="code">SIZ</span>. Mỗi mã có triệu chứng quan sát được, nguyên nhân gốc thường gặp, và một drill nhắm đúng nguyên nhân đó. Hệ thống dùng bảng này để tự đẩy bài tiếp theo — không phải để người học tự đọc và tự sửa.</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Mã</th><th>Triệu chứng trong bài nộp</th><th>Nguyên nhân gốc thường gặp</th><th>Drill được đẩy</th><th class="r">Số lần</th></tr></thead>
+    <tbody>
+      <tr><td><span class="code">SIZ-01</span></td><td>Có con số trong phép tính nhưng ô giả định để trống.</td><td>Sợ bị đánh giá vì đoán sai, nên giấu việc mình đang đoán.</td><td>Bảng sizing có ô giả định bắt buộc, không điền thì không nộp được.</td><td class="r">4</td></tr>
+      <tr><td><span class="code">SIZ-02</span></td><td>Kết quả lệch 10 lần trở lên so với khoảng hợp lý.</td><td>Sai đơn vị hoặc nhảy bậc khi nhân số lớn.</td><td>Drill bậc độ lớn: 20 phép nhân số lớn, chỉ chấm số chữ số.</td><td class="r">3</td></tr>
+      <tr><td><span class="code">SIZ-03</span></td><td>Trả lời quy mô toàn ngành khi đề hỏi phân khúc.</td><td>Không đọc kỹ ràng buộc trong câu hỏi.</td><td>8 đề chỉ yêu cầu xác định đề đang hỏi tầng nào.</td><td class="r">2</td></tr>
+      <tr><td><span class="code">SIZ-04</span></td><td>Chuỗi tính thiếu nhân tử tần suất.</td><td>Nhầm giữa “bao nhiêu người dùng” và “dùng bao nhiêu lần”.</td><td>10 đề, với mỗi đề chỉ viết ra nhân tử tần suất và đơn vị của nó.</td><td class="r">3</td></tr>
+      <tr><td><span class="code">SIZ-05</span></td><td>Kết quả ghi tới hàng đơn vị hoặc có chữ số thập phân.</td><td>Nhầm độ chính xác với sự cẩn thận.</td><td>Viết lại 12 kết quả thành khoảng có hai chữ số có nghĩa.</td><td class="r">2</td></tr>
+      <tr><td><span class="code">SIZ-06</span></td><td>Bottom-up dùng công suất tối đa làm sản lượng thực.</td><td>Bỏ qua tỷ lệ lấp đầy vì nó không xuất hiện trong đề.</td><td>6 đề phía cung, bắt buộc có dòng tỷ lệ lấp đầy kèm lý do.</td><td class="r">3</td></tr>
+      <tr><td><span class="code">SIZ-07</span></td><td>Luôn mở bài bằng “dân số Việt Nam là…”, kể cả với đề B2B.</td><td>Học thuộc một khuôn thay vì chọn hướng.</td><td>10 đề chỉ trả lời hướng nào và vì sao, 45 giây mỗi đề.</td><td class="r">2</td></tr>
+      <tr><td><span class="code">SIZ-08</span></td><td>Dùng một con số nền sai lệch lớn và không nhận ra.</td><td>Ngân hàng giả định chưa được dựng hoặc chưa được kiểm chứng.</td><td>Điền lại 30 ô từ trí nhớ, đối chiếu nguồn, đánh dấu ô lệch quá 30%.</td><td class="r">1</td></tr>
+      <tr><td><span class="code">SIZ-09</span></td><td>Kết thúc bằng một con số, không nêu giả định nào yếu nhất.</td><td>Coi sizing là bài toán có đáp án đúng, không phải một ước lượng có sai số.</td><td>6 bảng có sẵn, nêu giả định chi phối và khoảng dao động.</td><td class="r">2</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:16px"><b>Luật định tuyến:</b> một mã lỗi xuất hiện hai lần trong ba bài nộp gần nhất sẽ kích hoạt gói drill tương ứng và <b>khoá bài mới cùng loại</b> cho đến khi gói drill hoàn tất. Mã lỗi xuất hiện một lần chỉ được ghi vào hồ sơ, không kích hoạt gì — tránh làm gián đoạn người học vì một sơ suất.</div>
+</section>
+
+<!-- 07 -->
+<section id="m7">
+  <div class="sec-head"><span class="sec-num">§ 07</span><h2>Checkpoint cuối module</h2></div>
+  <div class="sheet">
+    <div class="sheet-h"><span class="les-code">CHK-B2</span><h4>Ba thị trường lạ trong 30 phút</h4><span class="lv lv2">L2</span></div>
+    <div class="sheet-b">
+      <div class="block"><span class="kicker">Thể thức</span>
+        <ul>
+          <li>Ba đề rút ngẫu nhiên từ ngân hàng, bảo đảm cơ cấu: một đề tiêu dùng, một đề phía cung, một đề B2B</li>
+          <li>10 phút mỗi đề, không tra cứu, không máy tính</li>
+          <li>Nộp bốn thành phần cho mỗi đề: bảng giả định · phép tính · sanity check · khoảng dao động và giả định chi phối</li>
+          <li>Có bản ghi âm phần nói cho một trong ba đề, do hệ thống chọn ngẫu nhiên sau khi nộp</li>
+        </ul>
+      </div>
+      <div class="block"><span class="kicker">Ngưỡng đạt</span>
+        <ul>
+          <li>Trung bình ba đề ≥70/100 theo rubric ở <a href="#m5">§ 05</a></li>
+          <li>Không đề nào dưới 55</li>
+          <li>Không tiêu chí nào ở mức 1 trên cả ba đề</li>
+          <li>Cả ba đề đều có sanity check được thực hiện, kể cả khi kết quả sai</li>
+        </ul>
+      </div>
+      <div class="block"><span class="kicker">Nếu không đạt</span>
+        <p>Không làm lại checkpoint ngay. Hệ thống đọc mã lỗi trong ba bài, đẩy gói drill tương ứng, và mở lại checkpoint với ba đề khác sau khi gói drill hoàn tất. Lần thi lại thứ hai phải có người chấm là người thật, không chấm chéo.</p>
+      </div>
+      <div class="block"><span class="kicker">Sau khi đạt</span>
+        <p>Mở khoá B3 và B4. Skill S05 được ghi nhận ở mức intermediate trong readiness score, với hạn suy giảm 6 tuần — nếu không luyện lại trong 6 tuần, điểm S05 giảm dần và hệ thống chèn một drill nhắc lại trước khi cho vào các module phụ thuộc.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 -->
+<section id="m8">
+  <div class="sec-head"><span class="sec-num">§ 08</span><h2>Checklist nhân bản cho 33 module còn lại</h2></div>
+  <p class="lede">Một module chỉ được xuất bản khi đủ mười mục dưới đây. Thứ tự viết cũng là thứ tự trong danh sách: checkpoint và rubric được viết <b>trước</b> bài học, không phải sau.</p>
+  <ol class="rules">
+    <li><span class="n">01</span><div><b>Viết cam kết đầu ra trước tiên</b><p>Một câu can-do có động từ quan sát được và một mốc thời gian hoặc số lượng. “Hiểu về market sizing” không qua được bước này.</p></div></li>
+    <li><span class="n">02</span><div><b>Viết phần ngoài phạm vi</b><p>Ba thứ người học hay tưởng sẽ học ở đây nhưng không, kèm nơi nó thực sự được dạy. Phần này ngăn module phình ra theo thời gian.</p></div></li>
+    <li><span class="n">03</span><div><b>Thiết kế checkpoint</b><p>Thể thức, ngưỡng đạt, xử lý khi trượt, và cái gì được mở khoá sau khi đạt. Checkpoint là hợp đồng của module với người học.</p></div></li>
+    <li><span class="n">04</span><div><b>Viết rubric bốn mức</b><p>Mỗi ô mô tả hành vi quan sát được. Nếu hai người chấm đọc cùng một ô mà hiểu khác nhau thì ô đó chưa viết xong.</p></div></li>
+    <li><span class="n">05</span><div><b>Khai báo mã lỗi</b><p>Mỗi mã gồm triệu chứng, nguyên nhân gốc, drill sửa và số lần lặp. Không mở mã mới nếu một mã đang có đã mô tả đúng hiện tượng.</p></div></li>
+    <li><span class="n">06</span><div><b>Dựng 5–8 bài học đi ngược từ checkpoint</b><p>Mỗi bài phải giải quyết một phần cụ thể của checkpoint. Bài nào không truy ngược được về checkpoint thì cắt.</p></div></li>
+    <li><span class="n">07</span><div><b>Gắn drill vào từng bài</b><p>Giữ tỷ lệ đọc trên làm không quá 1:3. Drill phải nhắm đúng mã lỗi đã khai báo ở mục 05.</p></div></li>
+    <li><span class="n">08</span><div><b>Viết ít nhất một đề case mẫu đầy đủ</b><p>Đủ tám phần như <a href="#m4">§ 04</a>: bối cảnh, câu hỏi, dữ liệu phát khi được hỏi, bẫy đã cài, lời giải khung, sanity check, giả định chi phối, cách chấm nhanh.</p></div></li>
+    <li><span class="n">09</span><div><b>Khai báo tài nguyên dữ liệu</b><p>Bảng số nền, exhibit, dataset — kèm nguồn và ngày cập nhật. Không có nguồn thì không lên web, dù là số ai cũng biết.</p></div></li>
+    <li><span class="n">10</span><div><b>Chạy đối chiếu trùng lặp</b><p>Đối chiếu bảng skill × độ sâu với 33 module còn lại. Nếu một cặp đã được dạy ở nơi khác, module này phải nêu rõ nó khác lần trước ở điểm nào.</p></div></li>
+  </ol>
+  <div class="caution" style="margin-top:20px"><b>Ước lượng công sức:</b> module này ở mức trung bình về độ phức tạp. Một module nặng về dữ liệu (C1, F2, G3) cần thêm thời gian dựng exhibit và dataset; một module nặng về kỹ năng trình bày (I2, D4) cần thêm thư viện bản ghi mẫu để người học đối chiếu. Dự trù theo mức trung bình rồi nhân hệ số theo hai nhóm này khi lập kế hoạch sản xuất nội dung.</div>
+</section>
+
+</main>
+<footer>
+  Module spec · B2 Market Sizing · 8 bài học · 9 mã lỗi · 1 đề mẫu đầy đủ · rubric 4 mức. Dùng làm khuôn cho 33 module còn lại trong blueprint.
+</footer>
+</div>

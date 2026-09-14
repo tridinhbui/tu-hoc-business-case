@@ -1,0 +1,60 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bc-platform",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-08-01",
+  "observability": { "enabled": true },
+
+  // React SPA built by Vite (the Cloudflare Vite plugin supplies the asset directory).
+  // /api/* always reaches the Worker; every other path is served index.html.
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+
+  // Safe production defaults. Local overrides live in .dev.vars (DEV_MODE, TURNSTILE_SECRET).
+  "vars": {
+    "DEV_MODE": "false",
+    "APP_ORIGIN": "http://localhost:8787",
+    "MAIL_FROM": "no-reply@example.com"
+  },
+
+  // database_id values are placeholders until the databases are created on the Cloudflare account.
+  "d1_databases": [
+    { "binding": "DB_CONTENT", "database_name": "bc_content",
+      "database_id": "00000000-0000-0000-0000-00000000c0de", "migrations_dir": "migrations/content" },
+    { "binding": "DB_LEARNING", "database_name": "bc_learning",
+      "database_id": "00000000-0000-0000-0000-0000000001ea", "migrations_dir": "migrations/learning" }
+  ],
+  "kv_namespaces": [
+    { "binding": "CONTENT_CACHE", "id": "local-content-cache" },
+    { "binding": "SESSIONS", "id": "local-sessions" }
+  ],
+  "r2_buckets": [
+    { "binding": "R2_CONTENT", "bucket_name": "bc-content" },
+    { "binding": "R2_SUBMISSIONS", "bucket_name": "bc-submissions" }
+  ],
+
+  "durable_objects": { "bindings": [ { "name": "LIVE_ROOM", "class_name": "LiveRoom" } ] },
+  "migrations": [ { "tag": "v1", "new_sqlite_classes": ["LiveRoom"] } ],
+
+  "queues": {
+    "producers": [
+      { "binding": "Q_GRADING", "queue": "bc-grading" },
+      { "binding": "Q_READINESS", "queue": "bc-readiness" }
+    ],
+    "consumers": [
+      { "queue": "bc-grading", "max_batch_size": 10, "max_batch_timeout": 1,
+        "max_retries": 5, "dead_letter_queue": "bc-grading-dlq" },
+      { "queue": "bc-readiness", "max_batch_size": 50, "max_batch_timeout": 1,
+        "max_retries": 5, "dead_letter_queue": "bc-readiness-dlq" }
+    ]
+  },
+
+  // 19:00 UTC = 02:00 Asia/Ho_Chi_Minh
+  "triggers": { "crons": ["0 19 * * *", "*/15 * * * *"] }
+
+  // Added once a Cloudflare DNS domain and a Paid account exist:
+  //   "send_email": [ { "name": "EMAIL" } ],
+  //   "stream": { "binding": "STREAM" }
+}
