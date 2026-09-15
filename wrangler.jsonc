@@ -6,9 +6,15 @@
   "compatibility_date": "2026-08-01",
   "observability": { "enabled": true },
 
-  // React SPA built by Vite (the Cloudflare Vite plugin supplies the asset directory).
+  // Lets a plain `npx wrangler deploy` (the Workers Builds default, no build command) build the SPA first.
+  // Must not call `wrangler types` or `npm run build`: wrangler runs this custom build for `wrangler types`
+  // too, which would recurse forever. The Vite plugin ignores `build` and `assets.directory` during dev/build.
+  "build": { "command": "npx vite build" },
+
+  // React SPA built by Vite into dist/client.
   // /api/* always reaches the Worker; every other path is served index.html.
   "assets": {
+    "directory": "./dist/client",
     "not_found_handling": "single-page-application",
     "run_worker_first": ["/api/*"]
   },

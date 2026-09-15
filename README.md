@@ -72,13 +72,9 @@ npm run test:e2e
 
 Repo được nối với **Workers Builds** (Worker `tu-hoc-business-case`). Mỗi lần push lên `main`, Cloudflare build và deploy.
 
-Cấu hình build trên dashboard (**Settings → Build**):
+Không cần sửa cấu hình build trên dashboard: để **Build command** trống, **Deploy command** là `npx wrangler deploy`. Wrangler tự chạy `npx vite build` trước khi deploy nhờ khai báo `build.command` trong `wrangler.jsonc`.
 
-| Mục | Giá trị |
-|---|---|
-| Build command | `npm run build` |
-| Deploy command | `npx wrangler deploy` |
-| Root directory | `/` |
+Không đổi `build.command` thành `npm run build`: script đó gọi `wrangler types`, mà `wrangler types` lại chạy custom build, gây đệ quy vô hạn.
 
 `wrangler.jsonc` không ghi id tài nguyên: lần deploy đầu, Wrangler tự tạo D1 (`bc_content`, `bc_learning`), KV, R2 (`bc-content`, `bc-submissions`) và Queues rồi gắn vào Worker.
 
