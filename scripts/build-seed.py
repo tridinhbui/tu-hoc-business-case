@@ -298,6 +298,7 @@ for code, mod in modules.items():
     for i, s in enumerate(mod["skills"]):
         sql.append(insert("module_skills", {"module_id": code, "skill_id": s, "role": "primary" if i == 0 else "secondary"}))
 
+module_prereqs_map = {}
 for code, mod in modules.items():
     prereq = mod["rows"]["Prerequisite"].text()
     if prereq.startswith("Không"):
@@ -312,6 +313,7 @@ for code, mod in modules.items():
             required.append(token)
     if not required:
         gap(f"module {code}: prerequisite '{prereq}' is not a module list — enforced by level gate instead")
+    module_prereqs_map[code] = [r for r in dict.fromkeys(required) if r != code and r in modules]
     for req in dict.fromkeys(required):
         if req != code and req in modules:
             sql.append(insert("module_prereqs", {"module_id": code, "requires_module_id": req, "kind": "hard", "min_checkpoint_score": min_score}))
@@ -499,6 +501,46 @@ for tr in b2.find(id="m3").find("tbody").kids("tr"):
 gap("assumption bank: 30 rows imported with no source_url — every row must be verified before it is shown to learners")
 
 # ---------------------------------------------------------------- learning paths
+# Which weekly-focus text (blueprint § 07) talks about which module. Matched case-insensitively against
+# each week's text in a path. Written against the actual wording; watch for false friends:
+# "Profitability" contains "fit" (J3), "exhibit-heavy" is not exhibit design (I2), "funnel math" is not case math (B1).
+WEEK_KEYWORDS = {
+    "A1": r"đọc đề|framing|định khung|câu hỏi chính",
+    "A2": r"issue tree|mece",
+    "A3": r"mô hình kinh doanh|kiếm tiền",
+    "A4": r"khuyến nghị|từ phân tích đến",
+    "B1": r"case math|math nền|math vận hành|phần trăm",
+    "B2": r"sizing",
+    "B3": r"đọc chart|đọc exhibit|đọc dữ liệu",
+    "B4": r"phân rã",
+    "C1": r"profitability",
+    "C2": r"market entry|growth",
+    "C3": r"pricing",
+    "C4": r"m&a|investment memo",
+    "D1": r"24 giờ",
+    "D2": r"hợp nhất",
+    "D3": r"deck thi",
+    "D4": r"pitch|q&a",
+    "E1": r"phân khúc|định vị",
+    "E2": r"funnel|cac|ltv",
+    "E3": r"go-to-market|marketing plan",
+    "F1": r"process|capacity|bottleneck",
+    "F2": r"tồn kho|mạng lưới",
+    "F3": r"cost-to-serve|sourcing|s&op",
+    "G1": r"báo cáo tài chính|dòng tiền",
+    "G2": r"unit economics",
+    "G3": r"đánh giá đầu tư|định giá nhanh",
+    "H1": r"retail|fmcg",
+    "H2": r"ngân hàng|bảo hiểm|healthcare",
+    "H3": r"logistics|năng lượng",
+    "I1": r"pyramid|action title|storyline|trình bày",
+    "I2": r"(?<!đọc )exhibit(?!-heavy)|trình bày",
+    "I3": r"storyboard|trình bày",
+    "J1": r"interviewer-led|live case",
+    "J2": r"candidate-led",
+    "J3": r"\bfit\b|full loop|mock panel",
+}
+PATH_REPORT = []
 lesson_ids_by_module = {}
 for l in lessons:
     lesson_ids_by_module.setdefault(l["module_id"], []).append(l["id"])
@@ -523,11 +565,49 @@ for block in cur.find(id="s7").find_all("div", "mod"):
             module_list += [f"{a[0]}{k}" for k in range(int(a[1]), int(b[1]) + 1)]
         else:
             module_list.append(token)
-    path_lessons = [lid for m in dict.fromkeys(module_list) for lid in lesson_ids_by_module.get(m, [])]
-    for i, lid in enumerate(path_lessons):
-        week = min(weeks, i * weeks // max(1, len(path_lessons)) + 1)
-        sql.append(insert("path_items", {"path_id": pid, "week": week, "lesson_id": lid, "sort": i + 1}))
-    gap(f"path {pid}: lessons spread evenly across {weeks} weeks — confirm against the weekly focus")
+    module_order = list(dict.fromkeys(module_list))
+    week_texts = [re.sub(r"^T\d+\s*", "", li.text()) for li in rows["Weekly focus"].find_all("li")]
+
+    # a module goes to every week whose focus text mentions it; its lessons are spread across those weeks
+    matched = {}
+    for m in module_order:
+        hits = [i + 1 for i, text in enumerate(week_texts) if re.search(WEEK_KEYWORDS.get(m, r"$^"), text, re.IGNORECASE)]
+        if hits:
+            matched[m] = hits
+    placed, fallback = {}, []
+    for idx, m in enumerate(module_order):
+        if m in matched:
+            placed[m] = matched[m]
+            continue
+        # unmatched: same week as the module listed before it, or earlier if a module that needs it comes earlier
+        prev = placed[module_order[idx - 1]][0] if idx > 0 else 1
+        needed_by = [matched[d][0] for d in module_order if d in matched and m in module_prereqs_map.get(d, [])]
+        placed[m] = [min([prev] + needed_by)]
+        fallback.append(m)
+    # never schedule a module before a module it requires
+    changed = True
+    while changed:
+        changed = False
+        for m in module_order:
+            floor = max([placed[r][0] for r in module_prereqs_map.get(m, []) if r in placed] or [1])
+            if placed[m][0] < floor:
+                placed[m] = sorted({max(w, floor) for w in placed[m]})
+                changed = True
+
+    scheduled = []
+    for order, m in enumerate(module_order):
+        lids = lesson_ids_by_module.get(m, [])
+        for i, lid in enumerate(lids):
+            scheduled.append((placed[m][i * len(placed[m]) // max(1, len(lids))], order, i, lid))
+    for sort, (week, _, _, lid) in enumerate(sorted(scheduled), start=1):
+        sql.append(insert("path_items", {"path_id": pid, "week": week, "lesson_id": lid, "sort": sort}))
+
+    per_week = {w: [m for m in module_order if w in placed[m]] for w in range(1, weeks + 1)}
+    PATH_REPORT.append(f"{pid}: " + " | ".join(f"T{w} {' '.join(per_week[w]) or '—'}" for w in per_week)
+                       + (f"   [không khớp chữ tuần, xếp theo thứ tự: {' '.join(fallback)}]" if fallback else ""))
+    for w, mods in per_week.items():
+        if not mods:
+            gap(f"path {pid}: week {w} has no module — weekly focus '{week_texts[w - 1]}' matches no keyword")
 
 # ---------------------------------------------------------------- capstones
 for block in cur.find(id="s12").find_all("div", "mod"):
@@ -552,6 +632,9 @@ print(f"  skills {len(skill_ids)} · tracks {len(track_levels)} · modules {len(
 print(f"  mistake codes {len(codes)} · cases {case_count} · rubrics 6 standard + {len(modules)} module")
 print(f"  module checkpoints: {sum(len(v) for v in gating.values())} lessons gate {len(gating)}/{len(modules)} modules; "
       f"generated {len(generated_checkpoints)} ({', '.join(generated_checkpoints)})")
+print("\nWEEKLY PLAN (from blueprint weekly focus):")
+for line in PATH_REPORT:
+    print("  " + line)
 print(f"\nGAPS ({len(GAPS)}):")
 seen = set()
 for g in GAPS:
