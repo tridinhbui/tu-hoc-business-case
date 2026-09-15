@@ -1,6 +1,6 @@
 import type { User } from "./auth";
 import { recomputeProgress } from "./gates";
-import { AppEnv, HttpError, chunk, json } from "./util";
+import { AppEnv, HttpError, chunk, json, readJson } from "./util";
 
 const STAFF_ROLES = new Set(["instructor", "admin"]);
 
@@ -28,6 +28,56 @@ async function lookup<T extends Record<string, unknown>>(
     results.forEach((r) => out.set(String(r[key]), r));
   }
   return out;
+}
+
+// Reveal items with this trigger are handed out with the brief; every other item is released on request.
+const UPFRONT_TRIGGER = "Phát sẵn";
+
+type RevealItem = { id: string; trigger: string; content: string; sort: number };
+type CaseRow = { id: string; title: string; industry: string; context: string; question: string; duration_min: number; status: string };
+
+async function caseForLesson(env: AppEnv, lessonId: string): Promise<(CaseRow & { items: RevealItem[] }) | null> {
+  const row = await env.DB_CONTENT.prepare(
+    `SELECT id, title, industry, context, question, duration_min, status FROM cases
+     WHERE lesson_id = ?1 AND status <> 'retired' ORDER BY id LIMIT 1`,
+  ).bind(lessonId).first<CaseRow>();
+  if (!row) return null;
+  const { results } = await env.DB_CONTENT.prepare(
+    "SELECT id, trigger, content, sort FROM case_reveal_items WHERE case_id = ?1 ORDER BY sort",
+  ).bind(row.id).all<RevealItem>();
+  return { ...row, items: results };
+}
+
+/** Brief for a learner who has not started: askable items are listed by trigger only, never by content. */
+function briefWithoutAnswers(c: CaseRow & { items: RevealItem[] }) {
+  const { items, ...rest } = c;
+  return {
+    ...rest,
+    upfront: items.filter((i) => i.trigger === UPFRONT_TRIGGER).map(({ id, content }) => ({ id, content })),
+    askable: items.filter((i) => i.trigger !== UPFRONT_TRIGGER).map(({ id, trigger }) => ({ id, trigger })),
+  };
+}
+
+export async function revealCaseItem(request: Request, env: AppEnv, user: User, attemptId: string): Promise<Response> {
+  const { itemId } = await readJson<{ itemId?: string }>(request);
+  if (!itemId) throw new HttpError(400, "Thiếu mục dữ liệu cần xin.");
+  const attempt = await env.DB_LEARNING.prepare("SELECT id, user_id, lesson_id, status FROM attempts WHERE id = ?1")
+    .bind(attemptId).first<{ id: string; user_id: string; lesson_id: string; status: string }>();
+  if (!attempt || attempt.user_id !== user.id) throw new HttpError(404, "Không tìm thấy bài làm.");
+  if (attempt.status !== "draft") throw new HttpError(409, "Chỉ xin được dữ liệu khi bài còn đang làm.");
+
+  const item = await env.DB_CONTENT.prepare(
+    `SELECT r.id, r.trigger, r.content FROM case_reveal_items r JOIN cases c ON c.id = r.case_id
+     WHERE r.id = ?1 AND c.lesson_id = ?2 AND c.status <> 'retired'`,
+  ).bind(itemId, attempt.lesson_id).first<{ id: string; trigger: string; content: string }>();
+  if (!item) throw new HttpError(404, "Đề này không có mục dữ liệu đó.");
+
+  if (item.trigger !== UPFRONT_TRIGGER) {
+    await env.DB_LEARNING.prepare(
+      "INSERT INTO attempt_reveals (attempt_id, item_id, revealed_at) VALUES (?1, ?2, ?3) ON CONFLICT DO NOTHING",
+    ).bind(attemptId, itemId, Date.now()).run();
+  }
+  return json({ itemId: item.id, trigger: item.trigger, content: item.content });
 }
 
 const NEEDS_REVIEW_SQL = `a.status = 'graded'
@@ -120,7 +170,8 @@ export async function lessonView(env: AppEnv, user: User, lessonId: string): Pro
      FROM attempts a WHERE a.user_id = ?1 AND a.lesson_id = ?2 ORDER BY a.started_at DESC`,
   ).bind(user.id, lessonId).all();
 
-  return json({ lesson, rubric, progress, attempts });
+  const caseRow = await caseForLesson(env, lessonId);
+  return json({ lesson, rubric, progress, attempts, case: caseRow ? briefWithoutAnswers(caseRow) : null });
 }
 
 /** Who may see an attempt: its owner, staff, or the grader who holds or made its grade. */
@@ -172,6 +223,33 @@ export async function attemptView(env: AppEnv, user: User, attemptId: string): P
   const review = (reviewRes.results[0] as { rewrite_note: string; completed_at: number } | undefined) ?? null;
   const needsReview = attempt.status === "graded" && !review && (attempt.passed === 0 || tags.length > 0);
 
+  // Case brief with the data this attempt asked for. Answer frame and traps are for graders only.
+  const caseRow = await caseForLesson(env, attempt.lesson_id);
+  let caseView = null;
+  let answerFrame = null;
+  let traps: { description: string; mistake_code: string }[] = [];
+  if (caseRow) {
+    const { results: asked } = await env.DB_LEARNING.prepare(
+      "SELECT item_id, revealed_at FROM attempt_reveals WHERE attempt_id = ?1",
+    ).bind(attemptId).all<{ item_id: string; revealed_at: number }>();
+    const askedAt = new Map(asked.map((r) => [r.item_id, r.revealed_at]));
+    const base = briefWithoutAnswers(caseRow);
+    caseView = {
+      ...base,
+      askable: caseRow.items
+        .filter((i) => i.trigger !== UPFRONT_TRIGGER)
+        .map((i) => ({ id: i.id, trigger: i.trigger, content: askedAt.has(i.id) ? i.content : null, revealed_at: askedAt.get(i.id) ?? null })),
+    };
+    if (viewer !== "owner") {
+      const [frameRes, trapsRes] = await env.DB_CONTENT.batch([
+        env.DB_CONTENT.prepare("SELECT structure_md, quick_scoring_md FROM case_answer_frames WHERE case_id = ?1").bind(caseRow.id),
+        env.DB_CONTENT.prepare("SELECT description, mistake_code FROM case_traps WHERE case_id = ?1 ORDER BY id").bind(caseRow.id),
+      ]);
+      answerFrame = (frameRes.results[0] as { structure_md: string; quick_scoring_md: string } | undefined) ?? null;
+      traps = trapsRes.results as { description: string; mistake_code: string }[];
+    }
+  }
+
   return json({
     viewer,
     attempt: {
@@ -192,6 +270,9 @@ export async function attemptView(env: AppEnv, user: User, attemptId: string): P
     mistakes: tags.map((t) => ({ ...t, title: codes.get(t.code)?.title ?? t.code, symptom: codes.get(t.code)?.symptom ?? null })),
     review,
     needsReview,
+    case: caseView,
+    answerFrame,
+    traps,
   });
 }
 

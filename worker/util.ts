@@ -3,6 +3,8 @@ export type AppEnv = Env & {
   APP_ORIGIN: string;
   MAIL_FROM: string;
   TURNSTILE_SECRET?: string;
+  TURNSTILE_SITEKEY?: string;
+  TURNSTILE_HOSTNAMES?: string;
   // Bound only after a Cloudflare DNS domain is onboarded to Email Sending.
   EMAIL?: { send(message: { to: string; from: string; subject: string; text: string; html: string }): Promise<{ messageId: string }> };
 };

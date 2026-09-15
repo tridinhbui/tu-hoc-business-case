@@ -14,20 +14,55 @@ export type User = {
   persona: string | null;
 };
 
-async function verifyTurnstile(env: AppEnv, token: string | undefined, ip: string | null) {
+const TURNSTILE_ACTION = "login";
+
+type SiteverifyResult = {
+  success?: boolean;
+  action?: string;
+  hostname?: string;
+  metadata?: { result_with_testing_key?: boolean };
+};
+
+/**
+ * Server-side Turnstile check. Fails closed: the token must verify, carry the "login" action,
+ * and come from a hostname in TURNSTILE_HOSTNAMES. Tokens are single-use.
+ */
+async function verifyTurnstile(env: AppEnv, token: unknown, ip: string | null) {
   if (!env.TURNSTILE_SECRET) throw new HttpError(503, "Chưa cấu hình Turnstile.");
-  if (!token) throw new HttpError(400, "Thiếu mã xác minh Turnstile.");
-  const form = new FormData();
-  form.append("secret", env.TURNSTILE_SECRET);
-  form.append("response", token);
-  if (ip) form.append("remoteip", ip);
-  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: form });
-  const data = (await res.json()) as { success: boolean };
-  if (!data.success) throw new HttpError(403, "Xác minh Turnstile không thành công. Tải lại trang và thử lại.");
+  const allowedHostnames = new Set(
+    (env.TURNSTILE_HOSTNAMES ?? "").split(",").map((h) => h.trim()).filter(Boolean),
+  );
+  if (allowedHostnames.size === 0) throw new HttpError(503, "Chưa cấu hình tên miền cho Turnstile.");
+  if (typeof token !== "string" || token.length === 0 || token.length > 2048) {
+    throw new HttpError(400, "Thiếu mã xác minh. Tải lại trang và thử lại.");
+  }
+
+  let result: SiteverifyResult;
+  try {
+    const params = new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: token });
+    if (ip) params.set("remoteip", ip);
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      signal: AbortSignal.timeout(10_000),
+      body: params,
+    });
+    if (!res.ok) throw new Error(`siteverify ${res.status}`);
+    result = (await res.json()) as SiteverifyResult;
+  } catch (err) {
+    console.error("turnstile siteverify failed", err);
+    throw new HttpError(403, "Không xác minh được. Tải lại trang và thử lại.");
+  }
+
+  // Cloudflare's testing keys return no action; accept that only in local development.
+  const actionOk = result.action === TURNSTILE_ACTION || (isDev(env) && result.metadata?.result_with_testing_key === true);
+  if (result.success !== true || !actionOk || !allowedHostnames.has(result.hostname ?? "")) {
+    throw new HttpError(403, "Xác minh không thành công. Tải lại trang và thử lại.");
+  }
 }
 
 export async function requestMagicLink(request: Request, env: AppEnv): Promise<Response> {
-  const body = await readJson<{ email?: string; displayName?: string; turnstileToken?: string }>(request);
+  const body = await readJson<{ email?: string; displayName?: string; turnstileToken?: unknown }>(request);
   const email = (body.email ?? "").trim().toLowerCase();
   if (!EMAIL_RE.test(email)) throw new HttpError(400, "Email không hợp lệ.");
 

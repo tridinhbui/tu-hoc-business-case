@@ -129,3 +129,15 @@ INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES
 
 -- Checkpoints gate their module.
 UPDATE lessons SET gates_module = 1 WHERE kind = 'checkpoint';
+
+-- Sample case: one item given up front, two released only when the learner asks.
+INSERT INTO cases (id, lesson_id, title, industry, context, question, duration_min, status, pilot_runs) VALUES
+  ('C-019','019','Giặt sấy tự động tại TP.HCM','Dịch vụ','Một quỹ đầu tư nhỏ cân nhắc rót vốn vào chuỗi tiệm giặt sấy tự động.','Quy mô doanh thu hằng năm của dịch vụ giặt sấy tự động tại TP.HCM là bao nhiêu?',8,'draft',0);
+INSERT INTO case_reveal_items (id, case_id, trigger, content, sort) VALUES
+  ('C-019.r1','C-019','Phát sẵn','Mỗi mẻ giặt khoảng 8 kg',1),
+  ('C-019.r2','C-019','Nếu hỏi giá mỗi mẻ','50–70 nghìn đồng',2),
+  ('C-019.r3','C-019','Nếu hỏi số tiệm hiện có','Không có số liệu, bạn tự ước lượng',3);
+INSERT INTO case_traps (id, case_id, description, mistake_code) VALUES
+  ('C-019.t1','C-019','Đếm theo hộ gia đình mà không lọc các hộ đã có máy giặt','SIZ-02');
+INSERT INTO case_answer_frames (case_id, structure_md, key_numbers, quick_scoring_md) VALUES
+  ('C-019','Top-down: dân số → nhóm không có máy giặt → tần suất → giá. Bottom-up: số tiệm × số máy × tỷ lệ lấp đầy × giá.','{}','Kết quả trong khoảng 0,3–3 nghìn tỷ đồng: đạt bậc độ lớn.');

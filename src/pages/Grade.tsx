@@ -2,6 +2,7 @@ import { useMemo, useState, type FormEvent } from "react";
 import { api, ApiError, type AttemptView, type LessonView, type MistakeCode } from "../api";
 import { ErrorNote, formatDate, Link, Loading, useLoad } from "../lib";
 import { ARTIFACT_KINDS } from "./Attempt";
+import { AnswerFramePanel, CaseBriefPanel } from "./CaseBrief";
 
 const FRACTION: Record<number, number> = { 1: 0.25, 2: 0.5, 3: 0.75, 4: 1 };
 
@@ -121,6 +122,9 @@ function GradeForm({ attempt, lesson, codes }: Loaded) {
           </p>
         </section>
       </div>
+
+      {attempt.case && <CaseBriefPanel brief={attempt.case} mode="grader" />}
+      <AnswerFramePanel attempt={attempt} />
 
       {rubric.criteria.map((c) => (
         <fieldset key={c.id} className="panel criterion">

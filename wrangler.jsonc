@@ -22,8 +22,12 @@
   // Safe production defaults. Local overrides live in .dev.vars (DEV_MODE, TURNSTILE_SECRET).
   "vars": {
     "DEV_MODE": "false",
-    "APP_ORIGIN": "http://localhost:8787",
-    "MAIL_FROM": "no-reply@example.com"
+    "APP_ORIGIN": "https://tu-hoc-business-case.tridinhbui0901.workers.dev",
+    "MAIL_FROM": "no-reply@example.com",
+    // Public Turnstile sitekey; empty until the widget exists (the login form then shows that sign-in is closed).
+    "TURNSTILE_SITEKEY": "",
+    // Frontend hostnames siteverify must report in production. Never add localhost here.
+    "TURNSTILE_HOSTNAMES": "tu-hoc-business-case.tridinhbui0901.workers.dev"
   },
 
   // No resource ids: `wrangler deploy` provisions D1, KV, R2 and Queues that do not exist yet

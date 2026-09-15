@@ -101,6 +101,43 @@ async function main() {
   check("018 now available", true);
   check("020 timed locked until 019 passed", (await progressOf(learner, "020"))?.lock_reason === "untimed_first");
 
+  console.log("== case brief and data on request");
+  const lesson019 = await learner.call("GET", "/api/lessons/019");
+  const brief = lesson019.data.case;
+  check("lesson shows the case brief with up-front data", brief?.id === "C-019" && brief.question.includes("Quy mô") && brief.upfront.length === 1, brief);
+  check("askable data is listed without its content", brief?.askable?.length === 2 && brief.askable.every((i) => i.content === undefined), brief?.askable);
+  const start019 = await learner.call("POST", "/api/attempts", { lessonId: "019" });
+  const att019 = start019.data.attemptId;
+  const reveal = await learner.call("POST", `/api/attempts/${att019}/reveal`, { itemId: "C-019.r2" });
+  check("learner can ask for a data item during the attempt", reveal.status === 200 && reveal.data.content === "50–70 nghìn đồng", reveal.data);
+  check("asking for the same item twice is harmless", (await learner.call("POST", `/api/attempts/${att019}/reveal`, { itemId: "C-019.r2" })).status === 200);
+  check("item from another case is rejected (404)", (await learner.call("POST", `/api/attempts/${att019}/reveal`, { itemId: "C-999.r1" })).status === 404);
+  check("another user cannot ask on this attempt (404)", (await grader.call("POST", `/api/attempts/${att019}/reveal`, { itemId: "C-019.r3" })).status === 404);
+  const draftView = await learner.call("GET", `/api/attempts/${att019}`);
+  const askedItems = draftView.data.case?.askable ?? [];
+  check("attempt view opens only the items that were asked for",
+    askedItems.find((i) => i.id === "C-019.r2")?.content === "50–70 nghìn đồng" && askedItems.find((i) => i.id === "C-019.r3")?.content === null, askedItems);
+  check("learner never receives the answer frame or traps", draftView.data.answerFrame === null && draftView.data.traps?.length === 0, draftView.data);
+  await learner.call("PUT", `/api/attempts/${att019}/artifacts`, new TextEncoder().encode("bài làm 019"), { "x-artifact-kind": "sheet", "content-type": "text/plain" });
+  await learner.call("POST", `/api/attempts/${att019}/submit`);
+  check("cannot ask for data after submitting (409)", (await learner.call("POST", `/api/attempts/${att019}/reveal`, { itemId: "C-019.r3" })).status === 409);
+  await waitFor("019 queued", async () => (await instructor.call("GET", "/api/grader/queue")).data.items?.some((i) => i.attempt_id === att019));
+  await instructor.call("POST", `/api/grader/attempts/${att019}/claim`);
+  const staffView = await instructor.call("GET", `/api/attempts/${att019}`);
+  check("grader sees answer frame, traps and exactly what was asked",
+    staffView.data.answerFrame?.quick_scoring_md?.includes("bậc độ lớn") && staffView.data.traps?.[0]?.mistake_code === "SIZ-02" &&
+    staffView.data.case?.askable?.filter((i) => i.content).length === 1, staffView.data);
+  const rubric019 = (await instructor.call("GET", "/api/grader/rubric/019")).data.criteria;
+  const graded019 = await instructor.call("POST", `/api/grader/attempts/${att019}/grade`, { criteria: allLevels(rubric019, 3) });
+  check("019 graded 75 and passed", graded019.data.total === 75 && graded019.data.passed === true, graded019.data);
+
+  console.log("== public config");
+  const config = await learner.call("GET", "/api/config");
+  check("config exposes only the public sitekey and dev mode",
+    typeof config.data.turnstileSiteKey === "string" && config.data.devMode === true &&
+    Object.keys(config.data).sort().join(",") === "devMode,turnstileSiteKey" &&
+    !JSON.stringify(config.data).includes("1x0000000000000000000000000000000AA"), config.data);
+
   console.log("== grading rules");
   const own = await learner.call("POST", "/api/attempts", { lessonId: "015" });
   await learner.call("POST", `/api/attempts/${own.data.attemptId}/submit`);

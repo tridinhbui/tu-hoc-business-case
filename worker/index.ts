@@ -4,7 +4,7 @@ import { claimAttempt, consumeGrading, gradeAttempt, graderQueue } from "./gradi
 import { createLiveSession, liveSocket, liveState } from "./live";
 import { consumeReadiness, decayAll, releaseStaleClaims } from "./readiness";
 import { AppEnv, HttpError, isDev, json, readJson } from "./util";
-import { attemptView, downloadArtifact, lessonView, meView, mistakeCodesView, progressView } from "./views";
+import { attemptView, downloadArtifact, lessonView, meView, mistakeCodesView, progressView, revealCaseItem } from "./views";
 
 export { LiveRoom } from "./liveroom";
 
@@ -14,6 +14,8 @@ const route = (method: string, pattern: string, handler: Handler) =>
   routes.push([method, new RegExp(`^${pattern.replace(/:[a-zA-Z]+/g, "([^/]+)")}$`), handler]);
 
 route("GET", "/api/health", async () => json({ ok: true, service: "bc-platform" }));
+// Public client configuration. The Turnstile sitekey is public by design; the secret never leaves the Worker.
+route("GET", "/api/config", async (_req, env) => json({ turnstileSiteKey: env.TURNSTILE_SITEKEY || null, devMode: isDev(env) }));
 
 // auth
 route("POST", "/api/auth/request", (req, env) => requestMagicLink(req, env));
@@ -48,6 +50,7 @@ route("GET", "/api/attempts/:id/artifacts/:artifactId", async (req, env, [id, ar
   downloadArtifact(env, await requireUser(req, env), id, artifactId));
 route("POST", "/api/attempts/:id/submit", async (req, env, [id]) => submitAttempt(env, await requireUser(req, env), id));
 route("POST", "/api/attempts/:id/review", async (req, env, [id]) => reviewAttempt(req, env, await requireUser(req, env), id));
+route("POST", "/api/attempts/:id/reveal", async (req, env, [id]) => revealCaseItem(req, env, await requireUser(req, env), id));
 route("GET", "/api/remediation", async (req, env) => {
   const user = await requireUser(req, env);
   const { results } = await env.DB_LEARNING.prepare(

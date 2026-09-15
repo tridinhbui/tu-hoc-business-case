@@ -1,6 +1,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { api, type AttemptView } from "../api";
 import { ErrorNote, formatDate, Link, Loading, useLoad, usePoll } from "../lib";
+import { CaseBriefPanel } from "./CaseBrief";
 
 const STEPS = [
   { key: "draft", label: "Nháp" },
@@ -41,6 +42,15 @@ export function AttemptPage({ attemptId }: { attemptId: string }) {
           ))}
         </ol>
       </header>
+
+      {data.case && (
+        <CaseBriefPanel
+          brief={data.case}
+          mode={attempt.status === "draft" && data.viewer === "owner" ? "attempt" : data.viewer === "owner" ? "review" : "grader"}
+          attemptId={attempt.id}
+          onChange={reload}
+        />
+      )}
 
       {attempt.status === "draft" && data.viewer === "owner" && <DraftPanel data={data} onChange={reload} />}
 

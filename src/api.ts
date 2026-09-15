@@ -44,13 +44,27 @@ export type ProgressView = {
   remediation: { code: string; title: string; lesson_id: string; reps_done: number; reps_required: number; blocks_kind: string }[];
 };
 
-export type RubricCriterion = { id: string; name: string; weight: number; skill_id: string | null; levels: Record<string, string> };
+export type CaseBrief = {
+  id: string;
+  title: string;
+  industry: string;
+  context: string;
+  question: string;
+  duration_min: number;
+  status: string;
+  upfront: { id: string; content: string }[];
+  // content is present only once the learner has asked for the item during an attempt
+  askable: { id: string; trigger: string; content?: string | null; revealed_at?: number | null }[];
+};
+
+export type RubricCriterion ={ id: string; name: string; weight: number; skill_id: string | null; levels: Record<string, string> };
 
 export type LessonView = {
   lesson: { id: string; title: string; kind: string; level: number; est_minutes: number; output_spec: string; module_id: string; module_title: string; timed_variant_of: string | null; gates_module: number };
   rubric: { id: string; name: string; threshold: number; criteria: RubricCriterion[] } | null;
   progress: ProgressRow | null;
   attempts: { id: string; status: string; final_score: number | null; passed: number | null; started_at: number; submitted_at: number | null; graded_at: number | null; needs_review: number }[];
+  case: CaseBrief | null;
 };
 
 export type AttemptView = {
@@ -67,6 +81,9 @@ export type AttemptView = {
   mistakes: { code: string; title: string; symptom: string | null; location_ref: string | null }[];
   review: { rewrite_note: string; completed_at: number } | null;
   needsReview: boolean;
+  case: CaseBrief | null;
+  answerFrame: { structure_md: string; quick_scoring_md: string } | null;
+  traps: { description: string; mistake_code: string }[];
 };
 
 export type Readiness = { skill_id: string; name: string; raw_score: number; score: number; last_evidence_at: number };

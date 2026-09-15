@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { api, ApiError, type LessonView } from "../api";
 import { ErrorNote, formatDate, KindTag, LevelChip, Link, Loading, LOCK_TEXT, navigate, StatusPill, useLoad } from "../lib";
+import { CaseBriefPanel } from "./CaseBrief";
 
 export function LessonPage({ lessonId }: { lessonId: string }) {
   const { data, error, loading, reload } = useLoad(() => api<LessonView>(`/api/lessons/${lessonId}`), [lessonId]);
@@ -96,6 +97,8 @@ export function LessonPage({ lessonId }: { lessonId: string }) {
           </section>
         )}
       </div>
+
+      {data.case && <CaseBriefPanel brief={data.case} mode="lesson" />}
 
       <section className="panel">
         <h2>Các lần làm</h2>

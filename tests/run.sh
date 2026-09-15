@@ -73,6 +73,8 @@ reject "artifact with both r2 key and stream uid" \
   "INSERT INTO attempt_artifacts VALUES ('f1','a1','recording','k','uid','video/mp4',1,$NOW);"
 reject "two active remediations for same code" \
   "INSERT INTO remediation_assignments (id,user_id,code,lesson_id,blocks_kind,reps_required,triggered_at) VALUES ('r1','u1','SIZ-02','021','mini_case',3,$NOW),('r2','u1','SIZ-02','021','mini_case',3,$NOW);"
+reject "asking for the same case item twice in one attempt" \
+  "INSERT INTO attempt_reveals VALUES ('a1','C-019.r2',$NOW),('a1','C-019.r2',$NOW);"
 reject "empty mistake review" \
   "INSERT INTO mistake_reviews VALUES ('a2','u1','   ',$NOW);"
 
