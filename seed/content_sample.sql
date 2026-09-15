@@ -141,3 +141,9 @@ INSERT INTO case_traps (id, case_id, description, mistake_code) VALUES
   ('C-019.t1','C-019','Đếm theo hộ gia đình mà không lọc các hộ đã có máy giặt','SIZ-02');
 INSERT INTO case_answer_frames (case_id, structure_md, key_numbers, quick_scoring_md) VALUES
   ('C-019','Top-down: dân số → nhóm không có máy giặt → tần suất → giá. Bottom-up: số tiệm × số máy × tỷ lệ lấp đầy × giá.','{}','Kết quả trong khoảng 0,3–3 nghìn tỷ đồng: đạt bậc độ lớn.');
+
+-- Sample learning path (two weeks) for the plan page.
+INSERT INTO learning_paths (id, name, weeks, hours_per_week, persona, capstone_id) VALUES
+  ('PATH-S','Market sizing trong 2 tuần',2,'4–5h/tuần','P2',NULL);
+INSERT INTO path_items (path_id, week, lesson_id, sort) VALUES
+  ('PATH-S',1,'015',1), ('PATH-S',1,'017',2), ('PATH-S',2,'018',3), ('PATH-S',2,'019',4);

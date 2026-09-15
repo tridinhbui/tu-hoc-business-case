@@ -86,6 +86,39 @@ export type AttemptView = {
   traps: { description: string; mistake_code: string }[];
 };
 
-export type Readiness = { skill_id: string; name: string; raw_score: number; score: number; last_evidence_at: number };
+export type PathSummary = {
+  id: string;
+  name: string;
+  weeks: number;
+  hours_per_week: string;
+  persona: string;
+  capstone_id: string | null;
+  lessons: number;
+  enrollment: { status: string; started_at: number } | null;
+};
+
+export type PlanLesson = {
+  week: number;
+  id: string;
+  title: string;
+  kind: string;
+  level: number;
+  est_minutes: number;
+  gates_module: number;
+  module_id: string;
+  status: LessonStatus;
+  lock_reason: LockReason | null;
+  best_score: number | null;
+};
+
+export type PathPlan = {
+  path: Omit<PathSummary, "lessons" | "enrollment">;
+  enrollment: { status: string; started_at: number } | null;
+  currentWeek: number | null;
+  weeks: { week: number; lessons: PlanLesson[]; done: number; minutes: number }[];
+  capstone: { id: string; title: string; objective: string; deliverable: string } | null;
+};
+
+export type Readiness ={ skill_id: string; name: string; raw_score: number; score: number; last_evidence_at: number };
 export type QueueItem = { attempt_id: string; needs: string; lesson_id: string; lesson_title: string; lesson_kind: string; submitted_at: number; enqueued_at: number; mine: boolean };
 export type MistakeCode = { code: string; group_code: string; title: string; symptom: string };

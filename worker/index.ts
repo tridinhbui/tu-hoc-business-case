@@ -2,6 +2,7 @@ import { currentUser, logout, requestMagicLink, requireUser, verifyMagicLink } f
 import { reviewAttempt, startAttempt, submitAttempt, uploadArtifact } from "./attempts";
 import { claimAttempt, consumeGrading, gradeAttempt, graderQueue } from "./grading";
 import { createLiveSession, liveSocket, liveState } from "./live";
+import { enrollInPath, listPaths, pathPlan } from "./paths";
 import { consumeReadiness, decayAll, releaseStaleClaims } from "./readiness";
 import { AppEnv, HttpError, isDev, json, readJson } from "./util";
 import { attemptView, downloadArtifact, lessonView, meView, mistakeCodesView, progressView, revealCaseItem } from "./views";
@@ -51,6 +52,9 @@ route("GET", "/api/attempts/:id/artifacts/:artifactId", async (req, env, [id, ar
 route("POST", "/api/attempts/:id/submit", async (req, env, [id]) => submitAttempt(env, await requireUser(req, env), id));
 route("POST", "/api/attempts/:id/review", async (req, env, [id]) => reviewAttempt(req, env, await requireUser(req, env), id));
 route("POST", "/api/attempts/:id/reveal", async (req, env, [id]) => revealCaseItem(req, env, await requireUser(req, env), id));
+route("GET", "/api/paths", async (req, env) => listPaths(env, await requireUser(req, env)));
+route("GET", "/api/paths/:id", async (req, env, [id]) => pathPlan(env, await requireUser(req, env), id));
+route("POST", "/api/paths/:id/enroll", async (req, env, [id]) => enrollInPath(env, await requireUser(req, env), id));
 route("GET", "/api/remediation", async (req, env) => {
   const user = await requireUser(req, env);
   const { results } = await env.DB_LEARNING.prepare(

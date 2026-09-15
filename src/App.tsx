@@ -6,6 +6,7 @@ import { GraderQueuePage } from "./pages/GraderQueue";
 import { LessonPage } from "./pages/Lesson";
 import { LoginPage } from "./pages/Login";
 import { PathPage } from "./pages/Path";
+import { PlanPage } from "./pages/Plan";
 import { SkillsPage } from "./pages/Skills";
 
 export function App() {
@@ -22,6 +23,7 @@ export function App() {
   if (path === "/" || path === "/path") page = <PathPage />;
   else if ((m = path.match(/^\/lessons\/([^/]+)$/))) page = <LessonPage lessonId={m[1]} />;
   else if ((m = path.match(/^\/attempts\/([^/]+)$/))) page = <AttemptPage attemptId={m[1]} />;
+  else if (path === "/plan") page = <PlanPage />;
   else if (path === "/skills") page = <SkillsPage readiness={me.data?.readiness ?? []} />;
   else if (path === "/grader" && isGrader) page = <GraderQueuePage />;
   else if ((m = path.match(/^\/grader\/([^/]+)$/)) && isGrader) page = <GradePage attemptId={m[1]} />;
@@ -43,6 +45,7 @@ export function App() {
           <Link to="/" className="brand">Business Case</Link>
           <nav aria-label="Chính">
             {nav("/", "Lộ trình", path === "/" || path.startsWith("/lessons") || path.startsWith("/attempts"))}
+            {nav("/plan", "Kế hoạch", path === "/plan")}
             {nav("/skills", "Năng lực", path === "/skills")}
             {isGrader && nav("/grader", "Chấm bài", path.startsWith("/grader"))}
           </nav>

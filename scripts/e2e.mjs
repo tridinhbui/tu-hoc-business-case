@@ -138,6 +138,22 @@ async function main() {
     Object.keys(config.data).sort().join(",") === "devMode,turnstileSiteKey" &&
     !JSON.stringify(config.data).includes("1x0000000000000000000000000000000AA"), config.data);
 
+  console.log("== learning paths");
+  const paths = await learner.call("GET", "/api/paths");
+  check("paths list includes the sample path, not joined yet",
+    paths.data.items?.some((p) => p.id === "PATH-S" && p.lessons === 4 && p.enrollment === null), paths.data);
+  check("unknown path cannot be joined (404)", (await learner.call("POST", "/api/paths/PATH-X/enroll")).status === 404);
+  const joined = await learner.call("POST", "/api/paths/PATH-S/enroll");
+  check("learner joins the path", joined.status === 200 && joined.data.status === "active", joined.data);
+  const plan = await learner.call("GET", "/api/paths/PATH-S");
+  check("plan starts at week 1 of 2 with lessons grouped by week",
+    plan.data.currentWeek === 1 && plan.data.weeks?.length === 2 && plan.data.weeks[0].lessons.map((l) => l.id).join(",") === "015,017", plan.data);
+  check("plan carries live progress (017 already passed)",
+    plan.data.weeks?.[0]?.lessons.find((l) => l.id === "017")?.status === "passed", plan.data.weeks?.[0]);
+  await learner.call("POST", "/api/paths/PATH-S/enroll");
+  check("joining again keeps exactly one active enrollment",
+    (await learner.call("GET", "/api/paths")).data.items.filter((p) => p.enrollment?.status === "active").length === 1);
+
   console.log("== grading rules");
   const own = await learner.call("POST", "/api/attempts", { lessonId: "015" });
   await learner.call("POST", `/api/attempts/${own.data.attemptId}/submit`);

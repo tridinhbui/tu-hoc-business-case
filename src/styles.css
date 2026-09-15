@@ -204,6 +204,22 @@ td.r, th.r { text-align: right; }
 .bar-meta { grid-column: 2 / 4; }
 @media (max-width: 640px) { .bars li { grid-template-columns: 1fr 40px; } .bar-track { grid-column: 1 / 3; } .bar-meta { grid-column: 1 / 3; } }
 
+/* learning paths */
+.path-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.path-card { display: flex; flex-direction: column; gap: 12px; }
+.path-card > .btn { margin-top: auto; }
+.path-facts dd { white-space: nowrap; }
+.path-card.is-active { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.path-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
+.path-facts dt { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.path-facts dd { margin: 0; font-size: 14px; font-weight: 500; }
+.stats dd.small-dd { font-family: var(--sans); font-size: 15px; padding-top: 6px; }
+.week { display: grid; gap: 8px; }
+.week details > summary { cursor: pointer; list-style: none; }
+.week details > summary::-webkit-details-marker { display: none; }
+.week details[open] > summary { margin-bottom: 8px; }
+.btn-quiet.inline { padding: 0; font-size: inherit; color: var(--accent-ink); text-decoration: underline; }
+
 /* case brief */
 .case-brief { border-left: 3px solid var(--accent); }
 .case-brief h3, .answer-frame h3 { font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin: 4px 0 0; }
