@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "bc-platform",
+  // Must match the Worker name connected to Workers Builds in the dashboard.
+  "name": "tu-hoc-business-case",
   "main": "./worker/index.ts",
   "compatibility_date": "2026-08-01",
   "observability": { "enabled": true },
@@ -19,16 +20,15 @@
     "MAIL_FROM": "no-reply@example.com"
   },
 
-  // database_id values are placeholders until the databases are created on the Cloudflare account.
+  // No resource ids: `wrangler deploy` provisions D1, KV, R2 and Queues that do not exist yet
+  // and links them to the Worker on every later deploy.
   "d1_databases": [
-    { "binding": "DB_CONTENT", "database_name": "bc_content",
-      "database_id": "00000000-0000-0000-0000-00000000c0de", "migrations_dir": "migrations/content" },
-    { "binding": "DB_LEARNING", "database_name": "bc_learning",
-      "database_id": "00000000-0000-0000-0000-0000000001ea", "migrations_dir": "migrations/learning" }
+    { "binding": "DB_CONTENT", "database_name": "bc_content", "migrations_dir": "migrations/content" },
+    { "binding": "DB_LEARNING", "database_name": "bc_learning", "migrations_dir": "migrations/learning" }
   ],
   "kv_namespaces": [
-    { "binding": "CONTENT_CACHE", "id": "local-content-cache" },
-    { "binding": "SESSIONS", "id": "local-sessions" }
+    { "binding": "CONTENT_CACHE" },
+    { "binding": "SESSIONS" }
   ],
   "r2_buckets": [
     { "binding": "R2_CONTENT", "bucket_name": "bc-content" },

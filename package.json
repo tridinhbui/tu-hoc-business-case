@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --host 127.0.0.1 --port 5173",
-    "build": "npm run typecheck && vite build",
+    "build": "wrangler types && npm run typecheck && vite build",
     "preview": "npm run build && vite preview",
     "deploy": "npm run build && wrangler deploy",
     "types": "wrangler types",
@@ -13,6 +13,8 @@
     "db:migrate:local": "wrangler d1 migrations apply bc_content --local && wrangler d1 migrations apply bc_learning --local",
     "db:seed:local": "npm run content:build && wrangler d1 execute bc_content --local --file seed/curriculum.sql",
     "db:reset:local": "rm -rf .wrangler/state && npm run db:migrate:local && npm run db:seed:local",
+    "db:migrate:remote": "wrangler d1 migrations apply bc_content --remote && wrangler d1 migrations apply bc_learning --remote",
+    "db:seed:remote": "npm run content:build && wrangler d1 execute bc_content --remote --file seed/curriculum.sql",
     "e2e:reset": "rm -rf .wrangler/e2e-state && wrangler d1 migrations apply bc_content --local --persist-to .wrangler/e2e-state && wrangler d1 migrations apply bc_learning --local --persist-to .wrangler/e2e-state && wrangler d1 execute bc_content --local --persist-to .wrangler/e2e-state --file seed/content_sample.sql",
     "e2e:dev": "BC_STATE_DIR=.wrangler/e2e-state vite dev --host 127.0.0.1 --port 5174 --strictPort",
     "test:schema": "sh tests/run.sh",

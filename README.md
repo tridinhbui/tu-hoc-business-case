@@ -68,11 +68,32 @@ npm run test:e2e
 | `seed/content_sample.sql` | Dữ liệu mẫu module A4, B1, B2 kèm mô tả 4 mức rubric |
 | `queries/gates.sql` | Truy vấn khoá/mở bài dùng trong kiểm thử schema |
 
-## Trước khi deploy lên Cloudflare
+## Deploy lên Cloudflare
 
-- Tài khoản **Workers Paid** — gói Free không đủ CPU, dung lượng D1 và không có Email Sending.
-- Tạo tài nguyên thật: `wrangler d1 create bc_content`, `wrangler d1 create bc_learning`, `wrangler kv namespace create CONTENT_CACHE`, `wrangler kv namespace create SESSIONS`, `wrangler r2 bucket create bc-content`, `wrangler r2 bucket create bc-submissions`, `wrangler queues create bc-grading`, `wrangler queues create bc-readiness` — rồi thay các id giữ chỗ trong `wrangler.jsonc`.
-- Tên miền dùng Cloudflare DNS, onboard vào Email Sending, bật binding `send_email`.
+Repo được nối với **Workers Builds** (Worker `tu-hoc-business-case`). Mỗi lần push lên `main`, Cloudflare build và deploy.
+
+Cấu hình build trên dashboard (**Settings → Build**):
+
+| Mục | Giá trị |
+|---|---|
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Root directory | `/` |
+
+`wrangler.jsonc` không ghi id tài nguyên: lần deploy đầu, Wrangler tự tạo D1 (`bc_content`, `bc_learning`), KV, R2 (`bc-content`, `bc-submissions`) và Queues rồi gắn vào Worker.
+
+`wrangler deploy` **không** chạy migration. Sau lần deploy đầu tiên và sau mỗi migration mới:
+
+```bash
+npm run db:migrate:remote
+npm run db:seed:remote
+```
+
+`db:seed:remote` ghi đè toàn bộ nội dung chương trình trong `bc_content` bằng bản sinh từ `content-source/`; không đụng tới dữ liệu người học trong `bc_learning`.
+
+### Trước khi mở cho người học thật
+
+- Tài khoản **Workers Paid** — gói Free giới hạn CPU 10 ms mỗi request, D1 500 MB mỗi database, và không có Email Sending.
+- Tên miền dùng Cloudflare DNS, onboard vào Email Sending, bật binding `send_email`. Chưa có bước này thì không đăng nhập được (API trả 503).
 - Tạo widget Turnstile, gắn vào form đăng nhập ở `src/pages/Login.tsx`, đặt secret: `wrangler secret put TURNSTILE_SECRET`. Không đưa `.dev.vars` lên production.
-- Đặt `APP_ORIGIN` và `MAIL_FROM` đúng tên miền thật.
-- Deploy: `npm run deploy` (build rồi `wrangler deploy`).
+- Đặt `APP_ORIGIN` và `MAIL_FROM` đúng tên miền thật trong `wrangler.jsonc`.
