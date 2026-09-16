@@ -1,5 +1,6 @@
 import { adminOverview } from "./admin";
 import { googleCallback, googleEnabled, startGoogleLogin } from "./google";
+import { kingdomView } from "./kingdom";
 import { landingView } from "./landing";
 import { currentUser, logout, requestMagicLink, requireUser, verifyMagicLink } from "./auth";
 import { reviewAttempt, startAttempt, submitAttempt, uploadArtifact } from "./attempts";
@@ -57,6 +58,7 @@ route("GET", "/api/mistake-codes", async (req, env) => {
 
 // learner
 route("GET", "/api/progress", async (req, env) => progressView(env, await requireUser(req, env)));
+route("GET", "/api/kingdom", async (req, env) => kingdomView(env, await requireUser(req, env)));
 route("GET", "/api/lessons/:id", async (req, env, [id]) => lessonView(env, await requireUser(req, env), id));
 route("POST", "/api/attempts", async (req, env) => startAttempt(req, env, await requireUser(req, env)));
 route("GET", "/api/attempts/:id", async (req, env, [id]) => attemptView(env, await requireUser(req, env), id));

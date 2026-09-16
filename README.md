@@ -67,6 +67,7 @@ npm run test:e2e
 | `worker/views.ts` | Dữ liệu cho giao diện: lộ trình, bài học, bài làm, tải file có kiểm tra quyền |
 | `worker/liveroom.ts`, `worker/live.ts` | Durable Object `LiveRoom`, API tạo phòng, danh sách phòng và WebSocket |
 | `worker/paths.ts` | Lộ trình học: danh sách, ghi danh, kế hoạch theo tuần |
+| `worker/kingdom.ts` | Bản đồ game: vùng đất, boss, nhiệm vụ — suy ra từ tiến độ thật ([thiết kế](docs/GAME-DESIGN.md)) |
 | `src/` | React SPA: trang giới thiệu, đăng nhập, lộ trình, kế hoạch theo tuần, bài học và đề case, bài làm, phòng live, năng lực, hàng đợi chấm, form chấm |
 | `migrations/content`, `migrations/learning` | Schema hai database D1 |
 | `seed/content_sample.sql` | Dữ liệu mẫu module A4, B1, B2 kèm mô tả 4 mức rubric |

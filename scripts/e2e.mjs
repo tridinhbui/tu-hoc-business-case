@@ -290,6 +290,24 @@ async function main() {
   check("mistake code catalogue available", (await grader.call("GET", "/api/mistake-codes")).data.items?.length === 4);
   check("unknown lesson returns 404", (await learner.call("GET", "/api/lessons/999")).status === 404);
 
+  console.log("== kingdom map");
+  const kingdom = await learner.call("GET", "/api/kingdom");
+  const modules = kingdom.data.territories?.flatMap((t) => t.modules) ?? [];
+  const withBoss = modules.find((m) => m.boss);
+  check("map is built from the learner's own progress",
+    kingdom.status === 200 && kingdom.data.hero.passed > 0 &&
+    kingdom.data.hero.xp > 0 && kingdom.data.hero.streak >= 1, kingdom.data?.hero);
+  check("xp is the sum of best scores, not a count of attempts",
+    kingdom.data.hero.xp >= kingdom.data.hero.passed * 50, kingdom.data?.hero);
+  check("a module boss's health is what is left of its lessons",
+    !!withBoss && withBoss.boss.hp === (withBoss.lessons === 0 ? 100 : Math.round(100 - (withBoss.cleared / withBoss.lessons) * 100)),
+    withBoss);
+  check("a module with lessons passed shows them",
+    modules.some((m) => m.cleared > 0 && m.status === "open"), modules.filter((m) => m.cleared > 0));
+  check("locked territories carry no boss to attack",
+    kingdom.data.territories.filter((t) => t.status === "locked").every((t) => t.modules.every((m) => m.status === "locked")));
+  check("anonymous visitors get no map (401)", (await new Client("anon2").call("GET", "/api/kingdom")).status === 401);
+
   console.log("== readiness");
   const readiness = (await learner.call("GET", "/api/me")).data.readiness;
   const s06 = readiness.find((r) => r.skill_id === "S06");
@@ -300,6 +318,10 @@ async function main() {
   const cp = await doAttempt(learner, instructor, "014", { level: 3 });
   check("checkpoint 014 passes at 75", cp.grade.data.total === 75 && cp.grade.data.passed === true, cp.grade.data);
   await waitFor("learner promoted to L2", async () => (await learner.call("GET", "/api/me")).data.user.level === 2);
+  const afterBoss = (await learner.call("GET", "/api/kingdom")).data;
+  const beaten = afterBoss.territories.flatMap((t) => t.modules).find((m) => m.boss?.lesson_id === "014");
+  check("beating the checkpoint drops the boss to 0 HP and clears the module",
+    beaten?.boss.status === "passed" && beaten.boss.hp === 0 && beaten.status === "cleared", beaten?.boss);
   check("learner is now level 2", true);
 
   console.log("== live room (Durable Object)");

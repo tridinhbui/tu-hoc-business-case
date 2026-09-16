@@ -193,3 +193,22 @@ export type LandingView = {
   };
   kinds: { kind: string; n: number }[];
 };
+
+export type KingdomBoss = {
+  lesson_id: string; title: string; level: number;
+  status: LessonStatus; lock_reason: LockReason | null; best_score: number | null; hp: number;
+};
+
+export type KingdomModule = {
+  id: string; title: string; outcome: string; lessons: number; cleared: number;
+  status: "locked" | "open" | "cleared"; boss: KingdomBoss | null;
+};
+
+export type KingdomView = {
+  hero: {
+    level: number; name: string; xp: number; passed: number; total: number; streak: number;
+    readiness: number | null; skills_ready: number; skills_measured: number;
+  };
+  territories: { id: string; name: string; role: string; status: "locked" | "open" | "cleared"; modules: KingdomModule[] }[];
+  quests: { kind: "remediation" | "review" | "next"; lesson_id: string; label: string; detail: string }[];
+};
