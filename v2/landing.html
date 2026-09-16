@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CASELAB — Học business case bằng cách làm case</title>
+<meta name="description" content="100 bài học có bài tập tính toán, 17 đề case có exhibit và bộ chấm 6 tiêu chí, phòng thi competition và phỏng vấn consulting 5 vòng. Học bằng tiếng Việt, thuật ngữ giữ tiếng Anh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css?v=30">
+<style>
+  /* Trang landing chỉ được thêm LAYOUT. Mọi màu/bán kính/bóng đều lấy từ
+     globals (app.css) — nếu ở đây xuất hiện một mã màu hex, đó là dấu hiệu
+     một hệ thiết kế thứ hai đang hình thành. */
+  .ld{max-width:1120px;margin:0 auto;padding:0 28px}
+  .ld-top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .ld-top .in{display:flex;align-items:center;gap:22px;height:66px}
+  .ld-top nav{display:flex;gap:22px;margin-left:auto}
+  .ld-top nav a{font-size:13px;font-weight:700;color:var(--muted);transition:.2s ease-out}
+  .ld-top nav a:hover{color:var(--text)}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .mk{width:32px;height:32px;border-radius:var(--radius-control);background:var(--stone-900);
+    color:#FAFAF9;display:grid;place-items:center;font-size:12px;font-weight:800;letter-spacing:.04em}
+  :root[data-theme="dark"] .brand .mk{background:var(--primary);color:var(--stone-950)}
+  .brand b{font-size:15px;font-weight:800;letter-spacing:.01em}
+  .brand span{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted-2);font-weight:700}
+
+  /* NGOẠI LỆ DUY NHẤT về font trong toàn sản phẩm: tiêu đề cửa vào.
+     Dùng class riêng, KHÔNG ghi đè token font để làm việc này. */
+  .font-entrance{font-family:var(--font-entrance);font-weight:400;letter-spacing:-.02em}
+
+  .hero{padding:84px 0 64px;display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center}
+  .hero h1{font-size:52px;line-height:1.08;margin:16px 0 18px}
+  .hero h1 em{font-style:italic;color:var(--primary-hover)}
+  .hero p.lead{font-size:16.5px;line-height:1.65;font-weight:500;color:var(--text-2);max-width:56ch;margin:0}
+  .hero .row{margin-top:28px;gap:12px;flex-wrap:wrap}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);
+    border-radius:var(--radius-card);background:var(--surface);margin-top:36px;box-shadow:var(--shadow-card)}
+  .stats div{padding:16px 18px;border-left:1px solid var(--border)}
+  .stats div:first-child{border-left:0}
+  .stats .n{font-size:25px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .stats .k{font-size:11.5px;font-weight:600;color:var(--muted);margin-top:2px}
+
+  .shot{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);
+    box-shadow:var(--shadow-pop);overflow:hidden}
+  .shot>.bar{display:flex;align-items:center;gap:6px;padding:11px 14px;border-bottom:1px solid var(--border);
+    background:var(--surface-2);height:auto;border-radius:0}
+  .shot>.bar i{width:9px;height:9px;border-radius:var(--radius-pill);background:var(--border-2);display:block}
+  .shot>.bar span{margin-left:8px;font-size:11px;font-weight:700;color:var(--muted-2)}
+  .shot .body{padding:18px}
+
+  .sec{padding:64px 0}
+  .sec h2{font-size:29px;letter-spacing:-.028em}
+  .sec .sub{color:var(--muted);margin:9px 0 0;max-width:68ch;font-size:14.5px;font-weight:500}
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:28px}
+  .flow .s{border:1px solid var(--border);border-radius:var(--radius-card);background:var(--surface);
+    padding:16px;box-shadow:var(--shadow-card)}
+  .flow .s .i{width:27px;height:27px;border-radius:9px;background:var(--primary-soft);color:var(--primary-hover);
+    display:grid;place-items:center;font-weight:800;font-size:12px;margin-bottom:10px}
+  .flow .s b{font-size:13.5px;display:block;font-weight:800}
+  .flow .s p{font-size:12.5px;color:var(--muted);margin:5px 0 0;line-height:1.5;font-weight:500}
+
+  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+  .faq{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+
+  /* Dải mực: một mặt phẳng, không gradient, không ảnh phủ — để nó đọc như một
+     trang giấy khác màu trong cùng cuốn sách, chứ không như một app khác. */
+  .cta{padding:72px 0 76px;text-align:center}
+  .cta h2{font-size:34px;letter-spacing:-.03em}
+  .cta .sub{margin:12px auto 24px}
+  .cta .btn{background:transparent;color:#F5F5F4;border-color:rgba(245,245,244,.28);box-shadow:none}
+  .cta .btn:hover{background:rgba(245,245,244,.08);border-color:rgba(245,245,244,.45)}
+  .cta .btn-p{background:var(--primary);border-color:var(--primary);color:#fff}
+  .cta .btn-p:hover{background:var(--primary-hover);border-color:var(--primary-hover)}
+
+  .foot{padding:28px 0 44px;color:var(--muted);font-size:12.5px;font-weight:500}
+
+  /* Con của grid mặc định có min-width:auto — một bảng bên trong sẽ tự nong
+     cột rộng hơn màn hình. Kẹp lại, và cho riêng bảng cuộn ngang trong khung. */
+  .hero>*{min-width:0}
+  .shot .body{overflow-x:auto}
+
+  @media(max-width:960px){ .hero{grid-template-columns:1fr;padding-top:52px} .hero h1{font-size:38px}
+    .cards3,.flow,.tracks,.faq,.stats{grid-template-columns:1fr 1fr} .ld-top nav{display:none} }
+  @media(max-width:620px){ .cards3,.flow,.tracks,.faq,.stats{grid-template-columns:1fr}
+    .ld{padding:0 18px} .ld-top .in{gap:10px} .brand>span>span:last-child{display:none}
+    .ld-top .in .btn{padding:7px 12px;font-size:12px}
+    .stats div{border-left:0;border-top:1px solid var(--border)} .stats div:first-child{border-top:0}
+    .hero h1{font-size:33px} .cta h2{font-size:26px} .hero{padding-top:36px} }
+</style>
+<script>
+/* Theme boot — chạy trước khi paint để không nháy trắng.
+   Không đặt data-theme nếu người dùng chưa chọn: khi đó prefers-color-scheme quyết định. */
+(function(){try{var t=localStorage.getItem("caselab.theme");
+if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+function toggleTheme(){
+  var r=document.documentElement,cur=r.getAttribute("data-theme");
+  if(!cur)cur=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  var next=cur==="dark"?"light":"dark";
+  r.setAttribute("data-theme",next);
+  try{localStorage.setItem("caselab.theme",next);}catch(e){}
+  paintThemeBtn();
+}
+function paintThemeBtn(){
+  var b=document.getElementById("themeBtn"); if(!b)return;
+  var r=document.documentElement.getAttribute("data-theme")
+      ||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  b.textContent = r==="dark" ? "☀" : "☾";
+  b.title = r==="dark" ? "Chuyển sang nền sáng" : "Chuyển sang nền tối";
+}
+addEventListener("DOMContentLoaded",paintThemeBtn);
+</script>
+</head>
+<body>
+
+<header class="ld-top"><div class="ld in">
+  <a class="brand" href="#"><span class="mk">CL</span><span><b>CASELAB</b><span>Case training studio</span></span></a>
+  <nav>
+    <a href="#cach-hoc">Cách học</a><a href="#noi-dung">Nội dung</a><a href="#vi-du">Ví dụ</a><a href="#cau-hoi">Câu hỏi</a>
+  </nav>
+  <span id="langBox" style="margin-left:8px"></span>
+  <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Đổi nền sáng/tối" style="margin-left:8px">☾</button>
+  <a class="btn btn-p btn-sm" href="index.html#/dashboard">Vào học</a>
+</div></header>
+
+<main>
+  <section class="band band-bleed band-paper band-divider paper-grain"><div class="ld hero">
+    <div>
+      <div class="lbl-b" style="color:var(--primary-hover)">Business case training studio</div>
+      <h1 class="font-entrance">Học case bằng <em>cách làm case</em></h1>
+      <p class="lead">Không video, không lý thuyết suông. Mỗi bài học kết thúc bằng một output thật — một phép tính, một slide, một khuyến nghị — rồi bạn mang nó vào một đề case có exhibit và bộ chấm.</p>
+      <div class="row">
+        <a class="btn btn-p btn-lg" href="index.html#/dashboard">Bắt đầu học — miễn phí</a>
+        <a class="btn btn-lg" href="index.html#/lesson/f-profit-2">Xem thử một bài học</a>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+
+    <div class="shot">
+      <div class="bar"><i></i><i></i><i></i><span>Practice Arena · chấm theo 6 tiêu chí</span></div>
+      <div class="body">
+        <div class="lbl mb">Đề bài</div>
+        <p class="small" style="margin:0 0 12px">Chuỗi cà phê 180 cửa hàng: doanh thu tăng 18% nhưng EBITDA margin rơi từ 16% xuống 9%. Tìm nguyên nhân và một khuyến nghị làm được trong 90 ngày.</p>
+        <table class="tb"><tbody>
+          <tr><td>Doanh thu cửa hàng cũ</td><td class="r num">6,70 tỷ</td></tr>
+          <tr><td>Doanh thu cửa hàng mới</td><td class="r num">4,10 tỷ</td></tr>
+          <tr><td>Điểm hoà vốn</td><td class="r num">7,20 tỷ</td></tr>
+        </tbody></table>
+        <div class="divider"></div>
+        <div class="rubric-row"><span class="nm">Structure / MECE</span><div class="bar"><i style="width:85%"></i></div><span class="sc num">85</span></div>
+        <div class="rubric-row"><span class="nm">Analysis &amp; math</span><div class="bar"><i style="width:80%"></i></div><span class="sc num">80</span></div>
+        <div class="rubric-row"><span class="nm">Insight</span><div class="bar amber"><i style="width:75%"></i></div><span class="sc num">75</span></div>
+        <div class="callout mt" style="padding:9px 12px;font-size:12px"><b>Feedback:</b> chưa nêu vì sao hợp đồng thuê 5 năm làm vấn đề cấp bách hơn.</div>
+      </div>
+    </div>
+  </div></section>
+  <section class="band band-bleed band-paper band-divider"><div class="ld sec" id="cach-hoc">
+    <h2>Ba điều khác với một khoá học thông thường</h2>
+    <p class="sub">Sản phẩm này dạy cách giải case, không dạy lý thuyết kinh doanh.</p>
+    <div class="cards3">
+      <div class="card"><div class="card-b">
+        <span class="tile t-ink">▤</span>
+        <h3 style="margin:12px 0 6px">Mỗi bài có một output</h3>
+        <p class="small muted" style="margin:0">Kết thúc bài là một phép tính, một slide, một insight từ biểu đồ hoặc một câu trả lời nói — có đáp án và lời giải, không phải đọc xong rồi thôi.</p>
+      </div></div>
+      <div class="card"><div class="card-b">
+        <span class="tile t-emerald">◎</span>
+        <h3 style="margin:12px 0 6px">Đề case có exhibit và bộ chấm</h3>
+        <p class="small muted" style="margin:0">Bạn viết problem statement, cây giả thuyết, bằng chứng và khuyến nghị. Hệ thống chấm 6 tiêu chí và chỉ ra điểm yếu nhất.</p>
+      </div></div>
+      <div class="card"><div class="card-b">
+        <span class="tile t-rose">◍</span>
+        <h3 style="margin:12px 0 6px">Sai được giữ lại và xếp lịch ôn</h3>
+        <p class="small muted" style="margin:0">Mỗi câu sai được phân loại — framework, tính toán, lập luận, đọc exhibit, trình bày — rồi nhắc ôn theo giãn cách 1, 3, 7 ngày.</p>
+      </div></div>
+    </div>
+  </div></section>
+  <section class="band band-bleed band-academic band-divider"><div class="ld sec">
+    <h2>Đường đi của một người học</h2>
+    <p class="sub">Năm bước lặp lại, và bước nào cũng có con số để biết mình đang ở đâu.</p>
+    <div class="flow">
+      <div class="s"><div class="i">1</div><b>Học</b><p>Bài 6–9 phút theo khuôn 10 phần, kết thúc bằng bài tập có đáp án.</p></div>
+      <div class="s"><div class="i">2</div><b>Luyện Arena</b><p>Giải đề case có exhibit, được chấm 6 tiêu chí và nhận feedback.</p></div>
+      <div class="s"><div class="i">3</div><b>Thi Competition</b><p>Ba deliverable có hạn chót: phân tích, slide outline, Q&amp;A với giám khảo.</p></div>
+      <div class="s"><div class="i">4</div><b>Phỏng vấn</b><p>Năm vòng như phỏng vấn consulting, chấm riêng từng vòng.</p></div>
+      <div class="s"><div class="i">5</div><b>Ôn lỗi</b><p>Lỗi cũ quay lại đúng lúc, kèm bài học cần xem lại.</p></div>
+    </div>
+  </div></section>
+  <section class="band band-bleed band-paper band-divider"><div class="ld sec" id="noi-dung">
+    <h2>Sáu track, một lộ trình</h2>
+    <p class="sub">Chọn nghề mục tiêu, hệ thống sắp lại thứ tự bài học theo nghề đó.</p>
+    <div class="tracks" id="tracks"></div>
+  </div></section>
+  <section class="band band-bleed band-academic band-divider"><div class="ld sec" id="vi-du">
+    <h2>Bên trong một bài học</h2>
+    <p class="sub">Mọi bài đều theo cùng một khuôn, nên bạn không phải học lại cách học.</p>
+    <div class="grid g2 mt">
+      <div class="card"><div class="card-b">
+        <div class="lbl mb">Khuôn 10 phần</div>
+        <ol style="margin:0;padding-left:18px;font-size:13px;line-height:1.9;color:var(--text-2)">
+          <li>Vì sao bài này quan trọng</li><li>Tình huống mở đầu</li><li>Framework chính</li>
+          <li>Ví dụ có số liệu</li><li>Mini case tương tác</li><li>Bài tập tính toán</li>
+          <li>Gợi ý trình bày trên slide</li><li>Lỗi thường gặp</li><li>Quiz kiểm tra</li><li>Checklist và cầu nối sang Arena</li>
+        </ol>
+      </div></div>
+      <div class="card"><div class="card-b">
+        <div class="lbl mb">Bài tập thật trong bài “Cây lợi nhuận”</div>
+        <p class="small" style="margin:0 0 10px">30 cửa hàng mới đạt 4,10 tỷ nhưng cần 7,20 tỷ để hoà vốn. Tổng ảnh hưởng lên EBITDA?</p>
+        <div class="row" style="gap:9px"><input class="calc" value="93" readonly><span class="muted small">tỷ VND</span></div>
+        <div class="callout ok mt" style="padding:10px 12px;font-size:12.5px"><b>Đúng.</b> (7,20 − 4,10) × 30 = 93 tỷ, tương đương ≈7,9 điểm biên — gần như giải thích trọn vẹn mức sụt từ 16% xuống 9%.</div>
+      </div></div>
+    </div>
+  </div></section>
+  <section class="band band-bleed band-paper band-divider"><div class="ld sec" id="cau-hoi">
+    <h2>Câu hỏi thường gặp</h2>
+    <div class="faq">
+      <div class="card"><div class="card-b"><h3 style="margin:0 0 6px">Cần nền tảng gì trước khi học?</h3>
+        <p class="small muted" style="margin:0">Không cần. Track Business Fundamentals bắt đầu từ việc đọc một bảng doanh thu — chi phí. Thuật ngữ giữ nguyên tiếng Anh và giải thích bằng tiếng Việt.</p></div></div>
+      <div class="card"><div class="card-b"><h3 style="margin:0 0 6px">Chấm điểm hoạt động thế nào?</h3>
+        <p class="small muted" style="margin:0">Bộ chấm đọc cấu trúc, con số then chốt và khuyến nghị của bạn. Đây là bản prototype nên nó nghiêm với con số và cấu trúc, chưa thay được người chấm.</p></div></div>
+      <div class="card"><div class="card-b"><h3 style="margin:0 0 6px">Dữ liệu học của tôi lưu ở đâu?</h3>
+        <p class="small muted" style="margin:0">Trên chính trình duyệt của bạn. Không cần tài khoản. Muốn chuyển sang máy khác thì xuất file sao lưu trong phần Tài khoản &amp; dữ liệu.</p></div></div>
+      <div class="card"><div class="card-b"><h3 style="margin:0 0 6px">Số liệu trong case có thật không?</h3>
+        <p class="small muted" style="margin:0">Số liệu là minh hoạ để luyện tập, không phải số liệu công bố của doanh nghiệp. Điều quan trọng là cách giải, không phải con số của một công ty cụ thể.</p></div></div>
+    </div>
+  </div></section>
+  <section class="band band-bleed band-ink"><div class="ld cta">
+    <h2>Mở một case và bắt đầu</h2>
+    <p class="sub" style="margin:10px auto 22px">Không cần đăng ký. Tiến độ lưu ngay trên trình duyệt này.</p>
+    <div class="row" style="justify-content:center">
+      <a class="btn btn-p btn-lg" href="index.html#/dashboard">Vào học ngay</a>
+      <a class="btn btn-lg" href="index.html#/arena/cl-01">Thử giải một case</a>
+    </div>
+  </div></section>
+  <section class="band band-bleed band-paper"><div class="ld foot">CASELAB · Business case training studio · Số liệu trong bài học và đề case là minh hoạ cho mục đích luyện tập.</div>
+</div></section>
+</main>
+
+<script src="assets/js/i18n.js?v=30"></script>
+<script src="assets/js/data/curriculum.js?v=30"></script>
+<script src="assets/js/data/i18n-data.js?v=30"></script>
+<script src="assets/js/data/i18n-lessons.js?v=30"></script>
+<script src="assets/js/data/library.js?v=30"></script>
+<script src="assets/js/data/careers.js?v=30"></script>
+<script>
+(function(){
+  const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const stats = [
+    [window.LESSONS.length, "bài học có bài tập"],
+    [window.CASES.length, "đề case có exhibit"],
+    [window.TRACKS.length, "track theo nghề"],
+    [window.MODULES.length, "module"]
+  ];
+  document.getElementById("stats").innerHTML = stats.map(([n,k])=>
+    `<div><div class="n">${n}</div><div class="k">${esc(k)}</div></div>`).join("");
+
+  document.getElementById("tracks").innerHTML = window.TRACKS.map(t=>{
+    const lessons = window.LESSONS.filter(l=>l.track===t.id).length;
+    return `<a class="card" href="index.html#/tracks">
+      <div class="card-b">
+        <div class="row" style="gap:10px"><span class="tile t-${t.color}">${t.icon}</span>
+          <div><h3>${esc(t.n)}</h3><div class="small muted">${esc(t.vi)} · ${lessons} bài</div></div></div>
+        <p class="small" style="margin:12px 0 0">${esc(t.promise)}</p>
+        <div class="small muted mt-s">Dành cho: ${esc(t.for)}</div>
+      </div></a>`;
+  }).join("");
+  document.getElementById("langBox").innerHTML = I18N.toggle();
+  I18N.apply(document.body);
+})();
+</script>
+</body>
+</html>

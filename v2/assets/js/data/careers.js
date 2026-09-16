@@ -1,0 +1,57 @@
+/* ===== 6 LỘ TRÌNH NGHỀ ===== */
+window.CAREERS = [
+{ id:"consulting", n:"Management Consulting", vi:"Tư vấn chiến lược", icon:"◎", color:"ink",
+  intro:"Giải vấn đề kinh doanh cho khách hàng doanh nghiệp trong 4–8 tuần mỗi dự án.",
+  entry:["Business Analyst","Associate Consultant"], firms:"McKinsey · BCG · Bain · Big4 Strategy · Local boutique",
+  skills:[{n:"Structuring vấn đề",lv:5},{n:"Case math",lv:5},{n:"Synthesis & storyline",lv:5},
+          {n:"Chart interpretation",lv:4},{n:"Business judgment",lv:4},{n:"Client communication",lv:4}],
+  tracks:["fundamentals","consulting","finance"],
+  steps:[{t:"Nền tảng",d:"Fundamentals"},{t:"Kỹ thuật case",d:"Consulting track"},{t:"Tài chính",d:"Finance"},{t:"Mock interview",d:"Interview Mode"}],
+  gate:"Giải được case Profitability và Market Entry bậc Hard trong 25 phút, điểm rubric ≥75." },
+
+{ id:"strategy", n:"Corporate Strategy", vi:"Chiến lược doanh nghiệp", icon:"◈", color:"olive",
+  intro:"Làm chiến lược bên trong một tập đoàn: danh mục, M&A, kế hoạch tăng trưởng dài hạn.",
+  entry:["Strategy Analyst","Business Development"], firms:"Tập đoàn lớn · Ngân hàng · Bán lẻ · Bất động sản",
+  skills:[{n:"Phân tích ngành",lv:5},{n:"Mô hình tài chính",lv:4},{n:"M&A logic",lv:4},
+          {n:"Competitive advantage",lv:5},{n:"Storyline cho ban lãnh đạo",lv:4},{n:"Market sizing",lv:3}],
+  tracks:["fundamentals","consulting","finance"],
+  steps:[{t:"Nền tảng",d:"Fundamentals"},{t:"Chiến lược",d:"Growth · M&A"},{t:"Tài chính",d:"NPV · ROI"},{t:"Deck",d:"Competition track"}],
+  gate:"Hoàn thành một full case deck về M&A hoặc chiến lược tăng trưởng, điểm ≥75." },
+
+{ id:"marketing", n:"Marketing Strategy", vi:"Chiến lược marketing", icon:"◐", color:"rose",
+  intro:"Định vị thương hiệu, ra mắt sản phẩm và tăng trưởng khách hàng bằng dữ liệu.",
+  entry:["Brand Executive","Growth Associate","MT Marketing"], firms:"Unilever · Nestlé · Masan · Shopee · Startup",
+  skills:[{n:"STP & định vị",lv:5},{n:"Go-to-market",lv:5},{n:"Customer journey",lv:4},
+          {n:"Marketing metrics",lv:4},{n:"Pricing",lv:3},{n:"Campaign planning",lv:4}],
+  tracks:["fundamentals","marketing","competition"],
+  steps:[{t:"Nền tảng",d:"Fundamentals"},{t:"Marketing",d:"STP · GTM · 4P"},{t:"Chỉ số",d:"Metrics"},{t:"Thi case",d:"Competition"}],
+  gate:"Xây được kế hoạch GTM 90 ngày kèm chỉ số đo và ngân sách phân bổ." },
+
+{ id:"product", n:"Product Management", vi:"Quản lý sản phẩm", icon:"◑", color:"emerald",
+  intro:"Quyết định xây gì, cho ai, và đo thành công bằng chỉ số nào.",
+  entry:["Associate PM","Product Analyst"], firms:"MoMo · VNG · Shopee · Tiki · SaaS",
+  skills:[{n:"Customer segmentation",lv:5},{n:"Unit economics",lv:4},{n:"Metrics & experiment",lv:5},
+          {n:"Prioritisation",lv:5},{n:"Business model",lv:4},{n:"Chart insight",lv:4}],
+  tracks:["fundamentals","marketing","finance"],
+  steps:[{t:"Nền tảng",d:"Fundamentals"},{t:"Khách hàng",d:"Segmentation · Journey"},{t:"Kinh tế đơn vị",d:"Unit economics"},{t:"Case sản phẩm",d:"Practice Arena"}],
+  gate:"Giải case Product Launch bậc Hard, nêu được chỉ số thành công và ngưỡng dừng." },
+
+{ id:"supplychain", n:"Supply Chain & Operations", vi:"Chuỗi cung ứng & vận hành", icon:"⊞", color:"neutral",
+  intro:"Giữ cho hàng hoá chạy đúng lúc với chi phí thấp nhất có thể.",
+  entry:["Supply Chain MT","Operations Analyst"], firms:"Unilever · Masan · Viettel Post · GHN · Nhà máy FDI",
+  skills:[{n:"Demand forecasting",lv:4},{n:"Inventory",lv:5},{n:"Bottleneck analysis",lv:5},
+          {n:"Cost optimisation",lv:4},{n:"Logistics economics",lv:4},{n:"Service level",lv:3}],
+  tracks:["fundamentals","supplychain","finance"],
+  steps:[{t:"Nền tảng",d:"Fundamentals"},{t:"Vận hành",d:"Supply Chain track"},{t:"Chi phí",d:"Cost · Break-even"},{t:"Case vận hành",d:"Practice Arena"}],
+  gate:"Giải case Operations bậc Hard: tìm đúng nút thắt và định lượng tác động." },
+
+{ id:"ba", n:"Business Analyst", vi:"Phân tích kinh doanh", icon:"▤", color:"amber",
+  intro:"Biến dữ liệu và yêu cầu thành quyết định kinh doanh rõ ràng.",
+  entry:["Business Analyst","Data Analyst"], firms:"Ngân hàng · Fintech · E-commerce · Tập đoàn",
+  skills:[{n:"Đọc báo cáo tài chính",lv:4},{n:"Chart interpretation",lv:5},{n:"Structuring",lv:4},
+          {n:"Sensitivity analysis",lv:4},{n:"Trình bày cho stakeholder",lv:4},{n:"Market sizing",lv:3}],
+  tracks:["fundamentals","finance","consulting"],
+  steps:[{t:"Nền tảng",d:"Fundamentals"},{t:"Tài chính",d:"Finance track"},{t:"Đọc dữ liệu",d:"Chart interpretation"},{t:"Case phân tích",d:"Practice Arena"}],
+  gate:"Đọc một bộ 4 biểu đồ và rút ra 3 insight kèm khuyến nghị trong 15 phút." }
+];
+window.CAREER_BY_ID = Object.fromEntries(window.CAREERS.map(c=>[c.id,c]));

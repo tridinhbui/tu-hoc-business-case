@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CASELAB — Hệ thiết kế</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css?v=25">
+<style>
+  /* Trang này chỉ TRƯNG BÀY hệ thiết kế, không được định nghĩa thêm gì cho nó. */
+  .ds{max-width:1000px;margin:0 auto;padding:0 28px}
+  .ds-top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .ds-top .in{display:flex;align-items:center;gap:14px;height:64px}
+  .swatch{display:flex;flex-direction:column;gap:6px}
+  .swatch .chipcol{height:56px;border-radius:var(--radius-control);border:1px solid var(--border)}
+  .swatch .nm{font-size:11.5px;font-weight:700}
+  .swatch .hx{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .demo{display:grid;gap:14px;margin-top:18px}
+  .ds-sec{padding:40px 0}
+</style>
+<script>
+(function(){try{var t=localStorage.getItem("caselab.theme");
+if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+function toggleTheme(){
+  var r=document.documentElement,cur=r.getAttribute("data-theme");
+  if(!cur)cur=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  var next=cur==="dark"?"light":"dark";
+  r.setAttribute("data-theme",next);
+  try{localStorage.setItem("caselab.theme",next);}catch(e){}
+  paintThemeBtn();
+}
+function paintThemeBtn(){
+  var b=document.getElementById("themeBtn"); if(!b)return;
+  var r=document.documentElement.getAttribute("data-theme")
+      ||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  b.textContent=r==="dark"?"☀":"☾";
+}
+addEventListener("DOMContentLoaded",paintThemeBtn);
+</script>
+</head>
+<body>
+
+<header class="ds-top"><div class="ds in">
+  <a class="brand row" href="landing.html" style="gap:10px">
+    <span class="rail-mark">CL</span>
+    <span><span class="rail-name">CASELAB</span><span class="rail-sub">hệ thiết kế</span></span>
+  </a>
+  <span style="flex:1"></span>
+  <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Đổi nền sáng/tối">☾</button>
+</div></header>
+
+<main>
+
+<section class="band band-bleed band-paper band-divider paper-grain"><div class="ds ds-sec">
+  <div class="eyebrow">Hệ thiết kế</div>
+  <h1 style="margin:10px 0 8px;font-size:40px">Giấy, mực, và một màu xanh lục</h1>
+  <p class="muted" style="max-width:62ch;margin:0;font-weight:500">
+    Trang này là bản kiểm chứng: mọi thành phần dưới đây phải đọc được ở cả nền sáng và nền tối
+    mà không cần một dòng CSS riêng nào. Nếu một khối ở đây trông sai, sửa token trong
+    <b>assets/css/app.css</b>, không sửa ở nơi dùng.
+  </p>
+</div></section>
+
+<section class="band band-bleed band-academic band-divider"><div class="ds ds-sec">
+  <div class="sec-h"><h2>1 · Ba sắc độ giấy</h2><span class="line"></span></div>
+  <p class="muted small" style="margin:0 0 6px">
+    Vùng nội dung phân biệt nhau bằng sắc độ nền và một nét kẻ 1px, không bằng hộp bo góc lồng nhau.
+    Chính ba dải bạn đang cuộn qua là ba sắc độ đó.
+  </p>
+  <div class="grid g3 mt">
+    <div class="card"><div class="card-b"><div class="eyebrow">band-paper</div>
+      <p class="small muted" style="margin:6px 0 0">Giấy ngà. Mặc định cho mọi vùng nội dung.</p></div></div>
+    <div class="card"><div class="card-b"><div class="eyebrow">band-academic</div>
+      <p class="small muted" style="margin:6px 0 0">Ngà ngả xanh. Vùng học và tiến độ.</p></div></div>
+    <div class="card"><div class="card-b"><div class="eyebrow">band-ink</div>
+      <p class="small muted" style="margin:6px 0 0">Mực đậm, một mặt phẳng. Vùng nhấn mạnh và CTA.</p></div></div>
+  </div>
+</div></section>
+
+<section class="band band-bleed band-paper band-divider"><div class="ds ds-sec">
+  <div class="sec-h"><h2>2 · Màu</h2><span class="line"></span></div>
+  <p class="muted small" style="margin:0 0 16px">
+    stone áp đảo. emerald là thương hiệu và trạng thái đúng. amber là nhấn phụ. rose chỉ cho lỗi.
+    Gần như không có xanh dương.
+  </p>
+  <div class="grid g4" id="swatches"></div>
+
+  <div class="sec-h" style="margin-top:34px"><h3>Màu series cho exhibit</h3><span class="line"></span></div>
+  <p class="muted small" style="margin:0 0 14px">
+    Lớp duy nhất mà <b>data/*.js</b> được phép gọi. Đặt tên theo vai trò trong lập luận,
+    nên đọc data file là biết dòng nào đang được nhấn và dòng nào chỉ là đối chứng.
+  </p>
+  <div class="card"><div class="card-b" id="series"></div></div>
+</div></section>
+
+<section class="band band-bleed band-academic band-divider"><div class="ds ds-sec">
+  <div class="sec-h"><h2>3 · Chữ</h2><span class="line"></span></div>
+  <div class="card"><div class="card-b">
+    <div class="eyebrow">eyebrow · 11px / 700 / .14em</div>
+    <h1 style="margin:14px 0 0">h1 · 28px / 800</h1>
+    <h2 style="margin:10px 0 0">h2 · 20px / 800</h2>
+    <h3 style="margin:10px 0 0">h3 · 15px / 800</h3>
+    <p style="margin:12px 0 0;font-size:14px">Chữ thân bài 14px. Phần lớn UI nằm ở 11.5–13.5px và rất đậm —
+      đây là giao diện dày đặc thông tin, không phải landing page.</p>
+    <p class="small muted" style="margin:8px 0 0">small · 12px, dùng cho chú thích và diễn giải.</p>
+    <p class="num" style="margin:12px 0 0;font-size:20px;font-weight:800">1.234.567 · 18,4% · 7,20 tỷ</p>
+    <p class="font-entrance" style="margin:14px 0 0;font-size:26px">Ngoại lệ duy nhất: <em>font cửa vào</em></p>
+  </div></div>
+</div></section>
+
+<section class="band band-bleed band-paper band-divider"><div class="ds ds-sec">
+  <div class="sec-h"><h2>4 · Control</h2><span class="line"></span></div>
+  <div class="grid g2">
+    <div class="card"><div class="card-b">
+      <div class="eyebrow mb">Nút</div>
+      <div class="wrap-row">
+        <button class="btn btn-p">Hành động chính</button>
+        <button class="btn">Phụ</button>
+        <button class="btn btn-a">Cảnh báo</button>
+        <button class="btn btn-gh">Ghost</button>
+        <button class="btn" disabled>Khoá</button>
+      </div>
+      <div class="wrap-row mt">
+        <button class="btn btn-sm btn-p">sm</button>
+        <button class="btn btn-sm">sm</button>
+        <button class="btn btn-lg btn-p">lg</button>
+      </div>
+    </div></div>
+
+    <div class="card"><div class="card-b">
+      <div class="eyebrow mb">Nhãn và tag</div>
+      <div class="wrap-row">
+        <span class="tag">mặc định</span><span class="tag tag-e">đúng</span><span class="tag tag-a">hạn chót</span>
+        <span class="tag tag-r">sai</span><span class="tag tag-accent">nhấn</span><span class="tag tag-olive">nhóm phụ</span>
+        <span class="tag tag-neutral">trung tính</span>
+      </div>
+      <div class="wrap-row mt">
+        <span class="tile t-emerald">◎</span><span class="tile t-amber">◈</span>
+        <span class="tile t-rose">◍</span><span class="tile t-ink">▤</span>
+        <span class="tile t-olive">◭</span><span class="tile t-neutral">◫</span>
+      </div>
+      <div class="wrap-row mt">
+        <span class="chip on">đang chọn</span><span class="chip">framework</span><span class="chip">tính toán <b class="c">3</b></span>
+      </div>
+    </div></div>
+
+    <div class="card"><div class="card-b">
+      <div class="eyebrow mb">Nhập liệu</div>
+      <div class="canvas-field"><label class="lbl">Problem statement</label>
+        <textarea rows="2" placeholder="Viết một câu…"></textarea></div>
+      <div class="toolbar" style="margin:0">
+        <div class="field"><label class="lbl">Track</label>
+          <select><option>Business Fundamentals</option><option>Case Competition</option></select></div>
+        <div class="seg"><button class="on">Tất cả</button><button>Chưa học</button><button>Đã xong</button></div>
+      </div>
+    </div></div>
+
+    <div class="card"><div class="card-b">
+      <div class="eyebrow mb">Tiến độ và số liệu</div>
+      <div class="rubric-row"><span class="nm">Structure / MECE</span><div class="bar"><i style="width:85%"></i></div><span class="sc num">85</span></div>
+      <div class="rubric-row"><span class="nm">Analysis &amp; math</span><div class="bar amber"><i style="width:62%"></i></div><span class="sc num">62</span></div>
+      <div class="rubric-row"><span class="nm">Insight</span><div class="bar rose"><i style="width:38%"></i></div><span class="sc num">38</span></div>
+      <div class="divider"></div>
+      <div class="row" style="gap:18px">
+        <div class="metric" style="padding:0"><div class="k">XP tuần này</div><div class="v num">1.240</div>
+          <div class="n"><span class="delta up">+18%</span> so với tuần trước</div></div>
+        <div class="metric" style="padding:0"><div class="k">Case đã giải</div><div class="v num">7</div>
+          <div class="n"><span class="delta down">−2</span> so với mục tiêu</div></div>
+      </div>
+    </div></div>
+  </div>
+</div></section>
+
+<section class="band band-bleed band-academic band-divider"><div class="ds ds-sec">
+  <div class="sec-h"><h2>5 · Bề mặt và trạng thái</h2><span class="line"></span></div>
+  <div class="grid g2">
+    <div class="card"><div class="card-h"><h3>Thẻ chuẩn</h3><span class="tag tag-e">đang mở</span></div>
+      <div class="card-b">
+        <p class="small muted" style="margin:0 0 12px">Viền 1px + bán kính thẻ + bóng rất thấp. Khối phụ bên trong
+          dùng nền chìm, không lồng thêm một thẻ nữa.</p>
+        <div class="sunk"><div class="eyebrow">Nền chìm</div>
+          <p class="small" style="margin:6px 0 0">Dùng cho khối phụ trong thẻ.</p></div>
+      </div>
+      <div class="card-f small muted">Chân thẻ</div>
+    </div>
+    <div>
+      <div class="callout"><b>Callout thường.</b> Một nét mực bên trái, không phải hộp trong hộp.</div>
+      <div class="callout ok mt"><b>Đúng.</b> (7,20 − 4,10) × 30 = 93 tỷ.</div>
+      <div class="callout tip mt"><b>Mẹo.</b> Nêu con số trước, lý do sau.</div>
+      <div class="callout warn mt"><b>Sai.</b> Chưa kiểm tra quy mô thị trường trước khi chia phân khúc.</div>
+    </div>
+    <div class="card"><div class="card-b">
+      <div class="eyebrow mb">Lựa chọn</div>
+      <div class="opt"><span class="k">A</span><span class="t">Chưa chọn</span></div>
+      <div class="opt sel"><span class="k">B</span><span class="t">Đang chọn</span></div>
+      <div class="opt ok"><span class="k">C</span><span class="t">Đúng<span class="why">Vì cửa hàng mới chưa đạt điểm hoà vốn.</span></span></div>
+      <div class="opt no" style="margin-bottom:0"><span class="k">D</span><span class="t">Sai</span></div>
+    </div></div>
+    <div class="card"><div class="card-b">
+      <div class="eyebrow mb">Đang tải</div>
+      <div class="skel" style="height:14px;width:60%"></div>
+      <div class="skel mt-s" style="height:14px;width:90%"></div>
+      <div class="skel mt-s" style="height:14px;width:75%"></div>
+      <div class="divider"></div>
+      <div class="eyebrow mb">Rỗng</div>
+      <div class="empty">Chưa có lỗi nào được ghi lại.</div>
+    </div></div>
+  </div>
+</div></section>
+
+<section class="band band-bleed band-ink"><div class="ds ds-sec" style="text-align:center">
+  <div class="eyebrow">Dải mực</div>
+  <h2 style="font-size:30px;margin:10px 0 10px">Một mặt phẳng, không gradient</h2>
+  <p class="muted" style="max-width:52ch;margin:0 auto 22px;font-weight:500">
+    Để nó đọc như một trang giấy khác màu trong cùng cuốn sách, chứ không như một ứng dụng khác.</p>
+  <div class="row" style="justify-content:center">
+    <a class="btn btn-p btn-lg" href="index.html#/dashboard">Vào ứng dụng</a>
+    <a class="btn btn-lg" href="landing.html" style="background:transparent;color:#F5F5F4;border-color:rgba(245,245,244,.28);box-shadow:none">Về landing</a>
+  </div>
+</div></section>
+
+<section class="band band-bleed band-paper"><div class="ds" style="padding:26px 28px 44px">
+  <span class="small muted">CASELAB · hệ thiết kế · sửa token tại assets/css/app.css</span>
+</div></section>
+
+</main>
+
+<script>
+const SW = [
+  ["--bg","nền trang"],["--surface","bề mặt thẻ"],["--surface-2","nền chìm"],["--border","viền"],
+  ["--text","mực chính"],["--text-2","mực phụ"],["--muted","mờ"],["--muted-2","rất mờ"],
+  ["--primary","thương hiệu"],["--emerald","đúng"],["--amber","nhấn"],["--rose","lỗi"],
+  ["--accent","nhấn nguội"],["--olive","nhóm phụ"],["--neutral","trung tính"],["--ink","mực đặc"]
+];
+document.getElementById("swatches").innerHTML = SW.map(([v,n])=>{
+  const val = getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  return `<div class="swatch"><div class="chipcol" style="background:var(${v})"></div>
+    <div><div class="nm">${n}</div><div class="hx">${v} · ${val}</div></div></div>`;
+}).join("");
+
+const SERIES=[["--series-focus","dòng đang bàn tới",78],["--series-base","đối chứng, nền",54],
+  ["--series-good","mặt tốt",66],["--series-warn","cần chú ý",41],["--series-bad","vấn đề",29],
+  ["--series-alt","nhóm phụ",35]];
+document.getElementById("series").innerHTML = SERIES.map(([v,n,w])=>
+  `<div class="row" style="margin-bottom:9px">
+     <span class="small" style="width:132px;flex:none">${n}</span>
+     <span style="flex:1;height:14px;border-radius:4px;max-width:${w}%;background:var(${v})"></span>
+     <span class="small muted mono" style="flex:none">${v}</span>
+   </div>`).join("");
+</script>
+</body>
+</html>

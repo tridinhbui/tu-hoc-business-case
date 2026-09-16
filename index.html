@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STRATLAB — Business Case Simulation World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css?v=26">
+</head>
+<body class="paper-grain">
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#/">
+      <span class="brand-mark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 19L10 19L10 13L16 13L16 7" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="6" r="2.5" fill="#D97706"/>
+          <circle cx="4" cy="19" r="1.5" fill="#FFFFFF"/>
+        </svg>
+      </span>
+      <span class="brand-name">STRATLAB</span>
+      <span class="brand-sub">edtech thực chiến</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#/learn"><span class="bi"><b>Learn</b><i>Bài giảng</i></span></a>
+      <a href="#/daily"><span class="bi"><b>Daily</b><i>Case hôm nay</i></span></a>
+      <a href="#/map"><span class="bi"><b>World Map</b><i>Bản đồ ngành</i></span></a>
+      <a href="#/cases"><span class="bi"><b>Missions</b><i>Case luyện tập</i></span></a>
+      <a href="#/models"><span class="bi"><b>Business Models</b><i>Mô hình KD</i></span></a>
+      <a href="#/battles"><span class="bi"><b>Battles</b><i>So sánh</i></span></a>
+      <a href="#/companies"><span class="bi"><b>Companies</b><i>Doanh nghiệp</i></span></a>
+      <a href="#/profile"><span class="bi"><b>Dossier</b><i>Hồ sơ</i></span></a>
+    </nav>
+    <button class="sr-trigger" onclick="SEARCH.open_()" title="Tìm kiếm (Ctrl+K)">
+      <span>⌕</span><span class="sr-label">Tìm kiếm</span><kbd>Ctrl K</kbd>
+    </button>
+    <div class="hud" id="hud"></div>
+    <div class="avatar" id="avatar">IN</div>
+  </div>
+  <div class="topbar-rule"></div>
+</header>
+
+<main id="app"></main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <span>STRATLAB — luyện tư duy chiến lược bằng cách giải case, không phải bằng cách đọc.</span>
+    <span class="foot-r"><a href="#/design-system">Hệ thiết kế</a> · <a href="#/pricing">Giá &amp; gói</a> · <a href="#/terms">Điều khoản</a> · <a href="#/profile">Sao lưu</a> · <a href="#" id="resetBtn">Xoá tiến độ</a></span>
+  </div>
+</footer>
+
+<script src="assets/js/i18n.js?v=26"></script>
+<script src="assets/js/data/industries.js?v=26"></script>
+<script src="assets/js/data/companies.js?v=26"></script>
+<script src="assets/js/data/models.js?v=26"></script>
+<script src="assets/js/data/battles.js?v=26"></script>
+<script src="assets/js/data/cases.js?v=26"></script>
+<script src="assets/js/data/lessons.js?v=26"></script>
+<script src="assets/js/data/exams.js?v=26"></script>
+<script src="assets/js/state.js?v=26"></script>
+<script src="assets/js/ui.js?v=26"></script>
+<script src="assets/js/search.js?v=26"></script>
+<script src="assets/js/backup.js?v=26"></script>
+<script src="assets/js/landing_components.js?v=26"></script>
+<script src="assets/js/views/learn.js?v=26"></script>
+<script src="assets/js/views/exam.js?v=26"></script>
+<script src="assets/js/views/home.js?v=26"></script>
+<script src="assets/js/views/map.js?v=26"></script>
+<script src="assets/js/views/company.js?v=26"></script>
+<script src="assets/js/views/cases.js?v=26"></script>
+<script src="assets/js/views/player.js?v=26"></script>
+<script src="assets/js/views/daily.js?v=26"></script>
+<script src="assets/js/views/models.js?v=26"></script>
+<script src="assets/js/views/battles.js?v=26"></script>
+<script src="assets/js/views/profile.js?v=26"></script>
+<script src="assets/js/views/pricing.js?v=26"></script>
+<script src="assets/js/views/terms.js?v=26"></script>
+<script src="assets/js/views/design_system.js?v=26"></script>
+<script src="assets/js/keys.js?v=26"></script>
+<script src="assets/js/app.js?v=26"></script>
+</body>
+</html>

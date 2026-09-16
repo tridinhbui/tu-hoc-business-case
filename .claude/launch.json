@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "stratlab",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4477"
+      ],
+      "port": 4477
+    },
+    {
+      "name": "caselab",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4488"
+      ],
+      "port": 4488
+    },
+    {
+      "name": "caselab-v2",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4499"
+      ],
+      "port": 4499
+    }
+  ]
+}
