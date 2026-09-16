@@ -326,42 +326,233 @@ function caseCard(c){
     </div></div>`;
 }
 
-/* ════════ 2. TRACKS ════════ */
+/* ════════ 2. TRACKS (CURRICULUM HUB) ════════ */
 function vTracks(){
+  const allLessons = window.LESSONS;
+  const doneCount = allLessons.filter(l=>State.lessonStatus(l.id)==="done").length;
+  const totalCount = allLessons.length;
+  const overallPct = totalCount ? Math.round(doneCount/totalCount*100) : 0;
+
+  // Tìm bài học đang học dở hoặc bài chưa học tiếp theo
+  const curLesson = allLessons.find(l=>State.lessonStatus(l.id)==="in_progress")
+                 || allLessons.find(l=>State.lessonStatus(l.id)!=="done")
+                 || allLessons[0];
+  const curMod = window.MODULE_BY_ID[curLesson.module] || window.MODULES[0];
+  const curModIdx = window.MODULES.findIndex(m=>m.id===curMod.id) + 1;
+
+  // Lọc theo Track Tab & Search
+  let visibleModules = window.MODULES;
+  if(TRACK_UI.tab !== "all"){
+    visibleModules = visibleModules.filter(m=>m.track===TRACK_UI.tab);
+  }
+  if(TRACK_UI.query.trim()){
+    const q = TRACK_UI.query.toLowerCase().trim();
+    visibleModules = visibleModules.filter(m=>{
+      const matchMod = m.n.toLowerCase().includes(q);
+      const matchL = m.lessons.some(l=>l.t.toLowerCase().includes(q) || (l.out||"").toLowerCase().includes(q));
+      return matchMod || matchL;
+    });
+  }
+  if(TRACK_UI.filterOnlyUnfinished){
+    visibleModules = visibleModules.filter(m=>m.lessons.some(l=>State.lessonStatus(l.id)!=="done"));
+  }
+
+  // Daily Challenge data
+  const { challenge: dc, state: dcState } = State.getDailyChallenge();
+  const openMistakesCount = State.openMistakes().length;
+
   return `<div class="main">
-  <h1>Lộ trình học</h1>
-  <p class="muted" style="max-width:70ch;margin-top:6px">Mỗi bài đều kết thúc bằng một output thật: một phép tính, một slide, một insight từ biểu đồ, hoặc một câu trả lời nói.</p>
-  <div class="grid g2 mt">
-    ${State.careerTrackOrder().map(id=>{
-      const t=window.TRACK_BY_ID[id], ms=window.MODULES.filter(m=>m.track===id), s=State.trackStats(id);
-      const nextL = window.LESSONS.find(l=>l.track===id && State.lessonStatus(l.id)!=="done");
-      return `<div class="card">
-        <div class="card-h">
-          <span class="tile t-${t.color}">${t.icon}</span>
-          <h3 style="flex:1">${esc(t.n)}<br><span class="small muted" style="font-weight:400">${esc(t.vi)}</span></h3>
-          <span class="tag tag-${t.color==='amber'?'a':t.color==='emerald'?'e':'b'}">${esc(t.lvl)}</span>
+    <div class="row" style="justify-content:space-between;align-items:flex-end">
+      <div>
+        <h1 style="margin:0">Lộ trình học bài</h1>
+        <p class="muted" style="margin:6px 0 0;font-size:13.5px">Khung đào tạo Business Case toàn diện — từ cấu trúc vấn đề, phân tích dữ liệu đến thuyết trình & giải case thực chiến.</p>
+      </div>
+    </div>
+
+    <!-- 2 COLUMNS LAYOUT -->
+    <div class="curr-layout">
+      <!-- LEFT / MAIN: Hero Mission + Tabs + Accordion List -->
+      <div class="curr-main">
+        <!-- Hero Mission Card -->
+        <div class="hero-mission-card">
+          <div class="hero-mission-left">
+            <div class="hero-mission-meta">
+              <span class="tag tag-e" style="font-weight:800;font-size:11px">● NHIỆM VỤ ĐANG HỌC</span>
+              <span class="tag tag-a" style="font-weight:800;font-size:11px">+50 XP KHI HOÀN THÀNH</span>
+            </div>
+            <div class="small muted" style="font-weight:600;margin-bottom:4px">Chặng ${curModIdx} · Bài ${esc(curLesson.id)}</div>
+            <h2 class="hero-mission-title"><a href="#/lesson/${curLesson.id}" style="color:inherit;text-decoration:none">${esc(curLesson.t)}</a></h2>
+            <div class="hero-mission-prog">
+              <span>Tiến độ (${doneCount}/${totalCount} bài)</span>
+              <div class="bar">${bar(overallPct)}</div>
+              <span style="font-weight:800;color:var(--text)">${overallPct}%</span>
+            </div>
+            <div style="margin-top:14px">
+              <a class="btn btn-sm btn-p" href="#/lesson/${curLesson.id}">Tiếp tục học →</a>
+            </div>
+          </div>
+          <div class="hero-mission-right">
+            <div class="hero-mission-ill">🏔️</div>
+          </div>
         </div>
-        <div class="card-b">
-          <p class="small" style="margin:0 0 12px">${esc(t.promise)}</p>
-          <div class="row" style="gap:9px"><div style="flex:1">${bar(s.pct)}</div>
-            <span class="small num" style="font-weight:700">${s.done}/${s.total}</span></div>
-          <div class="divider"></div>
-          <div class="lbl mb">${ms.length} module</div>
-          ${ms.map(m=>{ const k=State.moduleStats(m.id), first=m.lessons.find(l=>State.lessonStatus(l.id)!=="done")||m.lessons[0];
-            return `<a class="row small" style="padding:4px 0" href="#/lesson/${first.id}">
-            <span class="dot" style="background:var(--${k.done===k.total?'emerald':t.color==='navy'?'blue':t.color})"></span>
-            <span style="flex:1">${esc(m.n)}</span>
-            <span class="${k.done===k.total?'':'muted'} num">${k.done===k.total?'✓ ':''}${k.done}/${k.total}</span></a>`;}).join("")}
+
+        <!-- Track Tabs -->
+        <div class="track-nav-tabs">
+          <button class="track-nav-tab ${TRACK_UI.tab==='all'?'active':''}" onclick="ACT.setTrackTab('all')">
+            Tất cả bài học <span class="tab-count">${doneCount}/${totalCount}</span>
+          </button>
+          ${State.careerTrackOrder().map(id=>{
+            const t = window.TRACK_BY_ID[id], s = State.trackStats(id);
+            return `<button class="track-nav-tab ${TRACK_UI.tab===id?'active':''}" onclick="ACT.setTrackTab('${id}')">
+              <span>${t.icon} ${esc(t.vi || t.n)}</span>
+              <span class="tab-count">${s.done}/${s.total}</span>
+            </button>`;
+          }).join("")}
         </div>
-        <div class="card-f">${nextL
-          ? `<a class="btn btn-sm btn-p" href="#/lesson/${nextL.id}">${s.done?"Học tiếp":"Bắt đầu track"} →</a> <span class="small muted" style="margin-left:8px">${esc(nextL.t)}</span>`
-          : `<span class="tag tag-e">✓ Đã hoàn thành track</span>`}</div>
-      </div>`;
-    }).join("")}
-  </div></div>`;
+
+        <!-- Search & Filter Controls -->
+        <div class="curr-search-box">
+          <div class="curr-search-inp">
+            <span>⌕</span>
+            <input type="text" placeholder="Tìm bài học trong lộ trình này..." value="${esc(TRACK_UI.query)}"
+              oninput="ACT.setTrackSearch(this.value)">
+          </div>
+          <button class="curr-filter-btn" onclick="ACT.toggleOnlyUnfinished()">
+            ${TRACK_UI.filterOnlyUnfinished ? "✓ Đang lọc: Chưa học" : "Đánh dấu đã học (?)"}
+          </button>
+        </div>
+
+        <!-- Stages / Modules Accordion -->
+        <div class="stages-list">
+          ${visibleModules.length===0 ? `<div class="empty">Không tìm thấy bài học nào phù hợp với bộ lọc.</div>` : ""}
+          ${visibleModules.map((m, mIdx)=>{
+            const k = State.moduleStats(m.id);
+            const isOpen = TRACK_UI.openStages.includes(m.id) || TRACK_UI.query.trim().length > 0;
+            const isAllDone = k.done === k.total;
+            const learners = 18 + ((mIdx * 7) % 25);
+            const t = window.TRACK_BY_ID[m.track];
+
+            return `<div class="stage-acc-card ${isOpen?'open':''}">
+              <div class="stage-acc-header" onclick="ACT.toggleStageAcc('${m.id}')">
+                <span class="stage-acc-pill">Chặng ${mIdx+1}</span>
+                <div class="stage-acc-title">
+                  <span class="title-text">${esc(m.n)}</span>
+                </div>
+                <div class="stage-acc-learners">
+                  <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
+                  <span>${learners} người vừa học</span>
+                </div>
+                <div class="stage-acc-progress">
+                  <div class="bar" style="width:48px">${bar(k.total?Math.round(k.done/k.total*100):0, isAllDone?'emerald':'')}</div>
+                  <span class="num ${isAllDone?'':'muted'}">${k.done}/${k.total}</span>
+                </div>
+                <span class="stage-acc-chevron">▼</span>
+              </div>
+              <div class="stage-acc-body">
+                ${m.lessons.map((l, lIdx)=>{
+                  const isDone = State.lessonStatus(l.id)==="done";
+                  const isCur = l.id === curLesson.id;
+                  const qDone = State.lessonRec(l.id).quiz ? Object.keys(State.lessonRec(l.id).quiz).length : 0;
+
+                  return `<a class="stage-lesson-row ${isDone?'is-done':''} ${isCur?'is-current':''}" href="#/lesson/${l.id}">
+                    <div class="stage-lesson-icon">
+                      ${isDone ? "✓" : isCur ? "▶" : "○"}
+                    </div>
+                    <div class="stage-lesson-info">
+                      <div class="stage-lesson-name">
+                        <span>${esc(l.t)}</span>
+                        ${isCur ? `<span class="tag tag-accent" style="font-size:10.5px">Đang học</span>` : ""}
+                      </div>
+                      <div class="stage-lesson-sub">${esc(l.out || "Framework & Case Math")}</div>
+                    </div>
+                    <div class="stage-lesson-meta">
+                      <span class="stage-lesson-tag">${l.m} phút</span>
+                      <span class="stage-lesson-badge-sub">Bài ${mIdx+1}-${lIdx+1}</span>
+                      <span class="stage-lesson-badge-sub" style="font-weight:700;color:var(${isDone?'--emerald':'--muted'})">${isDone?'2/2':`${qDone}/2`}</span>
+                    </div>
+                  </a>`;
+                }).join("")}
+              </div>
+            </div>`;
+          }).join("")}
+        </div>
+      </div>
+
+      <!-- RIGHT SIDEBAR: Notebook + Mistakes Review + Daily Challenge -->
+      <div class="curr-side">
+        <!-- Notebook Card -->
+        <div class="side-widget-card">
+          <div class="side-widget-h">
+            <div class="side-widget-icon yellow">📒</div>
+            <div>
+              <div class="side-widget-sub">Ghi chép</div>
+              <div class="side-widget-t">Sổ tay của bạn</div>
+            </div>
+          </div>
+          <p class="small muted" style="margin:0 0 10px;line-height:1.5">Ghi lại insight, công thức và bài học vừa hiểu trước khi quên.</p>
+          <a class="side-widget-link" href="#/lesson/${curLesson.id}">Mở sổ tay bài học ›</a>
+        </div>
+
+        <!-- Mistakes Review Card -->
+        <div class="side-widget-card">
+          <div class="side-widget-h">
+            <div class="side-widget-icon orange">⚠️</div>
+            <div style="flex:1">
+              <div class="row" style="justify-content:space-between">
+                <div class="side-widget-t">Câu sai cần ôn tập</div>
+                <span class="tag tag-a" style="font-weight:800;font-size:11px">${openMistakesCount} câu</span>
+              </div>
+            </div>
+          </div>
+          <p class="small muted" style="margin:0 0 10px;line-height:1.5">Bạn có ${openMistakesCount} câu trắc nghiệm & tính toán đã làm sai cần ôn lại để củng cố kiến thức.</p>
+          <a class="side-widget-link" href="#/review" style="color:var(--amber)">Vào Mistake Review ›</a>
+        </div>
+
+        <!-- Daily Challenge Card (Interactive) -->
+        <div class="daily-challenge-box">
+          <div class="row" style="justify-content:space-between;margin-bottom:12px">
+            <div class="side-widget-t" style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:16px">📖</span> Thử thách mỗi ngày
+            </div>
+            <span class="tag tag-e" style="font-size:10.5px">+15 XP</span>
+          </div>
+          <span class="daily-q-tag">${esc(dc.tag)}</span>
+          <div class="daily-q-text">${esc(dc.q)}</div>
+
+          <div class="daily-opt-list">
+            ${dc.opts.map(([k, tx, why])=>{
+              const isSelected = (DAILY_UI.picked === k) || (dcState && dcState.picked === k);
+              let stateCls = "";
+              if(dcState){
+                if(k === dc.correct) stateCls = "ok";
+                else if(dcState.picked === k) stateCls = "no";
+              } else if(DAILY_UI.picked === k){
+                stateCls = "picked";
+              }
+              return `<div class="daily-opt-item ${stateCls}" onclick="${dcState?'':`ACT.pickDailyOpt('${k}')`}">
+                <span class="daily-opt-badge">${k}</span>
+                <span style="flex:1">${esc(tx)}</span>
+                ${dcState && k === dc.correct ? `<span style="color:var(--emerald);font-weight:800">✓</span>` : ""}
+              </div>`;
+            }).join("")}
+          </div>
+
+          ${dcState ? `
+            <div class="callout ${dcState.correct?'ok':'warn'} mt-s" style="font-size:12.5px;padding:10px 12px">
+              <b>${dcState.correct?'Chính xác!':'Chưa đúng.'}</b> ${esc(dc.opts.find(o=>o[0]===dc.correct)[2])}
+            </div>
+          ` : `
+            <button class="daily-submit-btn ${DAILY_UI.picked?'active':''}" onclick="ACT.submitDailyChallenge()">
+              ✈ Gửi câu trả lời
+            </button>
+          `}
+        </div>
+      </div>
+    </div>
+  </div>`;
 }
 
-/* ════════ 3. LESSON PAGE ════════ */
+/* ════════ 3. LESSON PAGE (READER & PRACTICE WORKSPACE) ════════ */
 const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\*(.+?)\*/g,"<i>$1</i>");
 const lessonContent = id => (window.LESSON_CONTENT||{})[id];
 /* chế độ EN dùng bản dịch nếu bài đó đã có; chưa có thì giữ bản tiếng Việt */
@@ -369,8 +560,10 @@ const lessonC = id => ((window.I18N&&I18N.lang==="en") && (window.LESSON_CONTENT
 
 function vLesson(id){
   const l = window.LESSON_BY_ID[id] || window.LESSON_BY_ID["f-profit-2"];
-  const m = window.MODULE_BY_ID[l.module], t = window.TRACK_BY_ID[l.track];
-  const idx = m.lessons.findIndex(x=>x.id===l.id);
+  const m = window.MODULE_BY_ID[l.module] || window.MODULES[0];
+  const t = window.TRACK_BY_ID[l.track];
+  const mIdx = window.MODULES.findIndex(x=>x.id===m.id);
+  const lIdx = m.lessons.findIndex(x=>x.id===l.id);
   const own = lessonC(l.id), C = own || lessonC("f-profit-2") || lessonContent("f-profit-2");
   const rec = State.touchLesson(l.id), done = rec.status==="done";
   const qb = rec.quiz.branch, qc = rec.quiz.calc;
@@ -380,134 +573,253 @@ function vLesson(id){
   const qDone = [qb,qc].filter(Boolean).length;
   const arena = C.arena && window.CASE_BY_ID[C.arena];
 
-  return `<div class="main">
-  <div class="row" style="gap:9px;margin-bottom:10px">
-    <span class="tile t-${t.color}">${t.icon}</span>
-    <div><div class="lbl">${esc(t.n)} · ${esc(m.n)}</div>
-      <h1 style="margin-top:2px">${esc(l.t)}</h1></div>
-    ${done?`<span class="tag tag-e" style="margin-left:auto">✓ Đã hoàn thành</span>`:""}
-  </div>
-  <div class="wrap-row mb">
-    <span class="tag">${l.m} phút</span><span class="tag tag-accent">Bài ${idx+1}/${m.lessons.length}</span>
-    <span class="tag tag-e">Output: ${esc(l.out)}</span>${diffBadge(l.lv)}
-  </div>
-  ${own?"":`<div class="callout tip mb"><b>Bài mẫu minh hoạ:</b> nội dung 10 phần của bài này đang biên soạn. Phần dưới là bài <i>${esc(lessonTitle("f-profit-2"))}</i> để bạn thấy khuôn bài học; tiến độ, quiz và checklist vẫn được lưu cho đúng bài này.</div>`}
+  const readerPrefs = State.getReaderPrefs();
+  const isBookmarked = State.isBookmarked(l.id);
+  const lessonNote = State.getLessonNote(l.id);
 
-  ${(()=>{ const rd = own && readingOf(l.id); if(!rd) return "";
-      return `<section class="lsec reading mt">
-        <div class="lsec-h"><span class="lsec-n">A</span><h2>Bài đọc</h2>
-          <span class="tag" style="margin-left:auto">${readMinutes(rd)} phút đọc</span></div>
-        <div class="rd">${readingHTML(rd)}</div>
-        <div class="callout tip mt-s"><b>Tiếp theo:</b> mười phần bên dưới bắt bạn làm lại chính những gì vừa đọc — dựng khung, đọc số, tính ra con số, viết một câu kết luận.</div>
-      </section>`; })()}
-
-  <div class="lesson-shell mt">
-    <div>
-      ${lsec(1,"Vì sao bài này quan trọng trong business case",`
-        <p>${rich(C.why)}</p>
-        <div class="callout"><b>Bạn sẽ làm được sau bài này:</b> ${rich(C.outcome)}</div>`)}
-
-      ${lsec(2,"Tình huống mở đầu",`
-        <div class="brief" style="border-left-color:var(--amber)">
-          <div class="lbl mb">Tình huống</div>
-          <p style="margin:0">${rich(C.scenario.text)}</p>
-          <p style="margin:10px 0 0;font-weight:600">${rich(C.scenario.ask)}</p>
-        </div>`)}
-
-      ${lsec(3,"Framework chính",`
-        <div class="fw">
-          <div class="fw-h">${rich(C.fw.title)}</div>
-          <div class="fw-b">${C.fw.rows.map(([k,v])=>`<div class="fw-row"><div class="k">${rich(k)}</div><div>${rich(v)}</div></div>`).join("")}</div>
+  return `<div>
+    <!-- STICKY TOPBAR -->
+    <div class="reader-topbar">
+      <div class="reader-topbar-left">
+        <a class="reader-back-btn" href="#/tracks">‹ Quay lại</a>
+        <div style="min-width:0">
+          <div class="reader-nav-title">${esc(l.t)}</div>
+          <div class="reader-nav-sub">Chặng ${mIdx+1} · Bài ${lIdx+1}</div>
         </div>
-        ${C.fw.warn?`<div class="callout warn mt"><b>Lưu ý:</b> ${rich(C.fw.warn)}</div>`:""}`)}
+      </div>
+      <div class="reader-topbar-right">
+        <div class="font-ctrl-group">
+          <button class="font-ctrl-btn" onclick="ACT.setReaderFont(-10)">A-</button>
+          <span>${readerPrefs.fontSize || 100}%</span>
+          <button class="font-ctrl-btn" onclick="ACT.setReaderFont(10)">A+</button>
+        </div>
+        <button class="theme-mode-btn" onclick="ACT.setReaderReadingTheme('${readerPrefs.theme==='sepia'?'light':'sepia'}')" title="Chuyển chế độ nền đọc">
+          ${readerPrefs.theme==='sepia'?'📖':'💡'}
+        </button>
+        <button class="bookmark-btn ${isBookmarked?'on':''}" onclick="ACT.toggleBookmark('${l.id}')" title="Lưu bài học">
+          ${isBookmarked?'★':'☆'}
+        </button>
+        <span class="status-pill-badge ${done?'done':''}">
+          ${done ? "✓ Đọc xong!" : "Đang học"}
+        </span>
+        <span class="tag tag-accent" style="font-weight:700">CHẶNG ${mIdx+1} · BÀI ${lIdx+1}</span>
+      </div>
+    </div>
 
-      ${lsec(4,"Ví dụ có số liệu",`
-        <div class="card"><div class="card-b">
-          <div class="lbl mb">${esc(C.ex.label)}</div>
-          <table class="tb"><tbody>
-            ${C.ex.rows.map(([k,v,d,dir])=>`<tr><td>${rich(k)}</td><td class="r num">${esc(v)}</td>
-              <td class="r">${d?(dir?`<span class="delta ${dir}">${esc(d)}</span>`:`<span class="muted small">${esc(d)}</span>`):""}</td></tr>`).join("")}
-          </tbody></table>
-          <div class="callout ok mt"><b>Đọc ra gì:</b> ${rich(C.ex.read)}</div>
-        </div></div>`)}
-
-      ${lsec(5,"Mini case tương tác",`
-        <div class="card"><div class="card-b">
-          <p style="margin-top:0">${rich(C.mini.q)}</p>
-          ${C.mini.opts.map(([k,tx,why])=>{
-            const cls = !qb ? "pick" : k===C.mini.correct ? "ok" : qb.pick===k ? "no" : "";
-            return `<div class="opt ${cls}" ${!qb?`onclick="ACT.pickBranch('${l.id}','${k}')"`:""}><span class="k">${k}</span>
-              <span class="t">${rich(tx)}${qb&&(k===C.mini.correct||qb.pick===k)?`<span class="why">${rich(why)}</span>`:""}</span></div>`;}).join("")}
-          ${qb?`<div class="small muted mt-s">Chỉ tính lần chọn đầu tiên. ${qb.correct?"":"Lỗi này đã được lưu vào Mistake Review."}</div>`:""}
-        </div></div>`)}
-
-      ${lsec(6,"Bài tập áp dụng",`
-        <div class="card"><div class="card-b">
-          <p style="margin-top:0"><b>Tính:</b> ${rich(C.calc.q)}</p>
-          <div class="row" style="gap:9px">
-            <input id="calc-${l.id}" class="calc" inputmode="decimal" placeholder="0" value="${qc&&qc.value!=null?esc(viNum(qc.value)):""}" ${qc?"disabled":""}
-              onkeydown="if(event.key==='Enter')ACT.checkCalc('${l.id}')">
-            <span class="muted small">${esc(C.calc.unit)}</span>
-            ${qc?"":`<button class="btn btn-sm btn-p" onclick="ACT.checkCalc('${l.id}')">Kiểm tra</button>`}
+    <!-- 2-COLUMNS WORKSPACE -->
+    <div class="reader-workspace-grid">
+      <!-- LEFT / MAIN: Reading + Framework + Explanations -->
+      <div class="reader-article-col reader-body-scale sz-${readerPrefs.fontSize||100}">
+        <div class="lesson-meta-header">
+          <div class="lesson-diff-tag">CHẶNG ${mIdx+1} · BÀI ${lIdx+1} · ${DIFF[l.lv] || "DỄ"}</div>
+          <h1 class="lesson-main-title">${esc(l.t)}</h1>
+          <p class="lesson-hook-text">${esc(C.outcome || (C.scenario ? C.scenario.ask : l.out))}</p>
+          <div class="lesson-info-row">
+            <span>~${l.m} phút cả bài</span>
+            <span class="dot-sep">•</span>
+            <span>2 câu quiz</span>
+            <span class="dot-sep">•</span>
+            <span style="color:var(${done?'--emerald':'--amber'})">${done?'Đã hoàn thành!':'Đang học'}</span>
           </div>
-          ${!qc&&C.calc.hint?`<div class="small muted mt-s">Gợi ý: ${rich(C.calc.hint)}</div>`:""}
-          ${qc?`<div class="callout ${qc.correct?"ok":"warn"} mt"><b>${qc.correct?"Đúng.":"Chưa đúng."}</b> ${rich(C.calc.solution)}${qc.correct?"":" Lỗi đã được lưu vào Mistake Review."}</div>`:""}
-        </div></div>`)}
+          <div class="bar mb" style="height:4px">${bar(done?100:Math.round(qDone/2*100), done?'emerald':'')}</div>
+        </div>
 
-      ${lsec(7,C.slide.speak?"Câu trả lời nói mẫu":"Gợi ý cách trình bày trên slide",`
-        <div class="card"><div class="card-b">
-          <div class="lbl mb">${C.slide.speak?"Câu mở đầu":"Khung slide đề xuất"}</div>
-          <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
-            <div style="background:var(--surface-3);color:var(--text);padding:11px 14px;font-weight:650;font-size:13px;border-bottom:1px solid var(--border)">${esc(C.slide.headline)}</div>
-            <div class="grid split-even" style="padding:14px;gap:12px">
-              <div><div class="lbl mb">${C.slide.speak?"Nói tiếp":"Biểu đồ trái"}</div><div class="small muted">${rich(C.slide.left)}</div></div>
-              <div><div class="lbl mb">${C.slide.speak?"Chốt lại":"Phải"}</div><div class="small muted">${rich(C.slide.right)}</div></div>
+        <!-- XP CONDITIONS BOX -->
+        <div class="xp-conditions-box">
+          <div class="xp-conditions-title">
+            <span>🎯</span> ĐIỀU KIỆN HOÀN THÀNH & NHẬN XP
+          </div>
+          <div class="xp-cond-item">
+            <span class="xp-cond-icon">✓</span>
+            <span>Đọc hết 100% nội dung & framework bài học</span>
+          </div>
+          <div class="xp-cond-item">
+            <span class="xp-cond-icon" style="color:var(${qb?'--emerald':'--muted'})">${qb?'✓':'○'}</span>
+            <span>Trả lời câu hỏi Mini-case tương tác giữa bài</span>
+          </div>
+          <div class="xp-cond-item">
+            <span class="xp-cond-icon" style="color:var(${qc?'--emerald':'--muted'})">${qc?'✓':'○'}</span>
+            <span>Hoàn thành bài tập kiểm tra nhanh & tính toán</span>
+          </div>
+        </div>
+
+        <!-- AI CASE COACH CALLOUT -->
+        <div class="ai-coach-box">
+          <div class="ai-coach-av">🤖</div>
+          <div class="ai-coach-content">
+            <div class="ai-coach-header">
+              <span class="ai-coach-name">Case Coach AI · mẹo tự động cho bài này</span>
+              <span class="ai-coach-tag">TỰ ĐỘNG</span>
             </div>
+            <p class="ai-coach-text">${rich(C.fw.warn || C.slide.rule || "Quy tắc cốt lõi: Luôn chia nhỏ bài toán theo cấu trúc MECE và tìm ra 'So What' đằng sau mỗi con số.")}</p>
           </div>
-          <div class="callout tip mt"><b>Quy tắc:</b> ${rich(C.slide.rule)}</div>
-        </div></div>`)}
+        </div>
 
-      ${lsec(8,"Lỗi thường gặp",`
-        <div class="card"><div class="card-b" style="padding-top:8px">
-          ${C.mistakes.map(([tt,d],i,a)=>`<div style="display:flex;gap:11px;padding:10px 0;border-bottom:${i<a.length-1?'1px solid var(--border)':'0'}">
-              <span class="tag tag-r" style="flex:none">${i+1}</span>
-              <div><b style="font-size:13px">${rich(tt)}</b><div class="small muted mt-s">${rich(d)}</div></div></div>`).join("")}
-        </div></div>`)}
-    </div>
+        ${own?"":`<div class="callout tip mb"><b>Bài mẫu minh hoạ:</b> nội dung 10 phần của bài này đang biên soạn. Phần dưới là bài <i>${esc(lessonTitle("f-profit-2"))}</i> để bạn thấy khuôn bài học; tiến độ, quiz và checklist vẫn được lưu cho đúng bài này.</div>`}
 
-    <div class="sticky-side">
-      <div class="card">
-        <div class="card-h"><h3>Quiz kiểm tra</h3><span class="tag ${qDone===2?"tag-e":""}">${qDone}/2</span></div>
-        <div class="card-b" style="padding-top:8px">
-          ${[["Mini case (phần 5)",qb],["Tính toán (phần 6)",qc]].map(([n,q])=>
-            `<div class="rubric-row"><span class="nm">${n}</span>${bar(q&&q.correct?100:0, q&&!q.correct?"rose":"")}<span class="sc num">${qScore(q)}</span></div>`).join("")}
-          <p class="small muted" style="margin:8px 0 0">Mỗi câu đúng ở lần đầu: +${State.XP.quizFirstTry} XP.</p>
+        ${(()=>{ const rd = own && readingOf(l.id); if(!rd) return "";
+            return `<section class="lsec reading mt">
+              <div class="lsec-h"><span class="lsec-n">A</span><h2>Bài đọc chuyên sâu</h2>
+                <span class="tag" style="margin-left:auto">${readMinutes(rd)} phút đọc</span></div>
+              <div class="rd">${readingHTML(rd)}</div>
+              <div class="callout tip mt-s"><b>Tiếp theo:</b> mười phần bên dưới bắt bạn làm lại chính những gì vừa đọc — dựng khung, đọc số, tính ra con số, viết một câu kết luận.</div>
+            </section>`; })()}
+
+        <div class="lesson-content-blocks mt">
+          ${lsec(1,"Vì sao bài này quan trọng trong business case",`
+            <p>${rich(C.why)}</p>
+            <div class="callout"><b>Bạn sẽ làm được sau bài này:</b> ${rich(C.outcome)}</div>`)}
+
+          ${lsec(2,"Tình huống mở đầu",`
+            <div class="brief" style="border-left-color:var(--amber)">
+              <div class="lbl mb">Tình huống</div>
+              <p style="margin:0">${rich(C.scenario.text)}</p>
+              <p style="margin:10px 0 0;font-weight:600">${rich(C.scenario.ask)}</p>
+            </div>`)}
+
+          ${lsec(3,"Framework chính",`
+            <div class="fw">
+              <div class="fw-h">${rich(C.fw.title)}</div>
+              <div class="fw-b">${C.fw.rows.map(([k,v])=>`<div class="fw-row"><div class="k">${rich(k)}</div><div>${rich(v)}</div></div>`).join("")}</div>
+            </div>
+            ${C.fw.warn?`<div class="callout warn mt"><b>Lưu ý:</b> ${rich(C.fw.warn)}</div>`:""}`)}
+
+          ${lsec(4,"Ví dụ có số liệu thực tế",`
+            <div class="card"><div class="card-b">
+              <div class="lbl mb">${esc(C.ex.label)}</div>
+              <table class="tb"><tbody>
+                ${C.ex.rows.map(([k,v,d,dir])=>`<tr><td>${rich(k)}</td><td class="r num">${esc(v)}</td>
+                  <td class="r">${d?(dir?`<span class="delta ${dir}">${esc(d)}</span>`:`<span class="muted small">${esc(d)}</span>`):""}</td></tr>`).join("")}
+              </tbody></table>
+              <div class="callout ok mt"><b>Đọc ra gì:</b> ${rich(C.ex.read)}</div>
+            </div></div>`)}
+
+          ${lsec(5,"Mẫu trình bày slide & Lời nói",`
+            <div class="card"><div class="card-b">
+              <div class="lbl mb">${C.slide.speak?"Câu mở đầu":"Khung slide đề xuất"}</div>
+              <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
+                <div style="background:var(--surface-3);color:var(--text);padding:11px 14px;font-weight:650;font-size:13px;border-bottom:1px solid var(--border)">${esc(C.slide.headline)}</div>
+                <div class="grid split-even" style="padding:14px;gap:12px">
+                  <div><div class="lbl mb">${C.slide.speak?"Nói tiếp":"Biểu đồ trái"}</div><div class="small muted">${rich(C.slide.left)}</div></div>
+                  <div><div class="lbl mb">${C.slide.speak?"Chốt lại":"Phải"}</div><div class="small muted">${rich(C.slide.right)}</div></div>
+                </div>
+              </div>
+              <div class="callout tip mt"><b>Quy tắc vàng:</b> ${rich(C.slide.rule)}</div>
+            </div></div>`)}
+
+          ${lsec(6,"Lỗi thường gặp trong case",`
+            <div class="card"><div class="card-b" style="padding-top:8px">
+              ${C.mistakes.map(([tt,d],i,a)=>`<div style="display:flex;gap:11px;padding:10px 0;border-bottom:${i<a.length-1?'1px solid var(--border)':'0'}">
+                  <span class="tag tag-r" style="flex:none">${i+1}</span>
+                  <div><b style="font-size:13px">${rich(tt)}</b><div class="small muted mt-s">${rich(d)}</div></div></div>`).join("")}
+            </div></div>`)}
+
+          ${lsec(7,"Checklist tự đánh giá cuối bài",`
+            <div class="card"><div class="card-b" style="padding-top:8px">
+              ${C.checklist.map((c,i)=>`<div class="chk-item pick" onclick="ACT.toggleCheck('${l.id}',${i})">
+                <span class="chk-box ${rec.chk[i]?'on':''}">✓</span><span>${rich(c)}</span></div>`).join("")}
+            </div></div>`)}
         </div>
       </div>
-      <div class="card">
-        <div class="card-h"><h3>Checklist cuối bài</h3><span class="small muted num">${chkN}/${C.checklist.length}</span></div>
-        <div class="card-b" style="padding-top:8px">
-          ${C.checklist.map((c,i)=>`<div class="chk-item pick" onclick="ACT.toggleCheck('${l.id}',${i})">
-            <span class="chk-box ${rec.chk[i]?'on':''}">✓</span><span>${rich(c)}</span></div>`).join("")}
+
+      <!-- RIGHT / SIDEBAR: Notes + Sticky Quick Check Quiz -->
+      <div class="reader-practice-col">
+        <!-- Notes Widget -->
+        <div class="notes-drawer-card mb">
+          <div class="notes-drawer-h">
+            <div class="notes-drawer-t">
+              <span>📝</span> Ghi chú <span class="small muted">(${lessonNote.length ? "1" : "0"})</span>
+            </div>
+            <span id="noteSavedBadge" style="font-size:11.5px;font-weight:700;color:var(--emerald)"></span>
+          </div>
+          <textarea class="notes-textarea" placeholder="Ghi chép nhanh điều bạn vừa hiểu..."
+            oninput="ACT.saveLessonNote('${l.id}', this.value)">${esc(lessonNote)}</textarea>
+        </div>
+
+        <!-- Quick Check Quiz Card -->
+        <div class="quick-quiz-panel">
+          <div class="quick-quiz-header">
+            <span class="quick-quiz-title">Kiểm tra nhanh</span>
+            <span class="quick-quiz-count">${qDone}/2</span>
+          </div>
+
+          <!-- Visual Progress Dashes Bar -->
+          <div class="quiz-dash-bar">
+            <div class="quiz-dash-item ${qb?(qb.correct?'green':'red'):'active'}"></div>
+            <div class="quiz-dash-item ${qc?(qc.correct?'green':'red'):''}"></div>
+          </div>
+
+          <!-- STEP 1: Mini case MCQ -->
+          <div class="quiz-step-card">
+            <div class="quiz-step-header">
+              <span class="quiz-step-num">Câu 1 / 2 · Mini Case</span>
+              <span class="quiz-step-status ${!qb?'pending':qb.correct?'right':'wrong'}">
+                ${!qb ? "Chưa làm" : qb.correct ? "Chính xác" : "Chưa đúng"}
+              </span>
+            </div>
+            <div class="quiz-step-q">${rich(C.mini.q)}</div>
+            <div class="quiz-step-options">
+              ${C.mini.opts.map(([k,tx,why])=>{
+                const isCorrect = k === C.mini.correct;
+                const isPicked = qb && qb.pick === k;
+                let optCls = "";
+                if(qb){
+                  if(isCorrect) optCls = "selected-right";
+                  else if(isPicked) optCls = "selected-wrong";
+                }
+                return `<button class="quiz-step-opt ${optCls}" ${!qb?`onclick="ACT.pickBranch('${l.id}','${k}')"`:""}>
+                  <span class="quiz-opt-letter">${k}</span>
+                  <span class="quiz-opt-label">${rich(tx)}</span>
+                  ${qb && isCorrect ? `<span class="quiz-opt-check">✓</span>` : ""}
+                </button>`;
+              }).join("")}
+            </div>
+            ${qb ? `
+              <div class="callout ${qb.correct?'ok':'warn'} mt-s" style="font-size:12px;padding:8px 10px">
+                <b>${qb.correct?'Đúng!':'Giải thích:'}</b> ${rich((C.mini.opts.find(o=>o[0]===C.mini.correct)||[])[2] || "")}
+              </div>
+            ` : ""}
+          </div>
+
+          <!-- STEP 2: Calculation Task -->
+          <div class="quiz-step-card">
+            <div class="quiz-step-header">
+              <span class="quiz-step-num">Câu 2 / 2 · Case Math</span>
+              <span class="quiz-step-status ${!qc?'pending':qc.correct?'right':'wrong'}">
+                ${!qc ? "Chưa làm" : qc.correct ? "Chính xác" : "Chưa đúng"}
+              </span>
+            </div>
+            <div class="quiz-step-q"><b>Tính:</b> ${rich(C.calc.q)}</div>
+            <div class="row" style="gap:8px;margin-bottom:8px">
+              <input id="calc-${l.id}" class="calc" inputmode="decimal" placeholder="0" style="flex:1"
+                value="${qc&&qc.value!=null?esc(viNum(qc.value)):""}" ${qc?"disabled":""}
+                onkeydown="if(event.key==='Enter')ACT.checkCalc('${l.id}')">
+              <span class="muted small" style="font-weight:700">${esc(C.calc.unit)}</span>
+              ${qc?"":`<button class="btn btn-sm btn-p" onclick="ACT.checkCalc('${l.id}')">Kiểm tra</button>`}
+            </div>
+            ${!qc&&C.calc.hint?`<div class="small muted">Gợi ý: ${rich(C.calc.hint)}</div>`:""}
+            ${qc?`<div class="callout ${qc.correct?"ok":"warn"} mt-s" style="font-size:12px;padding:8px 10px"><b>${qc.correct?"Đúng.":"Chưa đúng."}</b> ${rich(C.calc.solution)}</div>`:""}
+          </div>
+
+          <!-- COMPLETION / ACTION CARD -->
+          <div style="margin-top:14px">
+            ${done
+              ? `<div class="callout ok" style="padding:10px 12px;font-size:12.5px;margin-bottom:10px"><b>Đã hoàn thành</b> ngày ${esc(rec.doneAt)}.</div>
+                 <div class="row" style="justify-content:space-between;gap:8px">
+                   ${arena?`<a class="btn btn-sm btn-e" style="flex:1;text-align:center" href="#/arena/${arena.id}">Luyện case</a>`:`<a class="btn btn-sm btn-e" style="flex:1;text-align:center" href="#/library">Tìm case</a>`}
+                   ${nextL?`<a class="btn btn-sm btn-p" style="flex:1;text-align:center" href="#/lesson/${nextL.id}">Bài tiếp →</a>`:`<a class="btn btn-sm btn-p" style="flex:1;text-align:center" href="#/tracks">Về lộ trình</a>`}
+                 </div>`
+              : `<button class="btn btn-p" style="width:100%" onclick="ACT.completeLesson('${l.id}')">
+                   Hoàn thành bài · +${State.XP.lesson} XP
+                 </button>
+                 ${nextL?`<a class="btn btn-sm btn-gh" style="width:100%;margin-top:6px;text-align:center;display:block" href="#/lesson/${nextL.id}">Bỏ qua, sang bài tiếp</a>`:""}`}
+          </div>
         </div>
       </div>
-      <div class="card"><div class="card-b">
-        ${done
-          ? `<div class="callout ok" style="padding:10px 12px;font-size:12.5px"><b>Đã hoàn thành</b> ngày ${esc(rec.doneAt)}.</div>
-             <div class="row mt-s" style="justify-content:space-between">
-               ${arena?`<a class="btn btn-sm btn-e" href="#/arena/${arena.id}">Luyện case</a>`:`<a class="btn btn-sm btn-e" href="#/library">Tìm case</a>`}
-               ${nextL?`<a class="btn btn-sm btn-p" href="#/lesson/${nextL.id}">Bài tiếp →</a>`:`<a class="btn btn-sm btn-p" href="#/tracks">Về lộ trình</a>`}</div>`
-          : `<p class="small muted" style="margin-top:0">${qDone<2||chkN<3?"Nên làm hết quiz và tick ít nhất 3 mục checklist trước khi đánh dấu xong.":"Sẵn sàng. Đánh dấu xong rồi áp dụng ngay vào một case."}</p>
-             <button class="btn btn-p" style="width:100%" onclick="ACT.completeLesson('${l.id}')">Hoàn thành bài · +${State.XP.lesson} XP</button>
-             ${nextL?`<a class="btn btn-sm btn-gh" style="width:100%;margin-top:6px" href="#/lesson/${nextL.id}">Bỏ qua, sang bài tiếp</a>`:""}`}
-      </div></div>
-      ${arena?`<div class="card"><div class="card-b">
-        <div class="lbl mb">Áp dụng vào case</div>
-        <a href="#/arena/${arena.id}" style="font-weight:650;font-size:13px">${esc(arena.t)} →</a>
-        <div class="small muted mt-s">${esc(arena.type)} · ${arena.min} phút</div></div></div>`:""}
     </div>
-  </div></div>`;
+  </div>`;
 }
+
 /* Bài đọc: "## " tiêu đề · "> " đoạn thoại · "- " gạch đầu dòng · còn lại là đoạn văn */
 function readingHTML(text){
   const out=[]; let list=[], quote=[];
@@ -1237,6 +1549,12 @@ function render(keepScroll){
     const note=document.createElement("div"); note.className="callout tip"; note.style.margin="0 0 14px";
     note.innerHTML = `<b>Note:</b> ${esc(I18N.CONTENT_NOTE)}`;
     const host=document.querySelector("#view .main, #view .arena-l"); if(host) host.insertBefore(note, host.firstChild);
+  }
+  const rMode = (State.getReaderPrefs && State.getReaderPrefs().theme) || "light";
+  if(key === "lesson" && rMode === "sepia"){
+    document.documentElement.setAttribute("data-reading-mode", "sepia");
+  } else {
+    document.documentElement.removeAttribute("data-reading-mode");
   }
   I18N.apply(document.body);
   renderRail();
