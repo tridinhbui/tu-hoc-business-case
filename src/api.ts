@@ -219,3 +219,26 @@ export type KingdomView = {
     rows: { rank: number; xp: number; passed: number; you: boolean }[];
   } | null;
 };
+
+export type SupportMessage = {
+  id: string; author_side: "learner" | "staff"; body: string; context_path: string | null; created_at: number;
+};
+
+export type SupportThreadView = {
+  thread: { id: string; status: "open" | "closed" } | null;
+  messages: SupportMessage[];
+  unread?: number;
+};
+
+export type SupportInbox = {
+  items: {
+    id: string; status: "open" | "closed"; last_message_at: number; display_name: string; email: string;
+    level: number; last_body: string | null; last_side: "learner" | "staff" | null; unread: number;
+  }[];
+  waiting: number;
+};
+
+export type SupportStaffThread = {
+  thread: { id: string; status: string; display_name: string; email: string; level: number; persona: string | null };
+  messages: SupportMessage[];
+};

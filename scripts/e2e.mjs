@@ -178,6 +178,37 @@ async function main() {
   check("a cancelled consent is refused", cancelled.status === 302 && cancelled.location?.startsWith("/?login_error="));
   check("nobody is signed in after the failed callbacks", (await anon.call("GET", "/api/me")).data.user === null);
 
+  console.log("== support chat");
+  check("a learner with no thread yet gets an empty one",
+    JSON.stringify((await learner.call("GET", "/api/support")).data) === JSON.stringify({ thread: null, messages: [], unread: 0 }));
+  check("an empty message is refused", (await learner.call("POST", "/api/support/messages", { body: "   " })).status === 400);
+  const asked = await learner.call("POST", "/api/support/messages", { body: "Bài 018 bị khoá mà em không hiểu vì sao.", contextPath: "/lessons/018" });
+  check("the first message opens the thread", asked.status === 201 && asked.data.messages.length === 1 && asked.data.thread.id);
+  check("learners cannot read the staff inbox (403)", (await learner.call("GET", "/api/support/threads")).status === 403);
+  check("peer graders cannot either (403)", (await grader.call("GET", "/api/support/threads")).status === 403);
+
+  const inbox = await instructor.call("GET", "/api/support/threads");
+  const waiting = inbox.data.items?.[0];
+  check("staff see the thread waiting, with who asked and from which page",
+    inbox.status === 200 && inbox.data.waiting === 1 && waiting.unread === 1 && waiting.last_side === "learner", waiting);
+  const threadId = asked.data.thread.id;
+  const supportView = await instructor.call("GET", `/api/support/threads/${threadId}`);
+  check("the message carries the page the learner was on",
+    supportView.data.messages[0].context_path === "/lessons/018", supportView.data?.messages);
+  check("reading the thread clears the staff badge",
+    (await instructor.call("GET", "/api/support/unread")).data.unread === 0);
+
+  const replied = await instructor.call("POST", `/api/support/threads/${threadId}/messages`, { body: "Bài 018 chờ bạn qua checkpoint B1 nhé." });
+  check("staff reply lands in the thread", replied.status === 201 && replied.data.messages.length === 2);
+  check("the learner now has one unread", (await learner.call("GET", "/api/support/unread")).data.unread === 1);
+  const mine = await learner.call("GET", "/api/support");
+  check("the learner reads it and the badge clears",
+    mine.data.messages.length === 2 && mine.data.unread === 1 &&
+    (await learner.call("GET", "/api/support/unread")).data.unread === 0, mine.data);
+  check("a learner cannot answer another learner's thread (403)",
+    (await learner.call("POST", `/api/support/threads/${threadId}/messages`, { body: "x" })).status === 403);
+  check("an unknown thread is 404 for staff", (await instructor.call("GET", "/api/support/threads/khong-co")).status === 404);
+
   console.log("== instructor overview");
   check("learner cannot open the instructor overview (403)", (await learner.call("GET", "/api/admin/overview")).status === 403);
   check("peer grader cannot open it either (403)", (await grader.call("GET", "/api/admin/overview")).status === 403);

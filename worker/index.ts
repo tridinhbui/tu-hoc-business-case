@@ -2,6 +2,7 @@ import { adminOverview } from "./admin";
 import { googleCallback, googleEnabled, startGoogleLogin } from "./google";
 import { kingdomView } from "./kingdom";
 import { landingView } from "./landing";
+import { myThread, replyFromStaff, sendFromLearner, staffInbox, staffThreadView, unreadBadge } from "./support";
 import { currentUser, logout, requestMagicLink, requireUser, verifyMagicLink } from "./auth";
 import { reviewAttempt, startAttempt, submitAttempt, uploadArtifact } from "./attempts";
 import { claimAttempt, consumeGrading, gradeAttempt, graderQueue } from "./grading";
@@ -59,6 +60,14 @@ route("GET", "/api/mistake-codes", async (req, env) => {
 // learner
 route("GET", "/api/progress", async (req, env) => progressView(env, await requireUser(req, env)));
 route("GET", "/api/kingdom", async (req, env) => kingdomView(env, await requireUser(req, env)));
+
+// support chat: one thread per learner, staff answer from the same inbox
+route("GET", "/api/support", async (req, env) => myThread(env, await requireUser(req, env)));
+route("POST", "/api/support/messages", async (req, env) => sendFromLearner(req, env, await requireUser(req, env)));
+route("GET", "/api/support/unread", async (req, env) => unreadBadge(env, await requireUser(req, env)));
+route("GET", "/api/support/threads", async (req, env) => staffInbox(env, await requireUser(req, env)));
+route("GET", "/api/support/threads/:id", async (req, env, [id]) => staffThreadView(env, await requireUser(req, env), id));
+route("POST", "/api/support/threads/:id/messages", async (req, env, [id]) => replyFromStaff(req, env, await requireUser(req, env), id));
 route("GET", "/api/lessons/:id", async (req, env, [id]) => lessonView(env, await requireUser(req, env), id));
 route("POST", "/api/attempts", async (req, env) => startAttempt(req, env, await requireUser(req, env)));
 route("GET", "/api/attempts/:id", async (req, env, [id]) => attemptView(env, await requireUser(req, env), id));

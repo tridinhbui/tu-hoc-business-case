@@ -12,6 +12,8 @@ import { AdminPage } from "./pages/Admin";
 import { LiveListPage, LiveRoomPage } from "./pages/Live";
 import { PlanPage } from "./pages/Plan";
 import { SkillsPage } from "./pages/Skills";
+import { SupportInboxPage } from "./pages/Support";
+import { SupportChat } from "./components/SupportChat";
 
 export function App() {
   const path = usePath();
@@ -35,6 +37,7 @@ export function App() {
   else if (path === "/live") page = <LiveListPage isStaff={isStaff} />;
   else if ((m = path.match(/^\/live\/([^/]+)$/))) page = <LiveRoomPage sessionId={m[1]} />;
   else if (path === "/admin" && isStaff) page = <AdminPage />;
+  else if (path === "/support" && isStaff) page = <SupportInboxPage />;
   else if (path === "/skills") page = <SkillsPage readiness={me.data?.readiness ?? []} />;
   else if (path === "/grader" && isGrader) page = <GraderQueuePage />;
   else if ((m = path.match(/^\/grader\/([^/]+)$/)) && isGrader) page = <GradePage attemptId={m[1]} />;
@@ -62,6 +65,7 @@ export function App() {
             {nav("/skills", "Năng lực", path === "/skills")}
             {isGrader && nav("/grader", "Chấm bài", path.startsWith("/grader"))}
             {isStaff && nav("/admin", "Giảng viên", path === "/admin")}
+            {isStaff && nav("/support", "Hỗ trợ", path === "/support")}
           </nav>
           <div className="who">
             <span className={`lv lv${user.level}`}>L{user.level}</span>
@@ -80,6 +84,8 @@ export function App() {
         </div>
       </header>
       <main>{page}</main>
+      {/* Staff answer from the inbox page; everyone else gets the floating chat. */}
+      {!isStaff && <SupportChat />}
     </>
   );
 }
