@@ -36,7 +36,8 @@ CHECK_TOLERANCE = 0.08
 QUALITY = """every lesson: a goal, at least one worked example, at least one pitfall naming a real
 mistake code, and an exercise whose output line says exactly what the learner hands in;
 every case: one counter-intuitive insight, at least three reveal items, at least one trap naming a
-real mistake code, a complete answer frame, and numbers that agree with their own arithmetic."""
+real mistake code, a complete answer frame, and numbers that agree with their own arithmetic;
+every rubric: all four level descriptors for every one of its criteria."""
 
 
 def evaluate(expression: str, numbers: dict) -> float:
@@ -79,14 +80,19 @@ def sql_str(value) -> str:
     return "'" + str(value).replace("'", "''") + "'"
 
 
-def known_ids() -> tuple[set[str], set[str]]:
-    """Lesson ids and mistake codes the generated curriculum already defines."""
+def known_ids() -> tuple[set[str], set[str], dict[str, set[str]]]:
+    """Lesson ids, mistake codes and rubric criteria the generated curriculum already defines."""
     if not CURRICULUM.exists():
         raise Problem("seed/curriculum.sql is missing — run `npm run content:build` first.")
     sql = CURRICULUM.read_text(encoding="utf-8")
     lessons = set(re.findall(r"INSERT INTO lessons \([^)]*\) VALUES \('(\d{3})'", sql))
     codes = set(re.findall(r"INSERT INTO mistake_codes \([^)]*\) VALUES \('([A-Z]{3}-\d{2})'", sql))
-    return lessons, codes
+    criteria: dict[str, set[str]] = {}
+    for criterion_id, rubric_id in re.findall(
+        r"INSERT INTO rubric_criteria \([^)]*\) VALUES \('([^']+)', '([^']+)'", sql
+    ):
+        criteria.setdefault(rubric_id, set()).add(criterion_id)
+    return lessons, codes, criteria
 
 
 def parse_document(path: Path) -> tuple[dict, list[tuple[str, str, str]]]:
@@ -109,7 +115,7 @@ def parse_document(path: Path) -> tuple[dict, list[tuple[str, str, str]]]:
     current: tuple[str, str] | None = None
     buffer: list[str] = []
     for line in body.splitlines():
-        heading = re.match(r"^##\s+([a-z_.]+)\s*(?:·\s*(.*))?$", line)
+        heading = re.match(r"^##\s+([A-Za-z0-9_.\-]+)\s*(?:·\s*(.*))?$", line)
         if heading:
             if current:
                 sections.append((current[0], current[1], "\n".join(buffer).strip()))
@@ -287,10 +293,52 @@ def build_case(path: Path, lessons: set[str], codes: set[str]) -> list[str]:
     return statements
 
 
+def build_rubric(path: Path, criteria: dict[str, set[str]]) -> list[str]:
+    """Four level descriptors per criterion — the thing that makes two graders agree."""
+    meta, sections = parse_document(path)
+    rubric_id = meta.get("rubric", "")
+    known = criteria.get(rubric_id)
+    if not known:
+        raise Problem(f"{path.name}: rubric {rubric_id!r} is not in the generated curriculum")
+
+    statements: list[str] = []
+    seen: set[str] = set()
+    for criterion_id, title, body in sections:
+        if criterion_id not in known:
+            raise Problem(f"{path.name}: criterion {criterion_id!r} does not belong to rubric {rubric_id}")
+        check_prose(path, criterion_id, body)
+        seen.add(criterion_id)
+
+        levels: dict[int, str] = {}
+        for line in body.splitlines():
+            match = re.match(r"^([1-4])\.\s+(.+)$", line.strip())
+            if match:
+                levels[int(match.group(1))] = match.group(2).strip()
+            elif line.strip() and levels:
+                levels[max(levels)] += " " + line.strip()
+        missing = [level for level in (1, 2, 3, 4) if level not in levels]
+        if missing:
+            raise Problem(
+                f"{path.name}: criterion {criterion_id} ({title}) is missing level {missing} — "
+                "a criterion without all four descriptors is where two graders start disagreeing"
+            )
+        for level, descriptor in sorted(levels.items()):
+            if len(descriptor) < 25:
+                raise Problem(f"{path.name}: {criterion_id} level {level} is too short to grade against: {descriptor!r}")
+            statements.append(
+                "INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ("
+                f"{sql_str(criterion_id)}, {level}, {sql_str(descriptor)});"
+            )
+
+    if seen != known:
+        raise Problem(f"{path.name}: rubric {rubric_id} also has criteria {sorted(known - seen)} with no descriptors")
+    return [f"DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = {sql_str(rubric_id)});"] + statements
+
+
 def main() -> int:
     check_only = "--check" in sys.argv
     try:
-        lessons, codes = known_ids()
+        lessons, codes, criteria = known_ids()
     except Problem as err:
         print(f"  ERROR {err}")
         return 1
@@ -299,6 +347,7 @@ def main() -> int:
     problems: list[str] = []
     lesson_files = sorted((AUTHORING / "lessons").glob("*.md"))
     case_files = sorted((AUTHORING / "cases").glob("*.md"))
+    rubric_files = sorted((AUTHORING / "rubrics").glob("*.md"))
 
     for path in lesson_files:
         try:
@@ -310,8 +359,13 @@ def main() -> int:
             statements += build_case(path, lessons, codes)
         except Problem as err:
             problems.append(str(err))
+    for path in rubric_files:
+        try:
+            statements += build_rubric(path, criteria)
+        except Problem as err:
+            problems.append(str(err))
 
-    print(f"authored: {len(lesson_files)} lesson bodies, {len(case_files)} cases")
+    print(f"authored: {len(lesson_files)} lesson bodies, {len(case_files)} cases, {len(rubric_files)} rubrics")
     if problems:
         print(f"\nNOT READY ({len(problems)}):")
         for problem in problems:

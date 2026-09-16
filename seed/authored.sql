@@ -175,6 +175,66 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('0
 Yêu cầu tối thiểu: 4 dòng scope in, 4 dòng scope out, mỗi dòng scope out có lý do. Nếu một dòng loại trừ làm bạn thấy áy náy, giữ nó lại nhưng viết thêm một câu: *"nếu điều này sai thì kết luận thay đổi thế nào"* — đó là cách kiểm tra xem bạn có loại nhầm thứ quan trọng không.
 
 Output: một bảng hai cột scope in / scope out (sheet hoặc markdown), phía trên là tiêu chí thành công ba phần, phía dưới là danh sách giả định bạn đã tự đặt.');
+DELETE FROM lesson_blocks WHERE lesson_id = '004';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('004.01', '004', 1, 'goal', 'Sau bài này bạn làm được gì', 'Ghép ba việc của module A1 lại thành một lượt làm case thật: đọc đề → viết problem statement → **hỏi năm câu làm rõ đúng chỗ**.
+
+Bài này là mini case đầu tiên, nên phần mới nằm ở chỗ **hỏi**. Từ đây trở đi bạn không còn được cho sẵn đầy đủ dữ kiện: đề giữ lại một phần thông tin và chỉ phát khi bạn hỏi đúng thứ.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('004.02', '004', 2, 'concept', 'Lượt hỏi là tài nguyên có hạn', 'Trong phỏng vấn thật bạn có khoảng 5 phút để hỏi trước khi người phỏng vấn mong bạn đi tiếp. Trong case competition, mỗi câu hỏi gửi ban giám khảo là một lần dùng quyền. Nên hỏi không phải là "thu thập càng nhiều càng tốt", mà là **chọn năm câu đổi được nhiều hướng phân tích nhất**.
+
+Bộ lọc dùng trước mỗi câu hỏi, chỉ một câu: *nếu câu trả lời là A thay vì B, tôi sẽ làm khác đi ở chỗ nào?*
+
+- Trả lời được → câu hỏi đáng hỏi.
+- Không trả lời được → đó là sự tò mò, không phải câu hỏi phân tích.
+
+Ba nhóm câu hỏi gần như luôn đáng hỏi trong case kinh doanh:
+
+1. **Kinh tế một đơn vị** — một cửa hàng, một khách, một chuyến kiếm được bao nhiêu và tốn bao nhiêu. Đây là chỗ giấu phần lớn sự thật.
+2. **Phân bố, không phải trung bình** — "trung bình có lãi" che mất việc 4 trong 12 điểm đang lỗ.
+3. **Vì sao bây giờ** — điều gì vừa thay đổi khiến câu hỏi này xuất hiện lúc này.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('004.03', '004', 3, 'concept', 'Tái định nghĩa mà không cãi khách hàng', 'Khi đề bài yêu cầu "giúp triển khai cho nhanh" mà bạn thấy kế hoạch có lỗ hổng, phản xạ sai là nói "kế hoạch này sai". Phản xạ đúng là **đặt điều kiện**:
+
+> "Em sẽ giúp triển khai. Trước đó em đề xuất kiểm hai điều kiện, vì nếu chúng chưa đạt thì mở thêm sẽ nhân rộng phần đang lỗ: (1) kinh tế một cửa hàng ở nhóm hoạt động tốt, (2) nguyên nhân lỗ của nhóm yếu. Nếu hai điều kiện đạt thì phần còn lại đúng là bài toán triển khai."
+
+Câu này giữ nguyên mục tiêu của khách hàng, thêm một cổng kiểm tra, và nói rõ hệ quả nếu bỏ qua cổng đó. Đây là kỹ năng đáng giá nhất của module A1 và cũng là thứ rubric chấm nặng nhất.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('004.04', '004', 4, 'worked_example', 'Năm câu hỏi cho một đề bán lẻ', '**Đề:** Một chuỗi cà phê 9 cửa hàng, doanh thu tăng đều 8%/năm, vừa chốt kế hoạch mở thêm 15 cửa hàng trong 18 tháng và muốn bạn giúp chọn mặt bằng.
+
+**Problem statement:**
+
+> **Câu hỏi:** Chuỗi có nên mở 15 cửa hàng trong 18 tháng không, và điều kiện nào phải đạt trước khi ký mặt bằng đầu tiên?
+> **Tiêu chí:** mỗi cửa hàng mới hoà vốn trong 12 tháng và không kéo doanh thu cửa hàng cũ trong bán kính 1 km giảm quá 5%.
+> **Người quyết định:** ban giám đốc, vốn tự có 25 tỷ, không tăng vay.
+
+**Năm câu hỏi, và vì sao mỗi câu đáng hỏi:**
+
+| Câu hỏi | Nếu trả lời khác đi thì sao |
+|---|---|
+| Một cửa hàng đang lãi bao nhiêu sau khi trừ toàn bộ chi phí phân bổ? | Lãi mỏng thì nhân rộng làm hỏng nhanh hơn; lãi dày thì bài chuyển sang chọn mặt bằng thật |
+| Chín cửa hàng đó phân bố lãi lỗ thế nào, có cửa hàng nào lỗ không? | Có cửa hàng lỗ thì phải tìm nguyên nhân trước khi mở thêm |
+| Cửa hàng mới nhất mất bao lâu để hoà vốn? | Đây là dự báo tốt nhất cho 15 cửa hàng sắp mở |
+| Doanh thu tăng 8% đến từ giá, lượng khách, hay tần suất? | Tăng nhờ giá thì mở rộng không nhân được đà tăng đó |
+| Vì sao là bây giờ và vì sao là 15? | Con số 15 thường đến từ một mục tiêu đã hứa, không từ phân tích |
+
+**Câu không nên hỏi, dù rất muốn:** menu có bao nhiêu món, dùng máy pha nào, quán mở mấy giờ. Đúng là thông tin, nhưng dù trả lời thế nào thì hướng phân tích vẫn thế — đó là **FRM-03**.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('004.05', '004', 5, 'pitfall', 'Bốn kiểu hỏng trong mini case đầu tiên', '**FRM-04 — nhận luôn đề bài và bắt tay chọn mặt bằng.** Đây là bẫy chính của dạng đề "giúp tôi triển khai". Dấu hiệu: câu đầu tiên của bạn đã là một giải pháp. Rubric của bài này chặn trần ở mức 2 nếu bạn chỉ nhắc lại kế hoạch mở rộng.
+
+**FRM-01 — problem statement chép lại đề.** "Chuỗi muốn mở thêm 15 cửa hàng" không thêm thông tin nào.
+
+**FRM-03 — tiêu lượt hỏi vào chi tiết không đổi hướng.** Năm câu là năm cơ hội; đừng đổi một cơ hội lấy một chi tiết trang trí.
+
+**FRM-02 — tiêu chí thành công không có số.** "Mở rộng hiệu quả" không nói được khi nào thì dừng.
+
+Một lỗi tinh vi hơn, không có mã riêng: **hỏi năm câu cùng nhóm**. Năm câu đều về chi phí mặt bằng thì bạn chỉ soi được một cạnh. Rải câu hỏi qua ít nhất ba nhóm khác nhau.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('004.06', '004', 6, 'checklist', 'Soát trước khi nộp', '- Problem statement đủ ba dòng và có tái định nghĩa so với đề gốc.
+- Đúng năm câu hỏi, không nhiều hơn.
+- Mỗi câu hỏi kèm một dòng "nếu trả lời khác thì tôi làm khác ở đâu".
+- Có ít nhất một câu về kinh tế một đơn vị.
+- Có ít nhất một câu về phân bố lãi lỗ, không phải trung bình.
+- Không câu nào hỏi thứ mình đã tự loại khỏi phạm vi.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('004.07', '004', 7, 'exercise', 'Bài nộp', 'Làm đề **C-004 — Chuỗi nhà sách muốn mở thêm 20 cửa hàng** trong 25 phút, tính cả thời gian đọc đề.
+
+Cách làm: đọc đề, viết problem statement ba dòng, rồi viết năm câu hỏi làm rõ kèm lý do cho từng câu. Dữ liệu của đề chỉ được phát khi bạn hỏi đúng — nên hãy hỏi trước, rồi mới xem phần được phát.
+
+Output: một trang gồm problem statement ba dòng, bảng năm câu hỏi (cột câu hỏi · cột "nếu trả lời khác thì làm khác ở đâu"), và một câu nói rõ bạn đã tái định nghĩa vấn đề ở chỗ nào.');
 DELETE FROM lesson_blocks WHERE lesson_id = '019';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('019.01', '019', 1, 'goal', 'Sau bài này bạn làm được gì', 'Ước lượng quy mô một thị trường **từ dưới lên** — đi từ một đơn vị cung có thật (một cửa hàng, một xe, một nhân viên bán hàng) rồi nhân lên — và nói được vì sao con số của bạn lệch so với cách top-down.
 
@@ -248,6 +308,69 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('0
 Giới hạn 25 phút. Không tra cứu: mục tiêu là chuỗi lập luận, không phải số liệu chính xác.
 
 Output: một bảng tính có sheet `assumptions` (mỗi giả định một dòng, có nhãn A/B/C) và sheet `sizing` (chuỗi bottom-up, chuỗi top-down, chênh lệch tính bằng %, và một ô text ghi giả định yếu nhất).');
+DELETE FROM lesson_blocks WHERE lesson_id = '101';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.01', '101', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Đây là **cổng của module A1**: qua bài này thì các module phía sau mở ra, chưa qua thì dừng lại ở đây. Không phải để làm khó — mà vì mọi thứ sau này (issue tree, sizing, khuyến nghị) đều dựng trên câu hỏi bạn đã định khung. Định khung sai thì càng phân tích giỏi càng đi xa khỏi đích.
+
+Trong 35 phút bạn nhận **ba đề case thô** và nộp: ba problem statement ba dòng, mỗi đề kèm bộ câu hỏi làm rõ có giải thích.
+
+Bài này do giảng viên chấm, không phải bạn học chấm chéo.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.02', '101', 2, 'concept', 'Điều kiện đạt, nói trước cho rõ', 'Rubric chấm bốn tiêu chí, và có hai ngưỡng bạn nên biết trước khi làm:
+
+- Tổng điểm phải từ **70** trở lên.
+- **Không tiêu chí nào được ở mức 1.** Một bài trung bình khá ở mọi mặt sẽ qua; một bài xuất sắc ba phần nhưng hỏng hẳn một phần thì không. Định khung là việc mà một lỗ hổng đủ làm hỏng cả bài.
+
+Bốn tiêu chí, kèm trọng số: câu hỏi chính đúng trọng tâm (30) · tiêu chí thành công định lượng (25) · scope hợp lý (20) · câu hỏi làm rõ có giá trị phân tích (25).
+
+Ba đề sẽ có ít nhất một đề thuộc dạng "khách hàng đã tự chẩn đoán sẵn" — tức là đề mời bạn nhận luôn kết luận của họ. Đề đó là chỗ phân loại thật sự.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.03', '101', 3, 'concept', 'Ba mươi lăm phút chia thế nào', 'Người trượt checkpoint này thường không phải vì không biết làm, mà vì hết giờ ở đề thứ nhất. Cách chia thời gian dùng được:
+
+1. **3 phút đọc cả ba đề** trước khi viết chữ nào. Đọc hết để biết đề nào dễ, làm đề dễ trước.
+2. **8 phút mỗi đề** cho problem statement và câu hỏi làm rõ. Hết 8 phút thì chuyển, kể cả khi chưa ưng.
+3. **8 phút cuối** quay lại: soát ba bài theo checklist, bổ sung số vào tiêu chí còn thiếu, cắt câu hỏi nào không qua được bộ lọc "nếu trả lời khác thì làm khác ở đâu".
+
+Một bài gần xong ở cả ba đề luôn được điểm cao hơn một bài hoàn hảo ở đề đầu và bỏ trống hai đề sau — vì mức 1 ở bất kỳ tiêu chí nào cũng chặn.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.04', '101', 4, 'worked_example', 'Hai bản cho cùng một đề, và vì sao một bản chỉ đạt mức 2', '**Đề thô:** Một trung tâm tiếng Anh 6 cơ sở, số học viên mới giảm 20% sau Tết. Ban giám đốc cho rằng do đối thủ giảm học phí và muốn biết nên giảm giá bao nhiêu để lấy lại học viên.
+
+**Bản chỉ đạt mức 2:**
+
+> *Câu hỏi:* Trung tâm nên giảm học phí bao nhiêu phần trăm để lấy lại 20% học viên đã mất?
+> *Tiêu chí:* lấy lại số học viên như trước Tết.
+> *Câu hỏi làm rõ:* Đối thủ giảm bao nhiêu? Học phí hiện tại? Có bao nhiêu cơ sở? Chương trình học thế nào? Giáo viên bao nhiêu người?
+
+Vì sao trần mức 2: bản này **nhận nguyên chẩn đoán của khách hàng** rằng nguyên nhân là giá (FRM-04 ở dạng nhẹ), tiêu chí không có mốc thời gian và không có ràng buộc lợi nhuận, và ba trong năm câu hỏi không đổi được hướng phân tích (FRM-03).
+
+**Bản đạt mức 3–4:**
+
+> *Câu hỏi:* Vì sao số học viên mới giảm 20% sau Tết, và trong các cách phản ứng — giảm giá, đổi gói học, tăng chuyển đổi từ học thử — cách nào giữ được lợi nhuận tuyệt đối của năm nay?
+> *Tiêu chí:* số học viên mới trở lại mức trước Tết trong 2 quý, đồng thời lợi nhuận gộp cả năm không thấp hơn năm ngoái.
+> *Người quyết định và ràng buộc:* ban giám đốc; không sa thải giáo viên; ngân sách marketing giữ nguyên.
+>
+> *Câu hỏi làm rõ, mỗi câu kèm lý do:*
+> 1. Học viên giảm ở cả 6 cơ sở hay tập trung vài cơ sở? — *cục bộ thì nguyên nhân là vận hành, không phải giá.*
+> 2. Tỷ lệ chuyển đổi từ học thử sang đóng tiền thay đổi thế nào? — *nếu chuyển đổi giảm mà lượt học thử không giảm thì vấn đề nằm ở trải nghiệm, giảm giá không cứu được.*
+> 3. Cùng kỳ năm ngoái sau Tết có giảm không? — *phân biệt mùa vụ với sự cố thật.*
+> 4. Học viên rời đi nói lý do gì khi được hỏi? — *dữ liệu rẻ nhất và gần nguyên nhân nhất.*
+> 5. Lợi nhuận trên một học viên hiện tại là bao nhiêu? — *quyết định biên độ giảm giá tối đa còn chịu được.*
+
+Khác biệt không nằm ở chữ nghĩa mà ở một điểm: bản sau **chưa chấp nhận nguyên nhân do khách hàng đưa ra**, và năm câu hỏi của nó rải qua ba nhóm khác nhau (phân bố, phễu chuyển đổi, mùa vụ) thay vì năm câu cùng về giá.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.05', '101', 5, 'pitfall', 'Những gì thường làm trượt checkpoint này', '**FRM-04 — nhận chẩn đoán của đề bài.** Lỗi phổ biến nhất và tốn điểm nhất ở đây, vì nó kéo cả bốn tiêu chí xuống cùng lúc.
+
+**FRM-02 — tiêu chí thiếu số hoặc thiếu mốc thời gian.** Dễ sửa nhất trong 8 phút cuối, nên đừng để mất điểm ở đây.
+
+**FRM-03 — câu hỏi làm rõ không có lý do.** Ở checkpoint, câu hỏi **không kèm lý do** bị tính là câu hỏi không có tác dụng, kể cả khi bản thân câu hỏi hay.
+
+**FRM-01 — ba problem statement na ná nhau.** Ba đề khác nhau mà ba câu hỏi chính viết cùng một khuôn là dấu hiệu bạn đang điền mẫu chứ không đang đọc đề.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.06', '101', 6, 'checklist', 'Soát trong 8 phút cuối', '- Ba đề đều có đủ ba dòng, không đề nào bỏ trống.
+- Mỗi tiêu chí thành công có ít nhất một con số và một mốc thời gian.
+- Mỗi câu hỏi làm rõ có một dòng lý do.
+- Ít nhất một đề có tái định nghĩa rõ so với chẩn đoán trong đề gốc.
+- Không có câu nào là giải pháp.
+- Đọc lướt: ba câu hỏi chính khác nhau thật sự, không phải một khuôn ba lần.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.07', '101', 7, 'exercise', 'Bài nộp', 'Làm checkpoint trong **35 phút liên tục, không tạm dừng**. Không tra cứu, không hỏi ai — checkpoint đo cái bạn làm được một mình.
+
+Nếu chưa đạt: bài sẽ bị khoá lại cho tới khi bạn xem phần nhận xét và viết lại phần sai. Đó không phải hình phạt — mã lỗi bạn dính ở đây sẽ quyết định drill nào được giao, và làm lại sau khi đã sửa đúng chỗ thì lần sau qua thật, không phải qua nhờ may.
+
+Output: một tài liệu gồm ba phần (mỗi đề một phần), mỗi phần có problem statement ba dòng và bảng câu hỏi làm rõ hai cột (câu hỏi · lý do), cộng một dòng cuối bài tự đánh giá đề nào bạn thấy chắc nhất và vì sao.');
 DELETE FROM panel_questions WHERE case_id = 'C-040';
 DELETE FROM case_answer_frames WHERE case_id = 'C-040';
 DELETE FROM case_traps WHERE case_id = 'C-040';
@@ -285,3 +408,20 @@ INSERT INTO panel_questions (id, case_id, category, text, from_appendix) VALUES 
 INSERT INTO panel_questions (id, case_id, category, text, from_appendix) VALUES ('C-040.q21', 'C-040', 'feasibility', 'Cần bao nhiêu lượt/ngày thì một tiệm mới hoà vốn, và giả định nào của bạn quyết định con số đó?', 0);
 INSERT INTO panel_questions (id, case_id, category, text, from_appendix) VALUES ('C-040.q30', 'C-040', 'challenge', 'Một nửa số tiệm trong quận có thể đang lỗ. Điều đó thay đổi gì trong khuyến nghị của bạn?', 0);
 INSERT INTO panel_questions (id, case_id, category, text, from_appendix) VALUES ('C-040.q31', 'C-040', 'challenge', 'Nếu tôi nói khảo sát của tôi đếm thiếu một nửa số tiệm, kết luận của bạn còn đứng được không?', 0);
+DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-A1');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.1', 1, 'Chép lại yêu cầu trong đề, hoặc viết một câu hỏi mà trả lời xong vẫn không ai ra quyết định được. Không có động từ quyết định.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.1', 2, 'Có câu hỏi quyết định rõ ràng nhưng giữ nguyên chẩn đoán của đề bài; không nhận ra dữ kiện trong đề đang mâu thuẫn với yêu cầu đó.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.1', 3, 'Tái định nghĩa được vấn đề: chỉ ra điều kiện phải kiểm trước khi trả lời yêu cầu gốc, và nêu được hệ quả nếu bỏ qua điều kiện đó.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.1', 4, 'Như mức 3, và câu hỏi được viết sao cho nhiều phương án cùng được xét chứ không chốt sẵn hướng; giữ nguyên mục tiêu của khách hàng thay vì bác bỏ nó.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.2', 1, 'Không có tiêu chí, hoặc tiêu chí chỉ là tính từ ("tăng trưởng tốt", "hiệu quả hơn").');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.2', 2, 'Có chỉ số nhưng thiếu ngưỡng hoặc thiếu mốc thời gian, nên không biết khi nào thì trả lời xong.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.2', 3, 'Đủ chỉ số, ngưỡng và mốc thời gian; ngưỡng do người học tự đặt thì có ghi rõ là giả định.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.2', 4, 'Như mức 3, và ngưỡng có căn cứ nêu ra được (mức hiện tại, mức đối thủ, hoặc mức tối thiểu để quyết định có nghĩa), kèm ràng buộc của người ra quyết định.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.3', 1, 'Không nêu phạm vi, hoặc phạm vi rộng tới mức không thể làm xong trong thời lượng của đề.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.3', 2, 'Có scope in nhưng không có scope out, hoặc scope out không kèm lý do.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.3', 3, 'Có cả hai chiều, mỗi dòng loại trừ kèm lý do hợp lệ; phạm vi vừa với thời lượng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.3', 4, 'Như mức 3, và với dòng loại trừ rủi ro nhất có thêm một câu nói rõ kết luận sẽ đổi thế nào nếu loại nhầm.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 1, 'Hỏi những thứ không đổi được hướng phân tích, hoặc hỏi lại thông tin đã có sẵn trong đề.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 2, 'Có một vài câu đáng hỏi nhưng phần lớn dồn vào một nhóm, và không giải thích vì sao hỏi.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 3, 'Mỗi câu kèm lý do "nếu trả lời khác thì tôi làm khác ở đâu"; câu hỏi rải qua ít nhất ba nhóm khác nhau; có câu về kinh tế một đơn vị.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 4, 'Như mức 3, và có ít nhất một câu nhắm vào phân bố thay vì trung bình, hoặc vào "vì sao là bây giờ" — tức là câu hỏi có khả năng lật ngược chẩn đoán ban đầu.');
