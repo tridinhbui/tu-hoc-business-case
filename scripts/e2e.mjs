@@ -138,6 +138,18 @@ async function main() {
     Object.keys(config.data).sort().join(",") === "devMode,turnstileSiteKey" &&
     !JSON.stringify(config.data).includes("1x0000000000000000000000000000000AA"), config.data);
 
+  console.log("== instructor overview");
+  check("learner cannot open the instructor overview (403)", (await learner.call("GET", "/api/admin/overview")).status === 403);
+  check("peer grader cannot open it either (403)", (await grader.call("GET", "/api/admin/overview")).status === 403);
+  const overview = await instructor.call("GET", "/api/admin/overview");
+  check("instructor sees grading, rubric and content figures",
+    overview.status === 200 && overview.data.rubrics?.some((r) => r.rubric_id === "RB1" && r.n >= 1) &&
+    overview.data.graders?.some((g) => g.n >= 1 && typeof g.delta === "number") &&
+    overview.data.content?.lessons_published === 6, overview.data);
+  check("overview surfaces the content gaps it cannot fill itself",
+    overview.data.content.codes_without_root_cause === 0 && overview.data.content.assumptions_without_source === 0 &&
+    overview.data.content.cases_by_status?.some((s) => s.status === "draft" && s.n === 1), overview.data.content);
+
   console.log("== learning paths");
   const paths = await learner.call("GET", "/api/paths");
   check("paths list includes the sample path, not joined yet",

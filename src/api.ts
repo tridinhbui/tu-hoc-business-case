@@ -156,3 +156,27 @@ export type LiveRoomView = {
   state: LiveState;
   participants: { user_id: string; role: LiveRole; display_name: string }[];
 };
+
+export type AdminOverview = {
+  queue: { total: number; claimed: number | null; oldest: number | null };
+  attempts: { graded: number | null; graded_last7: number | null; open: number | null };
+  learners: { byLevel: { level: number; n: number }[]; activeLast7: number };
+  rubrics: { rubric_id: string; name: string; n: number; avg_score: number; pass_rate: number }[];
+  graders: { grader_id: string; display_name: string; grader_type: string; n: number; avg_score: number; delta: number | null }[];
+  overallAvg: number | null;
+  mistakes: { code: string; title: string; n: number; learners: number }[];
+  live: {
+    byStatus: { status: string; n: number }[];
+    recent: { id: string; kind: string; lesson_id: string; lesson_title: string; status: string; started_at: number | null; deadline_at: number | null; participants: number }[];
+  };
+  content: {
+    lessons_published: number;
+    rubrics_missing_levels: number;
+    rubrics_total: number;
+    codes_without_root_cause: number;
+    codes_total: number;
+    assumptions_without_source: number;
+    assumptions_total: number;
+    cases_by_status: { status: string; n: number }[];
+  };
+};

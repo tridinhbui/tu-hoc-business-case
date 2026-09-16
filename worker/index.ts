@@ -1,3 +1,4 @@
+import { adminOverview } from "./admin";
 import { currentUser, logout, requestMagicLink, requireUser, verifyMagicLink } from "./auth";
 import { reviewAttempt, startAttempt, submitAttempt, uploadArtifact } from "./attempts";
 import { claimAttempt, consumeGrading, gradeAttempt, graderQueue } from "./grading";
@@ -75,6 +76,9 @@ route("GET", "/api/grader/rubric/:lessonId", async (req, env, [lessonId]) => {
   ).bind(lessonId).all();
   return json({ lessonId, criteria: results });
 });
+
+// instructor / admin
+route("GET", "/api/admin/overview", async (req, env) => adminOverview(env, await requireUser(req, env)));
 
 // live rooms
 route("POST", "/api/live", async (req, env) => createLiveSession(req, env, await requireUser(req, env)));

@@ -6,6 +6,7 @@ import { GraderQueuePage } from "./pages/GraderQueue";
 import { LessonPage } from "./pages/Lesson";
 import { LoginPage } from "./pages/Login";
 import { PathPage } from "./pages/Path";
+import { AdminPage } from "./pages/Admin";
 import { LiveListPage, LiveRoomPage } from "./pages/Live";
 import { PlanPage } from "./pages/Plan";
 import { SkillsPage } from "./pages/Skills";
@@ -19,14 +20,16 @@ export function App() {
   if (!user) return <LoginPage />;
 
   const isGrader = user.role !== "learner";
+  const isStaff = user.role === "instructor" || user.role === "admin";
   let page;
   let m: RegExpMatchArray | null;
   if (path === "/" || path === "/path") page = <PathPage />;
   else if ((m = path.match(/^\/lessons\/([^/]+)$/))) page = <LessonPage lessonId={m[1]} />;
   else if ((m = path.match(/^\/attempts\/([^/]+)$/))) page = <AttemptPage attemptId={m[1]} />;
   else if (path === "/plan") page = <PlanPage />;
-  else if (path === "/live") page = <LiveListPage isStaff={user.role === "instructor" || user.role === "admin"} />;
+  else if (path === "/live") page = <LiveListPage isStaff={isStaff} />;
   else if ((m = path.match(/^\/live\/([^/]+)$/))) page = <LiveRoomPage sessionId={m[1]} />;
+  else if (path === "/admin" && isStaff) page = <AdminPage />;
   else if (path === "/skills") page = <SkillsPage readiness={me.data?.readiness ?? []} />;
   else if (path === "/grader" && isGrader) page = <GraderQueuePage />;
   else if ((m = path.match(/^\/grader\/([^/]+)$/)) && isGrader) page = <GradePage attemptId={m[1]} />;
@@ -52,6 +55,7 @@ export function App() {
             {nav("/live", "Phòng live", path.startsWith("/live"))}
             {nav("/skills", "Năng lực", path === "/skills")}
             {isGrader && nav("/grader", "Chấm bài", path.startsWith("/grader"))}
+            {isStaff && nav("/admin", "Giảng viên", path === "/admin")}
           </nav>
           <div className="who">
             <span className={`lv lv${user.level}`}>L{user.level}</span>
