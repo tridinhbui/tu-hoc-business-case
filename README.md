@@ -99,6 +99,13 @@ tự deploy: sau khi push phải chạy
 npx wrangler deploy
 ```
 
+Nếu deploy xong mà route mới vẫn trả 404: Vite ghi cấu hình chuyển hướng vào `dist/<tên worker>/`,
+và thư mục cũ còn sót lại khiến Wrangler đẩy bản build cũ. Xoá rồi build lại:
+
+```bash
+rm -rf dist .wrangler/deploy && npx vite build && npx wrangler deploy
+```
+
 Wrangler tự chạy `npx vite build` trước khi deploy nhờ khai báo `build.command` trong `wrangler.jsonc`.
 Nếu sau này nối lại Workers Builds thì để **Build command** trống và **Deploy command** là `npx wrangler deploy`.
 
