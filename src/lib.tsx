@@ -136,3 +136,74 @@ export function since(ms: number) {
   const hours = Math.round(minutes / 60);
   return hours < 48 ? `${hours} giờ` : `${Math.round(hours / 24)} ngày`;
 }
+
+// ---------- lesson bodies ----------
+// A deliberately small Markdown subset: paragraphs, lists, tables, fenced code, bold and inline code.
+// Lesson bodies are authored in this repo and validated before they ship, and everything below builds
+// React elements rather than HTML, so no authored text can inject markup.
+function inline(text: string, keyPrefix: string): ReactNode[] {
+  return text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean).map((part, i) => {
+    const key = `${keyPrefix}-${i}`;
+    if (part.startsWith("**") && part.endsWith("**")) return <b key={key}>{part.slice(2, -2)}</b>;
+    if (part.startsWith("`") && part.endsWith("`")) return <code key={key}>{part.slice(1, -1)}</code>;
+    return <span key={key}>{part}</span>;
+  });
+}
+
+const tableCells = (row: string) => row.replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+
+export function Markdown({ text }: { text: string }) {
+  const lines = text.split("\n");
+  const out: ReactNode[] = [];
+  let i = 0;
+  const take = (match: (line: string) => boolean) => {
+    const block: string[] = [];
+    while (i < lines.length && match(lines[i])) block.push(lines[i++]);
+    return block;
+  };
+
+  while (i < lines.length) {
+    const line = lines[i];
+    if (!line.trim()) { i++; continue; }
+
+    if (line.startsWith("```")) {
+      i++;
+      const code = take((l) => !l.startsWith("```"));
+      i++; // closing fence
+      out.push(<pre key={out.length} className="md-code"><code>{code.join("\n")}</code></pre>);
+    } else if (line.startsWith("|")) {
+      const rows = take((l) => l.startsWith("|"));
+      const [head, , ...body] = rows;
+      out.push(
+        <div key={out.length} className="md-table-wrap">
+          <table className="md-table">
+            <thead><tr>{tableCells(head).map((c, n) => <th key={n}>{inline(c, `h${n}`)}</th>)}</tr></thead>
+            <tbody>
+              {body.map((row, r) => <tr key={r}>{tableCells(row).map((c, n) => <td key={n}>{inline(c, `c${r}-${n}`)}</td>)}</tr>)}
+            </tbody>
+          </table>
+        </div>,
+      );
+    } else if (/^\d+\.\s/.test(line)) {
+      const items = take((l) => /^\d+\.\s/.test(l));
+      out.push(<ol key={out.length} className="md-list">{items.map((it, n) => <li key={n}>{inline(it.replace(/^\d+\.\s/, ""), `o${n}`)}</li>)}</ol>);
+    } else if (line.startsWith("- ")) {
+      const items = take((l) => l.startsWith("- "));
+      out.push(<ul key={out.length} className="md-list">{items.map((it, n) => <li key={n}>{inline(it.slice(2), `u${n}`)}</li>)}</ul>);
+    } else {
+      const para = take((l) => !!l.trim() && !l.startsWith("|") && !l.startsWith("- ") && !l.startsWith("```") && !/^\d+\.\s/.test(l));
+      out.push(<p key={out.length}>{inline(para.join(" "), `p${out.length}`)}</p>);
+    }
+  }
+  return <>{out}</>;
+}
+
+export const BLOCK_LABELS: Record<string, string> = {
+  goal: "Mục tiêu",
+  concept: "Khái niệm",
+  worked_example: "Ví dụ đã giải",
+  pitfall: "Lỗi thường gặp",
+  checklist: "Checklist",
+  exercise: "Bài tập",
+  source: "Nguồn",
+};

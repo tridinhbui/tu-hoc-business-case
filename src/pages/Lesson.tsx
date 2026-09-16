@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { api, ApiError, type LessonView } from "../api";
-import { ErrorNote, formatDate, KindTag, LevelChip, Link, Loading, LOCK_TEXT, navigate, StatusPill, useLoad } from "../lib";
+import { BLOCK_LABELS, ErrorNote, formatDate, KindTag, LevelChip, Link, Loading, LOCK_TEXT, Markdown, navigate, StatusPill, useLoad } from "../lib";
 import { CaseBriefPanel } from "./CaseBrief";
 
 export function LessonPage({ lessonId }: { lessonId: string }) {
@@ -97,6 +97,20 @@ export function LessonPage({ lessonId }: { lessonId: string }) {
           </section>
         )}
       </div>
+
+      {data.blocks.length > 0 && (
+        <article className="lesson-body stack">
+          {data.blocks.map((b, i) => (
+            <section key={i} className={`panel block block-${b.kind}`}>
+              <header className="block-head">
+                <span className="eyebrow">{BLOCK_LABELS[b.kind] ?? b.kind}</span>
+                <h2>{b.title}</h2>
+              </header>
+              <div className="prose"><Markdown text={b.body_md} /></div>
+            </section>
+          ))}
+        </article>
+      )}
 
       {data.case && <CaseBriefPanel brief={data.case} mode="lesson" />}
 

@@ -59,8 +59,11 @@ export type CaseBrief = {
 
 export type RubricCriterion = { id: string; name: string; weight: number; skill_id: string | null; levels: Record<string, string> };
 
+export type LessonBlock = { kind: "goal" | "concept" | "worked_example" | "pitfall" | "checklist" | "exercise" | "source"; title: string; body_md: string };
+
 export type LessonView = {
   lesson: { id: string; title: string; kind: string; level: number; est_minutes: number; output_spec: string; module_id: string; module_title: string; timed_variant_of: string | null; gates_module: number };
+  blocks: LessonBlock[];
   rubric: { id: string; name: string; threshold: number; criteria: RubricCriterion[] } | null;
   progress: ProgressRow | null;
   attempts: { id: string; status: string; final_score: number | null; passed: number | null; started_at: number; submitted_at: number | null; graded_at: number | null; needs_review: number }[];

@@ -147,3 +147,8 @@ INSERT INTO learning_paths (id, name, weeks, hours_per_week, persona, capstone_i
   ('PATH-S','Market sizing trong 2 tuần',2,'4–5h/tuần','P2',NULL);
 INSERT INTO path_items (path_id, week, lesson_id, sort) VALUES
   ('PATH-S',1,'015',1), ('PATH-S',1,'017',2), ('PATH-S',2,'018',3), ('PATH-S',2,'019',4);
+
+-- one authored lesson body, so the lesson view is exercised end to end
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES
+  ('019.01', '019', 1, 'goal', 'Sau bài này bạn làm được gì', 'Ước lượng quy mô thị trường từ dưới lên và giải thích chênh lệch với top-down.'),
+  ('019.02', '019', 2, 'exercise', 'Bài nộp', 'Output: bảng tính có sheet assumptions và sheet sizing.');

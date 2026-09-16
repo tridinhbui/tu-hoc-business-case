@@ -59,6 +59,7 @@ npm run test:e2e
 | `worker/auth.ts` | Magic link, session KV, Turnstile |
 | `worker/google.ts` | Đăng nhập với Google (OpenID Connect) |
 | `worker/landing.ts` | Số liệu công khai cho trang giới thiệu, cache KV 5 phút |
+| `authoring/` | Nội dung do người viết: thân bài, đề case, kế hoạch viết ([PLAN.md](authoring/PLAN.md)) |
 | `worker/gates.ts` | Năm cổng khoá/mở bài, ghi `lesson_progress` |
 | `worker/attempts.ts` | Bắt đầu, tải file lên R2, nộp, mistake review |
 | `worker/grading.ts` | Hàng đợi chấm, nhận bài, chấm theo rubric |
@@ -70,6 +71,19 @@ npm run test:e2e
 | `migrations/content`, `migrations/learning` | Schema hai database D1 |
 | `seed/content_sample.sql` | Dữ liệu mẫu module A4, B1, B2 kèm mô tả 4 mức rubric |
 | `queries/gates.sql` | Truy vấn khoá/mở bài dùng trong kiểm thử schema |
+
+## Viết nội dung
+
+Khung chương trình sinh từ `content-source/`; chữ cho người học nằm ở `authoring/`.
+
+```bash
+python3 scripts/authoring-queue.py PATH-6   # bài kế tiếp phải viết, theo thứ tự mở được lớp sớm nhất
+npm run content:check                       # bộ kiểm tra chất lượng, không ghi gì
+npm run db:seed:local                       # nạp cả curriculum.sql lẫn authored.sql
+```
+
+Thứ tự viết, định mức và định nghĩa "viết xong": [authoring/PLAN.md](authoring/PLAN.md).
+Brief để một agent khác viết cùng: [authoring/AGENT-BRIEF.md](authoring/AGENT-BRIEF.md).
 
 ## Deploy lên Cloudflare
 

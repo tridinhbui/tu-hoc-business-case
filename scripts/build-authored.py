@@ -1,0 +1,276 @@
+#!/usr/bin/env python3
+"""Turn hand-written lessons and cases in authoring/ into seed/authored.sql.
+
+The blueprint pipeline (build-seed.py) generates the skeleton of the programme from
+content-source/. This script carries the material a human actually has to write: the body of a
+lesson, and a case with its hidden data, traps and answer frame.
+
+    python3 scripts/build-authored.py            # validate, then write seed/authored.sql
+    python3 scripts/build-authored.py --check    # validate only, write nothing
+
+Validation is the point. Nothing reaches a learner that fails the rules in QUALITY below, so a
+draft that is still missing its worked example or its trap fails here instead of failing in front
+of a class.
+"""
+import json
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+AUTHORING = ROOT / "authoring"
+CURRICULUM = ROOT / "seed" / "curriculum.sql"
+OUT = ROOT / "seed" / "authored.sql"
+
+BLOCK_KINDS = ["goal", "concept", "worked_example", "pitfall", "checklist", "exercise", "source"]
+CASE_SECTIONS = ["context", "question", "frame.structure", "frame.numbers", "frame.scoring"]
+PANEL_CATEGORIES = ["numbers", "feasibility", "challenge"]
+MISTAKE_RE = re.compile(r"\b[A-Z]{3}-\d{2}\b")
+TODO_RE = re.compile(r"\b(TODO|TBD|XXX|\.\.\.\?)\b")
+
+QUALITY = """every lesson: a goal, at least one worked example, at least one pitfall naming a real
+mistake code, and an exercise whose output line says exactly what the learner hands in;
+every case: at least three reveal items, at least one trap naming a real mistake code, and a
+complete answer frame."""
+
+
+class Problem(Exception):
+    pass
+
+
+def sql_str(value) -> str:
+    if value is None:
+        return "NULL"
+    if isinstance(value, bool):
+        return "1" if value else "0"
+    if isinstance(value, (int, float)):
+        return str(value)
+    return "'" + str(value).replace("'", "''") + "'"
+
+
+def known_ids() -> tuple[set[str], set[str]]:
+    """Lesson ids and mistake codes the generated curriculum already defines."""
+    if not CURRICULUM.exists():
+        raise Problem("seed/curriculum.sql is missing — run `npm run content:build` first.")
+    sql = CURRICULUM.read_text(encoding="utf-8")
+    lessons = set(re.findall(r"INSERT INTO lessons \([^)]*\) VALUES \('(\d{3})'", sql))
+    codes = set(re.findall(r"INSERT INTO mistake_codes \([^)]*\) VALUES \('([A-Z]{3}-\d{2})'", sql))
+    return lessons, codes
+
+
+def parse_document(path: Path) -> tuple[dict, list[tuple[str, str, str]]]:
+    """Frontmatter plus `## kind · title` sections, in file order."""
+    text = path.read_text(encoding="utf-8")
+    if not text.startswith("---\n"):
+        raise Problem(f"{path.name}: must start with a --- frontmatter block")
+    _, front, body = text.split("---\n", 2)
+
+    meta: dict[str, str] = {}
+    for line in front.strip().splitlines():
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        if ":" not in line:
+            raise Problem(f"{path.name}: frontmatter line is not `key: value`: {line!r}")
+        key, value = line.split(":", 1)
+        meta[key.strip()] = value.strip()
+
+    sections: list[tuple[str, str, str]] = []
+    current: tuple[str, str] | None = None
+    buffer: list[str] = []
+    for line in body.splitlines():
+        heading = re.match(r"^##\s+([a-z_.]+)\s*(?:·\s*(.*))?$", line)
+        if heading:
+            if current:
+                sections.append((current[0], current[1], "\n".join(buffer).strip()))
+            current = (heading.group(1), (heading.group(2) or "").strip())
+            buffer = []
+        elif current:
+            buffer.append(line)
+        elif line.strip():
+            raise Problem(f"{path.name}: text before the first `## ` section: {line.strip()[:60]!r}")
+    if current:
+        sections.append((current[0], current[1], "\n".join(buffer).strip()))
+    if not sections:
+        raise Problem(f"{path.name}: no `## ` sections")
+    return meta, sections
+
+
+def check_prose(path: Path, label: str, body: str) -> None:
+    if not body.strip():
+        raise Problem(f"{path.name}: section `{label}` is empty")
+    if TODO_RE.search(body):
+        raise Problem(f"{path.name}: section `{label}` still has a TODO marker")
+
+
+def build_lesson(path: Path, lessons: set[str], codes: set[str]) -> list[str]:
+    meta, sections = parse_document(path)
+    lesson_id = meta.get("lesson", "")
+    if lesson_id not in lessons:
+        raise Problem(f"{path.name}: lesson {lesson_id!r} is not in the generated curriculum")
+
+    seen_kinds: list[str] = []
+    statements = [f"DELETE FROM lesson_blocks WHERE lesson_id = {sql_str(lesson_id)};"]
+    for index, (kind, title, body) in enumerate(sections, start=1):
+        if kind not in BLOCK_KINDS:
+            raise Problem(f"{path.name}: unknown block kind `{kind}` (allowed: {', '.join(BLOCK_KINDS)})")
+        if not title:
+            raise Problem(f"{path.name}: block `{kind}` has no title after `·`")
+        check_prose(path, kind, body)
+        seen_kinds.append(kind)
+
+        if kind == "pitfall":
+            named = {c for c in MISTAKE_RE.findall(body) if c in codes}
+            if not named:
+                raise Problem(f"{path.name}: pitfall `{title}` names no known mistake code")
+        if kind == "exercise" and not re.search(r"^Output:\s*\S", body, re.M):
+            raise Problem(f"{path.name}: exercise `{title}` has no `Output:` line saying what is handed in")
+        if kind == "source":
+            for line in body.splitlines():
+                if line.strip() and "http" not in line:
+                    raise Problem(f"{path.name}: source line without a link: {line.strip()[:60]!r}")
+
+        statements.append(
+            "INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ("
+            f"{sql_str(f'{lesson_id}.{index:02d}')}, {sql_str(lesson_id)}, {index}, "
+            f"{sql_str(kind)}, {sql_str(title)}, {sql_str(body)});"
+        )
+
+    if seen_kinds[0] != "goal":
+        raise Problem(f"{path.name}: the first block must be `goal` — say what the learner can do after this")
+    for required in ("worked_example", "pitfall", "exercise"):
+        if required not in seen_kinds:
+            raise Problem(f"{path.name}: no `{required}` block")
+    return statements
+
+
+def build_case(path: Path, lessons: set[str], codes: set[str]) -> list[str]:
+    meta, sections = parse_document(path)
+    case_id = meta.get("case", "")
+    lesson_id = meta.get("lesson", "")
+    if not re.fullmatch(r"C-\d{3}[a-z]?", case_id):
+        raise Problem(f"{path.name}: case id {case_id!r} must look like C-040")
+    if lesson_id not in lessons:
+        raise Problem(f"{path.name}: lesson {lesson_id!r} is not in the generated curriculum")
+    status = meta.get("status", "draft")
+    pilot_runs = int(meta.get("pilot_runs", "0"))
+    if status == "published" and pilot_runs < 3:
+        raise Problem(f"{path.name}: a case goes live only after 3 pilot runs (pilot_runs = {pilot_runs})")
+
+    body = {kind: (title, text) for kind, title, text in sections}
+    for required in CASE_SECTIONS:
+        if required not in body:
+            raise Problem(f"{path.name}: missing section `## {required}`")
+        check_prose(path, required, body[required][1])
+
+    numbers_raw = re.sub(r"^```(?:json)?|```$", "", body["frame.numbers"][1].strip(), flags=re.M).strip()
+    try:
+        numbers = json.loads(numbers_raw)
+    except json.JSONDecodeError as err:
+        raise Problem(f"{path.name}: `frame.numbers` is not valid JSON ({err})") from err
+    if not isinstance(numbers, dict) or not numbers:
+        raise Problem(f"{path.name}: `frame.numbers` must be a non-empty JSON object of the numbers a grader checks")
+
+    reveals = [(t, b) for k, t, b in sections if k == "reveal"]
+    traps = [(t, b) for k, t, b in sections if k == "trap"]
+    panels = [(k.split(".", 1)[1], b) for k, t, b in sections if k.startswith("panel.")]
+    if len(reveals) < 3:
+        raise Problem(f"{path.name}: only {len(reveals)} reveal items — a case needs at least 3 pieces of data it holds back")
+    if not traps:
+        raise Problem(f"{path.name}: no `## trap · CODE` — a case has to test something specific")
+
+    statements = [
+        f"DELETE FROM panel_questions WHERE case_id = {sql_str(case_id)};",
+        f"DELETE FROM case_answer_frames WHERE case_id = {sql_str(case_id)};",
+        f"DELETE FROM case_traps WHERE case_id = {sql_str(case_id)};",
+        f"DELETE FROM case_reveal_items WHERE case_id = {sql_str(case_id)};",
+        f"DELETE FROM cases WHERE id = {sql_str(case_id)};",
+        "INSERT INTO cases (id, lesson_id, title, industry, context, question, duration_min, is_fictional, status, pilot_runs, version) VALUES ("
+        f"{sql_str(case_id)}, {sql_str(lesson_id)}, {sql_str(meta.get('title', ''))}, {sql_str(meta.get('industry', ''))}, "
+        f"{sql_str(body['context'][1])}, {sql_str(body['question'][1])}, {int(meta.get('duration_min', '30'))}, "
+        f"{sql_str(meta.get('is_fictional', 'true').lower() == 'true')}, {sql_str(status)}, {pilot_runs}, 1);",
+    ]
+
+    for index, (trigger, content) in enumerate(reveals, start=1):
+        if not (trigger.startswith("Nếu hỏi") or trigger == "Phát sẵn"):
+            raise Problem(f"{path.name}: reveal trigger {trigger!r} must be `Phát sẵn` or start with `Nếu hỏi`")
+        check_prose(path, f"reveal · {trigger}", content)
+        statements.append(
+            "INSERT INTO case_reveal_items (id, case_id, trigger, content, sort) VALUES ("
+            f"{sql_str(f'{case_id}.r{index}')}, {sql_str(case_id)}, {sql_str(trigger)}, {sql_str(content)}, {index});"
+        )
+
+    for index, (code, description) in enumerate(traps, start=1):
+        if code not in codes:
+            raise Problem(f"{path.name}: trap names mistake code {code!r}, which does not exist")
+        check_prose(path, f"trap · {code}", description)
+        statements.append(
+            "INSERT INTO case_traps (id, case_id, description, mistake_code) VALUES ("
+            f"{sql_str(f'{case_id}.t{index}')}, {sql_str(case_id)}, {sql_str(description)}, {sql_str(code)});"
+        )
+
+    statements.append(
+        "INSERT INTO case_answer_frames (case_id, structure_md, key_numbers, quick_scoring_md) VALUES ("
+        f"{sql_str(case_id)}, {sql_str(body['frame.structure'][1])}, {sql_str(json.dumps(numbers, ensure_ascii=False))}, "
+        f"{sql_str(body['frame.scoring'][1])});"
+    )
+
+    for index, (category, text) in enumerate(panels, start=1):
+        if category not in PANEL_CATEGORIES:
+            raise Problem(f"{path.name}: panel category `{category}` (allowed: {', '.join(PANEL_CATEGORIES)})")
+        for line_no, line in enumerate(q for q in text.splitlines() if q.strip()):
+            question = line.strip().lstrip("-").strip()
+            statements.append(
+                "INSERT INTO panel_questions (id, case_id, category, text, from_appendix) VALUES ("
+                f"{sql_str(f'{case_id}.q{index}{line_no}')}, {sql_str(case_id)}, {sql_str(category)}, {sql_str(question)}, 0);"
+            )
+    return statements
+
+
+def main() -> int:
+    check_only = "--check" in sys.argv
+    try:
+        lessons, codes = known_ids()
+    except Problem as err:
+        print(f"  ERROR {err}")
+        return 1
+
+    statements: list[str] = []
+    problems: list[str] = []
+    lesson_files = sorted((AUTHORING / "lessons").glob("*.md"))
+    case_files = sorted((AUTHORING / "cases").glob("*.md"))
+
+    for path in lesson_files:
+        try:
+            statements += build_lesson(path, lessons, codes)
+        except Problem as err:
+            problems.append(str(err))
+    for path in case_files:
+        try:
+            statements += build_case(path, lessons, codes)
+        except Problem as err:
+            problems.append(str(err))
+
+    print(f"authored: {len(lesson_files)} lesson bodies, {len(case_files)} cases")
+    if problems:
+        print(f"\nNOT READY ({len(problems)}):")
+        for problem in problems:
+            print(f"  - {problem}")
+        print(f"\nThe rules: {QUALITY}")
+        return 1
+
+    if check_only:
+        print("all authored content passes the quality rules")
+        return 0
+
+    OUT.write_text(
+        "-- Generated by scripts/build-authored.py — do not edit; edit authoring/ instead.\n"
+        + "\n".join(statements)
+        + "\n",
+        encoding="utf-8",
+    )
+    print(f"wrote {OUT.relative_to(ROOT)}: {len(statements)} statements")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

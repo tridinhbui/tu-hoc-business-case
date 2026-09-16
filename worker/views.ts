@@ -170,8 +170,12 @@ export async function lessonView(env: AppEnv, user: User, lessonId: string): Pro
      FROM attempts a WHERE a.user_id = ?1 AND a.lesson_id = ?2 ORDER BY a.started_at DESC`,
   ).bind(user.id, lessonId).all();
 
+  const { results: blocks } = await env.DB_CONTENT.prepare(
+    "SELECT kind, title, body_md FROM lesson_blocks WHERE lesson_id = ?1 ORDER BY sort",
+  ).bind(lessonId).all();
+
   const caseRow = await caseForLesson(env, lessonId);
-  return json({ lesson, rubric, progress, attempts, case: caseRow ? briefWithoutAnswers(caseRow) : null });
+  return json({ lesson, blocks, rubric, progress, attempts, case: caseRow ? briefWithoutAnswers(caseRow) : null });
 }
 
 /** Who may see an attempt: its owner, staff, or the grader who holds or made its grade. */

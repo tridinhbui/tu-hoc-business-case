@@ -282,6 +282,10 @@ async function main() {
   const lessonView = await learner.call("GET", "/api/lessons/018");
   check("lesson view: rubric with 4 level descriptors per criterion",
     lessonView.data.rubric?.criteria?.length === 5 && lessonView.data.rubric.criteria.every((c) => Object.keys(c.levels).length === 4), lessonView.data.rubric);
+  check("lesson view carries the authored body in order",
+    lesson019.data.blocks?.length === 2 && lesson019.data.blocks[0].kind === "goal" &&
+    lesson019.data.blocks[1].kind === "exercise" && lesson019.data.blocks[1].body_md.includes("Output:"),
+    lesson019.data.blocks);
   check("lesson view lists learner's attempts", lessonView.data.attempts?.length >= 2, lessonView.data.attempts);
   check("mistake code catalogue available", (await grader.call("GET", "/api/mistake-codes")).data.items?.length === 4);
   check("unknown lesson returns 404", (await learner.call("GET", "/api/lessons/999")).status === 404);
