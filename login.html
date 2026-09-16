@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tự Học Tài Chính — Đăng ký & Đăng nhập</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7f4;
+      --surface: #ffffff;
+      --border-color: #e3ebe3;
+      --border-focus: #10b981;
+      
+      --text-main: #14281b;
+      --text-secondary: #506456;
+      --text-muted: #829688;
+      
+      --primary: #059669;
+      --primary-dark: #044e39;
+      --primary-light: #e6f7ee;
+      --primary-hover: #033f2e;
+      
+      --amber: #b45309;
+      --amber-light: #fef5e7;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 26px;
+      --radius-pill: 9999px;
+      
+      --shadow-card: 0 4px 20px -2px rgba(20, 40, 25, 0.06), 0 2px 8px -1px rgba(20, 40, 25, 0.03);
+      --shadow-input: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-btn: 0 4px 14px rgba(4, 78, 57, 0.25);
+      
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════ MAIN CONTAINER ════════════ */
+    .auth-container {
+      width: 100%;
+      max-width: 1160px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.95fr;
+      gap: 56px;
+      align-items: center;
+      margin: auto;
+    }
+
+    /* ════════════ LEFT COLUMN ════════════ */
+    .left-col {
+      display: flex;
+      flex-direction: column;
+      padding-right: 12px;
+    }
+
+    /* Back Link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color 0.15s;
+      width: fit-content;
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+    }
+
+    /* Brand Header */
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .brand-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    /* Main Hero Headline with Integrated Art */
+    .hero-heading-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+      padding-right: 140px;
+    }
+
+    .hero-title {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      color: #122418;
+    }
+
+    .hero-title .highlight-green {
+      color: #059669;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-title .sparkle {
+      color: #eab308;
+      font-size: 26px;
+      vertical-align: middle;
+    }
+
+    /* Mountain & Compass Illustration */
+    .hero-art-composite {
+      position: absolute;
+      right: 0;
+      top: -10px;
+      width: 170px;
+      height: 140px;
+      pointer-events: none;
+    }
+
+    .hero-subtitle {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-weight: 500;
+      margin-bottom: 26px;
+      max-width: 440px;
+    }
+
+    /* Highlights 3-Col Card */
+    .highlights-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      margin-bottom: 22px;
+    }
+
+    .hl-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-right: 8px;
+      border-right: 1px solid #edf3ed;
+    }
+
+    .hl-col:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .hl-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #15291b;
+    }
+
+    .hl-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    /* Sample Interactive Lesson Quiz Card */
+    .sample-quiz-card {
+      background: #f7faf7;
+      border: 1.5px solid #d8e8dc;
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.04);
+    }
+
+    .quiz-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: #059669;
+      letter-spacing: 0.03em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiz-q {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #15291b;
+      margin-bottom: 12px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .quiz-opt {
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .quiz-opt:hover {
+      border-color: #a7f3d0;
+      background: #fafdfa;
+    }
+
+    .quiz-opt.selected {
+      border-color: #10b981;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.12);
+    }
+
+    .quiz-opt .check-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid #10b981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #10b981;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .quiz-opt .radio-circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #cbd5e1;
+    }
+
+    .quiz-caption {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Guest Reader Link */
+    .guest-link-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .backpack-icon {
+      font-size: 26px;
+    }
+
+    .guest-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: #059669;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .guest-link:hover {
+      text-decoration: underline;
+    }
+
+    .guest-meta {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ════════════ RIGHT COLUMN (AUTH CARD) ════════════ */
+    .right-col {
+      display: flex;
+      justify-content: center;
+    }
+
+    .auth-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 36px 36px 32px;
+      box-shadow: var(--shadow-card);
+      width: 100%;
+      max-width: 460px;
+    }
+
+    /* Card Top Icon Badge */
+    .auth-top-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #e6f7ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .auth-title {
+      font-size: 24px;
+      font-weight: 800;
+      text-align: center;
+      color: #14281b;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .auth-title .title-accent {
+      color: #059669;
+    }
+
+    .auth-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    /* Google Button */
+    .btn-google {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 11px 16px;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      margin-bottom: 20px;
+    }
+
+    .btn-google:hover {
+      background: #fbfdfb;
+      border-color: #cbdccb;
+    }
+
+    /* Divider */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 11.5px;
+      margin-bottom: 20px;
+    }
+
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #edf2ed;
+    }
+
+    .auth-divider span {
+      padding: 0 12px;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #556b5c;
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-muted);
+      font-size: 15px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 14px 11px 40px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 13.5px;
+      font-family: inherit;
+      color: var(--text-main);
+      background: #ffffff;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-input.no-icon {
+      padding-left: 14px;
+    }
+
+    .form-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+    }
+
+    .form-input::placeholder {
+      color: #9cb1a2;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      padding: 13px 20px;
+      background: #044e39;
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: var(--shadow-btn);
+      transition: all 0.2s;
+      margin-top: 20px;
+      margin-bottom: 18px;
+    }
+
+    .btn-submit:hover {
+      background: #023828;
+      box-shadow: 0 6px 18px rgba(4, 78, 57, 0.35);
+    }
+
+    /* Switch Auth Mode */
+    .auth-switch-text {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .auth-switch-link {
+      color: #059669;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    .auth-switch-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Terms */
+    .terms-text {
+      font-size: 11px;
+      color: #8fa194;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .terms-text a {
+      color: #8fa194;
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .auth-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .left-col {
+        padding-right: 0;
+      }
+      .hero-heading-wrapper {
+        padding-right: 0;
+      }
+      .hero-art-composite {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+
+    <!-- ════════════ LEFT COLUMN ════════════ -->
+    <div class="left-col">
+      
+      <!-- Back Link -->
+      <a href="dashboard.html" class="back-link">
+        <span>←</span>
+        <span>Về trang chủ</span>
+      </a>
+
+      <!-- Brand Mark -->
+      <div class="brand-row">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.3">
+          <path d="M12 22v-9" />
+          <path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.2" />
+        </svg>
+        <span class="brand-title">TỰ HỌC TÀI CHÍNH</span>
+      </div>
+
+      <!-- Main Headline with Vector Art -->
+      <div class="hero-heading-wrapper">
+        <h1 class="hero-title">
+          Một tài khoản,<br>
+          cả hành trình<br>
+          <span class="highlight-green">tài chính.<span class="sparkle">✦</span></span>
+        </h1>
+
+        <!-- Mountain & Metric Dashboard Card Artwork -->
+        <div class="hero-art-composite">
+          <svg viewBox="0 0 170 140" width="100%" height="100%">
+            <!-- Mountain peak -->
+            <polygon points="120,20 160,110 80,110" fill="#047857" opacity="0.85"/>
+            <polygon points="120,20 160,110 120,110" fill="#065f46"/>
+            <!-- Peak Flag -->
+            <line x1="120" y1="20" x2="120" y2="8" stroke="#044e39" stroke-width="2"/>
+            <polygon points="120,8 132,12 120,16" fill="#059669"/>
+            <!-- Winding Path -->
+            <path d="M60 120 Q100 80 120 20" fill="none" stroke="#fed7aa" stroke-width="3" stroke-dasharray="3,3"/>
+            <!-- Compass Badge -->
+            <circle cx="95" cy="85" r="11" fill="#ffffff" stroke="#f59e0b" stroke-width="2"/>
+            <polygon points="95,78 98,85 95,92 92,85" fill="#ef4444"/>
+            <!-- Floating Mini Dashboard Widget Card -->
+            <rect x="2" y="24" width="90" height="56" rx="8" fill="#ffffff" stroke="#e2ebe2" stroke-width="1.5" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.06))"/>
+            <path d="M12 56 Q30 38 48 46 T82 36" fill="none" stroke="#10b981" stroke-width="2"/>
+            <circle cx="82" cy="36" r="3" fill="#059669"/>
+            <circle cx="18" cy="68" r="4" fill="#dcfce7" stroke="#10b981" stroke-width="1.5"/>
+            <path d="M16 68 L17.5 69.5 L20.5 66.5" fill="none" stroke="#10b981" stroke-width="1.2"/>
+            <circle cx="70" cy="66" r="7" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="30 10"/>
+          </svg>
+        </div>
+      </div>
+
+      <p class="hero-subtitle">
+        Tiến độ, ghi chú và lịch ôn tập của bạn đi theo mọi thiết bị.
+      </p>
+
+      <!-- 3 Metrics Card -->
+      <div class="highlights-card">
+        <div class="hl-col">
+          <div class="hl-header">
+            <span>📖</span>
+            <span>900+</span>
+          </div>
+          <span class="hl-sub">bài học có quiz và ghi chú</span>
+        </div>
+
+        <div class="hl-col">
+          <div class="hl-header">
+            <span>🏷️</span>
+            <span>0đ</span>
+          </div>
+          <span class="hl-sub">miễn phí mãi mãi, không cần thẻ</span>
+        </div>
+
+        <div class="hl-col">
+          <div class="hl-header">
+            <span>🏆</span>
+            <span>3</span>
+          </div>
+          <span class="hl-sub">lộ trình học riêng biệt</span>
+        </div>
+      </div>
+
+      <!-- Sample Interactive Quiz Card -->
+      <div class="sample-quiz-card">
+        <div class="quiz-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>MỘT BÀI HỌC</span>
+        </div>
+        <div class="quiz-q">P/E được tính bằng giá cổ phiếu chia cho gì?</div>
+        <div class="quiz-options">
+          <div class="quiz-opt selected" onclick="selectQuizOpt(this, true)">
+            <span class="check-icon">✓</span>
+            <span>Lợi nhuận trên mỗi cổ phiếu (EPS)</span>
+          </div>
+          <div class="quiz-opt" onclick="selectQuizOpt(this, false)">
+            <span class="radio-circle"></span>
+            <span>Doanh thu trên mỗi cổ phiếu</span>
+          </div>
+        </div>
+        <div class="quiz-caption">Trả lời đúng được cộng XP và ghi vào tiến độ.</div>
+      </div>
+
+      <!-- Free Guest Reader Link -->
+      <div class="guest-link-row">
+        <div class="backpack-icon">🎒</div>
+        <div>
+          <a href="dashboard.html" class="guest-link">
+            <span>Đọc thử một bài đầy đủ, không cần tài khoản</span>
+            <span>→</span>
+          </a>
+          <div class="guest-meta">4 bài mở sẵn • 102 giờ nội dung</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ════════════ RIGHT COLUMN (AUTH CARD) ════════════ -->
+    <div class="right-col">
+      <div class="auth-card">
+
+        <!-- Top Icon Circle -->
+        <div class="auth-top-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <polygon points="12,4 20,20 4,20" fill="#10b981"/>
+            <line x1="12" y1="4" x2="12" y2="1" stroke="#044e39" stroke-width="1.5"/>
+            <polygon points="12,1 16,3 12,5" fill="#ef4444"/>
+          </svg>
+        </div>
+
+        <!-- Mode Title -->
+        <h2 class="auth-title" id="authTitle">
+          Tạo tài khoản <span class="title-accent">mới</span>
+        </h2>
+        <p class="auth-sub" id="authSub">Chưa tới một phút là xong.</p>
+
+        <!-- Google OAuth Button -->
+        <a href="dashboard.html" class="btn-google" title="Đăng nhập với Google">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Tiếp tục với Google</span>
+        </a>
+
+        <!-- Divider -->
+        <div class="auth-divider">
+          <span>hoặc dùng email</span>
+        </div>
+
+        <!-- Auth Form -->
+        <form onsubmit="handleAuthSubmit(event)">
+          
+          <!-- Name Field (Register mode only) -->
+          <div class="form-group" id="nameGroup">
+            <label class="form-label">TÊN CỦA BẠN</label>
+            <input type="text" class="form-input no-icon" placeholder="Nguyễn Văn A" id="nameInput" required>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group">
+            <label class="form-label">ĐỊA CHỈ EMAIL</label>
+            <div class="input-wrapper">
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </span>
+              <input type="email" class="form-input" placeholder="email@vi-du.com" id="emailInput" required>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="form-group">
+            <label class="form-label">MẬT KHẨU</label>
+            <div class="input-wrapper">
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input type="password" class="form-input" placeholder="••••••••" id="passInput" required>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span>Đăng ký</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <!-- Switch Mode Text -->
+        <div class="auth-switch-text" id="switchText">
+          <span>Đã có tài khoản?</span>
+          <span class="auth-switch-link" onclick="toggleAuthMode()">Đăng nhập</span>
+        </div>
+
+        <!-- Terms Footer -->
+        <p class="terms-text">
+          Bằng việc tiếp tục, bạn đồng ý với <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách bảo mật</a>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let isLoginMode = false;
+
+    function toggleAuthMode() {
+      isLoginMode = !isLoginMode;
+      const title = document.getElementById('authTitle');
+      const sub = document.getElementById('authSub');
+      const nameGroup = document.getElementById('nameGroup');
+      const nameInput = document.getElementById('nameInput');
+      const submitBtn = document.getElementById('submitBtn');
+      const switchText = document.getElementById('switchText');
+
+      if (isLoginMode) {
+        title.innerHTML = 'Đăng nhập <span class="title-accent">ngay</span>';
+        sub.textContent = 'Chào mừng bạn quay trở lại!';
+        nameGroup.style.display = 'none';
+        nameInput.removeAttribute('required');
+        submitBtn.innerHTML = '<span>Đăng nhập</span><span>→</span>';
+        switchText.innerHTML = '<span>Chưa có tài khoản?</span><span class="auth-switch-link" onclick="toggleAuthMode()">Đăng ký</span>';
+      } else {
+        title.innerHTML = 'Tạo tài khoản <span class="title-accent">mới</span>';
+        sub.textContent = 'Chưa tới một phút là xong.';
+        nameGroup.style.display = 'block';
+        nameInput.setAttribute('required', 'true');
+        submitBtn.innerHTML = '<span>Đăng ký</span><span>→</span>';
+        switchText.innerHTML = '<span>Đã có tài khoản?</span><span class="auth-switch-link" onclick="toggleAuthMode()">Đăng nhập</span>';
+      }
+    }
+
+    function selectQuizOpt(el, isCorrect) {
+      document.querySelectorAll('.quiz-opt').forEach(opt => {
+        opt.classList.remove('selected');
+        const icon = opt.querySelector('.check-icon, .radio-circle');
+        if (icon) {
+          icon.className = 'radio-circle';
+          icon.textContent = '';
+        }
+      });
+      el.classList.add('selected');
+      const icon = el.querySelector('.radio-circle');
+      if (icon) {
+        icon.className = 'check-icon';
+        icon.textContent = isCorrect ? '✓' : '✕';
+      }
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      // Redirect to Dashboard
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+
+</body>
+</html>

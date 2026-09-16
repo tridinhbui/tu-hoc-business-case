@@ -1279,5 +1279,107 @@ main { min-height: 70vh; padding-bottom: 60px; }
   .rm-island-node { position: static; width: 100%; }
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   HỌC BÀI (CURRICULUM HUB) — CHẶNG HỌC & WIDGET SIDEBAR
+   ══════════════════════════════════════════════════════════════════ */
+.cur-hero-card {
+  background: #FFFFFF; border: 1px solid var(--border); border-radius: 20px;
+  padding: 20px 24px; box-shadow: var(--shadow-card); display: flex;
+  justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 20px;
+  position: relative; overflow: hidden;
+}
+.cur-hero-left { flex: 1; min-width: 280px; }
+.cur-hero-banner {
+  width: 240px; height: 110px; border-radius: 14px; overflow: hidden;
+  flex: none; background: #EAF3EA; position: relative; border: 1px solid var(--border);
+}
+@media(max-width:768px) { .cur-hero-card { flex-direction: column; align-items: stretch; } .cur-hero-banner { width: 100%; height: 120px; } }
+
+.cur-track-tabs {
+  display: flex; gap: 8px; margin-bottom: 16px;
+}
+.cur-track-tab {
+  flex: 1; padding: 10px 16px; border-radius: 12px; border: 1px solid var(--border);
+  background: #FFFFFF; font-size: 13px; font-weight: 700; color: var(--stone-600);
+  cursor: pointer; transition: all 0.2s ease; text-align: center;
+}
+.cur-track-tab:hover { border-color: var(--border-dark); color: var(--text); }
+.cur-track-tab.active {
+  background: #064E3B; border-color: #064E3B; color: #FAFAF9; font-weight: 800;
+  box-shadow: 0 4px 12px rgba(6,78,59,0.25);
+}
+
+.cur-search-bar {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px;
+}
+.cur-search-input-wrap {
+  position: relative; flex: 1;
+}
+.cur-search-input {
+  width: 100%; background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-pill);
+  padding: 9px 16px 9px 36px; font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s ease;
+}
+.cur-search-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(5,150,105,0.12); }
+.cur-search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--stone-400); }
+
+/* ── Stage Accordion Box ── */
+.stage-box {
+  background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: var(--shadow-card); margin-bottom: 14px; overflow: hidden;
+}
+.stage-header {
+  padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
+  gap: 14px; cursor: pointer; transition: background 0.15s ease;
+}
+.stage-header:hover { background: var(--stone-50); }
+.stage-badge-tag {
+  font-size: 10.5px; font-weight: 800; color: #92400E; background: #FEF3C7;
+  padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.stage-badge-tag.emerald { color: #065F46; background: #D1FAE5; }
+
+.stage-sublist { border-top: 1px solid var(--border); background: var(--stone-50); }
+.stage-subitem {
+  padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(231,229,228,0.7); transition: background 0.15s ease; gap: 12px;
+}
+.stage-subitem:last-child { border-bottom: 0; }
+.stage-subitem:hover { background: #FFFFFF; }
+.stage-subitem.active { background: #F0FDF4; border-left: 3px solid var(--color-primary); }
+
+/* ── Right Column Widgets ── */
+.widget-notebook {
+  background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px;
+  padding: 18px 20px; box-shadow: var(--shadow-card); margin-bottom: 16px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+}
+.widget-mistakes {
+  background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px;
+  padding: 16px 20px; box-shadow: var(--shadow-card); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s ease;
+}
+.widget-mistakes:hover { border-color: var(--amber-500); transform: translateY(-1px); }
+
+.widget-daily-drill {
+  background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px;
+  padding: 20px; box-shadow: var(--shadow-card);
+}
+.drill-opt-btn {
+  width: 100%; text-align: left; padding: 10px 14px; border: 1px solid var(--border);
+  border-radius: 10px; background: #FFFFFF; font-size: 12.5px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s ease; display: flex; gap: 10px; align-items: flex-start;
+  margin-bottom: 8px; color: var(--text);
+}
+.drill-opt-btn:hover { border-color: var(--color-primary); background: var(--emerald-50); }
+.drill-opt-btn.active {
+  border-color: var(--color-primary); background: var(--emerald-50); color: var(--emerald-900); font-weight: 700;
+}
+.drill-opt-letter {
+  width: 22px; height: 22px; border-radius: 6px; background: var(--stone-100);
+  display: grid; place-items: center; font-size: 11px; font-weight: 800; flex: none;
+}
+.drill-opt-btn.active .drill-opt-letter { background: var(--color-primary); color: #FFFFFF; }
+
+
 
 

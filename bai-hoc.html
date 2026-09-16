@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chặng Thuế, Bài 1: Lương Gross vs Net — Tự Học Tài Chính</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f8f5;
+      --surface: #ffffff;
+      --surface-subtle: #f8faf8;
+      --border-color: #e3ebe3;
+      --border-light: #edf3ed;
+      
+      --text-main: #14281b;
+      --text-secondary: #4b6151;
+      --text-muted: #829688;
+      
+      --primary: #059669;
+      --primary-dark: #044e39;
+      --primary-light: #e6f7ee;
+      
+      --amber-border: #fed7aa;
+      --amber-bg: #fffbf5;
+      --amber-title: #b45309;
+      --amber-text: #3c2a1e;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+      
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.03);
+      --shadow-card: 0 4px 16px -2px rgba(20, 40, 25, 0.05), 0 2px 6px -1px rgba(20, 40, 25, 0.02);
+      
+      --reader-font-size: 16px;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* Sepia Theme */
+    [data-theme="sepia"] {
+      --bg: #f7f3e8;
+      --surface: #fcf9f2;
+      --surface-subtle: #f4eee1;
+      --border-color: #e5dcce;
+      --text-main: #2b261f;
+      --text-secondary: #574e40;
+      --text-muted: #8c806f;
+      --primary: #15803d;
+      --primary-light: #eef6ed;
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg: #121814;
+      --surface: #1a231d;
+      --surface-subtle: #222e26;
+      --border-color: #2b3a30;
+      --border-light: #243329;
+      --text-main: #e6f0e8;
+      --text-secondary: #a3b8aa;
+      --text-muted: #6e8275;
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --primary-light: #163324;
+      --amber-bg: #272115;
+      --amber-border: #523e1e;
+      --amber-title: #f59e0b;
+      --amber-text: #f3e6cf;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    /* ════════════ TOP READER NAVBAR ════════════ */
+    .top-reader-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-left-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      border: 1.5px solid var(--border-color);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-back:hover {
+      background: var(--surface-subtle);
+      border-color: #cbdccb;
+    }
+
+    .lesson-meta-header {
+      min-width: 0;
+    }
+
+    .lesson-main-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: -0.01em;
+    }
+
+    .lesson-sub-title {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Right Toolbar Controls */
+    .nav-right-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .tool-pill-group {
+      display: flex;
+      align-items: center;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 3px 6px;
+      gap: 4px;
+    }
+
+    .tool-btn {
+      background: none;
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      padding: 3px 6px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tool-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tool-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .icon-btn:hover {
+      background: var(--surface-subtle);
+      color: var(--text-main);
+    }
+
+    .read-time-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .read-time-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    /* Sub progress bar below header */
+    .top-sub-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 6px 32px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border-light);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .sub-bar-progress {
+      width: 80px;
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .sub-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 999px;
+    }
+
+    .sub-stage-tag {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    /* ════════════ MAIN CONTENT WRAPPER ════════════ */
+    .lesson-workspace {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ════════════ LEFT COLUMN: LESSON READER ════════════ */
+    .reader-column {
+      font-size: var(--reader-font-size);
+      line-height: 1.65;
+    }
+
+    /* 1. AI Summary Banner (Tài Tài) */
+    .tai-ai-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tai-ai-header {
+      background: #1e2922;
+      color: #ffffff;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tai-ai-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .tai-ai-badge-auto {
+      font-size: 10px;
+      font-weight: 800;
+      opacity: 0.7;
+      letter-spacing: 0.05em;
+    }
+
+    .tai-ai-body {
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* 2. Callout Card (Vì sao bài này quan trọng) */
+    .callout-important {
+      background: var(--amber-bg);
+      border: 1.5px solid var(--amber-border);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      margin-bottom: 24px;
+    }
+
+    .callout-important-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--amber-title);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .callout-important-text {
+      font-size: 14.5px;
+      color: var(--amber-text);
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    /* 3. Feynman / ELI5 Mode Card */
+    .feynman-toggle-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feynman-info .title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .feynman-info .sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .btn-eli5 {
+      padding: 7px 16px;
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      border: 1.5px solid var(--border-color);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-eli5:hover {
+      background: var(--surface-subtle);
+      border-color: #b5ccb5;
+    }
+
+    .btn-eli5.active {
+      background: #059669;
+      color: #ffffff;
+      border-color: #059669;
+    }
+
+    /* 4. Question Hook Section */
+    .question-hook-section {
+      margin-bottom: 32px;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .hook-question-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .hook-option-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: 10px;
+    }
+
+    .hook-option-card:hover {
+      border-color: #a7f3d0;
+      background: var(--surface-subtle);
+    }
+
+    .hook-option-card.selected {
+      border-color: var(--primary);
+      background: var(--surface);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+    }
+
+    .opt-letter-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      font-size: 11.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+    }
+
+    /* 5. Deep Article Breakdown Content */
+    .article-body-box {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .article-body-box h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 24px 0 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .article-body-box h2:first-child {
+      margin-top: 0;
+    }
+
+    .article-body-box p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .formula-banner {
+      background: #eaf6ee;
+      border: 1.5px dashed #86efac;
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #065f46;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ════════════ RIGHT COLUMN: QUICK QUIZ SIDEBAR ════════════ */
+    .sidebar-column {
+      position: sticky;
+      top: 90px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Notes Widget */
+    .notes-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .notes-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .notes-action {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Quick Quiz Accordion Card */
+    .quick-quiz-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 22px 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .quiz-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .quiz-panel-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quiz-panel-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--text-main);
+    }
+
+    .quiz-step-count {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .quiz-toggle-icon {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* 4-Segmented Quiz Progress Bar */
+    .quiz-step-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-bar-pill {
+      flex: 1;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+
+    .quiz-bar-pill.active {
+      background: #526657;
+    }
+
+    .quiz-bar-pill.completed {
+      background: var(--primary);
+    }
+
+    /* Active Question Card */
+    .active-q-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .active-q-badge {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #d97706;
+      margin-bottom: 8px;
+    }
+
+    .active-q-text {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 16px;
+    }
+
+    .sidebar-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-opt-item {
+      background: var(--surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s;
+      line-height: 1.4;
+    }
+
+    .sidebar-opt-item:hover {
+      border-color: #cbdccb;
+      background: var(--surface-subtle);
+    }
+
+    .sidebar-opt-item.selected {
+      border-color: var(--primary);
+      background: var(--surface);
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.12);
+    }
+
+    .sidebar-opt-item.correct {
+      border-color: #10b981;
+      background: #eefbf4;
+    }
+
+    .sidebar-opt-item.wrong {
+      border-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    .sidebar-opt-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .btn-check-quiz {
+      width: 100%;
+      padding: 12px 20px;
+      background: #e2ebe2;
+      color: #758a7b;
+      border: none;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: not-allowed;
+      transition: all 0.2s;
+    }
+
+    .btn-check-quiz.ready {
+      background: #044e39;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(4, 78, 57, 0.25);
+    }
+
+    .btn-check-quiz.ready:hover {
+      background: #023828;
+    }
+
+    /* Floating Action Button */
+    .fab-menu-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 46px;
+      height: 46px;
+      background: #1c261e;
+      color: #ffffff;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      z-index: 99;
+      transition: transform 0.2s ease;
+    }
+
+    .fab-menu-btn:hover {
+      transform: scale(1.08);
+      background: #111a13;
+    }
+
+    .fab-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 999px;
+      border: 2px solid #ffffff;
+      line-height: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .lesson-workspace {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-column {
+        position: static;
+      }
+      .top-reader-bar {
+        padding: 10px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════ TOP READER NAVBAR ════════════ -->
+  <header class="top-reader-bar">
+    <div class="nav-left-group">
+      <a href="dashboard.html" class="btn-back">
+        <span>←</span>
+        <span>Quay lại</span>
+      </a>
+
+      <div class="lesson-meta-header">
+        <h1 class="lesson-main-title">Chặng Thuế, Bài 1: Lương Gross vs Net – bạn...</h1>
+        <div class="lesson-sub-title">Chặng Thuế · Bài 1</div>
+      </div>
+    </div>
+
+    <div class="nav-right-toolbar">
+      <!-- Font size changer -->
+      <div class="tool-pill-group">
+        <button class="tool-btn" onclick="changeFontSize(-1)">A-</button>
+        <span class="tool-btn active" id="fontPercent">100%</span>
+        <button class="tool-btn" onclick="changeFontSize(1)">A+</button>
+      </div>
+
+      <!-- Theme Switcher (Light / Sepia / Dark) -->
+      <div class="tool-pill-group">
+        <button class="tool-btn active" onclick="setTheme('light')" title="Sáng">☀</button>
+        <button class="tool-btn" onclick="setTheme('sepia')" title="Giấy ngà">🕮</button>
+        <button class="tool-btn" onclick="setTheme('dark')" title="Tối">☾</button>
+      </div>
+
+      <!-- Action Buttons -->
+      <button class="icon-btn" title="Đánh dấu trang">🔖</button>
+      <button class="icon-btn" title="Đã hiểu bài">✓</button>
+      <button class="icon-btn" title="Thống kê">📊</button>
+
+      <!-- Read Progress -->
+      <div class="read-time-badge">
+        <span class="dot"></span>
+        <span>10% · còn ~5 phút</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub Progress Strip -->
+  <div class="top-sub-bar">
+    <span>Tiến độ bài</span>
+    <div class="sub-bar-progress">
+      <div class="sub-bar-fill" style="width: 25%;"></div>
+    </div>
+    <span>0/4</span>
+    <span class="sub-stage-tag">CHẶNG THUẾ · BÀI 1</span>
+  </div>
+
+  <!-- ════════════ MAIN LESSON WORKSPACE ════════════ -->
+  <main class="lesson-workspace">
+
+    <!-- ── LEFT COLUMN: READER CONTENT ── -->
+    <article class="reader-column">
+
+      <!-- 1. AI Summary Banner (Tài Tài) -->
+      <section class="tai-ai-card">
+        <div class="tai-ai-header">
+          <div class="tai-ai-title-wrap">
+            <span>📺</span>
+            <span>Tài Tài</span>
+            <span style="opacity:0.7;font-weight:500;">mẹo tự động cho bài này</span>
+          </div>
+          <span class="tai-ai-badge-auto">TỰ ĐỘNG</span>
+        </div>
+        <div class="tai-ai-body">
+          ETF chỉ số theo dõi cả thị trường thay vì cược vào một công ty – chi phí thấp, đa dạng hóa sẵn, phù hợp phần lớn nhà đầu tư cá nhân.
+        </div>
+      </section>
+
+      <!-- 2. Callout Card: Vì sao bài này quan trọng -->
+      <section class="callout-important">
+        <div class="callout-important-title">VÌ SAO BÀI NÀY QUAN TRỌNG</div>
+        <p class="callout-important-text">
+          Gần như mọi quyết định tài chính cá nhân – ngân sách, quỹ khẩn cấp, khả năng trả nợ – đều dựa trên thu nhập THỰC NHẬN, không phải con số ghi trên hợp đồng. Bài này cho bạn công thức đi từ gross sang net để mọi kế hoạch sau đó đứng trên số liệu đúng.
+        </p>
+      </section>
+
+      <!-- 3. Feynman / ELI5 Mode Switch -->
+      <section class="feynman-toggle-card">
+        <div class="feynman-info">
+          <div class="title">Chế độ Feynman (Giải thích siêu đơn giản)</div>
+          <div class="sub">Tài Tài giải thích bài học này theo cách dễ nhớ nhất cho học sinh lớp 5!</div>
+        </div>
+        <button class="btn-eli5" id="eli5Btn" onclick="toggleELI5()">Dùng ELI5</button>
+      </section>
+
+      <!-- 4. Question Hook -->
+      <section class="question-hook-section">
+        <div class="section-eyebrow">BẮT ĐẦU BẰNG MỘT CÂU HỎI</div>
+        <h2 class="hook-question-title">
+          Hợp đồng ghi lương 30 triệu/tháng (gross), bạn chưa có người phụ thuộc. Số tiền thực tế vào tài khoản mỗi tháng khoảng bao nhiêu?
+        </h2>
+
+        <div class="hook-option-card selected" onclick="this.classList.toggle('selected')">
+          <span class="opt-letter-badge">A</span>
+          <span>Đúng 30 triệu, vì thuế do công ty chịu</span>
+        </div>
+
+        <div class="hook-option-card" onclick="this.classList.toggle('selected')">
+          <span class="opt-letter-badge">B</span>
+          <span>Khoảng 25.5 – 26.2 triệu sau khi trừ BHXH, BHYT, BHTN và Thuế TNCN</span>
+        </div>
+      </section>
+
+      <!-- 5. Main Breakdown Article -->
+      <section class="article-body-box" id="articleBody">
+        <h2>1. Bản chất Lương Gross và Lương Net</h2>
+        <p>
+          <strong>Lương Gross:</strong> Là tổng mức thu nhập bạn thỏa thuận với doanh nghiệp trước khi trích nộp các khoản bảo hiểm bắt buộc (10.5%) và thuế thu nhập cá nhân (TNCN).
+        </p>
+        <p>
+          <strong>Lương Net:</strong> Là số tiền thực tế đổ vào tài khoản ngân hàng của bạn vào ngày trả lương (sau khi đã trừ hết các nghĩa vụ bắt buộc).
+        </p>
+
+        <div class="formula-banner">
+          <span>💡</span>
+          <span>Lương Net = Lương Gross − Bảo hiểm bắt buộc (10.5%) − Thuế TNCN</span>
+        </div>
+
+        <h2>2. Các khoản giảm trừ trước khi tính thuế</h2>
+        <p>
+          Trước khi áp thuế suất lũy tiến, bạn được trừ <strong>giảm trừ gia cảnh bản thân (11 triệu/tháng)</strong> và <strong>người phụ thuộc (4.4 triệu/người/tháng)</strong>. Điều này bảo vệ các nhu cầu thiết yếu cơ bản của người lao động.
+        </p>
+      </section>
+
+    </article>
+
+    <!-- ── RIGHT COLUMN: QUICK QUIZ SIDEBAR ── -->
+    <aside class="sidebar-column">
+
+      <!-- Notes Widget -->
+      <div class="notes-card">
+        <div class="notes-title">
+          <span>📝</span>
+          <span>Ghi chú (0)</span>
+        </div>
+        <span class="notes-action" onclick="alert('Đã mở sổ ghi chú cá nhân')">Mở rộng</span>
+      </div>
+
+      <!-- Quick Quiz Accordion Panel -->
+      <div class="quick-quiz-panel">
+        <div class="quiz-panel-header">
+          <div class="quiz-panel-title-row">
+            <span class="quiz-panel-title">KIỂM TRA NHANH</span>
+            <span class="quiz-step-count" id="quizStepCount">0/4</span>
+          </div>
+          <span class="quiz-toggle-icon">▲</span>
+        </div>
+
+        <!-- 4 Step Bars -->
+        <div class="quiz-step-bar">
+          <div class="quiz-bar-pill active" id="bar-0"></div>
+          <div class="quiz-bar-pill" id="bar-1"></div>
+          <div class="quiz-bar-pill" id="bar-2"></div>
+          <div class="quiz-bar-pill" id="bar-3"></div>
+        </div>
+
+        <!-- Question Box -->
+        <div class="active-q-box">
+          <div class="active-q-badge" id="qBadge">CÂU 1 / 4</div>
+          <h3 class="active-q-text" id="qPrompt">Lương gross là gì?</h3>
+
+          <!-- Options -->
+          <div class="sidebar-options-list" id="optsList">
+            <div class="sidebar-opt-item" onclick="pickSidebarOpt(this, 0)">
+              <span class="sidebar-opt-badge">A</span>
+              <span>Số tiền thực nhận vào tài khoản mỗi tháng</span>
+            </div>
+
+            <div class="sidebar-opt-item" onclick="pickSidebarOpt(this, 1)">
+              <span class="sidebar-opt-badge">B</span>
+              <span>Tổng thu nhập trước khi trừ bảo hiểm và thuế</span>
+            </div>
+
+            <div class="sidebar-opt-item" onclick="pickSidebarOpt(this, 2)">
+              <span class="sidebar-opt-badge">C</span>
+              <span>Lương cơ bản chưa gồm phụ cấp và thưởng</span>
+            </div>
+
+            <div class="sidebar-opt-item" onclick="pickSidebarOpt(this, 3)">
+              <span class="sidebar-opt-badge">D</span>
+              <span>Tổng thu nhập sau khi đã trừ hết các khoản</span>
+            </div>
+          </div>
+
+          <!-- Check Answer Button -->
+          <button class="btn-check-quiz" id="btnCheckQuiz" onclick="checkAnswer()">KIỂM TRA →</button>
+        </div>
+
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- Floating Menu Button -->
+  <button class="fab-menu-btn" title="Menu nhanh">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <span class="fab-badge">9+</span>
+  </button>
+
+  <script>
+    let currentFontSize = 100;
+    function changeFontSize(delta) {
+      currentFontSize = Math.max(80, Math.min(150, currentFontSize + delta * 10));
+      document.documentElement.style.setProperty('--reader-font-size', (16 * currentFontSize / 100) + 'px');
+      document.getElementById('fontPercent').textContent = currentFontSize + '%';
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.querySelectorAll('.tool-pill-group .tool-btn').forEach(b => {
+        if (['☀','🕮','☾'].includes(b.textContent.trim())) b.classList.remove('active');
+      });
+      event.target.classList.add('active');
+    }
+
+    let isELI5 = false;
+    function toggleELI5() {
+      isELI5 = !isELI5;
+      const btn = document.getElementById('eli5Btn');
+      const body = document.getElementById('articleBody');
+      if (isELI5) {
+        btn.classList.add('active');
+        btn.textContent = 'Đang dùng ELI5 ✓';
+        body.innerHTML = `
+          <h2>🧒 Giải thích kiểu lớp 5: Bánh Pizza Lương!</h2>
+          <p>Tưởng tượng công ty hứa cho bạn một <strong>cái bánh Pizza 8 miếng (Lương Gross)</strong>.</p>
+          <p>Nhưng trước khi bạn ăn, chú Cảnh sát bảo hiểm xin 1 miếng để dành lúc bạn ốm (Bảo hiểm), cô Thuế xin nửa miếng để xây đường xá (Thuế TNCN).</p>
+          <p>Số miếng bánh bạn thực sự mang về nhà ăn được gọi là <strong>Lương Net</strong>!</p>
+        `;
+      } else {
+        btn.classList.remove('active');
+        btn.textContent = 'Dùng ELI5';
+        body.innerHTML = `
+          <h2>1. Bản chất Lương Gross và Lương Net</h2>
+          <p><strong>Lương Gross:</strong> Là tổng mức thu nhập bạn thỏa thuận với doanh nghiệp trước khi trích nộp các khoản bảo hiểm bắt buộc (10.5%) và thuế thu nhập cá nhân (TNCN).</p>
+          <p><strong>Lương Net:</strong> Là số tiền thực tế đổ vào tài khoản ngân hàng của bạn vào ngày trả lương (sau khi đã trừ hết các nghĩa vụ bắt buộc).</p>
+          <div class="formula-banner">
+            <span>💡</span>
+            <span>Lương Net = Lương Gross − Bảo hiểm bắt buộc (10.5%) − Thuế TNCN</span>
+          </div>
+          <h2>2. Các khoản giảm trừ trước khi tính thuế</h2>
+          <p>Trước khi áp thuế suất lũy tiến, bạn được trừ <strong>giảm trừ gia cảnh bản thân (11 triệu/tháng)</strong> và <strong>người phụ thuộc (4.4 triệu/người/tháng)</strong>.</p>
+        `;
+      }
+    }
+
+    let selectedOptIndex = -1;
+    function pickSidebarOpt(el, idx) {
+      document.querySelectorAll('.sidebar-opt-item').forEach(item => item.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedOptIndex = idx;
+      const btn = document.getElementById('btnCheckQuiz');
+      btn.classList.add('ready');
+    }
+
+    function checkAnswer() {
+      if (selectedOptIndex === -1) return;
+      const items = document.querySelectorAll('.sidebar-opt-item');
+      if (selectedOptIndex === 1) { // Correct is B
+        items[selectedOptIndex].classList.add('correct');
+        document.getElementById('bar-0').className = 'quiz-bar-pill completed';
+        document.getElementById('quizStepCount').textContent = '1/4';
+        const btn = document.getElementById('btnCheckQuiz');
+        btn.textContent = 'CHÍNH XÁC! CÂU TIẾP →';
+        btn.style.background = '#059669';
+      } else {
+        items[selectedOptIndex].classList.add('wrong');
+        items[1].classList.add('correct');
+      }
+    }
+  </script>
+
+</body>
+</html>
