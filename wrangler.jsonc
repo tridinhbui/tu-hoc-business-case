@@ -25,7 +25,7 @@
     "APP_ORIGIN": "https://tu-hoc-business-case.tridinhbui0901.workers.dev",
     "MAIL_FROM": "no-reply@example.com",
     // Google OAuth client id (public by design). The secret is a Worker secret: wrangler secret put GOOGLE_CLIENT_SECRET
-    "GOOGLE_CLIENT_ID": "",
+    "GOOGLE_CLIENT_ID": "877684848523-p9fs8dugmm9hdfn6odqpnl4o3qca19eo.apps.googleusercontent.com",
     // Public Turnstile sitekey; empty until the widget exists (the login form then shows that sign-in is closed).
     "TURNSTILE_SITEKEY": "",
     // Frontend hostnames siteverify must report in production. Never add localhost here.
