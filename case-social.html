@@ -1529,7 +1529,7 @@
                 </div>
                 <div class="meta">2 giờ trước · Case tuần #14</div>
               </div>
-              <button class="post-more" title="Tuỳ chọn">⋯</button>
+              <span class="post-menu-wrap"><button class="post-more" title="Tuỳ chọn">⋯</button></span>
             </div>
 
             <h3 class="post-title">Issue tree của mình cho case Hạt Việt — nhờ mọi người soi chỗ chưa MECE</h3>
@@ -1604,7 +1604,7 @@
                 </div>
                 <div class="meta">4 giờ trước · Đọc exhibit</div>
               </div>
-              <button class="post-more" title="Tuỳ chọn">⋯</button>
+              <span class="post-menu-wrap"><button class="post-more" title="Tuỳ chọn">⋯</button></span>
             </div>
 
             <h3 class="post-title">Đọc exhibit 3 phút: 80% các bạn nhìn nhầm nguyên nhân ở bảng này</h3>
@@ -1664,7 +1664,7 @@
                 </div>
                 <div class="meta">Hôm qua · 19:40</div>
               </div>
-              <button class="post-more" title="Tuỳ chọn">⋯</button>
+              <span class="post-menu-wrap"><button class="post-more" title="Tuỳ chọn">⋯</button></span>
             </div>
 
             <h3 class="post-title">Ước lượng thị trường trà sữa TP.HCM trong 4 phút — nhờ check giả định</h3>
@@ -1722,7 +1722,7 @@
                 </div>
                 <div class="meta">Hôm qua · 08:15</div>
               </div>
-              <button class="post-more" title="Tuỳ chọn">⋯</button>
+              <span class="post-menu-wrap"><button class="post-more" title="Tuỳ chọn">⋯</button></span>
             </div>
 
             <h3 class="post-title">Tìm partner mock interview tối thứ 5 — case market entry, 45 phút, đổi vai</h3>
@@ -2024,6 +2024,8 @@
       } else if (btn.classList.contains('save')) {
         btn.classList.toggle('on');
         btn.lastChild.textContent = btn.classList.contains('on') ? ' Đã lưu' : ' Lưu';
+      } else if (btn.textContent.indexOf('Chia sẻ') > -1) {
+        toast('Đã sao chép liên kết để chia sẻ');
       } else if (btn.classList.contains('cmt') && post) {
         var box = post.querySelector('.comments');
         if (box) {
@@ -2127,6 +2129,74 @@
       }, 700);
     });
 
+    /* ── Toast ── */
+    var toastEl = document.getElementById('toast');
+    var toastTimer;
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
+    }
+
+    /* ── Menu ⋯ của từng bài ── */
+    function closeMenus(except) {
+      document.querySelectorAll('.post-menu').forEach(function (m) {
+        if (m !== except) m.classList.remove('open');
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      var more = e.target.closest('.post-more');
+      if (more) {
+        e.stopPropagation();
+        var wrap = more.closest('.post-menu-wrap');
+        var menu = wrap.querySelector('.post-menu');
+        if (!menu) {
+          menu = document.createElement('div');
+          menu.className = 'post-menu';
+          menu.innerHTML =
+            '<button data-act="save">🔖 Lưu vào sổ case</button>' +
+            '<button data-act="copy">🔗 Sao chép liên kết</button>' +
+            '<button data-act="follow">🔔 Theo dõi bài này</button>' +
+            '<button data-act="hide" class="danger">🚫 Ẩn bài</button>';
+          wrap.appendChild(menu);
+        }
+        var willOpen = !menu.classList.contains('open');
+        closeMenus(menu);
+        menu.classList.toggle('open', willOpen);
+        return;
+      }
+
+      var act = e.target.closest('.post-menu button');
+      if (act) {
+        e.stopPropagation();
+        var post = act.closest('.post');
+        closeMenus();
+        if (act.dataset.act === 'save') {
+          var sv = post && post.querySelector('.react-btn.save');
+          if (sv && !sv.classList.contains('on')) sv.click();
+          toast('Đã lưu vào sổ case của bạn');
+        } else if (act.dataset.act === 'copy') {
+          toast('Đã sao chép liên kết bài viết');
+        } else if (act.dataset.act === 'follow') {
+          toast('Sẽ báo bạn khi có bình luận mới');
+        } else if (act.dataset.act === 'hide' && post) {
+          post.remove();
+          countTags();
+          applyFilters();
+          toast('Đã ẩn bài khỏi feed của bạn');
+        }
+        return;
+      }
+
+      closeMenus();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenus();
+    });
+
     /* ── Nhịp cộng đồng nhích dần ── */
     var pulse = document.getElementById('pulseNum');
     var n = 3412;
@@ -2134,6 +2204,10 @@
       n += Math.floor(Math.random() * 3) + 1;
       pulse.textContent = n.toLocaleString('vi-VN');
     }, 4000);
+
+    /* ── Khởi tạo ── */
+    countTags();
+    applyFilters();
   })();
   </script>
 

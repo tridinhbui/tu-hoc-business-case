@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cửa hàng RPG & Đổi Túi Vàng — Tự Học Tài Chính</title>
+  <title>Học Nhóm & Điểm Danh Check-in — Tự Học Tài Chính</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -87,23 +87,26 @@
     .menu-item.logout { color: #ef4444; margin-top: 4px; border-top: 1px solid #f1f5f9; padding-top: 10px; font-weight: 700; }
 
     /* MAIN CONTAINER */
-    .main-container { flex: 1; padding: 28px 40px 60px; max-width: 1280px; margin: 0 auto; width: 100%; }
-    .shop-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
-    .shop-title { font-size: 28px; font-weight: 800; color: #111827; }
-    .shop-sub { font-size: 13.5px; color: #64748b; margin-top: 4px; }
-    .wallet-big-card { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 1.5px solid #fde68a; border-radius: 20px; padding: 16px 24px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm); }
-    .gold-huge-val { font-size: 24px; font-weight: 800; color: #78350f; }
+    .main-container { flex: 1; padding: 28px 40px 60px; max-width: 1280px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 380px; gap: 28px; }
+    .checkin-banner-card { background: linear-gradient(135deg, #059669 0%, #047857 100%); border-radius: 24px; padding: 28px 32px; color: #ffffff; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 24px rgba(5,150,105,0.2); }
+    .btn-do-checkin { background: #ffffff; color: #047857; font-size: 14px; font-weight: 800; border: none; border-radius: 999px; padding: 10px 24px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.15s; }
+    .btn-do-checkin:hover { transform: scale(1.03); background: #f0fdf4; }
 
-    /* CATEGORIES GRID */
-    .shop-category-title { font-size: 18px; font-weight: 800; color: #111827; margin: 28px 0 16px; display: flex; align-items: center; gap: 8px; }
-    .shop-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
-    .shop-item-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 20px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.15s; position: relative; }
-    .shop-item-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px -4px rgba(0,0,0,0.08); border-color: var(--primary); }
-    .item-icon-box { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-    .item-name { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 6px; }
-    .item-desc { font-size: 12px; color: #64748b; margin-bottom: 16px; line-height: 1.4; flex: 1; }
-    .item-price-btn { width: 100%; border: none; background: #059669; color: #ffffff; font-size: 13px; font-weight: 800; padding: 9px 16px; border-radius: 999px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.15s; }
-    .item-price-btn:hover { background: #047857; }
+    .study-rooms-title { font-size: 20px; font-weight: 800; color: #111827; margin-bottom: 16px; }
+    .rooms-list { display: flex; flex-direction: column; gap: 14px; }
+    .room-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 20px 24px; box-shadow: var(--shadow-card); display: flex; justify-content: space-between; align-items: center; }
+    .room-info-left { display: flex; align-items: center; gap: 16px; }
+    .room-icon-circle { width: 48px; height: 48px; border-radius: 14px; background: #e6f7ee; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    .room-name { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 4px; }
+    .room-desc { font-size: 12px; color: #64748b; }
+    .btn-join-room { background: #059669; color: #ffffff; font-size: 12.5px; font-weight: 800; border: none; border-radius: 999px; padding: 8px 18px; cursor: pointer; }
+
+    /* RIGHT WIDGETS */
+    .widget-panel { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 22px; box-shadow: var(--shadow-card); margin-bottom: 20px; }
+    .widget-title-h3 { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .pomodoro-box { background: #f8faf8; border: 1px solid #edf2ed; border-radius: 16px; padding: 20px; text-align: center; }
+    .pomodoro-timer { font-size: 40px; font-weight: 800; color: #047857; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+    .btn-pomo { background: #059669; color: #fff; border: none; padding: 8px 20px; border-radius: 999px; font-weight: 800; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -139,7 +142,7 @@
 
       <div class="nav-section-title"><span>👥 CỘNG ĐỒNG</span><span>▼</span></div>
       <a href="#" class="nav-item"><span class="icon">🏛️</span><span>Thư viện</span></a>
-      <a href="hoc-nhom.html" class="nav-item"><span class="icon">🤝</span><span>Học nhóm</span><span class="nav-tag tag-checkin">CHECK-IN</span></a>
+      <a href="hoc-nhom.html" class="nav-item active"><span class="icon">🤝</span><span>Học nhóm</span><span class="nav-tag tag-checkin">CHECK-IN</span></a>
       <a href="thong-ke.html" class="nav-item"><span class="icon">📊</span><span>Thống kê</span></a>
       <a href="#" class="nav-item"><span class="icon">📄</span><span>Tài liệu Miễn phí</span></a>
     </nav>
@@ -171,7 +174,7 @@
       </div>
 
       <div class="gold-wallet-row">
-        <div class="gold-pill"><span>🪙</span><span>Túi vàng</span><span class="gold-count" id="goldSidebarCount">60</span></div>
+        <div class="gold-pill"><span>🪙</span><span>Túi vàng</span><span class="gold-count">60</span></div>
         <button class="bell-btn" title="Thông báo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-badge">9+</span></button>
       </div>
 
@@ -206,83 +209,109 @@
   </aside>
 
   <main class="main-container">
-    <div class="shop-header-row">
-      <div>
-        <h1 class="shop-title">🛍️ Cửa hàng RPG & Vật Phẩm</h1>
-        <p class="shop-sub">Sử dụng Túi Vàng kiếm được từ bài học và nhiệm vụ để đổi các vật phẩm độc quyền!</p>
+    <div>
+      <!-- BANNER CHECK-IN -->
+      <div class="checkin-banner-card">
+        <div>
+          <span style="background:rgba(255,255,255,0.2);padding:3px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:0.04em;">ĐIỂM DANH HÀNG NGÀY</span>
+          <h1 style="font-size:24px;font-weight:800;margin:8px 0 4px;">Điểm Danh Học Nhóm Hôm Nay</h1>
+          <p style="font-size:13px;opacity:0.9;">Nhận ngay +5 XP và +10 Vàng khi gửi 1 lời chào học tập!</p>
+        </div>
+        <button class="btn-do-checkin" id="checkinBtn" onclick="doCheckin()">⚡ Check-in Ngay</button>
       </div>
 
-      <div class="wallet-big-card">
-        <span style="font-size: 32px;">🪙</span>
-        <div>
-          <div style="font-size: 11px; font-weight: 800; color: #92400e; letter-spacing: 0.04em;">SỐ DƯ HIỆN TẠI</div>
-          <div class="gold-huge-val" id="goldWalletDisplay">60 Vàng</div>
+      <!-- PHÒNG HỌC NHÓM TRỰC TUYẾN -->
+      <h2 class="study-rooms-title">👥 Các Phòng Học Đang Mở (359 bạn đang học)</h2>
+      <div class="rooms-list">
+        <div class="room-card">
+          <div class="room-info-left">
+            <div class="room-icon-circle">⏱️</div>
+            <div>
+              <div class="room-name">Phòng Pomodoro Tập Trung 25 Phút</div>
+              <div class="room-desc">Tự giác học bài, không chat lan man • 124 người đang trong phòng</div>
+            </div>
+          </div>
+          <button class="btn-join-room" onclick="alert('Đã vào phòng Pomodoro!')">Vào phòng →</button>
+        </div>
+
+        <div class="room-card">
+          <div class="room-info-left">
+            <div class="room-icon-circle">💼</div>
+            <div>
+              <div class="room-name">Góc Thảo Luận Case & Phỏng Vấn</div>
+              <div class="room-desc">Cùng giải business case, chia sẻ kinh nghiệm phỏng vấn • 88 người</div>
+            </div>
+          </div>
+          <button class="btn-join-room" onclick="alert('Đã vào phòng Thảo luận!')">Vào phòng →</button>
+        </div>
+
+        <div class="room-card">
+          <div class="room-info-left">
+            <div class="room-icon-circle">🎯</div>
+            <div>
+              <div class="room-name">Luyện Thi Vượt Chặng & Quiz</div>
+              <div class="room-desc">Cùng bấm giờ làm bài thi thử và so tài kết quả • 147 người</div>
+            </div>
+          </div>
+          <button class="btn-join-room" onclick="alert('Đã vào phòng Luyện thi!')">Vào phòng →</button>
         </div>
       </div>
     </div>
 
-    <!-- VẬT PHẨM TRỢ GIÚP HỌC TẬP -->
-    <h2 class="shop-category-title">❄️ Vật Phẩm Trợ Giúp Học Tập</h2>
-    <div class="shop-items-grid">
-      <div class="shop-item-card">
-        <div class="item-icon-box" style="background:#e0f2fe;">🧊</div>
-        <h3 class="item-name">Đóng Băng Chuỗi Streak</h3>
-        <p class="item-desc">Tự động giữ nguyên chuỗi ngày streak nếu chẳng may bạn bận không kịp học trong 24h.</p>
-        <button class="item-price-btn" onclick="buyItem('Đóng Băng Chuỗi Streak', 20)"><span>🪙</span> 20 Vàng • Mua ngay</button>
+    <!-- CỘT PHẢI WIDGET -->
+    <aside>
+      <div class="widget-panel">
+        <h3 class="widget-title-h3">⏱️ Đồng hồ Pomodoro 25:00</h3>
+        <div class="pomodoro-box">
+          <div class="pomodoro-timer" id="timerDisplay">25:00</div>
+          <button class="btn-pomo" id="startTimerBtn" onclick="toggleTimer()">Bắt đầu phiên học</button>
+        </div>
       </div>
 
-      <div class="shop-item-card">
-        <div class="item-icon-box" style="background:#fef3c7;">⚡</div>
-        <h3 class="item-name">Bình Nhân Đôi XP (24h)</h3>
-        <p class="item-desc">Nhận gấp đôi điểm kinh nghiệm XP cho toàn bộ bài học và Quiz hoàn thành trong 1 ngày.</p>
-        <button class="item-price-btn" onclick="buyItem('Bình Nhân Đôi XP', 35)"><span>🪙</span> 35 Vàng • Mua ngay</button>
+      <div class="widget-panel">
+        <h3 class="widget-title-h3">💬 Bảng tin Check-in gần đây</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:12.5px;">
+          <div><strong>Minh Đức:</strong> "Mục tiêu hôm nay xong 2 bài Gross vs Net! 🔥"</div>
+          <div><strong>Phương Thảo:</strong> "Check-in ngày thứ 14 liên tiếp 💪"</div>
+          <div><strong>Huy Hoàng:</strong> "Chuẩn bị thi vượt chặng 2!"</div>
+        </div>
       </div>
-
-      <div class="shop-item-card">
-        <div class="item-icon-box" style="background:#fce7e7;">💖</div>
-        <h3 class="item-name">Hồi Tim Thử Thách Quiz</h3>
-        <p class="item-desc">Khôi phục ngay lập tức 3 lượt làm sai trong các bài thi chặng và Quiz xếp hạng.</p>
-        <button class="item-price-btn" onclick="buyItem('Hồi Tim Quiz', 15)"><span>🪙</span> 15 Vàng • Mua ngay</button>
-      </div>
-    </div>
-
-    <!-- KHUNG AVATAR & HUY HIỆU 3D -->
-    <h2 class="shop-category-title">👑 Khung Avatar & Danh Hiệu 3D</h2>
-    <div class="shop-items-grid">
-      <div class="shop-item-card">
-        <div class="item-icon-box" style="background:#fef9c3;">🌟</div>
-        <h3 class="item-name">Khung Hào Quang Vàng</h3>
-        <p class="item-desc">Hiển thị viền vàng óng ánh sang trọng trên Avatar ở Bảng Vinh Danh BXH và Hồ sơ.</p>
-        <button class="item-price-btn" onclick="buyItem('Khung Hào Quang Vàng', 50)"><span>🪙</span> 50 Vàng • Mua ngay</button>
-      </div>
-
-      <div class="shop-item-card">
-        <div class="item-icon-box" style="background:#e6f7ee;">🛡️</div>
-        <h3 class="item-name">Huy Hiệu Nhà Đầu Tư Pro</h3>
-        <p class="item-desc">Mở khóa huy hiệu 3D độc quyền gắn trực tiếp vào hồ sơ cá nhân và phòng học nhóm.</p>
-        <button class="item-price-btn" onclick="buyItem('Huy Hiệu Pro', 40)"><span>🪙</span> 40 Vàng • Mua ngay</button>
-      </div>
-
-      <div class="shop-item-card">
-        <div class="item-icon-box" style="background:#f3e8ff;">🔮</div>
-        <h3 class="item-name">Thẻ Đổi Tên Nhân Vật</h3>
-        <p class="item-desc">Cho phép thay đổi tên hiển thị và tạo biệt danh độc đáo trên toàn hệ thống.</p>
-        <button class="item-price-btn" onclick="buyItem('Thẻ Đổi Tên', 30)"><span>🪙</span> 30 Vàng • Mua ngay</button>
-      </div>
-    </div>
+    </aside>
   </main>
 
   <script>
-    let currentGold = 60;
+    function doCheckin() {
+      const btn = document.getElementById("checkinBtn");
+      btn.textContent = "✓ Đã Check-in (+5 XP)";
+      btn.style.background = "#dcfce7";
+      btn.style.color = "#047857";
+      btn.disabled = true;
+      alert("🎉 Bạn đã điểm danh thành công! Nhận +5 XP và +10 Túi Vàng.");
+    }
 
-    function buyItem(name, price) {
-      if (currentGold >= price) {
-        currentGold -= price;
-        document.getElementById("goldSidebarCount").textContent = currentGold;
-        document.getElementById("goldWalletDisplay").textContent = currentGold + " Vàng";
-        alert("🎉 Mua thành công vật phẩm: " + name + "! Số dư còn: " + currentGold + " Vàng.");
+    let timerInterval = null;
+    let secondsLeft = 25 * 60;
+
+    function toggleTimer() {
+      const btn = document.getElementById("startTimerBtn");
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.textContent = "Tiếp tục";
       } else {
-        alert("⚠️ Bạn không đủ Vàng! Hãy hoàn thành thêm bài học để tích lũy Túi Vàng.");
+        btn.textContent = "Tạm dừng";
+        timerInterval = setInterval(() => {
+          if (secondsLeft > 0) {
+            secondsLeft--;
+            const mins = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
+            const secs = String(secondsLeft % 60).padStart(2, "0");
+            document.getElementById("timerDisplay").textContent = mins + ":" + secs;
+          } else {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            alert("⏰ Hết 25 phút tập trung! Bạn đã hoàn thành 1 phiên Pomodoro (+10 XP).");
+          }
+        }, 1000);
       }
     }
 

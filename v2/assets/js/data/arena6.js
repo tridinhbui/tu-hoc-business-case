@@ -262,3 +262,161 @@ R({
   },
   goodFeedback:"Giữ đơn vị qua từng bước, kiểm tra chéo bằng nguồn độc lập và chỉ ra giả định nhạy nhất."
 });
+
+/* ─────────── iv-08 · Product Launch · thẻ tín dụng hoàn tiền ─────────── */
+R({
+  id:"iv-08", title:"Product launch: ngân hàng ra thẻ tín dụng hoàn tiền",
+  brief:{context:"Người phỏng vấn: \"Một ngân hàng chuẩn bị ra mắt thẻ tín dụng hoàn tiền 1% với mục tiêu 200.000 thẻ năm đầu. Bạn dẫn case: sản phẩm này có lãi không?\"",
+         task:"dựng kinh tế một thẻ, tính thời gian hoàn vốn và đề xuất thiết kế sản phẩm."},
+  labels:{problem:"1 · Nhắc lại đề bằng một câu", hyps:"2 · Cấu trúc bạn tự dẫn", evidence:"3 · Phân tích và con số"},
+  exhibits:[
+    {kind:"table", title:"Giả định một thẻ", unit:"mỗi thẻ",
+     head:["Chỉ tiêu","Giá trị","Ghi chú"],
+     rows:[["Chi tiêu mỗi tháng","8 triệu",""],["Phí interchange ngân hàng nhận","1,6%",""],["Hoàn tiền cho khách","1%",""],
+           ["Chi phí vận hành mỗi thẻ","0,3 triệu/năm","in thẻ, chăm sóc, gian lận"],["Chi phí thu hút một khách","1,2 triệu",""]]},
+    {kind:"bars", title:"Chi tiêu theo nhóm khách", unit:"triệu đồng/tháng",
+     headline:"Nhóm trên cùng chi tiêu gấp ba mức trung bình", sub:"Danh mục thẻ hiện hữu của ngân hàng",
+     rows:[["Nhóm cao (15% số thẻ)",24,"var(--series-focus)"],["Nhóm giữa (45%)",8,"var(--series-base)"],["Nhóm thấp (40%)",3,"var(--series-bad)"]],
+     max:28, ticks:[0,7,14,21,28]},
+    {kind:"metrics", title:"Ràng buộc",
+     items:[["Tỷ lệ khách bỏ thẻ sau năm đầu","18%",""],["Tỷ lệ khách quay vòng dư nợ trả lãi","0%","giả định thận trọng cho bản đầu"],
+            ["Ngân sách marketing năm đầu","240 tỷ",""]]}
+  ],
+  options:[
+    ["A","Ra mắt đúng thiết kế 1% hoàn tiền cho mọi khách","Hoàn vốn 4,3 năm trong khi 18% khách bỏ thẻ ngay sau năm đầu — phần lớn thẻ không bao giờ hoàn vốn.",35],
+    ["B","Chỉ mở hoàn tiền 1% cho nhóm chi tiêu cao và hạ mức hoàn tiền nhóm chi tiêu thấp, đồng thời cắt chi phí thu hút bằng kênh khách hàng sẵn có","Lãi góp mỗi thẻ tỷ lệ thuận với chi tiêu, nên tập trung hoàn tiền vào nhóm chi 24 triệu/tháng và giảm chi phí thu hút mới rút hoàn vốn về dưới hai năm.",95],
+    ["C","Nâng hoàn tiền lên 2% để giành thị phần","Lãi góp mỗi thẻ âm ngay từ đầu vì hoàn tiền vượt phí interchange.",20],
+    ["D","Hoãn ra mắt thẻ","Bỏ luôn nguồn phí interchange trong khi vấn đề chỉ nằm ở thiết kế phân khúc.",40]
+  ],
+  correct:"B",
+  framing:[["thẻ tín dụng","hoàn tiền"],["có lãi","hoàn vốn","kinh tế"]],
+  branches:[["interchange","doanh thu mỗi thẻ"],["hoàn tiền","chi phí thưởng"],["chi phí vận hành","vận hành"],["chi phí thu hút","hoàn vốn","phân khúc"]],
+  numbers:[{v:0.276,tol:0.005,pts:30,core:true},{v:1.536,tol:0.005,pts:25},{v:0.96,tol:0.005,pts:20},{v:4.3,tol:0.05,pts:15}],
+  insight:[{kw:["phân khúc","nhóm chi tiêu"],pts:40},{kw:["bỏ thẻ","vòng đời"],pts:35},{kw:["chi phí thu hút","cac"],pts:25}],
+  unit:"tỷ|%|triệu|năm",
+  model:{
+    problem:"Thẻ tín dụng hoàn tiền 1% có lãi không, và mất bao lâu để một thẻ hoàn vốn chi phí thu hút?",
+    hyps:["Phí interchange là nguồn doanh thu chính của mỗi thẻ","Hoàn tiền cho khách ăn phần lớn phí interchange",
+          "Chi phí vận hành mỗi thẻ làm mỏng thêm lãi góp","Chi phí thu hút quyết định thời gian hoàn vốn theo từng phân khúc"],
+    evidence:"Ex.1: chi tiêu 8 triệu × 12 = 96 triệu mỗi năm, phí interchange 1,6% = 1,536 triệu; hoàn tiền 1% = 0,96 triệu; trừ vận hành 0,3 triệu còn lãi góp 0,276 triệu mỗi thẻ mỗi năm. Chi phí thu hút 1,2 triệu nên hoàn vốn 4,3 năm. H1, H2, H3, H4 đều đúng. Ex.3: 18% khách bỏ thẻ sau năm đầu nên phần lớn vòng đời thẻ ngắn hơn thời gian hoàn vốn — thiết kế hiện tại bị bác bỏ. Ex.2: nhóm chi tiêu cao 24 triệu mỗi tháng cho lãi góp gấp ba, nên phân khúc hoàn tiền theo nhóm chi tiêu và cắt chi phí thu hút bằng kênh khách hàng sẵn có.",
+    rec:"B"},
+  mistakes:{
+    logicLesson:"i-entry-3",
+    calc:{label:"lãi góp mỗi thẻ và thời gian hoàn vốn", lesson:"i-profit-2",
+      good:"96 triệu × 1,6% = 1,536 triệu; hoàn tiền 0,96 triệu; trừ vận hành 0,3 → 0,276 triệu/năm; 1,2 ÷ 0,276 = 4,3 năm",
+      why:"Sản phẩm mới phải có kinh tế một đơn vị trước khi bàn quy mô."},
+    framework:{lesson:"i-entry-1",
+      good:"Bốn nhánh: doanh thu interchange · chi phí hoàn tiền · chi phí vận hành · chi phí thu hút và vòng đời",
+      why:"Thiếu nhánh chi phí thu hút thì không trả lời được câu sản phẩm có lãi hay không."},
+    exhibit:{lesson:"i-chart-1", bad:"Không nối tỷ lệ bỏ thẻ với thời gian hoàn vốn",
+      good:"Ex.3: 18% bỏ thẻ sau năm đầu so với hoàn vốn 4,3 năm",
+      why:"Hoàn vốn chỉ có ý nghĩa khi so với vòng đời khách hàng thật."}
+  },
+  goodFeedback:"Dựng kinh tế một thẻ sạch sẽ, so hoàn vốn với vòng đời khách và chuyển kết luận thành thiết kế phân khúc."
+});
+
+/* ─────────── iv-09 · Profitability · trường tư thục ─────────── */
+R({
+  id:"iv-09", title:"Profitability: trường tư thục lợi nhuận giảm một nửa",
+  brief:{context:"Người phỏng vấn: \"Một trường tư thục giữ nguyên số học sinh và mức học phí nhưng lợi nhuận năm nay giảm gần một nửa. Hội đồng trường muốn biết vì sao.\"",
+         task:"tìm khoản chi phí làm giảm lợi nhuận, lượng hoá nó và đề xuất cách khôi phục."},
+  labels:{problem:"1 · Nhắc lại đề bằng một câu", hyps:"2 · Cấu trúc bạn nói với người phỏng vấn", evidence:"3 · Phân tích và con số"},
+  exhibits:[
+    {kind:"table", title:"Kết quả hai năm", unit:"tỷ VND/năm",
+     head:["Chỉ tiêu","Năm trước","Năm nay"],
+     rows:[["Học sinh","2.000","2.000"],["Học phí mỗi học sinh","120 triệu","120 triệu"],["Doanh thu","240","240"],
+           ["Lương giáo viên","30","37,5"],["Chi phí khác (cơ sở vật chất, quản lý)","180","186"]]},
+    {kind:"bars", title:"Sĩ số mỗi giáo viên", unit:"học sinh/giáo viên",
+     headline:"Cam kết lớp nhỏ kéo số giáo viên tăng 25%", sub:"Chính sách tuyển sinh năm nay",
+     rows:[["Năm trước",20,"var(--series-base)"],["Năm nay",16,"var(--series-bad)"],["Mức các trường cùng phân khúc",18,"var(--series-focus)"]],
+     max:24, ticks:[0,6,12,18,24]},
+    {kind:"metrics", title:"Ràng buộc",
+     items:[["Lương trung bình mỗi giáo viên","300 triệu/năm",""],["Cam kết sĩ số trong tài liệu tuyển sinh","tối đa 16",""],
+            ["Học phí trung bình trường cùng phân khúc","132 triệu","cao hơn 10%"]]}
+  ],
+  options:[
+    ["A","Cắt lương giáo viên 10%","Đánh vào chính nguồn lực tạo ra lời hứa lớp nhỏ, rủi ro mất giáo viên giỏi và mất học sinh.",30],
+    ["B","Tăng học phí khoảng 5,6% cho khoá mới, giữ cam kết sĩ số 16 và truyền thông lớp nhỏ như lý do tăng giá, đưa sĩ số các khối lớn về 18","Học phí đang thấp hơn phân khúc 10% nên còn dư địa; phần tăng 5,6% bù đúng 13,5 tỷ lợi nhuận đã mất mà không phá lời hứa tuyển sinh.",95],
+    ["C","Tăng sĩ số lên 22 để giảm số giáo viên","Vi phạm cam kết tối đa 16 trong tài liệu tuyển sinh — rủi ro mất học sinh và uy tín.",35],
+    ["D","Tuyển thêm 200 học sinh vào các lớp hiện có","Cam kết sĩ số làm việc này bất khả thi nếu không tuyển thêm giáo viên tương ứng.",40]
+  ],
+  correct:"B",
+  framing:[["trường","học sinh"],["lợi nhuận","giảm"]],
+  branches:[["học phí","doanh thu"],["giáo viên","lương"],["sĩ số","lớp nhỏ"],["chi phí khác","cơ sở vật chất"]],
+  numbers:[{v:13.5,tol:0.05,pts:30,core:true},{v:37.5,tol:0.05,pts:25},{v:125,tol:0.5,pts:20},{v:5.6,tol:0.1,pts:15}],
+  insight:[{kw:["cam kết","lời hứa","tuyển sinh"],pts:40},{kw:["dư địa","thấp hơn phân khúc","132"],pts:35},{kw:["sĩ số","lớp nhỏ"],pts:25}],
+  unit:"tỷ|%|triệu",
+  model:{
+    problem:"Vì sao lợi nhuận trường giảm gần một nửa khi số học sinh và học phí không đổi, và khôi phục bằng cách nào?",
+    hyps:["Doanh thu học phí giữ nguyên nên nguyên nhân nằm ở chi phí","Lương giáo viên tăng vì số giáo viên tăng theo sĩ số nhỏ hơn",
+          "Chi phí khác về cơ sở vật chất tăng nhẹ","Học phí còn dư địa so với các trường cùng phân khúc"],
+    evidence:"Ex.1: lợi nhuận 240 − 30 − 180 = 30 tỷ xuống 240 − 37,5 − 186 = 16,5 tỷ, giảm 13,5 tỷ. Ex.2: sĩ số từ 20 xuống 16 nên số giáo viên từ 100 lên 125 người, lương giáo viên tăng 7,5 tỷ, chiếm phần lớn mức giảm; chi phí khác chỉ tăng 6 tỷ. H1, H2 đúng; H3 chỉ là phần nhỏ nên bị bác bỏ là nguyên nhân chính. Ex.3: học phí 120 triệu thấp hơn mức 132 triệu của phân khúc nên còn dư địa; cần tăng 13,5 ÷ 240 = 5,6% học phí để khôi phục lợi nhuận, trong khi vẫn giữ cam kết sĩ số tối đa 16 đã ghi trong tài liệu tuyển sinh.",
+    rec:"B"},
+  mistakes:{
+    logicLesson:"i-profit-3",
+    calc:{label:"mức giảm lợi nhuận và phần học phí cần tăng", lesson:"i-profit-2",
+      good:"Lợi nhuận 30 → 16,5 tỷ (−13,5); giáo viên 100 → 125 người, lương 30 → 37,5 tỷ; cần tăng học phí 13,5 ÷ 240 = 5,6%",
+      why:"Phải quy mức giảm lợi nhuận về một đòn bẩy cụ thể trước khi khuyến nghị."},
+    framework:{lesson:"i-profit-1",
+      good:"Bốn nhánh: học phí × số học sinh · lương giáo viên theo sĩ số · chi phí khác · mặt bằng giá phân khúc",
+      why:"Trường học là mô hình chi phí theo sĩ số — sĩ số phải là một nhánh riêng."},
+    exhibit:{lesson:"i-chart-1", bad:"Không nối sĩ số 16 với số giáo viên và cam kết tuyển sinh",
+      good:"Ex.2: sĩ số 20 → 16 làm giáo viên tăng 25%; Ex.3: cam kết tối đa 16 trong tài liệu tuyển sinh",
+      why:"Ràng buộc cam kết quyết định khuyến nghị nằm ở giá hay ở chi phí."}
+  },
+  goodFeedback:"Chỉ đúng đòn bẩy chi phí theo sĩ số và chuyển sang giá mà không phá cam kết tuyển sinh."
+});
+
+/* ─────────── iv-10 · Market Entry · phòng gym vào thị trường tỉnh ─────────── */
+R({
+  id:"iv-10", title:"Market entry: chuỗi phòng gym mở tại thành phố tỉnh",
+  brief:{context:"Người phỏng vấn: \"Một chuỗi phòng gym ở Hà Nội cân nhắc mở tại một thành phố tỉnh 800.000 dân. Bạn dẫn case.\"",
+         task:"ước lượng thị trường, dựng kinh tế một phòng tập và chọn cách vào thị trường."},
+  labels:{problem:"1 · Nhắc lại đề bằng một câu", hyps:"2 · Cấu trúc bạn tự dẫn", evidence:"3 · Phân tích và con số"},
+  exhibits:[
+    {kind:"table", title:"Giả định thị trường", unit:"",
+     head:["Giả định","Giá trị","Ghi chú"],
+     rows:[["Dân số thành phố","800.000",""],["Nhóm tuổi và thu nhập mục tiêu","15%",""],
+           ["Tỷ lệ tập gym trả phí trong nhóm đó","8%",""],["Phí hội viên","300.000đ/tháng",""]]},
+    {kind:"bars", title:"Cung phòng tập hiện tại", unit:"số phòng",
+     headline:"Sáu phòng tập đang phục vụ cả thành phố", sub:"Phòng tập có thu phí tháng",
+     rows:[["Phòng tập chuỗi",2,"var(--series-base)"],["Phòng tập độc lập",4,"var(--series-base)"],["Sức chứa mỗi phòng (hội viên)",1200,"var(--series-focus)"]],
+     max:1400, ticks:[0,350,700,1050,1400]},
+    {kind:"metrics", title:"Kinh tế một phòng tập dự kiến",
+     items:[["Vốn đầu tư mỗi phòng","12 tỷ","thiết bị và hoàn thiện"],["Hội viên hoà tải","1.200",""],
+            ["Biên EBITDA phòng tập","25%",""],["Phí nhượng quyền thu được","6% doanh thu",""]]}
+  ],
+  options:[
+    ["A","Tự mở ba phòng tập cùng lúc","36 tỷ vốn cho thị trường chỉ đủ chỗ cho khoảng hai phòng mới, hoàn vốn hơn 11 năm mỗi phòng.",30],
+    ["B","Vào bằng nhượng quyền cho chủ đầu tư địa phương: mình đưa thương hiệu và vận hành, thu 6% doanh thu, chỉ tự mở khi một phòng mẫu vượt ngưỡng hội viên","Thị trường chỉ đủ cho khoảng hai phòng mới và hoàn vốn tự mở là 11,1 năm, nên đưa vốn cho đối tác địa phương và giữ phần thu theo doanh thu.",95],
+    ["C","Không vào vì thị trường quá nhỏ","Thị trường 34,56 tỷ mỗi năm với sáu phòng hiện hữu vẫn còn chỗ, vấn đề là cách vào chứ không phải có vào hay không.",45],
+    ["D","Mua lại một phòng tập độc lập","Có thể hợp lý nhưng chưa có dữ liệu định giá và chất lượng thiết bị của bên bán.",50]
+  ],
+  correct:"B",
+  framing:[["gym","phòng tập"],["mở","vào thị trường","tỉnh"]],
+  branches:[["quy mô","thị trường","hội viên"],["cạnh tranh","cung","phòng hiện có"],["hoàn vốn","ebitda","kinh tế"],["cách vào","nhượng quyền","đối tác"]],
+  numbers:[{v:11.1,tol:0.1,pts:30,core:true},{v:34.56,tol:0.05,pts:25},{v:9600,tol:5,pts:20},{v:1.08,tol:0.01,pts:15}],
+  insight:[{kw:["nhượng quyền","đối tác địa phương"],pts:40},{kw:["hoàn vốn dài","rủi ro vốn"],pts:35},{kw:["sức chứa","dư địa","hai phòng"],pts:25}],
+  unit:"tỷ|%|năm",
+  model:{
+    problem:"Chuỗi phòng gym có nên mở tại thành phố tỉnh 800.000 dân không, và nếu có thì vào bằng cách nào?",
+    hyps:["Thị trường hội viên đủ lớn để nuôi thêm phòng tập mới","Cung hiện tại đã phủ phần lớn nhu cầu",
+          "Kinh tế một phòng tập cho hoàn vốn chấp nhận được","Cách vào nên qua đối tác địa phương thay vì tự bỏ vốn"],
+    evidence:"Ex.1: 800.000 × 15% × 8% = 9.600 hội viên trả phí, × 300.000đ × 12 = 34,56 tỷ mỗi năm. Ex.2: sáu phòng hiện có với sức chứa 1.200 hội viên mỗi phòng đã phủ khoảng 7.200 chỗ, nên dư địa chỉ khoảng hai phòng mới — H1 đúng có giới hạn, H2 đúng. Ex.3: mỗi phòng đủ tải có doanh thu 1.200 × 300.000đ × 12 = 4,32 tỷ, EBITDA 25% = 1,08 tỷ, vốn 12 tỷ nên hoàn vốn 11,1 năm — H3 bị bác bỏ, đây là hoàn vốn dài và là rủi ro vốn lớn. H4 đúng: nhượng quyền cho đối tác địa phương thu 6% doanh thu cho dòng tiền ngay mà không chôn vốn.",
+    rec:"B"},
+  mistakes:{
+    logicLesson:"i-entry-3",
+    calc:{label:"quy mô thị trường và thời gian hoàn vốn một phòng", lesson:"i-entry-1",
+      good:"800.000 × 15% × 8% = 9.600 hội viên → 34,56 tỷ/năm; phòng đủ tải 4,32 tỷ, EBITDA 1,08 tỷ, hoàn vốn 12 ÷ 1,08 = 11,1 năm",
+      why:"Case thâm nhập cần cả con số thị trường lẫn con số hoàn vốn mới quyết định được."},
+    framework:{lesson:"i-entry-2",
+      good:"Bốn nhánh: quy mô thị trường · cung hiện hữu · kinh tế một phòng · cách vào",
+      why:"Case tự dẫn chấm việc bạn đặt đủ nhánh và đi theo thứ tự từ thị trường tới cách vào."},
+    exhibit:{lesson:"f-moat-3", bad:"Không so sức chứa cung hiện hữu với tổng hội viên để tìm dư địa",
+      good:"Ex.2: 6 phòng × 1.200 = 7.200 chỗ so với 9.600 hội viên — dư địa khoảng hai phòng",
+      why:"Dư địa thị trường quyết định nên mở mấy phòng, và từ đó quyết định cách vào."}
+  },
+  goodFeedback:"Ghép quy mô thị trường với sức chứa hiện hữu, rồi biến hoàn vốn dài thành một cách vào ít vốn."
+});
+
+})(window.SCORING.register);

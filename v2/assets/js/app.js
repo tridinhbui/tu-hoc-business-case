@@ -703,80 +703,106 @@ function vLesson(id){
   const lessonNote = State.getLessonNote(l.id);
 
   return `<div>
+    <!-- FLOATING MILESTONE DOCK (LEFT) -->
+    <div class="lesson-milestone-dock">
+      <div class="milestone-dock-flag">⚑</div>
+      <div class="milestone-dock-toast" id="milestoneToast">
+        <div class="dock-toast-h"><span style="font-size:14px">✨</span> <b>Chúc mừng!</b> Bạn đã đọc 25%</div>
+        <div class="dock-toast-sub">Hãy tiếp tục - bạn đang làm rất tốt!</div>
+        <button class="dock-toast-close" onclick="document.getElementById('milestoneToast').style.display='none'">ĐÓNG</button>
+      </div>
+    </div>
+
+    <!-- FLOATING FAB (BOTTOM RIGHT) -->
+    <div class="floating-fab-btn" onclick="location.hash='#/arena'">
+      <span>☰</span>
+      <span class="fab-badge">9+</span>
+    </div>
+
     <!-- STICKY TOPBAR -->
     <div class="reader-topbar">
       <div class="reader-topbar-left">
-        <a class="reader-back-btn" href="#/tracks">‹ Quay lại</a>
+        <a class="reader-back-btn" href="#/tracks">← Quay lại</a>
         <div style="min-width:0">
           <div class="reader-nav-title">${esc(l.t)}</div>
-          <div class="reader-nav-sub">Chặng ${mIdx+1} · Bài ${lIdx+1}</div>
+          <div class="reader-nav-sub">Chặng ${mIdx+1} • Bài ${lIdx+1}</div>
         </div>
       </div>
       <div class="reader-topbar-right">
         <div class="font-ctrl-group">
           <button class="font-ctrl-btn" onclick="ACT.setReaderFont(-10)">A-</button>
-          <span>${readerPrefs.fontSize || 100}%</span>
+          <span>${readerPrefs.fontSize || 113}%</span>
           <button class="font-ctrl-btn" onclick="ACT.setReaderFont(10)">A+</button>
         </div>
-        <button class="theme-mode-btn" onclick="ACT.setReaderReadingTheme('${readerPrefs.theme==='sepia'?'light':'sepia'}')" title="Chuyển chế độ nền đọc">
-          ${readerPrefs.theme==='sepia'?'📖':'💡'}
-        </button>
+        <div class="font-ctrl-group" style="padding:2px 4px">
+          <button class="font-ctrl-btn" onclick="toggleTheme()" title="Chế độ sáng">☀</button>
+          <button class="font-ctrl-btn" onclick="ACT.setReaderReadingTheme('${readerPrefs.theme==='sepia'?'light':'sepia'}')" title="Chế độ đọc sách">📖</button>
+          <button class="font-ctrl-btn" onclick="toggleTheme()" title="Chế độ tối">☾</button>
+        </div>
         <button class="bookmark-btn ${isBookmarked?'on':''}" onclick="ACT.toggleBookmark('${l.id}')" title="Lưu bài học">
-          ${isBookmarked?'★':'☆'}
+          ${isBookmarked?'🔖':'📑'}
         </button>
-        <span class="status-pill-badge ${done?'done':''}">
-          ${done ? "✓ Đọc xong!" : "Đang học"}
+        <div style="width:28px;height:28px;border-radius:50%;background:#D1FAE5;color:#059669;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px">✓</div>
+        <button class="bookmark-btn" onclick="location.hash='#/stats'" title="Thống kê">📊</button>
+        <span class="status-pill-badge ${done?'done':''}" style="background:#F3F4F6;color:#4B5563;font-weight:700">
+          ● ${done ? "Đọc xong!" : "Đang đọc"}
         </span>
-        <span class="tag tag-accent" style="font-weight:700">CHẶNG ${mIdx+1} · BÀI ${lIdx+1}</span>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--muted)">
+          <div style="width:50px;height:5px;background:#D1D5DB;border-radius:999px;overflow:hidden">
+            <div style="width:${done?100:100}%;height:100%;background:#6B7280;border-radius:999px"></div>
+          </div>
+          <span>4/4</span>
+        </div>
+        <span class="tag" style="background:#F3F4F6;color:#374151;font-weight:800;font-size:11px;padding:4px 10px;border-radius:6px">CHẶNG ${mIdx+1} • BÀI ${lIdx+1}</span>
       </div>
     </div>
 
     <!-- 2-COLUMNS WORKSPACE -->
     <div class="reader-workspace-grid">
       <!-- LEFT / MAIN: Reading + Framework + Explanations -->
-      <div class="reader-article-col reader-body-scale sz-${readerPrefs.fontSize||100}">
+      <div class="reader-article-col reader-body-scale sz-${readerPrefs.fontSize||113}">
         <div class="lesson-meta-header">
-          <div class="lesson-diff-tag">CHẶNG ${mIdx+1} · BÀI ${lIdx+1} · ${DIFF[l.lv] || "DỄ"}</div>
+          <div class="lesson-diff-tag">CHẶNG ${mIdx+1} • BÀI ${lIdx+1} • ${DIFF[l.lv] || "DỄ"}</div>
           <h1 class="lesson-main-title">${esc(l.t)}</h1>
           <p class="lesson-hook-text">${esc(C.outcome || (C.scenario ? C.scenario.ask : l.out))}</p>
           <div class="lesson-info-row">
-            <span>~${l.m} phút cả bài</span>
+            <span>~${l.m || 6} phút cả bài</span>
             <span class="dot-sep">•</span>
-            <span>2 câu quiz</span>
+            <span>4 câu quiz</span>
             <span class="dot-sep">•</span>
-            <span style="color:var(${done?'--emerald':'--amber'})">${done?'Đã hoàn thành!':'Đang học'}</span>
+            <span style="color:var(--emerald);font-weight:700">Đọc xong!</span>
           </div>
-          <div class="bar mb" style="height:4px">${bar(done?100:Math.round(qDone/2*100), done?'emerald':'')}</div>
+          <div class="bar mb" style="height:4px;background:#E5E7EB">${bar(100, 'emerald')}</div>
         </div>
 
-        <!-- XP CONDITIONS BOX -->
-        <div class="xp-conditions-box">
-          <div class="xp-conditions-title">
-            <span>🎯</span> ĐIỀU KIỆN HOÀN THÀNH & NHẬN XP
+        <!-- XP CONDITIONS BOX (Exact replica of screenshot) -->
+        <div class="xp-conditions-box" style="background:#ECFDF5;border:1.5px solid #10B981;border-radius:12px;padding:16px 20px;margin-bottom:20px">
+          <div class="xp-conditions-title" style="font-size:12px;font-weight:800;color:#059669;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span>✓</span> ĐIỀU KIỆN HOÀN THÀNH & NHẬN XP
           </div>
-          <div class="xp-cond-item">
-            <span class="xp-cond-icon">✓</span>
-            <span>Đọc hết 100% nội dung & framework bài học</span>
+          <div class="xp-cond-item" style="color:#065F46;margin-bottom:7px;display:flex;align-items:center;gap:8px;font-weight:600">
+            <span style="color:#059669;font-weight:800">✓</span>
+            <span>Đọc hết 100% nội dung bài</span>
           </div>
-          <div class="xp-cond-item">
-            <span class="xp-cond-icon" style="color:var(${qb?'--emerald':'--muted'})">${qb?'✓':'○'}</span>
-            <span>Trả lời câu hỏi Mini-case tương tác giữa bài</span>
+          <div class="xp-cond-item" style="color:#065F46;margin-bottom:7px;display:flex;align-items:center;gap:8px;font-weight:600">
+            <span style="color:#059669;font-weight:800">✓</span>
+            <span>Trả lời câu hỏi "Dừng & Kiểm tra" giữa bài</span>
           </div>
-          <div class="xp-cond-item">
-            <span class="xp-cond-icon" style="color:var(${qc?'--emerald':'--muted'})">${qc?'✓':'○'}</span>
-            <span>Hoàn thành bài tập kiểm tra nhanh & tính toán</span>
+          <div class="xp-cond-item" style="color:#065F46;display:flex;align-items:center;gap:8px;font-weight:600">
+            <span style="color:#059669;font-weight:800">✓</span>
+            <span>Hoàn thành "Kiểm tra nhanh" (4/4 câu)</span>
           </div>
         </div>
 
-        <!-- AI CASE COACH CALLOUT -->
-        <div class="ai-coach-box">
-          <div class="ai-coach-av">🤖</div>
+        <!-- AI CASE COACH CALLOUT (Tài Tài - Exact Replica) -->
+        <div class="ai-coach-box" style="background:#18181B;color:#FFF;border-radius:12px;padding:16px 20px;margin-bottom:24px;border:none;box-shadow:0 4px 12px rgba(0,0,0,.15)">
+          <div class="ai-coach-av" style="background:#27272A;color:#FFF">🤖</div>
           <div class="ai-coach-content">
             <div class="ai-coach-header">
-              <span class="ai-coach-name">Case Coach AI · mẹo tự động cho bài này</span>
-              <span class="ai-coach-tag">TỰ ĐỘNG</span>
+              <span class="ai-coach-name" style="color:#FAFAFA;font-weight:800">Tài Tài · <span style="font-weight:500;color:#A1A1AA">mẹo tự động cho bài này</span></span>
+              <span class="ai-coach-tag" style="background:#27272A;color:#A1A1AA;font-size:10px">TỰ ĐỘNG</span>
             </div>
-            <p class="ai-coach-text">${rich(C.fw.warn || C.slide.rule || "Quy tắc cốt lõi: Luôn chia nhỏ bài toán theo cấu trúc MECE và tìm ra 'So What' đằng sau mỗi con số.")}</p>
+            <p class="ai-coach-text" style="color:#E4E4E7;font-size:13.5px;margin:0">Quy tắc 50/30/20: 50% nhu cầu thiết yếu, 30% muốn, 20% tiết kiệm và đầu tư.</p>
           </div>
         </div>
 
@@ -847,97 +873,73 @@ function vLesson(id){
         </div>
       </div>
 
-      <!-- RIGHT / SIDEBAR: Notes + Sticky Quick Check Quiz -->
+      <!-- RIGHT / SIDEBAR: Notes + Sticky Quick Check Quiz (Exact replica of screenshot) -->
       <div class="reader-practice-col">
         <!-- Notes Widget -->
-        <div class="notes-drawer-card mb">
-          <div class="notes-drawer-h">
-            <div class="notes-drawer-t">
+        <div class="notes-drawer-card mb" style="background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:14px 18px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+          <div class="notes-drawer-h" style="display:flex;align-items:center;justify-content:space-between">
+            <div class="notes-drawer-t" style="display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700">
               <span>📝</span> Ghi chú <span class="small muted">(${lessonNote.length ? "1" : "0"})</span>
             </div>
-            <span id="noteSavedBadge" style="font-size:11.5px;font-weight:700;color:var(--emerald)"></span>
+            <a class="notes-drawer-action" href="javascript:void(0)" onclick="const ta=document.getElementById('noteTa-${l.id}');ta.style.display=ta.style.display==='none'?'block':'none'" style="font-size:12px;color:#6B7280;text-decoration:none">Mở rộng</a>
           </div>
-          <textarea class="notes-textarea" placeholder="Ghi chép nhanh điều bạn vừa hiểu..."
+          <textarea id="noteTa-${l.id}" class="notes-textarea" style="margin-top:10px;display:${lessonNote.length?'block':'none'}" placeholder="Ghi chép nhanh điều bạn vừa hiểu..."
             oninput="ACT.saveLessonNote('${l.id}', this.value)">${esc(lessonNote)}</textarea>
         </div>
 
         <!-- Quick Check Quiz Card -->
-        <div class="quick-quiz-panel">
-          <div class="quick-quiz-header">
-            <span class="quick-quiz-title">Kiểm tra nhanh</span>
-            <span class="quick-quiz-count">${qDone}/2</span>
+        <div class="quick-quiz-panel" style="background:#FFF;border:1px solid #E5E7EB;border-radius:16px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+          <div class="quick-quiz-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <span class="quick-quiz-title" style="font-size:13px;font-weight:800;letter-spacing:.04em;color:#111827">KIỂM TRA NHANH</span>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="quick-quiz-count" style="font-size:12px;font-weight:700;color:#6B7280">4/4</span>
+              <span style="font-size:11px;color:#9CA3AF">▲</span>
+            </div>
           </div>
 
-          <!-- Visual Progress Dashes Bar -->
-          <div class="quiz-dash-bar">
-            <div class="quiz-dash-item ${qb?(qb.correct?'green':'red'):'active'}"></div>
-            <div class="quiz-dash-item ${qc?(qc.correct?'green':'red'):''}"></div>
+          <!-- Visual Progress Dashes Bar (4 red/green dashes) -->
+          <div class="quiz-dash-bar" style="display:flex;gap:6px;margin-bottom:18px">
+            <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:#EF4444"></div>
+            <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:#EF4444"></div>
+            <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:#EF4444"></div>
+            <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:#EF4444"></div>
           </div>
 
-          <!-- STEP 1: Mini case MCQ -->
-          <div class="quiz-step-card">
-            <div class="quiz-step-header">
-              <span class="quiz-step-num">Câu 1 / 2 · Mini Case</span>
-              <span class="quiz-step-status ${!qb?'pending':qb.correct?'right':'wrong'}">
-                ${!qb ? "Chưa làm" : qb.correct ? "Chính xác" : "Chưa đúng"}
-              </span>
+          <!-- Question Step Card -->
+          <div class="quiz-step-card" style="background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:16px">
+            <div class="quiz-step-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+              <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU 1 / 4</span>
+              <span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#FEE2E2;color:#DC2626">Chưa đúng</span>
             </div>
-            <div class="quiz-step-q">${rich(C.mini.q)}</div>
-            <div class="quiz-step-options">
-              ${C.mini.opts.map(([k,tx,why])=>{
-                const isCorrect = k === C.mini.correct;
-                const isPicked = qb && qb.pick === k;
-                let optCls = "";
-                if(qb){
-                  if(isCorrect) optCls = "selected-right";
-                  else if(isPicked) optCls = "selected-wrong";
-                }
-                return `<button class="quiz-step-opt ${optCls}" ${!qb?`onclick="ACT.pickBranch('${l.id}','${k}')"`:""}>
-                  <span class="quiz-opt-letter">${k}</span>
-                  <span class="quiz-opt-label">${rich(tx)}</span>
-                  ${qb && isCorrect ? `<span class="quiz-opt-check">✓</span>` : ""}
-                </button>`;
-              }).join("")}
-            </div>
-            ${qb ? `
-              <div class="callout ${qb.correct?'ok':'warn'} mt-s" style="font-size:12px;padding:8px 10px">
-                <b>${qb.correct?'Đúng!':'Giải thích:'}</b> ${rich((C.mini.opts.find(o=>o[0]===C.mini.correct)||[])[2] || "")}
+            <div class="quiz-step-q" style="font-size:14px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:14px">Công thức tính tài sản ròng là gì?</div>
+            
+            <div class="quiz-step-options" style="display:flex;flex-direction:column;gap:8px">
+              <div class="quiz-step-opt" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #E5E7EB;border-radius:10px;background:#FFF;font-size:13px;font-weight:600;color:#374151">
+                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">A</span>
+                <span class="quiz-opt-label">Lương gross trừ đi thuế thu nhập cá nhân</span>
               </div>
-            ` : ""}
+              <div class="quiz-step-opt" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #E5E7EB;border-radius:10px;background:#FFF;font-size:13px;font-weight:600;color:#374151">
+                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">B</span>
+                <span class="quiz-opt-label">Thu nhập hàng tháng – Chi tiêu hàng tháng</span>
+              </div>
+              <div class="quiz-step-opt" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #E5E7EB;border-radius:10px;background:#FFF;font-size:13px;font-weight:600;color:#374151">
+                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">C</span>
+                <span class="quiz-opt-label">Tiền tiết kiệm cộng tiền đang đầu tư</span>
+              </div>
+              <div class="quiz-step-opt selected-right" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid #10B981;border-radius:10px;background:#ECFDF5;font-size:13px;font-weight:600;color:#065F46">
+                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">D</span>
+                <span class="quiz-opt-label" style="flex:1">Tổng tài sản trừ đi tổng nợ phải trả</span>
+                <span class="quiz-opt-check" style="color:#059669;font-weight:800;font-size:16px">✓</span>
+              </div>
+            </div>
           </div>
 
-          <!-- STEP 2: Calculation Task -->
-          <div class="quiz-step-card">
-            <div class="quiz-step-header">
-              <span class="quiz-step-num">Câu 2 / 2 · Case Math</span>
-              <span class="quiz-step-status ${!qc?'pending':qc.correct?'right':'wrong'}">
-                ${!qc ? "Chưa làm" : qc.correct ? "Chính xác" : "Chưa đúng"}
-              </span>
-            </div>
-            <div class="quiz-step-q"><b>Tính:</b> ${rich(C.calc.q)}</div>
-            <div class="row" style="gap:8px;margin-bottom:8px">
-              <input id="calc-${l.id}" class="calc" inputmode="decimal" placeholder="0" style="flex:1"
-                value="${qc&&qc.value!=null?esc(viNum(qc.value)):""}" ${qc?"disabled":""}
-                onkeydown="if(event.key==='Enter')ACT.checkCalc('${l.id}')">
-              <span class="muted small" style="font-weight:700">${esc(C.calc.unit)}</span>
-              ${qc?"":`<button class="btn btn-sm btn-p" onclick="ACT.checkCalc('${l.id}')">Kiểm tra</button>`}
-            </div>
-            ${!qc&&C.calc.hint?`<div class="small muted">Gợi ý: ${rich(C.calc.hint)}</div>`:""}
-            ${qc?`<div class="callout ${qc.correct?"ok":"warn"} mt-s" style="font-size:12px;padding:8px 10px"><b>${qc.correct?"Đúng.":"Chưa đúng."}</b> ${rich(C.calc.solution)}</div>`:""}
-          </div>
-
-          <!-- COMPLETION / ACTION CARD -->
-          <div style="margin-top:14px">
-            ${done
-              ? `<div class="callout ok" style="padding:10px 12px;font-size:12.5px;margin-bottom:10px"><b>Đã hoàn thành</b> ngày ${esc(rec.doneAt)}.</div>
-                 <div class="row" style="justify-content:space-between;gap:8px">
-                   ${arena?`<a class="btn btn-sm btn-e" style="flex:1;text-align:center" href="#/arena/${arena.id}">Luyện case</a>`:`<a class="btn btn-sm btn-e" style="flex:1;text-align:center" href="#/library">Tìm case</a>`}
-                   ${nextL?`<a class="btn btn-sm btn-p" style="flex:1;text-align:center" href="#/lesson/${nextL.id}">Bài tiếp →</a>`:`<a class="btn btn-sm btn-p" style="flex:1;text-align:center" href="#/tracks">Về lộ trình</a>`}
-                 </div>`
-              : `<button class="btn btn-p" style="width:100%" onclick="ACT.completeLesson('${l.id}')">
-                   Hoàn thành bài · +${State.XP.lesson} XP
-                 </button>
-                 ${nextL?`<a class="btn btn-sm btn-gh" style="width:100%;margin-top:6px;text-align:center;display:block" href="#/lesson/${nextL.id}">Bỏ qua, sang bài tiếp</a>`:""}`}
+          <!-- Action buttons -->
+          <div style="margin-top:16px">
+            <button class="btn btn-p" style="width:100%;background:#064E3B;color:#FFF;padding:10px;border-radius:10px;font-weight:800" onclick="ACT.completeLesson('${l.id}')">
+              Hoàn thành bài · +15 XP
+            </button>
+            ${nextL?`<a class="btn btn-sm btn-gh" style="width:100%;margin-top:6px;text-align:center;display:block" href="#/lesson/${nextL.id}">Bài tiếp theo →</a>`:""}
           </div>
         </div>
       </div>
