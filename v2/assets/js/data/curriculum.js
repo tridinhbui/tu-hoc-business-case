@@ -1,4 +1,5 @@
-/* ===== GIÁO TRÌNH 100 BÀI ĐẦU TIÊN · 6 TRACK · 28 MODULE =====
+/* ===== GIÁO TRÌNH 336 BÀI · 7 TRACK · 47 MODULE =====
+   112 bài đã có nội dung đầy đủ; 224 bài mở rộng đang biên soạn (soon:1).
    Mỗi bài đều theo khuôn 10 phần: vì sao quan trọng · tình huống mở đầu · framework ·
    ví dụ thực tế · mini case · quiz · bài tập · gợi ý slide · lỗi thường gặp · checklist. */
 

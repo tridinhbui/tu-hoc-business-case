@@ -158,4 +158,107 @@ R({
   goodFeedback:"Quy phần thiếu về số người và số tiền mỗi ngày, rồi phân biệt chi phí mùa vụ với chi phí cố định cả năm."
 });
 
-})(window.SCORING.register);
+
+/* ─────────── iv-06 · M&A · chuỗi nhà thuốc mua lại đối thủ ─────────── */
+R({
+  id:"iv-06", title:"M&A: chuỗi nhà thuốc mua lại đối thủ nhỏ",
+  brief:{context:"Người phỏng vấn: \"Một chuỗi nhà thuốc lớn được chào mua một chuỗi 300 nhà thuốc với giá 900 tỷ. Bạn dẫn case và cho tôi biết nên trả bao nhiêu.\"",
+         task:"định giá thương vụ theo bội số EBITDA, lượng hoá synergy và đưa khuyến nghị có điều kiện."},
+  labels:{problem:"1 · Nhắc lại đề bằng một câu", hyps:"2 · Cấu trúc bạn tự dẫn", evidence:"3 · Phân tích và con số"},
+  exhibits:[
+    {kind:"table", title:"Chuỗi mục tiêu", unit:"",
+     head:["Chỉ tiêu","Giá trị","Ghi chú"],
+     rows:[["Số nhà thuốc","300",""],["Doanh thu mỗi nhà thuốc","6 tỷ/năm",""],["Biên EBITDA","6%",""],
+           ["Giá chào","900 tỷ",""],["Hợp đồng thuê còn lại trung bình","3 năm",""]]},
+    {kind:"bars", title:"Bội số EBITDA các thương vụ gần đây", unit:"lần EBITDA",
+     headline:"Ngành giao dịch quanh 7 lần EBITDA", sub:"Bốn thương vụ bán lẻ dược 24 tháng gần nhất",
+     rows:[["Thương vụ 1",6.5,"var(--series-base)"],["Thương vụ 2",7,"var(--series-base)"],["Thương vụ 3",7.5,"var(--series-base)"],["Giá chào lần này",8.3,"var(--series-bad)"]],
+     max:9, ticks:[0,3,6,9]},
+    {kind:"metrics", title:"Synergy ước tính",
+     items:[["Lợi thế mua hàng tập trung","1,5 điểm biên gộp","áp lên toàn bộ doanh thu mục tiêu"],
+            ["Tiết kiệm chi phí trụ sở","0 tỷ","đội trụ sở mục tiêu phải giữ 2 năm"],
+            ["Thời gian tự mở 300 nhà thuốc","5 năm",""]]}
+  ],
+  options:[
+    ["A","Trả đủ 900 tỷ để chốt nhanh","Trả 8,3 lần EBITDA khi ngành giao dịch quanh 7 lần, tức trả trước toàn bộ synergy cho bên bán.",40],
+    ["B","Đàm phán về vùng 945 tỷ tính trên EBITDA sau synergy 135 tỷ, trong đó một phần trả theo kết quả sau khi synergy mua hàng thực sự đạt","Định giá trên EBITDA sau synergy ở bội số ngành 7 lần và đẩy rủi ro thực hiện synergy sang cơ chế trả theo kết quả.",95],
+    ["C","Bỏ thương vụ và tự mở 300 nhà thuốc","Tự mở mất 5 năm và mất luôn vị trí mặt bằng — chi phí cơ hội lớn hơn phần chênh giá.",45],
+    ["D","Mua nhưng đóng một nửa số nhà thuốc để cắt chi phí","Hợp đồng thuê còn 3 năm nên đóng cửa vẫn phải trả tiền thuê, mà mất doanh thu.",35]
+  ],
+  correct:"B",
+  framing:[["nhà thuốc","chuỗi"],["mua lại","định giá","trả bao nhiêu"]],
+  branches:[["ebitda","lợi nhuận mục tiêu"],["bội số","định giá","thị trường"],["synergy","mua hàng"],["tự mở","phương án thay thế","rủi ro"]],
+  numbers:[{v:8.3,tol:0.05,pts:30,core:true},{v:108,tol:0.5,pts:25},{v:27,tol:0.5,pts:20},{v:135,tol:0.5,pts:15}],
+  insight:[{kw:["bội số","7 lần"],pts:40},{kw:["trả theo kết quả","earn-out","rủi ro thực hiện"],pts:35},{kw:["hợp đồng thuê","mặt bằng"],pts:25}],
+  unit:"tỷ|%|lần",
+  model:{
+    problem:"Chuỗi nhà thuốc nên trả bao nhiêu cho 300 nhà thuốc được chào giá 900 tỷ, và thương vụ có hơn phương án tự mở không?",
+    hyps:["EBITDA hiện tại của mục tiêu đủ lớn để đỡ mức giá chào","Bội số giá chào cao hơn mặt bằng thị trường",
+          "Synergy mua hàng đủ kéo bội số thực về vùng hợp lý","Phương án tự mở chậm hơn và rủi ro mặt bằng cao hơn"],
+    evidence:"Ex.1: doanh thu 300 × 6 = 1.800 tỷ, EBITDA 6% = 108 tỷ, nên giá chào 900 tỷ tương đương 8,3 lần EBITDA. Ex.2: ngành giao dịch quanh 7 lần nên H2 đúng. Ex.3: synergy mua hàng 1,5 điểm trên 1.800 tỷ = 27 tỷ, đưa EBITDA lên 135 tỷ và bội số thực về 6,7 lần — H3 đúng, H1 bị bác bỏ nếu chỉ nhìn EBITDA hiện tại. H4 đúng: tự mở mất 5 năm. Mức hợp lý là 7 × 135 = 945 tỷ nhưng phải trả một phần theo kết quả vì synergy chưa thực hiện, và hợp đồng thuê còn 3 năm là ràng buộc khi tái cấu trúc.",
+    rec:"B"},
+  mistakes:{
+    logicLesson:"i-entry-3",
+    calc:{label:"bội số EBITDA trước và sau synergy", lesson:"i-profit-2",
+      good:"EBITDA 1.800 × 6% = 108 tỷ → 900 ÷ 108 = 8,3 lần; synergy 1.800 × 1,5% = 27 tỷ → EBITDA 135 tỷ → 6,7 lần",
+      why:"Case M&A luôn quy giá về bội số của một dòng lợi nhuận, rồi so với mặt bằng thị trường."},
+    framework:{lesson:"i-entry-2",
+      good:"Bốn nhánh: EBITDA độc lập · bội số thị trường · synergy · phương án thay thế và rủi ro",
+      why:"Thiếu nhánh phương án thay thế thì không trả lời được câu \"đắt hay rẻ\"."},
+    exhibit:{lesson:"f-moat-3", bad:"Không so bội số giá chào với các thương vụ gần đây",
+      good:"Ex.2: bốn thương vụ quanh 6,5–7,5 lần trong khi giá chào là 8,3 lần",
+      why:"Bội số so sánh là chỗ duy nhất biến một con số tuyệt đối thành phán đoán đắt rẻ."}
+  },
+  goodFeedback:"Quy giá về bội số, tách synergy ra khỏi giá trị độc lập và gắn phần rủi ro vào cơ chế thanh toán."
+});
+
+/* ─────────── iv-07 · Market Sizing · sạc xe máy điện ─────────── */
+R({
+  id:"iv-07", title:"Market sizing: thị trường sạc xe máy điện mỗi năm",
+  brief:{context:"Người phỏng vấn: \"Ước lượng quy mô doanh thu hằng năm của dịch vụ sạc xe máy điện công cộng tại Việt Nam. Không có báo cáo ngành, chỉ có vài giả định.\"",
+         task:"dựng cây ước lượng từ trên xuống, nói rõ giả định và kiểm tra độ nhạy."},
+  labels:{problem:"1 · Nhắc lại đề bằng một câu", hyps:"2 · Cấu trúc ước lượng", evidence:"3 · Phân tích và con số"},
+  exhibits:[
+    {kind:"table", title:"Giả định cho sẵn", unit:"",
+     head:["Giả định","Giá trị","Ghi chú"],
+     rows:[["Xe máy điện đang lưu hành","2 triệu",""],["Quãng đường mỗi ngày","30 km",""],
+           ["Tiêu thụ điện","3 kWh/100 km",""],["Tỷ lệ sạc ngoài (không sạc ở nhà)","20%",""],["Giá bán mỗi kWh tại trạm","4.000đ",""]]},
+    {kind:"bars", title:"Cơ cấu nơi sạc (khảo sát 1.200 người dùng)", unit:"%",
+     headline:"Phần lớn vẫn sạc tại nhà", sub:"Theo số lần sạc",
+     rows:[["Tại nhà",80,"var(--series-base)"],["Trạm công cộng",14,"var(--series-focus)"],["Nơi làm việc",6,"var(--series-base)"]],
+     max:100, ticks:[0,25,50,75,100]},
+    {kind:"metrics", title:"Kiểm tra chéo",
+     items:[["Số trạm sạc công cộng hiện có","3.000",""],["Doanh thu mỗi trạm mỗi tháng","15 triệu",""],["Tăng trưởng xe điện mỗi năm","35%",""]]}
+  ],
+  options:[
+    ["A","Coi thị trường là 2 triệu xe × chi phí xăng tiết kiệm","Đó là giá trị tiết kiệm của người dùng, không phải doanh thu dịch vụ sạc.",30],
+    ["B","Ước lượng 525,6 tỷ đồng mỗi năm từ điện năng sạc ngoài, kiểm tra chéo bằng doanh thu mỗi trạm và nêu độ nhạy theo tỷ lệ sạc ngoài","Đi từ số xe tới kWh rồi tới tiền, kiểm tra chéo bằng nguồn dữ liệu độc lập và chỉ ra biến nhạy nhất.",95],
+    ["C","Lấy doanh thu trạm hiện có nhân với số trạm dự kiến","Chỉ đúng nếu công suất mỗi trạm không đổi — bỏ qua chính biến số cần ước lượng.",45],
+    ["D","Không ước lượng được vì thiếu dữ liệu ngành","Market sizing chấm cách dựng cây và giả định, không chấm việc có sẵn báo cáo.",20]
+  ],
+  correct:"B",
+  framing:[["sạc","xe máy điện"],["quy mô","ước lượng","thị trường"]],
+  branches:[["số xe","đội xe"],["quãng đường","kwh","tiêu thụ"],["sạc ngoài","tại nhà","tỷ lệ"],["giá","doanh thu","kiểm tra chéo"]],
+  numbers:[{v:525.6,tol:0.5,pts:30,core:true},{v:65.7,tol:0.1,pts:25},{v:0.9,tol:0.01,pts:20},{v:328.5,tol:0.5,pts:15}],
+  insight:[{kw:["kiểm tra chéo","đối chiếu"],pts:40},{kw:["độ nhạy","giả định nhạy"],pts:35},{kw:["sạc tại nhà","sạc ngoài"],pts:25}],
+  unit:"tỷ|%|kwh|đ",
+  model:{
+    problem:"Thị trường dịch vụ sạc xe máy điện công cộng tại Việt Nam mỗi năm lớn cỡ nào, tính theo doanh thu bán điện tại trạm?",
+    hyps:["Số xe điện lưu hành quyết định tổng nhu cầu điện","Quãng đường và mức tiêu thụ cho ra số kWh mỗi xe",
+          "Chỉ phần sạc ngoài mới tạo doanh thu cho trạm","Giá mỗi kWh biến số kWh thành tiền"],
+    evidence:"Ex.1: mỗi xe chạy 30 km/ngày × 3 kWh/100 km = 0,9 kWh mỗi ngày, tức 328,5 kWh mỗi năm; chỉ 20% sạc ngoài nên 65,7 kWh mỗi xe; × 2 triệu xe × 4.000đ = 525,6 tỷ đồng mỗi năm. H1, H2, H3, H4 đều đúng; cách tính theo tiền xăng tiết kiệm bị bác bỏ vì đó không phải doanh thu trạm. Ex.3 kiểm tra chéo: 3.000 trạm × 15 triệu × 12 = 540 tỷ, lệch dưới 3% so với ước lượng. Ex.2 cho thấy tỷ lệ sạc tại nhà 80% là giả định nhạy nhất: mỗi 5 điểm tỷ lệ sạc ngoài đổi khoảng 131 tỷ doanh thu, nên nêu độ nhạy kèm con số.",
+    rec:"B"},
+  mistakes:{
+    logicLesson:"i-chart-1",
+    calc:{label:"đường đi từ số xe tới doanh thu", lesson:"i-profit-2",
+      good:"30 km × 3 kWh/100 km = 0,9 kWh/ngày → 328,5 kWh/năm → 20% = 65,7 kWh → × 2 triệu × 4.000đ = 525,6 tỷ",
+      why:"Market sizing chấm việc giữ đơn vị qua từng bước, không chấm con số cuối."},
+    framework:{lesson:"i-profit-1",
+      good:"Bốn tầng: số xe · kWh mỗi xe · tỷ lệ sạc ngoài · giá mỗi kWh",
+      why:"Mỗi tầng phải là một phép nhân có đơn vị rõ, để người phỏng vấn theo được."},
+    exhibit:{lesson:"i-chart-1", bad:"Không kiểm tra chéo bằng doanh thu mỗi trạm",
+      good:"Ex.3: 3.000 trạm × 15 triệu × 12 tháng = 540 tỷ, lệch dưới 3%",
+      why:"Một ước lượng có kiểm tra chéo đáng tin hơn hẳn một con số đơn lẻ."}
+  },
+  goodFeedback:"Giữ đơn vị qua từng bước, kiểm tra chéo bằng nguồn độc lập và chỉ ra giả định nhạy nhất."
+});

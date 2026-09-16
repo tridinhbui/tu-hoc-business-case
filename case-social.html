@@ -977,6 +977,102 @@
     .sk { background: #eef2ee; border-radius: 8px; animation: pulse 1.4s ease-in-out infinite; }
     @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .45 } }
 
+    /* ── SEARCH INPUT (sidebar) ── */
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      font-family: var(--font);
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      padding: 0;
+    }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .search-box input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+    /* ── FILTER COUNT ── */
+    .filter-chip .n {
+      margin-left: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .filter-chip.active .n { color: #9fd9bb; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 40px 24px 32px;
+      text-align: center;
+    }
+    .empty-state[hidden] { display: none; }
+    .empty-emoji { font-size: 30px; }
+    .empty-title { font-size: 14.5px; font-weight: 800; color: var(--text-main); }
+    .empty-sub { font-size: 12.5px; color: var(--text-muted); font-weight: 600; max-width: 320px; line-height: 1.6; }
+
+    /* ── POST MENU ── */
+    .post-menu-wrap { position: relative; }
+
+    .post-menu {
+      position: absolute;
+      top: 26px;
+      right: 0;
+      z-index: 30;
+      min-width: 186px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-hover);
+      padding: 6px;
+      display: none;
+    }
+    .post-menu.open { display: block; }
+
+    .post-menu button {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      padding: 8px 11px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: left;
+    }
+    .post-menu button:hover { background: #f3f8f3; color: var(--text-main); }
+    .post-menu button.danger:hover { background: var(--pink-pill); color: var(--pink-text); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translate(-50%, 14px);
+      background: #14251b;
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 10px 28px rgba(0,0,0,.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: all .25s ease;
+      z-index: 200;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
     /* ── RIGHT RAIL ── */
     .rail-card { padding: 18px 20px; }
 
@@ -1202,7 +1298,7 @@
     <!-- Search Input -->
     <div class="search-box">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span>Tìm kiếm...</span>
+      <input id="searchInput" type="search" placeholder="Tìm trong feed…" autocomplete="off">
       <kbd>⌘K</kbd>
     </div>
 
@@ -1367,10 +1463,10 @@
             <textarea id="composerInput" class="composer-input" rows="1" placeholder="Bùi ơi, bạn đang mắc ở bước nào của case?"></textarea>
           </div>
           <div class="composer-actions">
-            <button class="composer-chip" data-kind="Issue tree">🌳 Issue tree</button>
-            <button class="composer-chip" data-kind="Exhibit">📊 Exhibit</button>
-            <button class="composer-chip" data-kind="Hỏi đáp">❓ Hỏi đáp</button>
-            <button class="composer-chip" data-kind="Mock">🎤 Xin mock</button>
+            <button class="composer-chip" data-kind="Issue tree" data-tag="framework">🌳 Issue tree</button>
+            <button class="composer-chip" data-kind="Exhibit" data-tag="exhibit">📊 Exhibit</button>
+            <button class="composer-chip" data-kind="Hỏi đáp" data-tag="phan-bien">❓ Hỏi đáp</button>
+            <button class="composer-chip" data-kind="Mock" data-tag="phong-van">🎤 Xin mock</button>
             <button id="btnPost" class="btn-post" disabled>Đăng bài</button>
           </div>
         </section>
@@ -1385,6 +1481,13 @@
           <button class="filter-chip" data-f="phong-van">Phỏng vấn</button>
           <button class="filter-chip" data-f="phan-bien">Phản biện đáp án</button>
         </nav>
+
+        <div class="card empty-state" id="emptyState" hidden>
+          <div class="empty-emoji">🗂️</div>
+          <div class="empty-title">Chưa có bài nào khớp bộ lọc</div>
+          <div class="empty-sub">Thử chủ đề khác, hoặc là người đầu tiên đăng bài về chủ đề này.</div>
+          <button class="btn-invite" id="btnEmptyReset" style="max-width:220px">Xoá bộ lọc</button>
+        </div>
 
         <div id="feed">
 
@@ -1744,6 +1847,8 @@
     <span class="fab-badge">9+</span>
   </button>
 
+  <div class="toast" id="toast"></div>
+
   <script>
   (function () {
     'use strict';
@@ -1753,6 +1858,7 @@
     var btnPost = document.getElementById('btnPost');
     var feed = document.getElementById('feed');
     var kind = null;
+    var kindTag = null;
 
     function grow() {
       input.style.height = 'auto';
@@ -1760,12 +1866,16 @@
       btnPost.disabled = input.value.trim().length < 3;
     }
     input.addEventListener('input', grow);
+    input.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); btnPost.click(); }
+    });
 
     document.querySelectorAll('.composer-chip').forEach(function (chip) {
       chip.addEventListener('click', function () {
         var on = chip.classList.contains('on');
         document.querySelectorAll('.composer-chip').forEach(function (c) { c.classList.remove('on'); });
-        if (!on) { chip.classList.add('on'); kind = chip.dataset.kind; } else { kind = null; }
+        if (!on) { chip.classList.add('on'); kind = chip.dataset.kind; kindTag = chip.dataset.tag; }
+        else { kind = null; kindTag = null; }
       });
     });
 
@@ -1774,14 +1884,14 @@
       if (text.length < 3) return;
       var art = document.createElement('article');
       art.className = 'card post';
-      art.dataset.tags = 'all';
+      art.dataset.tags = kindTag || 'phan-bien';
       art.innerHTML =
         '<div class="post-head">' +
           '<div class="avatar">ĐT</div>' +
           '<div class="post-author"><div class="name-row"><span class="name">Đinh Trí Bùi</span>' +
           (kind ? '<span class="role-tag">' + kind + '</span>' : '') +
           '</div><div class="meta">Vừa xong · công khai với cộng đồng</div></div>' +
-          '<button class="post-more" title="Tuỳ chọn">⋯</button>' +
+          '<span class="post-menu-wrap"><button class="post-more" title="Tuỳ chọn">⋯</button></span>' +
         '</div>' +
         '<p class="post-body"></p>' +
         '<div class="post-foot">' +
@@ -1798,21 +1908,86 @@
       grow();
       document.querySelectorAll('.composer-chip').forEach(function (c) { c.classList.remove('on'); });
       kind = null;
+      kindTag = null;
+      countTags();
+      applyFilters();
+      toast('Đã đăng bài lên CaseSocial');
       art.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
-    /* ── Bộ lọc chủ đề ── */
+    /* ── Bộ lọc chủ đề + tìm kiếm ── */
+    var activeFilter = 'all';
+    var query = '';
+    var emptyState = document.getElementById('emptyState');
+    var searchInput = document.getElementById('searchInput');
+
+    function bỏDấu(t) {
+      return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
+    }
+
+    function applyFilters() {
+      var q = bỏDấu(query.trim());
+      var shown = 0;
+      Array.prototype.forEach.call(feed.children, function (card) {
+        var tags = card.dataset.tags || '';
+        var okTag = activeFilter === 'all' || tags.indexOf(activeFilter) > -1;
+        var okText = !q || bỏDấu(card.textContent).indexOf(q) > -1;
+        var ok = okTag && okText;
+        card.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+      emptyState.hidden = shown > 0;
+      btnLoad.style.display = (activeFilter === 'all' && !q) ? '' : 'none';
+    }
+
+    function countTags() {
+      document.querySelectorAll('.filter-chip').forEach(function (chip) {
+        var f = chip.dataset.f;
+        var n = Array.prototype.filter.call(feed.children, function (card) {
+          return f === 'all' || (card.dataset.tags || '').indexOf(f) > -1;
+        }).length;
+        var badge = chip.querySelector('.n');
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'n';
+          chip.appendChild(badge);
+        }
+        badge.textContent = n;
+      });
+    }
+
     document.getElementById('filterBar').addEventListener('click', function (e) {
       var chip = e.target.closest('.filter-chip');
       if (!chip) return;
       document.querySelectorAll('.filter-chip').forEach(function (c) { c.classList.remove('active'); });
       chip.classList.add('active');
-      var f = chip.dataset.f;
-      Array.prototype.forEach.call(feed.children, function (card) {
-        var tags = card.dataset.tags || '';
-        card.style.display = (f === 'all' || tags.indexOf(f) > -1) ? '' : 'none';
-      });
+      activeFilter = chip.dataset.f;
+      applyFilters();
     });
+
+    document.getElementById('btnEmptyReset').addEventListener('click', function () {
+      activeFilter = 'all';
+      query = '';
+      if (searchInput) searchInput.value = '';
+      document.querySelectorAll('.filter-chip').forEach(function (c) {
+        c.classList.toggle('active', c.dataset.f === 'all');
+      });
+      applyFilters();
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
+        query = searchInput.value;
+        applyFilters();
+      });
+      document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          searchInput.focus();
+          searchInput.select();
+        }
+      });
+    }
 
     /* ── Bình chọn poll ── */
     var voted = false;
@@ -1931,7 +2106,7 @@
             '<div class="post-author"><div class="name-row"><span class="name">' + p.name + '</span>' +
             '<span class="role-tag">' + p.role + '</span></div>' +
             '<div class="meta">' + p.meta + '</div></div>' +
-            '<button class="post-more" title="Tuỳ chọn">⋯</button></div>' +
+            '<span class="post-menu-wrap"><button class="post-more" title="Tuỳ chọn">⋯</button></span></div>' +
           '<h3 class="post-title">' + p.title + '</h3>' +
           '<p class="post-body">' + p.body + '</p>' +
           '<div class="post-tags">' + p.hash.map(function (h) {
@@ -1945,6 +2120,7 @@
           '<div class="comments"><form class="comment-form"><div class="avatar sm">ĐT</div>' +
           '<input type="text" placeholder="Viết bình luận…"></form></div>';
         feed.appendChild(art);
+        countTags();
         btnLoad.disabled = false;
         btnLoad.textContent = loaded >= more.length ? 'Bạn đã xem hết feed hôm nay' : 'Tải thêm bài viết';
         if (loaded >= more.length) btnLoad.disabled = true;

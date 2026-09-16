@@ -9,27 +9,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f8f5;
+      --bg: #f8faf8;
       --surface: #ffffff;
       --surface-subtle: #f8faf8;
       --sidebar-bg: #ffffff;
-      --sidebar-border: #e9efe9;
+      --sidebar-border: #edf2ed;
       --border-color: #e4ebe4;
-      --border-light: #f0f4f0;
+      --border-light: #f1f5f1;
       
-      --text-main: #172a1e;
-      --text-secondary: #526657;
-      --text-muted: #839789;
+      --text-main: #111827;
+      --text-secondary: #4b5563;
+      --text-muted: #6b7280;
       
       --primary: #059669;
       --primary-dark: #047857;
       --primary-light: #e6f7ee;
-      --primary-ring: rgba(5, 150, 105, 0.15);
-      
-      --emerald-pill: #e6f7ee;
-      --emerald-text: #059669;
-      --amber-pill: #fef5e7;
-      --amber-text: #b45309;
       
       --radius-sm: 8px;
       --radius-md: 14px;
@@ -37,10 +31,9 @@
       --radius-xl: 24px;
       --radius-pill: 9999px;
       
-      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.04);
-      --shadow-card: 0 4px 16px -2px rgba(20, 40, 25, 0.05), 0 2px 6px -1px rgba(20, 40, 25, 0.03);
-      --shadow-hover: 0 10px 24px -4px rgba(20, 40, 25, 0.08);
-      --shadow-popover: 0 12px 36px -4px rgba(0, 0, 0, 0.14), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-card: 0 2px 8px -1px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+      --shadow-popover: 0 20px 40px -8px rgba(0,0,0,0.14), 0 8px 16px -4px rgba(0,0,0,0.06);
       
       --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -125,7 +118,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: var(--surface-subtle);
+      background: #f8faf8;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-pill);
       padding: 7px 14px;
@@ -202,7 +195,7 @@
       font-size: 11.5px;
       font-weight: 800;
       letter-spacing: 0.04em;
-      color: #799180;
+      color: #065f46;
       padding: 16px 14px 6px;
       display: flex;
       align-items: center;
@@ -255,8 +248,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #fbf6ec;
-      border: 1px solid #f3e6ce;
+      background: #fffdf7;
+      border: 1px solid #fde68a;
       padding: 5px 12px;
       border-radius: var(--radius-pill);
       font-size: 12px;
@@ -266,21 +259,11 @@
       margin-right: 8px;
     }
 
-    [data-theme="dark"] .gold-pill {
-      background: #2b2210;
-      border-color: #4a3818;
-      color: #fcd34d;
-    }
-
     .gold-count {
       margin-left: auto;
       font-size: 13px;
       font-weight: 800;
       color: #5c3c0a;
-    }
-
-    [data-theme="dark"] .gold-count {
-      color: #fde68a;
     }
 
     .bell-btn {
@@ -322,21 +305,15 @@
       position: relative;
     }
 
-    .user-profile-card:hover, .user-profile-card.active {
+    .user-profile-card:hover {
       background: var(--surface-subtle);
     }
 
     .user-avatar-small {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: #059669;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 13px;
+      border: 1.5px solid #e5e7eb;
       overflow: hidden;
       flex-shrink: 0;
     }
@@ -368,21 +345,21 @@
       font-size: 12px;
     }
 
-    /* ════════════ USER POPOVER MENU (MATCHING IMAGE 1) ════════════ */
+    /* ════════════ USER POPOVER MENU (IMAGE 1 EXACT MATCH) ════════════ */
     .user-popover-menu {
       position: absolute;
       bottom: 74px;
       left: 14px;
-      width: 270px;
-      background: var(--surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
+      width: 275px;
+      background: #ffffff;
+      border: 1px solid #edf2f7;
+      border-radius: 22px;
       box-shadow: var(--shadow-popover);
-      padding: 10px 8px;
+      padding: 12px 10px;
       z-index: 100;
       display: none;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
       animation: popIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -400,23 +377,23 @@
       align-items: center;
       gap: 12px;
       padding: 9px 12px;
-      border-radius: var(--radius-md);
+      border-radius: 12px;
       font-size: 13.5px;
       font-weight: 600;
-      color: var(--text-main);
+      color: #1e293b;
       text-decoration: none;
       cursor: pointer;
       transition: background 0.12s;
     }
 
     .menu-item:hover {
-      background: var(--surface-subtle);
+      background: #f8fafc;
     }
 
     .menu-item .menu-ic {
-      font-size: 15px;
-      color: var(--text-secondary);
-      width: 18px;
+      font-size: 16px;
+      color: #64748b;
+      width: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -431,9 +408,8 @@
 
     .menu-toggle-group {
       display: inline-flex;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-pill);
+      background: #f1f5f9;
+      border-radius: 999px;
       padding: 2px;
       gap: 2px;
     }
@@ -442,10 +418,10 @@
       border: none;
       background: transparent;
       padding: 4px 10px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       font-size: 11.5px;
       font-weight: 700;
-      color: var(--text-secondary);
+      color: #64748b;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -454,34 +430,35 @@
     }
 
     .toggle-btn.active {
-      background: var(--surface);
-      color: var(--text-main);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
     .menu-item.logout {
       color: #ef4444;
       margin-top: 4px;
-      border-top: 1px solid var(--border-light);
+      border-top: 1px solid #f1f5f9;
       padding-top: 10px;
+      font-weight: 700;
     }
 
     .menu-item.logout .menu-ic {
       color: #ef4444;
     }
 
-    /* ════════════ MAIN CONTENT CONTAINER ════════════ */
+    /* ════════════ MAIN CONTENT ════════════ */
     .main-container {
       flex: 1;
-      padding: 24px 36px 60px;
+      padding: 28px 40px 60px;
       max-width: 1280px;
       margin: 0 auto;
       width: 100%;
     }
 
-    /* Top Breadcrumb Header */
+    /* Header */
     .profile-top-bar {
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .btn-back {
@@ -489,11 +466,10 @@
       align-items: center;
       gap: 6px;
       font-size: 13px;
-      font-weight: 600;
-      color: var(--text-secondary);
+      font-weight: 500;
+      color: #64748b;
       text-decoration: none;
       margin-bottom: 8px;
-      transition: color 0.15s;
     }
 
     .btn-back:hover {
@@ -501,28 +477,27 @@
     }
 
     .profile-page-title {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: var(--text-main);
+      color: #111827;
       margin-bottom: 4px;
     }
 
     .profile-page-sub {
       font-size: 13.5px;
-      color: var(--text-secondary);
+      color: #64748b;
     }
 
-    /* ════════════ HERO PROFILE DARK BANNER CARD (MATCHING IMAGE 2) ════════════ */
+    /* ════════════ HERO PROFILE DARK BANNER CARD (IMAGE 2 EXACT MATCH) ════════════ */
     .profile-hero-dark {
-      background: #1b221e;
-      border-radius: var(--radius-xl);
-      padding: 28px 32px;
+      background: #1c221e;
+      border-radius: 24px;
+      padding: 30px 34px;
       color: #ffffff;
-      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.22);
       margin-bottom: 24px;
       position: relative;
-      overflow: hidden;
     }
 
     .hero-top-row {
@@ -532,19 +507,12 @@
     }
 
     .hero-avatar-large {
-      width: 80px;
-      height: 80px;
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
-      border: 3px solid rgba(255, 255, 255, 0.18);
+      border: 3px solid rgba(255, 255, 255, 0.2);
       overflow: hidden;
       flex-shrink: 0;
-      background: #059669;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 24px;
-      color: #fff;
     }
 
     .hero-user-details {
@@ -556,26 +524,25 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 8px;
-      flex-wrap: wrap;
     }
 
     .tag-career-pill {
-      background: #0f3523;
-      color: #6ee7b7;
-      font-size: 11px;
+      background: #0d3824;
+      color: #34d399;
+      font-size: 10.5px;
       font-weight: 800;
       padding: 3px 10px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       letter-spacing: 0.03em;
     }
 
     .tag-level-pill {
-      background: #09402b;
-      color: #34d399;
-      font-size: 11px;
+      background: #09301e;
+      color: #10b981;
+      font-size: 10.5px;
       font-weight: 800;
       padding: 3px 10px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       letter-spacing: 0.03em;
     }
 
@@ -597,29 +564,28 @@
     .hero-bio-quote {
       font-size: 13px;
       font-style: italic;
-      color: #d1d5db;
+      color: #cbd5e1;
       line-height: 1.5;
       margin-top: 6px;
     }
 
     .btn-edit-account {
       background: #ffffff;
-      color: #172a1e;
+      color: #111827;
       font-size: 12.5px;
       font-weight: 700;
       border: none;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       padding: 8px 18px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s;
-      flex-shrink: 0;
+      transition: background 0.15s;
     }
 
     .btn-edit-account:hover {
-      background: #e5e7eb;
+      background: #f3f4f6;
     }
 
     /* Level Progress in Dark Card */
@@ -633,7 +599,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12.5px;
+      font-size: 12px;
       margin-bottom: 8px;
     }
 
@@ -649,15 +615,15 @@
     .hero-xp-bar-bg {
       width: 100%;
       height: 7px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: var(--radius-pill);
+      background: #2b352e;
+      border-radius: 999px;
       overflow: hidden;
     }
 
     .hero-xp-bar-fill {
       height: 100%;
       background: #10b981;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
     }
 
     /* ════════════ 2-COLUMN PROFILE GRID ════════════ */
@@ -669,9 +635,9 @@
     }
 
     .profile-card {
-      background: var(--surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
       padding: 24px 26px;
       box-shadow: var(--shadow-card);
     }
@@ -680,15 +646,15 @@
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .card-header-icon {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: var(--emerald-pill);
-      color: var(--primary);
+      background: #e6f7ee;
+      color: #059669;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -699,27 +665,32 @@
     .card-title {
       font-size: 16px;
       font-weight: 800;
-      color: var(--text-main);
+      color: #111827;
       margin-bottom: 2px;
     }
 
     .card-subtitle {
       font-size: 12px;
-      color: var(--text-muted);
+      color: #6b7280;
     }
 
     /* Roadmap Progress Items */
     .roadmap-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .roadmap-item {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
+      background: #f8faf8;
+      border: 1px solid #edf2ed;
+      border-radius: 14px;
       padding: 16px 18px;
+    }
+
+    .roadmap-item.active-track {
+      background: #f0fdf4;
+      border-color: #dcfce7;
     }
 
     .roadmap-item-header {
@@ -738,7 +709,7 @@
     .roadmap-name {
       font-size: 14px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #111827;
     }
 
     .badge-studying {
@@ -747,35 +718,35 @@
       font-size: 10px;
       font-weight: 800;
       padding: 2px 7px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
     }
 
     .roadmap-count {
       font-size: 14px;
       font-weight: 800;
-      color: var(--text-main);
+      color: #111827;
     }
 
     .roadmap-meta-row {
       display: flex;
       justify-content: space-between;
       font-size: 11.5px;
-      color: var(--text-muted);
+      color: #6b7280;
       margin-bottom: 10px;
     }
 
     .roadmap-bar {
       width: 100%;
       height: 5px;
-      background: var(--border-color);
-      border-radius: var(--radius-pill);
+      background: #e5e7eb;
+      border-radius: 999px;
       overflow: hidden;
     }
 
     .roadmap-bar-fill {
       height: 100%;
-      background: var(--primary);
-      border-radius: var(--radius-pill);
+      background: #10b981;
+      border-radius: 999px;
     }
 
     /* Summary Stats Grid (2x2) */
@@ -786,9 +757,9 @@
     }
 
     .stat-sub-box {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
+      background: #f8faf8;
+      border: 1px solid #edf2ed;
+      border-radius: 14px;
       padding: 16px 18px;
     }
 
@@ -796,7 +767,7 @@
       font-size: 10.5px;
       font-weight: 800;
       letter-spacing: 0.04em;
-      color: var(--text-muted);
+      color: #6b7280;
       margin-bottom: 6px;
       text-transform: uppercase;
     }
@@ -804,20 +775,20 @@
     .stat-box-val {
       font-size: 18px;
       font-weight: 800;
-      color: var(--text-main);
+      color: #111827;
       margin-bottom: 3px;
     }
 
     .stat-box-desc {
       font-size: 11.5px;
-      color: var(--text-muted);
+      color: #6b7280;
     }
 
     /* Badges & Achievements Section */
     .badges-section-card {
-      background: var(--surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
       padding: 24px 28px;
       box-shadow: var(--shadow-card);
       margin-bottom: 24px;
@@ -846,7 +817,7 @@
       font-size: 12px;
       font-weight: 800;
       padding: 4px 12px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       border: 1px solid #fde68a;
     }
 
@@ -857,9 +828,9 @@
     }
 
     .badge-item-3d {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
+      background: #f8faf8;
+      border: 1px solid #edf2ed;
+      border-radius: 14px;
       padding: 16px 12px;
       display: flex;
       flex-direction: column;
@@ -867,12 +838,6 @@
       text-align: center;
       gap: 8px;
       transition: all 0.15s;
-    }
-
-    .badge-item-3d:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--primary);
     }
 
     .badge-3d-visual {
@@ -888,7 +853,7 @@
     }
 
     .badge-3d-visual.locked {
-      background: var(--border-color);
+      background: #e5e7eb;
       box-shadow: none;
       filter: grayscale(1);
       opacity: 0.5;
@@ -897,19 +862,19 @@
     .badge-3d-name {
       font-size: 12px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #111827;
     }
 
     .badge-3d-status {
       font-size: 10px;
-      color: var(--text-muted);
+      color: #6b7280;
     }
 
     /* Completed Lessons Section */
     .recent-lessons-card {
-      background: var(--surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
       padding: 24px 28px;
       box-shadow: var(--shadow-card);
     }
@@ -919,7 +884,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 0;
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: 1px solid #f1f5f9;
     }
 
     .recent-lesson-item:last-child {
@@ -936,9 +901,9 @@
     .recent-lesson-icon {
       width: 32px;
       height: 32px;
-      border-radius: var(--radius-sm);
-      background: var(--emerald-pill);
-      color: var(--primary);
+      border-radius: 8px;
+      background: #e6f7ee;
+      color: #059669;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -948,33 +913,24 @@
     .recent-lesson-title {
       font-size: 13.5px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #111827;
     }
 
     .recent-lesson-time {
       font-size: 11.5px;
-      color: var(--text-muted);
+      color: #6b7280;
     }
 
     .recent-lesson-score {
       font-size: 12.5px;
       font-weight: 800;
-      color: var(--primary);
-    }
-
-    @media (max-width: 900px) {
-      .profile-two-col {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        display: none;
-      }
+      color: #059669;
     }
   </style>
 </head>
 <body>
 
-  <!-- ════════════ SIDEBAR ════════════ -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-header">
       <a href="dashboard.html" class="brand-logo">
@@ -1070,6 +1026,7 @@
     </nav>
 
     <div class="sidebar-footer">
+      <!-- Popover Menu -->
       <div class="user-popover-menu" id="userPopover">
         <a href="ho-so.html" class="menu-item">
           <span class="menu-ic">👤</span>
@@ -1089,8 +1046,8 @@
         </a>
 
         <div class="menu-row-toggle">
-          <span style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
-            <span style="color:var(--text-secondary)">🌐</span> Ngôn ngữ
+          <span style="font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;color:#1e293b;">
+            <span style="color:#64748b">🌐</span> Ngôn ngữ
           </span>
           <div class="menu-toggle-group">
             <button class="toggle-btn active" id="langViBtn" onclick="setLang('vi')">VI</button>
@@ -1099,8 +1056,8 @@
         </div>
 
         <div class="menu-row-toggle">
-          <span style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
-            <span style="color:var(--text-secondary)">🌗</span> Giao diện
+          <span style="font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;color:#1e293b;">
+            <span style="color:#64748b">🌗</span> Giao diện
           </span>
           <div class="menu-toggle-group">
             <button class="toggle-btn active" id="themeLightBtn" onclick="setTheme('light')">☀️ SÁNG</button>
@@ -1126,9 +1083,33 @@
         </button>
       </div>
 
-      <div class="user-profile-card active" onclick="toggleUserPopover()" id="userCardBtn" title="Menu tài khoản">
+      <div class="user-profile-card" onclick="toggleUserPopover()" id="userCardBtn" title="Menu tài khoản">
         <div class="user-avatar-small">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <div class="user-avatar-photo" style="width:100%;height:100%;border-radius:50%;overflow:hidden;background:#1e293b;position:relative;display:flex;align-items:center;justify-content:center;">
+  <svg viewBox="0 0 100 100" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#cbd5e1"/>
+        <stop offset="100%" stop-color="#94a3b8"/>
+      </linearGradient>
+    </defs>
+    <rect width="100" height="100" fill="url(#bgGrad)"/>
+    <!-- Architecture arches background -->
+    <path d="M10 100 V40 A40 40 0 0 1 90 40 V100 Z" fill="#e2e8f0" opacity="0.6"/>
+    <path d="M25 100 V45 A25 25 0 0 1 75 45 V100 Z" fill="#cbd5e1" opacity="0.8"/>
+    <!-- Suit shoulders -->
+    <path d="M10 100 Q50 65 90 100 Z" fill="#0f172a"/>
+    <!-- White shirt collar -->
+    <polygon points="50,66 42,78 50,85 58,78" fill="#ffffff"/>
+    <polygon points="50,75 47,95 53,95" fill="#0284c7"/>
+    <!-- Head and hair -->
+    <ellipse cx="50" cy="45" rx="18" ry="22" fill="#fbcfe8"/>
+    <ellipse cx="50" cy="45" rx="17" ry="21" fill="#fed7aa"/>
+    <!-- Stylish haircut -->
+    <path d="M30 42 C30 25 70 20 72 38 C68 30 52 26 38 34 Z" fill="#09090b"/>
+    <path d="M32 38 C32 28 65 24 68 34 C60 28 42 30 32 38 Z" fill="#18181b"/>
+  </svg>
+</div>
         </div>
         <div class="user-info">
           <div class="user-name">Đình Trí Bùi</div>
@@ -1149,10 +1130,35 @@
       <p class="profile-page-sub">Nơi bạn theo dõi hành trình học, thành tích và những việc nên làm tiếp theo.</p>
     </div>
 
+    <!-- HERO PROFILE DARK CARD -->
     <section class="profile-hero-dark">
       <div class="hero-top-row">
         <div class="hero-avatar-large">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <div class="user-avatar-photo" style="width:100%;height:100%;border-radius:50%;overflow:hidden;background:#1e293b;position:relative;display:flex;align-items:center;justify-content:center;">
+  <svg viewBox="0 0 100 100" width="100%" height="100%">
+    <defs>
+      <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#cbd5e1"/>
+        <stop offset="100%" stop-color="#94a3b8"/>
+      </linearGradient>
+    </defs>
+    <rect width="100" height="100" fill="url(#bgGrad)"/>
+    <!-- Architecture arches background -->
+    <path d="M10 100 V40 A40 40 0 0 1 90 40 V100 Z" fill="#e2e8f0" opacity="0.6"/>
+    <path d="M25 100 V45 A25 25 0 0 1 75 45 V100 Z" fill="#cbd5e1" opacity="0.8"/>
+    <!-- Suit shoulders -->
+    <path d="M10 100 Q50 65 90 100 Z" fill="#0f172a"/>
+    <!-- White shirt collar -->
+    <polygon points="50,66 42,78 50,85 58,78" fill="#ffffff"/>
+    <polygon points="50,75 47,95 53,95" fill="#0284c7"/>
+    <!-- Head and hair -->
+    <ellipse cx="50" cy="45" rx="18" ry="22" fill="#fbcfe8"/>
+    <ellipse cx="50" cy="45" rx="17" ry="21" fill="#fed7aa"/>
+    <!-- Stylish haircut -->
+    <path d="M30 42 C30 25 70 20 72 38 C68 30 52 26 38 34 Z" fill="#09090b"/>
+    <path d="M32 38 C32 28 65 24 68 34 C60 28 42 30 32 38 Z" fill="#18181b"/>
+  </svg>
+</div>
         </div>
 
         <div class="hero-user-details">
@@ -1170,7 +1176,7 @@
           </div>
         </div>
 
-        <button class="btn-edit-account" onclick="alert('Mở thiết lập tài khoản')">
+        <button class="btn-edit-account" onclick="alert('Thiết lập tài khoản')">
           <span>🖊️</span>
           <span>Thiết lập tài khoản</span>
         </button>
@@ -1188,6 +1194,7 @@
     </section>
 
     <div class="profile-two-col">
+      <!-- TIẾN ĐỘ LỘ TRÌNH -->
       <div class="profile-card">
         <div class="card-header-flex">
           <div class="card-header-icon">🎯</div>
@@ -1198,7 +1205,7 @@
         </div>
 
         <div class="roadmap-list">
-          <div class="roadmap-item">
+          <div class="roadmap-item active-track">
             <div class="roadmap-item-header">
               <div class="roadmap-item-title-group">
                 <span class="roadmap-name">Tài chính cá nhân</span>
@@ -1233,6 +1240,7 @@
         </div>
       </div>
 
+      <!-- THỐNG KÊ TÓM TẮT -->
       <div class="profile-card">
         <div class="card-header-flex">
           <div>
@@ -1268,6 +1276,7 @@
       </div>
     </div>
 
+    <!-- HUY HIỆU & DANH HIỆU -->
     <section class="badges-section-card">
       <div class="badges-header-row">
         <div class="badges-title-group">
@@ -1309,6 +1318,7 @@
       </div>
     </section>
 
+    <!-- BÀI HỌC HOÀN THÀNH GẦN ĐÂY -->
     <section class="recent-lessons-card">
       <h3 class="card-title" style="margin-bottom: 14px;">Bài học hoàn thành gần đây</h3>
       

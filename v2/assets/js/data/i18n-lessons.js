@@ -1,4 +1,4 @@
-/* Bản tiếng Anh cho 100 tiêu đề bài học. Nội dung bên trong bài vẫn là tiếng Việt. */
+/* Bản tiếng Anh cho tiêu đề bài học. Nội dung bên trong bài vẫn là tiếng Việt. */
 I18N.add({
   /* Case Method — Họ 1 · Lợi nhuận */
   "Nhận diện case lợi nhuận":"Recognising a profit case",
@@ -124,4 +124,279 @@ I18N.add({
   "Vì sao một đồng hôm nay khác một đồng năm sau":"Why a dong today differs from a dong next year",
   "NPV, IRR và khi IRR nói dối":"NPV, IRR and when IRR lies",
   "Tìm biến số làm đổi kết luận":"Finding the variable that flips the conclusion"
+});
+
+/* ── mở rộng giáo trình: 224 bài đang biên soạn ── */
+I18N.add({
+  /* Market Sizing */
+  "Ước lượng dân số và tỷ lệ thâm nhập khi không có số liệu":"Estimating population and penetration with no data at hand",
+  "Làm tròn thông minh: sai 10% vẫn đúng kết luận":"Rounding smartly: 10% off and still right",
+  "Ước lượng theo phía cung thay vì phía cầu":"Sizing from supply instead of demand",
+  "TAM, SAM, SOM: ba vòng tròn phục vụ ba câu hỏi khác nhau":"TAM, SAM, SOM: three circles for three questions",
+  "Kiểm tra chéo khi hai cách tính ra hai con số khác nhau":"Cross-checking when two methods disagree",
+  "Ước lượng cho sản phẩm chưa từng tồn tại":"Sizing a product that has never existed",
+  "Trình bày một ước lượng để người nghe tin":"Presenting an estimate people will believe",
+  "Từ quy mô thị trường tới mục tiêu doanh số khả thi":"From market size to a realistic sales target",
+  /* Profitability */
+  "Đọc báo cáo kết quả kinh doanh trong ba phút":"Reading an income statement in three minutes",
+  "Biên gộp, biên đóng góp, biên ròng: đừng nhầm ba con số":"Gross, contribution and net margin: don't mix them up",
+  "Phân bổ chi phí chung và những quyết định sai vì nó":"Overhead allocation and the decisions it ruins",
+  "Lợi nhuận giảm vì giá, vì sản lượng hay vì cơ cấu":"Profit fell because of price, volume or mix",
+  "Tách lợi nhuận theo sản phẩm, kênh và khách hàng":"Splitting profit by product, channel and customer",
+  "Khi cắt chi phí lại làm lợi nhuận giảm":"When cutting costs lowers profit",
+  "Lợi nhuận kế toán và dòng tiền lệch nhau ở đâu":"Where accounting profit and cash flow diverge",
+  "Dựng kế hoạch phục hồi lợi nhuận 12 tháng":"Building a 12-month profit recovery plan",
+  /* Pricing */
+  "Sẵn lòng chi trả: đo bằng gì cho đáng tin":"Willingness to pay: how to measure it credibly",
+  "Giá tâm lý, giá mỏ neo và giá tham chiếu":"Psychological price, anchors and reference points",
+  "Tăng giá mà không mất khách: ba cách":"Raising price without losing customers: three ways",
+  "Chiết khấu, khuyến mãi và chi phí ẩn của chúng":"Discounts, promotions and their hidden cost",
+  "Định giá theo gói và định giá theo mức dùng":"Bundle pricing and usage-based pricing",
+  "Chiến tranh giá: khi nào không nên đánh":"Price wars: when not to fight",
+  /* Unit Economics */
+  "Biên đóng góp mỗi đơn vị: con số quyết định quy mô":"Contribution per unit: the number that decides scale",
+  "Kinh tế đơn vị của một marketplace hai phía":"Unit economics of a two-sided marketplace",
+  "Trợ giá cho tăng trưởng: khi nào hợp lý":"Subsidising growth: when it makes sense",
+  "Cohort: nhìn kinh tế đơn vị theo thời gian":"Cohorts: unit economics over time",
+  "Churn ăn mòn LTV nhanh tới mức nào":"How fast churn erodes LTV",
+  "Từ kinh tế đơn vị tới điểm hoà vốn của cả công ty":"From unit economics to company break-even",
+  /* Customer Segmentation */
+  "Phân khúc bằng dữ liệu: ba biến là đủ":"Segmenting with data: three variables are enough",
+  "Chân dung khách hàng không phải là phân khúc":"A persona is not a segment",
+  "Định cỡ và xếp hạng các phân khúc":"Sizing and ranking your segments",
+  "Một sản phẩm phục vụ nhiều phân khúc được không":"Can one product serve several segments",
+  /* Competitive Advantage */
+  "Hiệu ứng mạng: loại nào thật, loại nào yếu":"Network effects: which are real, which are weak",
+  "Chi phí chuyển đổi và cách tạo ra nó":"Switching costs and how to create them",
+  "Lợi thế quy mô và giới hạn của nó":"Scale advantage and where it stops",
+  "Thương hiệu có phải là lợi thế cạnh tranh không":"Is a brand really a competitive advantage",
+  "Đo độ bền của lợi thế bằng ba câu hỏi":"Testing durability with three questions",
+  "Khi một moat bị công nghệ mới xoá sổ":"When new technology erases a moat",
+  /* Business Model */
+  "Mô hình thuê bao: chỉ số nào quyết định sống còn":"Subscription models: the metric that decides survival",
+  "Marketplace và bài toán con gà quả trứng":"Marketplaces and the chicken-and-egg problem",
+  "Mô hình nền tảng khác mô hình tuyến tính thế nào":"Platform models versus linear models",
+  "Freemium: tỷ lệ chuyển đổi phải bao nhiêu mới đủ":"Freemium: what conversion rate is enough",
+  "Dòng tiền của mô hình: ai trả trước, ai trả sau":"Model cash flow: who pays first, who pays later",
+  "Đổi mô hình kinh doanh: rủi ro và điều kiện":"Changing the business model: risks and conditions",
+  /* Đọc đề case */
+  "Bảng phân rã đề: dữ kiện, ẩn số, ràng buộc":"Breaking the brief down: facts, unknowns, constraints",
+  "Đọc phụ lục: số nào dùng được, số nào gây nhiễu":"Reading the appendix: useful numbers versus noise",
+  "Hiểu ban tổ chức muốn gì qua bảng tiêu chí chấm":"Reading the judging criteria to see what organisers want",
+  "Đề mở và đề đóng: đổi cách tiếp cận thế nào":"Open briefs and closed briefs need different approaches",
+  "Nghiên cứu nhanh về một ngành lạ trong 60 phút":"Researching an unfamiliar industry in 60 minutes",
+  "Chốt phạm vi với cả nhóm trước khi phân tích":"Agreeing the scope with your team before analysing",
+  /* Phân tích vấn đề */
+  "Năm câu hỏi làm rõ đề trước khi dựng khung":"Five clarifying questions before you build a frame",
+  "Khung tự dựng tốt hơn khung vay mượn":"A frame you build beats a frame you borrow",
+  "Xác định người ra quyết định và tiêu chí của họ":"Identifying the decision maker and their criteria",
+  "Định lượng khoảng cách giữa hiện tại và mục tiêu":"Quantifying the gap between today and the target",
+  "Giả định nền: viết ra trước khi bị hỏi":"Base assumptions: write them down before you are asked",
+  "Khung hoá một đề xã hội hoặc phi lợi nhuận":"Framing a social or non-profit brief",
+  /* Hypothesis tree */
+  "Kiểm tra MECE bằng ba phép thử nhanh":"Three quick tests for MECE",
+  "Cắt tỉa cây: bỏ nhánh không đáng theo":"Pruning the tree: dropping branches not worth chasing",
+  "Xếp ưu tiên nhánh theo tác động × khả thi":"Ranking branches by impact × feasibility",
+  "Từ cây giả thuyết tới danh sách phân tích cần làm":"From hypothesis tree to a list of analyses",
+  "Cây cho bài toán chi phí và cây cho bài toán doanh thu":"Trees for a cost problem and for a revenue problem",
+  "Chia việc theo nhánh cho nhóm bốn người":"Splitting branches across a team of four",
+  /* Tìm insight */
+  "Chuẩn hoá dữ liệu trước khi so sánh":"Normalising data before you compare",
+  "Benchmark: tìm mốc so sánh đáng tin":"Benchmarks: finding a reference you can trust",
+  "Tương quan không phải nhân quả — ngay trong bài thi":"Correlation is not causation — in a competition too",
+  "Trung bình che giấu điều gì: phân tích theo nhóm":"What the average hides: analysing by segment",
+  "Ba insight là đủ cho một bài thi":"Three insights are enough for a competition",
+  "Viết câu insight theo mẫu: quan sát → vì sao → nên làm gì":"Writing an insight: observation → why → what to do",
+  /* Slide deck */
+  "Slide khuyến nghị: viết trước, chứng minh sau":"The recommendation slide: write it first, prove it after",
+  "Slide tài chính: bảng nào, giả định nào":"The financial slide: which table, which assumptions",
+  "Slide lộ trình thực thi 0 – 3 – 12 tháng":"The 0–3–12 month execution roadmap slide",
+  "Slide rủi ro và phương án dự phòng":"The risk and mitigation slide",
+  "Appendix: để dành đạn cho phần Q&A":"Appendix: saving ammunition for Q&A",
+  "Thiết kế tối giản: chữ, màu và khoảng trắng":"Minimal design: type, colour and white space",
+  /* Storyline */
+  "SCQA cho phần mở đầu 90 giây":"SCQA for a 90-second opening",
+  "Kiểm tra mạch kể bằng phép đọc riêng các tiêu đề":"Testing the storyline by reading only the headlines",
+  /* Pitching */
+  "Ba vòng chạy thử và sửa gì sau mỗi vòng":"Three rehearsals and what to fix after each",
+  "Nhịp nói, ngôn ngữ cơ thể và cách dùng con trỏ":"Pace, body language and how to use the pointer",
+  /* Q&A với ban giám khảo */
+  "Nghe hết câu hỏi rồi mới trả lời":"Hear the whole question before you answer",
+  "Trả lời theo ba câu: kết luận, lý do, dẫn chứng":"Answer in three sentences: conclusion, reason, evidence",
+  "Khi bạn không biết câu trả lời":"When you do not know the answer",
+  "Câu hỏi đánh thẳng vào mô hình tài chính":"Questions aimed straight at your financial model",
+  "Câu hỏi về tính khả thi khi thực thi":"Questions about whether it can actually be executed",
+  "Phối hợp nhóm khi trả lời phản biện":"Coordinating the team during Q&A",
+  /* Profit family */
+  "Đọc đề lợi nhuận: tách nguyên nhân doanh thu và chi phí":"Reading a profit brief: separating revenue and cost causes",
+  "Phân tách lợi nhuận theo sản phẩm và theo kênh":"Splitting profit by product and by channel",
+  "Đối chiếu với đối thủ và với chính mình năm trước":"Comparing with competitors and with last year",
+  "Bài toán lợi nhuận có yếu tố mùa vụ":"Profit problems with seasonality",
+  "Khi chi phí tăng do bên ngoài: chuyển giá hay tự chịu":"When external costs rise: pass through or absorb",
+  "Ưu tiên giải pháp theo tác động và thời gian":"Prioritising solutions by impact and time",
+  "Viết khuyến nghị cho một case lợi nhuận":"Writing the recommendation for a profit case",
+  "Chạy thử trọn vẹn một case lợi nhuận 30 phút":"A full 30-minute profit case, end to end",
+  /* Growth family */
+  "Tăng trưởng hiện hữu và tăng trưởng mới: xét theo thứ tự":"Existing growth and new growth: the order to examine them",
+  "Đo tiềm năng từng hướng bằng ba con số":"Sizing each direction with three numbers",
+  "Tăng trưởng bằng giá: giới hạn nằm ở đâu":"Growth through price: where the ceiling is",
+  "Mở rộng địa lý: tiêu chí chọn thị trường":"Geographic expansion: criteria for picking a market",
+  "Kênh mới và xung đột kênh":"New channels and channel conflict",
+  "Nguồn lực cần có cho một kế hoạch tăng trưởng":"The resources a growth plan actually needs",
+  "Viết khuyến nghị cho một case tăng trưởng":"Writing the recommendation for a growth case",
+  "Chạy thử trọn vẹn một case tăng trưởng 30 phút":"A full 30-minute growth case, end to end",
+  /* Investment family */
+  "Thị trường có đáng vào không: ba phép kiểm":"Is this market worth entering: three tests",
+  "Tự làm, mua lại hay hợp tác":"Build, buy or partner",
+  "Dựng P&L ba năm cho phương án gia nhập":"Building a three-year P&L for the entry option",
+  "Phản ứng của đối thủ tại chỗ":"How the incumbent will respond",
+  "Rủi ro pháp lý, vận hành và cách chiết khấu chúng":"Legal and operating risk, and how to discount it",
+  "Tiêu chí dừng: khi nào thì rút":"Stop criteria: when to walk away",
+  "Viết khuyến nghị cho một case đầu tư":"Writing the recommendation for an investment case",
+  "Chạy thử trọn vẹn một case gia nhập 30 phút":"A full 30-minute entry case, end to end",
+  /* Profitability case */
+  "Mở đầu và câu hỏi làm rõ trong 60 giây đầu":"Opening and clarifying questions in the first 60 seconds",
+  "Phân rã chi phí bằng lời, không bằng bảng":"Breaking down costs out loud, not on paper",
+  "Tính nhẩm nhanh và kiểm tra bậc độ lớn":"Fast mental maths and order-of-magnitude checks",
+  "Case lợi nhuận ngành dịch vụ":"A profit case in a service business",
+  "Case lợi nhuận ngành sản xuất":"A profit case in a manufacturing business",
+  "Chốt khuyến nghị trong 90 giây":"Closing the recommendation in 90 seconds",
+  /* Market entry */
+  "Ước lượng thị trường mới ngay trong buổi phỏng vấn":"Sizing a new market live in the interview",
+  "Rào cản gia nhập và thời gian tới điểm hoà vốn":"Entry barriers and time to break even",
+  "Chọn phương thức: tự làm, liên doanh hay mua lại":"Choosing the mode: build, joint venture or acquire",
+  "Thị trường nước ngoài: bốn khác biệt hay bị bỏ qua":"Foreign markets: four differences people miss",
+  "Rủi ro và điều kiện huỷ kế hoạch":"Risks and the conditions that would cancel the plan",
+  "Chốt khuyến nghị gia nhập trong 90 giây":"Closing an entry recommendation in 90 seconds",
+  /* Growth strategy */
+  "Tăng trưởng hữu cơ và phi hữu cơ":"Organic and inorganic growth",
+  "Phân tích khách hàng hiện có trước khi tìm khách mới":"Analysing existing customers before chasing new ones",
+  "Ra mắt sản phẩm mới: dự báo mức hấp thụ":"New product launch: forecasting uptake",
+  "Tăng trưởng trong một thị trường bão hoà":"Growing in a saturated market",
+  "Đánh đổi giữa tăng trưởng và biên lợi nhuận":"The trade-off between growth and margin",
+  "Chốt khuyến nghị tăng trưởng trong 90 giây":"Closing a growth recommendation in 90 seconds",
+  /* M&A */
+  "Lý do chiến lược của thương vụ":"The strategic rationale for the deal",
+  "Thẩm định: năm câu hỏi quan trọng nhất":"Due diligence: the five questions that matter most",
+  "Định giá theo bội số và theo dòng tiền":"Valuing by multiples and by cash flow",
+  "Hợp nhất sau sáp nhập: nơi giá trị bốc hơi":"Post-merger integration: where value evaporates",
+  "Thoái vốn và tách mảng kinh doanh":"Divestitures and carve-outs",
+  "Chốt khuyến nghị M&A trong 90 giây":"Closing an M&A recommendation in 90 seconds",
+  /* Operations improvement */
+  "Bản đồ quy trình và thời gian chu kỳ":"Process maps and cycle time",
+  "Chất lượng và chi phí ẩn của lỗi":"Quality and the hidden cost of defects",
+  "Năng suất lao động và cơ cấu ca":"Labour productivity and shift structure",
+  "Tự làm hay thuê ngoài":"Make or buy",
+  "Chuyển đổi số trong vận hành: đo lợi ích thế nào":"Digital in operations: how to measure the benefit",
+  "Chốt khuyến nghị vận hành trong 90 giây":"Closing an operations recommendation in 90 seconds",
+  /* Pricing case */
+  "Định giá sản phẩm mới khi chưa có tham chiếu":"Pricing a new product with no reference point",
+  "Cấu trúc giá theo phân khúc và theo gói":"Price structure by segment and by bundle",
+  "Điểm hoà vốn của một lần giảm giá":"The break-even volume of a price cut",
+  "Giá trong B2B: đàm phán và chiết khấu theo khối lượng":"B2B pricing: negotiation and volume discounts",
+  "Rủi ro pháp lý và thương hiệu khi đổi giá":"Legal and brand risk when you change price",
+  "Chốt khuyến nghị giá trong 90 giây":"Closing a pricing recommendation in 90 seconds",
+  /* Brainstorming */
+  "Ba trục bung ý dùng được cho mọi câu hỏi mở":"Three axes that work for any open question",
+  "Chọn lọc và xếp hạng ý sau khi bung":"Filtering and ranking ideas after the brainstorm",
+  /* Chart interpretation */
+  "Bảng số liệu dày: đọc theo hàng hay theo cột":"Dense tables: read across rows or down columns",
+  "Trục, đơn vị và mốc thời gian: ba bẫy hay gặp":"Axes, units and time frames: three common traps",
+  "Đọc biểu đồ waterfall và biểu đồ cơ cấu":"Reading waterfall and composition charts",
+  "Ghép hai exhibit để ra một kết luận":"Combining two exhibits into one conclusion",
+  "Tính toán nhanh ngay trên exhibit":"Running quick calculations on the exhibit itself",
+  "Trình bày phần đọc biểu đồ thành lời":"Turning chart reading into spoken analysis",
+  /* Brand positioning */
+  "Điểm khác biệt và điểm ngang bằng":"Points of difference and points of parity",
+  "Kiến trúc thương hiệu: một nhà hay nhiều nhà":"Brand architecture: house of brands or branded house",
+  "Tái định vị khi thị trường đổi":"Repositioning when the market shifts",
+  "Đo sức khoẻ thương hiệu bằng ba chỉ số":"Measuring brand health with three metrics",
+  /* Go-to-market */
+  "Định giá ra mắt và khuyến mãi dùng thử":"Launch pricing and trial promotions",
+  "Dự báo doanh số năm đầu cho sản phẩm mới":"Forecasting first-year sales for a new product",
+  "Thử nghiệm thị trường trước khi tung toàn quốc":"Test markets before a national rollout",
+  "Ngân sách ra mắt: chia theo giai đoạn":"Launch budget: splitting it across phases",
+  "Phối hợp bán hàng và marketing khi ra mắt":"Aligning sales and marketing at launch",
+  "Tiêu chí dừng hoặc mở rộng sau 90 ngày":"Stop-or-scale criteria after 90 days",
+  /* STP */
+  "Định cỡ và chấm điểm các phân khúc":"Sizing and scoring segments",
+  "Từ phân khúc tới thông điệp cụ thể":"From segment to a concrete message",
+  "Phân khúc theo dịp dùng và theo nhu cầu":"Segmenting by occasion and by need",
+  "Khi phân khúc mục tiêu quá nhỏ để nuôi doanh nghiệp":"When the target segment is too small to sustain the business",
+  /* 4P / 7P */
+  "Kênh phân phối: chiều dài, chiều rộng và biên của từng lớp":"Distribution: length, width and the margin at each layer",
+  "Truyền thông: chia giữa xây thương hiệu và kích hoạt bán":"Communications: splitting brand building and sales activation",
+  /* Customer journey */
+  "Điểm chạm nào đáng đầu tư nhất":"Which touchpoint deserves the investment",
+  "Giữ chân khách và vòng lặp quay lại":"Retention and the loop that brings people back",
+  "Trải nghiệm số và trải nghiệm tại cửa hàng":"Digital experience and in-store experience",
+  "Từ hành trình tới kế hoạch cải thiện có ưu tiên":"From journey map to a prioritised improvement plan",
+  /* Campaign strategy */
+  "Thông điệp lớn và biến thể theo kênh":"The big idea and its channel variants",
+  "Lịch chiến dịch và nhịp lên sóng":"Campaign calendar and flighting",
+  "Đo lường trước – trong – sau chiến dịch":"Measuring before, during and after a campaign",
+  "Chiến dịch không đạt mục tiêu: sửa gì trước":"When a campaign misses its target: what to fix first",
+  /* Marketing metrics */
+  "Phễu chỉ số: từ lượt hiển thị tới doanh thu":"The metric funnel: from impressions to revenue",
+  "CAC theo kênh và giới hạn mở rộng":"CAC by channel and the limits of scaling",
+  "Thử nghiệm A/B: đọc kết quả cho đúng":"A/B tests: reading the result correctly",
+  "Báo cáo marketing một trang cho ban lãnh đạo":"A one-page marketing report for the board",
+  /* Demand forecasting */
+  "Mùa vụ và xu hướng: tách hai thành phần":"Separating seasonality from trend",
+  "Dự báo cho sản phẩm mới không có lịch sử":"Forecasting a new product with no history",
+  "Đo chất lượng dự báo: sai số tuyệt đối và độ lệch":"Measuring forecast quality: absolute error and bias",
+  "Từ dự báo tới kế hoạch cung ứng":"From forecast to supply plan",
+  /* Inventory */
+  "Lượng đặt hàng kinh tế và chi phí đặt hàng":"Economic order quantity and ordering cost",
+  "Phân loại ABC và mức phục vụ theo nhóm":"ABC classification and service level by class",
+  "Hàng chậm luân chuyển và hàng lỗi mốt":"Slow-moving and obsolete stock",
+  "Tồn kho trong chuỗi nhiều điểm":"Inventory across a multi-echelon network",
+  /* Capacity */
+  "Cân bằng chuyền và thời gian nhịp":"Line balancing and takt time",
+  "Công suất mùa cao điểm: thuê ngoài hay tăng ca":"Peak season capacity: outsource or add shifts",
+  "Chi phí của công suất nhàn rỗi":"The cost of idle capacity",
+  "Lộ trình mở rộng theo giai đoạn":"A staged expansion roadmap",
+  /* Bottleneck */
+  "Lý thuyết ràng buộc: năm bước áp dụng":"Theory of constraints: the five steps",
+  "Nút thắt di chuyển sau khi được nới":"The bottleneck moves once you relieve it",
+  "Nút thắt nằm ở con người và ở thông tin":"Bottlenecks in people and in information",
+  "Đo tác động tài chính của việc nới nút thắt":"Measuring the financial impact of relieving a bottleneck",
+  /* Logistics */
+  "Mạng lưới kho: tập trung hay phân tán":"Warehouse network: centralise or spread out",
+  "Chọn phương thức vận chuyển theo giá trị hàng":"Choosing transport mode by product value",
+  "Định tuyến và tỷ lệ lấp đầy xe":"Routing and vehicle fill rate",
+  "Giao đúng hẹn và cái giá để đạt được nó":"On-time delivery and what it costs to reach it",
+  /* Cost optimization */
+  "Chi phí để phục vụ theo khách hàng và theo đơn":"Cost to serve by customer and by order",
+  "Đàm phán nhà cung cấp: đòn bẩy nào là thật":"Supplier negotiation: which levers are real",
+  /* Service level */
+  "Tỷ lệ đáp ứng, tỷ lệ đủ hàng và đơn hoàn hảo":"Fill rate, in-stock rate and the perfect order",
+  "Cam kết dịch vụ khác nhau cho khách hàng khác nhau":"Different service promises for different customers",
+  /* Revenue model */
+  "Ghi nhận doanh thu: thời điểm quan trọng thế nào":"Revenue recognition: why timing matters",
+  "Dự báo doanh thu từ dưới lên":"Forecasting revenue bottom-up",
+  "Cơ cấu doanh thu và chất lượng doanh thu":"Revenue mix and revenue quality",
+  "Doanh thu theo cohort cho mô hình thuê bao":"Cohort revenue for a subscription model",
+  /* Cost structure */
+  "Chi phí trực tiếp, gián tiếp và cách phân bổ":"Direct cost, indirect cost and how to allocate",
+  "Chi phí chìm và chi phí cơ hội trong quyết định":"Sunk cost and opportunity cost in a decision",
+  /* Margin */
+  "Cải thiện biên: giá, cơ cấu hay chi phí":"Improving margin: price, mix or cost",
+  "So sánh biên giữa các ngành mà không bị hớ":"Comparing margins across industries without being fooled",
+  /* Break-even */
+  "Hoà vốn cho dự án có đầu tư ban đầu":"Break-even for a project with upfront investment",
+  "Hoà vốn tiền mặt và hoà vốn kế toán":"Cash break-even and accounting break-even",
+  /* ROI */
+  "Chi phí vốn: hiểu đủ để dùng trong case":"Cost of capital: enough to use it in a case",
+  "Thời gian hoàn vốn có chiết khấu":"Discounted payback",
+  "Xếp hạng danh mục dự án khi vốn có hạn":"Ranking a project portfolio under a capital limit",
+  "Trình bày kết quả đầu tư cho ban lãnh đạo":"Presenting investment results to the board",
+  /* NPV basics */
+  "Dựng dòng tiền tự do trong 10 phút":"Building free cash flow in 10 minutes",
+  "Giá trị cuối kỳ và vì sao nó chiếm quá nửa":"Terminal value and why it is more than half",
+  "Chọn tỷ lệ chiết khấu và bảo vệ lựa chọn đó":"Choosing a discount rate and defending it",
+  "NPV cho quyết định thuê hay mua":"NPV for a lease-or-buy decision",
+  /* Sensitivity analysis */
+  "Kịch bản tốt, cơ sở, xấu: dựng cho đúng":"Best, base and worst case: building them properly",
+  "Biểu đồ tornado và cách trình bày độ nhạy":"Tornado charts and how to present sensitivity"
 });

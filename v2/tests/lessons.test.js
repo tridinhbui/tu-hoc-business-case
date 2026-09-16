@@ -219,11 +219,13 @@ const SIDE = [
 ];
 const vi = x => Number.isInteger(x) ? x.toLocaleString("de-DE") : String(x).replace(".",",");
 
-const fund = W.LESSONS;
+const fund = W.LESSONS.filter(l=>!l.soon), soon = W.LESSONS.filter(l=>l.soon);
 console.log("Phủ nội dung");
-t(`đủ nội dung cho ${fund.length} bài của cả 6 track`,()=>{
+t(`đủ nội dung cho ${fund.length}/${W.LESSONS.length} bài đã phát hành (${soon.length} bài đang biên soạn)`,()=>{
   const miss = fund.filter(l=>!C[l.id]).map(l=>l.id); assert.deepEqual(miss,[]);
   Object.keys(C).forEach(id=>assert.ok(W.LESSON_BY_ID[id],"nội dung cho bài không tồn tại: "+id));
+  const wrong = soon.filter(l=>C[l.id]).map(l=>l.id);
+  assert.deepEqual(wrong,[],"bài đã có nội dung thì phải bỏ cờ soon trong curriculum.js");
 });
 
 console.log("\nĐáp án tính lại từ đề");
