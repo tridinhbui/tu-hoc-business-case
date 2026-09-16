@@ -30,6 +30,16 @@
         "4499"
       ],
       "port": 4499
+    },
+    {
+      "name": "caselab-v2-alt",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4531"
+      ],
+      "port": 4531
     }
   ]
 }

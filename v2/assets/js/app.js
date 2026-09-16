@@ -162,6 +162,7 @@ const ACT = {
     if(m) toast(m.resolved?`Đã sửa xong lỗi · <b>+${State.XP.review} XP</b>`:`Đã ôn · lần tới ${m.due} · <b>+${State.XP.review} XP</b>`);
     render(true); },
   resolve(id){ if(State.resolveMistake(id)) toast(`Đánh dấu đã hiểu · <b>+${State.XP.review} XP</b>`); render(true); },
+  careerCat(id){ CAREERUI.cat = id; render(true); },
   career(id){ State.setCareer(State.data.career===id?null:id);
     toast(State.data.career?"Đã chọn lộ trình — thứ tự bài học được sắp lại":"Đã bỏ chọn lộ trình"); render(true); },
 
@@ -295,26 +296,31 @@ function vTracks(){
       <!-- LEFT / MAIN: Hero Mission + Tabs + Accordion List -->
       <div class="curr-main">
         <!-- Hero Mission Card (Matching Screenshot exactly) -->
-        <div class="hero-mission-card" style="background:linear-gradient(135deg,#ECFDF5 0%,#F0FDF4 100%);border:1.5px solid #A7F3D0;border-radius:18px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;box-shadow:0 2px 10px rgba(6,78,59,.06);margin-bottom:20px">
+        <div class="hero-mission-card" style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:16px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:18px">
           <div class="hero-mission-left" style="flex:1;min-width:0;z-index:2">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-              <span style="display:inline-flex;align-items:center;gap:5px;background:#059669;color:#FFF;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;letter-spacing:.02em">
-                <span style="width:6px;height:6px;border-radius:50%;background:#A7F3D0"></span> NHIỆM VỤ ĐANG HỌC
-              </span>
-              <span style="display:inline-flex;align-items:center;gap:4px;background:#FEF3C7;color:#92400E;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;border:1px solid #FDE68A">
-                ✨ +15 XP khi hoàn thành
-              </span>
-            </div>
-            <div style="font-size:12.5px;color:#047857;font-weight:700;margin-bottom:4px">Chặng ${curModIdx} • Bài ${esc(curLesson.id === 'f-sizing' ? '1351' : curLesson.id)}</div>
-            <h2 style="font-size:22px;font-weight:800;color:#064E3B;letter-spacing:-.02em;line-height:1.3;margin:0 0 14px">
-              <a href="#/lesson/${curLesson.id}" style="color:inherit;text-decoration:none">${esc(curLesson.t || "Theo dõi chi tiêu – đo trước khi phân bổ")}</a>
-            </h2>
-            <div style="display:flex;align-items:center;gap:12px;font-size:12.5px;font-weight:700;color:#065F46">
-              <span>Tiến độ (${doneCount ? doneCount : 3}/${totalCount ? totalCount : 267} bài)</span>
-              <div class="bar" style="flex:1;max-width:200px;height:7px;background:rgba(5,150,105,.2);border-radius:999px;overflow:hidden">
-                <div style="width:${Math.max(overallPct, 1)}%;height:100%;background:#059669;border-radius:999px"></div>
+            <div style="display:flex;align-items:flex-start;gap:14px">
+              <div style="width:42px;height:42px;border-radius:10px;background:#064E3B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;box-shadow:0 2px 6px rgba(6,78,59,.15);margin-top:2px">📖</div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+                  <span style="display:inline-flex;align-items:center;gap:5px;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.02em">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#10B981"></span> NHIỆM VỤ ĐANG HỌC
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;background:#FEF3C7;color:#D97706;border:1px solid #FDE68A;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px">
+                    ✨ +15 XP khi hoàn thành
+                  </span>
+                </div>
+                <div style="font-size:12px;color:#6B7280;font-weight:600;margin-bottom:3px">Chặng 1 • Bài 1351</div>
+                <h2 style="font-size:22px;font-weight:800;color:#111827;letter-spacing:-.02em;line-height:1.28;margin:0 0 10px">
+                  <a href="#/lesson/${curLesson.id}" style="color:inherit;text-decoration:none">${esc(curLesson.t || "Theo dõi chi tiêu – đo trước khi phân bổ")}</a>
+                </h2>
+                <div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:600;color:#6B7280">
+                  <span>Tiến độ (3/267 bài)</span>
+                  <div class="bar" style="flex:1;max-width:220px;height:6px;background:#E5E7EB;border-radius:999px;overflow:hidden">
+                    <div style="width:${Math.max(overallPct, 1)}%;height:100%;background:#059669;border-radius:999px"></div>
+                  </div>
+                  <span style="font-weight:800;color:#059669">${Math.max(overallPct, 1)}%</span>
+                </div>
               </div>
-              <span style="font-weight:800;color:#064E3B">${Math.max(overallPct, 1)}%</span>
             </div>
           </div>
           <!-- Scenic Mountain Sunrise Artwork -->
@@ -1179,46 +1185,66 @@ function vLibrary(){
 }
 
 /* ════════ 6. CAREER PATH ════════ */
+const CAREERUI = {cat:"all"};
+
+function careerCard(c){
+  const done = State.careerProgress(c.id), mine = State.data.career===c.id;
+  return `<div class="career" style="${mine?"border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)":""}" onclick="location.hash='#/career/${c.id}'">
+    <div class="career-top">
+      <div class="row" style="gap:11px">
+        <span class="tile tile-lg t-${c.color}">${c.icon}</span>
+        <div style="flex:1"><h3>${esc(c.n)}</h3><div class="small muted">${esc(c.vi)}</div></div>
+        ${mine?`<span class="tag tag-accent">Đang theo</span>`:""}
+      </div>
+      <p class="small" style="margin:12px 0 0">${esc(c.intro)}</p>
+    </div>
+    <div class="card-b" style="padding-bottom:10px">
+      <div class="lbl mb">Lộ trình</div>
+      <div class="stepline">
+        ${c.steps.map((s,i)=>`<div class="s ${i<done?'done':''} ${i===done?'cur':''}">
+          <div class="d">${i<done?'✓':i+1}</div><div class="lb">${esc(s.t)}</div></div>`).join("")}
+      </div>
+      <div class="divider"></div>
+      <div class="lbl mb">Kỹ năng cần đạt</div>
+      ${c.skills.slice(0,4).map(s=>`<div class="skill">
+        <span class="nm">${esc(s.n)}</span>${bar(s.lv*20, s.lv>=5?"":"accent")}
+        <span class="lv num">Lv${s.lv}</span></div>`).join("")}
+    </div>
+    <div class="card-f">
+      <div class="lbl mb">Tốt nghiệp khi</div>
+      <div class="small">${esc(c.gate)}</div>
+      <div class="row mt-s" style="justify-content:space-between">
+        <span class="small muted">${esc(c.entry.join(" · "))}</span>
+        <button class="btn btn-sm ${mine?"":"btn-p"}" onclick="event.stopPropagation();ACT.career('${c.id}')">${mine?"Bỏ chọn":"Chọn lộ trình"}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
 function vCareer(){
+  const cats = window.CAREER_CATS || [];
+  const filter = CAREERUI.cat;
+  const shown = filter==="all" ? cats : cats.filter(g=>g.id===filter);
   return `<div class="main">
   <h1>Career Path</h1>
-  <p class="muted" style="max-width:72ch;margin-top:6px">Mỗi nghề có lộ trình track riêng, bộ kỹ năng cần đạt và một tiêu chí tốt nghiệp đo được. Chọn nghề để hệ thống sắp xếp lại thứ tự bài học cho bạn.</p>
+  <p class="muted" style="max-width:72ch;margin-top:6px">${window.CAREERS.length} nghề chia thành ${cats.length} nhóm. Mỗi nghề có lộ trình track riêng, bộ kỹ năng cần đạt và một tiêu chí tốt nghiệp đo được. Chọn nghề để hệ thống sắp xếp lại thứ tự bài học cho bạn.</p>
 
-  <div class="grid g3 mt">
-    ${window.CAREERS.map(c=>{
-      const done = State.careerProgress(c.id), mine = State.data.career===c.id;
-      return `<div class="career" style="${mine?"border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)":""}" onclick="location.hash='#/career/${c.id}'">
-        <div class="career-top">
-          <div class="row" style="gap:11px">
-            <span class="tile tile-lg t-${c.color}">${c.icon}</span>
-            <div style="flex:1"><h3>${esc(c.n)}</h3><div class="small muted">${esc(c.vi)}</div></div>
-            ${mine?`<span class="tag tag-accent">Đang theo</span>`:""}
-          </div>
-          <p class="small" style="margin:12px 0 0">${esc(c.intro)}</p>
-        </div>
-        <div class="card-b" style="padding-bottom:10px">
-          <div class="lbl mb">Lộ trình</div>
-          <div class="stepline">
-            ${c.steps.map((s,i)=>`<div class="s ${i<done?'done':''} ${i===done?'cur':''}">
-              <div class="d">${i<done?'✓':i+1}</div><div class="lb">${esc(s.t)}</div></div>`).join("")}
-          </div>
-          <div class="divider"></div>
-          <div class="lbl mb">Kỹ năng cần đạt</div>
-          ${c.skills.slice(0,4).map(s=>`<div class="skill">
-            <span class="nm">${esc(s.n)}</span>${bar(s.lv*20, s.lv>=5?"":"accent")}
-            <span class="lv num">Lv${s.lv}</span></div>`).join("")}
-        </div>
-        <div class="card-f">
-          <div class="lbl mb">Tốt nghiệp khi</div>
-          <div class="small">${esc(c.gate)}</div>
-          <div class="row mt-s" style="justify-content:space-between">
-            <span class="small muted">${esc(c.entry.join(" · "))}</span>
-            <button class="btn btn-sm ${mine?"":"btn-p"}" onclick="event.stopPropagation();ACT.career('${c.id}')">${mine?"Bỏ chọn":"Chọn lộ trình"}</button>
-          </div>
-        </div>
-      </div>`;
-    }).join("")}
-  </div></div>`;
+  <div class="chips mt">
+    <button class="chip ${filter==="all"?"on":""}" onclick="ACT.careerCat('all')">Tất cả · ${window.CAREERS.length}</button>
+    ${cats.map(g=>{const n=window.CAREERS.filter(c=>c.cat===g.id).length;
+      return `<button class="chip ${filter===g.id?"on":""}" onclick="ACT.careerCat('${g.id}')">${esc(g.n)} · ${n}</button>`;}).join("")}
+  </div>
+
+  ${shown.map(g=>`<section class="mt">
+    <div class="row" style="align-items:baseline;gap:10px">
+      <h2 style="font-size:19px">${esc(g.n)}</h2>
+      <span class="small muted">${esc(g.d)}</span>
+    </div>
+    <div class="grid g3 mt-s">
+      ${window.CAREERS.filter(c=>c.cat===g.id).map(careerCard).join("")}
+    </div>
+  </section>`).join("")}
+  </div>`;
 }
 
 function vCareerDetail(id){

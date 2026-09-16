@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tự Học Tài Chính — CaseSocial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7f4;
+      --surface: #ffffff;
+      --surface-subtle: #f8faf8;
+      --sidebar-bg: #ffffff;
+      --sidebar-border: #e9efe9;
+      --border-color: #e4ebe4;
+      --border-light: #f0f4f0;
+      
+      --text-main: #172a1e;
+      --text-secondary: #526657;
+      --text-muted: #839789;
+      
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-light: #e6f7ee;
+      --primary-ring: rgba(5, 150, 105, 0.15);
+      
+      --emerald-pill: #e6f7ee;
+      --emerald-text: #059669;
+      --amber-pill: #fef5e7;
+      --amber-text: #b45309;
+      --pink-pill: #fce7e7;
+      --pink-text: #e11d48;
+      --cyan-pill: #e0f8f4;
+      --cyan-text: #0891b2;
+      --purple-pill: #f3e8ff;
+      --purple-text: #9333ea;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 26px;
+      --radius-pill: 9999px;
+      
+      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.04);
+      --shadow-card: 0 4px 16px -2px rgba(20, 40, 25, 0.05), 0 2px 6px -1px rgba(20, 40, 25, 0.03);
+      --shadow-hover: 0 10px 24px -4px rgba(20, 40, 25, 0.08);
+      
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════ SIDEBAR ════════════ */
+    .sidebar {
+      width: 256px;
+      min-width: 256px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--sidebar-border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 16px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: #0d4a2d;
+      line-height: 1.15;
+    }
+
+    .search-box {
+      margin: 12px 16px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f6faf6;
+      border: 1px solid #e2ebe2;
+      border-radius: var(--radius-pill);
+      padding: 7px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .search-box:hover {
+      background: #eff6ef;
+      border-color: #d1e2d1;
+    }
+
+    .search-box kbd {
+      margin-left: auto;
+      font-size: 10.5px;
+      background: #ffffff;
+      border: 1px solid #dae4da;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 12px 16px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: #e2ebe2;
+      border-radius: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 2px;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: #f2f7f2;
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background: #d8f3e3;
+      color: #046a41;
+      font-weight: 700;
+    }
+
+    .nav-item .icon {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+    }
+
+    .nav-section-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #799180;
+      padding: 18px 14px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .nav-section-title .chevron {
+      font-size: 10px;
+      transition: transform 0.2s;
+    }
+
+    .nav-tag {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.02em;
+    }
+
+    .tag-new {
+      background: #dcfce7;
+      color: #0f766e;
+    }
+
+    .tag-hot {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .tag-checkin {
+      background: #ffedd5;
+      color: #ea580c;
+    }
+
+    .sidebar-footer {
+      padding: 14px 14px;
+      border-top: 1px solid var(--sidebar-border);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gold-wallet-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gold-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fbf6ec;
+      border: 1px solid #f3e6ce;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      color: #8c5b16;
+      flex: 1;
+      margin-right: 8px;
+    }
+
+    .gold-pill .coin-icon {
+      font-size: 14px;
+    }
+
+    .gold-count {
+      margin-left: auto;
+      font-size: 13px;
+      font-weight: 800;
+      color: #5c3c0a;
+    }
+
+    .bell-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #e7efe7;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+
+    .bell-btn:hover {
+      background: #f5faf5;
+    }
+
+    .bell-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 999px;
+      border: 2px solid #ffffff;
+      line-height: 1;
+    }
+
+    .user-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 8px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .user-profile-card:hover {
+      background: #f3f8f3;
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-email {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-chevron {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    /* ════════════ CASESOCIAL — MAIN ════════════ */
+    .main-container {
+      flex: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 0 64px;
+      min-width: 0;
+    }
+
+    /* ── HERO ── */
+    .social-hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 26px 32px 24px;
+      background: linear-gradient(120deg, #f7fbf7 0%, #f2f8f3 55%, #eef7f1 100%);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--emerald-pill);
+      color: var(--emerald-text);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 5px 13px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 12px;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+    }
+
+    .social-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0f2a1b;
+      margin-bottom: 6px;
+    }
+
+    .social-hero p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.55;
+    }
+
+    .hero-art {
+      width: 320px;
+      height: 148px;
+      border-radius: var(--radius-lg);
+      border: 1px solid #dfeade;
+      background: linear-gradient(160deg, #eaf6ec, #d8eede);
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* ── LAYOUT ── */
+    .social-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      padding: 24px 32px 0;
+      align-items: start;
+    }
+
+    .feed-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    .rail-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+    }
+
+    /* ── COMPOSER ── */
+    .composer {
+      padding: 18px 20px 12px;
+    }
+
+    .composer-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12.5px;
+      color: #065f46;
+      background: #d9f2e4;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .avatar.sm { width: 32px; height: 32px; font-size: 11px; }
+    .avatar.amber { background: #fdf0d9; color: #92610f; }
+    .avatar.cyan  { background: #d9f2f4; color: #0e6e78; }
+    .avatar.purple{ background: #ece1fb; color: #6b2fc4; }
+    .avatar.pink  { background: #fbe0e6; color: #a8264a; }
+
+    .composer-input {
+      flex: 1;
+      border: 1px solid var(--border-color);
+      background: #fafcfa;
+      border-radius: var(--radius-pill);
+      padding: 12px 18px;
+      font-family: var(--font);
+      font-size: 13.5px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.18s;
+      resize: none;
+      line-height: 1.5;
+      max-height: 160px;
+    }
+
+    .composer-input::placeholder { color: var(--text-muted); }
+
+    .composer-input:focus {
+      background: #ffffff;
+      border-color: #b8ddc7;
+      box-shadow: 0 0 0 4px var(--primary-ring);
+    }
+
+    .composer-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-light);
+      flex-wrap: wrap;
+    }
+
+    .composer-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .composer-chip:hover { background: #f3f8f3; }
+    .composer-chip.on { background: var(--emerald-pill); color: var(--emerald-text); }
+
+    .btn-post {
+      margin-left: auto;
+      padding: 8px 20px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .btn-post:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-post:disabled { background: #cfe3d6; cursor: not-allowed; transform: none; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+      flex-shrink: 0;
+      padding: 7px 15px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-chip:hover { border-color: #bcdcc8; color: var(--text-main); }
+
+    .filter-chip.active {
+      background: #0f3d29;
+      border-color: #0f3d29;
+      color: #ffffff;
+    }
+
+    /* ── POLL ── */
+    .poll-card { padding: 20px 22px; }
+
+    .topic-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--cyan-pill);
+      color: var(--cyan-text);
+    }
+    .topic-pill.amber  { background: var(--amber-pill);  color: var(--amber-text); }
+    .topic-pill.purple { background: var(--purple-pill); color: var(--purple-text); }
+    .topic-pill.pink   { background: var(--pink-pill);   color: var(--pink-text); }
+    .topic-pill.green  { background: var(--emerald-pill);color: var(--emerald-text); }
+
+    .poll-q {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 12px 0 16px;
+      line-height: 1.35;
+    }
+
+    .poll-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .poll-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: #fafcfa;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font);
+      transition: all 0.18s;
+    }
+
+    .poll-option:hover { border-color: #b8ddc7; background: #f5fbf7; }
+    .poll-option.picked { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-ring); }
+
+    .poll-option .label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: block;
+    }
+
+    .poll-option .sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .poll-pct {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .poll-pct.a { color: var(--primary); }
+    .poll-pct.b { color: #e11d48; }
+
+    .poll-track {
+      display: flex;
+      height: 7px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 16px 0 10px;
+      background: #eef2ee;
+    }
+    .poll-track span { transition: width 0.5s cubic-bezier(.4,0,.2,1); }
+    .poll-track .fa { background: var(--primary); }
+    .poll-track .fb { background: #f43f5e; }
+
+    .poll-meta { font-size: 11.5px; color: var(--text-muted); font-weight: 600; }
+
+    /* ── POST ── */
+    .post { padding: 18px 22px 8px; }
+
+    .post-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .post-author { flex: 1; min-width: 0; }
+
+    .post-author .name-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .post-author .name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .role-tag {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: #eef3ef;
+      color: #5c7264;
+      letter-spacing: 0.02em;
+    }
+    .role-tag.mentor { background: #0f3d29; color: #d6f5e3; }
+
+    .post-author .meta {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .post-more {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+    }
+
+    .post-title {
+      font-size: 15.5px;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .post-body {
+      font-size: 13.5px;
+      line-height: 1.68;
+      color: var(--text-secondary);
+    }
+
+    .post-body strong { color: var(--text-main); font-weight: 700; }
+
+    .post-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+
+    .hash {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #3f7a5c;
+      background: #f1f8f3;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+    }
+    .hash:hover { background: #e2f2e8; }
+
+    /* attachment blocks inside a post */
+    .attach {
+      margin-top: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      background: var(--surface-subtle);
+      overflow: hidden;
+    }
+
+    .attach-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-light);
+      background: #ffffff;
+    }
+
+    .attach-head .t {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: #5c7264;
+    }
+
+    .attach-body { padding: 14px 16px; }
+
+    table.exhibit {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    table.exhibit th {
+      text-align: left;
+      font-size: 10.5px;
+      letter-spacing: 0.05em;
+      font-weight: 800;
+      color: var(--text-muted);
+      padding: 0 10px 8px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    table.exhibit td {
+      padding: 9px 10px 9px 0;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    table.exhibit td:first-child { color: var(--text-main); font-weight: 700; }
+    table.exhibit tr:last-child td { border-bottom: none; }
+    table.exhibit td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    table.exhibit td.down { color: #e11d48; font-weight: 800; }
+    table.exhibit td.up { color: var(--primary); font-weight: 800; }
+
+    /* issue tree */
+    .tree { display: flex; flex-direction: column; gap: 8px; }
+
+    .tree-root {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #0f3d29;
+      background: #d8f3e3;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      align-self: flex-start;
+    }
+
+    .tree-branches {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-left: 14px;
+      padding-left: 14px;
+      border-left: 2px dashed #cde3d5;
+    }
+
+    .branch {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+    }
+
+    .branch .b-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .branch ul { margin: 0; padding-left: 15px; }
+
+    .branch li {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    /* numbers strip */
+    .num-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px;
+    }
+
+    .num-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 11px 13px;
+    }
+
+    .num-box .k {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .num-box .v {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-top: 3px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .num-box .d { font-size: 11px; font-weight: 700; color: var(--primary); margin-top: 2px; }
+
+    /* reaction bar */
+    .post-foot {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 14px;
+      padding: 6px 0;
+      border-top: 1px solid var(--border-light);
+      flex-wrap: wrap;
+    }
+
+    .react-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 13px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .react-btn:hover { background: #f3f8f3; color: var(--text-main); }
+    .react-btn.on { color: var(--primary); background: var(--emerald-pill); }
+    .react-btn.save.on { color: var(--amber-text); background: var(--amber-pill); }
+    .react-btn .cnt { font-variant-numeric: tabular-nums; }
+
+    /* comments */
+    .comments {
+      border-top: 1px solid var(--border-light);
+      padding: 14px 0 16px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .comments.open { display: flex; }
+
+    .comment { display: flex; gap: 10px; }
+
+    .comment-bubble {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 4px 16px 16px 16px;
+      padding: 9px 14px;
+      flex: 1;
+    }
+
+    .comment-bubble .c-name { font-size: 12px; font-weight: 800; color: var(--text-main); }
+    .comment-bubble .c-text { font-size: 12.5px; line-height: 1.6; color: var(--text-secondary); margin-top: 2px; }
+    .comment-bubble .c-meta { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 5px; }
+
+    .comment-form { display: flex; gap: 10px; align-items: center; }
+
+    .comment-form input {
+      flex: 1;
+      border: 1px solid var(--border-color);
+      background: #fafcfa;
+      border-radius: var(--radius-pill);
+      padding: 9px 16px;
+      font-family: var(--font);
+      font-size: 12.5px;
+      outline: none;
+    }
+    .comment-form input:focus { background: #fff; border-color: #b8ddc7; box-shadow: 0 0 0 3px var(--primary-ring); }
+
+    .btn-load {
+      align-self: center;
+      margin: 4px 0 8px;
+      padding: 10px 26px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--text-secondary);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.15s;
+    }
+    .btn-load:hover { border-color: #b8ddc7; color: var(--primary); }
+
+    /* skeleton */
+    .skeleton { padding: 20px 22px; }
+    .sk { background: #eef2ee; border-radius: 8px; animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .45 } }
+
+    /* ── RIGHT RAIL ── */
+    .rail-card { padding: 18px 20px; }
+
+    .rail-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .rail-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      color: #44574a;
+    }
+
+    .rail-note {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-light);
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+    }
+
+    .pulse-card {
+      background: #0f3d29;
+      border: none;
+      color: #ffffff;
+      padding: 20px;
+    }
+
+    .pulse-card .rail-title { color: #9fd9bb; }
+    .pulse-card .rail-note { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.12); color: #cfeadb; }
+
+    .pulse-num {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.05;
+    }
+
+    .pulse-sub { font-size: 12px; color: #b6dcc7; font-weight: 600; margin-top: 4px; }
+
+    .pulse-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #7ee2b0;
+      text-decoration: none;
+    }
+    .pulse-link:hover { color: #a9f0cc; }
+
+    .lb-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .lb-row:last-of-type { border-bottom: none; }
+
+    .lb-rank {
+      width: 20px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .lb-rank.top { color: #b45309; }
+
+    .lb-name { flex: 1; font-size: 12.5px; font-weight: 700; color: var(--text-main); }
+    .lb-sub { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+    .lb-xp { font-size: 12px; font-weight: 800; color: var(--primary); font-variant-numeric: tabular-nums; }
+
+    .rail-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .rail-link:hover { color: var(--primary-dark); }
+
+    .live-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 10px 13px;
+      margin-bottom: 8px;
+    }
+
+    .live-row .lr-name { flex: 1; font-size: 12.5px; font-weight: 800; color: var(--text-main); }
+    .live-row .lr-cnt { font-size: 11px; font-weight: 700; color: var(--text-muted); }
+
+    .live-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,.18);
+      flex-shrink: 0;
+    }
+
+    .mock-row {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .mock-row:last-of-type { border-bottom: none; }
+
+    .mock-date {
+      width: 42px;
+      flex-shrink: 0;
+      text-align: center;
+      background: var(--emerald-pill);
+      border-radius: var(--radius-sm);
+      padding: 5px 0;
+    }
+    .mock-date .d { font-size: 15px; font-weight: 800; color: #046a41; line-height: 1; }
+    .mock-date .m { font-size: 9.5px; font-weight: 800; color: #3f8a67; letter-spacing: .04em; }
+
+    .mock-info .mi-t { font-size: 12.5px; font-weight: 800; color: var(--text-main); line-height: 1.35; }
+    .mock-info .mi-s { font-size: 11.5px; color: var(--text-muted); font-weight: 600; margin-top: 3px; }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .btn-invite {
+      width: 100%;
+      margin-top: 4px;
+      padding: 10px;
+      border-radius: var(--radius-pill);
+      border: 1px dashed #b9d8c5;
+      background: #f6fbf7;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .btn-invite:hover { background: #ecf7f0; border-color: var(--primary); }
+
+    /* ── FAB ── */
+    .fab-menu-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 46px;
+      height: 46px;
+      background: #1c261e;
+      color: #ffffff;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+      cursor: pointer;
+      z-index: 99;
+      transition: transform .2s ease;
+    }
+    .fab-menu-btn:hover { transform: scale(1.08); background: #111a13; }
+
+    .fab-badge {
+      position: absolute;
+      top: -3px; right: -3px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 999px;
+      border: 2px solid #fff;
+      line-height: 1;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1180px) {
+      .social-grid { grid-template-columns: minmax(0, 1fr); }
+      .rail-col { position: static; }
+      .hero-art { display: none; }
+    }
+
+    @media (max-width: 860px) {
+      body { flex-direction: column; }
+      .sidebar { width: 100%; min-width: 0; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--sidebar-border); }
+      .sidebar-nav { display: flex; overflow-x: auto; gap: 6px; }
+      .sidebar-nav .nav-section-title { display: none; }
+      .nav-item { white-space: nowrap; margin-bottom: 0; }
+      .social-hero { padding: 20px 18px; }
+      .social-hero h1 { font-size: 24px; }
+      .social-grid { padding: 18px 16px 0; }
+      .poll-options { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════ SIDEBAR ════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="#" class="brand-logo">
+        <div class="brand-icon">
+          <!-- Green Sprout SVG -->
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22v-9" />
+            <path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.2" />
+            <path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.3" />
+          </svg>
+        </div>
+        <span class="brand-title">TỰ HỌC<br>TÀI CHÍNH</span>
+      </a>
+    </div>
+
+    <!-- Search Input -->
+    <div class="search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Tìm kiếm...</span>
+      <kbd>⌘K</kbd>
+    </div>
+
+    <!-- Navigation List -->
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </span>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="#" class="nav-item">
+        <span class="icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span>FinSocial</span>
+      </a>
+
+      <a href="case-social.html" class="nav-item active">
+        <span class="icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <span>CaseSocial</span>
+        <span class="nav-tag tag-hot">BETA</span>
+      </a>
+
+      <!-- SECTION 1: HỌC TẬP -->
+      <div class="nav-section-title">
+        <span>🌱 HỌC TẬP</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">🧭</span>
+        <span>Bắt đầu từ đầu</span>
+      </a>
+      <a href="bai-hoc.html" class="nav-item">
+        <span class="icon">📖</span>
+        <span>Học bài</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">💼</span>
+        <span>Học theo nghề</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🎓</span>
+        <span>Chứng chỉ</span>
+        <span style="margin-left:auto;font-size:12px;color:var(--text-muted)">›</span>
+      </a>
+
+      <!-- SECTION 2: THỰC HÀNH -->
+      <div class="nav-section-title">
+        <span>⚡ THỰC HÀNH</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">📝</span>
+        <span>Quiz</span>
+        <span class="nav-tag tag-new">TIN MỚI</span>
+      </a>
+      <a href="thi-vuot-chang.html" class="nav-item">
+        <span class="icon">🏆</span>
+        <span>Thi vượt chặng</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🎮</span>
+        <span>Game Kingdom</span>
+        <span class="nav-tag tag-hot">HOT</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">💼</span>
+        <span>Luyện phỏng vấn</span>
+      </a>
+
+      <!-- SECTION 3: CỘNG ĐỒNG -->
+      <div class="nav-section-title">
+        <span>👥 CỘNG ĐỒNG</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">🏛️</span>
+        <span>Thư viện</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🤝</span>
+        <span>Học nhóm</span>
+        <span class="nav-tag tag-checkin">CHECK-IN</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">📊</span>
+        <span>Thống kê</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer (Wallet & User profile) -->
+    <div class="sidebar-footer">
+      <div class="gold-wallet-row">
+        <div class="gold-pill">
+          <span class="coin-icon">🪙</span>
+          <span>Túi vàng</span>
+          <span class="gold-count">60</span>
+        </div>
+        <button class="bell-btn" title="Thông báo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="bell-badge">9+</span>
+        </button>
+      </div>
+
+      <a href="login.html" class="user-profile-card" style="text-decoration:none;color:inherit;" title="Đăng nhập / Tài khoản">
+        <div style="width:34px;height:34px;border-radius:50%;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">ĐTB</div>
+        <div class="user-info">
+          <div class="user-name">Đinh Trí Bùi</div>
+          <div class="user-email">tribd.tec@gmail.com</div>
+        </div>
+        <span class="user-chevron">▼</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ════════════ MAIN — CASESOCIAL FEED ════════════ -->
+  <main class="main-container">
+
+    <!-- ── HERO ── -->
+    <header class="social-hero">
+      <div>
+        <span class="hero-badge"><span class="dot"></span>✦ CỘNG ĐỒNG CASESOCIAL</span>
+        <h1>CaseSocial Feed</h1>
+        <p>Nơi người học mổ xẻ case thật: chia sẻ issue tree, tranh luận đáp án, xin phản biện trước khi bước vào phòng phỏng vấn.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 320 148" width="320" height="148">
+          <rect width="320" height="148" fill="#eaf6ec"/>
+          <circle cx="262" cy="34" r="17" fill="#fcd34d"/>
+          <path d="M0 116 Q40 92 82 108 T170 100 T250 112 T320 98 V148 H0 Z" fill="#bfe6cb"/>
+          <path d="M0 132 Q70 116 140 128 T320 120 V148 H0 Z" fill="#9fd6b2"/>
+          <g stroke="#3f8a67" stroke-width="2" fill="none">
+            <rect x="34" y="52" width="58" height="34" rx="5" fill="#ffffff"/>
+            <path d="M44 64h30M44 74h20"/>
+            <rect x="116" y="38" width="58" height="34" rx="5" fill="#ffffff"/>
+            <path d="M126 50h34M126 60h18"/>
+            <rect x="196" y="60" width="58" height="34" rx="5" fill="#ffffff"/>
+            <path d="M206 72h30M206 82h22"/>
+            <path d="M92 70 116 58M174 58 196 74" stroke-dasharray="4 4"/>
+          </g>
+          <g fill="#0f3d29">
+            <circle cx="63" cy="110" r="7"/><rect x="57" y="118" width="12" height="18" rx="5"/>
+            <circle cx="225" cy="116" r="7"/><rect x="219" y="124" width="12" height="18" rx="5"/>
+          </g>
+        </svg>
+      </div>
+    </header>
+
+    <div class="social-grid">
+
+      <!-- ══════ FEED COLUMN ══════ -->
+      <div class="feed-col">
+
+        <!-- Composer -->
+        <section class="card composer">
+          <div class="composer-top">
+            <div class="avatar">ĐT</div>
+            <textarea id="composerInput" class="composer-input" rows="1" placeholder="Bùi ơi, bạn đang mắc ở bước nào của case?"></textarea>
+          </div>
+          <div class="composer-actions">
+            <button class="composer-chip" data-kind="Issue tree">🌳 Issue tree</button>
+            <button class="composer-chip" data-kind="Exhibit">📊 Exhibit</button>
+            <button class="composer-chip" data-kind="Hỏi đáp">❓ Hỏi đáp</button>
+            <button class="composer-chip" data-kind="Mock">🎤 Xin mock</button>
+            <button id="btnPost" class="btn-post" disabled>Đăng bài</button>
+          </div>
+        </section>
+
+        <!-- Filters -->
+        <nav class="filter-bar" id="filterBar">
+          <button class="filter-chip active" data-f="all">Tất cả</button>
+          <button class="filter-chip" data-f="case-tuan">Case tuần</button>
+          <button class="filter-chip" data-f="framework">Framework</button>
+          <button class="filter-chip" data-f="sizing">Market sizing</button>
+          <button class="filter-chip" data-f="exhibit">Đọc exhibit</button>
+          <button class="filter-chip" data-f="phong-van">Phỏng vấn</button>
+          <button class="filter-chip" data-f="phan-bien">Phản biện đáp án</button>
+        </nav>
+
+        <div id="feed">
+
+          <!-- ── POLL ── -->
+          <section class="card poll-card" data-tags="case-tuan exhibit">
+            <span class="topic-pill">📈 CASE TUẦN · SỐ 14</span>
+            <h2 class="poll-q">Chuỗi cà phê Hạt Việt: biên lợi nhuận rơi từ 18% → 9% trong 3 quý. Bạn bổ case theo hướng nào trước?</h2>
+            <div class="poll-options">
+              <button class="poll-option" data-opt="a">
+                <span>
+                  <span class="label">CHI PHÍ</span>
+                  <span class="sub">Giá vốn &amp; chi phí mặt bằng</span>
+                </span>
+                <span class="poll-pct a" id="pctA">61%</span>
+              </button>
+              <button class="poll-option" data-opt="b">
+                <span>
+                  <span class="label">DOANH THU</span>
+                  <span class="sub">Giá bán &amp; mix sản phẩm</span>
+                </span>
+                <span class="poll-pct b" id="pctB">39%</span>
+              </button>
+            </div>
+            <div class="poll-track">
+              <span class="fa" id="barA" style="width:61%"></span>
+              <span class="fb" id="barB" style="width:39%"></span>
+            </div>
+            <div class="poll-meta" id="pollMeta">184 lượt bình chọn · đáp án mở lúc 21:00 Chủ nhật</div>
+          </section>
+
+          <!-- ── POST 1: issue tree ── -->
+          <article class="card post" data-tags="framework case-tuan">
+            <div class="post-head">
+              <div class="avatar">MH</div>
+              <div class="post-author">
+                <div class="name-row">
+                  <span class="name">Minh Huy</span>
+                  <span class="role-tag">Chặng 3 · Profitability</span>
+                </div>
+                <div class="meta">2 giờ trước · Case tuần #14</div>
+              </div>
+              <button class="post-more" title="Tuỳ chọn">⋯</button>
+            </div>
+
+            <h3 class="post-title">Issue tree của mình cho case Hạt Việt — nhờ mọi người soi chỗ chưa MECE</h3>
+            <p class="post-body">Mình tách biên lợi nhuận thành <strong>doanh thu/cốc</strong> và <strong>chi phí/cốc</strong> thay vì tách theo phòng ban, vì đề bài cho dữ liệu theo cửa hàng chứ không theo bộ phận. Nhánh chi phí mình còn phân vân: chi phí mặt bằng nên nằm ở biến phí hay định phí khi hợp đồng thuê có phần ăn chia theo doanh thu?</p>
+
+            <div class="attach">
+              <div class="attach-head"><span class="t">🌳 ISSUE TREE — BẢN NHÁP 2</span><span class="t">3 tầng · 7 nhánh</span></div>
+              <div class="attach-body">
+                <div class="tree">
+                  <div class="tree-root">Biên lợi nhuận/cốc giảm 9 điểm %</div>
+                  <div class="tree-branches">
+                    <div class="branch">
+                      <div class="b-title">Doanh thu / cốc</div>
+                      <ul><li>Giá niêm yết</li><li>Khuyến mãi &amp; app</li><li>Mix sản phẩm</li></ul>
+                    </div>
+                    <div class="branch">
+                      <div class="b-title">Biến phí / cốc</div>
+                      <ul><li>Giá hạt cà phê</li><li>Sữa &amp; bao bì</li><li>Phí giao hàng</li></ul>
+                    </div>
+                    <div class="branch">
+                      <div class="b-title">Định phí phân bổ</div>
+                      <ul><li>Mặt bằng</li><li>Nhân sự ca</li><li>Sản lượng/cửa hàng</li></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="post-tags">
+              <a href="#" class="hash">#issuetree</a><a href="#" class="hash">#MECE</a><a href="#" class="hash">#profitability</a>
+            </div>
+
+            <div class="post-foot">
+              <button class="react-btn like"><span>👍</span><span class="cnt">128</span></button>
+              <button class="react-btn cmt"><span>💬</span><span class="cnt">24</span> bình luận</button>
+              <button class="react-btn save"><span>🔖</span> Lưu</button>
+              <button class="react-btn"><span>↗</span> Chia sẻ</button>
+            </div>
+
+            <div class="comments">
+              <div class="comment">
+                <div class="avatar sm amber">TĐ</div>
+                <div class="comment-bubble">
+                  <div class="c-name">Thúy Đặng <span class="role-tag mentor">MENTOR</span></div>
+                  <div class="c-text">Hợp đồng ăn chia theo doanh thu thì phần % đó là biến phí, phần thuê tối thiểu mới là định phí. Tách đôi ra, đừng nhét cả cục vào một nhánh — giám khảo sẽ hỏi ngay.</div>
+                  <div class="c-meta">1 giờ trước · 18 lượt thích</div>
+                </div>
+              </div>
+              <div class="comment">
+                <div class="avatar sm cyan">NE</div>
+                <div class="comment-bubble">
+                  <div class="c-name">Ngo Edmond</div>
+                  <div class="c-text">Nhánh “Mix sản phẩm” nên nằm ở cả doanh thu lẫn biến phí, vì cốc sữa có giá vốn khác cốc đen. Mình hay treo nó thành driver riêng để tránh trùng.</div>
+                  <div class="c-meta">42 phút trước · 9 lượt thích</div>
+                </div>
+              </div>
+              <form class="comment-form">
+                <div class="avatar sm">ĐT</div>
+                <input type="text" placeholder="Góp ý cho issue tree này…">
+              </form>
+            </div>
+          </article>
+
+          <!-- ── POST 2: exhibit ── -->
+          <article class="card post" data-tags="exhibit phan-bien case-tuan">
+            <div class="post-head">
+              <div class="avatar amber">TĐ</div>
+              <div class="post-author">
+                <div class="name-row">
+                  <span class="name">Thúy Đặng</span>
+                  <span class="role-tag mentor">MENTOR · Ex-consultant</span>
+                </div>
+                <div class="meta">4 giờ trước · Đọc exhibit</div>
+              </div>
+              <button class="post-more" title="Tuỳ chọn">⋯</button>
+            </div>
+
+            <h3 class="post-title">Đọc exhibit 3 phút: 80% các bạn nhìn nhầm nguyên nhân ở bảng này</h3>
+            <p class="post-body">Đừng vội kết luận “chi phí nguyên liệu tăng”. Hãy chia doanh thu cho số cốc trước: <strong>giá bán trung bình giảm 8%</strong> trong khi giá vốn/cốc chỉ tăng 3%. Vấn đề nằm ở khuyến mãi qua app, không phải ở hạt cà phê.</p>
+
+            <div class="attach">
+              <div class="attach-head"><span class="t">📊 EXHIBIT 2 — MỘT CỬA HÀNG ĐIỂN HÌNH</span><span class="t">Đơn vị: nghìn đồng</span></div>
+              <div class="attach-body">
+                <table class="exhibit">
+                  <thead><tr><th>Chỉ số</th><th class="num" style="text-align:right">Q1</th><th class="num" style="text-align:right">Q4</th><th class="num" style="text-align:right">Δ</th></tr></thead>
+                  <tbody>
+                    <tr><td>Doanh thu</td><td class="num">1.850.000</td><td class="num">1.960.000</td><td class="num up">+6%</td></tr>
+                    <tr><td>Số cốc bán</td><td class="num">37.000</td><td class="num">42.600</td><td class="num up">+15%</td></tr>
+                    <tr><td>Giá bán TB / cốc</td><td class="num">50,0</td><td class="num">46,0</td><td class="num down">−8%</td></tr>
+                    <tr><td>Giá vốn / cốc</td><td class="num">18,0</td><td class="num">18,5</td><td class="num down">+3%</td></tr>
+                    <tr><td>Biên lợi nhuận</td><td class="num">18%</td><td class="num">9%</td><td class="num down">−9 điểm</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="post-tags">
+              <a href="#" class="hash">#exhibit</a><a href="#" class="hash">#đọcsố</a><a href="#" class="hash">#casetuan14</a>
+            </div>
+
+            <div class="post-foot">
+              <button class="react-btn like on"><span>👍</span><span class="cnt">341</span></button>
+              <button class="react-btn cmt"><span>💬</span><span class="cnt">57</span> bình luận</button>
+              <button class="react-btn save"><span>🔖</span> Lưu</button>
+              <button class="react-btn"><span>↗</span> Chia sẻ</button>
+            </div>
+
+            <div class="comments">
+              <div class="comment">
+                <div class="avatar sm purple">LP</div>
+                <div class="comment-bubble">
+                  <div class="c-name">Lan Phương</div>
+                  <div class="c-text">Em đã lao thẳng vào giá vốn và mất 4 phút. Hoá ra chỉ cần một phép chia doanh thu/số cốc là ra. Cảm ơn chị ạ!</div>
+                  <div class="c-meta">2 giờ trước · 23 lượt thích</div>
+                </div>
+              </div>
+              <form class="comment-form">
+                <div class="avatar sm">ĐT</div>
+                <input type="text" placeholder="Bạn đọc ra điều gì từ exhibit này?">
+              </form>
+            </div>
+          </article>
+
+          <!-- ── POST 3: market sizing ── -->
+          <article class="card post" data-tags="sizing framework">
+            <div class="post-head">
+              <div class="avatar cyan">NE</div>
+              <div class="post-author">
+                <div class="name-row">
+                  <span class="name">Ngo Edmond</span>
+                  <span class="role-tag">Chặng 2 · Market sizing</span>
+                </div>
+                <div class="meta">Hôm qua · 19:40</div>
+              </div>
+              <button class="post-more" title="Tuỳ chọn">⋯</button>
+            </div>
+
+            <h3 class="post-title">Ước lượng thị trường trà sữa TP.HCM trong 4 phút — nhờ check giả định</h3>
+            <p class="post-body">Mình đi từ dân số chứ không từ số cửa hàng, vì số cửa hàng là con số mình không thể kiểm chứng trong phòng phỏng vấn. Giả định yếu nhất là <strong>tần suất uống 1,2 lần/tuần</strong> — mọi người nghĩ nên là bao nhiêu?</p>
+
+            <div class="attach">
+              <div class="attach-head"><span class="t">🧮 CHUỖI ƯỚC LƯỢNG</span><span class="t">Top-down</span></div>
+              <div class="attach-body">
+                <div class="num-strip">
+                  <div class="num-box"><div class="k">Dân số</div><div class="v">9,5 tr</div><div class="d">TP.HCM</div></div>
+                  <div class="num-box"><div class="k">Nhóm 15–35</div><div class="v">38%</div><div class="d">≈ 3,6 tr</div></div>
+                  <div class="num-box"><div class="k">Có uống</div><div class="v">60%</div><div class="d">≈ 2,2 tr</div></div>
+                  <div class="num-box"><div class="k">Tần suất</div><div class="v">1,2/tuần</div><div class="d">≈ 62 ly/năm</div></div>
+                  <div class="num-box"><div class="k">Giá TB</div><div class="v">42k</div><div class="d">mỗi ly</div></div>
+                  <div class="num-box"><div class="k">Quy mô</div><div class="v">5.700 tỷ</div><div class="d">mỗi năm</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="post-tags">
+              <a href="#" class="hash">#marketsizing</a><a href="#" class="hash">#giảđịnh</a><a href="#" class="hash">#topdown</a>
+            </div>
+
+            <div class="post-foot">
+              <button class="react-btn like"><span>👍</span><span class="cnt">96</span></button>
+              <button class="react-btn cmt"><span>💬</span><span class="cnt">31</span> bình luận</button>
+              <button class="react-btn save"><span>🔖</span> Lưu</button>
+              <button class="react-btn"><span>↗</span> Chia sẻ</button>
+            </div>
+
+            <div class="comments">
+              <div class="comment">
+                <div class="avatar sm pink">HT</div>
+                <div class="comment-bubble">
+                  <div class="c-name">Hà Trang</div>
+                  <div class="c-text">Nên tách 2 nhóm: học sinh–sinh viên uống ~2 lần/tuần, dân văn phòng ~0,8. Trung bình gộp dễ bị vặn “sao lại 1,2?”.</div>
+                  <div class="c-meta">10 giờ trước · 14 lượt thích</div>
+                </div>
+              </div>
+              <form class="comment-form">
+                <div class="avatar sm">ĐT</div>
+                <input type="text" placeholder="Giả định nào bạn thấy chưa vững?">
+              </form>
+            </div>
+          </article>
+
+          <!-- ── POST 4: xin mock ── -->
+          <article class="card post" data-tags="phong-van">
+            <div class="post-head">
+              <div class="avatar purple">LP</div>
+              <div class="post-author">
+                <div class="name-row">
+                  <span class="name">Lan Phương</span>
+                  <span class="role-tag">Tìm partner mock</span>
+                </div>
+                <div class="meta">Hôm qua · 08:15</div>
+              </div>
+              <button class="post-more" title="Tuỳ chọn">⋯</button>
+            </div>
+
+            <h3 class="post-title">Tìm partner mock interview tối thứ 5 — case market entry, 45 phút, đổi vai</h3>
+            <p class="post-body">Mình đang luyện phần <strong>kết luận top-down</strong>: hay nói dài mà không chốt được khuyến nghị trong 60 giây. Ai cần người phỏng vấn ngược lại thì comment nhé, mình gửi đề trước 1 ngày để bạn chuẩn bị bảng chấm.</p>
+
+            <div class="post-tags">
+              <a href="#" class="hash">#mockinterview</a><a href="#" class="hash">#marketentry</a><a href="#" class="hash">#synthesis</a>
+            </div>
+
+            <div class="post-foot">
+              <button class="react-btn like"><span>👍</span><span class="cnt">54</span></button>
+              <button class="react-btn cmt"><span>💬</span><span class="cnt">12</span> bình luận</button>
+              <button class="react-btn save"><span>🔖</span> Lưu</button>
+              <button class="react-btn"><span>↗</span> Chia sẻ</button>
+            </div>
+
+            <div class="comments">
+              <div class="comment">
+                <div class="avatar sm">MH</div>
+                <div class="comment-bubble">
+                  <div class="c-name">Minh Huy</div>
+                  <div class="c-text">Mình nhận. 20:00 thứ 5 nhé, mình dùng bảng chấm 4 tiêu chí của chặng 4 cho dễ đối chiếu.</div>
+                  <div class="c-meta">22 giờ trước · 6 lượt thích</div>
+                </div>
+              </div>
+              <form class="comment-form">
+                <div class="avatar sm">ĐT</div>
+                <input type="text" placeholder="Đăng ký làm partner…">
+              </form>
+            </div>
+          </article>
+
+        </div>
+
+        <button class="btn-load" id="btnLoad">Tải thêm bài viết</button>
+      </div>
+
+      <!-- ══════ RIGHT RAIL ══════ -->
+      <aside class="rail-col">
+
+        <section class="card rail-card pulse-card">
+          <div class="rail-head">
+            <span class="rail-title">CỘNG ĐỒNG HÔM NAY</span>
+            <span class="rail-note">Nhịp giải case</span>
+          </div>
+          <div class="pulse-num" id="pulseNum">3.412</div>
+          <div class="pulse-sub">case đã được giải &amp; chấm trên hệ thống</div>
+          <svg viewBox="0 0 240 44" width="100%" height="44" style="margin-top:12px" aria-hidden="true">
+            <path d="M0 34 C30 30 44 12 70 18 S116 38 142 26 S190 6 240 14" fill="none" stroke="#7ee2b0" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <a href="#" class="pulse-link">Xem hoạt động →</a>
+        </section>
+
+        <section class="card rail-card">
+          <div class="rail-head">
+            <span class="rail-title">TOP TUẦN</span>
+            <span class="rail-note">XP tuần này</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank top">1</span><div class="avatar sm amber">TĐ</div>
+            <span class="lb-name">Thúy Đặng<div class="lb-sub">9 case · 3 phản biện</div></span>
+            <span class="lb-xp">12.450</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">2</span><div class="avatar sm">MH</div>
+            <span class="lb-name">Minh Huy<div class="lb-sub">7 case · 5 issue tree</div></span>
+            <span class="lb-xp">9.944</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">3</span><div class="avatar sm cyan">NE</div>
+            <span class="lb-name">Ngo Edmond<div class="lb-sub">6 case · 4 sizing</div></span>
+            <span class="lb-xp">8.230</span>
+          </div>
+          <a href="#" class="rail-link">Xem bảng đầy đủ →</a>
+        </section>
+
+        <section class="card rail-card">
+          <div class="rail-head">
+            <span class="rail-title">ĐANG GIẢI CÙNG BẠN</span>
+            <span class="live-dot"></span>
+          </div>
+          <div class="live-row"><span class="live-dot"></span><span class="lr-name">Profitability nền tảng</span><span class="lr-cnt">862 online</span></div>
+          <div class="live-row"><span class="live-dot"></span><span class="lr-name">Market entry</span><span class="lr-cnt">431 online</span></div>
+          <div class="live-row"><span class="live-dot"></span><span class="lr-name">Phòng mock 1-1</span><span class="lr-cnt">76 phòng</span></div>
+          <button class="btn-invite">＋ Mời bạn cùng giải case</button>
+        </section>
+
+        <section class="card rail-card">
+          <div class="rail-head">
+            <span class="rail-title">LỊCH CỘNG ĐỒNG</span>
+            <span class="rail-note">Tuần này</span>
+          </div>
+          <div class="mock-row">
+            <div class="mock-date"><div class="d">18</div><div class="m">TH9</div></div>
+            <div class="mock-info"><div class="mi-t">Mở đáp án Case tuần #14</div><div class="mi-s">21:00 · Thúy Đặng dẫn phản biện</div></div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-date"><div class="d">20</div><div class="m">TH9</div></div>
+            <div class="mock-info"><div class="mi-t">Đêm mock interview mở</div><div class="mi-s">19:30 · ghép cặp ngẫu nhiên, 45 phút</div></div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-date"><div class="d">22</div><div class="m">TH9</div></div>
+            <div class="mock-info"><div class="mi-t">Workshop: đọc exhibit trong 3 phút</div><div class="mi-s">20:00 · giới hạn 200 chỗ</div></div>
+          </div>
+        </section>
+
+        <section class="card rail-card">
+          <div class="rail-head"><span class="rail-title">CHỦ ĐỀ THỊNH HÀNH</span></div>
+          <div class="tag-cloud">
+            <a href="#" class="hash">#casetuan14</a><a href="#" class="hash">#MECE</a><a href="#" class="hash">#marketsizing</a>
+            <a href="#" class="hash">#exhibit</a><a href="#" class="hash">#synthesis</a><a href="#" class="hash">#mockinterview</a>
+            <a href="#" class="hash">#breakeven</a><a href="#" class="hash">#pricing</a>
+          </div>
+        </section>
+
+      </aside>
+    </div>
+  </main>
+
+  <button class="fab-menu-btn" title="Menu nhanh">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <span class="fab-badge">9+</span>
+  </button>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── Composer: auto-grow, bật/tắt nút, gắn nhãn loại bài ── */
+    var input = document.getElementById('composerInput');
+    var btnPost = document.getElementById('btnPost');
+    var feed = document.getElementById('feed');
+    var kind = null;
+
+    function grow() {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 160) + 'px';
+      btnPost.disabled = input.value.trim().length < 3;
+    }
+    input.addEventListener('input', grow);
+
+    document.querySelectorAll('.composer-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var on = chip.classList.contains('on');
+        document.querySelectorAll('.composer-chip').forEach(function (c) { c.classList.remove('on'); });
+        if (!on) { chip.classList.add('on'); kind = chip.dataset.kind; } else { kind = null; }
+      });
+    });
+
+    btnPost.addEventListener('click', function () {
+      var text = input.value.trim();
+      if (text.length < 3) return;
+      var art = document.createElement('article');
+      art.className = 'card post';
+      art.dataset.tags = 'all';
+      art.innerHTML =
+        '<div class="post-head">' +
+          '<div class="avatar">ĐT</div>' +
+          '<div class="post-author"><div class="name-row"><span class="name">Đinh Trí Bùi</span>' +
+          (kind ? '<span class="role-tag">' + kind + '</span>' : '') +
+          '</div><div class="meta">Vừa xong · công khai với cộng đồng</div></div>' +
+          '<button class="post-more" title="Tuỳ chọn">⋯</button>' +
+        '</div>' +
+        '<p class="post-body"></p>' +
+        '<div class="post-foot">' +
+          '<button class="react-btn like"><span>👍</span><span class="cnt">0</span></button>' +
+          '<button class="react-btn cmt"><span>💬</span><span class="cnt">0</span> bình luận</button>' +
+          '<button class="react-btn save"><span>🔖</span> Lưu</button>' +
+          '<button class="react-btn"><span>↗</span> Chia sẻ</button>' +
+        '</div>' +
+        '<div class="comments"><form class="comment-form"><div class="avatar sm">ĐT</div>' +
+        '<input type="text" placeholder="Viết bình luận…"></form></div>';
+      art.querySelector('.post-body').textContent = text;
+      feed.insertBefore(art, feed.children[1] || null);
+      input.value = '';
+      grow();
+      document.querySelectorAll('.composer-chip').forEach(function (c) { c.classList.remove('on'); });
+      kind = null;
+      art.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    /* ── Bộ lọc chủ đề ── */
+    document.getElementById('filterBar').addEventListener('click', function (e) {
+      var chip = e.target.closest('.filter-chip');
+      if (!chip) return;
+      document.querySelectorAll('.filter-chip').forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var f = chip.dataset.f;
+      Array.prototype.forEach.call(feed.children, function (card) {
+        var tags = card.dataset.tags || '';
+        card.style.display = (f === 'all' || tags.indexOf(f) > -1) ? '' : 'none';
+      });
+    });
+
+    /* ── Bình chọn poll ── */
+    var voted = false;
+    var votes = { a: 112, b: 72 };
+    document.querySelectorAll('.poll-option').forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        if (voted) return;
+        voted = true;
+        votes[opt.dataset.opt] += 1;
+        var total = votes.a + votes.b;
+        var pa = Math.round(votes.a / total * 100);
+        var pb = 100 - pa;
+        document.getElementById('pctA').textContent = pa + '%';
+        document.getElementById('pctB').textContent = pb + '%';
+        document.getElementById('barA').style.width = pa + '%';
+        document.getElementById('barB').style.width = pb + '%';
+        document.getElementById('pollMeta').textContent =
+          total + ' lượt bình chọn · bạn đã chọn ' + (opt.dataset.opt === 'a' ? 'CHI PHÍ' : 'DOANH THU') +
+          ' · đáp án mở lúc 21:00 Chủ nhật';
+        opt.classList.add('picked');
+      });
+    });
+
+    /* ── Thích / lưu / mở bình luận ── */
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.react-btn');
+      if (!btn) return;
+      var post = btn.closest('.post');
+      if (btn.classList.contains('like')) {
+        var cnt = btn.querySelector('.cnt');
+        var n = parseInt(cnt.textContent, 10) || 0;
+        btn.classList.toggle('on');
+        cnt.textContent = btn.classList.contains('on') ? n + 1 : n - 1;
+      } else if (btn.classList.contains('save')) {
+        btn.classList.toggle('on');
+        btn.lastChild.textContent = btn.classList.contains('on') ? ' Đã lưu' : ' Lưu';
+      } else if (btn.classList.contains('cmt') && post) {
+        var box = post.querySelector('.comments');
+        if (box) {
+          box.classList.toggle('open');
+          if (box.classList.contains('open')) {
+            var f = box.querySelector('input');
+            if (f) f.focus();
+          }
+        }
+      }
+    });
+
+    /* ── Gửi bình luận ── */
+    document.addEventListener('submit', function (e) {
+      var form = e.target.closest('.comment-form');
+      if (!form) return;
+      e.preventDefault();
+      var field = form.querySelector('input');
+      var text = field.value.trim();
+      if (!text) return;
+      var el = document.createElement('div');
+      el.className = 'comment';
+      el.innerHTML = '<div class="avatar sm">ĐT</div><div class="comment-bubble">' +
+        '<div class="c-name">Đinh Trí Bùi</div><div class="c-text"></div>' +
+        '<div class="c-meta">Vừa xong</div></div>';
+      el.querySelector('.c-text').textContent = text;
+      form.parentNode.insertBefore(el, form);
+      field.value = '';
+      var post = form.closest('.post');
+      if (post) {
+        var cnt = post.querySelector('.react-btn.cmt .cnt');
+        if (cnt) cnt.textContent = (parseInt(cnt.textContent, 10) || 0) + 1;
+      }
+    });
+
+    /* ── Tải thêm: hiện skeleton rồi chèn bài ── */
+    var more = [
+      {
+        av: 'HT', cls: 'pink', name: 'Hà Trang', role: 'Chặng 4 · Synthesis',
+        meta: '2 ngày trước', tags: 'framework phong-van',
+        title: 'Khuôn 60 giây chốt khuyến nghị mà mình dùng trong mọi case',
+        body: 'Một câu trả lời — hai lý do có số — một rủi ro kèm cách giảm. Đừng kể lại quá trình phân tích, giám khảo đã ngồi nghe suốt 30 phút rồi.',
+        hash: ['#synthesis', '#kếtluận', '#phongvan']
+      },
+      {
+        av: 'QB', cls: 'cyan', name: 'Quốc Bảo', role: 'Chặng 2 · Break-even',
+        meta: '3 ngày trước', tags: 'sizing phan-bien',
+        title: 'Mình tính sai break-even vì quên chi phí chìm — chép lại lỗi để không tái phạm',
+        body: 'Chi phí nghiên cứu đã chi 2 tỷ không được cộng vào mẫu số. Sau khi bỏ ra, điểm hoà vốn lùi từ 41 tháng xuống 26 tháng và khuyến nghị đảo chiều hoàn toàn.',
+        hash: ['#breakeven', '#chiphíchìm', '#sổlỗi']
+      }
+    ];
+    var loaded = 0;
+    var btnLoad = document.getElementById('btnLoad');
+
+    btnLoad.addEventListener('click', function () {
+      if (loaded >= more.length) return;
+      btnLoad.textContent = 'Đang tải…';
+      btnLoad.disabled = true;
+
+      var sk = document.createElement('div');
+      sk.className = 'card skeleton';
+      sk.innerHTML = '<div style="display:flex;gap:12px;align-items:center">' +
+        '<div class="sk" style="width:40px;height:40px;border-radius:50%"></div>' +
+        '<div style="flex:1"><div class="sk" style="height:11px;width:36%;margin-bottom:8px"></div>' +
+        '<div class="sk" style="height:9px;width:22%"></div></div></div>' +
+        '<div class="sk" style="height:12px;width:80%;margin-top:16px"></div>' +
+        '<div class="sk" style="height:12px;width:92%;margin-top:9px"></div>' +
+        '<div class="sk" style="height:12px;width:58%;margin-top:9px"></div>';
+      feed.appendChild(sk);
+
+      setTimeout(function () {
+        sk.remove();
+        var p = more[loaded++];
+        var art = document.createElement('article');
+        art.className = 'card post';
+        art.dataset.tags = p.tags;
+        art.innerHTML =
+          '<div class="post-head"><div class="avatar ' + p.cls + '">' + p.av + '</div>' +
+            '<div class="post-author"><div class="name-row"><span class="name">' + p.name + '</span>' +
+            '<span class="role-tag">' + p.role + '</span></div>' +
+            '<div class="meta">' + p.meta + '</div></div>' +
+            '<button class="post-more" title="Tuỳ chọn">⋯</button></div>' +
+          '<h3 class="post-title">' + p.title + '</h3>' +
+          '<p class="post-body">' + p.body + '</p>' +
+          '<div class="post-tags">' + p.hash.map(function (h) {
+            return '<a href="#" class="hash">' + h + '</a>';
+          }).join('') + '</div>' +
+          '<div class="post-foot">' +
+            '<button class="react-btn like"><span>👍</span><span class="cnt">' + (40 + loaded * 17) + '</span></button>' +
+            '<button class="react-btn cmt"><span>💬</span><span class="cnt">' + (6 + loaded * 3) + '</span> bình luận</button>' +
+            '<button class="react-btn save"><span>🔖</span> Lưu</button>' +
+            '<button class="react-btn"><span>↗</span> Chia sẻ</button></div>' +
+          '<div class="comments"><form class="comment-form"><div class="avatar sm">ĐT</div>' +
+          '<input type="text" placeholder="Viết bình luận…"></form></div>';
+        feed.appendChild(art);
+        btnLoad.disabled = false;
+        btnLoad.textContent = loaded >= more.length ? 'Bạn đã xem hết feed hôm nay' : 'Tải thêm bài viết';
+        if (loaded >= more.length) btnLoad.disabled = true;
+      }, 700);
+    });
+
+    /* ── Nhịp cộng đồng nhích dần ── */
+    var pulse = document.getElementById('pulseNum');
+    var n = 3412;
+    setInterval(function () {
+      n += Math.floor(Math.random() * 3) + 1;
+      pulse.textContent = n.toLocaleString('vi-VN');
+    }, 4000);
+  })();
+  </script>
+
+</body>
+</html>

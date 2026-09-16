@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chặng Thuế, Bài 1: Lương Gross vs Net — Tự Học Tài Chính</title>
+  <title>Chặng Thuế, Bài 1: Lương Gross vs Net – bạn... — Tự Học Tài Chính</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
       --text-muted: #6b7280;
       --text-light: #9ca3af;
       --border-color: #e5e7eb;
-      --border-light: #f3f4f6;
+      --border-subtle: #f3f4f6;
       --primary: #059669;
       --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
@@ -32,41 +32,42 @@
       color: var(--text-main);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
     }
 
-    /* ════════════ TOP NAVBAR ════════════ */
-    .topbar {
+    /* ════════════ TOP HEADER BAR ════════════ */
+    .header-wrapper {
       position: sticky;
       top: 0;
       z-index: 100;
       background: #ffffff;
-      border-bottom: 1px solid #f3f4f6;
-      padding: 12px 36px 10px 36px;
+      border-bottom: 1px solid #f0f2f5;
+      padding: 10px 32px 10px 32px;
     }
 
-    .topbar-container {
-      max-width: 1280px;
+    .header-inner {
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
     }
 
-    .topbar-main-row {
+    .header-main {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 16px;
     }
 
-    /* Left Header: Button + Titles */
-    .topbar-left {
+    /* Left Group */
+    .hdr-left {
       display: flex;
       align-items: center;
       gap: 14px;
       min-width: 0;
     }
 
-    .btn-back-nav {
+    .btn-back-square {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -79,18 +80,18 @@
       color: #1f2937;
       text-decoration: none;
       white-space: nowrap;
-      transition: all 0.15s;
+      transition: background 0.15s;
     }
 
-    .btn-back-nav:hover {
+    .btn-back-square:hover {
       background: #f9fafb;
     }
 
-    .title-group {
+    .hdr-titles {
       min-width: 0;
     }
 
-    .main-title {
+    .hdr-main-title {
       font-size: 15px;
       font-weight: 800;
       color: #111827;
@@ -100,22 +101,22 @@
       line-height: 1.25;
     }
 
-    .sub-title {
-      font-size: 11.5px;
+    .hdr-sub-title {
+      font-size: 12px;
       color: #6b7280;
       font-weight: 500;
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
-    /* Right Header: Tools & Badges */
-    .topbar-right {
+    /* Right Group */
+    .hdr-right {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-shrink: 0;
     }
 
-    .zoom-pill {
+    .pill-font-zoom {
       display: flex;
       align-items: center;
       background: #ffffff;
@@ -128,7 +129,7 @@
       gap: 8px;
     }
 
-    .zoom-pill button {
+    .pill-font-zoom button {
       background: none;
       border: none;
       font-family: inherit;
@@ -138,7 +139,7 @@
       cursor: pointer;
     }
 
-    .theme-capsule {
+    .pill-dark-theme {
       display: flex;
       align-items: center;
       background: #1f2937;
@@ -149,17 +150,17 @@
       font-size: 12px;
     }
 
-    .theme-capsule span {
+    .pill-dark-theme span {
       opacity: 0.6;
       cursor: pointer;
     }
 
-    .theme-capsule span.active {
+    .pill-dark-theme span.active {
       opacity: 1;
       font-weight: 700;
     }
 
-    .btn-tool-icon {
+    .btn-square-tool {
       width: 32px;
       height: 32px;
       border-radius: 8px;
@@ -173,7 +174,7 @@
       cursor: pointer;
     }
 
-    .reading-badge {
+    .pill-reading-time {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -186,15 +187,15 @@
       color: #4b5563;
     }
 
-    .reading-badge .dot {
+    .pill-reading-time .dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #d1d5db;
+      background: #10b981;
     }
 
-    /* Sub Row: Progress Track & Stage Tag */
-    .topbar-sub-row {
+    /* Sub Row (Progress Line + Stage Tag) */
+    .hdr-sub-bar {
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -202,7 +203,7 @@
       margin-top: 4px;
     }
 
-    .track-bar {
+    .sub-bar-track {
       width: 80px;
       height: 4px;
       background: #e5e7eb;
@@ -210,19 +211,19 @@
       overflow: hidden;
     }
 
-    .track-fill {
+    .sub-bar-fill {
       width: 0%;
       height: 100%;
       background: #10b981;
     }
 
-    .sub-count {
+    .sub-bar-count {
       font-size: 11.5px;
       color: #6b7280;
       font-weight: 600;
     }
 
-    .sub-badge {
+    .sub-bar-tag {
       background: #e5e7eb;
       color: #374151;
       font-size: 10px;
@@ -232,24 +233,24 @@
       letter-spacing: 0.03em;
     }
 
-    /* ════════════ MAIN TWO-COLUMN WORKSPACE ════════════ */
-    .workspace-wrapper {
-      max-width: 1280px;
+    /* ════════════ MAIN CONTAINER ════════════ */
+    .main-workspace {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 28px 36px 80px 36px;
+      padding: 24px 32px 80px 32px;
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 32px;
+      grid-template-columns: 1fr 370px;
+      gap: 28px;
       align-items: start;
     }
 
     /* ════════════ LEFT COLUMN (CONTENT) ════════════ */
-    .content-column {
+    .main-content-flow {
       min-width: 0;
     }
 
     /* 1. Tài Tài Card */
-    .card-taitai {
+    .taitai-container {
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       overflow: hidden;
@@ -257,8 +258,8 @@
       background: #ffffff;
     }
 
-    .taitai-header {
-      background: #1f2421;
+    .taitai-hdr {
+      background: #1c2321;
       color: #ffffff;
       padding: 8px 16px;
       display: flex;
@@ -266,53 +267,53 @@
       justify-content: space-between;
     }
 
-    .taitai-info {
+    .taitai-info-group {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 13px;
     }
 
-    .taitai-info .bot-icon {
+    .taitai-info-group .robot-icon {
       font-size: 15px;
     }
 
-    .taitai-info .name {
+    .taitai-info-group .bot-name {
       font-weight: 800;
       color: #ffffff;
     }
 
-    .taitai-info .desc {
+    .taitai-info-group .bot-hint {
       font-size: 11.5px;
       color: #9ca3af;
       font-weight: 400;
     }
 
-    .taitai-tag {
+    .taitai-auto-label {
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.05em;
       color: #9ca3af;
     }
 
-    .taitai-body {
+    .taitai-text {
       padding: 16px 20px;
-      font-size: 14.5px;
+      font-size: 14px;
       color: #1f2937;
       line-height: 1.55;
       font-weight: 500;
     }
 
-    /* 2. Callout Card: Vì sao bài này quan trọng */
-    .card-why {
-      background: #fffdf5;
+    /* 2. Vì sao bài này quan trọng */
+    .why-card {
+      background: #fffdf2;
       border: 1.5px solid #fed7aa;
       border-radius: 12px;
       padding: 20px 22px;
       margin-bottom: 24px;
     }
 
-    .why-title {
+    .why-hdr-title {
       font-size: 11.5px;
       font-weight: 800;
       letter-spacing: 0.05em;
@@ -320,15 +321,15 @@
       margin-bottom: 8px;
     }
 
-    .why-content {
+    .why-body-text {
       font-size: 14.5px;
-      color: #1f2937;
+      color: #292524;
       line-height: 1.6;
       font-weight: 500;
     }
 
-    /* 3. Feynman Mode Card */
-    .card-feynman {
+    /* 3. Chế độ Feynman */
+    .feynman-card {
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 14px 18px;
@@ -340,19 +341,19 @@
       background: #ffffff;
     }
 
-    .feynman-title-txt {
+    .feynman-text-group .f-title {
       font-size: 13px;
       font-weight: 800;
       color: #111827;
       margin-bottom: 2px;
     }
 
-    .feynman-sub-txt {
+    .feynman-text-group .f-sub {
       font-size: 11.5px;
       color: #6b7280;
     }
 
-    .btn-eli5-pill {
+    .btn-eli5-outline {
       padding: 6px 14px;
       border-radius: 999px;
       background: #ffffff;
@@ -364,16 +365,16 @@
       white-space: nowrap;
     }
 
-    .btn-eli5-pill:hover {
+    .btn-eli5-outline:hover {
       background: #f9fafb;
     }
 
-    /* 4. Question Hook Section */
-    .hook-wrap {
+    /* 4. Question Hook */
+    .hook-container {
       margin-bottom: 32px;
     }
 
-    .hook-eyebrow-txt {
+    .hook-eyebrow-label {
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.05em;
@@ -381,7 +382,7 @@
       margin-bottom: 8px;
     }
 
-    .hook-heading-txt {
+    .hook-question-header {
       font-size: 16.5px;
       font-weight: 800;
       color: #111827;
@@ -389,7 +390,7 @@
       margin-bottom: 16px;
     }
 
-    .hook-opt-card {
+    .hook-card-option {
       width: 100%;
       background: #ffffff;
       border: 1px solid #e5e7eb;
@@ -405,12 +406,12 @@
       text-align: left;
     }
 
-    .hook-opt-card:hover {
+    .hook-card-option:hover {
       border-color: #cbd5e1;
       background: #f9fafb;
     }
 
-    .hook-badge-letter {
+    .hook-letter-sq {
       width: 24px;
       height: 24px;
       border-radius: 6px;
@@ -425,16 +426,16 @@
     }
 
     /* ════════════ RIGHT COLUMN (SIDEBAR) ════════════ */
-    .sidebar-column {
+    .sidebar-panel {
       position: sticky;
-      top: 90px;
+      top: 86px;
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
 
     /* Ghi chú Box */
-    .box-notes {
+    .notes-box {
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 12px 16px;
@@ -444,7 +445,7 @@
       background: #ffffff;
     }
 
-    .notes-left-info {
+    .notes-hdr-title {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -453,7 +454,7 @@
       color: #111827;
     }
 
-    .notes-expand-link {
+    .notes-expand-btn {
       font-size: 12px;
       font-weight: 600;
       color: #6b7280;
@@ -461,76 +462,76 @@
       cursor: pointer;
     }
 
-    .notes-expand-link:hover {
+    .notes-expand-btn:hover {
       color: #111827;
     }
 
-    /* KIỂM TRA NHANH Box */
-    .box-quick-quiz {
+    /* KIỂM TRA NHANH Outer Card */
+    .quiz-accordion-card {
       border: 1px solid #e5e7eb;
       border-radius: 14px;
       padding: 16px 18px 18px 18px;
       background: #ffffff;
     }
 
-    .qq-top-row {
+    .quiz-hdr-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 12px;
     }
 
-    .qq-title-wrap {
+    .quiz-hdr-left {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .qq-title-text {
+    .quiz-title-txt {
       font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.04em;
       color: #111827;
     }
 
-    .qq-step-text {
+    .quiz-step-indicator {
       font-size: 12px;
       font-weight: 700;
       color: #6b7280;
     }
 
-    .qq-chevron-icon {
+    .quiz-chevron-btn {
       font-size: 12px;
       color: #6b7280;
     }
 
-    /* 4-Step Segmented Bar */
-    .qq-bars-row {
+    /* 4-Step Progress Bars */
+    .quiz-bars-group {
       display: flex;
       gap: 6px;
       margin-bottom: 22px;
     }
 
-    .qq-bar-segment {
+    .quiz-bar-unit {
       flex: 1;
       height: 6px;
       background: #e5e7eb;
       border-radius: 999px;
     }
 
-    .qq-bar-segment.active {
+    .quiz-bar-unit.active {
       background: #645547;
     }
 
-    /* Question Container Card */
-    .quiz-question-container {
+    /* Inner Question Box */
+    .question-inner-frame {
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 18px 16px;
       background: #ffffff;
     }
 
-    .qq-q-num-badge {
+    .q-step-badge {
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.04em;
@@ -538,7 +539,7 @@
       margin-bottom: 8px;
     }
 
-    .qq-q-heading {
+    .q-main-heading {
       font-size: 15.5px;
       font-weight: 800;
       color: #111827;
@@ -546,14 +547,14 @@
       margin-bottom: 16px;
     }
 
-    .qq-options-container {
+    .options-stack {
       display: flex;
       flex-direction: column;
       gap: 9px;
       margin-bottom: 20px;
     }
 
-    .qq-option-row {
+    .option-card-row {
       border: 1px solid #e5e7eb;
       border-radius: 10px;
       padding: 11px 13px;
@@ -566,20 +567,20 @@
       cursor: pointer;
       background: #ffffff;
       line-height: 1.4;
-      transition: all 0.15s;
+      transition: border-color 0.15s;
     }
 
-    .qq-option-row:hover {
+    .option-card-row:hover {
       border-color: #cbd5e1;
       background: #f9fafb;
     }
 
-    .qq-option-row.selected {
+    .option-card-row.selected {
       border-color: #059669;
       background: #ffffff;
     }
 
-    .qq-opt-letter-box {
+    .opt-letter-box {
       width: 22px;
       height: 22px;
       border-radius: 6px;
@@ -594,7 +595,7 @@
       margin-top: 1px;
     }
 
-    .btn-submit-quiz {
+    .btn-quiz-check {
       width: 100%;
       padding: 12px 18px;
       border-radius: 999px;
@@ -608,14 +609,14 @@
       transition: all 0.2s;
     }
 
-    .btn-submit-quiz.active {
+    .btn-quiz-check.ready {
       background: #044e39;
       color: #ffffff;
       cursor: pointer;
     }
 
-    /* Edge Left Slider Handle */
-    .edge-handle {
+    /* Edge Slider Handle on Far Left */
+    .edge-tab-handle {
       position: fixed;
       left: 6px;
       top: 50%;
@@ -635,8 +636,8 @@
       z-index: 90;
     }
 
-    /* Floating Menu Button */
-    .fab-btn {
+    /* Bottom-Right Floating Action Button */
+    .fab-menu-circle {
       position: fixed;
       bottom: 24px;
       right: 24px;
@@ -655,7 +656,7 @@
       z-index: 99;
     }
 
-    .fab-badge-num {
+    .fab-badge-pill {
       position: absolute;
       top: -3px;
       right: -3px;
@@ -670,14 +671,14 @@
     }
 
     @media (max-width: 1024px) {
-      .workspace-wrapper {
+      .main-workspace {
         grid-template-columns: 1fr;
         padding: 20px 20px;
       }
-      .topbar {
+      .header-wrapper {
         padding: 10px 16px;
       }
-      .sidebar-column {
+      .sidebar-panel {
         position: static;
       }
     }
@@ -685,43 +686,43 @@
 </head>
 <body>
 
-  <!-- ════════════ TOPBAR ════════════ -->
-  <header class="topbar">
-    <div class="topbar-container">
-      <div class="topbar-main-row">
+  <!-- ════════════ TOP HEADER BAR ════════════ -->
+  <header class="header-wrapper">
+    <div class="header-inner">
+      <div class="header-main">
         
-        <!-- Left: Back button & Titles -->
-        <div class="topbar-left">
-          <a href="dashboard.html" class="btn-back-nav">
+        <!-- Left: Back Button & Titles -->
+        <div class="hdr-left">
+          <a href="dashboard.html" class="btn-back-square">
             <span>←</span>
             <span>Quay lại</span>
           </a>
 
-          <div class="title-group">
-            <h1 class="main-title">Chặng Thuế, Bài 1: Lương Gross vs Net – bạn...</h1>
-            <div class="sub-title">Chặng Thuế · Bài 1</div>
+          <div class="hdr-titles">
+            <h1 class="hdr-main-title">Chặng Thuế, Bài 1: Lương Gross vs Net – bạn...</h1>
+            <div class="hdr-sub-title">Chặng Thuế · Bài 1</div>
           </div>
         </div>
 
         <!-- Right: Toolbar -->
-        <div class="topbar-right">
-          <div class="zoom-pill">
-            <button onclick="zoom(-5)">A-</button>
-            <span id="zoomTxt">113%</span>
-            <button onclick="zoom(5)">A+</button>
+        <div class="hdr-right">
+          <div class="pill-font-zoom">
+            <button onclick="zoomFont(-5)">A-</button>
+            <span id="zoomLabel">113%</span>
+            <button onclick="zoomFont(5)">A+</button>
           </div>
 
-          <div class="theme-capsule">
+          <div class="pill-dark-theme">
             <span class="active">☀</span>
             <span>🕮</span>
             <span>☾</span>
           </div>
 
-          <button class="btn-tool-icon" title="Đánh dấu">🔖</button>
-          <button class="btn-tool-icon" title="Hoàn thành">✓</button>
-          <button class="btn-tool-icon" title="Thống kê">📊</button>
+          <button class="btn-square-tool" title="Đánh dấu">🔖</button>
+          <button class="btn-square-tool" title="Hoàn thành">✓</button>
+          <button class="btn-square-tool" title="Thống kê">📊</button>
 
-          <div class="reading-badge">
+          <div class="pill-reading-time">
             <span class="dot"></span>
             <span>10% · còn ~5 phút</span>
           </div>
@@ -729,66 +730,66 @@
       </div>
 
       <!-- Right Sub-Row -->
-      <div class="topbar-sub-row">
-        <div class="track-bar">
-          <div class="track-fill"></div>
+      <div class="hdr-sub-bar">
+        <div class="sub-bar-track">
+          <div class="sub-bar-fill"></div>
         </div>
-        <span class="sub-count">0/4</span>
-        <span class="sub-badge">CHẶNG THUẾ · BÀI 1</span>
+        <span class="sub-bar-count">0/4</span>
+        <span class="sub-bar-tag">CHẶNG THUẾ · BÀI 1</span>
       </div>
     </div>
   </header>
 
-  <!-- Left Side Floating Handle -->
-  <div class="edge-handle" title="Điều hướng">◧</div>
+  <!-- Left Side Edge Handle -->
+  <div class="edge-tab-handle" title="Điều hướng">◧</div>
 
-  <!-- ════════════ MAIN CONTENT ════════════ -->
-  <main class="workspace-wrapper">
+  <!-- ════════════ MAIN TWO-COLUMN WORKSPACE ════════════ -->
+  <main class="main-workspace">
 
-    <!-- ── LEFT COLUMN ── -->
-    <article class="content-column">
+    <!-- ── LEFT COLUMN: ARTICLE CONTENT ── -->
+    <article class="main-content-flow">
 
       <!-- 1. Tài Tài Card -->
-      <div class="card-taitai">
-        <div class="taitai-header">
-          <div class="taitai-info">
-            <span class="bot-icon">📺</span>
-            <span class="name">Tài Tài</span>
-            <span class="desc">mẹo tự động cho bài này</span>
+      <div class="taitai-container">
+        <div class="taitai-hdr">
+          <div class="taitai-info-group">
+            <span class="robot-icon">📺</span>
+            <span class="bot-name">Tài Tài</span>
+            <span class="bot-hint">mẹo tự động cho bài này</span>
           </div>
-          <span class="taitai-tag">TỰ ĐỘNG</span>
+          <span class="taitai-auto-label">TỰ ĐỘNG</span>
         </div>
-        <div class="taitai-body">
+        <div class="taitai-text">
           ETF chỉ số theo dõi cả thị trường thay vì cược vào một công ty – chi phí thấp, đa dạng hóa sẵn, phù hợp phần lớn nhà đầu tư cá nhân.
         </div>
       </div>
 
       <!-- 2. Vì sao bài này quan trọng -->
-      <div class="card-why">
-        <div class="why-title">VÌ SAO BÀI NÀY QUAN TRỌNG</div>
-        <p class="why-content">
+      <div class="why-card">
+        <div class="why-hdr-title">VÌ SAO BÀI NÀY QUAN TRỌNG</div>
+        <p class="why-body-text">
           Gần như mọi quyết định tài chính cá nhân – ngân sách, quỹ khẩn cấp, khả năng trả nợ – đều dựa trên thu nhập THỰC NHẬN, không phải con số ghi trên hợp đồng. Bài này cho bạn công thức đi từ gross sang net để mọi kế hoạch sau đó đứng trên số liệu đúng.
         </p>
       </div>
 
       <!-- 3. Chế độ Feynman -->
-      <div class="card-feynman">
-        <div>
-          <div class="feynman-title-txt">Chế độ Feynman (Giải thích siêu đơn giản)</div>
-          <div class="feynman-sub-txt">Tài Tài giải thích bài học này theo cách dễ nhớ nhất cho học sinh lớp 5!</div>
+      <div class="feynman-card">
+        <div class="feynman-text-group">
+          <div class="f-title">Chế độ Feynman (Giải thích siêu đơn giản)</div>
+          <div class="f-sub">Tài Tài giải thích bài học này theo cách dễ nhớ nhất cho học sinh lớp 5!</div>
         </div>
-        <button class="btn-eli5-pill">Dùng ELI5</button>
+        <button class="btn-eli5-outline">Dùng ELI5</button>
       </div>
 
       <!-- 4. Hook Section -->
-      <div class="hook-wrap">
-        <div class="hook-eyebrow-txt">BẮT ĐẦU BẰNG MỘT CÂU HỎI</div>
-        <h2 class="hook-heading-txt">
+      <div class="hook-container">
+        <div class="hook-eyebrow-label">BẮT ĐẦU BẰNG MỘT CÂU HỎI</div>
+        <h2 class="hook-question-header">
           Hợp đồng ghi lương 30 triệu/tháng (gross), bạn chưa có người phụ thuộc. Số tiền thực tế vào tài khoản mỗi tháng khoảng bao nhiêu?
         </h2>
 
-        <button class="hook-opt-card">
-          <span class="hook-badge-letter">A</span>
+        <button class="hook-card-option">
+          <span class="hook-letter-sq">A</span>
           <span>Đúng 30 triệu, vì thuế do công ty chịu</span>
         </button>
       </div>
@@ -796,65 +797,65 @@
     </article>
 
     <!-- ── RIGHT COLUMN: SIDEBAR ── -->
-    <aside class="sidebar-column">
+    <aside class="sidebar-panel">
 
-      <!-- Ghi chú Card -->
-      <div class="box-notes">
-        <div class="notes-left-info">
+      <!-- Ghi chú Box -->
+      <div class="notes-box">
+        <div class="notes-hdr-title">
           <span>📝</span>
           <span>Ghi chú <span style="font-weight:500;color:#6b7280;">(0)</span></span>
         </div>
-        <a class="notes-expand-link">Mở rộng</a>
+        <a class="notes-expand-btn">Mở rộng</a>
       </div>
 
-      <!-- KIỂM TRA NHANH Card -->
-      <div class="box-quick-quiz">
-        <div class="qq-top-row">
-          <div class="qq-title-wrap">
-            <span class="qq-title-text">KIỂM TRA NHANH</span>
-            <span class="qq-step-text">0/4</span>
+      <!-- KIỂM TRA NHANH Outer Card -->
+      <div class="quiz-accordion-card">
+        <div class="quiz-hdr-row">
+          <div class="quiz-hdr-left">
+            <span class="quiz-title-txt">KIỂM TRA NHANH</span>
+            <span class="quiz-step-indicator">0/4</span>
           </div>
-          <span class="qq-chevron-icon">⌃</span>
+          <span class="quiz-chevron-btn">⌃</span>
         </div>
 
         <!-- 4 Step Bars -->
-        <div class="qq-bars-row">
-          <div class="qq-bar-segment active"></div>
-          <div class="qq-bar-segment"></div>
-          <div class="qq-bar-segment"></div>
-          <div class="qq-bar-segment"></div>
+        <div class="quiz-bars-group">
+          <div class="quiz-bar-unit active"></div>
+          <div class="quiz-bar-unit"></div>
+          <div class="quiz-bar-unit"></div>
+          <div class="quiz-bar-unit"></div>
         </div>
 
-        <!-- Inner Question Box -->
-        <div class="quiz-question-container">
-          <div class="qq-q-num-badge">CÂU 1 / 4</div>
-          <h3 class="qq-q-heading">Lương gross là gì?</h3>
+        <!-- Inner Question Frame -->
+        <div class="question-inner-frame">
+          <div class="q-step-badge">CÂU 1 / 4</div>
+          <h3 class="q-main-heading">Lương gross là gì?</h3>
 
-          <!-- Options -->
-          <div class="qq-options-container">
-            <div class="qq-option-row" onclick="chooseOpt(this)">
-              <span class="qq-opt-letter-box">A</span>
+          <!-- Options Stack -->
+          <div class="options-stack">
+            <div class="option-card-row" onclick="chooseOption(this)">
+              <span class="opt-letter-box">A</span>
               <span>Số tiền thực nhận vào tài khoản mỗi tháng</span>
             </div>
 
-            <div class="qq-option-row" onclick="chooseOpt(this)">
-              <span class="qq-opt-letter-box">B</span>
+            <div class="option-card-row" onclick="chooseOption(this)">
+              <span class="opt-letter-box">B</span>
               <span>Tổng thu nhập trước khi trừ bảo hiểm và thuế</span>
             </div>
 
-            <div class="qq-option-row" onclick="chooseOpt(this)">
-              <span class="qq-opt-letter-box">C</span>
+            <div class="option-card-row" onclick="chooseOption(this)">
+              <span class="opt-letter-box">C</span>
               <span>Lương cơ bản chưa gồm phụ cấp và thưởng</span>
             </div>
 
-            <div class="qq-option-row" onclick="chooseOpt(this)">
-              <span class="qq-opt-letter-box">D</span>
+            <div class="option-card-row" onclick="chooseOption(this)">
+              <span class="opt-letter-box">D</span>
               <span>Tổng thu nhập sau khi đã trừ hết các khoản</span>
             </div>
           </div>
 
           <!-- Submit Button -->
-          <button class="btn-submit-quiz" id="btnSubmitQuiz">KIỂM TRA →</button>
+          <button class="btn-quiz-check" id="btnQuizCheck">KIỂM TRA →</button>
         </div>
 
       </div>
@@ -863,24 +864,24 @@
 
   </main>
 
-  <!-- Floating Menu Button -->
-  <button class="fab-btn" title="Menu">
+  <!-- Bottom-Right Floating Button -->
+  <button class="fab-menu-circle" title="Menu">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    <span class="fab-badge-num">9+</span>
+    <span class="fab-badge-pill">9+</span>
   </button>
 
   <script>
-    let zoomLevel = 113;
-    function zoom(val) {
-      zoomLevel += val;
-      document.getElementById('zoomTxt').textContent = zoomLevel + '%';
+    let zoomVal = 113;
+    function zoomFont(delta) {
+      zoomVal += delta;
+      document.getElementById('zoomLabel').textContent = zoomVal + '%';
     }
 
-    function chooseOpt(el) {
-      document.querySelectorAll('.qq-option-row').forEach(row => row.classList.remove('selected'));
+    function chooseOption(el) {
+      document.querySelectorAll('.option-card-row').forEach(r => r.classList.remove('selected'));
       el.classList.add('selected');
-      const btn = document.getElementById('btnSubmitQuiz');
-      btn.classList.add('active');
+      const btn = document.getElementById('btnQuizCheck');
+      btn.classList.add('ready');
     }
   </script>
 

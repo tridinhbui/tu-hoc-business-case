@@ -3,50 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tự Học Business Case — Học bài & Lộ trình Case Study</title>
+  <title>Tự Học Business Case — Học bài</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f7f4;
-      --surface: #ffffff;
-      --surface-subtle: #f8faf8;
+      --bg: #f4f6f4;
       --sidebar-bg: #ffffff;
-      --sidebar-border: #e9efe9;
-      --border-color: #e4ebe4;
-      --border-light: #f0f4f0;
+      --sidebar-border: #e8eee8;
+      --card-bg: #ffffff;
+      --border: #e2e8e2;
+      --border-subtle: #edf2ed;
       
       --text-main: #14281b;
-      --text-secondary: #526657;
-      --text-muted: #839789;
+      --text-secondary: #4d6353;
+      --text-muted: #829688;
       
       --primary: #059669;
       --primary-dark: #047857;
       --primary-forest: #064e3b;
-      --primary-light: #e6f7ee;
-      --primary-ring: rgba(5, 150, 105, 0.15);
+      --primary-mint: #e6f7ee;
+      --primary-mint-hover: #d3f3e2;
       
-      --emerald-pill: #e6f7ee;
-      --emerald-text: #059669;
-      --amber-pill: #fef5e7;
+      --amber-bg: #fef8eb;
+      --amber-border: #fde68a;
       --amber-text: #b45309;
-      --pink-pill: #fce7e7;
-      --pink-text: #e11d48;
-      --cyan-pill: #e0f8f4;
-      --cyan-text: #0891b2;
-      --purple-pill: #f3e8ff;
-      --purple-text: #9333ea;
       
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
-      --radius-xl: 22px;
+      --radius-xl: 20px;
       --radius-pill: 9999px;
-      
-      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.04);
-      --shadow-card: 0 4px 16px -2px rgba(20, 40, 25, 0.05), 0 2px 6px -1px rgba(20, 40, 25, 0.03);
-      --shadow-hover: 0 10px 24px -4px rgba(20, 40, 25, 0.08);
       
       --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -68,8 +56,8 @@
 
     /* ════════════ SIDEBAR ════════════ */
     .sidebar {
-      width: 256px;
-      min-width: 256px;
+      width: 250px;
+      min-width: 250px;
       background: var(--sidebar-bg);
       border-right: 1px solid var(--sidebar-border);
       display: flex;
@@ -81,7 +69,7 @@
     }
 
     .sidebar-header {
-      padding: 24px 20px 16px;
+      padding: 22px 18px 14px;
     }
 
     .brand-logo {
@@ -92,57 +80,68 @@
     }
 
     .brand-icon {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--primary);
     }
 
-    .brand-title {
-      font-weight: 800;
-      font-size: 14.5px;
-      letter-spacing: -0.01em;
-      color: #0d4a2d;
+    .brand-title-group {
+      display: flex;
+      flex-direction: column;
       line-height: 1.15;
     }
 
+    .brand-sub {
+      font-size: 11px;
+      font-weight: 800;
+      color: #059669;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-main {
+      font-size: 15px;
+      font-weight: 800;
+      color: #064e3b;
+      letter-spacing: -0.01em;
+    }
+
     .search-box {
-      margin: 12px 16px 16px;
+      margin: 10px 14px 14px;
       display: flex;
       align-items: center;
       gap: 8px;
       background: #f6faf6;
-      border: 1px solid #e2ebe2;
+      border: 1px solid #e0eae0;
       border-radius: var(--radius-pill);
       padding: 7px 14px;
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
 
     .search-box:hover {
       background: #eff6ef;
-      border-color: #d1e2d1;
+      border-color: #cedece;
     }
 
     .search-box kbd {
       margin-left: auto;
-      font-size: 10.5px;
+      font-size: 10px;
       background: #ffffff;
-      border: 1px solid #dae4da;
+      border: 1px solid #d6e2d6;
       border-radius: 4px;
       padding: 1px 5px;
       color: var(--text-secondary);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .sidebar-nav {
       flex: 1;
       overflow-y: auto;
-      padding: 0 12px 16px;
+      padding: 0 10px 16px;
     }
 
     .sidebar-nav::-webkit-scrollbar {
@@ -157,15 +156,14 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 9px 14px;
+      padding: 8.5px 12px;
       border-radius: var(--radius-pill);
       font-size: 13.5px;
       font-weight: 600;
       color: var(--text-secondary);
       text-decoration: none;
       margin-bottom: 2px;
-      transition: all 0.15s ease;
-      position: relative;
+      transition: all 0.15s;
     }
 
     .nav-item:hover {
@@ -180,7 +178,7 @@
     }
 
     .nav-item .icon {
-      font-size: 16px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -188,11 +186,11 @@
     }
 
     .nav-section-title {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.04em;
       color: #799180;
-      padding: 18px 14px 6px;
+      padding: 16px 12px 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -200,17 +198,16 @@
     }
 
     .nav-section-title .chevron {
-      font-size: 10px;
-      transition: transform 0.2s;
+      font-size: 9px;
+      color: #9cb1a2;
     }
 
     .nav-tag {
       margin-left: auto;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 7px;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 6px;
       border-radius: var(--radius-pill);
-      letter-spacing: 0.02em;
     }
 
     .tag-new {
@@ -229,7 +226,7 @@
     }
 
     .sidebar-footer {
-      padding: 14px 14px;
+      padding: 12px 14px;
       border-top: 1px solid var(--sidebar-border);
       background: #ffffff;
       display: flex;
@@ -241,12 +238,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
     }
 
     .gold-pill {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: #fbf6ec;
       border: 1px solid #f3e6ce;
       padding: 5px 12px;
@@ -255,16 +253,11 @@
       font-weight: 700;
       color: #8c5b16;
       flex: 1;
-      margin-right: 8px;
-    }
-
-    .gold-pill .coin-icon {
-      font-size: 14px;
     }
 
     .gold-count {
       margin-left: auto;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       color: #5c3c0a;
     }
@@ -281,11 +274,7 @@
       position: relative;
       cursor: pointer;
       color: var(--text-secondary);
-      transition: all 0.15s;
-    }
-
-    .bell-btn:hover {
-      background: #f5faf5;
+      flex-shrink: 0;
     }
 
     .bell-badge {
@@ -306,16 +295,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 6px 8px;
+      padding: 4px 6px;
       border-radius: var(--radius-md);
       cursor: pointer;
-      transition: background 0.15s;
       text-decoration: none;
       color: inherit;
-    }
-
-    .user-profile-card:hover {
-      background: #f3f8f3;
     }
 
     .user-avatar-circle {
@@ -328,7 +312,7 @@
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12.5px;
     }
 
     .user-info {
@@ -353,16 +337,11 @@
       text-overflow: ellipsis;
     }
 
-    .user-chevron {
-      color: var(--text-muted);
-      font-size: 12px;
-    }
-
     /* ════════════ MAIN CONTENT ════════════ */
     .main-container {
       flex: 1;
-      padding: 24px 32px 48px;
-      max-width: 1440px;
+      padding: 24px 28px 48px;
+      max-width: 1380px;
       margin: 0 auto;
       width: 100%;
     }
@@ -370,167 +349,206 @@
     /* ── TOP HERO BANNER CARD ── */
     .hero-banner-card {
       background: #ffffff;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
       border-radius: var(--radius-xl);
-      padding: 24px 28px;
+      padding: 20px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow-card);
-      margin-bottom: 22px;
-      min-height: 165px;
+      box-shadow: 0 4px 16px -2px rgba(20, 40, 25, 0.04);
+      margin-bottom: 20px;
+      gap: 20px;
     }
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 62%;
+    .hero-left-section {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      flex: 1;
+      min-width: 0;
     }
 
-    .hero-badges {
+    .hero-book-icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: #064e3b;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.25);
+    }
+
+    .hero-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero-badges-row {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       flex-wrap: wrap;
     }
 
-    .badge-learning {
-      background: var(--emerald-pill);
-      color: var(--emerald-text);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
+    .badge-mission-green {
+      background: #e6f7ee;
+      color: #059669;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 10px;
       border-radius: var(--radius-pill);
       display: flex;
       align-items: center;
       gap: 5px;
     }
 
-    .badge-learning .dot {
-      width: 6px;
-      height: 6px;
+    .badge-mission-green .dot {
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: #10b981;
     }
 
-    .badge-xp {
-      background: var(--amber-pill);
-      color: var(--amber-text);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
+    .badge-xp-amber {
+      background: #fef5e7;
+      color: #b45309;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 10px;
       border-radius: var(--radius-pill);
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    .hero-meta {
-      font-size: 12px;
-      font-weight: 600;
+    .hero-sub-chapter {
+      font-size: 11.5px;
+      font-weight: 700;
       color: var(--text-muted);
       margin-bottom: 4px;
     }
 
-    .hero-title {
-      font-size: 21px;
+    .hero-main-title {
+      font-size: 20px;
       font-weight: 800;
       color: #14281b;
       line-height: 1.3;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       letter-spacing: -0.02em;
     }
 
-    .hero-progress-row {
+    .hero-progress-group {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       color: var(--text-secondary);
     }
 
-    .progress-bar-wrap {
+    .hero-prog-track {
       flex: 1;
-      max-width: 200px;
-      height: 6px;
+      max-width: 180px;
+      height: 5px;
       background: #eef3ee;
       border-radius: 999px;
       overflow: hidden;
-      position: relative;
     }
 
-    .progress-bar-fill {
+    .hero-prog-fill {
+      width: 1.2%;
       height: 100%;
       background: #10b981;
       border-radius: 999px;
     }
 
-    .hero-art-container {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 38%;
+    /* Scenic Mountain Illustration Container */
+    .hero-scenic-box {
+      width: 280px;
+      height: 125px;
+      border-radius: 14px;
       overflow: hidden;
-      border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+      flex-shrink: 0;
+      position: relative;
+      border: 1px solid #e0ebe0;
     }
 
     /* ── TRACK SWITCHER TABS ── */
-    .track-tabs-row {
+    .track-tabs-bar {
       display: flex;
       gap: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-    .track-tab-btn {
+    .track-pill-tab {
       flex: 1;
-      padding: 12px 20px;
+      padding: 11px 20px;
       border-radius: var(--radius-pill);
       font-size: 13.5px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
       text-align: center;
-      border: 1.5px solid var(--border-color);
+      border: 1px solid var(--border);
       background: #ffffff;
       color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .track-tab-btn:hover {
-      background: #fafdfa;
+    .track-pill-tab:hover {
       border-color: #cbdccb;
       color: var(--text-main);
     }
 
-    .track-tab-btn.active {
-      background: var(--primary-forest);
-      border-color: var(--primary-forest);
+    .track-pill-tab.active {
+      background: #064e3b;
+      border-color: #064e3b;
       color: #ffffff;
       font-weight: 800;
-      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.22);
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
+    }
+
+    .track-badge-count {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    .track-pill-tab.active .track-badge-count {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    .track-pill-tab:not(.active) .track-badge-count {
+      background: #f0f4f0;
+      color: #617767;
     }
 
     /* ── SEARCH & FILTER ROW ── */
-    .search-filter-row {
+    .search-filter-strip {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    .search-input-box {
+    .cur-search-wrap {
       flex: 1;
       position: relative;
     }
 
-    .search-input-box input {
+    .cur-search-input {
       width: 100%;
       background: #ffffff;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
       border-radius: var(--radius-pill);
       padding: 9px 16px 9px 38px;
       font-size: 13px;
@@ -540,12 +558,12 @@
       transition: all 0.2s;
     }
 
-    .search-input-box input:focus {
+    .cur-search-input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-ring);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
     }
 
-    .search-input-box .search-icon {
+    .cur-search-icon {
       position: absolute;
       left: 14px;
       top: 50%;
@@ -554,9 +572,9 @@
       color: var(--text-muted);
     }
 
-    .btn-filter-pill {
+    .btn-mark-learned {
       background: #ffffff;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
       border-radius: var(--radius-pill);
       padding: 8px 16px;
       font-size: 12.5px;
@@ -564,158 +582,171 @@
       color: var(--text-secondary);
       cursor: pointer;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       transition: all 0.15s;
     }
 
-    .btn-filter-pill:hover {
+    .btn-mark-learned:hover {
       background: #f4f8f4;
+      border-color: #cddccd;
       color: var(--text-main);
-      border-color: #cbdccb;
     }
 
-    /* ── TWO-COLUMN GRID (MAIN ACCORDIONS + RIGHT WIDGETS) ── */
-    .curriculum-grid {
+    /* ── MAIN 2-COLUMN GRID ── */
+    .cur-grid-layout {
       display: grid;
-      grid-template-columns: 1fr 350px;
+      grid-template-columns: 1fr 360px;
       gap: 22px;
       align-items: flex-start;
     }
 
     /* ── STAGE ACCORDION CARDS ── */
-    .stage-card {
+    .stage-accordion-box {
       background: #ffffff;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
-      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      margin-bottom: 12px;
       overflow: hidden;
       transition: border-color 0.2s;
     }
 
-    .stage-card:hover {
-      border-color: #cbdccb;
+    .stage-accordion-box:hover {
+      border-color: #cadcca;
     }
 
-    .stage-card-header {
-      padding: 16px 20px;
+    .stage-acc-header {
+      padding: 14px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       cursor: pointer;
       background: #ffffff;
-      transition: background 0.15s;
+      user-select: none;
     }
 
-    .stage-card-header:hover {
+    .stage-acc-header:hover {
       background: #fafdfa;
     }
 
-    .stage-title-left {
+    .stage-left-info {
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
+      flex: 1;
     }
 
-    .stage-flag-icon {
+    .stage-icon-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 15px;
+      flex-shrink: 0;
     }
+
+    .badge-amber-flag { background: #fef3c7; color: #d97706; }
+    .badge-green-symbol { background: #064e3b; color: #ffffff; font-weight: 800; font-size: 13px; }
 
     .stage-title-text {
-      font-size: 14.5px;
+      font-size: 13.5px;
       font-weight: 800;
       color: #14281b;
-      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .stage-badge-tag {
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .stage-badge-tag.new {
+    .badge-new-mint {
       background: #dcfce7;
       color: #047857;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-left: 4px;
     }
 
-    .stage-status-right {
+    .stage-right-stats {
       display: flex;
       align-items: center;
       gap: 12px;
       flex-shrink: 0;
     }
 
-    .live-learner-pill {
+    .live-learners-txt {
       font-size: 11px;
       font-weight: 700;
       color: #059669;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
-    .live-learner-pill .pulse-dot {
-      width: 6px;
-      height: 6px;
+    .live-learners-txt .pulse-dot {
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: #10b981;
     }
 
-    .stage-mini-bar {
-      width: 50px;
-      height: 5px;
+    .stage-bar-mini {
+      width: 44px;
+      height: 4px;
       background: #eef3ee;
       border-radius: 999px;
       overflow: hidden;
     }
 
-    .stage-mini-fill {
+    .stage-bar-fill {
       height: 100%;
       background: #10b981;
       border-radius: 999px;
     }
 
-    .stage-count-num {
+    .stage-prog-count {
       font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
     }
 
-    .stage-chevron-icon {
-      font-size: 11px;
+    .stage-chevron-arrow {
+      font-size: 10px;
       color: var(--text-muted);
-      transition: transform 0.2s;
     }
 
     /* Sub-lessons list */
-    .stage-lessons-list {
-      border-top: 1px solid var(--border-color);
+    .stage-sub-items-list {
+      border-top: 1px solid var(--border-subtle);
       background: #fbfdfb;
     }
 
-    .sub-lesson-row {
-      padding: 13px 20px;
+    .lesson-sub-row {
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #f0f5f0;
+      border-bottom: 1px solid #f2f6f2;
+      gap: 12px;
       transition: background 0.15s;
-      gap: 14px;
     }
 
-    .sub-lesson-row:last-child {
+    .lesson-sub-row:last-child {
       border-bottom: none;
     }
 
-    .sub-lesson-row:hover {
+    .lesson-sub-row:hover {
       background: #ffffff;
     }
 
-    .sub-lesson-left {
+    .lesson-sub-left {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -723,23 +754,23 @@
       flex: 1;
     }
 
-    .sub-play-btn {
+    .btn-circle-play {
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: #e6f7ee;
-      color: #059669;
+      background: #064e3b;
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 10px;
       flex-shrink: 0;
-      border: 1px solid #c7eed6;
+      border: none;
       cursor: pointer;
+      box-shadow: 0 2px 6px rgba(6, 78, 59, 0.25);
     }
 
-    .sub-lock-btn {
+    .btn-circle-lock {
       width: 28px;
       height: 28px;
       border-radius: 50%;
@@ -753,17 +784,7 @@
       border: 1px solid #e5e7eb;
     }
 
-    .lesson-code-pill {
-      font-size: 10.5px;
-      font-weight: 700;
-      background: #f3f4f6;
-      color: #4b5563;
-      padding: 2px 7px;
-      border-radius: var(--radius-sm);
-      flex-shrink: 0;
-    }
-
-    .sub-lesson-title {
+    .lesson-title-main {
       font-size: 13.5px;
       font-weight: 700;
       color: var(--text-main);
@@ -772,139 +793,134 @@
       text-overflow: ellipsis;
     }
 
-    .sub-lesson-right {
+    .lesson-sub-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-shrink: 0;
     }
 
-    .badge-done-tick {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #059669;
-      background: #e6f7ee;
-      padding: 2px 8px;
-      border-radius: var(--radius-pill);
-      display: flex;
-      align-items: center;
-      gap: 3px;
+    .lesson-code-tag {
+      font-size: 10px;
+      font-weight: 700;
+      background: #f3f4f6;
+      color: #526657;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
-    .lesson-step-count {
+    .lesson-ratio-txt {
       font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
     }
 
-    .btn-lesson-action {
-      padding: 5px 12px;
-      border-radius: var(--radius-pill);
-      font-size: 11.5px;
-      font-weight: 700;
-      text-decoration: none;
+    .lesson-arrow-btn {
+      font-size: 10px;
+      color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.15s;
     }
 
-    .btn-lesson-action.btn-learn {
-      background: #065f46;
-      color: #ffffff;
-      border: 1px solid #065f46;
-    }
-
-    .btn-lesson-action.btn-learn:hover {
-      background: #044e39;
-    }
-
-    .btn-lesson-action.btn-review {
+    /* ── RIGHT COLUMN: 3 WIDGET CARDS ── */
+    .right-widget-card {
       background: #ffffff;
-      color: var(--text-secondary);
-      border: 1px solid var(--border-color);
-    }
-
-    .btn-lesson-action.btn-review:hover {
-      background: #f4f8f4;
-      color: var(--text-main);
-    }
-
-    /* ── RIGHT COLUMN WIDGETS ── */
-    .widget-box {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: var(--shadow-card);
-      margin-bottom: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Widget 1: Sổ tay ghi chép */
-    .widget-notebook {
+    /* Widget 1: Sổ tay */
+    .widget-notebook-card {
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .widget-notebook:hover {
-      border-color: #cbdccb;
+    .widget-notebook-card:hover {
+      border-color: #cadcca;
       transform: translateY(-1px);
     }
 
-    .notebook-flex {
+    .notebook-card-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .notebook-left-col {
+      flex: 1;
+    }
+
+    .notebook-top-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .notebook-icon-square {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: #fef3c7;
+      color: #d97706;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
     }
 
     .notebook-eyebrow {
       font-size: 10.5px;
       font-weight: 800;
-      letter-spacing: 0.05em;
       color: var(--text-muted);
-      margin-bottom: 2px;
+      letter-spacing: 0.04em;
     }
 
     .notebook-title {
       font-size: 15px;
       font-weight: 800;
       color: #14281b;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .notebook-desc {
       font-size: 11.5px;
       color: var(--text-secondary);
       line-height: 1.35;
+      margin-bottom: 8px;
     }
 
-    .notebook-link {
+    .notebook-open-link {
       font-size: 12px;
       font-weight: 800;
-      color: var(--primary);
-      margin-top: 8px;
+      color: #059669;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
 
-    .notebook-icon-art {
-      width: 52px;
-      height: 52px;
-      background: #fef8eb;
-      border: 1.5px solid #fde68a;
-      border-radius: var(--radius-md);
+    .notebook-art-wrap {
+      width: 80px;
+      height: 60px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
     }
 
     /* Widget 2: Câu sai cần ôn tập */
     .widget-mistake-card {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -914,22 +930,27 @@
       transform: translateY(-1px);
     }
 
-    .mistake-icon-circle {
-      width: 38px;
-      height: 38px;
+    .mistake-circle-icon {
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: #fffbeb;
-      border: 1.5px solid #fde68a;
-      color: #d97706;
+      background: #fff7ed;
+      border: 1.5px solid #fed7aa;
+      color: #ea580c;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       flex-shrink: 0;
     }
 
-    .mistake-title-row {
+    .mistake-card-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .mistake-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -937,79 +958,105 @@
     }
 
     .mistake-title {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 800;
       color: #14281b;
     }
 
-    .mistake-count-badge {
-      background: #fef3c7;
-      color: #b45309;
-      font-size: 10.5px;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: var(--radius-pill);
-    }
-
-    .mistake-desc {
-      font-size: 11.5px;
-      color: var(--text-secondary);
-      line-height: 1.35;
-    }
-
-    /* Widget 3: Thử thách chiến lược mỗi ngày (Tính nhanh) */
-    .drill-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-
-    .drill-title-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .drill-title {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: #14281b;
-    }
-
-    .drill-badge {
+    .mistake-pill-tag {
       background: #fef3c7;
       color: #b45309;
       font-size: 10px;
       font-weight: 800;
       padding: 2px 7px;
       border-radius: var(--radius-pill);
-      letter-spacing: 0.03em;
     }
 
-    .drill-question {
-      font-size: 13px;
+    .mistake-desc-txt {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+
+    /* Widget 3: Thử thách chiến lược mỗi ngày */
+    .drill-top-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .drill-title-flex {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drill-book-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1.5px solid #a7f3d0;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .drill-main-heading {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #14281b;
+    }
+
+    .drill-controls-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
       font-weight: 700;
-      color: #162a1e;
-      line-height: 1.45;
-      margin-bottom: 14px;
+      color: var(--text-muted);
     }
 
-    .drill-options-list {
+    .drill-badge-tinhnhanh {
+      background: #e6f7ee;
+      color: #059669;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .drill-main-prompt {
+      font-size: 13px;
+      font-weight: 800;
+      color: #14281b;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    .drill-sub-prompt {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .drill-options-vertical {
       display: flex;
       flex-direction: column;
       gap: 8px;
       margin-bottom: 14px;
     }
 
-    .drill-option-card {
-      width: 100%;
-      text-align: left;
-      padding: 10px 14px;
-      border: 1.5px solid var(--border-color);
+    .drill-option-item {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
       border-radius: var(--radius-md);
       background: #ffffff;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s;
@@ -1017,22 +1064,23 @@
       gap: 10px;
       align-items: flex-start;
       color: var(--text-main);
-      font-family: inherit;
+      line-height: 1.35;
+      text-align: left;
     }
 
-    .drill-option-card:hover {
+    .drill-option-item:hover {
       border-color: var(--primary);
       background: #f4fdf8;
     }
 
-    .drill-option-card.active {
+    .drill-option-item.active {
       border-color: var(--primary);
       background: #e6f7ee;
       color: #064e3b;
       font-weight: 700;
     }
 
-    .drill-letter-box {
+    .drill-opt-letter-sq {
       width: 20px;
       height: 20px;
       border-radius: 5px;
@@ -1040,47 +1088,49 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       flex-shrink: 0;
-      color: #4b5563;
+      color: #526657;
       margin-top: 1px;
     }
 
-    .drill-option-card.active .drill-letter-box {
+    .drill-option-item.active .drill-opt-letter-sq {
       background: var(--primary);
       color: #ffffff;
     }
 
-    .btn-drill-submit {
+    .btn-send-drill-answer {
       width: 100%;
       padding: 11px;
       border-radius: var(--radius-md);
-      background: #064e3b;
-      color: #ffffff;
-      font-size: 12.5px;
+      background: #e5e7eb;
+      color: #9ca3af;
+      font-size: 12px;
       font-weight: 800;
       border: none;
-      cursor: pointer;
+      cursor: not-allowed;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       transition: all 0.15s;
-      box-shadow: 0 3px 10px rgba(6, 78, 59, 0.2);
     }
 
-    .btn-drill-submit:hover {
-      background: #04382a;
+    .btn-send-drill-answer.ready {
+      background: #064e3b;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(6, 78, 59, 0.2);
     }
 
     /* Floating Action Button */
     .fab-menu-btn {
       position: fixed;
-      bottom: 28px;
-      right: 28px;
-      width: 46px;
-      height: 46px;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
       background: #1c261e;
       color: #ffffff;
       border-radius: 50%;
@@ -1092,12 +1142,6 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
       cursor: pointer;
       z-index: 99;
-      transition: transform 0.2s ease;
-    }
-
-    .fab-menu-btn:hover {
-      transform: scale(1.08);
-      background: #111a13;
     }
 
     .fab-badge {
@@ -1106,7 +1150,7 @@
       right: -3px;
       background: #ef4444;
       color: #ffffff;
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
       padding: 1px 5px;
       border-radius: 999px;
@@ -1114,41 +1158,13 @@
       line-height: 1;
     }
 
-    /* Overlay modals */
-    .custom-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(4px);
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-card-box {
-      background: #ffffff;
-      border-radius: var(--radius-xl);
-      padding: 24px;
-      width: 100%;
-      max-width: 520px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-
     @media (max-width: 1100px) {
-      .curriculum-grid {
-        grid-template-columns: 1fr;
-      }
+      .cur-grid-layout { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 850px) {
-      .sidebar {
-        display: none;
-      }
-      .main-container {
-        padding: 16px;
-      }
+      .sidebar { display: none; }
+      .main-container { padding: 16px; }
     }
   </style>
 </head>
@@ -1159,36 +1175,39 @@
     <div class="sidebar-header">
       <a href="dashboard.html" class="brand-logo">
         <div class="brand-icon">
-          <!-- Sprout / Consulting Step SVG -->
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Green Sprout Logo -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22v-9" />
-            <path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.2" />
-            <path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.3" />
+            <path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.25" />
+            <path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.35" />
           </svg>
         </div>
-        <span class="brand-title">TỰ HỌC<br>BUSINESS CASE</span>
+        <div class="brand-title-group">
+          <span class="brand-sub">TỰ HỌC</span>
+          <span class="brand-main">TÀI CHÍNH</span>
+        </div>
       </a>
     </div>
 
-    <!-- Search Box -->
+    <!-- Search Input -->
     <div class="search-box">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <span>Tìm kiếm...</span>
       <kbd>⌘K</kbd>
     </div>
 
-    <!-- Nav list -->
+    <!-- Nav List -->
     <nav class="sidebar-nav">
       <a href="dashboard.html" class="nav-item">
         <span class="icon">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         </span>
         <span>Dashboard</span>
       </a>
 
       <a href="#" class="nav-item">
         <span class="icon">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </span>
         <span>FinSocial</span>
       </a>
@@ -1213,7 +1232,7 @@
       <a href="#" class="nav-item">
         <span class="icon">🎓</span>
         <span>Chứng chỉ</span>
-        <span style="margin-left:auto;font-size:12px;color:var(--text-muted)">›</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--text-muted)">›</span>
       </a>
 
       <!-- SECTION 2: THỰC HÀNH -->
@@ -1260,16 +1279,16 @@
       </a>
     </nav>
 
-    <!-- Footer Profile & Wallet -->
+    <!-- Sidebar Footer -->
     <div class="sidebar-footer">
       <div class="gold-wallet-row">
         <div class="gold-pill">
-          <span class="coin-icon">🪙</span>
+          <span>🪙</span>
           <span>Túi vàng</span>
           <span class="gold-count">60</span>
         </div>
         <button class="bell-btn" title="Thông báo">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="bell-badge">9+</span>
         </button>
       </div>
@@ -1280,7 +1299,6 @@
           <div class="user-name">Đinh Trí Bùi</div>
           <div class="user-email">tribd.tec@gmail.com</div>
         </div>
-        <span class="user-chevron">▼</span>
       </a>
     </div>
   </aside>
@@ -1290,313 +1308,257 @@
 
     <!-- ── TOP ACTIVE MISSION HERO CARD ── -->
     <section class="hero-banner-card">
-      <div class="hero-content">
-        <div class="hero-badges">
-          <span class="badge-learning">
-            <span class="dot"></span>
-            NHIỆM VỤ ĐANG HỌC
-          </span>
-          <span class="badge-xp">
-            ⚡ +15 XP khi hoàn thành
-          </span>
+      <div class="hero-left-section">
+        <div class="hero-book-icon-box">
+          📖
         </div>
-        <div class="hero-meta">Chặng 1 • Bài 13/51: Xây dựng Issue Tree — bóc tách trước khi phân tích</div>
-        <h1 class="hero-title">Xây dựng Issue Tree — bóc tách trước khi phân tích</h1>
-        <div class="hero-progress-row">
-          <span>Tiến độ (3/267 bài)</span>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-fill" style="width: 1.1%;"></div>
+        <div class="hero-details">
+          <div class="hero-badges-row">
+            <span class="badge-mission-green">
+              <span class="dot"></span>
+              NHIỆM VỤ ĐANG HỌC
+            </span>
+            <span class="badge-xp-amber">
+              ★ +15 XP khi hoàn thành
+            </span>
           </div>
-          <span style="font-weight: 800; color: #10b981;">1%</span>
+          <div class="hero-sub-chapter">Chặng 1 • Bài 1351</div>
+          <h1 class="hero-main-title">Theo dõi chi tiêu – đo trước khi phân bổ</h1>
+          <div class="hero-progress-group">
+            <span>Tiến độ (3/267 bài)</span>
+            <div class="hero-prog-track">
+              <div class="hero-prog-fill"></div>
+            </div>
+            <span style="font-weight: 800; color: #10b981;">1%</span>
+          </div>
         </div>
       </div>
 
-      <!-- Scenic Mountain & Sunrise Illustration Artwork -->
-      <div class="hero-art-container">
+      <!-- Scenic Rolling Mountain SVG Illustration Artwork -->
+      <div class="hero-scenic-box">
         <svg viewBox="0 0 400 200" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
           <defs>
-            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#fff9ec"/>
-              <stop offset="50%" stop-color="#fef3c7"/>
-              <stop offset="100%" stop-color="#d1fae5"/>
+            <linearGradient id="skyGradExact" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fff8e7"/>
+              <stop offset="45%" stop-color="#fef0c7"/>
+              <stop offset="100%" stop-color="#ccfbf1"/>
             </linearGradient>
-            <linearGradient id="sunRay" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+            <linearGradient id="sunGlowExact" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fef08a" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
             </linearGradient>
-            <linearGradient id="hillGrad1" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#6ee7b7"/>
+            <linearGradient id="hill1Grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#86efac"/>
               <stop offset="100%" stop-color="#059669"/>
             </linearGradient>
-            <linearGradient id="hillGrad2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#34d399"/>
+            <linearGradient id="hill2Grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4ade80"/>
               <stop offset="100%" stop-color="#047857"/>
             </linearGradient>
-            <linearGradient id="mountainGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#a7f3d0"/>
-              <stop offset="100%" stop-color="#065f46"/>
+            <linearGradient id="hill3Grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#22c55e"/>
+              <stop offset="100%" stop-color="#064e3b"/>
             </linearGradient>
           </defs>
-          <rect width="400" height="200" fill="url(#skyGrad)"/>
-          <circle cx="280" cy="90" r="38" fill="#fde68a" opacity="0.6"/>
-          <polygon points="280,90 200,0 240,0" fill="url(#sunRay)"/>
-          <polygon points="280,90 320,0 360,0" fill="url(#sunRay)"/>
-          <polygon points="280,90 400,30 400,70" fill="url(#sunRay)"/>
-          <path d="M120 200 L210 90 L290 200 Z" fill="#93c5fd" opacity="0.35"/>
-          <path d="M230 200 L300 70 L380 200 Z" fill="#6ee7b7" opacity="0.5"/>
-          <line x1="300" y1="70" x2="300" y2="55" stroke="#b91c1c" stroke-width="2"/>
-          <polygon points="300,55 314,60 300,65" fill="#ef4444"/>
-          <path d="M0 150 Q100 110 200 140 T400 130 L400 200 L0 200 Z" fill="url(#mountainGrad)"/>
-          <path d="M0 165 Q120 130 250 160 T400 150 L400 200 L0 200 Z" fill="url(#hillGrad2)"/>
-          <path d="M60 200 C90 180 140 170 170 160 C200 150 250 140 280 110 L300 70" fill="none" stroke="#fed7aa" stroke-width="4" stroke-linecap="round" stroke-dasharray="3,3"/>
-          <path d="M0 185 Q160 150 400 175 L400 200 L0 200 Z" fill="url(#hillGrad1)"/>
-          <circle cx="90" cy="175" r="7" fill="#047857"/>
-          <circle cx="102" cy="178" r="5" fill="#065f46"/>
-          <circle cx="180" cy="165" r="6" fill="#047857"/>
-          <circle cx="340" cy="180" r="8" fill="#064e3b"/>
+          <rect width="400" height="200" fill="url(#skyGradExact)"/>
+          <circle cx="280" cy="85" r="36" fill="#fde047" opacity="0.75"/>
+          <polygon points="280,85 180,0 220,0" fill="url(#sunGlowExact)"/>
+          <polygon points="280,85 260,0 300,0" fill="url(#sunGlowExact)"/>
+          <polygon points="280,85 340,0 380,0" fill="url(#sunGlowExact)"/>
+          <polygon points="280,85 400,20 400,60" fill="url(#sunGlowExact)"/>
+          
+          <!-- Distant peak with summit red flag -->
+          <path d="M220 200 L295 65 L370 200 Z" fill="#6ee7b7" opacity="0.6"/>
+          <line x1="295" y1="65" x2="295" y2="48" stroke="#991b1b" stroke-width="2"/>
+          <polygon points="295,48 312,54 295,60" fill="#ef4444"/>
+
+          <!-- Rolling lush hills -->
+          <path d="M0 140 Q110 100 220 135 T400 120 L400 200 L0 200 Z" fill="url(#hill3Grad)"/>
+          <path d="M0 160 Q130 120 260 155 T400 145 L400 200 L0 200 Z" fill="url(#hill2Grad)"/>
+          
+          <!-- Winding Path -->
+          <path d="M50 200 C80 180 130 170 170 155 C210 140 250 135 280 105 L295 65" fill="none" stroke="#fef08a" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="3,3"/>
+          
+          <!-- Foreground Hill & Trees -->
+          <path d="M0 180 Q150 145 400 170 L400 200 L0 200 Z" fill="url(#hill1Grad)"/>
+          <circle cx="85" cy="172" r="7" fill="#047857"/>
+          <circle cx="98" cy="175" r="5.5" fill="#065f46"/>
+          <circle cx="175" cy="162" r="6" fill="#047857"/>
+          <circle cx="345" cy="175" r="8" fill="#064e3b"/>
+          <circle cx="358" cy="178" r="6" fill="#047857"/>
         </svg>
       </div>
     </section>
 
     <!-- ── TRACK SWITCHER TABS ── -->
-    <div class="track-tabs-row">
-      <button class="track-tab-btn active">
-        Tư duy &amp; Frameworks cốt lõi (2/265 bài)
+    <div class="track-tabs-bar">
+      <button class="track-pill-tab active">
+        <span>Tài chính cá nhân</span>
+        <span class="track-badge-count">2/265 bài</span>
       </button>
-      <button class="track-tab-btn">
-        Case Study Chuyên ngành (1/525 bài)
+      <button class="track-pill-tab">
+        <span>Tài chính chuyên ngành</span>
+        <span class="track-badge-count">1/525 bài</span>
       </button>
     </div>
 
-    <!-- ── SEARCH & FILTER ROW ── -->
-    <div class="search-filter-row">
-      <div class="search-input-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="lessonSearchInput" placeholder="Tìm bài học, chủ đề, thuật ngữ..." oninput="filterLessons(this.value)">
+    <!-- ── SEARCH & FILTER STRIP ── -->
+    <div class="search-filter-strip">
+      <div class="cur-search-wrap">
+        <span class="cur-search-icon">🔍</span>
+        <input type="text" class="cur-search-input" placeholder="Tìm bài học trong lộ trình này...">
       </div>
-      <button class="btn-filter-pill" onclick="alert('Đã lọc bài học theo tiến độ cá nhân')">
-        Đánh dấu đã học (?)
+      <button class="btn-mark-learned">
+        <span>Đánh dấu đã học</span>
+        <span style="font-size:11px; opacity:0.8;">(?)</span>
       </button>
     </div>
 
-    <!-- ── TWO-COLUMN GRID CONTENT ── -->
-    <div class="curriculum-grid">
+    <!-- ── TWO-COLUMN GRID ── -->
+    <div class="cur-grid-layout">
 
-      <!-- LEFT COLUMN: STAGES ACCORDIONS -->
-      <section id="stagesContainer">
+      <!-- LEFT COLUMN: STAGES LIST -->
+      <section>
 
-        <!-- STAGE 1: Cốt lõi Tư duy Chiến lược -->
-        <div class="stage-card" id="stage-1">
-          <div class="stage-card-header" onclick="toggleStageAccordion('stage-1')">
-            <div class="stage-title-left">
-              <span class="stage-flag-icon">🚩</span>
-              <h2 class="stage-title-text">CHẶNG 1: Cốt lõi Tư duy Chiến lược: MECE, Issue Tree &amp; Pyramid Principle</h2>
+        <!-- STAGE 1 CARD (EXPANDED) -->
+        <div class="stage-accordion-box">
+          <div class="stage-acc-header" onclick="toggleStageAcc('st-1')">
+            <div class="stage-left-info">
+              <div class="stage-icon-badge badge-amber-flag">🚩</div>
+              <div>
+                <span style="font-size:10.5px; font-weight:800; color:#b45309; text-transform:uppercase; letter-spacing:0.04em;">CHẶNG 1</span>
+                <div class="stage-title-text">Biết mình trước khi học: audit, ngân sách, qu...</div>
+              </div>
             </div>
-            <div class="stage-status-right">
-              <span class="live-learner-pill">
+            <div class="stage-right-stats">
+              <span class="live-learners-txt">
                 <span class="pulse-dot"></span>
                 21 người vừa học chặng này
               </span>
-              <div class="stage-mini-bar">
-                <div class="stage-mini-fill" style="width: 11%;"></div>
+              <div class="stage-bar-mini">
+                <div class="stage-bar-fill" style="width: 11%;"></div>
               </div>
-              <span class="stage-count-num">1/9</span>
-              <span class="stage-chevron-icon" id="icon-stage-1">▼</span>
+              <span class="stage-prog-count">1/9</span>
+              <span class="stage-chevron-arrow" id="chev-st-1">▲</span>
             </div>
           </div>
 
-          <div class="stage-lessons-list" id="list-stage-1">
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <button class="sub-play-btn" onclick="location.href='bai-hoc.html'">▶</button>
-                <span class="lesson-code-pill">Bài 1-1</span>
-                <span class="sub-lesson-title">Đo trước: theo dõi &amp; bóc tách chi phí - cơ cấu doanh thu</span>
+          <!-- Lessons List -->
+          <div class="stage-sub-items-list" id="list-st-1">
+            <div class="lesson-sub-row">
+              <div class="lesson-sub-left">
+                <button class="btn-circle-play" onclick="location.href='bai-hoc.html'">▶</button>
+                <span class="lesson-title-main">Đo trước: theo dõi chi tiêu</span>
               </div>
-              <div class="sub-lesson-right">
-                <span class="badge-done-tick">✓ Đã học</span>
-                <span class="lesson-step-count">0/1</span>
-                <a href="bai-hoc.html" class="btn-lesson-action btn-review">Ôn lại</a>
-              </div>
-            </div>
-
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <button class="sub-play-btn" onclick="location.href='bai-hoc.html'">▶</button>
-                <span class="lesson-code-pill">Bài 1-2</span>
-                <span class="sub-lesson-title">Audit cấu trúc doanh nghiệp &amp; Chuỗi giá trị (Value Chain)</span>
-              </div>
-              <div class="sub-lesson-right">
-                <span class="lesson-step-count">0/1</span>
-                <a href="bai-hoc.html" class="btn-lesson-action btn-learn">Vào học</a>
+              <div class="lesson-sub-right">
+                <span class="lesson-code-tag">Bài 1-1</span>
+                <span class="lesson-ratio-txt">0/1</span>
+                <span class="lesson-arrow-btn">▼</span>
               </div>
             </div>
 
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <button class="sub-play-btn" onclick="location.href='bai-hoc.html'">▶</button>
-                <span class="lesson-code-pill">Bài 1-3</span>
-                <span class="sub-lesson-title">Xây dựng Issue Tree &amp; Kiểm chứng Giả thuyết (Hypothesis-driven)</span>
+            <div class="lesson-sub-row">
+              <div class="lesson-sub-left">
+                <div class="btn-circle-lock">🔒</div>
+                <span class="lesson-title-main">Audit tài chính và khẩu vị rủi ro</span>
               </div>
-              <div class="sub-lesson-right">
-                <span class="lesson-step-count">0/1</span>
-                <a href="bai-hoc.html" class="btn-lesson-action btn-learn">Vào học</a>
-              </div>
-            </div>
-
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <div class="sub-lock-btn">🔒</div>
-                <span class="lesson-code-pill">Bài 1-4</span>
-                <span class="sub-lesson-title">Giao tiếp Top-down Minto &amp; Kim tự tháp Pyramid Principle</span>
-              </div>
-              <div class="sub-lesson-right">
-                <span class="lesson-step-count">0/1</span>
-                <span style="font-size:12px; color:var(--text-muted)">›</span>
+              <div class="lesson-sub-right">
+                <span class="lesson-code-tag">Bài 2-3</span>
+                <span class="lesson-ratio-txt">1/2</span>
+                <span class="lesson-arrow-btn">▼</span>
               </div>
             </div>
 
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <div class="sub-lock-btn">🔒</div>
-                <span class="lesson-code-pill">Bài 1-5</span>
-                <span class="sub-lesson-title">Business Case Drill #1: Tối ưu lợi nhuận chuỗi F&amp;B trước lạm phát</span>
+            <div class="lesson-sub-row">
+              <div class="lesson-sub-left">
+                <div class="btn-circle-lock">🔒</div>
+                <span class="lesson-title-main">Ngân sách, quỹ khẩn cấp, trả nợ và mục tiêu</span>
               </div>
-              <div class="sub-lesson-right">
-                <span class="lesson-step-count">0/1</span>
-                <span style="font-size:12px; color:var(--text-muted)">›</span>
+              <div class="lesson-sub-right">
+                <span class="lesson-code-tag">Bài 4-7</span>
+                <span class="lesson-ratio-txt">0/4</span>
+                <span class="lesson-arrow-btn">▼</span>
+              </div>
+            </div>
+
+            <div class="lesson-sub-row">
+              <div class="lesson-sub-left">
+                <div class="btn-circle-lock">🔒</div>
+                <span class="lesson-title-main">Giữ kế hoạch sống sót: tự động hóa và bảo hiểm</span>
+              </div>
+              <div class="lesson-sub-right">
+                <span class="lesson-code-tag">Bài 8-9</span>
+                <span class="lesson-ratio-txt">0/2</span>
+                <span class="lesson-arrow-btn">▼</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- STAGE 2: Phân tích Lợi nhuận -->
-        <div class="stage-card" id="stage-2">
-          <div class="stage-card-header" onclick="toggleStageAccordion('stage-2')">
-            <div class="stage-title-left">
-              <span class="stage-flag-icon">🚩</span>
-              <h2 class="stage-title-text">CHẶNG 2: [MỚI] Phân tích Lợi nhuận &amp; Mô hình Giá × Lượng</h2>
-            </div>
-            <div class="stage-status-right">
-              <span class="live-learner-pill">
-                <span class="pulse-dot"></span>
-                18 người vừa học chặng này
-              </span>
-              <div class="stage-mini-bar">
-                <div class="stage-mini-fill" style="width: 0%;"></div>
+        <!-- STAGE 2 CARD (COLLAPSED) -->
+        <div class="stage-accordion-box">
+          <div class="stage-acc-header" onclick="toggleStageAcc('st-2')">
+            <div class="stage-left-info">
+              <div class="stage-icon-badge badge-green-symbol">%</div>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">CHẶNG 2</span>
+                <span class="badge-new-mint">MỚI</span>
+                <span class="stage-title-text">Thuế TNCN &amp; Lương thực nhận</span>
               </div>
-              <span class="stage-count-num">0/12</span>
-              <span class="stage-chevron-icon" id="icon-stage-2">▼</span>
+            </div>
+            <div class="stage-right-stats">
+              <span class="live-learners-txt">
+                <span class="pulse-dot"></span>
+                6 người vừa học chặng này
+              </span>
+              <div class="stage-bar-mini">
+                <div class="stage-bar-fill" style="width: 0%;"></div>
+              </div>
+              <span class="stage-prog-count">0/8</span>
+              <span class="stage-chevron-arrow" id="chev-st-2">▼</span>
             </div>
           </div>
-          <div class="stage-lessons-list" id="list-stage-2" style="display:none;">
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <div class="sub-lock-btn">🔒</div>
-                <span class="lesson-code-pill">Bài 2-1</span>
-                <span class="sub-lesson-title">Mô hình Profitability Framework chuẩn McKinsey &amp; BCG</span>
+          <div class="stage-sub-items-list" id="list-st-2" style="display:none;">
+            <div class="lesson-sub-row">
+              <div class="lesson-sub-left">
+                <div class="btn-circle-lock">🔒</div>
+                <span class="lesson-title-main">Lương Gross vs Net: Bóc tách BHXH, BHYT &amp; Giảm trừ gia cảnh</span>
               </div>
-              <div class="sub-lesson-right"><span class="lesson-step-count">0/1</span>›</div>
-            </div>
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <div class="sub-lock-btn">🔒</div>
-                <span class="lesson-code-pill">Bài 2-2</span>
-                <span class="sub-lesson-title">Phân tích Định phí vs Biến phí &amp; Đòn bẩy hoạt động</span>
-              </div>
-              <div class="sub-lesson-right"><span class="lesson-step-count">0/1</span>›</div>
+              <div class="lesson-sub-right"><span class="lesson-code-tag">Bài 1-3</span><span class="lesson-ratio-txt">0/3</span></div>
             </div>
           </div>
         </div>
 
-        <!-- STAGE 3: Market Sizing -->
-        <div class="stage-card" id="stage-3">
-          <div class="stage-card-header" onclick="toggleStageAccordion('stage-3')">
-            <div class="stage-title-left">
-              <span class="stage-flag-icon">🚩</span>
-              <h2 class="stage-title-text">CHẶNG 3: [MỚI] Quy mô Thị trường (Market Sizing) &amp; Market Entry</h2>
+        <!-- STAGE 3 CARD (COLLAPSED) -->
+        <div class="stage-accordion-box">
+          <div class="stage-acc-header" onclick="toggleStageAcc('st-3')">
+            <div class="stage-left-info">
+              <div class="stage-icon-badge badge-green-symbol">💳</div>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">CHẶNG 3</span>
+                <span class="badge-new-mint">MỚI</span>
+                <span class="stage-title-text">Tín dụng cá nhân &amp; CIC</span>
+              </div>
             </div>
-            <div class="stage-status-right">
-              <span class="live-learner-pill">
+            <div class="stage-right-stats">
+              <span class="live-learners-txt">
                 <span class="pulse-dot"></span>
-                34 người vừa học chặng này
+                10 người vừa học chặng này
               </span>
-              <div class="stage-mini-bar">
-                <div class="stage-mini-fill" style="width: 0%;"></div>
+              <div class="stage-bar-mini">
+                <div class="stage-bar-fill" style="width: 0%;"></div>
               </div>
-              <span class="stage-count-num">0/15</span>
-              <span class="stage-chevron-icon" id="icon-stage-3">▼</span>
+              <span class="stage-prog-count">0/8</span>
+              <span class="stage-chevron-arrow" id="chev-st-3">▼</span>
             </div>
           </div>
-          <div class="stage-lessons-list" id="list-stage-3" style="display:none;">
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <div class="sub-lock-btn">🔒</div>
-                <span class="lesson-code-pill">Bài 3-1</span>
-                <span class="sub-lesson-title">Ước tính quy mô Top-down vs Bottom-up trong 5 phút</span>
+          <div class="stage-sub-items-list" id="list-st-3" style="display:none;">
+            <div class="lesson-sub-row">
+              <div class="lesson-sub-left">
+                <div class="btn-circle-lock">🔒</div>
+                <span class="lesson-title-main">Thẻ tín dụng &amp; Quản trị điểm tín dụng CIC chuẩn ngân hàng</span>
               </div>
-              <div class="sub-lesson-right"><span class="lesson-step-count">0/1</span>›</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- STAGE 4: M&A & Định giá -->
-        <div class="stage-card" id="stage-4">
-          <div class="stage-card-header" onclick="toggleStageAccordion('stage-4')">
-            <div class="stage-title-left">
-              <span class="stage-flag-icon">🚩</span>
-              <h2 class="stage-title-text">CHẶNG 4: [MỚI] M&amp;A, Định giá Doanh nghiệp &amp; Thẩm định Thương vụ</h2>
-            </div>
-            <div class="stage-status-right">
-              <span class="live-learner-pill">
-                <span class="pulse-dot"></span>
-                12 người vừa học chặng này
-              </span>
-              <div class="stage-mini-bar">
-                <div class="stage-mini-fill" style="width: 0%;"></div>
-              </div>
-              <span class="stage-count-num">0/14</span>
-              <span class="stage-chevron-icon" id="icon-stage-4">▼</span>
-            </div>
-          </div>
-          <div class="stage-lessons-list" id="list-stage-4" style="display:none;">
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <div class="sub-lock-btn">🔒</div>
-                <span class="lesson-code-pill">Bài 4-1</span>
-                <span class="sub-lesson-title">Quy trình thẩm định thương vụ M&amp;A: Thương mại, Tài chính &amp; Vận hành</span>
-              </div>
-              <div class="sub-lesson-right"><span class="lesson-step-count">0/1</span>›</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- STAGE 5: Tăng trưởng & Chuyển đổi Số -->
-        <div class="stage-card" id="stage-5">
-          <div class="stage-card-header" onclick="toggleStageAccordion('stage-5')">
-            <div class="stage-title-left">
-              <span class="stage-flag-icon">🚩</span>
-              <h2 class="stage-title-text">CHẶNG 5: Chiến lược Tăng trưởng &amp; Chuyển đổi Số (Digital Transformation)</h2>
-            </div>
-            <div class="stage-status-right">
-              <span class="live-learner-pill">
-                <span class="pulse-dot"></span>
-                29 người vừa học chặng này
-              </span>
-              <div class="stage-mini-bar">
-                <div class="stage-mini-fill" style="width: 0%;"></div>
-              </div>
-              <span class="stage-count-num">0/20</span>
-              <span class="stage-chevron-icon" id="icon-stage-5">▼</span>
-            </div>
-          </div>
-          <div class="stage-lessons-list" id="list-stage-5" style="display:none;">
-            <div class="sub-lesson-row">
-              <div class="sub-lesson-left">
-                <div class="sub-lock-btn">🔒</div>
-                <span class="lesson-code-pill">Bài 5-1</span>
-                <span class="sub-lesson-title">Chiến lược nền tảng (Platform Play) &amp; Hiệu ứng mạng lưới (Network Effects)</span>
-              </div>
-              <div class="sub-lesson-right"><span class="lesson-step-count">0/1</span>›</div>
+              <div class="lesson-sub-right"><span class="lesson-code-tag">Bài 1-4</span><span class="lesson-ratio-txt">0/4</span></div>
             </div>
           </div>
         </div>
@@ -1607,67 +1569,98 @@
       <aside>
 
         <!-- WIDGET 1: SỔ TAY CỦA BẠN -->
-        <div class="widget-box widget-notebook" onclick="openNotebookModal()">
-          <div class="notebook-flex">
-            <div>
-              <div class="notebook-eyebrow">GHI CHÉP</div>
+        <div class="right-widget-card widget-notebook-card" onclick="openNotebookModal()">
+          <div class="notebook-card-inner">
+            <div class="notebook-left-col">
+              <div class="notebook-top-row">
+                <div class="notebook-icon-square">📝</div>
+                <span class="notebook-eyebrow">GHI CHÉP</span>
+              </div>
               <h3 class="notebook-title">Sổ tay của bạn</h3>
               <p class="notebook-desc">Ghi lại điều vừa hiểu, trước khi quên...</p>
-              <span class="notebook-link">Mở sổ tay &nbsp;→</span>
+              <a href="#" class="notebook-open-link" onclick="event.preventDefault(); openNotebookModal();">
+                Mở sổ tay &nbsp;› &nbsp;→
+              </a>
             </div>
-            <div class="notebook-icon-art">
-              📖
+
+            <!-- Vintage open book artwork -->
+            <div class="notebook-art-wrap">
+              <svg width="76" height="54" viewBox="0 0 100 70" fill="none">
+                <rect x="5" y="10" width="90" height="52" rx="4" fill="#fdfbf7" stroke="#e5e0d3" stroke-width="1.5"/>
+                <line x1="50" y1="10" x2="50" y2="62" stroke="#d5cebe" stroke-width="1.5"/>
+                <!-- left page lines -->
+                <line x1="14" y1="20" x2="42" y2="20" stroke="#e2dcd0" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="14" y1="27" x2="42" y2="27" stroke="#e2dcd0" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="14" y1="34" x2="36" y2="34" stroke="#e2dcd0" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="14" y1="41" x2="40" y2="41" stroke="#e2dcd0" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- right page lines -->
+                <line x1="58" y1="20" x2="86" y2="20" stroke="#e2dcd0" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="58" y1="27" x2="86" y2="27" stroke="#e2dcd0" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="58" y1="34" x2="80" y2="34" stroke="#e2dcd0" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="58" y1="41" x2="84" y2="41" stroke="#e2dcd0" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- pen bookmark -->
+                <line x1="48" y1="6" x2="52" y2="66" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+              </svg>
             </div>
           </div>
         </div>
 
         <!-- WIDGET 2: CÂU SAI CẦN ÔN TẬP -->
-        <div class="widget-box widget-mistake-card" onclick="openMistakesModal()">
-          <div class="mistake-icon-circle">!</div>
-          <div style="flex: 1; min-width: 0;">
-            <div class="mistake-title-row">
+        <div class="right-widget-card widget-mistake-card" onclick="openMistakesModal()">
+          <div class="mistake-circle-icon">!</div>
+          <div class="mistake-card-content">
+            <div class="mistake-header-row">
               <h3 class="mistake-title">Câu sai cần ôn tập</h3>
-              <span class="mistake-count-badge">40 câu</span>
+              <span class="mistake-pill-tag">40 câu</span>
             </div>
-            <p class="mistake-desc">Bạn có 40 câu hỏi trắc nghiệm &amp; case math đã làm sai cần ôn lại.</p>
+            <p class="mistake-desc-txt">Bạn có 40 câu hỏi trắc nghiệm đã làm sai cần ôn lại để củng cố kiến thức.</p>
           </div>
-          <span style="color: var(--text-muted); font-size: 14px;">→</span>
+          <span style="color:#d97706; font-size:14px; font-weight:800;">→</span>
         </div>
 
-        <!-- WIDGET 3: THỬ THÁCH CHIẾN LƯỢC MỖI NGÀY (TÍNH NHANH) -->
-        <div class="widget-box">
-          <div class="drill-header">
-            <div class="drill-title-group">
-              <span>📖</span>
-              <h3 class="drill-title">Thử thách mỗi ngày</h3>
+        <!-- WIDGET 3: THỬ THÁCH MỖI NGÀY -->
+        <div class="right-widget-card">
+          <div class="drill-top-header">
+            <div class="drill-title-flex">
+              <div class="drill-book-icon">📖</div>
+              <h3 class="drill-main-heading">Thử thách tài chính mỗi ngày</h3>
             </div>
-            <span class="drill-badge">TÍNH NHANH</span>
+            <div class="drill-controls-right">
+              <span style="color:#10b981; font-size:9px;">●</span>
+              <span style="cursor:pointer;" title="Mở rộng">⤢</span>
+              <span style="cursor:pointer;">Thu gọn ▲</span>
+            </div>
           </div>
 
-          <p class="drill-question">
-            Doanh thu 120 tỷ/năm, Giá bán 50.000đ/sp. Chi phí cố định 30 tỷ, Biến phí đơn vị 20.000đ. Điểm hòa vốn là bao nhiêu sản phẩm?
-          </p>
+          <span class="drill-badge-tinhnhanh">TÍNH NHANH</span>
 
-          <div class="drill-options-list">
-            <button class="drill-option-card active" onclick="selectDrillOption(this, 0)">
-              <span class="drill-letter-box">A</span>
-              <span>1.000.000 sản phẩm (30 tỷ / (50k - 20k))</span>
+          <div class="drill-main-prompt">
+            Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu
+          </div>
+          <div class="drill-sub-prompt">
+            Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?
+          </div>
+
+          <div class="drill-options-vertical">
+            <button class="drill-option-item" onclick="selectDailyOpt(this, 0)">
+              <span class="drill-opt-letter-sq">A</span>
+              <span>64%, vượt xa ngưỡng an toàn thường được khuyến nghị là dưới 40% thu nhập</span>
             </button>
-            <button class="drill-option-card" onclick="selectDrillOption(this, 1)">
-              <span class="drill-letter-box">B</span>
-              <span>600.000 sản phẩm</span>
+            <button class="drill-option-item" onclick="selectDailyOpt(this, 1)">
+              <span class="drill-opt-letter-sq">B</span>
+              <span>44%, chỉ tính khoản vay cũ nên khoản trả góp mới chưa được cộng vào mẫu</span>
             </button>
-            <button class="drill-option-card" onclick="selectDrillOption(this, 2)">
-              <span class="drill-letter-box">C</span>
-              <span>1.500.000 sản phẩm</span>
+            <button class="drill-option-item" onclick="selectDailyOpt(this, 2)">
+              <span class="drill-opt-letter-sq">C</span>
+              <span>20%, chỉ tính khoản trả góp mới vì đó là nghĩa vụ vừa phát sinh thêm</span>
             </button>
-            <button class="drill-option-card" onclick="selectDrillOption(this, 3)">
-              <span class="drill-letter-box">D</span>
-              <span>2.400.000 sản phẩm</span>
+            <button class="drill-option-item" onclick="selectDailyOpt(this, 3)">
+              <span class="drill-opt-letter-sq">D</span>
+              <span>16 triệu, lấy tổng số tiền phải trả mỗi tháng thay cho một tỷ lệ phần trăm</span>
             </button>
           </div>
 
-          <button id="btnDrillSubmit" class="btn-drill-submit" onclick="submitDrillAnswer()">
+          <button id="btnDailySubmit" class="btn-send-drill-answer" onclick="submitDailyOpt()">
             ✈ GỬI CÂU TRẢ LỜI
           </button>
         </div>
@@ -1685,96 +1678,47 @@
   </button>
 
   <script>
-    function toggleStageAccordion(stageId) {
-      const list = document.getElementById('list-' + stageId);
-      const icon = document.getElementById('icon-' + stageId);
+    function toggleStageAcc(id) {
+      const list = document.getElementById('list-' + id);
+      const chev = document.getElementById('chev-' + id);
       if (list) {
         const isHidden = list.style.display === 'none';
         list.style.display = isHidden ? 'block' : 'none';
-        if (icon) icon.textContent = isHidden ? '▼' : '▲';
+        if (chev) chev.textContent = isHidden ? '▲' : '▼';
       }
     }
 
-    let selectedDrillIdx = 0;
-    function selectDrillOption(elem, idx) {
-      selectedDrillIdx = idx;
-      document.querySelectorAll('.drill-option-card').forEach((card, i) => {
-        card.classList.toggle('active', card === elem);
-      });
+    let currentSelectedOpt = -1;
+    function selectDailyOpt(elem, idx) {
+      currentSelectedOpt = idx;
+      document.querySelectorAll('.drill-option-item').forEach(item => item.classList.remove('active'));
+      elem.classList.add('active');
+      const btn = document.getElementById('btnDailySubmit');
+      if (btn) btn.classList.add('ready');
     }
 
-    function submitDrillAnswer() {
-      const btn = document.getElementById('btnDrillSubmit');
-      if (selectedDrillIdx === 0) {
-        btn.textContent = '✓ CHÍNH XÁC (+20 XP)';
+    function submitDailyOpt() {
+      if (currentSelectedOpt === -1) return;
+      const btn = document.getElementById('btnDailySubmit');
+      if (currentSelectedOpt === 0) {
+        btn.textContent = '✓ CHÍNH XÁC (+15 XP)';
         btn.style.background = '#059669';
-        alert('🎉 Chính xác! Điểm hòa vốn = 30.000.000.000 / (50.000 - 20.000) = 1.000.000 sản phẩm (+20 XP).');
+        btn.style.color = '#ffffff';
+        alert('🎉 Chính xác! Tỷ lệ nợ / Thu nhập = (11tr + 5tr) / 25tr = 64% (Vượt ngưỡng 40% an toàn).');
       } else {
         btn.textContent = '✕ ĐÁP ÁN ĐÚNG LÀ A';
         btn.style.background = '#e11d48';
-        alert('Giải thích: Sản lượng hòa vốn = Định phí / (Giá bán - Biến phí) = 30 tỷ / 30.000đ = 1.000.000 sản phẩm.');
+        btn.style.color = '#ffffff';
+        alert('Giải thích: Tỷ lệ DTI = Tổng nợ hàng tháng / Tổng thu nhập = 16tr / 25tr = 64%.');
       }
     }
 
-    function filterLessons(query) {
-      const q = query.toLowerCase().trim();
-      document.querySelectorAll('.sub-lesson-row').forEach(row => {
-        const title = row.querySelector('.sub-lesson-title').textContent.toLowerCase();
-        row.style.display = title.includes(q) ? 'flex' : 'none';
-      });
-    }
-
     function openNotebookModal() {
-      const saved = localStorage.getItem('strat_notes') || '';
-      const overlay = document.createElement('div');
-      overlay.className = 'custom-modal-overlay';
-      overlay.innerHTML = `
-        <div class="modal-card-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-            <div>
-              <div style="font-size:11px; font-weight:800; color:#059669; letter-spacing:0.04em;">GHI CHÉP CÁ NHÂN</div>
-              <h2 style="font-size:18px; font-weight:800; margin-top:2px;">Sổ tay Chiến lược &amp; Takeaways</h2>
-            </div>
-            <button onclick="this.closest('.custom-modal-overlay').remove()" style="border:none; background:none; font-size:16px; cursor:pointer; font-weight:800;">✕</button>
-          </div>
-          <textarea id="modalNoteText" style="width:100%; height:160px; padding:12px; border:1.5px solid #e4ebe4; border-radius:12px; font-family:inherit; font-size:13.5px; resize:none; outline:none;" placeholder="Ghi lại công thức bóc tách, framework hoặc lưu ý khi giải case...">${saved}</textarea>
-          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
-            <button onclick="this.closest('.custom-modal-overlay').remove()" style="padding:8px 16px; border:1px solid #e4ebe4; border-radius:999px; background:#fff; cursor:pointer; font-weight:700;">Hủy</button>
-            <button onclick="localStorage.setItem('strat_notes', document.getElementById('modalNoteText').value); alert('Đã lưu ghi chép!'); this.closest('.custom-modal-overlay').remove();" style="padding:8px 18px; border:none; border-radius:999px; background:#059669; color:#fff; cursor:pointer; font-weight:800;">Lưu sổ tay</button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(overlay);
+      alert('Sổ tay cá nhân: Ghi lại điều vừa hiểu trước khi quên!');
     }
 
     function openMistakesModal() {
-      const overlay = document.createElement('div');
-      overlay.className = 'custom-modal-overlay';
-      overlay.innerHTML = `
-        <div class="modal-card-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-            <div>
-              <div style="font-size:11px; font-weight:800; color:#d97706; letter-spacing:0.04em;">CÂU SAI CẦN ÔN TẬP</div>
-              <h2 style="font-size:18px; font-weight:800; margin-top:2px;">Danh sách 40 câu trắc nghiệm cần ôn lại</h2>
-            </div>
-            <button onclick="this.closest('.custom-modal-overlay').remove()" style="border:none; background:none; font-size:16px; cursor:pointer; font-weight:800;">✕</button>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; margin-bottom:16px;">
-            <div style="background:#fcfaf6; border:1px solid #fae8c8; border-radius:10px; padding:12px 14px;">
-              <div style="font-size:13px; font-weight:700; color:#14281b;">1. Đặc trưng nào sau đây KHÔNG thuộc cấu trúc MECE hoàn chỉnh?</div>
-              <div style="font-size:12px; color:#059669; font-weight:700; margin-top:4px;">✓ Đáp án: Các nhánh con được phép chồng lấn 10-15%.</div>
-            </div>
-            <div style="background:#fcfaf6; border:1px solid #fae8c8; border-radius:10px; padding:12px 14px;">
-              <div style="font-size:13px; font-weight:700; color:#14281b;">2. Khi tính Điểm hòa vốn (Break-even Volume), mẫu số là gì?</div>
-              <div style="font-size:12px; color:#059669; font-weight:700; margin-top:4px;">✓ Đáp án: Số dư đảm phí đơn vị (Giá bán - Biến phí đơn vị).</div>
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <button onclick="location.href='thi-vuot-chang.html'" style="padding:9px 20px; border:none; border-radius:999px; background:#064e3b; color:#fff; cursor:pointer; font-weight:800;">Luyện tập ngay (40 câu) →</button>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(overlay);
+      location.href = 'thi-vuot-chang.html';
     }
   </script>
 </body>

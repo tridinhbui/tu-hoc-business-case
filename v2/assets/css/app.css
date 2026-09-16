@@ -271,6 +271,10 @@ h1{font-size:28px} h2{font-size:20px} h3{font-size:15px} h4{font-size:13px}
   position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);
   backdrop-filter:blur(10px);border-bottom:1px solid var(--border);
 }
+body[data-route="dashboard"] .top,
+body[data-route="tracks"] .top{
+  display:none;
+}
 .top-in{display:flex;align-items:center;gap:14px;padding:12px 26px;max-width:1480px;margin:0 auto}
 .crumbs{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--muted);flex:1;min-width:0}
 .crumbs b{color:var(--text);font-weight:700}
