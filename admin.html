@@ -462,6 +462,83 @@
     }
     .toast.show { opacity: 1; transform: translate(-50%,0); }
 
+    /* ── toast có hoàn tác ── */
+    .toast { display: flex; align-items: center; gap: 14px; }
+    .toast.has-act { pointer-events: auto; }
+    .toast button {
+      border: none; background: transparent; font-family: var(--font);
+      font-size: 12.5px; font-weight: 800; color: #7ee2b0; cursor: pointer; padding: 0;
+    }
+    .toast button:hover { color: #b4f5d3; }
+
+    /* ── chart tooltip ── */
+    .chart-box { position: relative; }
+    .chart-guide {
+      position: absolute; top: 0; width: 1px; height: 200px;
+      background: #b8ddc7; pointer-events: none; display: none;
+    }
+    .chart-tip {
+      position: absolute; top: -6px; transform: translate(-50%, -100%);
+      background: var(--ink); color: #fff; font-size: 11.5px; font-weight: 800;
+      padding: 6px 11px; border-radius: var(--radius-sm); white-space: nowrap;
+      pointer-events: none; display: none; box-shadow: var(--shadow-hover);
+    }
+    .chart-tip small { display: block; font-size: 10px; font-weight: 700; color: #9fd9bb; }
+
+    /* ── popover thông báo ── */
+    .pop-wrap { position: relative; }
+    .popover {
+      position: absolute; top: 44px; right: 0; width: 330px;
+      background: #fff; border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-hover);
+      z-index: 60; display: none; overflow: hidden;
+    }
+    .popover.on { display: block; }
+    .pop-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 15px; border-bottom: 1px solid var(--border-light);
+      font-size: 12.5px; font-weight: 800;
+    }
+    .pop-head button {
+      border: none; background: transparent; font-family: var(--font);
+      font-size: 11.5px; font-weight: 800; color: var(--primary); cursor: pointer;
+    }
+    .pop-item {
+      display: flex; gap: 10px; padding: 11px 15px; width: 100%;
+      border: none; border-bottom: 1px solid var(--border-light);
+      background: #fff; text-align: left; font-family: var(--font); cursor: pointer;
+    }
+    .pop-item:last-child { border-bottom: none; }
+    .pop-item:hover { background: var(--surface-subtle); }
+    .pop-item.unread { background: #f4fbf7; }
+    .pop-item .log-t { font-size: 12px; }
+
+    /* ── form trong drawer ── */
+    .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 13px; }
+    .form-row label { font-size: 10.5px; font-weight: 800; letter-spacing: .06em; color: var(--text-muted); }
+    .form-row input, .form-row select, .form-row textarea {
+      font-family: var(--font); font-size: 13px; color: var(--text-main);
+      border: 1px solid var(--border-color); background: var(--surface-subtle);
+      border-radius: var(--radius-sm); padding: 9px 12px; outline: none; width: 100%;
+    }
+    .form-row textarea { resize: vertical; min-height: 84px; line-height: 1.55; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+      background: #fff; border-color: #b8ddc7; box-shadow: 0 0 0 3px var(--primary-ring);
+    }
+    .form-row input[readonly] { color: var(--text-muted); background: #eff3ef; cursor: not-allowed; box-shadow: none; }
+    .form-row .hint { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+    .form-row .err { font-size: 11px; color: var(--pink-text); font-weight: 700; display: none; }
+    .form-row.invalid input { border-color: #f3a5b5; }
+    .form-row.invalid .err { display: block; }
+
+    kbd.k {
+      font-family: var(--font); font-size: 10px; font-weight: 700;
+      border: 1px solid var(--border-color); background: #fff;
+      border-radius: 4px; padding: 1px 5px; color: var(--text-muted);
+    }
+
+    tr.suspended td { opacity: .62; }
+
     /* ── responsive ── */
     @media (max-width: 1080px) {
       .grid-2, .grid-2.even { grid-template-columns: minmax(0,1fr); }
@@ -521,7 +598,8 @@
         <span class="n">Đinh Trí Bùi</span>
         <span class="r">Quản trị viên</span>
       </span>
-      <a href="login.html" class="sb-exit" title="Đăng xuất">⏻</a>
+      <button class="sb-exit" id="btnResetDemo" title="Khôi phục dữ liệu demo" style="border:none;background:transparent;cursor:pointer">↺</button>
+      <a href="login.html" class="sb-exit" style="margin-left:6px" title="Đăng xuất">⏻</a>
     </div>
   </aside>
 
@@ -533,10 +611,17 @@
       <div class="top-search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input id="globalSearch" type="search" placeholder="Tìm người học, case…" autocomplete="off">
+        <kbd class="k">⌘K</kbd>
       </div>
-      <button class="icon-btn" id="btnBell" title="Thông báo"><span class="dot"></span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      </button>
+      <div class="pop-wrap">
+        <button class="icon-btn" id="btnBell" title="Thông báo" aria-haspopup="true" aria-expanded="false"><span class="dot" id="bellDot"></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <div class="popover" id="bellPop">
+          <div class="pop-head"><span>Thông báo</span><button id="btnReadAll">Đánh dấu đã đọc</button></div>
+          <div id="bellList"></div>
+        </div>
+      </div>
       <button class="icon-btn" id="btnRefresh" title="Làm mới số liệu">⟳</button>
     </header>
 
@@ -565,7 +650,7 @@
             </div>
             <span class="pill green" id="chartTag">7 ngày</span>
           </div>
-          <div class="card-body"><div id="chartWrap"></div></div>
+          <div class="card-body"><div class="chart-box" id="chartBox"><div id="chartWrap"></div><span class="chart-guide" id="chartGuide"></span><span class="chart-tip" id="chartTip"></span></div></div>
         </section>
 
         <section class="card">
@@ -627,6 +712,7 @@
               <option value="active">Đang học</option>
               <option value="idle">Ngưng &gt; 7 ngày</option>
               <option value="new">Mới đăng ký</option>
+              <option value="suspended">Đang tạm khoá</option>
             </select>
           </div>
           <div class="field">
@@ -690,7 +776,7 @@
       <div class="page-head">
         <div>
           <h1>Bài học &amp; case</h1>
-          <p>Bật/tắt xuất bản và theo dõi chất lượng từng bài</p>
+          <p>Nhấn vào một bài để chỉnh sửa · bật/tắt xuất bản ngay trên bảng</p>
         </div>
         <button class="btn primary" id="btnNewCase">＋ Thêm case mới</button>
       </div>
@@ -914,19 +1000,79 @@
     /* ═══════════ TIỆN ÍCH ═══════════ */
     var $ = function (id) { return document.getElementById(id); };
     var toastEl = $('toast'), toastTimer;
-    function toast(msg) {
-      toastEl.textContent = msg;
+    function toast(msg, undo) {
+      toastEl.innerHTML = '';
+      var span = document.createElement('span');
+      span.textContent = msg;
+      toastEl.appendChild(span);
+      toastEl.classList.toggle('has-act', !!undo);
+      if (undo) {
+        var b = document.createElement('button');
+        b.textContent = 'Hoàn tác';
+        b.addEventListener('click', function () {
+          undo();
+          toastEl.classList.remove('show', 'has-act');
+          persist();
+        });
+        toastEl.appendChild(b);
+      }
       toastEl.classList.add('show');
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
+      toastTimer = setTimeout(function () { toastEl.classList.remove('show', 'has-act'); }, undo ? 5000 : 2200);
     }
     function num(n) { return n.toLocaleString('vi-VN'); }
     function esc(s) {
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
     function log(ic, t) {
-      LOGS.unshift({ ic: ic, t: t, m: 'Vừa xong' });
+      LOGS.unshift({ ic: ic, t: t, at: Date.now() });
+      if (LOGS.length > 80) LOGS.length = 80;
       if (currentView === 'logs') renderLogs();
+      renderBell();
+      persist();
+    }
+
+    function relTime(at) {
+      var sec = Math.round((Date.now() - at) / 1000);
+      if (sec < 45) return 'Vừa xong';
+      if (sec < 3600) return Math.round(sec / 60) + ' phút trước';
+      if (sec < 86400) return Math.round(sec / 3600) + ' giờ trước';
+      var d = new Date(at);
+      return d.toLocaleDateString('vi-VN') + ' · ' + d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    /* ── Lưu trạng thái demo vào trình duyệt ── */
+    var STORE_KEY = 'thtc-admin-v1';
+    var readIds = {};
+
+    function persist() {
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify({
+          content: CONTENT,
+          mod: MOD.map(function (m) { return { id: m.id, q: m.q, text: m.text }; }),
+          logs: LOGS,
+          suspended: LEARNERS.filter(function (l) { return l.suspended; }).map(function (l) { return l.id; }),
+          read: readIds
+        }));
+      } catch (e) { /* chế độ riêng tư hoặc bị chặn: bỏ qua */ }
+    }
+
+    function restore() {
+      var saved;
+      try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (e) { saved = null; }
+      if (!saved) return false;
+      if (Array.isArray(saved.content)) { CONTENT.length = 0; saved.content.forEach(function (c) { CONTENT.push(c); }); }
+      if (Array.isArray(saved.mod)) {
+        saved.mod.forEach(function (sm) {
+          MOD.forEach(function (m) { if (m.id === sm.id) { m.q = sm.q; m.text = sm.text; } });
+        });
+      }
+      if (Array.isArray(saved.logs)) { LOGS.length = 0; saved.logs.forEach(function (l) { LOGS.push(l); }); }
+      if (Array.isArray(saved.suspended)) {
+        LEARNERS.forEach(function (l) { l.suspended = saved.suspended.indexOf(l.id) > -1; });
+      }
+      readIds = saved.read || {};
+      return true;
     }
 
     /* ═══════════ ĐIỀU HƯỚNG ═══════════ */
@@ -938,6 +1084,10 @@
       document.querySelectorAll('.view').forEach(function (s) { s.classList.toggle('on', s.id === 'view-' + v); });
       document.querySelectorAll('.sb-item[data-view]').forEach(function (b) { b.classList.toggle('active', b.dataset.view === v); });
       $('crumb').textContent = TITLES[v];
+      if (location.hash !== '#' + v) {
+        try { history.replaceState(null, '', '#' + v); } catch (e) { /* file:// có thể chặn */ }
+      }
+      closePop();
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (v === 'moderation') renderMod();
       if (v === 'logs') renderLogs();
@@ -974,7 +1124,10 @@
       }).join('');
     }
 
+    var chartRange = 7;
     function renderChart(r) {
+      chartRange = Number(r);
+      hideTip();
       var data = SERIES[r], W = 620, H = 200, P = 8;
       var max = Math.max.apply(null, data) * 1.12;
       var step = (W - P * 2) / (data.length - 1);
@@ -1012,6 +1165,51 @@
         '<div style="margin-top:10px;font-size:11.5px;color:#839789;font-weight:600">Cao nhất ' +
         num(Math.max.apply(null, data)) + ' case/ngày · thấp nhất ' + num(Math.min.apply(null, data)) + '</div>';
     }
+
+    var DAY7 = ['Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy', 'Chủ nhật'];
+
+    function hideTip() {
+      $('chartTip').style.display = 'none';
+      $('chartGuide').style.display = 'none';
+    }
+
+    function pointAt(clientX) {
+      var box = $('chartWrap').querySelector('svg').getBoundingClientRect();
+      var data = SERIES[chartRange], n = data.length;
+      var pad = 8 / 620 * box.width;
+      var rel = (clientX - box.left - pad) / (box.width - pad * 2);
+      var i = Math.max(0, Math.min(n - 1, Math.round(rel * (n - 1))));
+      var x = pad + i / (n - 1) * (box.width - pad * 2);
+      var max = Math.max.apply(null, data) * 1.12;
+      var y = 8 + (1 - data[i] / max) * (200 - 16);
+      return { i: i, x: x, y: y, v: data[i], n: n };
+    }
+
+    function showTip(clientX) {
+      var p = pointAt(clientX);
+      var ago = p.n - 1 - p.i;
+      var when = chartRange === 7 ? DAY7[p.i]
+        : chartRange === 30 ? (ago === 0 ? 'Hôm nay' : ago + ' ngày trước')
+        : (ago === 0 ? 'Tuần này' : 'Khoảng ' + ago * 3 + ' ngày trước');
+      var prev = p.i > 0 ? SERIES[chartRange][p.i - 1] : null;
+      var diff = prev ? Math.round((p.v - prev) / prev * 100) : null;
+      var tip = $('chartTip');
+      tip.innerHTML = num(p.v) + ' case' +
+        (diff === null ? '' : ' <span style="color:' + (diff >= 0 ? '#7ee2b0' : '#fda4af') + '">' + (diff >= 0 ? '▲' : '▼') + Math.abs(diff) + '%</span>') +
+        '<small>' + when + '</small>';
+      tip.style.left = Math.max(60, Math.min(p.x, $('chartBox').clientWidth - 60)) + 'px';
+      tip.style.top = (p.y - 6) + 'px';
+      tip.style.display = 'block';
+      var g = $('chartGuide');
+      g.style.left = p.x + 'px';
+      g.style.display = 'block';
+    }
+
+    $('chartBox').addEventListener('mousemove', function (e) {
+      if (e.target.closest('svg')) showTip(e.clientX); else hideTip();
+    });
+    $('chartBox').addEventListener('mouseleave', hideTip);
+    $('chartBox').addEventListener('touchstart', function (e) { showTip(e.touches[0].clientX); }, { passive: true });
 
     var FUNNEL = [
       ['Đăng ký tài khoản', 18640], ['Học bài đầu tiên', 12460],
@@ -1081,7 +1279,8 @@
       return LEARNERS.filter(function (l) {
         if (q && bỏDấu(l.name + ' ' + l.email).indexOf(q) < 0) return false;
         if (st && String(l.stage) !== st) return false;
-        if (sts && l.status !== sts) return false;
+        if (sts === 'suspended') { if (!l.suspended) return false; }
+        else if (sts && l.status !== sts) return false;
         if (pl && l.plan !== pl) return false;
         return true;
       }).sort(function (a, b) {
@@ -1092,6 +1291,7 @@
     }
 
     function statusPill(l) {
+      if (l.suspended) return '<span class="pill">🔒 Tạm khoá</span>';
       if (l.status === 'idle') return '<span class="pill pink">Ngưng ' + l.lastDays + ' ngày</span>';
       if (l.status === 'new') return '<span class="pill cyan">Mới</span>';
       return '<span class="pill green">' + (l.lastDays === 0 ? 'Hôm nay' : l.lastDays + ' ngày trước') + '</span>';
@@ -1104,7 +1304,7 @@
       var slice = rows.slice((lnPage - 1) * PER, lnPage * PER);
 
       $('lnBody').innerHTML = slice.length ? slice.map(function (l) {
-        return '<tr data-id="' + l.id + '">' +
+        return '<tr data-id="' + l.id + '"' + (l.suspended ? ' class="suspended"' : '') + '>' +
           '<td><input type="checkbox" class="ln-cb" data-id="' + l.id + '"' + (lnSel[l.id] ? ' checked' : '') + '></td>' +
           '<td><span class="who"><span class="av ' + l.cls + '">' + l.avatar + '</span>' +
             '<span><span class="nm">' + esc(l.name) + '</span><br><span class="em">' + esc(l.email) + '</span></span></span></td>' +
@@ -1180,18 +1380,49 @@
     $('lnBulk').addEventListener('click', function (e) {
       var b = e.target.closest('[data-bulk]');
       if (!b) return;
-      var n = Object.keys(lnSel).length;
+      var ids = Object.keys(lnSel), n = ids.length;
+      var picked = LEARNERS.filter(function (l) { return lnSel[l.id]; });
+      var act = b.dataset.bulk, undo = null;
       var msg = { mail: 'Đã xếp hàng gửi nhắc học cho ' + n + ' người',
                   gift: 'Đã tặng 50 vàng cho ' + n + ' người học',
-                  suspend: 'Đã tạm khoá ' + n + ' tài khoản' }[b.dataset.bulk];
+                  suspend: 'Đã tạm khoá ' + n + ' tài khoản' }[act];
+      if (act === 'gift') {
+        picked.forEach(function (l) { l.gold += 50; });
+        undo = function () { picked.forEach(function (l) { l.gold -= 50; }); renderLearners(); };
+      }
+      if (act === 'suspend') {
+        var before = picked.map(function (l) { return !!l.suspended; });
+        picked.forEach(function (l) { l.suspended = true; });
+        undo = function () {
+          picked.forEach(function (l, i) { l.suspended = before[i]; });
+          renderLearners();
+          log('↩️', '<b>Đinh Trí Bùi</b> hoàn tác tạm khoá ' + n + ' tài khoản');
+        };
+      }
       lnSel = {};
       renderLearners();
-      toast(msg);
+      toast(msg, undo);
       log('👥', '<b>Đinh Trí Bùi</b> ' + msg.toLowerCase());
     });
 
     $('btnExport').addEventListener('click', function () {
-      toast('Đã xuất ' + lnFiltered().length + ' dòng ra CSV');
+      var rows = lnFiltered();
+      var head = ['Mã', 'Họ tên', 'Email', 'Chặng', 'Tiến độ (%)', 'Case đã giải', 'Điểm TB', 'Gói', 'Ngày không hoạt động', 'Trạng thái'];
+      var cell = function (v) { v = String(v); return /[",\n;]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+      var csv = [head].concat(rows.map(function (l) {
+        return [l.id, l.name, l.email, l.stage, l.progress, l.cases, l.score.toFixed(1), l.plan, l.lastDays,
+                l.suspended ? 'Tạm khoá' : { idle: 'Ngưng', 'new': 'Mới', active: 'Đang học' }[l.status]];
+      })).map(function (r) { return r.map(cell).join(','); }).join('\r\n');
+      try {
+        var blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'nguoi-hoc-' + new Date().toISOString().slice(0, 10) + '.csv';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+      } catch (err) { /* môi trường chặn tải xuống */ }
+      toast('Đã xuất ' + rows.length + ' dòng ra CSV');
       log('⬇️', '<b>Đinh Trí Bùi</b> xuất danh sách người học ra CSV');
     });
 
@@ -1213,6 +1444,7 @@
         '<span><span class="nm">' + esc(l.name) + '</span><br><span class="em">' + esc(l.email) + '</span></span>' +
         '<button class="dr-close" id="drX">✕</button>';
       $('drBody').innerHTML =
+        (l.suspended ? '<div class="mod-flag" style="margin:0 0 14px">🔒 Tài khoản đang tạm khoá — người học không đăng nhập được.</div>' : '') +
         '<div class="dr-sec">TIẾN ĐỘ</div>' +
         '<div class="dr-grid">' +
           '<div class="dr-box"><div class="k">Chặng</div><div class="v">' + l.stage + '/4</div></div>' +
@@ -1228,10 +1460,11 @@
         '<div class="dr-line"><span class="k">Hoạt động gần nhất</span><span>' + (l.lastDays === 0 ? 'Hôm nay' : l.lastDays + ' ngày trước') + '</span></div>' +
         '<div class="dr-sec">ĐIỂM YẾU NỔI BẬT</div>' +
         '<div class="mod-quote">Sai nhiều nhất ở bước <b>' + l.weak + '</b>. Gợi ý: giao lại 2 case cùng dạng và yêu cầu nộp issue tree trước khi tính toán.</div>';
-      $('drFoot').innerHTML =
-        '<button class="btn" data-act="remind">✉ Nhắc học</button>' +
-        '<button class="btn" data-act="assign">🎯 Giao case</button>' +
-        '<button class="btn primary" data-act="mentor">Ghép mentor</button>';
+      $('drFoot').innerHTML = l.suspended
+        ? '<button class="btn primary" data-act="unlock">🔓 Mở khoá tài khoản</button>'
+        : '<button class="btn" data-act="remind">✉ Nhắc học</button>' +
+          '<button class="btn" data-act="assign">🎯 Giao case</button>' +
+          '<button class="btn primary" data-act="mentor">Ghép mentor</button>';
       drawer.classList.add('on');
       scrim.classList.add('on');
       drawer.setAttribute('aria-hidden', 'false');
@@ -1239,6 +1472,14 @@
       $('drFoot').onclick = function (e) {
         var b = e.target.closest('[data-act]');
         if (!b) return;
+        if (b.dataset.act === 'unlock') {
+          l.suspended = false;
+          renderLearners();
+          toast('Đã mở khoá ' + l.name, function () { l.suspended = true; renderLearners(); });
+          log('🔓', '<b>Đinh Trí Bùi</b> mở khoá tài khoản ' + esc(l.name));
+          closeDrawer();
+          return;
+        }
         var msg = { remind: 'Đã gửi nhắc học tới ' + l.name,
                     assign: 'Đã giao 2 case luyện thêm cho ' + l.name,
                     mentor: 'Đã đưa ' + l.name + ' vào hàng đợi ghép mentor' }[b.dataset.act];
@@ -1291,11 +1532,17 @@
       var m = MOD.filter(function (x) { return x.id === item.dataset.id; })[0];
       var msg = { approve: 'Đã duyệt bài của ' + m.who, edit: 'Đã gửi yêu cầu sửa tới ' + m.who,
                   hide: 'Đã ẩn nội dung và nhắc nhở ' + m.who }[b.dataset.m];
+      var prev = { q: m.q, text: m.text };
       m.q = 'done';
       m.text = msg + '.';
       renderMod();
       renderTodo();
-      toast(msg);
+      renderBell();
+      toast(msg, function () {
+        m.q = prev.q; m.text = prev.text;
+        renderMod(); renderTodo(); renderBell();
+        log('↩️', '<b>Đinh Trí Bùi</b> hoàn tác kiểm duyệt bài của ' + esc(m.who));
+      });
       log('🛡️', '<b>Đinh Trí Bùi</b> — ' + msg.toLowerCase());
     });
 
@@ -1355,30 +1602,128 @@
       });
     });
 
+    function refreshContent() { renderContent(); renderTodo(); renderHardCases(); }
+
     $('ctBody').addEventListener('click', function (e) {
       var b = e.target.closest('[data-toggle]');
-      if (!b) return;
+      if (!b) {
+        var tr = e.target.closest('tr[data-id]');
+        if (tr) openContent(tr.dataset.id);
+        return;
+      }
       e.stopPropagation();
       var c = CONTENT.filter(function (x) { return x.id === b.dataset.toggle; })[0];
+      var prevState = c.state;
       c.state = c.state === 'live' ? 'draft' : 'live';
-      renderContent();
-      renderTodo();
-      renderHardCases();
+      refreshContent();
       var msg = (c.state === 'live' ? 'Đã xuất bản ' : 'Đã gỡ xuống ') + c.id;
-      toast(msg);
+      toast(msg, function () { c.state = prevState; refreshContent(); });
       log('📚', '<b>Đinh Trí Bùi</b> ' + msg.toLowerCase() + ' — ' + esc(c.title));
     });
 
-    $('btnNewCase').addEventListener('click', function () {
-      var n = CONTENT.length + 1;
-      CONTENT.unshift({ id: 'NEW-' + n, title: 'Case mới chưa đặt tên #' + n, type: 'Case',
-                        learners: 0, pass: 0, rating: 0, state: 'draft' });
-      $('ctSearch').value = ''; $('ctType').value = ''; $('ctState').value = '';
-      renderContent();
-      renderTodo();
-      toast('Đã tạo bản nháp case mới');
-      log('📚', '<b>Đinh Trí Bùi</b> tạo bản nháp <b>NEW-' + n + '</b>');
-    });
+    $('btnNewCase').addEventListener('click', function () { openContent(null); });
+
+    /* ── drawer chỉnh sửa bài ── */
+    function openContent(id) {
+      var isNew = !id;
+      var c = isNew
+        ? { id: '', title: '', type: 'Case', learners: 0, pass: 0, rating: 0, state: 'draft', desc: '' }
+        : CONTENT.filter(function (x) { return x.id === id; })[0];
+      if (!c) return;
+
+      $('drHead').innerHTML =
+        '<span class="log-ic" style="width:42px;height:42px;font-size:18px">' + (c.type === 'Mock' ? '🎤' : c.type === 'Case' ? '🧩' : '📖') + '</span>' +
+        '<span><span class="nm">' + (isNew ? 'Case mới' : esc(c.id)) + '</span><br>' +
+        '<span class="em">' + (isNew ? 'Bản nháp chưa lưu' : STATE_LB[c.state][1]) + '</span></span>' +
+        '<button class="dr-close" id="drX">✕</button>';
+
+      $('drBody').innerHTML =
+        '<div class="form-row" id="rowTitle"><label for="fTitle">TÊN BÀI</label>' +
+          '<input id="fTitle" value="' + esc(c.title) + '" maxlength="90" placeholder="VD: Hãng bay giá rẻ mở đường bay mới">' +
+          '<span class="err">Tên bài cần ít nhất 8 ký tự.</span></div>' +
+        '<div class="form-row" id="rowId"><label for="fId">MÃ BÀI</label>' +
+          '<input id="fId" value="' + esc(c.id) + '"' + (isNew ? '' : ' readonly') + ' placeholder="VD: K-AIRLINE" style="text-transform:uppercase">' +
+          '<span class="hint">' + (isNew ? 'Chữ in hoa, số và dấu gạch ngang. Không đổi được sau khi lưu.' : 'Mã bài không thể đổi sau khi tạo.') + '</span>' +
+          '<span class="err" id="errId">Mã không hợp lệ hoặc đã tồn tại.</span></div>' +
+        '<div class="dr-grid">' +
+          '<div class="form-row"><label for="fType">LOẠI</label><select id="fType">' +
+            ['Case', 'Bài đọc', 'Mock'].map(function (t) { return '<option' + (t === c.type ? ' selected' : '') + '>' + t + '</option>'; }).join('') +
+          '</select></div>' +
+          '<div class="form-row"><label for="fState">TRẠNG THÁI</label><select id="fState">' +
+            ['draft', 'review', 'live'].map(function (k) { return '<option value="' + k + '"' + (k === c.state ? ' selected' : '') + '>' + STATE_LB[k][1] + '</option>'; }).join('') +
+          '</select></div>' +
+        '</div>' +
+        '<div class="form-row"><label for="fDesc">MÔ TẢ NGẮN CHO NGƯỜI HỌC</label>' +
+          '<textarea id="fDesc" maxlength="280" placeholder="Bối cảnh doanh nghiệp, câu hỏi chính, người học cần nộp gì…">' + esc(c.desc || '') + '</textarea>' +
+          '<span class="hint" id="descCount">' + (c.desc || '').length + '/280</span></div>' +
+        (isNew ? '' :
+          '<div class="dr-sec">HIỆU QUẢ</div><div class="dr-grid">' +
+            '<div class="dr-box"><div class="k">Lượt học</div><div class="v">' + (c.learners ? num(c.learners) : '—') + '</div></div>' +
+            '<div class="dr-box"><div class="k">Tỷ lệ đạt</div><div class="v">' + (c.pass ? c.pass + '%' : '—') + '</div></div>' +
+          '</div>' +
+          (c.pass && c.pass < 45 ? '<div class="mod-flag">⚠ Tỷ lệ đạt dưới 45% — cân nhắc thêm gợi ý ở bước chẩn đoán.</div>' : ''));
+
+      $('drFoot').innerHTML =
+        (!isNew && c.state === 'draft' ? '<button class="btn danger" data-act="del">Xoá nháp</button>' : '') +
+        '<button class="btn" data-act="cancel">Huỷ</button>' +
+        '<button class="btn primary" data-act="save">' + (isNew ? 'Tạo bản nháp' : 'Lưu thay đổi') + '</button>';
+
+      drawer.classList.add('on');
+      scrim.classList.add('on');
+      drawer.setAttribute('aria-hidden', 'false');
+      $('drX').addEventListener('click', closeDrawer);
+      $('fDesc').addEventListener('input', function () { $('descCount').textContent = $('fDesc').value.length + '/280'; });
+      setTimeout(function () { $(isNew ? 'fTitle' : 'fTitle').focus(); }, 280);
+
+      $('drFoot').onclick = function (e) {
+        var b = e.target.closest('[data-act]');
+        if (!b) return;
+        if (b.dataset.act === 'cancel') { closeDrawer(); return; }
+
+        if (b.dataset.act === 'del') {
+          var idx = CONTENT.indexOf(c);
+          CONTENT.splice(idx, 1);
+          refreshContent();
+          closeDrawer();
+          toast('Đã xoá bản nháp ' + c.id, function () { CONTENT.splice(idx, 0, c); refreshContent(); });
+          log('🗑️', '<b>Đinh Trí Bùi</b> xoá bản nháp <b>' + esc(c.id) + '</b>');
+          return;
+        }
+
+        var title = $('fTitle').value.trim();
+        var newId = $('fId').value.trim().toUpperCase();
+        var okTitle = title.length >= 8;
+        var okId = !isNew || (/^[A-Z0-9][A-Z0-9-]{1,14}$/.test(newId) &&
+                   !CONTENT.some(function (x) { return x.id === newId; }));
+        $('rowTitle').classList.toggle('invalid', !okTitle);
+        $('rowId').classList.toggle('invalid', !okId);
+        if (!okTitle || !okId) return;
+
+        var before = { title: c.title, type: c.type, state: c.state, desc: c.desc };
+        c.title = title;
+        c.type = $('fType').value;
+        c.state = $('fState').value;
+        c.desc = $('fDesc').value.trim();
+
+        if (isNew) {
+          c.id = newId;
+          CONTENT.unshift(c);
+          $('ctSearch').value = ''; $('ctType').value = ''; $('ctState').value = '';
+          refreshContent();
+          closeDrawer();
+          toast('Đã tạo ' + c.id, function () { CONTENT.splice(CONTENT.indexOf(c), 1); refreshContent(); });
+          log('📚', '<b>Đinh Trí Bùi</b> tạo bài <b>' + esc(c.id) + '</b> — ' + esc(c.title));
+        } else {
+          refreshContent();
+          closeDrawer();
+          toast('Đã lưu ' + c.id, function () {
+            c.title = before.title; c.type = before.type; c.state = before.state; c.desc = before.desc;
+            refreshContent();
+          });
+          log('✏️', '<b>Đinh Trí Bùi</b> sửa bài <b>' + esc(c.id) + '</b>');
+        }
+      };
+    }
 
     /* ═══════════ DOANH THU ═══════════ */
     function renderRevenue() {
@@ -1422,7 +1767,7 @@
     function renderLogs() {
       $('logList').innerHTML = LOGS.length ? LOGS.map(function (l) {
         return '<div class="log-row"><span class="log-ic">' + l.ic + '</span>' +
-          '<span><span class="log-t">' + l.t + '</span><span class="log-m">' + l.m + '</span></span></div>';
+          '<span><span class="log-t">' + l.t + '</span><span class="log-m">' + (l.m || relTime(l.at)) + '</span></span></div>';
       }).join('') : '<div class="empty"><div class="e">🧾</div><div class="t">Nhật ký trống</div>' +
         '<div class="s">Mọi thao tác mới sẽ hiện ở đây.</div></div>';
     }
@@ -1430,6 +1775,8 @@
     $('btnClearLog').addEventListener('click', function () {
       LOGS.length = 0;
       renderLogs();
+      renderBell();
+      persist();
       toast('Đã xoá nhật ký khỏi màn hình');
     });
 
@@ -1452,9 +1799,61 @@
       toast('Đang lọc theo “' + q + '”');
     });
 
-    $('btnBell').addEventListener('click', function () {
-      switchView('moderation');
-      toast('Có ' + MOD.filter(function (m) { return m.q !== 'done'; }).length + ' việc đang chờ bạn');
+    function notifications() {
+      var items = MOD.filter(function (m) { return m.q !== 'done'; }).map(function (m) {
+        return { key: 'mod-' + m.id, ic: m.q === 'flagged' ? '🚩' : '🛡️', view: 'moderation',
+                 t: (m.q === 'flagged' ? '<b>' + esc(m.who) + '</b> bị báo cáo' : '<b>' + esc(m.who) + '</b> chờ duyệt ' + m.kind.toLowerCase()),
+                 m: m.time };
+      });
+      CONTENT.filter(function (c) { return c.state === 'review'; }).forEach(function (c) {
+        items.push({ key: 'ct-' + c.id, ic: '📚', view: 'content',
+                     t: '<b>' + esc(c.id) + '</b> đang chờ duyệt nội dung', m: esc(c.title) });
+      });
+      return items;
+    }
+
+    function renderBell() {
+      var items = notifications();
+      var unread = items.filter(function (it) { return !readIds[it.key]; }).length;
+      $('bellDot').style.display = unread ? '' : 'none';
+      $('bellList').innerHTML = items.length ? items.map(function (it) {
+        return '<button class="pop-item' + (readIds[it.key] ? '' : ' unread') + '" data-key="' + it.key + '" data-view="' + it.view + '">' +
+          '<span class="log-ic">' + it.ic + '</span><span><span class="log-t">' + it.t + '</span>' +
+          '<span class="log-m">' + it.m + '</span></span></button>';
+      }).join('') : '<div class="empty" style="padding:26px"><div class="e">🎉</div><div class="t">Không còn việc tồn đọng</div></div>';
+    }
+
+    function closePop() {
+      $('bellPop').classList.remove('on');
+      $('btnBell').setAttribute('aria-expanded', 'false');
+    }
+
+    $('btnBell').addEventListener('click', function (e) {
+      e.stopPropagation();
+      renderBell();
+      var on = !$('bellPop').classList.contains('on');
+      $('bellPop').classList.toggle('on', on);
+      $('btnBell').setAttribute('aria-expanded', String(on));
+    });
+
+    $('bellList').addEventListener('click', function (e) {
+      var it = e.target.closest('.pop-item');
+      if (!it) return;
+      readIds[it.dataset.key] = true;
+      persist();
+      renderBell();
+      switchView(it.dataset.view);
+    });
+
+    $('btnReadAll').addEventListener('click', function (e) {
+      e.stopPropagation();
+      notifications().forEach(function (it) { readIds[it.key] = true; });
+      persist();
+      renderBell();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.pop-wrap')) closePop();
     });
 
     $('btnRefresh').addEventListener('click', function () {
@@ -1469,10 +1868,41 @@
       $('cntContent').textContent = CONTENT.length;
     }
 
+    $('btnResetDemo').addEventListener('click', function () {
+      if (!confirm('Khôi phục toàn bộ dữ liệu demo? Mọi thay đổi bạn đã làm sẽ mất.')) return;
+      try { localStorage.removeItem(STORE_KEY); } catch (e) { /* bỏ qua */ }
+      location.reload();
+    });
+
+    /* ── Phím tắt ── */
+    var VIEW_KEYS = { '1': 'overview', '2': 'learners', '3': 'moderation', '4': 'content', '5': 'revenue', '6': 'logs' };
+    document.addEventListener('keydown', function (e) {
+      var typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        $('globalSearch').focus();
+        $('globalSearch').select();
+        return;
+      }
+      if (e.key === 'Escape') { closePop(); if (typing) document.activeElement.blur(); return; }
+      if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === '/') { e.preventDefault(); $('globalSearch').focus(); return; }
+      if (VIEW_KEYS[e.key] && !drawer.classList.contains('on')) switchView(VIEW_KEYS[e.key]);
+    });
+
+    window.addEventListener('hashchange', function () {
+      var v = location.hash.slice(1);
+      if (TITLES[v] && v !== currentView) switchView(v);
+    });
+
     /* ═══════════ KHỞI TẠO ═══════════ */
+    var restored = restore();
     renderKpi(7); renderChart(7); renderFunnel(); renderTodo(); renderHardCases();
-    renderLearners(); renderContent(); renderMod(); renderRevenue(); renderLogs();
+    renderLearners(); renderContent(); renderMod(); renderRevenue(); renderLogs(); renderBell();
     updateCounts();
+    var startView = location.hash.slice(1);
+    if (TITLES[startView] && startView !== 'overview') switchView(startView);
+    if (restored) setTimeout(function () { toast('Đã khôi phục phiên làm việc trước'); }, 400);
   })();
   </script>
 
