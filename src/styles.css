@@ -220,6 +220,13 @@ td.r, th.r { text-align: right; }
 .week details[open] > summary { margin-bottom: 8px; }
 .btn-quiet.inline { padding: 0; font-size: inherit; color: var(--accent-ink); text-decoration: underline; }
 
+/* live room */
+.feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; max-height: 420px; overflow-y: auto; font-size: 13.5px; }
+.feed li { padding: 6px 9px; border-left: 2px solid var(--rule-strong); background: var(--surface-2); border-radius: 0 3px 3px 0; }
+.feed li.feed-in { border-left-color: var(--accent); }
+.feed li.feed-out { border-left-color: var(--l3); }
+.feed li.feed-system { border-left-color: var(--l4); }
+
 /* case brief */
 .case-brief { border-left: 3px solid var(--accent); }
 .case-brief h3, .answer-frame h3 { font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin: 4px 0 0; }

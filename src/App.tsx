@@ -6,6 +6,7 @@ import { GraderQueuePage } from "./pages/GraderQueue";
 import { LessonPage } from "./pages/Lesson";
 import { LoginPage } from "./pages/Login";
 import { PathPage } from "./pages/Path";
+import { LiveListPage, LiveRoomPage } from "./pages/Live";
 import { PlanPage } from "./pages/Plan";
 import { SkillsPage } from "./pages/Skills";
 
@@ -24,6 +25,8 @@ export function App() {
   else if ((m = path.match(/^\/lessons\/([^/]+)$/))) page = <LessonPage lessonId={m[1]} />;
   else if ((m = path.match(/^\/attempts\/([^/]+)$/))) page = <AttemptPage attemptId={m[1]} />;
   else if (path === "/plan") page = <PlanPage />;
+  else if (path === "/live") page = <LiveListPage isStaff={user.role === "instructor" || user.role === "admin"} />;
+  else if ((m = path.match(/^\/live\/([^/]+)$/))) page = <LiveRoomPage sessionId={m[1]} />;
   else if (path === "/skills") page = <SkillsPage readiness={me.data?.readiness ?? []} />;
   else if (path === "/grader" && isGrader) page = <GraderQueuePage />;
   else if ((m = path.match(/^\/grader\/([^/]+)$/)) && isGrader) page = <GradePage attemptId={m[1]} />;
@@ -46,6 +49,7 @@ export function App() {
           <nav aria-label="Chính">
             {nav("/", "Lộ trình", path === "/" || path.startsWith("/lessons") || path.startsWith("/attempts"))}
             {nav("/plan", "Kế hoạch", path === "/plan")}
+            {nav("/live", "Phòng live", path.startsWith("/live"))}
             {nav("/skills", "Năng lực", path === "/skills")}
             {isGrader && nav("/grader", "Chấm bài", path.startsWith("/grader"))}
           </nav>

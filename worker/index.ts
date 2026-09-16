@@ -1,7 +1,7 @@
 import { currentUser, logout, requestMagicLink, requireUser, verifyMagicLink } from "./auth";
 import { reviewAttempt, startAttempt, submitAttempt, uploadArtifact } from "./attempts";
 import { claimAttempt, consumeGrading, gradeAttempt, graderQueue } from "./grading";
-import { createLiveSession, liveSocket, liveState } from "./live";
+import { createLiveSession, listLiveSessions, liveSocket, liveState } from "./live";
 import { enrollInPath, listPaths, pathPlan } from "./paths";
 import { consumeReadiness, decayAll, releaseStaleClaims } from "./readiness";
 import { AppEnv, HttpError, isDev, json, readJson } from "./util";
@@ -78,6 +78,7 @@ route("GET", "/api/grader/rubric/:lessonId", async (req, env, [lessonId]) => {
 
 // live rooms
 route("POST", "/api/live", async (req, env) => createLiveSession(req, env, await requireUser(req, env)));
+route("GET", "/api/live", async (req, env) => listLiveSessions(env, await requireUser(req, env)));
 route("GET", "/api/live/:id", async (req, env, [id]) => liveState(env, await requireUser(req, env), id));
 route("GET", "/api/live/:id/ws", async (req, env, [id]) => liveSocket(req, env, await requireUser(req, env), id));
 

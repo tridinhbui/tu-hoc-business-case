@@ -248,14 +248,28 @@ async function main() {
 
   console.log("== live room (Durable Object)");
   const learnerId = (await learner.call("GET", "/api/me")).data.user.id;
+  check("a session cannot be created for an unknown learner (400)",
+    (await instructor.call("POST", "/api/live", {
+      kind: "team_sim", lessonId: "019", durationMinutes: 1,
+      participants: [{ email: `nobody+${stamp}@example.com`, role: "team_member" }],
+    })).status === 400);
+  check("a session cannot be created for an unpublished lesson (404)",
+    (await instructor.call("POST", "/api/live", { kind: "team_sim", lessonId: "999", durationMinutes: 1 })).status === 404);
   const created = await instructor.call("POST", "/api/live", {
     kind: "team_sim", lessonId: "019", durationMinutes: 0.08, questionBudget: 2, answerDelayMinutes: 0,
     milestones: [{ atMinutes: 0.02, label: "Ghost deck" }],
-    participants: [{ userId: learnerId, role: "team_member" }],
+    participants: [{ email: `lan+${stamp}@example.com`, role: "team_member" }],
   });
   check("instructor creates a live session (201)", created.status === 201, created.data);
   const sessionId = created.data.sessionId;
   check("outsider cannot read room state (403)", (await grader.call("GET", `/api/live/${sessionId}`)).status === 403);
+  const myRooms = await learner.call("GET", "/api/live");
+  check("the room appears in the learner's list with their role",
+    myRooms.data.items?.find((s) => s.id === sessionId)?.role === "team_member" &&
+    myRooms.data.items.find((s) => s.id === sessionId)?.lesson_title?.includes("Giặt sấy"), myRooms.data);
+  const roomView = await learner.call("GET", `/api/live/${sessionId}`);
+  check("room view carries role, participants and live state",
+    roomView.data.role === "team_member" && roomView.data.participants?.length === 2 && roomView.data.state?.questions?.budget === 2, roomView.data);
 
   const wsUrl = BASE.replace(/^http/, "ws") + `/api/live/${sessionId}/ws`;
   const received = { team: [], staff: [] };
@@ -282,8 +296,10 @@ async function main() {
   check("milestone alarm fired (Ghost deck)", true);
   await waitFor("session ended by alarm", async () => received.team.some((m) => m.type === "ended"), 15000);
   check("deadline alarm ended the room", true);
-  const state = await instructor.call("GET", `/api/live/${sessionId}`);
-  check("room state persisted: ended, 2 questions", state.data.status === "ended" && state.data.questions.used === 2, state.data);
+  const finalView = await instructor.call("GET", `/api/live/${sessionId}`);
+  check("room state persisted: ended, 2 questions",
+    finalView.data.session?.status === "ended" && finalView.data.state?.status === "ended" &&
+    finalView.data.state?.questions?.used === 2, finalView.data);
   try { teamWs.close(); staffWs.close(); } catch {}
 
   console.log(failures ? `\n${failures} CHECK(S) FAILED` : "\nALL E2E CHECKS PASSED");

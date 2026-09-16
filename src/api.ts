@@ -57,7 +57,7 @@ export type CaseBrief = {
   askable: { id: string; trigger: string; content?: string | null; revealed_at?: number | null }[];
 };
 
-export type RubricCriterion ={ id: string; name: string; weight: number; skill_id: string | null; levels: Record<string, string> };
+export type RubricCriterion = { id: string; name: string; weight: number; skill_id: string | null; levels: Record<string, string> };
 
 export type LessonView = {
   lesson: { id: string; title: string; kind: string; level: number; est_minutes: number; output_spec: string; module_id: string; module_title: string; timed_variant_of: string | null; gates_module: number };
@@ -119,6 +119,40 @@ export type PathPlan = {
   capstone: { id: string; title: string; objective: string; deliverable: string } | null;
 };
 
-export type Readiness ={ skill_id: string; name: string; raw_score: number; score: number; last_evidence_at: number };
+export type Readiness = { skill_id: string; name: string; raw_score: number; score: number; last_evidence_at: number };
 export type QueueItem = { attempt_id: string; needs: string; lesson_id: string; lesson_title: string; lesson_kind: string; submitted_at: number; enqueued_at: number; mine: boolean };
 export type MistakeCode = { code: string; group_code: string; title: string; symptom: string };
+
+export type LiveRole = "candidate" | "interviewer" | "panelist" | "team_member" | "observer";
+
+export type LiveSessionSummary = {
+  id: string;
+  kind: string;
+  lesson_id: string;
+  lesson_title: string;
+  case_id: string | null;
+  status: string;
+  started_at: number | null;
+  deadline_at: number | null;
+  ended_at: number | null;
+  role: LiveRole;
+};
+
+export type LiveState = {
+  sessionId: string | null;
+  kind: string | null;
+  status: string | null;
+  startedAt: number;
+  deadlineAt: number;
+  questions: { budget: number | null; used: number };
+  upcoming: { kind: string; label: string | null; due_at: number }[];
+  events: number;
+  connected: number;
+};
+
+export type LiveRoomView = {
+  session: LiveSessionSummary & { summary: string | null };
+  role: LiveRole;
+  state: LiveState;
+  participants: { user_id: string; role: LiveRole; display_name: string }[];
+};
