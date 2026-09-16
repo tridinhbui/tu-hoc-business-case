@@ -390,3 +390,4 @@ td.r, th.r { text-align: right; }
 .thread { border-top: 1px solid var(--rule); padding: 14px; display: grid; gap: 12px; }
 @media (max-width: 640px) { .inbox-row { grid-template-columns: 1fr; } }
 .chat-msg.is-assistant { background: var(--surface-2); border-left: 2px solid var(--l3); margin-right: 24px; }
+.md-quote { margin: 0; padding: 10px 0 10px 14px; border-left: 2px solid var(--accent); display: grid; gap: 8px; color: var(--ink); }

@@ -142,9 +142,10 @@ export function since(ms: number) {
 // Lesson bodies are authored in this repo and validated before they ship, and everything below builds
 // React elements rather than HTML, so no authored text can inject markup.
 function inline(text: string, keyPrefix: string): ReactNode[] {
-  return text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean).map((part, i) => {
+  return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)/g).filter(Boolean).map((part, i) => {
     const key = `${keyPrefix}-${i}`;
     if (part.startsWith("**") && part.endsWith("**")) return <b key={key}>{part.slice(2, -2)}</b>;
+    if (part.startsWith("*") && part.endsWith("*")) return <i key={key}>{part.slice(1, -1)}</i>;
     if (part.startsWith("`") && part.endsWith("`")) return <code key={key}>{part.slice(1, -1)}</code>;
     return <span key={key}>{part}</span>;
   });
@@ -184,6 +185,13 @@ export function Markdown({ text }: { text: string }) {
           </table>
         </div>,
       );
+    } else if (line.startsWith("> ")) {
+      const quoted = take((l) => l.startsWith(">"));
+      out.push(
+        <blockquote key={out.length} className="md-quote">
+          {quoted.map((l, n) => <p key={n}>{inline(l.replace(/^>\s?/, ""), `q${n}`)}</p>)}
+        </blockquote>,
+      );
     } else if (/^\d+\.\s/.test(line)) {
       const items = take((l) => /^\d+\.\s/.test(l));
       out.push(<ol key={out.length} className="md-list">{items.map((it, n) => <li key={n}>{inline(it.replace(/^\d+\.\s/, ""), `o${n}`)}</li>)}</ol>);
@@ -191,7 +199,8 @@ export function Markdown({ text }: { text: string }) {
       const items = take((l) => l.startsWith("- "));
       out.push(<ul key={out.length} className="md-list">{items.map((it, n) => <li key={n}>{inline(it.slice(2), `u${n}`)}</li>)}</ul>);
     } else {
-      const para = take((l) => !!l.trim() && !l.startsWith("|") && !l.startsWith("- ") && !l.startsWith("```") && !/^\d+\.\s/.test(l));
+      const para = take((l) => !!l.trim() && !l.startsWith("|") && !l.startsWith("- ") && !l.startsWith(">")
+        && !l.startsWith("```") && !/^\d+\.\s/.test(l));
       out.push(<p key={out.length}>{inline(para.join(" "), `p${out.length}`)}</p>);
     }
   }
