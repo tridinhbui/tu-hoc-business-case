@@ -23,7 +23,7 @@ class Client {
     if (setCookie) this.cookie = setCookie.split(";")[0];
     const text = await res.text();
     let data; try { data = JSON.parse(text); } catch { data = text; }
-    return { status: res.status, data };
+    return { status: res.status, data, location: res.headers.get("location") };
   }
   async login(email) {
     const r = await this.call("POST", "/api/auth/request", { email, displayName: this.name });
@@ -133,10 +133,39 @@ async function main() {
 
   console.log("== public config");
   const config = await learner.call("GET", "/api/config");
-  check("config exposes only the public sitekey and dev mode",
+  check("config exposes only public login settings",
     typeof config.data.turnstileSiteKey === "string" && config.data.devMode === true &&
-    Object.keys(config.data).sort().join(",") === "devMode,turnstileSiteKey" &&
-    !JSON.stringify(config.data).includes("1x0000000000000000000000000000000AA"), config.data);
+    config.data.googleLogin === true && config.data.magicLink === true &&
+    Object.keys(config.data).sort().join(",") === "devMode,googleLogin,magicLink,turnstileSiteKey" &&
+    !JSON.stringify(config.data).includes("1x0000000000000000000000000000000AA") &&
+    !JSON.stringify(config.data).includes("test-client-secret"), config.data);
+
+  console.log("== google login");
+  const anon = new Client("anon");
+  const start = await anon.call("GET", "/api/auth/google/start");
+  const authUrl = start.location ? new URL(start.location) : null;
+  check("start redirects to Google's consent screen",
+    start.status === 302 && authUrl?.origin + authUrl?.pathname === "https://accounts.google.com/o/oauth2/v2/auth",
+    start.location);
+  check("the redirect carries client_id, openid scope, code flow and our callback",
+    authUrl?.searchParams.get("client_id") === "test-client-id.apps.googleusercontent.com" &&
+    authUrl?.searchParams.get("response_type") === "code" &&
+    authUrl?.searchParams.get("scope").split(" ").includes("openid") &&
+    authUrl?.searchParams.get("redirect_uri") === `${BASE}/api/auth/google/callback`,
+    start.location);
+  const state = authUrl?.searchParams.get("state") ?? "";
+  const nonce = authUrl?.searchParams.get("nonce") ?? "";
+  check("state and nonce are long random values, and differ", state.length >= 32 && nonce.length >= 32 && state !== nonce);
+  check("the client secret never reaches the browser", !(start.location ?? "").includes("test-client-secret"));
+
+  const forged = await anon.call("GET", "/api/auth/google/callback?code=abc&state=forged-state");
+  check("a callback with an unknown state is refused without a session",
+    forged.status === 302 && forged.location?.startsWith("/?login_error=") && !anon.cookie, forged);
+  const noParams = await anon.call("GET", "/api/auth/google/callback");
+  check("a callback with no parameters is refused", noParams.status === 302 && noParams.location?.startsWith("/?login_error="));
+  const cancelled = await anon.call("GET", "/api/auth/google/callback?error=access_denied&state=" + state);
+  check("a cancelled consent is refused", cancelled.status === 302 && cancelled.location?.startsWith("/?login_error="));
+  check("nobody is signed in after the failed callbacks", (await anon.call("GET", "/api/me")).data.user === null);
 
   console.log("== instructor overview");
   check("learner cannot open the instructor overview (403)", (await learner.call("GET", "/api/admin/overview")).status === 403);

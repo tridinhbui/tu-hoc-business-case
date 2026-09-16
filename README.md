@@ -57,6 +57,7 @@ npm run test:e2e
 |---|---|
 | `worker/index.ts` | Router API, queue consumer, cron |
 | `worker/auth.ts` | Magic link, session KV, Turnstile |
+| `worker/google.ts` | Đăng nhập với Google (OpenID Connect) |
 | `worker/gates.ts` | Năm cổng khoá/mở bài, ghi `lesson_progress` |
 | `worker/attempts.ts` | Bắt đầu, tải file lên R2, nộp, mistake review |
 | `worker/grading.ts` | Hàng đợi chấm, nhận bài, chấm theo rubric |
@@ -91,6 +92,24 @@ npm run db:seed:remote
 ### Trước khi mở cho người học thật
 
 - Tài khoản **Workers Paid** — gói Free giới hạn CPU 10 ms mỗi request, D1 500 MB mỗi database, và không có Email Sending.
-- Tên miền dùng Cloudflare DNS, onboard vào Email Sending, bật binding `send_email`. Chưa có bước này thì không đăng nhập được (API trả 503).
+- Tên miền dùng Cloudflare DNS, onboard vào Email Sending, bật binding `send_email`. Chưa có bước này thì magic link không gửi được (API trả 503) — lúc đó đăng nhập bằng Google là cách duy nhất.
 - Tạo widget Turnstile, gắn vào form đăng nhập ở `src/pages/Login.tsx`, đặt secret: `wrangler secret put TURNSTILE_SECRET`. Không đưa `.dev.vars` lên production.
 - Đặt `APP_ORIGIN` và `MAIL_FROM` đúng tên miền thật trong `wrangler.jsonc`.
+
+### Đăng nhập với Google
+
+Hai cách đăng nhập dùng chung một tài khoản: định danh là **email**, nên cùng một email dù vào bằng Google hay magic link vẫn là một người học.
+
+1. Google Cloud Console → **APIs & Services → Credentials → Create OAuth client ID → Web application**.
+2. **Authorized redirect URIs** (phải khớp từng ký tự):
+   - `https://tu-hoc-business-case.tridinhbui0901.workers.dev/api/auth/google/callback`
+   - `http://127.0.0.1:5173/api/auth/google/callback` (chạy máy)
+3. Điền client id vào `vars.GOOGLE_CLIENT_ID` trong `wrangler.jsonc` (id là công khai), rồi đặt secret:
+
+```bash
+npx wrangler secret put GOOGLE_CLIENT_SECRET
+```
+
+4. Đổi `APP_ORIGIN` trước khi chuyển sang tên miền riêng: `redirect_uri` lấy từ đó, sai một ký tự là Google từ chối.
+
+Thiếu một trong hai giá trị thì `/api/config` trả `googleLogin: false` và nút Google không hiện. Worker kiểm `iss`, `aud`, `exp`, `nonce` và `email_verified` của `id_token`; `state` và `nonce` nằm trong KV, dùng một lần, hết hạn sau 10 phút.

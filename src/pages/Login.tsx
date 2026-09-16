@@ -12,6 +12,8 @@ declare global {
   }
 }
 
+type Config = { turnstileSiteKey: string | null; devMode: boolean; googleLogin: boolean; magicLink: boolean };
+
 const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 
 function loadTurnstile(): Promise<void> {
@@ -30,7 +32,7 @@ function loadTurnstile(): Promise<void> {
 }
 
 export function LoginPage() {
-  const config = useLoad(() => api<{ turnstileSiteKey: string | null; devMode: boolean }>("/api/config"), []);
+  const config = useLoad(() => api<Config>("/api/config"), []);
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState<Error | null>(null);
@@ -38,11 +40,16 @@ export function LoginPage() {
   const widgetRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
 
+  // Google redirects back here with ?login_error=… when the sign-in could not be completed.
+  const loginError = new URLSearchParams(window.location.search).get("login_error");
+
   const siteKey = config.data?.turnstileSiteKey ?? null;
-  const closed = !!config.data && !siteKey && !config.data.devMode;
+  const magicLink = config.data?.magicLink ?? false;
+  const google = config.data?.googleLogin ?? false;
+  const closed = !!config.data && !google && !magicLink;
 
   useEffect(() => {
-    if (!siteKey || !widgetRef.current) return;
+    if (!siteKey || !magicLink || !widgetRef.current) return;
     let cancelled = false;
     loadTurnstile()
       .then(() => {
@@ -61,7 +68,7 @@ export function LoginPage() {
       if (widgetId.current && window.turnstile) window.turnstile.remove(widgetId.current);
       widgetId.current = null;
     };
-  }, [siteKey]);
+  }, [siteKey, magicLink]);
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -96,6 +103,7 @@ export function LoginPage() {
       <div className="login-card">
         <p className="eyebrow">Business Case</p>
         <h1>Học case bằng cách làm case</h1>
+        {loginError && <p className="notice warn" role="alert">{loginError}</p>}
         {config.loading && !config.data ? (
           <Loading />
         ) : closed ? (
@@ -104,21 +112,45 @@ export function LoginPage() {
           <p className="notice" role="status">Đã gửi link tới <b>{email}</b>. Link có hiệu lực trong 15 phút và chỉ dùng được một lần.</p>
         ) : (
           <>
-            <p className="muted">Nhập email để nhận link đăng nhập. Không cần mật khẩu.</p>
-            <form onSubmit={submit} className="stack-sm">
-              <label className="field">
-                <span>Email</span>
-                <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="ban@example.com" />
-              </label>
-              {siteKey && <div ref={widgetRef} className="turnstile-slot" />}
-              <button className="btn" disabled={state === "sending" || (!!siteKey && !token)}>
-                {state === "sending" ? "Đang gửi…" : "Gửi link đăng nhập"}
-              </button>
-              <ErrorNote error={error ?? config.error} />
-            </form>
+            {google && (
+              <>
+                <a className="btn btn-google" href="/api/auth/google/start">
+                  <GoogleMark /> Đăng nhập với Google
+                </a>
+                <p className="muted small">Chúng tôi chỉ nhận tên và email từ Google, dùng để nhận diện tài khoản của bạn.</p>
+              </>
+            )}
+            {google && magicLink && <p className="or-divider"><span>hoặc</span></p>}
+            {magicLink && (
+              <>
+                <p className="muted">Nhập email để nhận link đăng nhập. Không cần mật khẩu.</p>
+                <form onSubmit={submit} className="stack-sm">
+                  <label className="field">
+                    <span>Email</span>
+                    <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="ban@example.com" />
+                  </label>
+                  {siteKey && <div ref={widgetRef} className="turnstile-slot" />}
+                  <button className="btn" disabled={state === "sending" || (!!siteKey && !token)}>
+                    {state === "sending" ? "Đang gửi…" : "Gửi link đăng nhập"}
+                  </button>
+                </form>
+              </>
+            )}
+            <ErrorNote error={error ?? config.error} />
           </>
         )}
       </div>
     </main>
+  );
+}
+
+function GoogleMark() {
+  return (
+    <svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true" focusable="false">
+      <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62Z" />
+      <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.81.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18Z" />
+      <path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33Z" />
+      <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58Z" />
+    </svg>
   );
 }

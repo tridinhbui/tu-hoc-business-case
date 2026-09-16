@@ -1,4 +1,5 @@
 import { adminOverview } from "./admin";
+import { googleCallback, googleEnabled, startGoogleLogin } from "./google";
 import { currentUser, logout, requestMagicLink, requireUser, verifyMagicLink } from "./auth";
 import { reviewAttempt, startAttempt, submitAttempt, uploadArtifact } from "./attempts";
 import { claimAttempt, consumeGrading, gradeAttempt, graderQueue } from "./grading";
@@ -17,12 +18,20 @@ const route = (method: string, pattern: string, handler: Handler) =>
 
 route("GET", "/api/health", async () => json({ ok: true, service: "bc-platform" }));
 // Public client configuration. The Turnstile sitekey is public by design; the secret never leaves the Worker.
-route("GET", "/api/config", async (_req, env) => json({ turnstileSiteKey: env.TURNSTILE_SITEKEY || null, devMode: isDev(env) }));
+route("GET", "/api/config", async (_req, env) => json({
+  turnstileSiteKey: env.TURNSTILE_SITEKEY || null,
+  devMode: isDev(env),
+  googleLogin: googleEnabled(env),
+  // magic links need Cloudflare Email Sending, which only exists on a Paid account with a domain
+  magicLink: isDev(env) || !!env.EMAIL,
+}));
 
 // auth
 route("POST", "/api/auth/request", (req, env) => requestMagicLink(req, env));
 route("GET", "/api/auth/verify", (req, env) => verifyMagicLink(req, env));
 route("POST", "/api/auth/logout", (req, env) => logout(req, env));
+route("GET", "/api/auth/google/start", (req, env) => startGoogleLogin(req, env));
+route("GET", "/api/auth/google/callback", (req, env) => googleCallback(req, env));
 route("GET", "/api/me", async (req, env) => meView(env, await currentUser(req, env)));
 
 // catalog (published content, cached for 60 s)

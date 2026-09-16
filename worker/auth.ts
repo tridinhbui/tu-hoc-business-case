@@ -106,28 +106,30 @@ export async function verifyMagicLink(request: Request, env: AppEnv): Promise<Re
   }
   await env.SESSIONS.delete(key); // single use
 
-  let user = await env.DB_LEARNING.prepare("SELECT id FROM users WHERE email = ?1").bind(stored.email).first<{ id: string }>();
-  if (!user) {
-    const id = uuid();
-    await env.DB_LEARNING.prepare(
-      "INSERT INTO users (id, email, display_name, role, level, created_at) VALUES (?1, ?2, ?3, 'learner', 1, ?4)",
-    ).bind(id, stored.email, stored.displayName ?? stored.email.split("@")[0], now()).run();
-    user = { id };
-  }
-
-  const sessionId = randomToken();
-  await env.SESSIONS.put(`s:${await sha256(sessionId)}`, JSON.stringify({ userId: user.id }), {
-    expirationTtl: SESSION_TTL_SECONDS,
-  });
-
-  const secure = url.protocol === "https:" ? "; Secure" : "";
+  const userId = await upsertUser(env, stored.email, stored.displayName);
   return new Response(null, {
     status: 302,
-    headers: {
-      location: "/",
-      "set-cookie": `${SESSION_COOKIE}=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${SESSION_TTL_SECONDS}${secure}`,
-    },
+    headers: { location: "/", "set-cookie": await issueSession(env, userId, url) },
   });
+}
+
+/** Creates the account on first sign-in; email is the identity across login methods. */
+export async function upsertUser(env: AppEnv, email: string, displayName: string | null): Promise<string> {
+  const existing = await env.DB_LEARNING.prepare("SELECT id FROM users WHERE email = ?1").bind(email).first<{ id: string }>();
+  if (existing) return existing.id;
+  const id = uuid();
+  await env.DB_LEARNING.prepare(
+    "INSERT INTO users (id, email, display_name, role, level, created_at) VALUES (?1, ?2, ?3, 'learner', 1, ?4)",
+  ).bind(id, email, displayName || email.split("@")[0], now()).run();
+  return id;
+}
+
+/** Stores a session in KV and returns the Set-Cookie header value. */
+export async function issueSession(env: AppEnv, userId: string, url: URL): Promise<string> {
+  const sessionId = randomToken();
+  await env.SESSIONS.put(`s:${await sha256(sessionId)}`, JSON.stringify({ userId }), { expirationTtl: SESSION_TTL_SECONDS });
+  const secure = url.protocol === "https:" ? "; Secure" : "";
+  return `${SESSION_COOKIE}=${sessionId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${SESSION_TTL_SECONDS}${secure}`;
 }
 
 function readSessionCookie(request: Request): string | null {

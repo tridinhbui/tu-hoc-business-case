@@ -237,6 +237,10 @@ td.r, th.r { text-align: right; }
 .data-list li { padding: 7px 10px; background: var(--surface-2); border-radius: 3px; font-size: 14px; }
 .answer-frame { border-left: 3px solid var(--l4); background: var(--l4-bg); }
 .turnstile-slot { min-height: 65px; }
+.btn-google { gap: 9px; background: var(--surface); color: var(--ink); border: 1px solid var(--rule-strong); font-weight: 500; }
+.btn-google:hover { border-color: var(--accent); filter: none; }
+.or-divider { display: flex; align-items: center; gap: 12px; color: var(--ink-3); font-size: 12.5px; margin: 2px 0; }
+.or-divider::before, .or-divider::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
 
 /* login */
 .login { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
