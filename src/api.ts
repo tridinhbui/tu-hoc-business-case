@@ -204,6 +204,8 @@ export type KingdomModule = {
   status: "locked" | "open" | "cleared"; boss: KingdomBoss | null;
 };
 
+export type Badge = { id: string; name: string; detail: string; earned: boolean; progress: string };
+
 export type KingdomView = {
   hero: {
     level: number; name: string; xp: number; passed: number; total: number; streak: number;
@@ -211,4 +213,9 @@ export type KingdomView = {
   };
   territories: { id: string; name: string; role: string; status: "locked" | "open" | "cleared"; modules: KingdomModule[] }[];
   quests: { kind: "remediation" | "review" | "next"; lesson_id: string; label: string; detail: string }[];
+  badges: Badge[];
+  leaderboard: {
+    path_id: string; path_name: string;
+    rows: { rank: number; xp: number; passed: number; you: boolean }[];
+  } | null;
 };

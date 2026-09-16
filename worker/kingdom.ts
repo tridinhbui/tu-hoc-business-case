@@ -1,4 +1,5 @@
 import type { User } from "./auth";
+import { badgesFor } from "./badges";
 import { recomputeProgress } from "./gates";
 import { AppEnv, json } from "./util";
 
@@ -41,7 +42,7 @@ export async function kingdomView(env: AppEnv, user: User): Promise<Response> {
     ),
     env.DB_CONTENT.prepare("SELECT id, name, role FROM tracks ORDER BY sort"),
   ]);
-  const [passedRes, remediationRes, readinessRes] = await env.DB_LEARNING.batch([
+  const [passedRes, remediationRes, readinessRes, enrollmentRes] = await env.DB_LEARNING.batch([
     env.DB_LEARNING.prepare(
       "SELECT lesson_id, MIN(graded_at) AS passed_at FROM attempts WHERE user_id = ?1 AND passed = 1 GROUP BY lesson_id",
     ).bind(user.id),
@@ -50,6 +51,9 @@ export async function kingdomView(env: AppEnv, user: User): Promise<Response> {
        WHERE user_id = ?1 AND status = 'active' ORDER BY triggered_at`,
     ).bind(user.id),
     env.DB_LEARNING.prepare("SELECT skill_id, score FROM readiness WHERE user_id = ?1").bind(user.id),
+    env.DB_LEARNING.prepare(
+      "SELECT path_id FROM enrollments WHERE user_id = ?1 AND status = 'active' LIMIT 1",
+    ).bind(user.id),
   ]);
 
   const lessons = lessonsRes.results as LessonRow[];
@@ -131,6 +135,9 @@ export async function kingdomView(env: AppEnv, user: User): Promise<Response> {
       })),
   ];
 
+  const leaderboard = await pathLeaderboard(env, user.id, (enrollmentRes.results[0] as { path_id: string } | undefined)?.path_id);
+  const badges = await badgesFor(env, user.id);
+
   return json({
     hero: {
       level: user.level,
@@ -148,5 +155,41 @@ export async function kingdomView(env: AppEnv, user: User): Promise<Response> {
     },
     territories,
     quests,
+    badges,
+    leaderboard,
   });
+}
+
+/**
+ * Ranking runs inside one path, never across the whole platform: comparing someone in week 1 with
+ * someone in week 8 measures how long they have been here, not how well they are doing.
+ *
+ * Rows carry no names. Seeing that you are 4th of 12 is the useful part; seeing whose score is
+ * whose is other people's business, and nobody agreed to publish theirs by enrolling.
+ */
+async function pathLeaderboard(env: AppEnv, userId: string, pathId: string | undefined) {
+  if (!pathId) return null;
+  const { results } = await env.DB_LEARNING.prepare(
+    `WITH best AS (
+       SELECT user_id, lesson_id, MAX(final_score) AS score FROM attempts
+       WHERE passed = 1 AND final_score IS NOT NULL GROUP BY user_id, lesson_id
+     )
+     SELECT e.user_id, SUM(b.score) AS xp, COUNT(*) AS passed
+     FROM enrollments e JOIN best b ON b.user_id = e.user_id
+     WHERE e.path_id = ?1 AND e.status = 'active'
+     GROUP BY e.user_id ORDER BY xp DESC, passed DESC LIMIT 20`,
+  ).bind(pathId).all<{ user_id: string; xp: number; passed: number }>();
+
+  const path = await env.DB_CONTENT.prepare("SELECT name FROM learning_paths WHERE id = ?1")
+    .bind(pathId).first<{ name: string }>();
+  return {
+    path_id: pathId,
+    path_name: path?.name ?? pathId,
+    rows: results.map((row, index) => ({
+      rank: index + 1,
+      xp: row.xp,
+      passed: row.passed,
+      you: row.user_id === userId,
+    })),
+  };
 }

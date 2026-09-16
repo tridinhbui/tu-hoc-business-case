@@ -8,7 +8,7 @@ export function KingdomPage() {
   if (loading && !data) return <section className="wrap"><Loading /></section>;
   if (!data) return <section className="wrap"><ErrorNote error={error} /></section>;
 
-  const { hero, territories, quests } = data;
+  const { hero, territories, quests, badges, leaderboard } = data;
   const open = territories.filter((t) => t.status !== "locked");
   const locked = territories.filter((t) => t.status === "locked");
 
@@ -53,6 +53,49 @@ export function KingdomPage() {
           </ul>
         </section>
       )}
+
+      <div className="grid-2">
+        <section className="panel">
+          <h2>Huy hiệu</h2>
+          <p className="muted small">Chỉ có huy hiệu cho việc làm được, không có huy hiệu cho việc chăm mở ứng dụng.</p>
+          <ul className="badges">
+            {badges.map((b) => (
+              <li key={b.id} className={b.earned ? "badge is-earned" : "badge"}>
+                <span className="badge-mark" aria-hidden="true">{b.earned ? "◆" : "◇"}</span>
+                <span className="badge-body">
+                  <b>{b.name}</b>
+                  <small>{b.detail}</small>
+                  <small className="mono">{b.progress}</small>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {leaderboard && (
+          <section className="panel">
+            <h2>Xếp hạng trong lộ trình</h2>
+            <p className="muted small">
+              {leaderboard.path_name} · chỉ so với người cùng lộ trình, và không hiện tên ai — thứ hạng là của bạn,
+              điểm của người khác là chuyện của họ.
+            </p>
+            {leaderboard.rows.length <= 1 ? (
+              <p className="muted">Chưa có ai khác trong lộ trình này để so.</p>
+            ) : (
+              <ol className="ranking">
+                {leaderboard.rows.map((r) => (
+                  <li key={r.rank} className={r.you ? "is-you" : ""}>
+                    <span className="mono rank">#{r.rank}</span>
+                    <span>{r.you ? "Bạn" : "Người học khác"}</span>
+                    <span className="mono muted small">{r.passed} bài</span>
+                    <span className="mono">{r.xp.toLocaleString("vi-VN")}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </section>
+        )}
+      </div>
 
       {open.map((t) => (
         <section key={t.id} className={`territory is-${t.status}`}>

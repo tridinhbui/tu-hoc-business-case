@@ -307,6 +307,15 @@ async function main() {
   check("locked territories carry no boss to attack",
     kingdom.data.territories.filter((t) => t.status === "locked").every((t) => t.modules.every((m) => m.status === "locked")));
   check("anonymous visitors get no map (401)", (await new Client("anon2").call("GET", "/api/kingdom")).status === 401);
+  const fixed = kingdom.data.badges?.find((b) => b.id === "fixed-SIZ-02");
+  check("a badge tracks the mistake that stopped coming back",
+    !!fixed && typeof fixed.earned === "boolean" && /kể từ lần dính cuối/.test(fixed.progress), fixed);
+  check("no badge for merely showing up",
+    kingdom.data.badges.every((b) => !/đăng nhập|ngày liên tiếp mở/i.test(b.name + b.detail)), kingdom.data.badges);
+  check("the ranking stays inside one path and names nobody",
+    kingdom.data.leaderboard === null ||
+    (typeof kingdom.data.leaderboard.path_id === "string" &&
+     kingdom.data.leaderboard.rows.every((r) => !("name" in r) && !("user_id" in r))), kingdom.data.leaderboard);
 
   console.log("== readiness");
   const readiness = (await learner.call("GET", "/api/me")).data.readiness;

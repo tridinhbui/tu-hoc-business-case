@@ -37,14 +37,15 @@ Máu boss cũng vậy: nó không rút khi người học mở bài hay xem bài
 - Danh sách nhiệm vụ: drill sửa lỗi (ưu tiên cao nhất), bài cần review, rồi các bài đang mở.
 - Vùng đất đang mở: từng module là một điểm, có thanh tiến độ và thẻ boss với máu; boss mở thì có nút **Đánh boss**, boss khoá thì nói rõ vì sao khoá.
 - Vùng đất chưa mở liệt kê gọn ở cuối, không giả vờ là bí ẩn.
+- **Huy hiệu** gắn với việc làm được, không gắn với việc chăm mở ứng dụng: mỗi mã lỗi đã ngừng tái phạm (3 bài chấm liên tiếp không dính lại) là một huy hiệu riêng, cộng chuỗi bài sạch lỗi, case bấm giờ đã qua, checkpoint đã hạ, bài từ 90 điểm. Suy ra từ `attempts` và `mistake_tags`, nên huy hiệu không thể tồn tại lâu hơn bằng chứng của nó.
+- **Xếp hạng trong lộ trình**, và **không hiện tên ai**. Hai quyết định tách bạch: xếp hạng toàn hệ thống chỉ đo xem ai vào trước, không đo ai học tốt; còn hiện tên thì biến việc ghi danh một lộ trình thành hành vi công bố điểm của mình cho người lạ, điều không ai đồng ý khi bấm "chọn lộ trình". Người học thấy mình đứng thứ mấy trong bao nhiêu người, thế là đủ để có động lực.
 
 Kiểm thử e2e bao: bản đồ dựng từ tiến độ của chính người học, XP là tổng điểm, công thức máu boss, vùng khoá không có boss để đánh, hạ checkpoint thì boss về 0 máu và module chuyển sang "đã chiếm", và người chưa đăng nhập không xem được bản đồ.
 
 ## Bước tiếp theo, xếp theo giá trị trên công sức
 
-1. **Bảng xếp hạng theo lộ trình, không theo toàn hệ thống.** So sánh người mới tuần 1 với người đã học 8 tuần là vô nghĩa và làm nản. Xếp hạng trong cùng lộ trình, cùng tuần.
-2. **Huy hiệu gắn với mã lỗi đã diệt.** "Ba lần liên tiếp không dính SIZ-06" là thành tích nói lên năng lực thật, khác hẳn "đăng nhập 7 ngày".
-3. **Boss theo mùa từ case thật.** Một case timed mỗi tuần, cả nhóm cùng đánh, dùng phòng live đã có (Durable Object) để chạy đồng thời.
-4. **Clan = nhóm học.** Nhóm học đã có trong sản phẩm; gắn tiến độ nhóm vào bản đồ là phần dễ nhất trong ba cái trên.
+1. **Chia hạng theo tuần trong lộ trình.** Hiện mới xếp theo lộ trình; người ở tuần 1 vẫn đứng chung bảng với người ở tuần 6. Cần cắt theo tuần đang học.
+2. **Boss theo mùa từ case thật.** Một case timed mỗi tuần, cả nhóm cùng đánh, dùng phòng live đã có (Durable Object) để chạy đồng thời.
+3. **Clan = nhóm học.** Nhóm học đã có trong sản phẩm; gắn tiến độ nhóm vào bản đồ là phần dễ nhất trong ba cái trên.
 
-Thứ tự này có lý do: (1) và (2) làm động lực khớp với việc học đúng cách, (3) và (4) tốn công vận hành và chỉ đáng làm khi đã có đủ người học cùng lúc.
+Hai mục cuối tốn công vận hành và chỉ đáng làm khi đã có đủ người học cùng lúc.
