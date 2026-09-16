@@ -2,6 +2,12 @@
    Nội dung bài học và đề case vẫn là tiếng Việt (xem ghi chú trong app khi ở chế độ EN). */
 I18N.add({
   /* ── track ── */
+  "Mỗi bài đều kết thúc bằng một output thật: một phép tính, một slide, một insight từ biểu đồ, hoặc một câu trả lời nói.":"Every lesson ends with a real output: a calculation, a slide, an insight from a chart, or a spoken answer.",
+  "Bạn đã học hết giáo trình":"You have finished the curriculum",
+  "Kỹ thuật giải case":"Case method",
+  "Giải được một case chưa từng gặp bằng một quy trình lặp lại, không bằng trí nhớ.":"Solve a case you have never seen using a repeatable process, not memory.",
+  "Người đã biết framework nhưng vẫn lúng túng khi gặp đề lạ":"Learners who know the frameworks but freeze on an unfamiliar brief",
+  "Họ 1 · Lợi nhuận":"Family 1 · Profit",
   "Nền tảng kinh doanh":"Business fundamentals",
   "Hiểu cách một doanh nghiệp kiếm tiền và đọc được con số cơ bản.":"Understand how a business makes money and read its basic numbers.",
   "Người mới học business, chưa biết bắt đầu từ đâu":"Beginners who don't know where to start",

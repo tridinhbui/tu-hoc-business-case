@@ -393,7 +393,9 @@ Bán kính 8–14px, viền mảnh, đổ bóng nhẹ, số dùng `font-variant-
 
 ## 6. Lộ trình nội dung 100 bài đầu
 
-Đã triển khai trong `assets/js/data/curriculum.js`: **6 track · 44 module · 100 bài**.
+Đã triển khai trong `assets/js/data/curriculum.js`: **7 track · 45 module · 104 bài**.
+Track thứ bảy `method` (Kỹ thuật giải case) là Tầng 2 của `KE-HOACH-DAY-GIAI-CASE.md` —
+dạy phương pháp theo **họ case**, kế hoạch thi hành ở `KE-HOACH-VIET-NOI-DUNG.md`.
 
 | Track | Bậc | Bài | Học xong làm được |
 |---|---|---:|---|
@@ -403,6 +405,7 @@ Bán kính 8–14px, viền mảnh, đổ bóng nhẹ, số dùng `font-variant-
 | Marketing Case | Intermediate | 14 | Segmentation, 4P, pricing, go-to-market |
 | Supply Chain & Operations | Intermediate | 12 | Bottleneck, tồn kho, chi phí vận hành, capacity |
 | Finance for Business Case | Advanced | 10 | NPV/IRR, break-even, định giá sơ bộ, đọc dòng tiền |
+| Case Method | Intermediate | 4 | Nhận diện họ case, dựng cây đúng biến thể, xin đúng dữ liệu, tránh bốn bẫy |
 
 Phân bố **output** của 100 bài:
 calculation 32 · slide 28 · recommendation 16 · chart insight 13 · speaking answer 7 · checklist 4.

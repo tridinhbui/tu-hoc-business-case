@@ -37,6 +37,8 @@ function render(){
       case "pricing":   html = VIEWS.pricing(); break;
       case "terms":     html = VIEWS.terms(); break;
       case "design-system": html = VIEWS.designSystem(); break;
+      case "roadmap":
+      case "consulting": html = VIEWS.consultingRoadmap(); break;
       default:          html = VIEWS.notfound();
     }
   }catch(e){
@@ -47,7 +49,7 @@ function render(){
   UI.hud();
   if(r === "home" && window.LANDING && LANDING.initTilt) LANDING.initTilt();
   // nav highlight
-  const map = {learn:"#/learn",track:"#/learn",lesson:"#/learn",exam:"#/learn",certificate:"#/profile",daily:"#/daily",map:"#/map",district:"#/map",company:"#/companies",companies:"#/companies",
+  const map = {roadmap:"#/roadmap",consulting:"#/roadmap",learn:"#/learn",track:"#/learn",lesson:"#/learn",exam:"#/learn",certificate:"#/profile",daily:"#/daily",map:"#/map",district:"#/map",company:"#/companies",companies:"#/companies",
     cases:"#/cases",case:"#/cases",review:"#/cases",models:"#/models",model:"#/models",
     battles:"#/battles",battle:"#/battles",profile:"#/profile"};
   document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("on", a.getAttribute("href")===map[r]));

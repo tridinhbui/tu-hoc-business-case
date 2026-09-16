@@ -14,6 +14,10 @@ let n=0; const t=(name,fn)=>{ fn(); n++; console.log("  ✓",name); };
 
 /* đáp án tính lại từ đề — mỗi dòng là một phép tính độc lập với dữ liệu bài */
 const RECOMPUTE = {
+  "k-profit-1": ()=> (1 - 1.18*0.09/0.16)*100,
+  "k-profit-2": ()=> 12000*0.75*0.75*1.2e6/1e9,
+  "k-profit-3": ()=> 1200*0.22 - 1000*0.16,
+  "k-profit-4": ()=> (1.2-0.9)*10,
   "f-profit-1": ()=> 300 - 300*0.38 - 60 - 45 - 30,
   "f-profit-2": ()=> (7.2-4.1)*30,
   "f-profit-3": ()=> ((1100*0.8-600)/(1000*0.8-600) - 1)*100,

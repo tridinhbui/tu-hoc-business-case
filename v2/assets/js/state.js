@@ -26,7 +26,9 @@ const daysBetween = (a,b) => { const p=s=>{const [y,m,d]=s.split("-").map(Number
 
 function blank(){
   return { v:2, user:{name:"Học viên", created:today()}, lessons:{}, cases:{},
-           mistakes:[], activity:{}, career:null, seq:0, tick:0 };
+           mistakes:[], activity:{}, career:null, seq:0, tick:0,
+           readerPrefs:{ fontSize:100, theme:"light", bookmarks:[] },
+           notes:{}, dailyChallenge:{} };
 }
 
 let S = load();
@@ -41,6 +43,109 @@ function load(){
   }catch(e){ return blank(); }
 }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ── reader preferences & notes ── */
+function getReaderPrefs(){
+  if(!S.readerPrefs) S.readerPrefs = { fontSize:100, theme:"light", bookmarks:[] };
+  return S.readerPrefs;
+}
+function setReaderFontSize(delta){
+  const p = getReaderPrefs();
+  let sz = (p.fontSize || 100) + delta;
+  sz = Math.max(85, Math.min(150, sz));
+  p.fontSize = sz;
+  save();
+  return sz;
+}
+function setReaderTheme(theme){
+  const p = getReaderPrefs();
+  p.theme = theme;
+  save();
+  return theme;
+}
+function isBookmarked(lessonId){
+  const p = getReaderPrefs();
+  return Array.isArray(p.bookmarks) && p.bookmarks.includes(lessonId);
+}
+function toggleBookmark(lessonId){
+  const p = getReaderPrefs();
+  if(!Array.isArray(p.bookmarks)) p.bookmarks = [];
+  const idx = p.bookmarks.indexOf(lessonId);
+  if(idx>=0) p.bookmarks.splice(idx,1);
+  else p.bookmarks.push(lessonId);
+  save();
+  return isBookmarked(lessonId);
+}
+function getLessonNote(lessonId){
+  if(!S.notes) S.notes = {};
+  return S.notes[lessonId] || "";
+}
+function setLessonNote(lessonId, text){
+  if(!S.notes) S.notes = {};
+  S.notes[lessonId] = String(text||"");
+  save();
+}
+
+/* ── daily challenge widget ── */
+const DAILY_CHALLENGES = [
+  {
+    id: "dc-1",
+    tag: "TÍNH NHANH",
+    q: "Doanh thu 50 tỷ, Biên gộp (Gross Margin) 40%, Chi phí vận hành (OPEX) 12 tỷ. Biên lợi nhuận hoạt động (Operating Margin) là bao nhiêu?",
+    opts: [
+      ["A", "16%", "Lợi nhuận HĐ = 50 × 40% − 12 = 8 tỷ → Biên HĐ = 8 / 50 = 16%."],
+      ["B", "24%", "Sai do quên trừ OPEX hoặc tính nhầm."],
+      ["C", "8%", "Sai do lấy 8 tỷ chia cho 100 tỷ."],
+      ["D", "30%", "Sai công thức."]
+    ],
+    correct: "A"
+  },
+  {
+    id: "dc-2",
+    tag: "FRAMEWORK",
+    q: "Khi phân tích nguyên nhân sụt giảm doanh thu của một chuỗi bán lẻ, cách chia nào sau đây đảm bảo tính MECE nhất?",
+    opts: [
+      ["A", "Doanh thu = Lượng khách × Giá trị đơn hàng trung bình (AOV)", "Phân rã chuẩn MECE theo hành vi mua hàng."],
+      ["B", "Doanh thu = Khách mới + Khách cũ", "Dễ trùng lặp định nghĩa hoặc bỏ sót giá trị mua."],
+      ["C", "Doanh thu = Online + Offline + Khuyến mãi", "Khuyến mãi không phải kênh bán hàng độc lập."],
+      ["D", "Doanh thu = Sản phẩm chính + Marketing", "Không cùng một chiều phân loại."]
+    ],
+    correct: "A"
+  },
+  {
+    id: "dc-3",
+    tag: "MARKET SIZING",
+    q: "Thị trường cà phê mang đi tại TP.HCM: 9 triệu dân, 30% uống cà phê mỗi ngày, giá bình quân 30.000đ/ly. Quy mô thị trường 1 ngày xấp xỉ?",
+    opts: [
+      ["A", "81 tỷ đồng", "9 triệu × 30% = 2.7 triệu ly × 30.000đ = 81 tỷ/ngày."],
+      ["B", "27 tỷ đồng", "Tính thiếu nhân với đơn giá 30k."],
+      ["C", "150 tỷ đồng", "Ước lượng sai tỷ lệ dân số."],
+      ["D", "54 tỷ đồng", "Tính nhầm số lượng ly."]
+    ],
+    correct: "A"
+  }
+];
+
+function getDailyChallenge(){
+  const todayKey = today();
+  const dayHash = Math.abs(todayKey.split("").reduce((a,c)=>(a<<5)-a+c.charCodeAt(0),0));
+  const ch = DAILY_CHALLENGES[dayHash % DAILY_CHALLENGES.length];
+  if(!S.dailyChallenge) S.dailyChallenge = {};
+  const rec = S.dailyChallenge[todayKey] || null;
+  return { challenge: ch, state: rec };
+}
+function answerDailyChallenge(pickedKey){
+  const todayKey = today();
+  const { challenge } = getDailyChallenge();
+  if(!S.dailyChallenge) S.dailyChallenge = {};
+  if(S.dailyChallenge[todayKey]) return S.dailyChallenge[todayKey];
+  const correct = pickedKey === challenge.correct;
+  const rec = { picked: pickedKey, correct, at: todayKey };
+  S.dailyChallenge[todayKey] = rec;
+  if(correct) gainXP(15, "high");
+  save();
+  return rec;
+}
 
 /* ── nhật ký hoạt động theo ngày: nền cho XP tuần, streak, nhiệm vụ ── */
 function day(iso){
@@ -302,6 +407,8 @@ window.State = {
   caseRec, casesSolved, avgScore, openMistakes, mistakesByKind, reviewQueue, dueToday, missions, careerProgress,
   touchLesson, answerQuiz, toggleCheck, completeLesson, recordAttempt, saveDraft,
   addMistake, reviewMistake, resolveMistake, setCareer, setName,
+  getReaderPrefs, setReaderFontSize, setReaderTheme, isBookmarked, toggleBookmark,
+  getLessonNote, setLessonNote, getDailyChallenge, answerDailyChallenge,
   exportJSON, importJSON, reset, seedDemo
 };
 })();

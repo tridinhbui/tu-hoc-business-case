@@ -1,5 +1,10 @@
 /* Bản tiếng Anh cho 100 tiêu đề bài học. Nội dung bên trong bài vẫn là tiếng Việt. */
 I18N.add({
+  /* Case Method — Họ 1 · Lợi nhuận */
+  "Nhận diện case lợi nhuận":"Recognising a profit case",
+  "Cây chuẩn và ba biến thể":"The standard tree and its three variants",
+  "Ba yêu cầu dữ liệu đắt giá nhất":"The three most valuable data requests",
+  "Bốn bẫy và hình dạng lời giải tốt":"Four traps and the shape of a good answer",
   /* Business Fundamentals */
   "Vì sao mọi case đều bắt đầu bằng một con số":"Why every case starts with a number",
   "Top-down và bottom-up: chọn đường nào":"Top-down or bottom-up: which route to take",

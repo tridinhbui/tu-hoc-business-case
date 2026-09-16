@@ -6,6 +6,9 @@ window.TRACKS = [
  { id:"fundamentals", n:"Business Fundamentals", vi:"Nền tảng kinh doanh", icon:"▤", color:"ink",
    lvl:"Beginner", promise:"Hiểu cách một doanh nghiệp kiếm tiền và đọc được con số cơ bản.",
    for:"Người mới học business, chưa biết bắt đầu từ đâu" },
+ { id:"method", n:"Case Method", vi:"Kỹ thuật giải case", icon:"◬", color:"accent",
+   lvl:"Intermediate", promise:"Giải được một case chưa từng gặp bằng một quy trình lặp lại, không bằng trí nhớ.",
+   for:"Người đã biết framework nhưng vẫn lúng túng khi gặp đề lạ" },
  { id:"competition", n:"Case Competition", vi:"Thi case", icon:"◈", color:"amber",
    lvl:"Advanced", promise:"Đi từ đề bài tới deck hoàn chỉnh và bảo vệ được trước ban giám khảo.",
    for:"Sinh viên chuẩn bị thi case competition" },
@@ -86,6 +89,13 @@ window.MODULES = [
   {id:"c-qa-1", t:"Năm câu hỏi ban giám khảo luôn hỏi", m:8, lv:4, out:"speaking answer"},
   {id:"c-qa-2", t:"Bảo vệ giả định mà không cố chấp", m:7, lv:4, out:"speaking answer"},
   {id:"c-qa-3", t:"Khi bị chỉ ra lỗi tính toán giữa buổi", m:6, lv:4, out:"speaking answer"}]},
+
+/* ============ 7. CASE METHOD — Tầng 2, họ case ============ */
+{ id:"k-profit", track:"method", n:"Profit family", vi:"Họ 1 · Lợi nhuận", lessons:[
+  {id:"k-profit-1", t:"Nhận diện case lợi nhuận", m:7, lv:2, out:"recommendation"},
+  {id:"k-profit-2", t:"Cây chuẩn và ba biến thể", m:8, lv:2, out:"slide"},
+  {id:"k-profit-3", t:"Ba yêu cầu dữ liệu đắt giá nhất", m:8, lv:2, out:"chart insight"},
+  {id:"k-profit-4", t:"Bốn bẫy và hình dạng lời giải tốt", m:8, lv:3, out:"calculation"}]},
 
 /* ============ 3. CONSULTING CASE INTERVIEW — 22 bài ============ */
 { id:"i-profit", track:"consulting", n:"Profitability case", vi:"Case lợi nhuận", lessons:[

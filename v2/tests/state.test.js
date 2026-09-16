@@ -13,7 +13,7 @@ S._setToday("2026-09-13"); S.reset();
 
 t("state rỗng ban đầu",()=>{
   assert.equal(S.xpTotal(),0); assert.equal(S.streak(),0);
-  assert.equal(S.overall().done,0); assert.equal(S.overall().total,100);
+  assert.equal(S.overall().done,0); assert.equal(S.overall().total,W.LESSONS.length);  // không chốt cứng số bài: giáo trình còn dài ra
   assert.equal(S.nextLesson().id,"f-sizing-1");
   assert.equal(S.level().title,"Intern");
 });

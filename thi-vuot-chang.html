@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tự Học Tài Chính — Thi vượt chặng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7f4;
+      --surface: #ffffff;
+      --surface-subtle: #f8faf8;
+      --sidebar-bg: #ffffff;
+      --sidebar-border: #e9efe9;
+      --border-color: #e4ebe4;
+      --border-light: #f0f4f0;
+      
+      --text-main: #172a1e;
+      --text-secondary: #526657;
+      --text-muted: #839789;
+      
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-light: #e6f7ee;
+      --primary-ring: rgba(5, 150, 105, 0.15);
+      
+      --emerald-pill: #e6f7ee;
+      --emerald-text: #059669;
+      --amber-pill: #fef5e7;
+      --amber-text: #b45309;
+      --pink-pill: #fce7e7;
+      --pink-text: #e11d48;
+      --cyan-pill: #e0f8f4;
+      --cyan-text: #0891b2;
+      --purple-pill: #f3e8ff;
+      --purple-text: #9333ea;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 26px;
+      --radius-pill: 9999px;
+      
+      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.04);
+      --shadow-card: 0 4px 16px -2px rgba(20, 40, 25, 0.05), 0 2px 6px -1px rgba(20, 40, 25, 0.03);
+      --shadow-hover: 0 10px 24px -4px rgba(20, 40, 25, 0.08);
+      
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════ SIDEBAR ════════════ */
+    .sidebar {
+      width: 256px;
+      min-width: 256px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--sidebar-border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 16px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: #0d4a2d;
+      line-height: 1.15;
+    }
+
+    .search-box {
+      margin: 12px 16px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f6faf6;
+      border: 1px solid #e2ebe2;
+      border-radius: var(--radius-pill);
+      padding: 7px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .search-box:hover {
+      background: #eff6ef;
+      border-color: #d1e2d1;
+    }
+
+    .search-box kbd {
+      margin-left: auto;
+      font-size: 10.5px;
+      background: #ffffff;
+      border: 1px solid #dae4da;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 12px 16px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: #e2ebe2;
+      border-radius: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 2px;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: #f2f7f2;
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background: #d8f3e3;
+      color: #046a41;
+      font-weight: 700;
+    }
+
+    .nav-item .icon {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+    }
+
+    .nav-section-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #799180;
+      padding: 18px 14px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .nav-section-title .chevron {
+      font-size: 10px;
+      transition: transform 0.2s;
+    }
+
+    .nav-tag {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.02em;
+    }
+
+    .tag-new {
+      background: #dcfce7;
+      color: #0f766e;
+    }
+
+    .tag-hot {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .tag-checkin {
+      background: #ffedd5;
+      color: #ea580c;
+    }
+
+    .sidebar-footer {
+      padding: 14px 14px;
+      border-top: 1px solid var(--sidebar-border);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gold-wallet-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gold-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fbf6ec;
+      border: 1px solid #f3e6ce;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      color: #8c5b16;
+      flex: 1;
+      margin-right: 8px;
+    }
+
+    .gold-pill .coin-icon {
+      font-size: 14px;
+    }
+
+    .gold-count {
+      margin-left: auto;
+      font-size: 13px;
+      font-weight: 800;
+      color: #5c3c0a;
+    }
+
+    .bell-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #e7efe7;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+
+    .bell-btn:hover {
+      background: #f5faf5;
+    }
+
+    .bell-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 999px;
+      border: 2px solid #ffffff;
+      line-height: 1;
+    }
+
+    .user-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 8px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .user-profile-card:hover {
+      background: #f3f8f3;
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-email {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-chevron {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    /* ════════════ MAIN CONTENT ════════════ */
+    .main-container {
+      flex: 1;
+      padding: 24px 36px 48px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ── PAGE TOP HEADER ── */
+    .page-top-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .header-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: #fdf6ec;
+      border: 1.5px solid #f9e2ba;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #b45309;
+      box-shadow: 0 2px 6px rgba(180, 83, 9, 0.06);
+    }
+
+    .header-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #14281b;
+      letter-spacing: -0.02em;
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* ── HERO STATS BANNER ── */
+    .hero-stat-banner {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 24px 30px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 32px;
+      align-items: center;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+    }
+
+    .banner-art-box {
+      width: 100%;
+      height: 150px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid #e2ebe2;
+      background: #f0f7f0;
+    }
+
+    .banner-art-box svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .banner-info-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .banner-desc-text {
+      font-size: 13.5px;
+      color: #2b3e31;
+      line-height: 1.5;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .banner-metric-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .metric-big-score {
+      font-size: 28px;
+      font-weight: 800;
+      color: #047857;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-big-score .score-sub {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-left: 6px;
+    }
+
+    .metric-rule-text {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #047857;
+    }
+
+    /* Segmented 27 Stages Progress Bar */
+    .segmented-progress-bar {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      width: 100%;
+    }
+
+    .seg-pill {
+      flex: 1;
+      height: 7px;
+      background: #e6eee6;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+
+    .seg-pill.active {
+      background: #10b981;
+    }
+
+    /* ── FILTER PILL TABS ── */
+    .filter-tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .filter-tab-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1.5px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-secondary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-tab-pill:hover {
+      background: #f7faf7;
+      border-color: #cbdccb;
+      color: var(--text-main);
+    }
+
+    .filter-tab-pill.active {
+      background: #ffffff;
+      border-color: #10b981;
+      color: #065f46;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
+    }
+
+    /* ── STAGES 3-COLUMN GRID ── */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .stage-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .stage-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: #cbdccb;
+    }
+
+    .stage-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .stage-icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .icon-bg-green { background: #eaf8f0; color: #059669; }
+    .icon-bg-orange { background: #fef5e7; color: #d97706; }
+    .icon-bg-blue { background: #e6f6fd; color: #0284c7; }
+    .icon-bg-cyan { background: #e0f8f4; color: #0891b2; }
+    .icon-bg-neutral { background: #f5f5f4; color: #78716c; }
+
+    .stage-num-badge {
+      border: 1.5px solid #a7f3d0;
+      background: #f0fdf4;
+      color: #059669;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+    }
+
+    .stage-card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #162a1e;
+      line-height: 1.35;
+      margin-bottom: 16px;
+      min-height: 40px;
+      letter-spacing: -0.01em;
+    }
+
+    .stage-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .meta-progress-text {
+      color: var(--text-secondary);
+    }
+
+    .meta-skip-badge {
+      background: #fff7ed;
+      border: 1px solid #ffedd5;
+      color: #ea580c;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .meta-questions-count {
+      color: var(--text-muted);
+    }
+
+    .stage-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      position: relative;
+    }
+
+    .btn-thi-vuot {
+      background: #044e39;
+      border: none;
+      color: #ffffff;
+      padding: 9px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(4, 78, 57, 0.25);
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-thi-vuot:hover {
+      background: #023828;
+      box-shadow: 0 6px 16px rgba(4, 78, 57, 0.35);
+    }
+
+    .card-tree-icon {
+      width: 32px;
+      height: 38px;
+      opacity: 0.45;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    /* Floating Action Button */
+    .fab-menu-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 46px;
+      height: 46px;
+      background: #1c261e;
+      color: #ffffff;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      z-index: 99;
+      transition: transform 0.2s ease;
+    }
+
+    .fab-menu-btn:hover {
+      transform: scale(1.08);
+      background: #111a13;
+    }
+
+    .fab-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 999px;
+      border: 2px solid #ffffff;
+      line-height: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .stages-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero-stat-banner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .sidebar {
+        display: none;
+      }
+      .stages-grid {
+        grid-template-columns: 1fr;
+      }
+      .main-container {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════ SIDEBAR ════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="dashboard.html" class="brand-logo">
+        <div class="brand-icon">
+          <!-- Green Sprout SVG -->
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22v-9" />
+            <path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.2" />
+            <path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.3" />
+          </svg>
+        </div>
+        <span class="brand-title">TỰ HỌC<br>TÀI CHÍNH</span>
+      </a>
+    </div>
+
+    <!-- Search Input -->
+    <div class="search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Tìm kiếm...</span>
+      <kbd>⌘K</kbd>
+    </div>
+
+    <!-- Navigation List -->
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </span>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="#" class="nav-item">
+        <span class="icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span>FinSocial</span>
+      </a>
+
+      <!-- SECTION 1: HỌC TẬP -->
+      <div class="nav-section-title">
+        <span>🌱 HỌC TẬP</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">🧭</span>
+        <span>Bắt đầu từ đầu</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">📖</span>
+        <span>Học bài</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">💼</span>
+        <span>Học theo nghề</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🎓</span>
+        <span>Chứng chỉ</span>
+        <span style="margin-left:auto;font-size:12px;color:var(--text-muted)">›</span>
+      </a>
+
+      <!-- SECTION 2: THỰC HÀNH -->
+      <div class="nav-section-title">
+        <span>⚡ THỰC HÀNH</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">📝</span>
+        <span>Quiz</span>
+        <span class="nav-tag tag-new">TIN MỚI</span>
+      </a>
+      <a href="thi-vuot-chang.html" class="nav-item active">
+        <span class="icon">🏆</span>
+        <span>Thi vượt chặng</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🎮</span>
+        <span>Game Kingdom</span>
+        <span class="nav-tag tag-hot">HOT</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">💼</span>
+        <span>Luyện phỏng vấn</span>
+      </a>
+
+      <!-- SECTION 3: CỘNG ĐỒNG -->
+      <div class="nav-section-title">
+        <span>👥 CỘNG ĐỒNG</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">🏛️</span>
+        <span>Thư viện</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🤝</span>
+        <span>Học nhóm</span>
+        <span class="nav-tag tag-checkin">CHECK-IN</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">📊</span>
+        <span>Thống kê</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer (Wallet & User profile) -->
+    <div class="sidebar-footer">
+      <div class="gold-wallet-row">
+        <div class="gold-pill">
+          <span class="coin-icon">🪙</span>
+          <span>Túi vàng</span>
+          <span class="gold-count">60</span>
+        </div>
+        <button class="bell-btn" title="Thông báo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="bell-badge">9+</span>
+        </button>
+      </div>
+
+      <div class="user-profile-card">
+        <div style="width:34px;height:34px;border-radius:50%;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">ĐTB</div>
+        <div class="user-info">
+          <div class="user-name">Đinh Trí Bùi</div>
+          <div class="user-email">tribd.tec@gmail.com</div>
+        </div>
+        <span class="user-chevron">▼</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ════════════ MAIN BODY ════════════ -->
+  <main class="main-container">
+
+    <!-- ── PAGE HEADER ── -->
+    <header class="page-top-header">
+      <div class="header-icon-box">🏆</div>
+      <div class="header-text-group">
+        <h1 class="page-title">Thi vượt chặng</h1>
+        <p class="page-subtitle">Vượt cả một chặng bằng một bài thi, không cần học lại từng bài</p>
+      </div>
+    </header>
+
+    <!-- ── STATS HERO BANNER ── -->
+    <section class="hero-stat-banner">
+      <!-- Watercolor Mountain Landscape Vector Art -->
+      <div class="banner-art-box">
+        <svg viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="sSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fff8e8"/>
+              <stop offset="60%" stop-color="#fef3c7"/>
+              <stop offset="100%" stop-color="#d1fae5"/>
+            </linearGradient>
+            <linearGradient id="sHill1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#86efac"/>
+              <stop offset="100%" stop-color="#059669"/>
+            </linearGradient>
+            <linearGradient id="sHill2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#34d399"/>
+              <stop offset="100%" stop-color="#047857"/>
+            </linearGradient>
+            <linearGradient id="sMtn" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6ee7b7"/>
+              <stop offset="100%" stop-color="#065f46"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="160" fill="url(#sSky)"/>
+          <circle cx="230" cy="70" r="30" fill="#fde68a" opacity="0.5"/>
+          <path d="M100 160 L180 65 L260 160 Z" fill="#93c5fd" opacity="0.35"/>
+          <path d="M190 160 L240 50 L300 160 Z" fill="url(#sMtn)"/>
+          <!-- Flag at summit -->
+          <line x1="240" y1="50" x2="240" y2="38" stroke="#b91c1c" stroke-width="2"/>
+          <polygon points="240,38 252,42 240,46" fill="#ef4444"/>
+          <!-- Rolling foreground -->
+          <path d="M0 120 Q90 85 180 110 T320 100 L320 160 L0 160 Z" fill="url(#sHill2)"/>
+          <path d="M50 160 C80 140 120 135 150 125 C180 115 210 100 240 50" fill="none" stroke="#fed7aa" stroke-width="3.5" stroke-dasharray="3,3"/>
+          <path d="M0 145 Q120 115 320 135 L320 160 L0 160 Z" fill="url(#sHill1)"/>
+          <circle cx="70" cy="140" r="5" fill="#047857"/>
+          <circle cx="140" cy="130" r="6" fill="#065f46"/>
+          <circle cx="280" cy="140" r="6" fill="#047857"/>
+        </svg>
+      </div>
+
+      <!-- Text and Progress -->
+      <div class="banner-info-box">
+        <p class="banner-desc-text">
+          Đã biết nội dung một chặng rồi? Làm 15 câu, đúng từ 80% trở lên là toàn bộ bài trong chặng được tính hoàn thành — không cần học lại từng bài.
+        </p>
+
+        <div class="banner-metric-row">
+          <div class="metric-big-score">
+            <span>0/27</span>
+            <span class="score-sub">chặng đã vượt</span>
+          </div>
+          <div class="metric-rule-text">Cần đúng 12/15</div>
+        </div>
+
+        <!-- 27 Step Segments Bar -->
+        <div class="segmented-progress-bar">
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+          <div class="seg-pill"></div><div class="seg-pill"></div><div class="seg-pill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CATEGORY PILL TABS ── -->
+    <div class="filter-tabs-row">
+      <button class="filter-tab-pill active">
+        <span>🌱</span>
+        <span>Tài chính cá nhân</span>
+      </button>
+
+      <button class="filter-tab-pill">
+        <span>🏛️</span>
+        <span>Tài chính chuyên ngành</span>
+      </button>
+    </div>
+
+    <!-- ── STAGES GRID ── -->
+    <div class="stages-grid">
+
+      <!-- STAGE 01 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-green">🔍</div>
+          <span class="stage-num-badge">01</span>
+        </div>
+        <h3 class="stage-card-title">Biết mình trước khi học: audit, ngân sách, quỹ khẩn cấp, nợ</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">1/9 bài</span>
+          <span class="meta-skip-badge">+8 bài nếu vượt</span>
+          <span class="meta-questions-count">45 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 02 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-orange">📄</div>
+          <span class="stage-num-badge">02</span>
+        </div>
+        <h3 class="stage-card-title">Thuế TNCN & Lương thực nhận</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">0/8 bài</span>
+          <span class="meta-skip-badge">+8 bài nếu vượt</span>
+          <span class="meta-questions-count">40 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 03 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-blue">💳</div>
+          <span class="stage-num-badge">03</span>
+        </div>
+        <h3 class="stage-card-title">Tín dụng cá nhân & CIC</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">0/8 bài</span>
+          <span class="meta-skip-badge">+8 bài nếu vượt</span>
+          <span class="meta-questions-count">40 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 04 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-green">🌱</div>
+          <span class="stage-num-badge">04</span>
+        </div>
+        <h3 class="stage-card-title">Tư duy tiền bạc và tài chính cơ bản</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">1/21 bài</span>
+          <span class="meta-skip-badge">+20 bài nếu vượt</span>
+          <span class="meta-questions-count">105 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 05 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-blue">📊</div>
+          <span class="stage-num-badge">05</span>
+        </div>
+        <h3 class="stage-card-title">Cổ phiếu, ETF và quỹ đầu tư</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">0/20 bài</span>
+          <span class="meta-skip-badge">+20 bài nếu vượt</span>
+          <span class="meta-questions-count">109 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 06 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-orange">📜</div>
+          <span class="stage-num-badge">06</span>
+        </div>
+        <h3 class="stage-card-title">Trái phiếu và các công cụ cố định</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">0/20 bài</span>
+          <span class="meta-skip-badge">+20 bài nếu vượt</span>
+          <span class="meta-questions-count">119 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 07 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-orange">⚖️</div>
+          <span class="stage-num-badge">07</span>
+        </div>
+        <h3 class="stage-card-title">Lập kế hoạch hưu trí & Độc lập tài chính (FIRE)</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">0/15 bài</span>
+          <span class="meta-skip-badge">+15 bài nếu vượt</span>
+          <span class="meta-questions-count">75 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 08 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-cyan">🏢</div>
+          <span class="stage-num-badge">08</span>
+        </div>
+        <h3 class="stage-card-title">Bất động sản & Tài sản tạo dòng tiền</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">0/18 bài</span>
+          <span class="meta-skip-badge">+18 bài nếu vượt</span>
+          <span class="meta-questions-count">92 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE 09 -->
+      <div class="stage-card">
+        <div class="stage-top-row">
+          <div class="stage-icon-circle icon-bg-neutral">🎯</div>
+          <span class="stage-num-badge">09</span>
+        </div>
+        <h3 class="stage-card-title">Phân bổ tài sản & Quản trị rủi ro danh mục</h3>
+        <div class="stage-meta-row">
+          <span class="meta-progress-text">0/16 bài</span>
+          <span class="meta-skip-badge">+16 bài nếu vượt</span>
+          <span class="meta-questions-count">85 câu</span>
+        </div>
+        <div class="stage-bottom-row">
+          <button class="btn-thi-vuot">Thi vượt →</button>
+          <div class="card-tree-icon">
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none">
+              <polygon points="12,2 22,14 16,14 20,22 14,22 18,28 6,28 10,22 4,22 8,14 2,14" fill="#10b981"/>
+              <rect x="10.5" y="28" width="3" height="4" fill="#047857"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ════════════ FLOATING ACTION BUTTON ════════════ -->
+  <button class="fab-menu-btn" title="Menu nhanh">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <span class="fab-badge">9+</span>
+  </button>
+
+</body>
+</html>

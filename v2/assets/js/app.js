@@ -16,12 +16,70 @@ function toast(html){
   clearTimeout(toastTimer); toastTimer = setTimeout(()=>el.classList.remove("on"), 2600);
 }
 
+/* ════════ UI STATE ════════ */
+const TRACK_UI = {
+  tab: "all",
+  query: "",
+  filterOnlyUnfinished: false,
+  openStages: ["m-fund-1", "m-fund-2"]
+};
+const DAILY_UI = {
+  picked: null
+};
+
 /* ════════ HÀNH ĐỘNG ════════ */
 const ACT = {
   seed(){ if(Object.keys(State.data.lessons).length && !confirm("Ghi đè tiến độ hiện tại bằng dữ liệu mẫu?")) return;
           State.seedDemo(); toast("Đã nạp dữ liệu mẫu"); render(); },
   reset(){ if(!confirm("Xoá toàn bộ tiến độ trên trình duyệt này? Không hoàn tác được.")) return;
            State.reset(); toast("Đã xoá tiến độ"); location.hash="#/dashboard"; render(); },
+
+  setTrackTab(tabId){ TRACK_UI.tab = tabId; render(true); },
+  setTrackSearch(q){ TRACK_UI.query = q; render(true); },
+  toggleOnlyUnfinished(){ TRACK_UI.filterOnlyUnfinished = !TRACK_UI.filterOnlyUnfinished; render(true); },
+  toggleStageAcc(moduleId){
+    if(TRACK_UI.openStages.includes(moduleId)){
+      TRACK_UI.openStages = TRACK_UI.openStages.filter(x=>x!==moduleId);
+    } else {
+      TRACK_UI.openStages.push(moduleId);
+    }
+    render(true);
+  },
+
+  setReaderFont(delta){
+    const sz = State.setReaderFontSize(delta);
+    toast(`Cỡ chữ: <b>${sz}%</b>`);
+    render(true);
+  },
+  setReaderReadingTheme(theme){
+    State.setReaderTheme(theme);
+    const r = document.documentElement;
+    if(theme==="sepia") r.setAttribute("data-reading-mode", "sepia");
+    else r.removeAttribute("data-reading-mode");
+    render(true);
+  },
+  toggleBookmark(lessonId){
+    const on = State.toggleBookmark(lessonId);
+    toast(on ? "Đã lưu vào danh sách xem sau" : "Đã bỏ lưu bài học");
+    render(true);
+  },
+  saveLessonNote(lessonId, text){
+    State.setLessonNote(lessonId, text);
+    const badge = document.getElementById("noteSavedBadge");
+    if(badge){ badge.textContent = "✓ Đã lưu"; setTimeout(()=>{ if(badge) badge.textContent=""; }, 2000); }
+  },
+
+  pickDailyOpt(optKey){
+    DAILY_UI.picked = optKey;
+    render(true);
+  },
+  submitDailyChallenge(){
+    if(!DAILY_UI.picked){ toast("Vui lòng chọn một đáp án trước khi gửi"); return; }
+    const rec = State.answerDailyChallenge(DAILY_UI.picked);
+    if(rec.correct) toast("Chính xác! <b>+15 XP</b>");
+    else toast("Chưa đúng! Đáp án đúng đã được hiển thị.");
+    render(true);
+  },
 
   completeLesson(id){
     if(State.completeLesson(id)) toast(`Hoàn thành bài · <b>+${State.XP.lesson} XP</b>`);
@@ -188,7 +246,7 @@ function vDashboard(){
         <div class="row mt"><a class="btn btn-e" href="#/lesson/${next.id}">${fresh?"Học bài đầu tiên →":"Tiếp tục học →"}</a>
           ${fresh?`<button class="btn btn-gh" onclick="ACT.seed()">Nạp dữ liệu mẫu để xem thử</button>`
                  :`<a class="btn btn-gh" href="#/tracks">Xem lộ trình</a>`}</div>`
-        :`<div class="hero-t">Bạn đã học hết 100 bài</div><div class="hero-m">Chuyển sang Competition và Interview Mode để giữ phong độ.</div>`}
+        :`<div class="hero-t">Bạn đã học hết giáo trình</div><div class="hero-m">Chuyển sang Competition và Interview Mode để giữ phong độ.</div>`}
       </div>
       <div style="min-width:190px">
         <div class="lbl">Tiến độ tổng${career?` · ${esc(career.n)}`:""}</div>
@@ -272,7 +330,7 @@ function caseCard(c){
 function vTracks(){
   return `<div class="main">
   <h1>Lộ trình học</h1>
-  <p class="muted" style="max-width:70ch;margin-top:6px">100 bài học chia theo 6 track. Mỗi bài đều kết thúc bằng một output thật: một phép tính, một slide, một insight từ biểu đồ, hoặc một câu trả lời nói.</p>
+  <p class="muted" style="max-width:70ch;margin-top:6px">Mỗi bài đều kết thúc bằng một output thật: một phép tính, một slide, một insight từ biểu đồ, hoặc một câu trả lời nói.</p>
   <div class="grid g2 mt">
     ${State.careerTrackOrder().map(id=>{
       const t=window.TRACK_BY_ID[id], ms=window.MODULES.filter(m=>m.track===id), s=State.trackStats(id);
