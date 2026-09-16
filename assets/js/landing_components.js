@@ -7,7 +7,7 @@ window.LANDING = window.LANDING || {};
 /* ── 1. SEMANTIC INK WASH 2D VECTOR ASSETS (No generic icon boxes) ── */
 const ICONS = {
   // Sách bách khoa bìa da 2D Editorial
-  book: `<svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+  book: `<svg width="24" height="24" viewBox="0 0 32 32" fill="none">
     <path d="M6 6C6 4.89543 6.89543 4 8 4H24C25.1046 4 26 4.89543 26 6V24C26 25.1046 25.1046 26 24 26H8C6.89543 26 6 25.1046 6 24V6Z" fill="#064E3B" stroke="#059669" stroke-width="1.8"/>
     <path d="M10 4V26M6 22H26" stroke="#A7F3D0" stroke-width="1.4" stroke-linecap="round"/>
     <circle cx="18" cy="13" r="4" fill="#F59E0B" opacity="0.9"/>
@@ -15,14 +15,14 @@ const ICONS = {
   </svg>`,
 
   // Tag giá hoàng kim 0đ
-  priceTag: `<svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+  priceTag: `<svg width="24" height="24" viewBox="0 0 32 32" fill="none">
     <path d="M4 16L16 4H26V14L14 26L4 16Z" fill="#FFFBEB" stroke="#D97706" stroke-width="1.8" stroke-linejoin="round"/>
     <circle cx="21" cy="9" r="2.5" fill="#D97706"/>
     <path d="M11 15L15 19" stroke="#B45309" stroke-width="1.8" stroke-linecap="round"/>
   </svg>`,
 
   // Nhóm người học
-  learners: `<svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+  learners: `<svg width="24" height="24" viewBox="0 0 32 32" fill="none">
     <circle cx="12" cy="11" r="4.5" fill="#ECFDF5" stroke="#059669" stroke-width="1.8"/>
     <path d="M5 24C5 20 8 18 12 18C16 18 19 20 19 24" stroke="#059669" stroke-width="1.8" stroke-linecap="round"/>
     <circle cx="21" cy="12" r="3.5" fill="#FEF3C7" stroke="#D97706" stroke-width="1.6"/>
@@ -30,7 +30,7 @@ const ICONS = {
   </svg>`,
 
   // Cúp vàng vô địch
-  trophy: `<svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+  trophy: `<svg width="24" height="24" viewBox="0 0 32 32" fill="none">
     <path d="M9 7H23V14C23 17.866 19.866 21 16 21C12.134 21 9 17.866 9 14V7Z" fill="#FEF3C7" stroke="#D97706" stroke-width="1.8"/>
     <path d="M9 10H5C3.89543 10 3 10.8954 3 12V13C3 15.2091 4.79086 17 7 17H9" stroke="#D97706" stroke-width="1.6"/>
     <path d="M23 10H27C28.1046 10 29 10.8954 29 12V13C29 15.2091 27.2091 17 25 17H23" stroke="#D97706" stroke-width="1.6"/>
@@ -58,14 +58,14 @@ const ICONS = {
 
 LANDING.ICONS = ICONS;
 
-/* ── 2. HERO INTERACTIVE STAGE (3D TILT + SANDBOX ENGINE) ── */
+/* ── 2. HERO INTERACTIVE STAGE (Sleek Strategic Intelligence Simulator) ── */
 const STOCKS = {
-  a: { name: "C.Ty A (Tech SaaS)", price: 84000, eps: 4200, pe: 20.0, sector: "High Growth" },
-  b: { name: "C.Ty B (Bán Lẻ)", price: 36000, eps: 3000, pe: 12.0, sector: "Deep Value" },
-  c: { name: "C.Ty C (Sản Xuất)", price: 52000, eps: 2000, pe: 26.0, sector: "Overvalued" }
+  vnm: { name: "Vinamilk", sector: "Tiêu dùng", price: 68000, eps: 4120, pe: 16.5, margin: "41.5%" },
+  fpt: { name: "FPT Corp", sector: "Công nghệ", price: 135000, eps: 5800, pe: 23.2, margin: "38.0%" },
+  mwg: { name: "Thế Giới DĐ", sector: "Bán lẻ", price: 62000, eps: 3100, pe: 20.0, margin: "23.4%" }
 };
 
-let currentStock = 'b';
+let currentStock = 'vnm';
 let quizAnswered = false;
 
 LANDING.selectStock = function(key) {
@@ -79,17 +79,17 @@ LANDING.selectStock = function(key) {
   const epsEl = document.getElementById('calc-eps');
   const peEl = document.getElementById('calc-pe');
   if(priceEl) priceEl.textContent = s.price.toLocaleString('vi-VN') + ' đ';
-  if(epsEl) epsEl.textContent = s.eps.toLocaleString('vi-VN') + ' đ';
+  if(epsEl) epsEl.textContent = s.margin;
   if(peEl) peEl.textContent = s.pe.toFixed(1) + 'x';
 };
 
 LANDING.answerQuiz = function(choice) {
   if(quizAnswered) return;
   const card = document.getElementById('heroStageCard');
-  const btnCorrect = document.getElementById('q-opt-2');
-  const btnWrong = document.getElementById('q-opt-1');
+  const btnCorrect = document.getElementById('q-opt-1');
+  const btnWrong = document.getElementById('q-opt-2');
 
-  if(choice === 2) {
+  if(choice === 1) {
     quizAnswered = true;
     if(btnCorrect) btnCorrect.classList.add('correct');
     
@@ -105,13 +105,13 @@ LANDING.answerQuiz = function(choice) {
     S.xp = (S.xp || 0) + 20;
     State.save();
     UI.hud();
-    UI.toast('QUIZ HOÀN THÀNH', 'Bạn đã giải thích đúng chỉ số P/E (+20 XP)');
+    UI.toast('XÁC NHẬN CHÍNH XÁC', 'Biên an toàn tốt & định giá thấp hơn ngành (+20 XP)');
   } else {
     if(btnWrong) {
       btnWrong.classList.add('wrong');
       setTimeout(() => btnWrong.classList.remove('wrong'), 800);
     }
-    UI.toast('THỬ LẠI', 'P/E thấp hơn trung bình ngành nghĩa là cổ phiếu đang có mức định giá hấp dẫn hơn!');
+    UI.toast('THỬ LẠI', 'Biên lợi nhuận gộp 40%+ cùng P/E 16.5x thể hiện lợi thế cạnh tranh bền vững!');
   }
 };
 
@@ -120,31 +120,29 @@ LANDING.renderHeroStage = function() {
   return `
 <div class="stage-3d-wrap" id="stage3dWrap">
   <div class="stage-3d-card" id="heroStageCard">
-    <!-- Header: Roadmap mini & Live tag -->
+    <!-- Header: Clean Minimal Bar -->
     <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
       <div style="display:flex; align-items:center; gap:6px;">
-        <span class="radar-dot"></span>
+        <span class="hero-badge-dot"></span>
         <span style="font-size:11px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-primary)">
-          Interactive Sandbox · Đang chạy thử
+          Live Simulation Sandbox
         </span>
       </div>
-      <div style="display:flex; gap:4px;">
-        <span style="font-size:10.5px; font-weight:800; color:var(--emerald-800); background:var(--emerald-100); padding:2px 7px; border-radius:4px;">B.1 ✓</span>
-        <span style="font-size:10.5px; font-weight:800; color:var(--amber-800); background:var(--amber-100); padding:2px 7px; border-radius:4px; border:1px solid var(--color-accent)">B.2 Đang học</span>
-        <span style="font-size:10.5px; font-weight:700; color:var(--stone-400); background:var(--stone-100); padding:2px 7px; border-radius:4px;">B.3</span>
-      </div>
+      <span style="font-size:11px; font-weight:700; color:var(--stone-500); letter-spacing:0.04em; text-transform:uppercase;">
+        Case 01 · Định Giá
+      </span>
     </div>
 
     <!-- Title -->
-    <div style="font-size:15.5px; font-weight:800; margin-top:10px; color:var(--text)">
-      Thực hành: Định giá cổ phiếu qua chỉ số P/E (Price / EPS)
+    <div style="font-size:15px; font-weight:800; margin-top:10px; color:var(--text)">
+      Đánh giá hiệu quả kinh doanh &amp; Bội số P/E
     </div>
 
     <!-- 3 Stock Tabs -->
     <div class="stage-stock-tabs">
-      <button class="stage-stock-tab" id="tab-a" onclick="LANDING.selectStock('a')">C.Ty A (Tech)</button>
-      <button class="stage-stock-tab active" id="tab-b" onclick="LANDING.selectStock('b')">C.Ty B (Bán lẻ)</button>
-      <button class="stage-stock-tab" id="tab-c" onclick="LANDING.selectStock('c')">C.Ty C (Sản xuất)</button>
+      <button class="stage-stock-tab active" id="tab-vnm" onclick="LANDING.selectStock('vnm')">Vinamilk · Sữa</button>
+      <button class="stage-stock-tab" id="tab-fpt" onclick="LANDING.selectStock('fpt')">FPT · Công nghệ</button>
+      <button class="stage-stock-tab" id="tab-mwg" onclick="LANDING.selectStock('mwg')">MWG · Bán lẻ</button>
     </div>
 
     <!-- Dynamic Calculator Output -->
@@ -154,8 +152,8 @@ LANDING.renderHeroStage = function() {
         <div class="stage-calc-v" id="calc-price">${s.price.toLocaleString('vi-VN')} đ</div>
       </div>
       <div class="stage-calc-item">
-        <div class="stage-calc-k">Lợi Nhuận / CP (EPS)</div>
-        <div class="stage-calc-v" id="calc-eps">${s.eps.toLocaleString('vi-VN')} đ</div>
+        <div class="stage-calc-k">Biên LNG</div>
+        <div class="stage-calc-v" id="calc-eps">${s.margin}</div>
       </div>
       <div class="stage-calc-item">
         <div class="stage-calc-k">Hệ Số P/E</div>
@@ -166,33 +164,27 @@ LANDING.renderHeroStage = function() {
     <!-- Quick Mini Challenge -->
     <div class="stage-quiz">
       <div class="stage-quiz-q">
-        🎯 <strong>Thử thách nhanh:</strong> P/E của C.Ty B là <strong>12.0x</strong> trong khi P/E trung bình ngành là <strong>20.0x</strong>. Nhận định nào chuẩn xác nhất?
+        🎯 <strong>Tình huống:</strong> Nếu P/E trung bình ngành sữa là <strong>21.0x</strong>, bạn đánh giá mức <strong>16.5x</strong> của Vinamilk thế nào?
       </div>
       <div class="stage-quiz-options">
         <button class="stage-quiz-btn" id="q-opt-1" onclick="LANDING.answerQuiz(1)">
-          <span>A. Cổ phiếu đang bị thổi phồng giá quá cao so với ngành</span>
-          <span style="font-size:11px; color:var(--stone-400)">✕</span>
+          <span>A. Định giá hấp dẫn, có biên an toàn &amp; dòng tiền bền vững</span>
+          <span style="font-size:11px; color:var(--color-primary); font-weight:800;">✓ +20 XP</span>
         </button>
         <button class="stage-quiz-btn" id="q-opt-2" onclick="LANDING.answerQuiz(2)">
-          <span>B. Cổ phiếu đang được định giá rẻ hơn tương đối so với lợi nhuận</span>
-          <span style="font-size:11px; color:var(--color-primary)">✓ Nhận +20 XP</span>
+          <span>B. Cổ phiếu đang chịu rủi ro định giá quá đắt đỏ</span>
+          <span style="font-size:11px; color:var(--stone-400)">✕</span>
         </button>
       </div>
-    </div>
-
-    <!-- Expert Note -->
-    <div class="stage-expert-note">
-      <span style="font-size:14px; flex:none;">💡</span>
-      <span><strong>Ghi chú chuyên gia:</strong> P/E thấp là dấu hiệu định giá hấp dẫn, nhưng cần kiểm tra thêm chất lượng nợ và tăng trưởng doanh thu trước khi ra quyết định.</span>
     </div>
 
     <!-- Live Gamified Footer -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px solid var(--border); font-size:11.5px; font-weight:700; color:var(--stone-600)">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:10px; border-top:1px solid rgba(214,211,209,0.5); font-size:11.5px; font-weight:700; color:var(--stone-500)">
       <div style="display:flex; gap:12px; align-items:center;">
-        <span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:var(--color-accent)">★</span> +20 XP</span>
-        <span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:#EA580C">🔥</span> Streak 1 ngày</span>
+        <span style="color:var(--color-accent)">★ +20 XP</span>
+        <span style="color:#EA580C">🔥 Streak 1 ngày</span>
       </div>
-      <span style="color:var(--color-primary)">🏆 Đã mở 3/30 kho báu</span>
+      <span style="color:var(--color-primary)">🏆 3/30 Thành tựu mở</span>
     </div>
   </div>
 </div>`;
@@ -208,8 +200,8 @@ LANDING.initTilt = function() {
     const rect = wrap.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width/2;
     const y = e.clientY - rect.top - rect.height/2;
-    const rotX = -(y / (rect.height/2)) * 7;
-    const rotY = (x / (rect.width/2)) * 7;
+    const rotX = -(y / (rect.height/2)) * 6;
+    const rotY = (x / (rect.width/2)) * 6;
     card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-2px)`;
   });
 
@@ -248,7 +240,7 @@ LANDING.useSkill = function(skillType) {
   // Tactile screen shake
   if(arena) {
     arena.classList.remove('arena-shake');
-    void arena.offsetWidth; // trigger reflow
+    void arena.offsetWidth;
     arena.classList.add('arena-shake');
 
     // Floating damage number
@@ -282,15 +274,15 @@ LANDING.showVictoryModal = function() {
   d.className = 'sr-overlay';
   d.innerHTML = `
     <div class="sr-box" style="text-align:center; padding:32px 24px; max-width:480px;">
-      <div style="width:64px; height:64px; margin:0 auto 16px; background:var(--emerald-50); border:1px solid var(--emerald-200); border-radius:50%; display:grid; place-items:center;">
+      <div style="width:56px; height:56px; margin:0 auto 16px; background:var(--emerald-50); border:1px solid var(--emerald-200); border-radius:50%; display:grid; place-items:center;">
         ${ICONS.trophy}
       </div>
       <div class="eyebrow" style="color:var(--color-primary)">VICTORY UNLOCKED</div>
-      <h2 style="font-size:24px; margin-top:6px;">Đã Đánh Bại Đợt Sụp Đổ Thanh Khoản!</h2>
-      <p class="muted" style="margin-top:8px; font-size:13.5px;">
-        Xuất sắc! Bằng việc bóc trần dòng tiền ảo và tái cấu trúc nợ vay, bạn đã bảo toàn vốn cho doanh nghiệp thành công.
+      <h2 style="font-size:22px; margin-top:6px;">Đã Đánh Bại Đợt Sụp Đổ Thanh Khoản!</h2>
+      <p class="muted" style="margin-top:8px; font-size:13px; line-height:1.5;">
+        Xuất sắc! Bằng việc bóc trần dòng tiền và tái cấu trúc nợ vay, bạn đã bảo toàn vốn cho doanh nghiệp thành công.
       </p>
-      <div style="background:var(--amber-50); border:1px solid var(--amber-200); border-radius:8px; padding:12px; margin:18px 0; font-weight:800; color:var(--amber-900);">
+      <div style="background:var(--amber-50); border:1px solid var(--amber-200); border-radius:8px; padding:10px; margin:16px 0; font-weight:800; font-size:13px; color:var(--amber-900);">
         ✨ Thưởng: +500 XP Chiến Thuật & Danh hiệu "CFO Thực Chiến"
       </div>
       <div style="display:flex; gap:10px; justify-content:center;">
@@ -306,32 +298,32 @@ LANDING.renderBossBattle = function() {
   return `
 <section class="band band-ink band-divider" style="padding: 56px 0;">
   <div class="wrap">
-    <div style="text-align:center; max-width:680px; margin:0 auto 36px;">
+    <div style="text-align:center; max-width:640px; margin:0 auto 32px;">
       <div class="eyebrow" style="color:#34D399">Gamified Stress Test · Đấu Trường Chiến Lược</div>
-      <h2 style="font-size:32px; color:#FAFAF9; margin-top:8px;">Boss Battle: Đánh Bại Đợt Sụp Đổ Thanh Khoản</h2>
-      <p style="color:var(--stone-400); margin-top:8px; font-size:14px;">
-        Doanh nghiệp đối mặt khủng hoảng đòn bẩy vĩ mô. Hãy chọn 3 công cụ tài chính sắc bén để hóa giải rủi ro trước khi cạn kiệt dòng tiền!
+      <h2 style="font-size:30px; color:#FAFAF9; margin-top:8px;">Boss Battle: Đánh Bại Khủng Hoảng Thanh Khoản</h2>
+      <p style="color:var(--stone-400); margin-top:8px; font-size:14px; line-height:1.55;">
+        Doanh nghiệp đối mặt rủi ro thanh khoản vĩ mô. Hãy chọn 3 công cụ tài chính sắc bén để hóa giải khó khăn trước khi cạn kiệt dòng tiền!
       </p>
     </div>
 
     <div class="boss-arena" id="bossArena">
-      <div class="grid g2" style="align-items:center;">
+      <div class="grid g2" style="align-items:center; gap:28px;">
         <!-- Cột trái: Boss Status -->
         <div>
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#F87171;">
-              ⚠ Cảnh Báo Vĩ Mô: Khủng Hoảng Thanh Khoản
+            <span style="font-size:11.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:#F87171;">
+              ⚠ Cảnh Báo Vĩ Mô: Khủng Hoảng Nợ Ngắn Hạn
             </span>
-            <span id="bossHpText" style="font-size:12px; font-weight:800; color:#FBBF24;">10.000 / 10.000 HP (100%)</span>
+            <span id="bossHpText" style="font-size:11.5px; font-weight:800; color:#FBBF24;">10.000 / 10.000 HP (100%)</span>
           </div>
 
           <div class="boss-hp-track">
             <div class="boss-hp-fill" id="bossHpFill"></div>
           </div>
 
-          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:14px; margin-top:14px;">
-            <div style="font-size:13.5px; font-weight:700; color:#FAFAF9;">Thực trạng doanh nghiệp:</div>
-            <p style="font-size:12.5px; color:var(--stone-400); margin-top:4px; line-height:1.5;">
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:14px; margin-top:14px;">
+            <div style="font-size:13px; font-weight:700; color:#FAFAF9;">Thực trạng doanh nghiệp:</div>
+            <p style="font-size:12px; color:var(--stone-400); margin-top:4px; line-height:1.5;">
               Khoản nợ ngắn hạn 4.500 tỷ đến hạn trong 30 ngày, trong khi dòng tiền hoạt động kinh doanh (CFO) âm do bị chiếm dụng vốn.
             </p>
           </div>
@@ -346,28 +338,28 @@ LANDING.renderBossBattle = function() {
           <div class="boss-skill-card" onclick="LANDING.useSkill(1)">
             <div class="boss-emblem">${ICONS.lightning}</div>
             <div style="flex:1;">
-              <div style="font-size:13.5px; font-weight:800; color:#FAFAF9;">1. Sét năng lượng CFO (Bóc trần dòng tiền)</div>
-              <div style="font-size:11.5px; color:var(--stone-400); margin-top:2px;">Cắt giảm hàng tồn kho, thu hồi công nợ khẩn cấp (-3.500 HP)</div>
+              <div style="font-size:13px; font-weight:800; color:#FAFAF9;">1. Sét năng lượng CFO (Bóc trần dòng tiền)</div>
+              <div style="font-size:11px; color:var(--stone-400); margin-top:2px;">Cắt giảm hàng tồn kho, thu hồi công nợ khẩn cấp (-3.500 HP)</div>
             </div>
-            <span style="font-size:11.5px; font-weight:800; color:#FBBF24;">Sát thương 3.5k</span>
+            <span style="font-size:11px; font-weight:800; color:#FBBF24;">Sát thương 3.5k</span>
           </div>
 
           <div class="boss-skill-card" onclick="LANDING.useSkill(2)">
             <div class="boss-emblem">${ICONS.chalice}</div>
             <div style="flex:1;">
-              <div style="font-size:13.5px; font-weight:800; color:#FAFAF9;">2. Chén thánh định giá DCF (Giá trị nội tại)</div>
-              <div style="font-size:11.5px; color:var(--stone-400); margin-top:2px;">Chiết khấu dòng tiền tái cấu trúc để gọi vốn cổ đông (-4.800 HP)</div>
+              <div style="font-size:13px; font-weight:800; color:#FAFAF9;">2. Chén thánh định giá DCF (Giá trị nội tại)</div>
+              <div style="font-size:11px; color:var(--stone-400); margin-top:2px;">Chiết khấu dòng tiền tái cấu trúc để gọi vốn cổ đông (-4.800 HP)</div>
             </div>
-            <span style="font-size:11.5px; font-weight:800; color:#34D399;">Chí mạng 4.8k 💥</span>
+            <span style="font-size:11px; font-weight:800; color:#34D399;">Chí mạng 4.8k 💥</span>
           </div>
 
           <div class="boss-skill-card" onclick="LANDING.useSkill(3)">
             <div class="boss-emblem">${ICONS.shield}</div>
             <div style="flex:1;">
-              <div style="font-size:13.5px; font-weight:800; color:#FAFAF9;">3. Khiên Aegis khử đòn bẩy (Tái cơ cấu nợ)</div>
-              <div style="font-size:11.5px; color:var(--stone-400); margin-top:2px;">Gia hạn kỳ hạn nợ từ ngắn hạn sang trái phiếu dài hạn (-2.500 HP)</div>
+              <div style="font-size:13px; font-weight:800; color:#FAFAF9;">3. Khiên Aegis khử đòn bẩy (Tái cơ cấu nợ)</div>
+              <div style="font-size:11px; color:var(--stone-400); margin-top:2px;">Gia hạn kỳ hạn nợ từ ngắn hạn sang trái phiếu dài hạn (-2.500 HP)</div>
             </div>
-            <span style="font-size:11.5px; font-weight:800; color:#60A5FA;">Phòng thủ 2.5k</span>
+            <span style="font-size:11px; font-weight:800; color:#60A5FA;">Phòng thủ 2.5k</span>
           </div>
         </div>
       </div>
@@ -457,7 +449,7 @@ LANDING.renderTestimonials = function() {
       <div style="display:inline-flex; align-items:center; gap:6px; background:#FFFFFF; border:1px solid var(--border); padding:4px 12px; border-radius:var(--radius-pill); font-size:11.5px; font-weight:800; color:var(--stone-700); box-shadow:var(--shadow-card);">
         <span style="color:#F59E0B">★</span> Rated 4.9/5 by over 3,800+ learners
       </div>
-      <h2 style="font-size:32px; margin-top:12px;">Minh Chứng Chuyển Hoá Thực Tế</h2>
+      <h2 style="font-size:30px; margin-top:12px;">Minh Chứng Chuyển Hoá Thực Tế</h2>
       <p class="muted" style="margin-top:6px; font-size:14px;">
         Những con số bứt phá cụ thể từ người học sau khi chuyển từ học vẹt lý thuyết sang luyện giải case mô phỏng.
       </p>

@@ -335,6 +335,14 @@ function vLesson(id){
   </div>
   ${own?"":`<div class="callout tip mb"><b>Bài mẫu minh hoạ:</b> nội dung 10 phần của bài này đang biên soạn. Phần dưới là bài <i>${esc(lessonTitle("f-profit-2"))}</i> để bạn thấy khuôn bài học; tiến độ, quiz và checklist vẫn được lưu cho đúng bài này.</div>`}
 
+  ${(()=>{ const rd = own && readingOf(l.id); if(!rd) return "";
+      return `<section class="lsec reading mt">
+        <div class="lsec-h"><span class="lsec-n">A</span><h2>Bài đọc</h2>
+          <span class="tag" style="margin-left:auto">${readMinutes(rd)} phút đọc</span></div>
+        <div class="rd">${readingHTML(rd)}</div>
+        <div class="callout tip mt-s"><b>Tiếp theo:</b> mười phần bên dưới bắt bạn làm lại chính những gì vừa đọc — dựng khung, đọc số, tính ra con số, viết một câu kết luận.</div>
+      </section>`; })()}
+
   <div class="lesson-shell mt">
     <div>
       ${lsec(1,"Vì sao bài này quan trọng trong business case",`
@@ -442,6 +450,23 @@ function vLesson(id){
     </div>
   </div></div>`;
 }
+/* Bài đọc: "## " tiêu đề · "> " đoạn thoại · "- " gạch đầu dòng · còn lại là đoạn văn */
+function readingHTML(text){
+  const out=[]; let list=[], quote=[];
+  const flush=()=>{ if(list.length){ out.push(`<ul class="rd-list">${list.map(x=>`<li>${rich(x)}</li>`).join("")}</ul>`); list=[]; }
+                    if(quote.length){ out.push(`<blockquote class="rd-q">${quote.map(x=>`<p>${rich(x)}</p>`).join("")}</blockquote>`); quote=[]; } };
+  text.split(/\n{2,}/).forEach(block=>{
+    const b=block.trim(); if(!b) return;
+    if(b.startsWith("## ")){ flush(); out.push(`<h3 class="rd-h">${esc(b.slice(3))}</h3>`); return; }
+    if(b.startsWith("> ")){ if(list.length) flush(); quote.push(b.slice(2)); return; }
+    if(b.startsWith("- ")){ if(quote.length) flush(); b.split(/\n/).forEach(x=>list.push(x.replace(/^- /,""))); return; }
+    flush(); out.push(`<p>${rich(b)}</p>`);
+  });
+  flush(); return out.join("");
+}
+const readingOf = id => (window.READING||{})[id];
+const readMinutes = t => Math.max(3, Math.round(t.split(/\s+/).length/180));
+
 function lsec(n,title,body){
   return `<section class="lsec"><div class="lsec-h"><span class="lsec-n">${n}</span><h2>${esc(title)}</h2></div>${body}</section>`;
 }

@@ -6,85 +6,63 @@ window.VIEWS.home = function(){
   const cont  = State.continueCase();
   const lv = State.level(), nx = State.nextLevel();
   const pct = Math.round(State.levelProgress()*100);
-  const doneCases = Object.values(S.cases).filter(c=>c.done).length;
 
   const featured = window.CASES.filter(c=>State.isUnlocked(c)).slice(0,6);
   const districts = window.INDUSTRIES.slice(0,7);
-  const ic = (window.LANDING && LANDING.ICONS) ? LANDING.ICONS : {};
 
   return `
 <!-- ══════════════════════════════════════════════════════════════════
-     DẢI 1: HERO & 3D INTERACTIVE SANDBOX STAGE (.band-paper)
+     DẢI 1: HERO & SLEEK STRATEGIC SIMULATOR (.band-paper)
      ══════════════════════════════════════════════════════════════════ -->
-<section class="hero band band-paper" style="padding: 40px 0 24px;">
+<section class="hero band band-paper" style="padding: 56px 0 44px;">
   <div class="hero-grid"></div>
-  <svg class="hero-leaf" viewBox="0 0 220 260" fill="none">
-    <path d="M110 250C110 250 96 176 108 128C120 80 158 48 200 34" stroke="#059669" stroke-width="2" opacity=".35"/>
-    ${[0,1,2,3,4].map(i=>{
-      const y = 60+i*36, w = 54-i*4;
-      return `<path d="M${112+i*3} ${y} C ${112+i*3-w} ${y-16}, ${112+i*3-w} ${y+22}, ${112+i*3} ${y+10} Z" fill="#059669" opacity="${0.18-i*0.02}"/>
-              <path d="M${116+i*3} ${y-14} C ${116+i*3+w} ${y-30}, ${116+i*3+w} ${y+8}, ${116+i*3} ${y-4} Z" fill="#10B981" opacity="${0.14-i*0.02}"/>`;
-    }).join("")}
-  </svg>
 
-  <div class="hero-in" style="display:grid; grid-template-columns: 1.1fr 1fr; gap:36px; align-items:center;">
-    <!-- CỘT TRÁI: EDITORIAL COPYWRITING & 4 METRIC ARTWORKS -->
+  <div class="hero-in" style="display:grid; grid-template-columns: 1.1fr 1fr; gap:40px; align-items:center;">
+    <!-- CỘT TRÁI: EDITORIAL COPYWRITING & MINIMALIST STATS RIBBON -->
     <div>
-      <div style="display:inline-flex; align-items:center; gap:8px; background:var(--emerald-50); border:1px solid var(--emerald-200); border-radius:var(--radius-pill); padding:4px 12px; margin-bottom:12px;">
-        <span class="radar-dot"></span>
-        <span class="eyebrow" style="color:var(--emerald-800); margin:0;">LỘ TRÌNH CHIẾN LƯỢC &amp; TÀI CHÍNH TỪ CON SỐ 0</span>
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        <span>Mô Phỏng Chiến Lược &amp; Tư Duy Kinh Doanh</span>
       </div>
 
-      <h1 style="font-size:42px; line-height:1.15; letter-spacing:-0.025em; margin-top:6px;">
+      <h1 class="hero-title">
         Think like a strategist.<br>
-        Learn business by <em style="color:var(--color-primary); font-style:normal;">solving it.</em>
+        Learn business by <span class="highlight">solving it.</span>
       </h1>
 
-      <p class="lede" style="margin-top:14px; max-width:54ch;">
-        Giải business case, khám phá cách doanh nghiệp kiếm tiền và luyện tư duy chiến lược qua những tình huống thực tế — phần lớn đến từ thị trường Việt Nam.
+      <p class="hero-lede">
+        Khám phá cách các doanh nghiệp hàng đầu vận hành và kiếm tiền. Rèn luyện phản xạ kinh doanh qua những tình huống thực chiến chuẩn thị trường Việt Nam.
       </p>
 
-      <div class="cta" style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
-        <a class="btn btn-primary" href="#/daily" style="font-size:14px; padding:12px 24px;">
+      <div class="hero-cta-group">
+        <a class="btn-hero-primary" href="#/daily">
           Bắt đầu giải Case ngay &nbsp;→
         </a>
-        <a class="btn" href="#/map" style="font-size:14px; padding:12px 20px;">
+        <a class="btn-hero-secondary" href="#/map">
           Khám phá 14 ngành
         </a>
       </div>
 
-      <!-- 4 METRIC ARTWORKS (Semantic 2D Vector) -->
-      <div class="metric-grid">
-        <div class="metric-art-card">
-          <div class="metric-art-icon">${ic.book || '📖'}</div>
-          <div>
-            <div class="metric-val">885+</div>
-            <div class="metric-lbl">Bài học chiến lược</div>
-          </div>
+      <!-- MINIMALIST STATS RIBBON (Tối giản, thoáng đãng, sang trọng) -->
+      <div class="stats-ribbon">
+        <div class="stat-item">
+          <span class="stat-num">885+</span>
+          <span class="stat-label">Bài học tư duy</span>
         </div>
-
-        <div class="metric-art-card">
-          <div class="metric-art-icon">${ic.priceTag || '🏷️'}</div>
-          <div>
-            <div class="metric-val" style="color:var(--color-primary)">0đ</div>
-            <div class="metric-lbl">Hoàn toàn miễn phí</div>
-          </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <span class="stat-num stat-emerald">0đ</span>
+          <span class="stat-label">Hoàn toàn miễn phí</span>
         </div>
-
-        <div class="metric-art-card">
-          <div class="metric-art-icon">${ic.learners || '👥'}</div>
-          <div>
-            <div class="metric-val">3.800+</div>
-            <div class="metric-lbl">Người học thực chiến</div>
-          </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <span class="stat-num">3.800+</span>
+          <span class="stat-label">Học viên thực chiến</span>
         </div>
-
-        <div class="metric-art-card">
-          <div class="metric-art-icon">${ic.trophy || '🏆'}</div>
-          <div>
-            <div class="metric-val" style="color:var(--color-accent)">30.000+</div>
-            <div class="metric-lbl">Lượt pass quiz &amp; case</div>
-          </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <span class="stat-num stat-amber">30.000+</span>
+          <span class="stat-label">Lượt pass case</span>
         </div>
       </div>
     </div>
@@ -94,47 +72,13 @@ window.VIEWS.home = function(){
       ${window.LANDING ? LANDING.renderHeroStage() : ''}
     </div>
   </div>
-
-  <!-- HERO STRIP: TIẾN ĐỘ & STREAK CÁ NHÂN -->
-  <div class="hero-strip" style="margin-top:36px;">
-    <div class="hero-strip-in">
-      <div class="cell">
-        <div class="cell-h"><span class="itile it-sage">▤</span>
-          <div><div class="cell-k">Daily challenge</div>
-            <div class="cell-t" style="margin-top:4px">${UI.esc(daily.title)}</div></div></div>
-        <div class="cell-m">${daily.minutes} phút &nbsp;·&nbsp; ${UI.diffTag(daily.difficulty)}</div>
-        <a class="btn btn-sm" style="margin-top:14px" href="#/daily">${State.dailyDone()?'Xem kết quả':'Giải hôm nay'} &nbsp;→</a>
-      </div>
-      <div class="cell">
-        <div class="cell-h"><span class="itile it-rust">◪</span>
-          <div><div class="cell-k">Continue mission</div>
-            <div class="cell-t" style="margin-top:4px">${cont?UI.esc(cont.title):'Chưa có mission đang dở'}</div></div></div>
-        <div class="cell-m">${cont?UI.esc(cont.type)+' &nbsp;·&nbsp; '+cont.xp+' XP':'Chọn một case để bắt đầu'}</div>
-        <a class="btn btn-sm" style="margin-top:14px" href="${cont?'#/case/'+cont.id:'#/cases'}">${cont?'Tiếp tục':'Chọn mission'} &nbsp;→</a>
-      </div>
-      <div class="cell">
-        <div class="cell-h"><span class="itile it-gold">⚑</span>
-          <div><div class="cell-k">Current level</div>
-            <div class="cell-t" style="margin-top:4px;color:var(--color-primary)">${UI.esc(lv.n)}</div></div></div>
-        <div class="dimbar" style="margin-top:6px"><div class="db-t"><i style="width:${pct}%"></i></div></div>
-        <div class="cell-m">${S.xp} XP / ${nx?nx.xp+' XP':'tối đa'}<br>${nx?'tới '+UI.esc(nx.n):'cấp cao nhất'}</div>
-      </div>
-      <div class="cell">
-        <div class="cell-h"><span class="itile it-brown">✦</span>
-          <div><div class="cell-k">Case streak</div>
-            <div class="cell-t" style="margin-top:4px">${S.streak.cur||0} <span style="font-family:var(--sans);font-size:13px;color:var(--stone-500);text-transform:none">ngày liên tục</span></div></div></div>
-        <div class="streak-grid" style="margin-top:4px">${State.streakDays().slice(-14).map(d=>'<i class="'+(d.on?'on':'')+(d.today?' today':'')+'"></i>').join("")}</div>
-        <div class="cell-m">Giải case mỗi ngày để nâng chuỗi thành tích.</div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     DẢI 2: WORLD MAP & LỘ TRÌNH BÀI HỌC (.band-academic)
+     DẢI 2: WORLD MAP & LỘ TRÌNH HỌC TẬP (.band-academic)
      ══════════════════════════════════════════════════════════════════ -->
 <div class="band band-academic band-divider">
-  <div class="wrap" style="padding-top: 20px; padding-bottom: 20px;">
+  <div class="wrap" style="padding-top: 24px; padding-bottom: 24px;">
     <section class="sec">
       ${UI.secHead("World Map","Bản đồ ngành","14 industry districts")}
       <div class="districts">
@@ -179,7 +123,7 @@ ${window.LANDING ? LANDING.renderBossBattle() : ''}
      DẢI 4: MISSION BOARD & 12 BUSINESS MODELS
      ══════════════════════════════════════════════════════════════════ -->
 <div class="band band-divider">
-  <div class="wrap" style="padding-top: 20px; padding-bottom: 20px;">
+  <div class="wrap" style="padding-top: 24px; padding-bottom: 24px;">
     <section class="sec">
       ${UI.secHead("Mission Board","Case luyện tập","đang mở cho cấp của bạn")}
       <div class="missions">${featured.map(UI.missionCard).join("")}</div>
@@ -211,7 +155,7 @@ ${window.LANDING ? LANDING.renderTestimonials() : ''}
      DẢI 6: COMPANY BATTLES & SO SÁNH DOANH NGHIỆP
      ══════════════════════════════════════════════════════════════════ -->
 <div class="band band-academic band-divider">
-  <div class="wrap" style="padding-top: 20px; padding-bottom: 40px;">
+  <div class="wrap" style="padding-top: 24px; padding-bottom: 48px;">
     <section class="sec">
       ${UI.secHead("Company Battles","So sánh doanh nghiệp","bốn mặt trận")}
       <div class="grid g2">
