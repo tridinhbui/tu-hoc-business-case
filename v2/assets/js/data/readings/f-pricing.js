@@ -189,9 +189,9 @@ Phần dưới bắt bạn tính doanh thu của cả ba phương án — một 
 `);
 
 LRD("f-pricing-4", `
-Bản khảo sát online của nước ép Xanh về tới bàn giám đốc với một con số rất đẹp: 70% khách hàng nói họ vẫn sẽ mua nếu giá chai 500ml tăng từ 49.000đ lên 55.000đ. Đội marketing đề xuất tăng giá toàn chuỗi ngay tháng sau.
+Bản khảo sát online của nước ép Xanh về tới bàn giám đốc với một con số rất đẹp: 95% khách hàng nói họ vẫn sẽ mua nếu giá chai 500ml tăng từ 49.000đ lên 55.000đ. Đội marketing đề xuất tăng giá toàn chuỗi ngay tháng sau.
 
-Giám đốc tài chính hỏi một câu: "70% đó đã trả thêm 6.000đ bao giờ chưa?"
+Giám đốc tài chính hỏi một câu: "95% đó đã trả thêm 6.000đ bao giờ chưa?"
 
 Chưa. Họ chỉ bấm vào một ô trên màn hình. Và bấm vào ô "vẫn mua" không tốn một đồng nào.
 
@@ -227,7 +227,7 @@ Nước ép Xanh chạy thử bốn tuần ở 5 cửa hàng. Giá cũ 49.000đ 
 
 Ba cách đọc, hai kết luận ngược nhau. Doanh thu và sản lượng đều bỏ qua việc mỗi chai bán ra ở giá mới mang về nhiều tiền hơn.
 
-Để ý thêm một điều: khảo sát nói 70% vẫn mua, tức mất 30%. Thử nghiệm cho thấy chỉ mất 15%. Lần này khảo sát bi quan hơn thực tế về sản lượng — nhưng điều đó không làm khảo sát đáng tin hơn. Nó chỉ sai theo hướng khác. Bạn không biết trước nó sẽ sai hướng nào, đó chính là vấn đề.
+Để ý thêm một điều: khảo sát nói 95% vẫn mua, tức chỉ mất 5% khách. Thử nghiệm cho thấy mất 15%, gấp ba lần. Nếu công ty tin khảo sát và tính ngưỡng dựa trên nó, họ sẽ nghĩ biên độ an toàn rất dày, trong khi thực tế nó mỏng như dưới đây.
 
 ## Biên độ an toàn mỏng tới đâu
 
@@ -251,7 +251,7 @@ Viết sẵn ngưỡng quyết định trước khi chạy, để kết quả kh
 
 ## Nói ra như thế nào
 
-> "Em không dựa vào khảo sát, vì 70% nói vẫn mua là lời nói chứ chưa phải hành vi. Em dùng kết quả thử nghiệm bốn tuần ở 5 cửa hàng.
+> "Em không dựa vào khảo sát, vì 95% nói vẫn mua là lời nói chứ chưa phải hành vi. Em dùng kết quả thử nghiệm bốn tuần ở 5 cửa hàng.
 
 > Sản lượng giảm 15%, từ 400 xuống 340 chai mỗi tuần, doanh thu cũng giảm. Nhưng lãi góp tăng từ 12,4 lên 12,58 triệu vì mỗi chai lãi thêm 6.000đ.
 
@@ -322,4 +322,264 @@ Với hàng cao cấp, giá lẻ lại gửi tín hiệu ngược: trông như h
 > Theo số liệu thử, tỷ lệ chọn chai 500ml tăng từ 30% lên 55%. Tính lãi góp, mỗi ngày tăng từ 29,8 lên 34,55 triệu, tức thêm khoảng 140 triệu mỗi tháng mà không đổi giá sản phẩm nào.
 
 > Điều quan trọng là giá chai 400ml phải gần chai lớn, không được ở giữa, nếu không nó sẽ kéo khách xuống. Em đề xuất theo dõi cơ cấu bán hằng tuần trong hai tháng đầu để chắc hiệu ứng không mờ đi."
+`);
+
+LRD("f-pricing-6", `
+Giá cam sành tăng 30% trong ba tháng. Biên lợi nhuận của nước ép Xanh đang mỏng dần. Giám đốc điều hành triệu tập cuộc họp với một đề xuất: tăng giá chai 500ml từ 49.000đ lên 54.000đ.
+
+Trưởng bộ phận bán hàng phản ứng ngay: "Đối thủ vẫn bán 45.000đ. Mình tăng lên 54.000đ thì khách chạy hết." Giám đốc hỏi lại: "Chạy hết là bao nhiêu phần trăm?" Không ai biết. Và vì không ai biết, cuộc họp chuyển sang tranh luận cảm tính.
+
+Có một con số trả lời được câu hỏi đó trước khi tranh luận bắt đầu.
+
+## Vì sao tăng giá là đòn bẩy mạnh nhất
+
+Mỗi đồng giá tăng thêm đi thẳng vào lãi góp, vì chi phí sản xuất chai nước ép không đổi. Không có đòn bẩy nào khác làm được điều đó: tăng sản lượng kéo theo chi phí nguyên liệu, cắt chi phí thường có giới hạn và có tác dụng phụ.
+
+Với nước ép Xanh, giá tăng từ 49.000đ lên 54.000đ là tăng 10,2%. Nhưng lãi góp mỗi chai tăng từ 31.000đ lên 36.000đ, tức tăng 16,1%. Tỷ lệ tăng lãi góp luôn lớn hơn tỷ lệ tăng giá, và chênh lệch càng lớn khi biên đóng góp ban đầu càng mỏng.
+
+Đó cũng là lý do tăng giá chịu được mất khách nhiều hơn người ta nghĩ.
+
+## Ngưỡng mất khách
+
+Câu hỏi then chốt: sau khi tăng giá, sản lượng được phép giảm bao nhiêu mà tổng lãi góp vẫn không thấp hơn trước?
+
+Tổng lãi góp hiện tại: 20.000 chai nhân 31.000đ bằng 620 triệu mỗi tháng. Ở giá mới, mỗi chai lãi 36.000đ. Để giữ 620 triệu, cần bán 620 triệu chia 36.000đ, khoảng 17.220 chai. Tức được mất khoảng 2.780 chai, bằng 13,9% sản lượng.
+
+Công thức gọn: ngưỡng bằng 1 trừ lãi góp cũ mỗi đơn vị chia lãi góp mới mỗi đơn vị. 1 trừ 31 chia 36, bằng 13,9%.
+
+Bây giờ câu hỏi cho trưởng bộ phận bán hàng không còn là "khách có chạy không" mà là "anh nghĩ mình mất nhiều hơn hay ít hơn 14% khách". Một câu hỏi có thể trả lời bằng dữ liệu: lần tăng giá trước mất bao nhiêu, thử nghiệm ở vài cửa hàng cho kết quả thế nào, bao nhiêu phần trăm khách mua ở cửa hàng cạnh đối thủ.
+
+Lỗi phổ biến nhất ở bước này: so mức mất khách với mức tăng giá. "Tăng giá 10% mà mất 12% khách thì lỗ" — sai. Phải so với ngưỡng 13,9%, và mất 12% khách vẫn có lãi hơn.
+
+## Cách thứ nhất: tăng dần
+
+Khách nhận ra một lần tăng lớn dễ hơn hai lần tăng nhỏ. Tăng từ 49.000đ lên 54.000đ trong một đêm gây phản ứng. Tăng lên 51.000đ, ba tháng sau lên 54.000đ, thường ít bị chú ý hơn, đặc biệt nếu lần tăng đầu không vượt qua một mốc tròn.
+
+Nhược điểm: mất ba tháng lãi góp của mức giá cao hơn. Với 20.000 chai mỗi tháng và chênh 3.000đ, đó là khoảng 180 triệu. Cần cân với rủi ro mất khách của cách tăng một lần.
+
+## Cách thứ hai: gắn với giá trị mới
+
+Khách chấp nhận giá mới dễ hơn nhiều khi có lý do. Đổi công thức, thêm một thành phần nổi bật, làm mới bao bì, đổi tên dòng sản phẩm. Khách không còn so "chai cũ giá mới" mà so "sản phẩm mới giá mới".
+
+Điều kiện là giá trị mới phải thật, và chi phí thêm phải nhỏ hơn nhiều so với mức tăng giá. Thêm hạt chia làm chi phí tăng 1.500đ mỗi chai để tăng giá 5.000đ vẫn là một giao dịch tốt.
+
+Có một phiên bản của cách này nên tránh: giữ giá nhưng giảm dung tích, từ 500ml xuống 450ml, và hy vọng khách không để ý. Về toán học nó tương đương tăng giá 11%. Về niềm tin, khi bị phát hiện — và mạng xã hội luôn phát hiện — thiệt hại lớn hơn nhiều một lần tăng giá thẳng thắn.
+
+## Cách thứ ba: tách theo phân khúc
+
+Không phải mọi khách đều nhạy cảm với giá như nhau. Khách mua ở cửa hàng cạnh quầy đối thủ so giá mỗi ngày. Văn phòng đặt giao định kỳ, người duyệt đơn không so từng chai. Khách đặt qua ứng dụng giao hàng thì lọc theo giá ngay trên màn hình.
+
+Tăng giá trước ở kênh ít nhạy cảm nhất — giao định kỳ cho văn phòng — cho bạn phần lớn lợi ích với rủi ro thấp nhất. Kênh nhạy cảm nhất có thể giữ giá lâu hơn, hoặc không tăng.
+
+Cách này đòi hỏi các kênh đủ tách biệt để khách không dễ chuyển qua lại lấy giá thấp.
+
+## Đặt sẵn đường lui
+
+Dù chọn cách nào, trước khi tăng giá hãy viết ra ba thứ: chỉ số theo dõi, ngưỡng cảnh báo và hành động nếu chạm ngưỡng.
+
+Chỉ số: sản lượng mỗi tuần ở từng nhóm cửa hàng, đặc biệt nhóm cạnh đối thủ. Ngưỡng: mất quá 10% sau bốn tuần thì xem lại, vì 13,9% là mức hoà. Hành động: tung gói khuyến mãi có mục tiêu cho nhóm khách mất nhiều nhất, thay vì rút lại toàn bộ lần tăng giá.
+
+## Nói ra như thế nào
+
+> "Tăng giá từ 49 lên 54 nghìn là tăng 10%, nhưng lãi góp mỗi chai tăng 16%, từ 31 lên 36 nghìn.
+
+> Nên mình được mất tối đa 13,9% sản lượng, khoảng 2.780 chai mỗi tháng, mà lãi góp vẫn không giảm. Câu hỏi không phải là có mất khách không, mà là có mất quá 14% không.
+
+> Em đề xuất tăng trước ở kênh giao văn phòng vì ít nhạy giá nhất, theo dõi sản lượng hằng tuần ở các cửa hàng cạnh đối thủ, và đặt ngưỡng cảnh báo 10% sau bốn tuần."
+`);
+
+LRD("f-pricing-7", `
+Báo cáo cuối tháng của chương trình "mua 2 tặng 1" được trình bày với một slide màu đỏ rực: 3.000 bộ bán ra, doanh thu 294 triệu, gấp rưỡi tháng trước. Trưởng phòng marketing đề xuất chạy lại vào tháng sau.
+
+Giám đốc tài chính lật sang trang phụ lục, nơi có kết quả khảo sát tại quầy, và gạch dưới một dòng: 60% người mua nói họ vốn đã định mua hai chai.
+
+Con số đó biến một chương trình trông rất thành công thành một chương trình chỉ vừa đủ lãi.
+
+## Doanh số khuyến mãi gồm hai loại khách
+
+Mỗi bộ khuyến mãi bán ra rơi vào một trong hai nhóm.
+
+Nhóm tăng thêm: khách không mua nếu không có khuyến mãi. Họ ghé qua, thấy "mua 2 tặng 1", và quyết định mua. Mỗi bộ bán cho nhóm này là lãi góp hoàn toàn mới.
+
+Nhóm ăn mòn: khách vốn sẽ mua giá đủ. Họ vẫn đến như mọi tuần, vẫn định mua hai chai, và nhận thêm chai thứ ba miễn phí. Mỗi bộ bán cho nhóm này không tạo thêm doanh thu nào, mà còn làm mất phần lãi góp của chai tặng.
+
+Báo cáo "bán được 3.000 bộ" gộp hai nhóm làm một. Và đó là lý do mọi khuyến mãi đều trông thành công trên slide.
+
+## Tính từng nhóm
+
+Một bộ khuyến mãi gồm ba chai, giá 98.000đ, chi phí ba chai 54.000đ. Lãi góp 44.000đ.
+
+Nếu khách vốn định mua hai chai giá đủ, công ty sẽ thu 98.000đ, chi phí 36.000đ, lãi góp 62.000đ.
+
+Với nhóm tăng thêm, mỗi bộ mang về 44.000đ lãi góp mới. 40% của 3.000 bộ là 1.200 bộ, nhân 44.000đ, bằng 52,8 triệu.
+
+Với nhóm ăn mòn, mỗi bộ thay thế một giao dịch 62.000đ bằng một giao dịch 44.000đ, mất 18.000đ. 1.800 bộ nhân âm 18.000đ, bằng âm 32,4 triệu.
+
+Chi phí in ấn, trưng bày, đào tạo nhân viên: 15 triệu.
+
+Kết quả: 52,8 trừ 32,4 trừ 15, bằng 5,4 triệu. Doanh thu 294 triệu, lãi ròng 5,4 triệu.
+
+## Chi phí không nằm trên báo cáo tháng
+
+Con số 5,4 triệu vẫn còn lạc quan, vì nó chưa tính hai chi phí xuất hiện sau khi chương trình kết thúc.
+
+Thứ nhất, hiệu ứng mua tích trữ. Khách mua ba chai trong tuần khuyến mãi sẽ không mua trong tuần kế tiếp. Doanh số tháng sau thấp hơn bình thường, và phần sụt này thật ra là chi phí của chương trình tháng này.
+
+Thứ hai, khách học cách chờ. Chạy khuyến mãi đều đặn, khách quen dần nhận ra quy luật và chuyển sang chỉ mua khi có khuyến mãi. Tỷ lệ ăn mòn tăng dần qua mỗi đợt, và giá tham chiếu trong đầu khách bị kéo xuống: 49.000đ bắt đầu trông như giá đắt, còn 32.700đ mỗi chai của bộ khuyến mãi trông như giá thật.
+
+Đây là con đường nhiều thương hiệu tiêu dùng đã đi: từ khuyến mãi thỉnh thoảng thành khuyến mãi thường xuyên, rồi thành phụ thuộc vào khuyến mãi để giữ doanh số.
+
+## Ước tỷ lệ ăn mòn thế nào
+
+Tỷ lệ ăn mòn là biến quyết định cả bài toán, và nó không tự xuất hiện. Có ba cách ước.
+
+Hỏi tại quầy, như nước ép Xanh đã làm. Rẻ, nhanh, nhưng vẫn là lời nói.
+
+So nhóm cửa hàng có và không có khuyến mãi. Doanh số tăng thêm thật chính là chênh lệch giữa hai nhóm, phần còn lại là ăn mòn.
+
+Xem dữ liệu khách hàng thân thiết: bao nhiêu người mua bộ khuyến mãi đã từng mua đều đặn trước đó. Với khách có thẻ, đây là cách chính xác nhất.
+
+## Thiết kế khuyến mãi ít ăn mòn
+
+Nếu phải chạy khuyến mãi, hãy thiết kế để nó chạm vào nhóm tăng thêm và tránh nhóm ăn mòn.
+
+Gửi mã riêng cho người chưa từng mua, qua kênh khách quen ít dùng. Áp dụng ở cửa hàng mới khai trương, nơi chưa có khách quen. Giới hạn theo khung giờ vắng khách, để lấp công suất trống thay vì giảm giá cho giờ đông. Và tránh đặt bảng khuyến mãi ngay quầy thanh toán — nơi khách đã quyết định mua rồi.
+
+## Nói ra như thế nào
+
+> "Chương trình bán 3.000 bộ, nhưng 60% khách vốn đã định mua hai chai giá đủ. Với nhóm đó, mỗi bộ làm mình mất 18.000đ lãi góp.
+
+> Tách ra: 1.200 bộ tăng thêm mang về 52,8 triệu, 1.800 bộ ăn mòn mất 32,4 triệu, trừ 15 triệu chi phí, còn lãi 5,4 triệu. Con số này chưa tính việc khách tích trữ làm giảm doanh số tháng sau.
+
+> Em không đề xuất chạy lại y hệt. Nếu chạy, nên gửi mã riêng cho khách chưa từng mua để giảm tỷ lệ ăn mòn, và đo bằng cách so với nhóm cửa hàng không có khuyến mãi."
+`);
+
+LRD("f-pricing-8", `
+Chị quản lý hành chính của một công ty 40 người gọi cho nước ép Xanh: văn phòng đặt đều mỗi tuần, có cách nào rẻ hơn không? Nhân viên kinh doanh đề xuất một gói tháng: 20 chai, 800.000đ, tức 40.000đ mỗi chai thay vì 49.000đ.
+
+Kế toán của Xanh phản đối: "Giảm giá 18% mỗi chai, mình lỗ biên." Nhân viên kinh doanh không đồng ý nhưng không chứng minh được.
+
+Cả hai đang nhìn sai đơn vị. Kế toán nhìn mỗi chai. Câu hỏi đúng là mỗi khách, mỗi tháng.
+
+## Ba cách tính tiền cho cùng một sản phẩm
+
+Bán lẻ theo đơn vị: khách dùng bao nhiêu trả bấy nhiêu. Công bằng, dễ hiểu. Người bán chịu toàn bộ rủi ro sản lượng dao động: tháng văn phòng nghỉ lễ, đơn hàng rơi một nửa.
+
+Gói cố định: khách trả trước một mức cho một lượng tối đa. Khách được giá mỗi đơn vị thấp hơn. Người bán nhận tiền chắc chắn, và giữ lại phần khách mua nhưng không dùng hết.
+
+Theo mức dùng có bậc: giá mỗi đơn vị giảm dần khi khách dùng nhiều hơn. Ví dụ 10 chai đầu 49.000đ, từ chai thứ 11 là 44.000đ. Thưởng khách dùng nhiều mà người bán không phải giảm giá cho những chai khách vẫn sẽ mua.
+
+Mỗi cách là một cách chia rủi ro và giá trị giữa hai bên. Không có cách nào tốt nhất cho mọi trường hợp.
+
+## Phép tính đúng: lãi góp mỗi khách
+
+Dữ liệu đơn hàng cho thấy một văn phòng như vậy dùng trung bình 16 chai mỗi tháng.
+
+Mua lẻ: 16 chai nhân lãi góp 31.000đ mỗi chai, bằng 496.000đ.
+
+Gói tháng: doanh thu cố định 800.000đ. Chi phí chỉ phát sinh cho những chai thật sự giao, 16 chai nhân 18.000đ, bằng 288.000đ. Lãi góp 512.000đ.
+
+Gói lãi hơn 16.000đ mỗi tháng, dù khách thấy mình được giảm 18% mỗi chai. Nguồn của phần lãi thêm là bốn chai khách trả tiền nhưng không dùng tới.
+
+Đây là cơ chế đằng sau hầu hết các gói thuê bao: phòng gym, dữ liệu di động, phần mềm. Người bán định giá gói dựa trên mức dùng trung bình, không phải mức dùng tối đa.
+
+## Kịch bản khách dùng hết
+
+Kế toán cũng không hoàn toàn sai. Có những văn phòng dùng hết 20 chai. Với nhóm này, gói mang về 800.000đ trừ 360.000đ chi phí, bằng 440.000đ — thấp hơn mua lẻ 56.000đ mỗi tháng.
+
+Vì vậy quyết định phụ thuộc vào phân bố mức dùng, không chỉ trung bình. Nếu phần lớn văn phòng dùng 12 đến 16 chai, gói rất lãi. Nếu phần lớn dùng 19 đến 20 chai, gói lỗ so với bán lẻ.
+
+Cách thiết kế thường gặp: đặt mức gói gần mức dùng trung bình của phân khúc, không cao hơn nhiều. Gói 20 chai cho khách dùng 16 là hợp lý. Gói 40 chai cho cùng khách đó thì họ sẽ không mua.
+
+Một lựa chọn khác là giới hạn chuyển tiếp: chai không dùng trong tháng không được cộng sang tháng sau. Nếu cho cộng dồn, phần lãi từ chai không dùng biến mất.
+
+## Lợi ích lớn hơn phép tính tháng
+
+Chênh lệch 16.000đ mỗi tháng là nhỏ. Lợi ích thật của gói nằm ở chỗ khác.
+
+Giữ chân: văn phòng đã trả trước ít khi chuyển sang đối thủ giữa chừng. Nếu gói giúp một khách ở lại thêm sáu tháng, đó là sáu tháng lãi góp khoảng 500.000đ, tức 3 triệu, gấp gần 200 lần phần chênh mỗi tháng.
+
+Dự báo: doanh thu gói biết trước, nên kế hoạch mua trái cây và sản xuất chính xác hơn, giảm hàng hỏng.
+
+Dòng tiền: tiền về đầu tháng thay vì rải rác, đúng như bài dòng tiền đã phân tích.
+
+Khi đề xuất một gói, hãy trình bày cả ba lợi ích này, không chỉ lãi góp mỗi tháng.
+
+## Khi nào nên dùng giá theo bậc thay vì gói
+
+Gói cố định hợp với khách có mức dùng ổn định và dễ dự đoán. Với khách dùng rất dao động, ví dụ công ty tổ chức sự kiện, một tháng 5 chai, tháng sau 80 chai, gói cố định hoặc quá nhỏ hoặc quá lớn.
+
+Giá theo bậc giải quyết được trường hợp này: khách không phải cam kết trước, người bán vẫn thưởng được khách dùng nhiều. Đổi lại, người bán mất lợi ích từ phần không dùng hết và lợi ích dòng tiền trả trước.
+
+## Nói ra như thế nào
+
+> "Em nghĩ phải so lãi góp mỗi văn phòng mỗi tháng, không so giá mỗi chai. Văn phòng trung bình dùng 16 chai.
+
+> Mua lẻ thì lãi góp 496 nghìn. Gói 800 nghìn, chi phí chỉ tính cho 16 chai thật sự giao, lãi góp 512 nghìn — nhiều hơn 16 nghìn dù khách được giảm 18% mỗi chai. Nhưng văn phòng nào dùng hết 20 chai thì chỉ còn 440 nghìn.
+
+> Nên em đề xuất bán gói cho các văn phòng có lịch sử dùng dưới 18 chai, không cho cộng dồn chai sang tháng sau, và đo thêm thời gian giữ chân vì đó là lợi ích lớn nhất."
+`);
+
+LRD("f-pricing-9", `
+Sáng thứ hai, đội bán hàng của nước ép Xanh nhận tin: đối thủ lớn nhất vừa hạ giá chai 500ml từ 45.000đ xuống 39.000đ, áp dụng toàn quốc. Đến trưa, nhóm chat quản lý cửa hàng đầy tin nhắn: "Khách hỏi sao bên kia rẻ hơn mười nghìn." "Mình có giảm không anh?"
+
+Đến chiều, trưởng bộ phận bán hàng gửi đề xuất: giảm giá Xanh từ 49.000đ xuống 43.000đ, giữ nguyên khoảng cách 4.000đ với đối thủ như trước.
+
+Đề xuất nghe rất phòng thủ và hợp lý. Nó cũng là cách chắc chắn nhất để mất 120 triệu lãi góp mỗi tháng.
+
+## Hai loại thiệt hại
+
+Khi đối thủ giảm giá, bạn có hai lựa chọn cơ bản, và cả hai đều gây thiệt hại. Khác nhau ở tính chất của thiệt hại.
+
+Theo giá: sản lượng giữ nguyên, nhưng mỗi chai lãi ít hơn. Nước ép Xanh bán 20.000 chai mỗi tháng. Ở giá 49.000đ, lãi góp 31.000đ mỗi chai, tổng 620 triệu. Ở giá 43.000đ, lãi góp 25.000đ, tổng 500 triệu. Mất 120 triệu mỗi tháng. Chắc chắn, ngay lập tức, và kéo dài chừng nào giá còn thấp.
+
+Giữ giá: mỗi chai vẫn lãi 31.000đ, nhưng một phần khách chuyển sang đối thủ. Thiệt hại phụ thuộc vào bao nhiêu khách đi. Không chắc chắn, và có thể nhỏ hơn nhiều.
+
+Phản xạ tự nhiên là chọn thiệt hại chắc chắn để tránh thiệt hại không chắc. Nhưng trong kinh doanh, đó thường là giao dịch tệ.
+
+## Ngưỡng mất khách
+
+Giữ giá thì được mất bao nhiêu khách trước khi tệ bằng theo giá?
+
+Cần sản lượng ở giá 49.000đ cho ra đúng 500 triệu lãi góp: 500 triệu chia 31.000đ, khoảng 16.130 chai. Tức được mất khoảng 3.870 chai, bằng 19,4% sản lượng.
+
+Công thức gọn: 1 trừ lãi góp mỗi chai khi theo giá chia lãi góp mỗi chai khi giữ giá. 1 trừ 25 chia 31, bằng 19,4%.
+
+Nếu mất 15% khách, giữ giá mang về 17.000 chai nhân 31.000đ, bằng 527 triệu — hơn theo giá 27 triệu mỗi tháng. Chỉ khi mất gần một phần năm khách, theo giá mới bắt đầu hợp lý.
+
+Bây giờ câu hỏi cho đội bán hàng rõ ràng: khách của Xanh có sẵn sàng bỏ đi một phần năm vì giá không?
+
+## Đọc độ nhạy giá của khách mình
+
+Có vài tín hiệu giúp ước câu trả lời.
+
+Khách mua vì điều gì? Nếu khảo sát và đánh giá cho thấy khách chọn Xanh vì nguyên liệu hữu cơ, không đường, ép lạnh — những thứ đối thủ không có — độ nhạy giá thấp. Họ không so hai chai như hai món giống nhau.
+
+Khách mua ở đâu? Cửa hàng đặt cạnh quầy đối thủ nhạy cảm hơn nhiều so với kênh giao văn phòng.
+
+Lần trước tăng giá mất bao nhiêu? Nếu lần tăng 5.000đ năm ngoái chỉ mất 8% sản lượng, khoảng cách giá mới rộng thêm 6.000đ khó làm mất tới 19%.
+
+Đối thủ giảm giá bao lâu? Nhiều đợt giảm giá là thăm dò: đối thủ muốn xem phản ứng. Giảm theo là xác nhận một mặt bằng giá mới cho cả ngành, và mặt bằng giá rất khó kéo lên lại.
+
+## Đáp trả mà không cần giảm giá
+
+Lựa chọn không chỉ có theo giá hoặc đứng yên. Cách tốt thường là bảo vệ đúng nhóm khách dễ mất nhất bằng thứ khác ngoài giá niêm yết.
+
+Gói văn phòng giá tốt cho khách giao định kỳ, như bài trước. Thẻ tích điểm cho khách quen ở các cửa hàng cạnh đối thủ, mua 9 tặng 1 — thực chất giảm 10% nhưng chỉ cho khách trung thành, không cho người mua một lần. Một cỡ chai mới 350ml giá 39.000đ, đặt ngang giá đối thủ nhưng không phá giá chai 500ml.
+
+Mỗi cách này giới hạn thiệt hại vào nhóm khách thật sự nhạy giá, thay vì giảm giá cho cả 20.000 chai.
+
+## Khi nào nên đánh
+
+Có trường hợp theo giá là đúng. Khi sản phẩm gần như không khác biệt và khách chuyển đổi dễ dàng. Khi đối thủ có chi phí cao hơn và không trụ lâu được ở giá thấp. Khi mất thị phần sẽ làm mất lợi thế quy mô, khiến chi phí mỗi đơn vị tăng lên.
+
+Nhưng ngay cả khi đó, hãy tính ngưỡng trước. Một quyết định theo giá dựa trên con số 19,4% và bằng chứng rằng mình sẽ mất nhiều hơn thế là một quyết định. Một quyết định theo giá dựa trên nhóm chat hoảng loạn thì không.
+
+## Nói ra như thế nào
+
+> "Theo giá xuống 43 nghìn thì mình mất chắc 120 triệu lãi góp mỗi tháng. Giữ giá thì mình được mất tới 19,4% sản lượng, khoảng 3.870 chai, mới tệ bằng.
+
+> Khách của Xanh chủ yếu mua vì nguyên liệu hữu cơ, và lần tăng giá trước chỉ mất 8% sản lượng. Em nghĩ khả năng mất gần một phần năm khách là thấp.
+
+> Em đề xuất giữ giá, và bảo vệ nhóm khách nhạy giá nhất bằng thẻ tích điểm ở các cửa hàng cạnh đối thủ. Mình theo dõi sản lượng hằng tuần ở nhóm này; nếu mất quá 12% sau bốn tuần thì họp lại."
 `);

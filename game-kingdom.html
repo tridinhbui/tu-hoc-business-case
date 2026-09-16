@@ -24,11 +24,6 @@
       --primary-dark: #047857;
       --primary-forest: #064e3b;
       --primary-mint: #e6f7ee;
-      --primary-mint-hover: #d3f3e2;
-      
-      --amber-bg: #fef8eb;
-      --amber-border: #fde68a;
-      --amber-text: #b45309;
       
       --radius-sm: 8px;
       --radius-md: 12px;
@@ -333,22 +328,22 @@
       text-overflow: ellipsis;
     }
 
-    /* ════════════ MAIN GAME KINGDOM LAYOUT ════════════ */
+    /* ════════════ MAIN GAME KINGDOM ════════════ */
     .game-kingdom-layout {
       flex: 1;
       display: flex;
       flex-direction: column;
       height: 100vh;
       overflow: hidden;
-      background: #eef2ed;
+      background: #ffffff;
       position: relative;
     }
 
     /* ── TOP HEADER BAR ── */
     .top-header-bar {
       background: #ffffff;
-      border-bottom: 1px solid #e5ece5;
-      padding: 8px 24px;
+      border-bottom: 1px solid #edf2ed;
+      padding: 10px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -361,7 +356,6 @@
       gap: 12px;
     }
 
-    /* Crown Character Level Badge in Header */
     .avatar-level-container {
       position: relative;
       width: 44px;
@@ -382,7 +376,6 @@
       justify-content: center;
       box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
       position: relative;
-      overflow: visible;
     }
 
     .header-crown {
@@ -402,7 +395,7 @@
 
     .header-level-tag {
       position: absolute;
-      bottom: -4px;
+      bottom: -5px;
       left: 50%;
       transform: translateX(-50%);
       background: #f59e0b;
@@ -431,7 +424,7 @@
 
     .kingdom-title {
       font-size: 15.5px;
-      font-weight: 800;
+      font-weight: 900;
       color: #0f172a;
       letter-spacing: -0.01em;
     }
@@ -474,7 +467,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 12px;
+      padding: 6px 14px;
       background: #fef8eb;
       border: 1px solid #fde68a;
       border-radius: var(--radius-pill);
@@ -484,14 +477,14 @@
     }
 
     .stat-pill-gold .lbl {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 9.5px;
+      font-weight: 800;
       text-transform: uppercase;
       color: #b45309;
     }
 
     .stat-pill-gold .val {
-      font-weight: 800;
+      font-weight: 900;
       color: #78350f;
     }
 
@@ -499,7 +492,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 12px;
+      padding: 6px 14px;
       background: #ecfeff;
       border: 1px solid #a5f3fc;
       border-radius: var(--radius-pill);
@@ -509,8 +502,8 @@
     }
 
     .stat-pill-energy .lbl {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 9.5px;
+      font-weight: 800;
       text-transform: uppercase;
       color: #0284c7;
     }
@@ -535,12 +528,12 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 6px 16px;
       background: #f59e0b;
       color: white;
       border-radius: var(--radius-pill);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       border: none;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(245, 158, 11, 0.25);
@@ -556,13 +549,13 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 6px 16px;
       background: #ffffff;
       color: #2563eb;
       border: 1.5px solid #60a5fa;
       border-radius: var(--radius-pill);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -592,11 +585,11 @@
       color: #ffffff;
       font-size: 10px;
       font-weight: 800;
-      padding: 2px 9px;
+      padding: 2.5px 10px;
       border-radius: var(--radius-pill);
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       flex-shrink: 0;
       letter-spacing: 0.03em;
     }
@@ -636,17 +629,17 @@
       cursor: grab;
       background: #f7f5ed;
       user-select: none;
-      margin: 12px 16px 16px 16px;
+      margin: 12px 18px 18px 18px;
       border-radius: 20px;
-      border: 1px solid #e2ebe2;
-      box-shadow: inset 0 0 40px rgba(0,0,0,0.03);
+      border: 1px solid #e0eae0;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.02);
     }
 
     .map-canvas-viewport.grabbing {
       cursor: grabbing;
     }
 
-    /* Top Helper Floating Pill */
+    /* Top Helper Toast */
     .top-helper-toast {
       position: absolute;
       top: 14px;
@@ -676,7 +669,7 @@
       color: #059669;
       font-size: 10.5px;
       font-weight: 800;
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: var(--radius-pill);
       z-index: 30;
       letter-spacing: 0.04em;
@@ -692,9 +685,9 @@
     /* Floating Equipment Widget */
     .floating-gear-card {
       position: absolute;
-      top: 50px;
+      top: 52px;
       right: 20px;
-      width: 220px;
+      width: 226px;
       background: #ffffff;
       border: 1px solid #e2ebe2;
       border-radius: 14px;
@@ -720,15 +713,15 @@
     }
 
     .gear-icon-box {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       background: #fef8eb;
       border: 1.5px solid #fde68a;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
+      font-size: 16px;
       position: relative;
     }
 
@@ -833,8 +826,8 @@
     }
 
     .node-thumb-box {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 8px;
       background: #0f172a;
       display: flex;
@@ -848,7 +841,6 @@
     .node-thumb-box svg {
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
 
     .node-num-tag {
@@ -905,7 +897,7 @@
       margin-top: 1px;
     }
 
-    /* ── SPECIAL BOSS NODE CARD (GLOWING RED BORDER & AURA) ── */
+    /* ── SPECIAL BOSS NODE CARD (GLOWING RED BORDER & RED AURA) ── */
     .boss-node-card {
       position: absolute;
       background: #ffffff;
@@ -915,7 +907,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 0 25px rgba(239, 68, 68, 0.45), 0 6px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 0 30px rgba(239, 68, 68, 0.5), 0 6px 20px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: all 0.2s ease;
       z-index: 25;
@@ -924,7 +916,7 @@
 
     .boss-node-card:hover {
       transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 35px rgba(239, 68, 68, 0.6), 0 8px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.7), 0 8px 25px rgba(0,0,0,0.15);
     }
 
     .boss-thumb-box {
@@ -1426,19 +1418,14 @@
         <div class="avatar-level-container">
           <div class="avatar-level-circle">
             <span class="header-crown">👑</span>
-            <!-- Cartoon Avatar with glasses -->
             <svg class="header-avatar-svg" viewBox="0 0 36 36">
               <circle cx="18" cy="18" r="16" fill="#fed7aa"/>
-              <!-- Hair -->
               <path d="M6 16c0-7 5.373-12 12-12s12 5 12 12c-2-3-5-4-8-3-3-2-6-1-8 2-3 0-5 0-8 1z" fill="#1e293b"/>
-              <!-- Glasses -->
               <rect x="8" y="14" width="8" height="6" rx="2" fill="none" stroke="#0f172a" stroke-width="1.6"/>
               <rect x="20" y="14" width="8" height="6" rx="2" fill="none" stroke="#0f172a" stroke-width="1.6"/>
               <line x1="16" y1="17" x2="20" y2="17" stroke="#0f172a" stroke-width="1.6"/>
-              <!-- Eyes -->
               <circle cx="12" cy="17" r="1" fill="#0f172a"/>
               <circle cx="24" cy="17" r="1" fill="#0f172a"/>
-              <!-- Smile -->
               <path d="M14 24 Q18 27 22 24" fill="none" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
             <span class="header-level-tag">\Lv.2</span>
@@ -1507,18 +1494,18 @@
     <!-- ── MAP CANVAS VIEWPORT ── -->
     <div class="map-canvas-viewport" id="mapViewport">
 
-      <!-- Top Helper Notification Pill -->
+      <!-- Top Helper Toast -->
       <div class="top-helper-toast">
         <span>🔗</span>
         <span>Kéo tự do (Canvas Drag & Pan) để di chuyển bản đồ không cần cuộn trang web!</span>
       </div>
 
-      <!-- Top Right Region Badge -->
+      <!-- Top Right Region Tag -->
       <div class="top-region-tag" onclick="alert('Bản đồ hiện có 12 Vùng Đất Tài Chính: Phố Wall, Silicon Valley Tech, Frankfurt Bank, Tokyo Stock, v.v.')">
         12 VÙNG ĐẤT TÀI CHÍNH
       </div>
 
-      <!-- Floating Equipment / Gear Widget -->
+      <!-- Floating Equipment Widget -->
       <div class="floating-gear-card" onclick="openModal('gearModal')">
         <div class="gear-card-top">
           <div class="gear-icon-box">
@@ -1562,7 +1549,6 @@
           <rect width="2200" height="1300" fill="url(#paperGrad)"/>
 
           <!-- ── ARCHITECTURAL BUILDINGS SKETCH ── -->
-          <!-- Background Skyscrapers Line Art (Sepia Charcoal Style) -->
           <g stroke="#91816d" stroke-width="1.3" fill="none" opacity="0.45" stroke-linecap="round" stroke-linejoin="round">
             <!-- Left Highrises -->
             <path d="M 280 500 L 280 200 L 320 160 L 320 120 L 330 80 L 330 60 L 332 80 L 340 120 L 340 160 L 380 200 L 380 500"/>
@@ -1598,7 +1584,6 @@
 
           <!-- ── DETAILED NEW YORK STOCK EXCHANGE (NYSE) FACADE ── -->
           <g transform="translate(1260, 320)">
-            <!-- Building Shadow/Wall Wash -->
             <rect x="0" y="70" width="580" height="400" fill="#e5dcce" stroke="#71624e" stroke-width="1.8" opacity="0.6"/>
 
             <!-- Pediment Triangular Roof -->
@@ -1613,7 +1598,6 @@
             <text x="290" y="90" font-family="Cinzel, serif" font-size="13" font-weight="900" fill="#5d4e3a" text-anchor="middle" letter-spacing="3.5">NEW YORK STOCK EXCHANGE</text>
 
             <!-- 6 Neoclassical Corinthian Columns -->
-            <!-- Column 1 -->
             <g transform="translate(38, 98)">
               <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
               <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
@@ -1622,7 +1606,6 @@
               <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
               <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
             </g>
-            <!-- Column 2 -->
             <g transform="translate(130, 98)">
               <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
               <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
@@ -1631,7 +1614,6 @@
               <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
               <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
             </g>
-            <!-- Column 3 -->
             <g transform="translate(222, 98)">
               <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
               <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
@@ -1640,7 +1622,6 @@
               <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
               <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
             </g>
-            <!-- Column 4 -->
             <g transform="translate(318, 98)">
               <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
               <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
@@ -1649,7 +1630,6 @@
               <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
               <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
             </g>
-            <!-- Column 5 -->
             <g transform="translate(410, 98)">
               <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
               <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
@@ -1658,7 +1638,6 @@
               <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
               <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
             </g>
-            <!-- Column 6 -->
             <g transform="translate(502, 98)">
               <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
               <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
@@ -1675,7 +1654,6 @@
           </g>
 
           <!-- ── CURVED ELEVATED BRIDGE & HIGHWAY ── -->
-          <!-- Bridge Pillar Bases -->
           <g fill="#dfd6c5" stroke="#71624e" stroke-width="1.6">
             <path d="M 440 440 L 440 640 L 475 640 L 475 440 Z"/>
             <path d="M 880 460 L 880 780 L 915 780 L 915 460 Z"/>
@@ -1734,12 +1712,10 @@
         <div class="map-node-card" style="top: 590px; left: 240px;" onclick="openModal('node01Modal')">
           <div class="node-thumb-box">
             <span class="node-num-tag">01</span>
-            <!-- Businessman Portrait -->
             <svg viewBox="0 0 40 40">
               <rect width="40" height="40" fill="#1e3a8a"/>
               <circle cx="20" cy="16" r="8" fill="#fcd34d"/>
               <path d="M10 40c0-6 4-10 10-10s10 4 10 10" fill="#0f172a"/>
-              <!-- Tie -->
               <polygon points="19,30 21,30 22,36 20,38 18,36" fill="#f59e0b"/>
             </svg>
           </div>
@@ -1754,7 +1730,6 @@
         <div class="map-node-card" style="top: 890px; left: 380px;" onclick="openModal('node02Modal')">
           <div class="node-thumb-box">
             <span class="node-num-tag">02</span>
-            <!-- Times Square Neon City -->
             <svg viewBox="0 0 40 40">
               <rect width="40" height="40" fill="#2e1065"/>
               <rect x="6" y="10" width="12" height="30" fill="#581c87"/>
@@ -1775,7 +1750,6 @@
         <div class="map-node-card" style="top: 680px; left: 920px;" onclick="openModal('node03Modal')">
           <div class="node-thumb-box">
             <span class="node-num-tag">03</span>
-            <!-- Bank Columns Graphic -->
             <svg viewBox="0 0 40 40">
               <rect width="40" height="40" fill="#7c2d12"/>
               <polygon points="4,14 20,4 36,14" fill="#fdba74"/>
@@ -1796,7 +1770,6 @@
         <div class="map-node-card" style="top: 830px; left: 1540px;" onclick="openModal('node04Modal')">
           <div class="node-thumb-box">
             <span class="node-num-tag">04</span>
-            <!-- High Tech Glass Skyscraper -->
             <svg viewBox="0 0 40 40">
               <rect width="40" height="40" fill="#0f172a"/>
               <polygon points="12,40 12,10 28,4 28,40" fill="#1e40af"/>
@@ -1816,18 +1789,13 @@
         <div class="boss-node-card" style="top: 310px; left: 1290px;" onclick="openModal('bossModal')">
           <div class="boss-thumb-box">
             <span class="node-num-tag" style="background:#ef4444">05</span>
-            <!-- Menacing Bull Boss Icon -->
             <svg viewBox="0 0 40 40">
               <rect width="40" height="40" fill="#1e1b4b"/>
-              <!-- Bull Horns -->
               <path d="M 6 12 Q 10 4 18 14 Q 10 10 6 12" fill="#ef4444"/>
               <path d="M 34 12 Q 30 4 22 14 Q 30 10 34 12" fill="#ef4444"/>
-              <!-- Bull Head -->
               <polygon points="14,14 26,14 24,30 16,30" fill="#312e81"/>
-              <!-- Glowing Red Eyes -->
               <circle cx="16" cy="20" r="1.5" fill="#f87171"/>
               <circle cx="24" cy="20" r="1.5" fill="#f87171"/>
-              <!-- Nose Ring -->
               <circle cx="20" cy="28" r="3" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
             </svg>
           </div>

@@ -246,6 +246,10 @@ const SIDE = [
   ["f-pricing-9 · 620 · 500 · 527 triệu; ngưỡng ≈ 3.870 chai", ()=>{
       assert.equal(20000*31000/1e6,620); assert.equal(20000*25000/1e6,500); assert.equal(17000*31000/1e6,527);
       assert.equal(Math.round(20000*(1-25/31)/10)*10,3870); assert.equal(620-527,93); }],
+  ["f-pricing bài đọc 6–9 · 17.220 chai; tăng dần mất 180 triệu; doanh thu khuyến mãi 294 triệu, 32.700đ/chai; giữ chân gấp gần 200 lần; 16.130 chai", ()=>{
+      assert.equal(Math.round(620e6/36000/10)*10,17220); assert.equal(3*20000*3000/1e6,180); assert.equal(Math.round((500/450-1)*100),11);
+      assert.equal(3000*98000/1e6,294); assert.equal(Math.round(98000/3/100)*100,32700); assert.equal(Math.round(6*500000/16000),188);
+      assert.equal(Math.round(500e6/31000/10)*10,16130); }],
   ["i-profit-1 · phần riêng của hãng ≈ 83% mức giảm", ()=> assert.equal(Math.round(12.5/15*100),83)],
   ["i-profit-2 · số liệu hãng xe khớp bài trước", ()=>{ assert.equal(5e6*100000/1e9,500); assert.equal(4e6*130000/1e9,520);
       assert.equal(520-485,35); assert.equal((4e6-5e6)*100000/1e9,-100); }],

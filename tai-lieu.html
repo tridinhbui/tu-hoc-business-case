@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f8faf8;
+      --bg: #ffffff;
       --surface: #ffffff;
       --surface-subtle: #f8faf8;
       --sidebar-bg: #ffffff;
@@ -23,20 +23,19 @@
       
       --primary: #059669;
       --primary-dark: #047857;
-      --primary-forest: #032b1a;
-      --primary-light: #e6f7ee;
+      --primary-mint: #e6f7ee;
       --primary-ring: rgba(5, 150, 105, 0.2);
 
-      --hero-bg-start: #021a11;
-      --hero-bg-mid: #053320;
-      --hero-bg-end: #01130c;
-      --hero-card-bg: rgba(3, 30, 18, 0.82);
-      --hero-border: rgba(16, 185, 129, 0.22);
+      --hero-bg-start: #032014;
+      --hero-bg-mid: #053b25;
+      --hero-bg-end: #01150c;
+      --hero-card-bg: rgba(2, 28, 18, 0.85);
+      --hero-border: rgba(16, 185, 129, 0.25);
       
       --radius-sm: 8px;
       --radius-md: 12px;
-      --radius-lg: 18px;
-      --radius-xl: 28px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
       --radius-pill: 9999px;
       
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
@@ -82,7 +81,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ════════════ SIDEBAR ════════════ */
+    /* ════════════ SIDEBAR (EXACT MATCH) ════════════ */
     .sidebar {
       width: 256px;
       min-width: 256px;
@@ -135,7 +134,7 @@
       align-items: center;
       gap: 8px;
       background: #f8faf8;
-      border: 1px solid var(--border-color);
+      border: 1px solid #e5e7eb;
       border-radius: var(--radius-pill);
       padding: 7px 14px;
       font-size: 13px;
@@ -146,6 +145,7 @@
 
     [data-theme="dark"] .search-box {
       background: #141c16;
+      border-color: var(--border-color);
     }
 
     .search-box:hover {
@@ -156,7 +156,7 @@
       margin-left: auto;
       font-size: 10.5px;
       background: var(--surface);
-      border: 1px solid var(--border-color);
+      border: 1px solid #e5e7eb;
       border-radius: 4px;
       padding: 1px 5px;
       color: var(--text-secondary);
@@ -198,7 +198,7 @@
     }
 
     .nav-item.active {
-      background: #daf5e6;
+      background: #dcfce7;
       color: #046a41;
       font-weight: 700;
     }
@@ -274,8 +274,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-color);
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
       border-radius: var(--radius-pill);
       padding: 5px 12px 5px 8px;
       font-size: 12.5px;
@@ -283,21 +283,30 @@
       color: var(--text-main);
     }
 
+    [data-theme="dark"] .gold-pill {
+      background: var(--surface);
+      border-color: var(--border-color);
+    }
+
     .gold-pill .coin-icon {
       font-size: 15px;
     }
 
     .gold-count {
-      color: #b45309;
+      color: #111827;
       font-weight: 800;
+    }
+
+    [data-theme="dark"] .gold-count {
+      color: #ecf5ed;
     }
 
     .bell-btn {
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-color);
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -305,6 +314,11 @@
       position: relative;
       cursor: pointer;
       transition: all 0.2s;
+    }
+
+    [data-theme="dark"] .bell-btn {
+      background: var(--surface);
+      border-color: var(--border-color);
     }
 
     .bell-btn:hover {
@@ -344,9 +358,13 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1.5px solid var(--border-color);
+      border: 1.5px solid #e5e7eb;
       overflow: hidden;
       flex-shrink: 0;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .user-info-text {
@@ -458,40 +476,40 @@
       min-width: 0;
       overflow-y: auto;
       height: 100vh;
+      background: #ffffff;
     }
 
     .content-container {
-      max-width: 1220px;
+      max-width: 1200px;
       width: 100%;
       margin: 0 auto;
-      padding: 28px 36px 60px;
+      padding: 24px 36px 60px;
     }
 
-    /* ════════════ HERO BANNER (PIXEL PERFECT MATCH) ════════════ */
+    /* ════════════ HERO BANNER (100% IDENTICAL) ════════════ */
     .hero-banner {
-      background: radial-gradient(circle at 85% 50%, #064e32 0%, #022316 45%, #01140c 100%);
-      border: 1px solid rgba(16, 185, 129, 0.22);
-      border-radius: var(--radius-xl);
-      padding: 34px 38px;
+      background: radial-gradient(circle at 82% 50%, #064a30 0%, #032a1b 40%, #02180f 100%);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 24px;
+      padding: 32px 36px;
       position: relative;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 32px;
-      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.35);
-      margin-bottom: 22px;
+      gap: 28px;
+      box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
     }
 
-    /* Subtle ambient glow behind 3D art */
     .hero-banner::before {
       content: "";
       position: absolute;
       top: -20%;
-      right: 5%;
-      width: 360px;
-      height: 360px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.28) 0%, rgba(16, 185, 129, 0) 65%);
+      right: 8%;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0) 65%);
       pointer-events: none;
       filter: blur(25px);
     }
@@ -499,21 +517,21 @@
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 650px;
+      max-width: 630px;
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       background: rgba(16, 185, 129, 0.16);
-      border: 1px solid rgba(16, 185, 129, 0.38);
+      border: 1px solid rgba(16, 185, 129, 0.35);
       border-radius: var(--radius-pill);
-      padding: 4px 13px;
+      padding: 4px 12px;
       font-size: 12px;
       font-weight: 600;
       color: #34d399;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       backdrop-filter: blur(8px);
     }
 
@@ -521,23 +539,23 @@
       font-size: 32px;
       font-weight: 800;
       color: #ffffff;
-      line-height: 1.22;
+      line-height: 1.2;
       letter-spacing: -0.02em;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .hero-subtitle {
       font-size: 13.5px;
       line-height: 1.55;
       color: #cbd5e1;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       font-weight: 400;
     }
 
     .hero-subcard {
-      background: rgba(2, 28, 18, 0.82);
-      border: 1px solid rgba(16, 185, 129, 0.28);
-      border-radius: 14px;
+      background: rgba(2, 28, 18, 0.85);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 12px;
       padding: 12px 16px;
       display: flex;
       align-items: flex-start;
@@ -552,56 +570,55 @@
     }
 
     .hero-subcard-title {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       color: #34d399;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       margin-bottom: 3px;
     }
 
     .hero-subcard-desc {
-      font-size: 12.5px;
+      font-size: 12px;
       color: #a7f3d0;
       line-height: 1.45;
     }
 
-    /* Hero Right 3D Visual Asset (Exact Look) */
+    /* Hero Right 3D Art */
     .hero-graphic {
       position: relative;
       z-index: 2;
       flex-shrink: 0;
-      width: 200px;
-      height: 170px;
+      width: 190px;
+      height: 165px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .hero-3d-scene {
-      width: 190px;
-      height: 155px;
+      width: 180px;
+      height: 150px;
       position: relative;
-      perspective: 1000px;
     }
 
     .hero-tablet-card {
       position: absolute;
-      inset: 8px 10px;
+      inset: 6px 8px;
       background: linear-gradient(145deg, #093c28 0%, #031c12 100%);
       border: 1.5px solid #34d399;
-      border-radius: 16px;
-      box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 25px rgba(16, 185, 129, 0.35);
-      padding: 12px 14px;
+      border-radius: 14px;
+      box-shadow: 0 16px 30px -6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 20px rgba(16, 185, 129, 0.35);
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transform: rotateY(-12deg) rotateX(10deg);
+      transform: rotateY(-10deg) rotateX(8deg);
       transition: transform 0.3s ease;
     }
 
     .hero-tablet-card:hover {
-      transform: rotateY(-6deg) rotateX(5deg) scale(1.03);
+      transform: rotateY(-4deg) rotateX(4deg) scale(1.02);
     }
 
     .tablet-top-row {
@@ -611,7 +628,7 @@
     }
 
     .tablet-brand-text {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       letter-spacing: 0.08em;
       color: #34d399;
@@ -630,60 +647,60 @@
       display: flex;
       align-items: flex-end;
       gap: 4px;
-      height: 48px;
-      padding: 4px 0;
+      height: 44px;
+      padding: 2px 0;
     }
 
     .chart-bar {
       flex: 1;
-      border-radius: 3px 3px 0 0;
+      border-radius: 2px 2px 0 0;
       background: rgba(52, 211, 153, 0.4);
     }
 
     .chart-bar.active {
       background: #34d399;
-      box-shadow: 0 0 12px #34d399;
+      box-shadow: 0 0 10px #34d399;
     }
 
     .tablet-bottom-badge {
       background: rgba(0, 0, 0, 0.45);
       border-radius: 6px;
-      padding: 4px 8px;
-      font-size: 9.5px;
+      padding: 3px 6px;
+      font-size: 9px;
       font-weight: 700;
       color: #ecfdf5;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
     .floating-gold-coin {
       position: absolute;
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #fef08a 0%, #ca8a04 70%, #713f12 100%);
-      box-shadow: 0 6px 14px rgba(202, 138, 4, 0.5), inset 0 1px 1px #fff;
+      box-shadow: 0 4px 12px rgba(202, 138, 4, 0.5), inset 0 1px 1px #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       color: #713f12;
       z-index: 4;
       animation: coinBob 3.5s ease-in-out infinite alternate;
     }
 
-    .coin-pos-1 { top: -6px; left: 6px; animation-delay: 0s; }
-    .coin-pos-2 { top: 12px; right: -8px; width: 22px; height: 22px; font-size: 11px; animation-delay: 0.8s; }
-    .coin-pos-3 { bottom: -6px; right: 24px; animation-delay: 1.4s; }
+    .coin-pos-1 { top: -6px; left: 4px; animation-delay: 0s; }
+    .coin-pos-2 { top: 10px; right: -8px; width: 20px; height: 20px; font-size: 10px; animation-delay: 0.8s; }
+    .coin-pos-3 { bottom: -6px; right: 20px; animation-delay: 1.4s; }
 
     @keyframes coinBob {
       0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-7px) rotate(12deg); }
+      100% { transform: translateY(-6px) rotate(12deg); }
     }
 
-    /* ════════════ STATUS TICKER BAR (EXACT MATCH) ════════════ */
+    /* ════════════ STATUS TICKER BAR (EXACT PILL) ════════════ */
     .status-ticker-bar {
       background: #e6f7ee;
       border: 1px solid #c7edd8;
@@ -692,7 +709,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     [data-theme="dark"] .status-ticker-bar {
@@ -735,7 +752,7 @@
 
     .ticker-label {
       font-weight: 800;
-      color: #065f46;
+      color: #046a41;
       letter-spacing: 0.02em;
     }
 
@@ -744,7 +761,7 @@
     }
 
     .ticker-typing {
-      color: var(--text-main);
+      color: #111827;
       font-weight: 500;
     }
 
@@ -780,7 +797,6 @@
       color: #047857;
       letter-spacing: 0.04em;
       flex-shrink: 0;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
 
     [data-theme="dark"] .ticker-right-pill {
@@ -807,7 +823,7 @@
       left: 16px;
       top: 50%;
       transform: translateY(-50%);
-      color: #94a3b8;
+      color: #9ca3af;
       pointer-events: none;
     }
 
@@ -816,7 +832,7 @@
       background: #ffffff;
       border: 1.5px solid #d1d5db;
       border-radius: var(--radius-pill);
-      padding: 10px 18px 10px 44px;
+      padding: 10px 18px 10px 42px;
       font-size: 13.5px;
       font-family: var(--font);
       color: var(--text-main);
@@ -924,7 +940,7 @@
 
     .doc-card {
       background: #ffffff;
-      border: 1px solid var(--border-color);
+      border: 1px solid #e2e8f0;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: var(--shadow-card);
@@ -935,6 +951,7 @@
 
     [data-theme="dark"] .doc-card {
       background: var(--surface);
+      border-color: var(--border-color);
     }
 
     .doc-card:hover {
@@ -955,7 +972,7 @@
       justify-content: center;
     }
 
-    /* Excel Spreadsheet Replica */
+    /* Excel Spreadsheet Replica (Exact header and cells in screenshot) */
     .excel-preview-box {
       width: 100%;
       height: 100%;
@@ -994,15 +1011,15 @@
     .excel-table-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(15,23,42,0.2) 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(15,23,42,0.18) 100%);
       pointer-events: none;
     }
 
-    /* Vector Document Graphic Replica */
+    /* Vector Document Graphic Replica (Exact dark green background & icon) */
     .vector-doc-box {
       width: 100%;
       height: 100%;
-      background: #032b1c;
+      background: #022c1d;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1030,7 +1047,7 @@
       right: -1px;
       width: 14px;
       height: 14px;
-      background: #032b1c;
+      background: #022c1d;
       border-left: 2.5px solid #10b981;
       border-bottom: 2.5px solid #10b981;
       border-bottom-left-radius: 4px;
@@ -1047,7 +1064,7 @@
       position: absolute;
       top: 9px;
       left: 9px;
-      background: rgba(15, 23, 42, 0.82);
+      background: rgba(15, 23, 42, 0.85);
       color: #ffffff;
       font-size: 9px;
       font-weight: 800;
@@ -1078,20 +1095,20 @@
     }
 
     .tag-free-badge {
-      background: #0891b2;
+      background: #059669;
       color: #ffffff;
     }
 
     /* Card Body */
     .doc-card-body {
-      padding: 16px 18px 12px;
+      padding: 14px 16px 10px;
       flex: 1;
     }
 
     .doc-card-title {
       font-size: 15px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #0f172a;
       line-height: 1.35;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -1099,10 +1116,14 @@
       overflow: hidden;
     }
 
+    [data-theme="dark"] .doc-card-title {
+      color: #ecf5ed;
+    }
+
     /* Card Footer */
     .doc-card-footer {
-      padding: 11px 18px;
-      border-top: 1px solid var(--border-light);
+      padding: 10px 16px;
+      border-top: 1px solid #f1f5f9;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1112,6 +1133,7 @@
 
     [data-theme="dark"] .doc-card-footer {
       background: var(--surface);
+      border-color: var(--border-color);
     }
 
     .doc-card-size {
@@ -1127,7 +1149,7 @@
       background: transparent;
       border: none;
       font-size: 12.5px;
-      font-weight: 700;
+      font-weight: 600;
       color: #047857;
       cursor: pointer;
       padding: 2px 4px;
@@ -1146,7 +1168,7 @@
     /* ════════════ FLOATING ACTION BUTTON (BOTTOM RIGHT) ════════════ */
     .floating-menu-btn {
       position: fixed;
-      bottom: 22px;
+      bottom: 20px;
       right: 24px;
       width: 44px;
       height: 44px;
@@ -1620,7 +1642,7 @@
         </button>
       </section>
 
-      <!-- FILTER TABS -->
+      <!-- FILTER TABS (EXACT LABELS) -->
       <nav class="filter-tabs-row" id="filterTabs">
         <button class="filter-pill active" onclick="setCategoryFilter('all', this)">Tất cả</button>
         <button class="filter-pill" onclick="setCategoryFilter('mau-bieu', this)">Mẫu biểu</button>
@@ -1630,7 +1652,7 @@
         <button class="filter-pill" onclick="setCategoryFilter('khac', this)">Khác</button>
       </nav>
 
-      <!-- DOCUMENT CARDS GRID -->
+      <!-- DOCUMENT CARDS GRID (100% IDENTICAL TO SCREENSHOT) -->
       <div class="doc-grid" id="docGrid">
         <!-- Card 1: Valuation Model – CCC -->
         <div class="doc-card">
@@ -1645,7 +1667,7 @@
                     <th>HƯỚNG DẪN SỬ...</th>
                     <th>HƯỚNG DẪN SỬ...</th>
                     <th>HƯỚNG DẪN SỬ...</th>
-                    <th>Hãy làm theo...</th>
+                    <th>Hãy làm theo các b...</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1655,6 +1677,13 @@
                     <td>MODEL NÀY GIÚP...</td>
                     <td>MODEL NÀY GIÚP...</td>
                     <td>MODEL NÀY GIÚP...</td>
+                  </tr>
+                  <tr>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
                   </tr>
                   <tr>
                     <td>Model này giúp ...</td>
@@ -1714,7 +1743,7 @@
                     <th>HƯỚNG DẪN SỬ...</th>
                     <th>HƯỚNG DẪN SỬ...</th>
                     <th>HƯỚNG DẪN SỬ...</th>
-                    <th>Hãy làm theo...</th>
+                    <th>Hãy làm theo các b...</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1724,6 +1753,13 @@
                     <td>MODEL NÀY GIÚP...</td>
                     <td>MODEL NÀY GIÚP...</td>
                     <td>MODEL NÀY GIÚP...</td>
+                  </tr>
+                  <tr>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
                   </tr>
                   <tr>
                     <td>Model này giúp ...</td>

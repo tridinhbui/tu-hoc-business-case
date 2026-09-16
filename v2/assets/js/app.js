@@ -395,66 +395,69 @@ function vTracks(){
           <!-- Stage 1 -->
           <div class="stage-acc-card ${TRACK_UI.openStages.includes('f-foundations') || TRACK_UI.openStages.length===0 ? 'open' : ''}">
             <div class="stage-acc-header" onclick="ACT.toggleStageAcc('f-foundations')">
-              <span class="stage-icon-flag">🚩 CHẶNG 1</span>
+              <div style="width:36px;height:36px;border-radius:10px;background:#FEF08A;color:#B45309;display:flex;align-items:center;justify-content:center;font-size:16px;flex:none">🚩</div>
+              <span style="font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--surface-3);color:var(--text-2);text-transform:uppercase;flex:none">CHẶNG 1</span>
               <div class="stage-acc-title">
-                <span class="title-text">Biết mình trước khi học: audit, ngân sách, qu...</span>
+                <span class="title-text" style="font-weight:800;color:var(--text);font-size:15px">Biết mình trước khi học: audit, ngân sách, qu...</span>
               </div>
               <div class="stage-acc-learners">
-                <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
-                <span>21 người vừa học chặng này</span>
+                <span class="avatar-dots"><i class="dot-av" style="background:#6EE7B7"></i><i class="dot-av" style="background:#FCD34D"></i></span>
+                <span style="font-size:12px;color:var(--muted)">21 người vừa học chặng này</span>
               </div>
-              <div class="stage-acc-progress">
-                <div class="bar" style="width:48px">${bar(11, 'emerald')}</div>
-                <span class="num">1/9</span>
+              <div class="stage-acc-progress" style="display:flex;align-items:center;gap:8px">
+                <div class="bar" style="width:48px;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden">
+                  <div style="width:11%;height:100%;background:#059669;border-radius:999px"></div>
+                </div>
+                <span class="num" style="font-size:12px;font-weight:700;color:var(--text-2)">1/9</span>
               </div>
-              <span class="stage-acc-chevron">▼</span>
+              <span class="stage-acc-chevron" style="font-size:12px;color:var(--muted)">⌃</span>
             </div>
             <div class="stage-acc-body">
-              <a class="stage-lesson-row is-current" href="#/lesson/f-sizing">
-                <div class="stage-lesson-icon">▶</div>
-                <div class="stage-lesson-info">
-                  <div class="stage-lesson-name"><span>Đo trước: theo dõi chi tiêu</span></div>
-                  <div class="stage-lesson-sub">Phương pháp bóc tách dòng tiền và nhật ký thu chi cá nhân</div>
+              <a class="stage-lesson-row is-current" href="#/lesson/f-sizing" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
+                <div style="width:32px;height:32px;border-radius:50%;background:#064E3B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex:none">▶</div>
+                <div class="stage-lesson-info" style="flex:1;min-width:0">
+                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>Đo trước: theo dõi chi tiêu</span></div>
+                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">Phương pháp bóc tách dòng tiền và nhật ký thu chi cá nhân</div>
                 </div>
-                <div class="stage-lesson-meta">
-                  <span class="stage-lesson-tag">Bài 1-1</span>
-                  <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/1</span>
+                <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
+                  <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 1-1</span>
+                  <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/1</span>
                   <span style="font-size:11px;color:var(--muted)">⌵</span>
                 </div>
               </a>
-              <a class="stage-lesson-row" href="#/lesson/f-profit">
-                <div class="stage-lesson-icon">🔒</div>
-                <div class="stage-lesson-info">
-                  <div class="stage-lesson-name"><span>Audit tài chính và khẩu vị rủi ro</span></div>
-                  <div class="stage-lesson-sub">Đánh giá sức khỏe bảng cân đối tài sản và xác định Risk Profile</div>
+              <a class="stage-lesson-row" href="#/lesson/f-profit" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
+                <div class="stage-lesson-info" style="flex:1;min-width:0">
+                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>Audit tài chính và khẩu vị rủi ro</span></div>
+                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">Đánh giá sức khỏe bảng cân đối tài sản và xác định Risk Profile</div>
                 </div>
-                <div class="stage-lesson-meta">
-                  <span class="stage-lesson-tag">Bài 2-3</span>
-                  <span class="stage-lesson-badge-sub" style="color:var(--emerald);font-weight:800">1/2</span>
+                <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
+                  <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 2-3</span>
+                  <span class="stage-lesson-badge-sub" style="color:var(--emerald);font-weight:800;font-size:12px">1/2</span>
                   <span style="font-size:11px;color:var(--muted)">⌵</span>
                 </div>
               </a>
-              <a class="stage-lesson-row" href="#/lesson/f-pricing">
-                <div class="stage-lesson-icon">🔒</div>
-                <div class="stage-lesson-info">
-                  <div class="stage-lesson-name"><span>Ngân sách, quỹ khẩn cấp, trả nợ và mục tiêu</span></div>
-                  <div class="stage-lesson-sub">Nguyên tắc 50/30/20, quỹ 6 tháng sinh hoạt và chiến lược Avalanche</div>
+              <a class="stage-lesson-row" href="#/lesson/f-pricing" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
+                <div class="stage-lesson-info" style="flex:1;min-width:0">
+                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>Ngân sách, quỹ khẩn cấp, trả nợ và mục tiêu</span></div>
+                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">Nguyên tắc 50/30/20, quỹ 6 tháng sinh hoạt và chiến lược Avalanche</div>
                 </div>
-                <div class="stage-lesson-meta">
-                  <span class="stage-lesson-tag">Bài 4-7</span>
-                  <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/4</span>
+                <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
+                  <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 4-7</span>
+                  <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/4</span>
                   <span style="font-size:11px;color:var(--muted)">⌵</span>
                 </div>
               </a>
-              <a class="stage-lesson-row" href="#/lesson/f-unit">
-                <div class="stage-lesson-icon">🔒</div>
-                <div class="stage-lesson-info">
-                  <div class="stage-lesson-name"><span>Giữ kế hoạch sống sót: tự động hóa và bảo hiểm</span></div>
-                  <div class="stage-lesson-sub">Thiết lập hệ thống chuyển tiền tự động và rào chắn rủi ro sức khỏe</div>
+              <a class="stage-lesson-row" href="#/lesson/f-unit" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:none;text-decoration:none;color:inherit">
+                <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
+                <div class="stage-lesson-info" style="flex:1;min-width:0">
+                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>Giữ kế hoạch sống sót: tự động hóa và bảo hiểm</span></div>
+                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">Thiết lập hệ thống chuyển tiền tự động và rào chắn rủi ro sức khỏe</div>
                 </div>
-                <div class="stage-lesson-meta">
-                  <span class="stage-lesson-tag">Bài 8-9</span>
-                  <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/2</span>
+                <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
+                  <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 8-9</span>
+                  <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/2</span>
                   <span style="font-size:11px;color:var(--muted)">⌵</span>
                 </div>
               </a>
@@ -464,31 +467,35 @@ function vTracks(){
           <!-- Stage 2 -->
           <div class="stage-acc-card ${TRACK_UI.openStages.includes('c-structure') ? 'open' : ''}">
             <div class="stage-acc-header" onclick="ACT.toggleStageAcc('c-structure')">
-              <span class="stage-icon-pct">% CHẶNG 2 <span class="stage-badge-new">MỚI</span></span>
+              <div style="width:36px;height:36px;border-radius:10px;background:#064E3B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex:none">%</div>
+              <span style="font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--surface-3);color:var(--text-2);text-transform:uppercase;flex:none">CHẶNG 2</span>
+              <span style="font-size:9.5px;font-weight:800;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0;padding:1px 5px;border-radius:4px">MỚI</span>
               <div class="stage-acc-title">
-                <span class="title-text">Thuế TNCN & Lương thực nhận</span>
+                <span class="title-text" style="font-weight:800;color:var(--text);font-size:15px">Thuế TNCN & Lương thực nhận</span>
               </div>
               <div class="stage-acc-learners">
-                <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
-                <span>6 người vừa học chặng này</span>
+                <span class="avatar-dots"><i class="dot-av" style="background:#6EE7B7"></i><i class="dot-av" style="background:#FCD34D"></i></span>
+                <span style="font-size:12px;color:var(--muted)">6 người vừa học chặng này</span>
               </div>
-              <div class="stage-acc-progress">
-                <div class="bar" style="width:48px">${bar(0)}</div>
-                <span class="num muted">0/8</span>
+              <div class="stage-acc-progress" style="display:flex;align-items:center;gap:8px">
+                <div class="bar" style="width:48px;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden">
+                  <div style="width:0%;height:100%;background:#059669;border-radius:999px"></div>
+                </div>
+                <span class="num muted" style="font-size:12px;font-weight:700;color:var(--muted)">0/8</span>
               </div>
-              <span class="stage-acc-chevron">▼</span>
+              <span class="stage-acc-chevron" style="font-size:12px;color:var(--muted)">⌵</span>
             </div>
             <div class="stage-acc-body">
               ${(window.MODULE_BY_ID['c-structure']||window.MODULES[1]).lessons.map((l, lIdx)=>`
-                <a class="stage-lesson-row" href="#/lesson/${l.id}">
-                  <div class="stage-lesson-icon">🔒</div>
-                  <div class="stage-lesson-info">
-                    <div class="stage-lesson-name"><span>${esc(l.t)}</span></div>
-                    <div class="stage-lesson-sub">${esc(l.out || "Bảo hiểm xã hội, biểu thuế lũy tiến & tối ưu giảm trừ")}</div>
+                <a class="stage-lesson-row" href="#/lesson/${l.id}" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
+                  <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
+                  <div class="stage-lesson-info" style="flex:1;min-width:0">
+                    <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>${esc(l.t)}</span></div>
+                    <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">${esc(l.out || "Bảo hiểm xã hội, biểu thuế lũy tiến & tối ưu giảm trừ")}</div>
                   </div>
-                  <div class="stage-lesson-meta">
-                    <span class="stage-lesson-tag">Bài 2-${lIdx+1}</span>
-                    <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/2</span>
+                  <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
+                    <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 2-${lIdx+1}</span>
+                    <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/2</span>
                     <span style="font-size:11px;color:var(--muted)">⌵</span>
                   </div>
                 </a>
@@ -499,66 +506,35 @@ function vTracks(){
           <!-- Stage 3 -->
           <div class="stage-acc-card ${TRACK_UI.openStages.includes('i-financial') ? 'open' : ''}">
             <div class="stage-acc-header" onclick="ACT.toggleStageAcc('i-financial')">
-              <span class="stage-icon-card">💳 CHẶNG 3 <span class="stage-badge-new">MỚI</span></span>
+              <div style="width:36px;height:36px;border-radius:10px;background:#064E3B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex:none">💳</div>
+              <span style="font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--surface-3);color:var(--text-2);text-transform:uppercase;flex:none">CHẶNG 3</span>
+              <span style="font-size:9.5px;font-weight:800;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0;padding:1px 5px;border-radius:4px">MỚI</span>
               <div class="stage-acc-title">
-                <span class="title-text">Tín dụng cá nhân & CIC</span>
+                <span class="title-text" style="font-weight:800;color:var(--text);font-size:15px">Tín dụng cá nhân & CIC</span>
               </div>
               <div class="stage-acc-learners">
-                <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
-                <span>10 người vừa học chặng này</span>
+                <span class="avatar-dots"><i class="dot-av" style="background:#6EE7B7"></i><i class="dot-av" style="background:#FCD34D"></i></span>
+                <span style="font-size:12px;color:var(--muted)">10 người vừa học chặng này</span>
               </div>
-              <div class="stage-acc-progress">
-                <div class="bar" style="width:48px">${bar(0)}</div>
-                <span class="num muted">0/8</span>
+              <div class="stage-acc-progress" style="display:flex;align-items:center;gap:8px">
+                <div class="bar" style="width:48px;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden">
+                  <div style="width:0%;height:100%;background:#059669;border-radius:999px"></div>
+                </div>
+                <span class="num muted" style="font-size:12px;font-weight:700;color:var(--muted)">0/8</span>
               </div>
-              <span class="stage-acc-chevron">▼</span>
+              <span class="stage-acc-chevron" style="font-size:12px;color:var(--muted)">⌵</span>
             </div>
             <div class="stage-acc-body">
               ${(window.MODULE_BY_ID['i-financial']||window.MODULES[2]).lessons.map((l, lIdx)=>`
-                <a class="stage-lesson-row" href="#/lesson/${l.id}">
-                  <div class="stage-lesson-icon">🔒</div>
-                  <div class="stage-lesson-info">
-                    <div class="stage-lesson-name"><span>${esc(l.t)}</span></div>
-                    <div class="stage-lesson-sub">${esc(l.out || "Thẻ tín dụng, điểm tín dụng CIC & kiểm soát đòn bẩy")}</div>
+                <a class="stage-lesson-row" href="#/lesson/${l.id}" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
+                  <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
+                  <div class="stage-lesson-info" style="flex:1;min-width:0">
+                    <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>${esc(l.t)}</span></div>
+                    <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">${esc(l.out || "Thẻ tín dụng, điểm tín dụng CIC & kiểm soát đòn bẩy")}</div>
                   </div>
-                  <div class="stage-lesson-meta">
-                    <span class="stage-lesson-tag">Bài 3-${lIdx+1}</span>
-                    <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/2</span>
-                    <span style="font-size:11px;color:var(--muted)">⌵</span>
-                  </div>
-                </a>
-              `).join("")}
-            </div>
-          </div>
-
-          <!-- Stage 4 -->
-          <div class="stage-acc-card ${TRACK_UI.openStages.includes('m-market') ? 'open' : ''}">
-            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('m-market')">
-              <span class="stage-icon-pct" style="background:#FDF4FF;color:#9333EA">📈 CHẶNG 4 <span class="stage-badge-new" style="background:#FDF4FF;color:#9333EA;border-color:#F0ABFC">MỚI</span></span>
-              <div class="stage-acc-title">
-                <span class="title-text">Báo cáo tài chính & Phân tích cơ bản</span>
-              </div>
-              <div class="stage-acc-learners">
-                <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
-                <span>14 người vừa học chặng này</span>
-              </div>
-              <div class="stage-acc-progress">
-                <div class="bar" style="width:48px">${bar(0)}</div>
-                <span class="num muted">0/12</span>
-              </div>
-              <span class="stage-acc-chevron">▼</span>
-            </div>
-            <div class="stage-acc-body">
-              ${(window.MODULE_BY_ID['m-market']||window.MODULES[3]).lessons.map((l, lIdx)=>`
-                <a class="stage-lesson-row" href="#/lesson/${l.id}">
-                  <div class="stage-lesson-icon">🔒</div>
-                  <div class="stage-lesson-info">
-                    <div class="stage-lesson-name"><span>${esc(l.t)}</span></div>
-                    <div class="stage-lesson-sub">${esc(l.out || "Bảng cân đối, Báo cáo P&L, Dòng tiền & Định giá cổ phiếu")}</div>
-                  </div>
-                  <div class="stage-lesson-meta">
-                    <span class="stage-lesson-tag">Bài 4-${lIdx+1}</span>
-                    <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/2</span>
+                  <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
+                    <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 3-${lIdx+1}</span>
+                    <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/2</span>
                     <span style="font-size:11px;color:var(--muted)">⌵</span>
                   </div>
                 </a>
@@ -571,14 +547,20 @@ function vTracks(){
       <!-- RIGHT SIDEBAR: Notebook + Mistakes Review + Daily Challenge -->
       <div class="curr-side">
         <!-- Card 1: GHI CHÉP: Sổ tay của bạn -->
-        <div class="notebook-widget-card">
-          <div class="notebook-widget-badge">
-            <span>📒</span> GHI CHÉP
+        <div class="notebook-widget-card" style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:16px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:14px">
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+              <div style="width:26px;height:26px;border-radius:6px;background:#FEF3C7;color:#D97706;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none">📋</div>
+              <span style="font-size:10.5px;font-weight:800;color:#92400E;letter-spacing:.05em">GHI CHÉP</span>
+            </div>
+            <div style="font-size:15px;font-weight:800;color:#111827;margin-bottom:3px">Sổ tay của bạn</div>
+            <div style="font-size:12px;color:#6B7280;line-height:1.4;margin-bottom:10px">Ghi lại điều vừa hiểu, trước khi quên.</div>
+            <a href="#/settings" style="display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;color:#059669;text-decoration:none">
+              Mở sổ tay › <span style="font-size:13px">→</span>
+            </a>
           </div>
-          <div class="notebook-widget-title">Sổ tay của bạn</div>
-          <div class="notebook-widget-desc">Ghi lại điều vừa hiểu, trước khi quên.</div>
-          <div class="notebook-ill-box">
-            <svg viewBox="0 0 160 80" style="width:140px;height:70px">
+          <div style="flex:none;width:110px;height:80px;position:relative;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 140 90" style="width:100%;height:100%">
               <defs>
                 <linearGradient id="bookCover" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#D97706"/>
@@ -590,44 +572,46 @@ function vTracks(){
                   <stop offset="100%" stop-color="#FFFDF5"/>
                 </linearGradient>
               </defs>
+              <!-- Botanical Leaves Background -->
+              <path d="M 10 25 Q 25 5 45 15 Q 35 35 10 25 Z" fill="#D1FAE5" opacity="0.8"/>
+              <path d="M 95 10 Q 125 5 135 25 Q 115 35 95 10 Z" fill="#D1FAE5" opacity="0.8"/>
               <!-- Book Cover & Spine -->
-              <path d="M 15 65 Q 80 72 145 65 L 150 18 Q 80 26 10 18 Z" fill="url(#bookCover)" filter="drop-shadow(0 4px 6px rgba(0,0,0,.15))"/>
+              <path d="M 15 75 Q 70 82 125 75 L 130 28 Q 70 36 10 28 Z" fill="url(#bookCover)" filter="drop-shadow(0 3px 5px rgba(0,0,0,.15))"/>
               <!-- Open Book Pages Left & Right -->
-              <path d="M 18 60 Q 80 67 80 62 L 80 20 Q 80 25 15 19 Z" fill="url(#pageGrad)"/>
-              <path d="M 80 62 Q 80 67 142 60 L 145 19 Q 80 25 80 20 Z" fill="url(#pageGrad)"/>
+              <path d="M 18 70 Q 70 77 70 72 L 70 30 Q 70 35 15 29 Z" fill="url(#pageGrad)"/>
+              <path d="M 70 72 Q 70 77 122 70 L 125 29 Q 70 35 70 30 Z" fill="url(#pageGrad)"/>
               <!-- Book Spine Center -->
-              <line x1="80" y1="20" x2="80" y2="62" stroke="#B45309" stroke-width="2"/>
+              <line x1="70" y1="30" x2="70" y2="72" stroke="#B45309" stroke-width="1.8"/>
               <!-- Text Lines Simulation -->
-              <line x1="26" y1="28" x2="68" y2="28" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-              <line x1="26" y1="36" x2="65" y2="36" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-              <line x1="26" y1="44" x2="60" y2="44" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-              <line x1="92" y1="28" x2="134" y2="28" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-              <line x1="92" y1="36" x2="130" y2="36" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-              <line x1="92" y1="44" x2="124" y2="44" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="25" y1="38" x2="60" y2="38" stroke="#D97706" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+              <line x1="25" y1="45" x2="58" y2="45" stroke="#D97706" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+              <line x1="25" y1="52" x2="54" y2="52" stroke="#D97706" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+              <line x1="80" y1="38" x2="115" y2="38" stroke="#D97706" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+              <line x1="80" y1="45" x2="112" y2="45" stroke="#D97706" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+              <line x1="80" y1="52" x2="108" y2="52" stroke="#D97706" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
               <!-- Fountain Pen -->
-              <line x1="110" y1="12" x2="65" y2="55" stroke="#1E293B" stroke-width="3" stroke-linecap="round"/>
-              <line x1="68" y1="52" x2="60" y2="60" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="95" y1="20" x2="58" y2="62" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="60" y1="60" x2="54" y2="67" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
-          <a class="side-widget-link" href="#/settings" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#059669;text-decoration:none">
-            Mở sổ tay › <span style="font-size:14px">→</span>
-          </a>
         </div>
 
         <!-- Card 2: Câu sai cần ôn tập (40 câu) -->
-        <div class="mistake-widget-card">
-          <div class="mistake-widget-header">
+        <div class="mistake-widget-card" style="background:#FFF;border:1px solid #FED7AA;border-radius:16px;padding:16px 20px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:14px;position:relative;overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
             <div style="display:flex;align-items:center;gap:10px">
-              <div class="mistake-widget-icon">!</div>
-              <div style="font-size:14.5px;font-weight:800;color:var(--text)">Câu sai cần ôn tập</div>
+              <div style="width:28px;height:28px;border-radius:50%;background:#EA580C;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex:none">!</div>
+              <div style="font-size:14.5px;font-weight:800;color:#111827">Câu sai cần ôn tập</div>
             </div>
-            <span class="mistake-widget-badge">40 câu</span>
+            <span style="font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;background:#FEF3C7;color:#B45309">40 câu</span>
           </div>
-          <div class="mistake-widget-text">Bạn có 40 câu hỏi trắc nghiệm đã làm sai cần ôn lại để củng cố kiến thức.</div>
+          <div style="font-size:12px;color:#4B5563;line-height:1.45;margin-bottom:10px;padding-right:30px">
+            Bạn có 40 câu hỏi trắc nghiệm đã làm sai cần ôn lại để củng cố kiến thức.
+          </div>
           <div style="display:flex;align-items:center;justify-content:space-between">
             <a href="#/review" style="font-size:15px;font-weight:800;color:#EA580C;text-decoration:none">→</a>
             <!-- Botanical Leaf Accent -->
-            <svg viewBox="0 0 40 40" style="width:32px;height:32px;opacity:0.25">
+            <svg viewBox="0 0 40 40" style="width:34px;height:34px;opacity:0.35">
               <path d="M 5 35 Q 20 5 35 5 Q 35 20 5 35 Z" fill="#059669"/>
               <path d="M 5 35 Q 25 20 35 5" stroke="#047857" stroke-width="1.5" fill="none"/>
             </svg>
@@ -635,21 +619,24 @@ function vTracks(){
         </div>
 
         <!-- Card 3: Thử thách tài chính mỗi ngày (Interactive) -->
-        <div class="daily-challenge-box" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-card);padding:20px;box-shadow:var(--shadow-card)">
+        <div class="daily-challenge-box" style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:16px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
           <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--text)">
+            <div style="display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:800;color:#111827">
               <span style="font-size:16px">📖</span> Thử thách tài chính mỗi ngày
             </div>
-            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)">
-              <span>⤢</span>
-              <span>• Thu gọn ^</span>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:#9CA3AF">
+              <span style="cursor:pointer">⤢</span>
+              <span style="cursor:pointer">• Thu gọn ⌃</span>
             </div>
           </div>
           <div style="margin-bottom:10px">
-            <span class="daily-q-tag" style="background:#ECFDF5;color:#059669;font-size:11px;font-weight:800;padding:3px 8px;border-radius:4px">${esc(dc.tag || "TÍNH NHANH")}</span>
+            <span class="daily-q-tag" style="background:#ECFDF5;color:#059669;font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:4px;letter-spacing:.04em">${esc(dc.tag || "TÍNH NHANH")}</span>
           </div>
-          <div class="daily-q-text" style="font-size:13.5px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:14px">
-            ${esc(dc.q || "Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu. Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?")}
+          <div class="daily-q-text" style="font-size:13.5px;font-weight:800;color:#111827;line-height:1.45;margin-bottom:4px">
+            ${esc(dc.q || "Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu")}
+          </div>
+          <div style="font-size:12.5px;color:#4B5563;line-height:1.4;margin-bottom:14px">
+            Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?
           </div>
 
           <div class="daily-opt-list" style="display:flex;flex-direction:column;gap:8px">
@@ -662,10 +649,10 @@ function vTracks(){
               } else if(DAILY_UI.picked === k){
                 stateCls = "picked";
               }
-              return `<div class="daily-opt-item ${stateCls}" onclick="${dcState?'':`ACT.pickDailyOpt('${k}')`}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid ${isSelected?'var(--primary)':'var(--border)'};border-radius:10px;cursor:pointer;background:${isSelected?'var(--primary-soft)':'var(--surface)'};transition:all .15s ease">
-                <span class="daily-opt-badge" style="width:24px;height:24px;border-radius:6px;background:${isSelected?'var(--primary)':'var(--surface-3)'};color:${isSelected?'#FFF':'var(--muted)'};font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">${k}</span>
-                <span style="flex:1;font-size:12.5px;font-weight:600;color:var(--text);line-height:1.4">${esc(tx)}</span>
-                ${dcState && k === dc.correct ? `<span style="color:var(--emerald);font-weight:800">✓</span>` : ""}
+              return `<div class="daily-opt-item ${stateCls}" onclick="${dcState?'':`ACT.pickDailyOpt('${k}')`}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1.5px solid ${isSelected?'#059669':'#E5E7EB'};border-radius:10px;cursor:pointer;background:${isSelected?'#ECFDF5':'#FFF'};transition:all .15s ease">
+                <span class="daily-opt-badge" style="width:24px;height:24px;border-radius:6px;background:${isSelected?'#059669':'#F3F4F6'};color:${isSelected?'#FFF':'#6B7280'};font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px">${k}</span>
+                <span style="flex:1;font-size:12.5px;font-weight:600;color:#374151;line-height:1.4">${esc(tx)}</span>
+                ${dcState && k === dc.correct ? `<span style="color:#059669;font-weight:800">✓</span>` : ""}
               </div>`;
             }).join("")}
           </div>
@@ -675,7 +662,7 @@ function vTracks(){
               <b>${dcState.correct?'Chính xác! +15 XP':'Chưa đúng:'}</b> ${esc(dc.opts.find(o=>o[0]===dc.correct)[2])}
             </div>
           ` : `
-            <button class="daily-submit-btn ${DAILY_UI.picked?'active':''}" onclick="ACT.submitDaily()" style="width:100%;padding:10px 14px;border-radius:10px;background:${DAILY_UI.picked?'#059669':'var(--surface-3)'};color:${DAILY_UI.picked?'#FFF':'var(--muted)'};border:none;font-weight:800;font-size:12.5px;cursor:${DAILY_UI.picked?'pointer':'default'};margin-top:10px;display:flex;align-items:center;justify-content:center;gap:6px">
+            <button class="daily-submit-btn ${DAILY_UI.picked?'active':''}" onclick="ACT.submitDaily()" style="width:100%;padding:10px 14px;border-radius:10px;background:${DAILY_UI.picked?'#064E3B':'#E5E7EB'};color:${DAILY_UI.picked?'#FFF':'#9CA3AF'};border:none;font-weight:800;font-size:12.5px;cursor:${DAILY_UI.picked?'pointer':'default'};margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px">
               <span>✈ GỬI CÂU TRẢ LỜI</span>
             </button>
           `}
@@ -906,28 +893,28 @@ function vLesson(id){
         </div>
 
         <!-- Quick Check Quiz Card -->
-        <div class="quick-quiz-panel" style="background:#FFF;border:1px solid #E5E7EB;border-radius:16px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+        <div class="quick-quiz-panel" style="background:#FFF;border:1.5px solid #E5E7EB;border-radius:16px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
           <div class="quick-quiz-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
             <span class="quick-quiz-title" style="font-size:13px;font-weight:800;letter-spacing:.04em;color:#111827">KIỂM TRA NHANH</span>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span class="quick-quiz-count" style="font-size:12px;font-weight:700;color:#6B7280">${qDone}/2</span>
-              <span style="font-size:11px;color:#9CA3AF">▲</span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="quick-quiz-count" style="font-size:11.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:#F3F4F6;color:#374151">${qDone}/2</span>
+              <span style="font-size:12px;color:#9CA3AF;cursor:pointer">⌃</span>
             </div>
           </div>
 
           <!-- Hai vạch tiến độ: mini case · bài tính. Xám = chưa làm, xanh = đúng, đỏ = sai -->
           ${(()=>{ const dash=q=>!q?"#E5E7EB":q.correct?"#10B981":"#EF4444";
-            const pill=q=>!q?`<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#F3F4F6;color:#6B7280">Chưa làm</span>`
+            const pill=q=>!q?`<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#FEE2E2;color:#DC2626">Chưa đúng</span>`
               : q.correct?`<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#D1FAE5;color:#059669">Đúng</span>`
               : `<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#FEE2E2;color:#DC2626">Chưa đúng</span>`;
-            const card=`background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:16px`;
+            const card=`background:#FFF;border:1.5px solid #E5E7EB;border-radius:12px;padding:16px`;
             const opt=o=>{ const picked=qb&&qb.pick===o[0], right=o[0]===C.mini.correct, show=!!qb;
               const st= show&&right ? "border:1.5px solid #10B981;background:#ECFDF5;color:#065F46"
                       : show&&picked ? "border:1.5px solid #EF4444;background:#FEF2F2;color:#991B1B"
-                      : "border:1px solid #E5E7EB;background:#FFF;color:#374151;cursor:pointer";
+                      : "border:1.5px solid #E5E7EB;background:#FFF;color:#374151;cursor:pointer";
               return `<div class="quiz-step-opt" ${show?"":`onclick="ACT.pickBranch('${l.id}','${o[0]}')"`} style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;${st}">
                 <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">${o[0]}</span>
-                <span class="quiz-opt-label" style="flex:1">${rich(o[1])}${show&&(right||picked)&&o[2]?`<span style="display:block;margin-top:6px;font-weight:500;font-size:12px;color:#4B5563">${rich(o[2])}</span>`:""}</span>
+                <span class="quiz-opt-label" style="flex:1">${rich(o[1])}${show&&(right||picked)&&o[2]?`<span style="display:block;margin-top:6px;font-weight:500;font-size:12.5px;color:#4B5563">${rich(o[2])}</span>`:""}</span>
                 ${show&&right?`<span class="quiz-opt-check" style="color:#059669;font-weight:800;font-size:16px">✓</span>`:""}
               </div>`; };
             return `<div class="quiz-dash-bar" style="display:flex;gap:6px;margin-bottom:18px">
