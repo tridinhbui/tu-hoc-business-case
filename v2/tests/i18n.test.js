@@ -30,7 +30,9 @@ t("quy tắc dịch chuỗi có số",()=>{
   assert.equal(I.t("Nộp deliverable 2"),"Submit deliverable 2");
 });
 t(`${Object.keys(I.DICT).length} cặp dịch, không bản dịch nào còn dấu tiếng Việt`,()=>{
-  const bad=Object.entries(I.DICT).filter(([k,v])=>VI.test(v.replace(/Nestlé/g,"")));
+  /* tên riêng giữ nguyên khi dịch: thương hiệu nước ngoài và thương hiệu Việt */
+const KEEP=/Nestlé|Bách Hoá Xanh|WinMart|Highlands|Thế Giới Di Động/g;
+const bad=Object.entries(I.DICT).filter(([k,v])=>VI.test(v.replace(KEEP,"")));
   assert.deepEqual(bad.map(b=>b[0]),[]);
   Object.entries(I.DICT).forEach(([k,v])=>{ assert.ok(v && v.trim().length, "bản dịch rỗng: "+k); });
 });

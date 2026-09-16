@@ -295,3 +295,491 @@ Nghĩa là ngay cả một mô hình lành mạnh cũng lỗ trong vài tháng �
 
 Phần dưới bắt bạn tính 2.000 ly, tính biên an toàn, và so hai cách hạ điểm hoà vốn bằng con số cụ thể. Đây cũng là bài kết của module Profitability: bạn đã có đủ bốn mảnh — lợi nhuận và biên, cây lợi nhuận, đòn bẩy hoạt động, điểm hoà vốn — để đọc sức khoẻ tài chính của gần như mọi doanh nghiệp xuất hiện trong một đề case.
 `);
+
+LRD("f-profit-5", `
+Nhà đầu tư đẩy tập giấy qua bàn: "Báo cáo kết quả kinh doanh năm ngoái của Lúa Vàng. Ba phút nữa ban điều hành vào. Tôi muốn biết tiền đang rơi ở đâu."
+
+Tờ giấy có hai mươi hai dòng số. Bạn có thể làm hai việc. Việc thứ nhất: đọc từ dòng đầu xuống dòng cuối, cố nhớ từng con số, và khi ban điều hành bước vào thì bạn biết lợi nhuận ròng là 8 tỷ nhưng không biết vì sao. Việc thứ hai: bỏ qua gần hết các dòng, chỉ tìm năm con số, quy chúng về phần trăm, và nói được một câu có ích.
+
+Bài này dạy việc thứ hai.
+
+## Báo cáo không phải danh sách, mà là cầu thang
+
+Báo cáo kết quả kinh doanh được xếp theo một logic rất chặt: bắt đầu từ doanh thu, rồi mỗi tầng trừ đi một nhóm chi phí, và mỗi tầng còn lại trả lời một câu hỏi riêng.
+
+Tầng một, lợi nhuận gộp: doanh thu trừ giá vốn. Câu hỏi: bản thân sản phẩm có lãi không? Với Lúa Vàng, 200 tỷ doanh thu trừ 90 tỷ nguyên liệu, còn 110 tỷ.
+
+Tầng hai, lãi góp: trừ tiếp các chi phí biến đổi khác như bao bì, hoa hồng ứng dụng giao hàng. Câu hỏi: mỗi đồng bán thêm còn lại bao nhiêu? Còn 90 tỷ.
+
+Tầng ba, lợi nhuận cửa hàng: trừ chi phí cố định tại điểm bán — tiền thuê, lương nhân viên cửa hàng. Câu hỏi: mạng lưới cửa hàng có tự nuôi được mình không? 90 trừ 60, còn 30 tỷ.
+
+Tầng bốn, EBITDA: trừ chi phí văn phòng, quản lý, marketing. Câu hỏi: cả cỗ máy vận hành tạo ra bao nhiêu tiền trước các khoản tài chính và kế toán? 30 trừ 14, còn 16 tỷ.
+
+Tầng năm, lợi nhuận ròng: trừ khấu hao, lãi vay, thuế. Câu hỏi: cổ đông giữ lại được bao nhiêu? 16 trừ 4, trừ 2, còn 10; trừ 20% thuế là 2 tỷ, còn 8 tỷ.
+
+Không phải báo cáo nào cũng tách sẵn năm tầng. Rất thường gặp là chi phí cửa hàng và chi phí văn phòng bị gộp chung thành "chi phí bán hàng và quản lý". Việc đầu tiên của bạn là tự tách lại, vì gộp chung sẽ làm mờ đúng câu hỏi quan trọng nhất của một chuỗi bán lẻ: cửa hàng có tự nuôi được không.
+
+## Phần trăm trước, con số sau
+
+Con số tuyệt đối gần như vô dụng khi đọc nhanh. 60 tỷ chi phí cửa hàng là nhiều hay ít? Không biết. 30% doanh thu thì bắt đầu so được: với chuỗi đồ ăn nhanh, chi phí thuê và lương tại cửa hàng thường nằm quanh 25 đến 30%, vậy Lúa Vàng ở mức cao của khoảng bình thường.
+
+Quy toàn bộ báo cáo về phần trăm: nguyên liệu 45%, biến đổi khác 10%, cố định cửa hàng 30%, chi phí chung 7%, khấu hao và tài chính và thuế cộng lại 4%. Còn lại 4% lợi nhuận ròng.
+
+Nhìn danh sách này, câu trả lời nổi lên ngay: hai khoản lớn nhất là nguyên liệu và cửa hàng, chiếm ba phần tư doanh thu. Chi phí chung chỉ 7%.
+
+Và đó cũng là câu có ích nhất bạn nói được trong ba phút: nếu ban điều hành định cứu lợi nhuận bằng cách cắt văn phòng, thì kể cả cắt một nửa văn phòng cũng chỉ thêm khoảng 3,5% biên — trong khi giảm 3 điểm phần trăm giá vốn nguyên liệu đã mang lại gần như tương đương.
+
+## Ba thứ để so
+
+Một con số phần trăm chỉ có nghĩa khi đặt cạnh một mốc. Có ba loại mốc.
+
+Mốc thời gian: năm trước, quý trước. Nếu nguyên liệu năm trước là 40% mà năm nay 45%, bạn vừa tìm ra 10 tỷ lợi nhuận biến mất ở đâu.
+
+Mốc ngành: một doanh nghiệp cùng mô hình. Chuỗi bánh mì mà nguyên liệu 45% là cao; chuỗi cà phê thường chỉ 25 đến 30%.
+
+Mốc nội bộ: cửa hàng này so với cửa hàng kia, kênh này so với kênh kia. Đây là mốc mạnh nhất vì cùng thương hiệu, cùng sản phẩm, cùng giá — mọi khác biệt đều đáng điều tra.
+
+Trong ba phút, bạn thường chỉ có mốc thời gian nếu báo cáo có hai cột. Hãy tìm ngay dòng nào thay đổi tỷ trọng nhiều nhất giữa hai năm. Đó là chỗ đào sâu đầu tiên.
+
+## Những gì cố tình bỏ qua
+
+Đọc nhanh đòi hỏi kỷ luật bỏ qua. Trong ba phút, đừng kiểm tra từng phép cộng. Đừng đọc chú thích kế toán. Đừng phân tích khấu hao hay thuế trừ khi chúng bất thường.
+
+Đồng thời, có hai tín hiệu không được bỏ qua. Một là dòng "thu nhập khác" hay "chi phí khác" lớn bất thường — lợi nhuận có thể đến từ bán tài sản chứ không phải kinh doanh. Hai là lãi vay tăng mạnh — dấu hiệu doanh nghiệp đang vay để bù dòng tiền, một chủ đề sẽ quay lại ở bài dòng tiền.
+
+## Nói ra như thế nào
+
+> "Em quy báo cáo về phần trăm doanh thu. Lúa Vàng giữ lại 8% EBITDA, tức 16 tỷ, và 4% lợi nhuận ròng.
+
+> Hai khoản chi phối là nguyên liệu 45% và chi phí cố định cửa hàng 30%, cộng lại ba phần tư doanh thu. Chi phí văn phòng và marketing chỉ 7%.
+
+> Vì vậy em nghĩ cuộc họp nên tập trung vào hai hướng: giá vốn nguyên liệu và hiệu quả từng cửa hàng. Cắt văn phòng sẽ không đổi được bức tranh. Nếu có báo cáo năm trước, em muốn xem tỷ trọng nguyên liệu đã thay đổi thế nào."
+`);
+
+LRD("f-profit-6", `
+Trưởng phòng marketing của Lúa Vàng bước vào phòng họp với một slide đầy tự tin: chiến dịch 5 tỷ đồng, dự kiến mang về thêm 12 tỷ doanh thu. "Biên lợi nhuận gộp của mình là 55%. 12 tỷ doanh thu cho 6,6 tỷ lãi, trừ 5 tỷ chi phí chiến dịch, còn lãi 1,6 tỷ. Lợi nhuận trên chi phí hơn 30%."
+
+Giám đốc tài chính hỏi lại một câu: "Hoa hồng app và bao bì của 12 tỷ doanh thu đó ai trả?"
+
+Căn phòng im lặng. Phép tính vừa rồi đã dùng sai biên, và cái sai đó biến một chiến dịch gần như hoà vốn thành một chiến dịch trông rất hấp dẫn.
+
+## Một chữ "biên", ba nghĩa
+
+Trong các buổi họp, người ta nói "biên lợi nhuận" như thể chỉ có một con số. Thực tế có ít nhất ba, và chúng chênh nhau cả chục lần.
+
+Biên gộp: doanh thu trừ giá vốn hàng bán, chia doanh thu. Với Lúa Vàng: 200 trừ 90, chia 200, bằng 55%. Nó trả lời câu hỏi bản thân sản phẩm có lãi không — giá bán có đủ bù nguyên liệu làm ra nó không.
+
+Biên đóng góp: doanh thu trừ tất cả chi phí thay đổi theo doanh thu, chia doanh thu. Với Lúa Vàng: 200 trừ 90 nguyên liệu, trừ 20 bao bì và hoa hồng, chia 200, bằng 45%. Nó trả lời câu hỏi mỗi đồng bán thêm còn lại bao nhiêu.
+
+Biên ròng: lợi nhuận cuối cùng chia doanh thu. 8 chia 200, bằng 4%. Nó trả lời câu hỏi cả doanh nghiệp giữ lại bao nhiêu sau mọi thứ.
+
+Ba con số, ba câu hỏi. Rắc rối bắt đầu khi dùng một con số để trả lời câu hỏi của con số khác.
+
+## Doanh thu tăng thêm luôn đi với biên đóng góp
+
+Khi đánh giá bất kỳ quyết định nào làm tăng doanh thu — chiến dịch marketing, mở thêm giờ bán, thêm món mới — câu hỏi là: đồng doanh thu tăng thêm kéo theo những chi phí gì?
+
+Nó kéo theo nguyên liệu. Nó kéo theo bao bì. Nếu bán qua app, nó kéo theo hoa hồng. Tất cả những khoản đó nằm trong biên đóng góp.
+
+Nó không kéo theo tiền thuê cửa hàng, vì cửa hàng đã thuê rồi. Không kéo theo lương giám đốc. Những khoản cố định đó nằm giữa biên đóng góp và biên ròng.
+
+Vì vậy biên gộp đánh giá quá cao lợi ích — nó bỏ sót chi phí biến đổi ngoài giá vốn. Còn biên ròng đánh giá quá thấp — nó trừ nhầm cả chi phí cố định vốn không tăng. Chỉ biên đóng góp đo đúng.
+
+Làm lại phép tính của phòng marketing: 12 tỷ nhân 45% bằng 5,4 tỷ lãi góp. Trừ 5 tỷ chi phí chiến dịch, còn 0,4 tỷ. Không phải 1,6 tỷ.
+
+## Tính ngưỡng hoà vốn của chiến dịch
+
+Một khi đã có biên đóng góp, câu hỏi hữu ích nhất trở nên rất đơn giản: chiến dịch cần mang về ít nhất bao nhiêu doanh thu?
+
+Lấy chi phí chia biên đóng góp: 5 tỷ chia 45%, bằng khoảng 11,1 tỷ. Chiến dịch dự báo 12 tỷ, tức chỉ vượt ngưỡng khoảng 8%.
+
+Đây mới là thông tin quyết định. Mọi dự báo doanh thu của chiến dịch marketing đều có sai số, thường lớn hơn 8% rất nhiều. Nếu thực tế chỉ đạt 11 tỷ, chiến dịch lỗ. Người ra quyết định bây giờ có thể hỏi đúng câu: "Các bạn chắc chắn tới mức nào về con số 12 tỷ?"
+
+Với biên gộp, ngưỡng bị tính thành 5 chia 55%, khoảng 9,1 tỷ, và chiến dịch trông như có đệm an toàn 30%. Một chữ "biên" sai đã giấu mất rủi ro.
+
+## Khi nào biên gộp và biên ròng hữu dụng
+
+Không phải biên gộp và biên ròng vô dụng. Chúng chỉ trả lời câu hỏi khác.
+
+Biên gộp hữu dụng khi so sản phẩm với sản phẩm: bánh mì đặc biệt có biên gộp cao hơn bánh mì thường không, nên đẩy món nào. Nó cũng là con số dễ so với ngành nhất, vì hầu hết doanh nghiệp công bố nó.
+
+Biên ròng hữu dụng khi so doanh nghiệp với doanh nghiệp, hoặc khi nhà đầu tư hỏi về khả năng sinh lời tổng thể.
+
+Còn biên đóng góp là con số của quyết định vận hành: tăng giảm doanh thu, nhận hay từ chối một đơn hàng, giữ hay bỏ một kênh.
+
+Có một thói quen nhỏ nhưng tránh được rất nhiều nhầm lẫn: không bao giờ viết "biên lợi nhuận" trống không. Luôn ghi "biên gộp 55%", "biên đóng góp 45%". Người nghe sẽ không phải đoán, và chính bạn cũng không nhầm.
+
+## Nói ra như thế nào
+
+> "Em nghĩ phép tính cần dùng biên đóng góp chứ không phải biên gộp. Mỗi đồng doanh thu tăng thêm kéo theo cả hoa hồng app và bao bì, nên chỉ còn lại 45 đồng trên 100, không phải 55.
+
+> Như vậy 12 tỷ doanh thu mang về 5,4 tỷ lãi góp, trừ 5 tỷ chi phí chiến dịch chỉ còn lãi 0,4 tỷ.
+
+> Chiến dịch cần ít nhất 11,1 tỷ doanh thu để hoà vốn, tức dự báo 12 tỷ chỉ có đệm khoảng 8%. Em đề xuất chạy thử ở 5 cửa hàng trước, với ngân sách khoảng 600 triệu, để kiểm chứng con số doanh thu trước khi chi toàn bộ."
+`);
+
+LRD("f-profit-7", `
+Báo cáo quản trị quý bốn của Lúa Vàng có một bảng mới: lợi nhuận theo kênh bán. Cột "Tại cửa hàng" ghi lãi 22 tỷ. Cột "Giao qua app" ghi lỗ 6 tỷ, tô đỏ.
+
+Giám đốc tài chính đặt bút gạch dưới con số đỏ: "Kênh app ăn mất 6 tỷ mỗi năm. Hoa hồng 30%, lại tốn bao bì. Tôi đề xuất ngừng bán qua app từ quý sau."
+
+Nghe rất hợp lý. Một kênh lỗ, cắt đi thì lợi nhuận tăng. Nếu đề xuất được duyệt, EBITDA của Lúa Vàng sẽ rơi từ 16 tỷ xuống 3,5 tỷ.
+
+## Con số lỗ đến từ đâu
+
+Muốn biết vì sao, phải nhìn cách bảng đó được làm ra.
+
+Kênh app có 50 tỷ doanh thu. Chi phí trực tiếp của nó gồm 22,5 tỷ nguyên liệu và 15 tỷ hoa hồng cộng bao bì. Còn lại 12,5 tỷ. Con số này là lãi góp: tiền kênh app thật sự mang về sau khi trả mọi chi phí phát sinh vì nó.
+
+Sau đó, phòng kế toán lấy 74 tỷ chi phí cố định của cả công ty — tiền thuê cửa hàng, lương nhân viên, văn phòng, marketing — và chia cho hai kênh theo tỷ lệ doanh thu. Kênh app chiếm 25% doanh thu nên nhận 25% chi phí, tức 18,5 tỷ. 12,5 trừ 18,5, ra lỗ 6 tỷ.
+
+Câu hỏi then chốt: nếu ngừng kênh app, 18,5 tỷ đó có biến mất không?
+
+Tiền thuê 40 cửa hàng vẫn phải trả, vì bánh mì bán qua app vẫn làm tại chính những cửa hàng đó. Lương nhân viên vẫn phải trả, vì ca làm không giảm đáng kể. Văn phòng vẫn thế. Gần như toàn bộ 18,5 tỷ ở lại.
+
+Thứ duy nhất biến mất là 12,5 tỷ lãi góp. EBITDA còn 16 trừ 12,5, bằng 3,5 tỷ.
+
+## Phân bổ là quy ước, không phải nhân quả
+
+Phân bổ chi phí chung không sai. Doanh nghiệp cần nó để định giá, để lập báo cáo, để biết mỗi sản phẩm phải gánh bao nhiêu phần chi phí chung về dài hạn.
+
+Cái sai là đọc con số sau phân bổ như thể nó nói về hậu quả của một quyết định. Tỷ lệ phân bổ theo doanh thu là một lựa chọn kế toán. Nếu chọn phân bổ theo số đơn hàng, kênh app với đơn nhỏ và nhiều có thể gánh nhiều hơn nữa. Nếu phân bổ theo diện tích cửa hàng, kênh app gần như không gánh gì và trông rất có lãi. Cùng một thực tế kinh doanh, ba công thức chia cho ba kết luận.
+
+Một quyết định cắt bỏ không nên phụ thuộc vào việc kế toán chọn công thức nào.
+
+## Câu hỏi đúng: cái gì biến mất theo
+
+Trước khi cắt bất kỳ sản phẩm, kênh, cửa hàng hay khách hàng nào, hãy chia chi phí của nó thành ba nhóm.
+
+Nhóm một, chi phí biến đổi: nguyên liệu, hoa hồng, bao bì. Biến mất theo, và doanh thu cũng biến mất theo. Hiệu số của hai thứ này là lãi góp bị mất.
+
+Nhóm hai, chi phí cố định riêng: những khoản chỉ tồn tại vì đối tượng đó. Nếu Lúa Vàng có một nhân viên chuyên quản lý đối tác app lương 300 triệu mỗi năm, hay thuê riêng một phần mềm kết nối đơn hàng 200 triệu, đó là chi phí cố định riêng của kênh app. Cắt kênh thì tiết kiệm được.
+
+Nhóm ba, chi phí phân bổ: phần còn lại. Không tiết kiệm được gì.
+
+Quy tắc ra quyết định: chỉ cắt khi chi phí cố định riêng lớn hơn lãi góp bị mất. Với kênh app, chi phí riêng khoảng 0,5 tỷ, lãi góp 12,5 tỷ. Cắt là phá huỷ giá trị.
+
+## Cái bẫy thứ hai: vòng xoáy phân bổ lại
+
+Giả sử đề xuất vẫn được duyệt. Quý sau, 74 tỷ chi phí cố định giờ dồn toàn bộ lên kênh cửa hàng. Kênh cửa hàng có 77,5 tỷ lãi góp, trừ 74 tỷ, còn 3,5 tỷ. Báo cáo quản trị bây giờ cho thấy biên lợi nhuận kênh cửa hàng rơi từ gần 15% xuống hơn 2%.
+
+Nếu công ty có nhiều sản phẩm, vòng xoáy này tiếp tục: sản phẩm nào có biên thấp nhất sau khi phân bổ lại sẽ trông lỗ và bị đề xuất cắt tiếp. Mỗi vòng cắt đi một phần lãi góp, trong khi chi phí cố định không nhúc nhích. Đây là cách một số doanh nghiệp tự thu nhỏ mình cho tới khi thật sự lỗ.
+
+## Thay vì cắt thì sửa
+
+Kênh app có vấn đề thật: hoa hồng cao làm biên đóng góp của nó chỉ 25%, so với khoảng 52% của kênh cửa hàng. Nhưng câu trả lời là sửa biên, không phải bỏ kênh.
+
+Có ba hướng. Đàm phán lại hoa hồng khi Lúa Vàng đủ lớn để nền tảng không muốn mất. Tăng giá riêng trên app, vì khách đặt app ít nhạy cảm giá hơn khách đứng quầy. Đẩy khách app đã quen sang đặt trực tiếp qua kênh riêng của chuỗi.
+
+Mỗi điểm phần trăm hoa hồng giảm được trên 50 tỷ doanh thu là 500 triệu lợi nhuận, không mất khách nào.
+
+## Nói ra như thế nào
+
+> "Em nghĩ khoản lỗ 6 tỷ là hệ quả của việc chia 74 tỷ chi phí cố định theo doanh thu. Nếu tách ra, kênh app vẫn mang về 12,5 tỷ lãi góp.
+
+> Khi ngừng kênh app, tiền thuê cửa hàng, lương và văn phòng gần như không giảm, vì bánh vẫn làm tại chính các cửa hàng đó. Nên EBITDA sẽ rơi từ 16 xuống khoảng 3,5 tỷ.
+
+> Vấn đề thật của kênh app là biên đóng góp chỉ 25% do hoa hồng cao. Em đề xuất đàm phán giảm hoa hồng và thử tăng giá riêng trên app 5%, thay vì bỏ kênh."
+`);
+
+LRD("f-profit-8", `
+Cuộc họp tổng kết năm của Lúa Vàng mở đầu bằng một tin tốt: năm nay bán được 8,5 triệu ổ bánh mì, tăng 500 nghìn ổ so với năm trước. Tin xấu đến ở slide tiếp theo: lãi góp giảm từ 90 tỷ xuống 80,5 tỷ.
+
+Giám đốc bán hàng cho rằng do giảm giá bánh thường 1.000đ để cạnh tranh. Giám đốc sản phẩm cho rằng do khách bỏ bánh đặc biệt. Giám đốc vận hành cho rằng sản lượng tăng là thành công của đội ngũ và vấn đề nằm chỗ khác.
+
+Cả ba đều đúng một phần. Và nếu không tách được mỗi phần bằng bao nhiêu tỷ, cuộc họp sẽ kết thúc bằng việc người nói to nhất thắng.
+
+## Ba lực kéo lợi nhuận
+
+Lãi góp của một doanh nghiệp bán nhiều sản phẩm thay đổi vì ba lý do độc lập.
+
+Sản lượng: bán nhiều hay ít ổ hơn tổng thể.
+
+Cơ cấu: trong tổng số ổ, tỷ lệ giữa món lãi cao và món lãi thấp thay đổi thế nào.
+
+Giá: lãi góp trên mỗi ổ của từng món thay đổi thế nào, do giá bán hoặc do chi phí.
+
+Lúa Vàng có hai món. Bánh thường giá 20.000đ, lãi góp 8.000đ mỗi ổ. Bánh đặc biệt giá 40.000đ, lãi góp 21.000đ mỗi ổ. Năm trước: 6 triệu ổ thường, 2 triệu ổ đặc biệt, lãi góp 48 cộng 42 bằng 90 tỷ. Năm nay: 7 triệu ổ thường với lãi góp giảm còn 7.000đ, 1,5 triệu ổ đặc biệt, lãi góp 49 cộng 31,5 bằng 80,5 tỷ.
+
+Giảm 9,5 tỷ. Bây giờ tách.
+
+## Tách từng lực một
+
+Bước đầu tiên là tìm một mốc: lãi góp trung bình mỗi ổ của năm trước. 90 tỷ chia 8 triệu ổ, bằng 11.250đ.
+
+Hiệu ứng sản lượng trả lời câu: nếu chỉ bán thêm ổ, giữ nguyên cơ cấu và giá năm trước, thì lãi thêm bao nhiêu? Bán thêm 500 nghìn ổ nhân 11.250đ, bằng 5,625 tỷ. Đội vận hành đúng: sản lượng đóng góp dương.
+
+Hiệu ứng cơ cấu trả lời câu: với số ổ năm nay nhưng giá năm trước, việc khách chuyển từ bánh đặc biệt sang bánh thường làm mất bao nhiêu? Tính lãi góp năm nay theo đơn giá năm trước: 7 triệu nhân 8.000 cộng 1,5 triệu nhân 21.000, bằng 87,5 tỷ. So với 8,5 triệu ổ nhân lãi góp trung bình cũ 11.250đ, bằng 95,625 tỷ. Chênh lệch âm 8,125 tỷ. Đội sản phẩm đúng, và phần của họ lớn nhất.
+
+Hiệu ứng giá trả lời câu: việc giảm lãi góp mỗi ổ bánh thường 1.000đ làm mất bao nhiêu? 7 triệu ổ nhân 1.000đ, bằng 7 tỷ. Đội bán hàng cũng đúng.
+
+Kiểm tra: cộng 5,625, trừ 8,125, trừ 7, bằng âm 9,5 tỷ. Khớp đúng với thay đổi thực tế. Đây là bước không bao giờ được bỏ: nếu ba phần không cộng lại đúng tổng, có một phép tính sai ở đâu đó.
+
+## Ba phần không độc lập với nhau
+
+Phép tách cho ba con số riêng, nhưng câu chuyện đằng sau chúng thường nối vào nhau.
+
+Tại sao khách bỏ bánh đặc biệt? Một giả thuyết rất mạnh: chính quyết định giảm giá bánh thường. Khi bánh thường rẻ đi còn 19.000đ, bánh đặc biệt bỗng đắt hơn 21.000đ thay vì 20.000đ, và với khách vốn đang phân vân giữa hai món, khoảng cách đó đủ để kéo một phần họ xuống bánh thường. Nếu giả thuyết này đúng, cái giá thật của quyết định giảm giá không phải 7 tỷ mà gần 15 tỷ, và 500 nghìn ổ tăng thêm chỉ bù được hơn một phần ba.
+
+Đó là loại phát hiện mà phép tách mở ra. Nó không tự chứng minh nhân quả, nhưng nó chỉ đúng chỗ cần kiểm chứng: xem dữ liệu theo từng tháng, tỷ trọng bánh đặc biệt có rơi ngay sau tháng giảm giá không.
+
+## Thứ tự tách ảnh hưởng tới con số
+
+Một điểm kỹ thuật cần biết: nếu bạn tách giá trước rồi mới tách cơ cấu, hoặc dùng lãi góp năm nay làm mốc thay vì năm trước, độ lớn từng phần sẽ khác một chút. Tổng vẫn đúng, nhưng phần chia thì không.
+
+Không có thứ tự nào đúng tuyệt đối. Quy tắc thực dụng: chọn một cách, ghi rõ trên slide, và giữ nguyên cách đó khi so các kỳ khác nhau. Ban giám khảo hay hội đồng quản trị ít khi bắt bẻ thứ tự; họ bắt bẻ khi bạn đổi cách tính giữa hai slide.
+
+## Nói ra như thế nào
+
+> "Lãi góp giảm 9,5 tỷ dù bán thêm nửa triệu ổ. Em tách thành ba phần, dùng lãi góp trung bình năm trước 11.250đ mỗi ổ làm mốc.
+
+> Sản lượng tăng mang về 5,6 tỷ. Nhưng giá bánh thường giảm làm mất 7 tỷ, và khách dịch chuyển từ bánh đặc biệt sang bánh thường làm mất thêm 8,1 tỷ. Ba phần cộng lại đúng âm 9,5 tỷ.
+
+> Em nghi hai phần âm có liên quan: giảm giá bánh thường có thể đã kéo khách khỏi bánh đặc biệt. Em đề xuất xem tỷ trọng bánh đặc biệt theo từng tháng quanh thời điểm giảm giá để kiểm chứng, trước khi quyết định giữ hay bỏ mức giá mới."
+`);
+
+LRD("f-profit-9", `
+Lúa Vàng có 40 cửa hàng và 30 tỷ lợi nhuận cửa hàng mỗi năm. Chia đều, mỗi cửa hàng làm ra 750 triệu. Một con số trung bình dễ chịu, và nó gần như không nói đúng về cửa hàng nào.
+
+Khi tách từng cửa hàng ra và xếp hàng từ lãi nhiều nhất tới lỗ nhiều nhất, bức tranh khác hẳn: 10 cửa hàng đầu làm ra 24 tỷ. 20 cửa hàng giữa làm ra 12 tỷ. 10 cửa hàng cuối lỗ 6 tỷ.
+
+Một phần tư mạng lưới tạo ra bốn phần năm lợi nhuận. Một phần tư khác đang ăn bớt một phần năm. Trung bình 750 triệu che mất cả hai sự thật đó.
+
+## Đường cong cá voi
+
+Có một cách vẽ làm lộ ra điều này chỉ trong một hình. Xếp các cửa hàng từ lãi nhiều nhất tới lỗ nhiều nhất trên trục ngang. Trục dọc là lợi nhuận cộng dồn.
+
+Đường cong đi lên rất dốc ở 10 cửa hàng đầu, chạm 24 tỷ. Tiếp tục đi lên chậm hơn qua 20 cửa hàng giữa, đạt đỉnh 36 tỷ. Rồi đi xuống qua 10 cửa hàng cuối, kết thúc ở 30 tỷ.
+
+Hình dạng này — vọt lên, đạt đỉnh, rồi trượt xuống — được gọi là đường cong cá voi vì trông giống lưng một con cá voi nhô khỏi mặt nước. Khoảng cách giữa đỉnh và điểm cuối, ở đây là 6 tỷ, chính là số tiền mà nhóm lỗ đang lấy đi.
+
+Gần như mọi doanh nghiệp có nhiều đơn vị đều có đường cong này, dù đơn vị là cửa hàng, sản phẩm, khách hàng hay tuyến giao hàng. Câu hỏi không phải là có hay không, mà là đỉnh cao hơn điểm cuối bao nhiêu.
+
+## Chẩn đoán trước khi phán quyết
+
+Phản xạ tự nhiên là đóng 10 cửa hàng cuối. Nhưng trước đó cần hỏi: vì sao chúng lỗ?
+
+Nhìn vào ba nhóm, một điều thú vị hiện ra. Biên đóng góp của cả ba nhóm đều là 45%. Nghĩa là khách ở cửa hàng yếu mua cùng những món, cùng giá, với cùng chi phí nguyên liệu như ở cửa hàng mạnh. Sản phẩm không có vấn đề.
+
+Khác biệt nằm ở chi phí cố định. Nhóm tốt nhất trả 12 tỷ chi phí cố định trên 80 tỷ doanh thu, tức 15%. Nhóm yếu nhất trả 19,5 tỷ trên 30 tỷ doanh thu, tức 65%. Những cửa hàng này có mặt bằng đắt, hoặc đội ngũ đông, so với lượng khách chúng kéo được.
+
+Chẩn đoán này mở ra những phương án khác ngoài đóng cửa. Đàm phán lại giá thuê khi hợp đồng sắp hết hạn. Thu nhỏ mặt bằng, chuyển sang mô hình ki-ốt mang đi. Giảm giờ mở cửa ở khung giờ vắng. Nếu tổng chi phí cố định 19,5 tỷ của nhóm này — tiền thuê cộng lương — giảm được một phần ba, tức khoảng 6,5 tỷ, khoản lỗ 6 tỷ biến mất mà không mất khách nào.
+
+## Tính lợi ích của việc đóng cho đúng
+
+Giả sử các phương án sửa không khả thi và quyết định là đóng. Lợi ích gồm hai phần, và người mới thường chỉ tính phần đầu.
+
+Phần thứ nhất: khoản lỗ biến mất. Cộng 6 tỷ.
+
+Phần thứ hai: một số khách không bỏ Lúa Vàng mà chuyển sang cửa hàng gần nhất. Nếu 30% trong 30 tỷ doanh thu của nhóm yếu chuyển sang, đó là 9 tỷ doanh thu mới cho các cửa hàng còn lại. Chú ý: các cửa hàng nhận khách không phải trả thêm tiền thuê, nên phần lợi nhuận thêm là lãi góp, 9 tỷ nhân 45%, bằng 4,05 tỷ.
+
+Tổng lợi ích: 6 cộng 4,05, bằng 10,05 tỷ mỗi năm. Lợi nhuận cửa hàng tăng từ 30 lên khoảng 40 tỷ.
+
+Hai lỗi hay gặp ở phần thứ hai. Một là tính khách chuyển sang theo doanh thu thay vì lãi góp, ra 9 tỷ thay vì 4,05 tỷ — phóng đại hơn hai lần. Hai là giả định khách chuyển sang ở mọi nơi, trong khi một cửa hàng lỗ nằm riêng ở một tỉnh không có cửa hàng khác thì gần như toàn bộ khách mất hẳn.
+
+## Chi phí một lần của việc đóng
+
+Còn một phần nữa trước khi chốt: đóng cửa không miễn phí. Phí phá hợp đồng thuê trước hạn có thể bằng ba đến sáu tháng tiền thuê. Trợ cấp thôi việc cho nhân viên. Chi phí tháo dỡ thiết bị, dù một phần có thể chuyển sang cửa hàng khác.
+
+Nếu tổng chi phí một lần khoảng 5 tỷ, việc đóng cửa hoàn vốn trong khoảng sáu tháng — vẫn là quyết định rất tốt. Nhưng nếu một số hợp đồng còn năm năm và phí phá hợp đồng lên tới hai năm tiền thuê, thì chờ hết hạn rồi không gia hạn có thể là lựa chọn rẻ hơn.
+
+Một kế hoạch tốt thường không đóng cả 10 cửa hàng cùng lúc, mà xếp chúng theo thời điểm hết hạn hợp đồng — một ý sẽ quay lại ở bài kế hoạch phục hồi.
+
+## Nói ra như thế nào
+
+> "Em tách lợi nhuận theo từng cửa hàng. 10 cửa hàng tốt nhất làm ra 24 tỷ, tức 80% lợi nhuận cửa hàng. 10 cửa hàng yếu nhất lỗ 6 tỷ.
+
+> Điều quan trọng là nhóm yếu có biên đóng góp 45% như mọi nơi. Vấn đề nằm ở chi phí cố định bằng 65% doanh thu, tức mặt bằng quá đắt so với lượng khách.
+
+> Nếu đóng nhóm này và giữ được 30% khách chuyển sang cửa hàng gần, lợi nhuận cửa hàng tăng khoảng 10 tỷ mỗi năm. Nhưng em đề xuất trước hết đàm phán lại giá thuê với những cửa hàng sắp hết hợp đồng, và chỉ đóng những nơi không giảm được."
+`);
+
+LRD("f-profit-10", `
+Tháng mười, EBITDA của Lúa Vàng thấp hơn kế hoạch. Giám đốc tài chính mang tới cuộc họp một bảng đề xuất gọn gàng: cắt một nửa ngân sách marketing, từ 6 tỷ xuống 3 tỷ. "Tiết kiệm ngay 3 tỷ, không ảnh hưởng vận hành, không phải cho ai nghỉ việc."
+
+Trưởng phòng marketing phản đối: phần ngân sách bị cắt đang nuôi các chương trình kéo khách mới, và họ ước tính doanh thu sẽ giảm khoảng 8%.
+
+Hai người đang nói về hai phía của cùng một phép tính. Giám đốc tài chính chỉ nhìn phía chi phí. Trưởng phòng marketing chỉ nhìn phía doanh thu. Không ai đặt hai con số lên cùng một cán cân.
+
+## Hai loại chi phí
+
+Mọi khoản chi của doanh nghiệp rơi vào một trong hai nhóm, xét theo mối liên hệ với doanh thu.
+
+Chi phí tạo doanh thu: nếu cắt, doanh thu giảm theo. Marketing kéo khách mới. Nhân viên đứng quầy giờ cao điểm quyết định bao nhiêu khách chịu xếp hàng. Chất lượng nguyên liệu quyết định khách có quay lại không. Chương trình khách hàng thân thiết giữ tần suất mua.
+
+Chi phí hỗ trợ: nếu cắt, doanh thu gần như không đổi. Văn phòng rộng hơn cần thiết. Hai kho trung chuyển gần nhau có thể gộp. Báo cáo in giấy. Phần mềm mua nhưng ít ai dùng.
+
+Cắt chi phí hỗ trợ gần như luôn tốt. Cắt chi phí tạo doanh thu phải qua một phép tính.
+
+## Phép tính cán cân
+
+Tác động ròng của việc cắt bằng khoản tiết kiệm trừ lãi góp bị mất. Không phải trừ doanh thu bị mất — vì khi doanh thu giảm, nguyên liệu và hoa hồng cũng giảm theo.
+
+Với đề xuất cắt marketing: tiết kiệm 3 tỷ. Doanh thu giảm 8% trên 200 tỷ, tức 16 tỷ. Lãi góp mất: 16 tỷ nhân biên đóng góp 45%, bằng 7,2 tỷ. Tác động ròng: 3 trừ 7,2, bằng âm 4,2 tỷ.
+
+Đề xuất "tiết kiệm 3 tỷ" thực ra làm EBITDA giảm từ 16 xuống 11,8 tỷ.
+
+Có một cách đặt vấn đề giúp tránh tranh cãi về con số 8%: tính ngưỡng. Việc cắt chỉ có lợi nếu doanh thu mất nhỏ hơn khoản tiết kiệm chia biên đóng góp, tức 3 tỷ chia 45%, khoảng 6,7 tỷ — tương đương giảm 3,3% doanh thu. Bây giờ câu hỏi không còn là "ai đúng" mà là "chúng ta tin doanh thu giảm ít hơn hay nhiều hơn 3,3%". Đó là câu hỏi có thể kiểm chứng.
+
+## Vì sao cắt sai trông như cắt đúng
+
+Cắt chi phí tạo doanh thu có một đặc điểm nguy hiểm: tác động đến lệch thời gian.
+
+Khoản tiết kiệm xuất hiện ngay tháng đầu tiên. Còn doanh thu giảm dần: khách mới không đến nhưng khách cũ vẫn mua thêm vài tháng theo thói quen. Báo cáo quý đầu tiên sau khi cắt gần như luôn đẹp. Quý thứ hai bắt đầu hụt. Tới quý thứ ba, doanh thu đã thấp hơn đáng kể, và lúc đó rất khó chứng minh nguyên nhân là việc cắt marketing sáu tháng trước.
+
+Điều tương tự xảy ra với cắt chất lượng. Đổi sang pa-tê rẻ hơn 15% tiết kiệm được ngay. Khách quen không bỏ đi sau một lần ăn, nhưng tần suất quay lại giảm chậm qua nhiều tháng.
+
+Vì vậy, khi phải cắt một khoản chi phí tạo doanh thu, hãy đặt sẵn chỉ số theo dõi từ trước: số khách mới mỗi tuần, tỷ lệ khách quay lại, doanh thu mỗi cửa hàng so với cùng kỳ. Và đặt sẵn ngưỡng để khôi phục ngân sách nếu các chỉ số rơi quá mức.
+
+## Cắt theo tỷ lệ đều là cách tệ nhất
+
+Một cách cắt rất phổ biến khi cần tiền gấp: yêu cầu mọi phòng ban giảm 10%. Nghe công bằng, dễ triển khai, không ai bị nhắm tới.
+
+Nó cũng gần như chắc chắn làm hại doanh nghiệp, vì nó cắt chi phí tạo doanh thu và chi phí hỗ trợ ở cùng một mức. Một đồng cắt ở văn phòng có thể mất không đồng doanh thu; một đồng cắt ở marketing có thể mất hai đồng lãi góp.
+
+Cách tốt hơn là xếp mọi khoản chi theo tỷ số giữa lãi góp mất và khoản tiết kiệm, rồi cắt từ khoản có tỷ số thấp nhất lên. Với Lúa Vàng, gộp hai kho trung chuyển tiết kiệm 2 tỷ mà không đổi thời gian giao nguyên liệu nằm ở đầu danh sách. Cắt marketing nằm gần cuối.
+
+## Nói ra như thế nào
+
+> "Em đồng ý cần tìm 3 tỷ, nhưng em nghĩ phải tính cả phía doanh thu. Nếu doanh thu giảm 8% như đội marketing ước tính, mình mất 16 tỷ doanh thu, tức 7,2 tỷ lãi góp.
+
+> Như vậy cắt 3 tỷ marketing làm EBITDA giảm ròng 4,2 tỷ, không phải tăng. Việc cắt chỉ có lợi nếu doanh thu giảm dưới 3,3%.
+
+> Em đề xuất tìm 3 tỷ từ chi phí hỗ trợ trước: gộp hai kho trung chuyển được khoảng 2 tỷ. Phần còn lại, nếu phải cắt marketing, thì cắt các kênh có chi phí mỗi khách mới cao nhất và theo dõi số khách mới hằng tuần."
+`);
+
+LRD("f-profit-11", `
+Ngày 20 tháng 12, chủ chuỗi Lúa Vàng gọi cho ngân hàng xin vay thêm 4 tỷ để trả lương và thưởng Tết. Nhân viên tín dụng mở báo cáo tài chính, thấy lợi nhuận ròng năm nay 8 tỷ, và hỏi một câu rất tự nhiên: "Anh lãi 8 tỷ, sao lại thiếu tiền?"
+
+Chủ doanh nghiệp không trả lời được ngay. Ông biết mình không tiêu xài gì bất thường. Ông biết năm nay kinh doanh tốt hơn năm trước. Nhưng tài khoản ngân hàng thì gần cạn.
+
+Cảnh này phổ biến tới mức có một câu nói quen thuộc trong giới tài chính: doanh nghiệp không chết vì lỗ, doanh nghiệp chết vì hết tiền. Và khoảng cách giữa hai thứ đó chính là chủ đề của bài này.
+
+## Lợi nhuận là ý kiến, tiền mặt là sự thật
+
+Lợi nhuận được ghi nhận khi bán hàng, không phải khi nhận tiền. Chi phí được ghi nhận khi dùng, không phải khi trả tiền. Một khoản đầu tư lớn được chia nhỏ ra nhiều năm thông qua khấu hao, chứ không trừ hết vào năm bỏ tiền.
+
+Những quy ước này có lý do tốt: chúng giúp lợi nhuận phản ánh đúng hiệu quả kinh doanh của từng kỳ. Nhưng chúng cũng khiến lợi nhuận và dòng tiền đi lệch nhau, đôi khi rất xa.
+
+Để đi từ lợi nhuận tới tiền mặt, cần bốn điều chỉnh.
+
+## Điều chỉnh một: cộng lại khấu hao
+
+Khấu hao là chi phí trên sổ sách nhưng không có đồng tiền nào đi ra trong năm. Tiền đã chi từ khi mua thiết bị, xây cửa hàng. Lúa Vàng trừ 4 tỷ khấu hao khi tính lợi nhuận, nên phải cộng lại 4 tỷ khi tính tiền.
+
+Đây là điều chỉnh dễ nhất và cũng là lý do một số doanh nghiệp lỗ kế toán vẫn có dòng tiền dương.
+
+## Điều chỉnh hai: vốn lưu động
+
+Đây là chỗ Lúa Vàng mất tiền nhiều nhất, và cũng là chỗ khó hiểu nhất với người không làm tài chính.
+
+Năm nay chuỗi bắt đầu nhận đặt bánh cho các công ty, cho trả chậm 60 ngày. Doanh thu từ những đơn này đã được ghi vào lợi nhuận, nhưng tiền vẫn nằm ở tài khoản của khách. Khoản phải thu tăng thêm 5 tỷ — đó là 5 tỷ lợi nhuận chưa thành tiền.
+
+Chuỗi cũng tích trữ thêm nguyên liệu để tránh tăng giá cuối năm. Tồn kho tăng 3 tỷ — tiền đã ra khỏi tài khoản nhưng chưa thành bánh bán được, nên chưa thành chi phí trong lợi nhuận.
+
+Ở chiều ngược lại, Lúa Vàng được nhà cung cấp bột mì cho trả chậm thêm, khoản phải trả tăng 2 tỷ. Chi phí đã ghi nhận nhưng tiền vẫn còn trong tài khoản — cộng lại 2 tỷ.
+
+Quy tắc nhớ chiều: tài sản lưu động tăng thì trừ, vì tiền bị giữ lại trong hàng hoá hay trong túi khách. Nợ ngắn hạn tăng thì cộng, vì tiền của người khác đang nằm trong túi mình.
+
+Dòng tiền từ hoạt động kinh doanh: 8 cộng 4, trừ 3, trừ 5, cộng 2, bằng 6 tỷ. Lãi 8 tỷ, nhưng chỉ 6 tỷ thành tiền.
+
+## Điều chỉnh ba và bốn: đầu tư
+
+Năm nay Lúa Vàng mở 5 cửa hàng mới, mỗi cửa hàng tốn 2 tỷ cho cải tạo mặt bằng, thiết bị và đặt cọc. Tổng 10 tỷ đi ra khỏi tài khoản ngay trong năm, nhưng chỉ một phần nhỏ xuất hiện trong lợi nhuận dưới dạng khấu hao.
+
+Dòng tiền tự do bằng dòng tiền hoạt động trừ đầu tư: 6 trừ 10, bằng âm 4 tỷ. Đó chính xác là số tiền chủ doanh nghiệp đang gọi ngân hàng để vay.
+
+## Tăng trưởng ăn tiền
+
+Nhìn lại, không có gì sai trong cách Lúa Vàng làm ăn. Mở thêm cửa hàng là tăng trưởng. Nhận đơn công ty là mở rộng khách hàng. Tích trữ nguyên liệu là phòng vệ trước biến động giá. Cả ba đều hợp lý, và cả ba đều giữ tiền lại.
+
+Đây là nghịch lý mà mọi case tăng trưởng đều phải đối mặt: doanh nghiệp càng tăng trưởng nhanh, vốn lưu động và đầu tư càng tăng cùng lúc, và dòng tiền càng dễ âm dù biên lợi nhuận rất tốt. Một khuyến nghị "mở thêm 20 cửa hàng" mà không kèm kế hoạch vốn là một khuyến nghị chưa hoàn chỉnh.
+
+## Đòn bẩy tiền mặt không đụng tới lợi nhuận
+
+Tin tốt là có những cách cải thiện dòng tiền mà không làm giảm lợi nhuận, vì chúng chỉ thay đổi thời điểm tiền đi vào đi ra.
+
+Rút thời hạn thanh toán cho khách công ty từ 60 xuống 30 ngày: khoản phải thu giảm khoảng một nửa, giải phóng khoảng 2,5 tỷ. Có thể kèm chiết khấu nhỏ cho khách trả sớm.
+
+Giảm mức tồn kho nguyên liệu xuống mức cần cho hai tuần thay vì một tháng, nếu nhà cung cấp giao đều.
+
+Đàm phán kéo dài thời hạn trả nhà cung cấp, đổi lại cam kết khối lượng.
+
+Giãn tiến độ mở cửa hàng mới: mở 5 cửa hàng rải đều trong năm thay vì dồn vào quý ba, để dòng tiền của cửa hàng mở trước kịp nuôi cửa hàng mở sau.
+
+Đổi phương pháp khấu hao thì không nằm trong danh sách: nó thay đổi con số lợi nhuận nhưng không thay đổi một đồng tiền mặt nào.
+
+## Nói ra như thế nào
+
+> "Lúa Vàng lãi 8 tỷ nhưng dòng tiền tự do âm 4 tỷ. Em đi từ lợi nhuận: cộng 4 tỷ khấu hao, trừ 3 tỷ tồn kho tăng, trừ 5 tỷ phải thu từ đơn công ty, cộng 2 tỷ phải trả, ra 6 tỷ tiền từ kinh doanh.
+
+> Sau đó trừ 10 tỷ mở 5 cửa hàng mới, còn âm 4 tỷ — đúng bằng khoản đang cần vay. Đây là cái giá của tăng trưởng chứ không phải dấu hiệu làm ăn kém.
+
+> Đòn bẩy nhanh nhất là rút thời hạn thanh toán của khách công ty từ 60 xuống 30 ngày, giải phóng khoảng 2,5 tỷ mà không ảnh hưởng lợi nhuận. Kết hợp với giãn tiến độ mở cửa hàng, chuỗi có thể không cần vay thêm."
+`);
+
+LRD("f-profit-12", `
+Hội đồng quản trị Lúa Vàng kết thúc cuộc họp bằng một yêu cầu ngắn: "EBITDA năm tới phải tăng thêm ít nhất 10 tỷ. Tháng sau trình kế hoạch."
+
+Hai tuần sau, ban điều hành mang tới một bảng liệt kê mười bốn sáng kiến: tối ưu thực đơn, đào tạo nhân viên, tăng hiện diện mạng xã hội, cải thiện trải nghiệm khách hàng, chuyển đổi số quy trình đặt hàng… Tổng tác động ước tính: 22 tỷ.
+
+Chủ tịch hội đồng lật tới trang cuối và hỏi: "Tháng ba năm sau, tôi nên thấy bao nhiêu tỷ trong số này trên báo cáo?"
+
+Không ai trả lời được. Mười bốn sáng kiến có tổng tác động, nhưng không có thời điểm. Và phần lớn trong số chúng không có con số nào đứng vững khi bị hỏi lại.
+
+## Ít đòn bẩy, nhiều con số
+
+Một kế hoạch phục hồi tốt gần như luôn ngắn hơn người ta nghĩ. Ba tới bốn đòn bẩy, mỗi cái đã được định lượng từ các phân tích trước, cộng lại đủ mục tiêu với một khoảng đệm.
+
+Với Lúa Vàng, các bài trước đã tìm ra đủ nguyên liệu.
+
+Đóng 10 cửa hàng lỗ, giữ 30% khách chuyển sang cửa hàng gần: thêm khoảng 10 tỷ mỗi năm.
+
+Đàm phán giảm hoa hồng ứng dụng giao hàng 2 điểm phần trăm trên 50 tỷ doanh thu qua app: thêm 1 tỷ mỗi năm.
+
+Tăng giá bánh thường 1.000đ, chấp nhận mất 5% sản lượng: lãi góp bánh thường từ 6 triệu ổ nhân 8.000đ bằng 48 tỷ, lên 5,7 triệu ổ nhân 9.000đ bằng 51,3 tỷ, thêm 3,3 tỷ mỗi năm.
+
+Ba đòn bẩy, tổng 14,3 tỷ mỗi năm. Vượt mục tiêu 10 tỷ khá thoải mái.
+
+Mười một sáng kiến còn lại không bị bỏ. Chúng được ghi vào danh sách chờ, và chỉ được đưa lên kế hoạch khi có con số cụ thể.
+
+## Tác động cả năm không phải tác động trong năm
+
+Đây là lỗi mà gần như mọi kế hoạch phục hồi đầu tiên đều mắc.
+
+14,3 tỷ là tác động khi cả ba đòn bẩy chạy đủ mười hai tháng. Nhưng chúng không bắt đầu cùng lúc.
+
+Tăng giá có thể áp dụng ngay tháng một: in lại bảng giá, thông báo trước hai tuần. Đủ mười hai tháng, 3,3 tỷ.
+
+Đóng cửa hàng cần thời gian: thông báo nhân viên, thương lượng với chủ nhà, chuyển thiết bị. Sớm nhất là từ tháng tư. Chín tháng hiệu lực: 10 nhân 9 chia 12, bằng 7,5 tỷ.
+
+Hoa hồng app chỉ đàm phán được khi hợp đồng với nền tảng đến kỳ gia hạn vào tháng bảy. Sáu tháng hiệu lực: 1 nhân 6 chia 12, bằng 0,5 tỷ.
+
+Tổng trong mười hai tháng đầu: 3,3 cộng 7,5 cộng 0,5, bằng 11,3 tỷ.
+
+Vẫn đạt mục tiêu 10 tỷ. Nhưng đệm không còn 4,3 tỷ như bảng cả năm cho thấy — chỉ còn 1,3 tỷ. Và đây là con số chủ tịch hội đồng sẽ thấy trên báo cáo cuối năm.
+
+## Đệm mỏng thì cần phương án dự phòng
+
+Đệm 1,3 tỷ nghĩa là gì trên thực tế? Nghĩa là nếu việc đóng cửa hàng trễ một quý, từ tháng tư lùi sang tháng bảy, tác động của nó giảm từ 7,5 xuống 5 tỷ, và toàn bộ kế hoạch hụt mục tiêu 1,2 tỷ.
+
+Việc trễ một quý khi đóng cửa hàng không phải hiếm. Chủ nhà không chịu cho phá hợp đồng. Một cửa hàng đang có nhân sự chủ chốt. Hội đồng quản trị muốn chờ thêm một quý số liệu.
+
+Vì vậy kế hoạch tốt luôn có thêm một mục: đòn bẩy dự phòng nếu một đòn bẩy chính trễ hạn. Với Lúa Vàng, gộp hai kho trung chuyển tiết kiệm được 2 tỷ mỗi năm và có thể làm trong một quý là ứng viên tự nhiên. Nó không nằm trong kế hoạch chính vì tác động nhỏ, nhưng nó sẵn sàng nếu cần.
+
+## Trình bày để hội đồng theo dõi được
+
+Một bảng kế hoạch phục hồi dùng được có ít nhất năm cột: đòn bẩy, tác động cả năm, tháng bắt đầu hiệu lực, tác động trong năm, và người chịu trách nhiệm.
+
+Hình đi kèm tốt nhất là biểu đồ cột chồng theo quý, mỗi đòn bẩy một màu, với đường mục tiêu kẻ ngang. Người xem thấy ngay quý một chỉ có tác động từ tăng giá, quý hai bắt đầu có đóng cửa hàng, và phần lớn giá trị dồn về nửa cuối năm. Đó cũng là thông tin quan trọng để hội đồng không hoảng khi báo cáo quý một chưa có gì nhiều.
+
+Cuối cùng, mỗi đòn bẩy cần một chỉ số theo dõi sớm. Tăng giá: sản lượng bánh thường mỗi tuần, cảnh báo nếu mất quá 5%. Đóng cửa hàng: doanh thu của các cửa hàng lân cận, xác nhận khách có chuyển sang không. Hoa hồng: ngày ký phụ lục hợp đồng.
+
+## Nói ra như thế nào
+
+> "Kế hoạch gồm ba đòn bẩy. Tăng giá bánh thường 1.000đ thêm 3,3 tỷ, đóng 10 cửa hàng lỗ thêm 10 tỷ, giảm hoa hồng app thêm 1 tỷ. Theo cả năm là 14,3 tỷ.
+
+> Nhưng tính theo thời điểm có hiệu lực — tăng giá từ tháng một, đóng cửa hàng từ tháng tư, hoa hồng từ tháng bảy — mười hai tháng đầu mang về 11,3 tỷ. Đạt mục tiêu 10 tỷ với đệm 1,3 tỷ.
+
+> Đệm này mỏng: chỉ cần đóng cửa hàng trễ một quý là hụt. Nên em đề xuất chuẩn bị sẵn phương án gộp hai kho trung chuyển, khoảng 2 tỷ mỗi năm, để kích hoạt nếu tới tháng năm việc đóng cửa hàng vẫn chưa xong."
+`);

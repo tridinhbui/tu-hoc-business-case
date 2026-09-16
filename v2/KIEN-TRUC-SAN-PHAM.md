@@ -31,7 +31,7 @@ Cập nhật: 2026-09-14 · Trạng thái: v2 — 9/9 màn đã dựng, 100/100 
 ├─────────────────────────────────────────────────────────────┤
 │ LỚP 2 · NỘI DUNG      curriculum.js (6 track / 44 module /  │
 │                       100 bài) · library.js (case + ngành + │
-│                       loại) · careers.js (6 lộ trình nghề)  │
+│                       loại) · careers.js (30 lộ trình nghề)  │
 ├─────────────────────────────────────────────────────────────┤
 │ LỚP 1 · NỀN           Router (hash) · State store ·         │
 │                       Persistence · Theme · Search          │
@@ -120,7 +120,7 @@ index.html#/dashboard              Vào ứng dụng học
 │     └─ #/interview/:id           Phiên phỏng vấn theo vòng
 │
 ├─ PHÁT TRIỂN
-│  ├─ #/career                     Career Path — 6 lộ trình nghề
+│  ├─ #/career                     Career Path — 30 lộ trình nghề
 │  │  └─ #/career/:careerId        Chi tiết: skill, firm, gate, steps
 │  └─ #/review                     Mistake Review
 │     └─ #/review/:kind            Lọc theo loại lỗi
@@ -143,7 +143,7 @@ index.html#/dashboard              Vào ứng dụng học
 | 3 | **Lesson page** | `#/lesson/:id` | 10 phần nội dung + sidebar dính (quiz, checklist, CTA sang Arena) | ✅ |
 | 4 | **Case Practice Arena** | `#/arena` | 2 pane — trái: brief + exhibit (chart/table); phải: answer canvas + rubric 6 tiêu chí + timer | ✅ |
 | 5 | **Case Library** | `#/library` | Bảng dày 17 case, segmented control theo mode, 4 bộ lọc (ngành, loại, độ khó, trạng thái) | ✅ |
-| 6 | **Career Path** | `#/career` | 6 nghề, stepline tiến độ, skill bar, tiêu chí tốt nghiệp | ✅ |
+| 6 | **Career Path** | `#/career` | 30 nghề chia 6 nhóm, chip lọc nhóm, stepline tiến độ, skill bar, tiêu chí tốt nghiệp | ✅ |
 | 7 | **Competition Simulator** | `#/competition` · `#/competition/:id` | 3 đề thi thật: phân tích → slide outline → Q&A, đồng hồ theo hạn từng deliverable, chấm 7 tiêu chí, ghi tiến độ và lỗi | ✅ |
 | 8 | **Interview Mode** | `#/interview` · `#/interview/:id` | 2 case phỏng vấn 5 vòng: transcript, ghi nhận từng vòng, chấm 5 tiêu chí, ghi tiến độ và lỗi | ✅ |
 | 9 | **Mistake Review** | `#/review` | Gom lỗi theo loại, đề xuất bài ôn, luyện lại theo điểm yếu | ✅ |
@@ -428,8 +428,9 @@ calculation 32 · slide 28 · recommendation 16 · chart insight 13 · speaking 
 | `assets/js/scoring.js` | Engine chấm answer canvas 6 tiêu chí + sinh lỗi phân loại cho Mistake Review, đọc từ spec dữ liệu |
 | `assets/js/data/lessons/*.js` | Nội dung bài học theo module: tình huống, framework, ví dụ số, mini case, bài tính, khung slide (hoặc câu trả lời nói mẫu với `slide.speak`), lỗi thường gặp, checklist, case gợi ý |
 | `assets/js/i18n.js` | Hai chế độ ngôn ngữ VI/EN. Tiếng Việt là bản gốc; bản tiếng Anh dịch khi hiển thị bằng từ điển (290 cặp) + quy tắc cho chuỗi có số. Nội dung bài học có bản tiếng Anh riêng (`data/lessons-en/`); đề case chỉ có tiếng Việt — ở chế độ EN màn Arena/Competition/Interview hiện ghi chú. Lưu lựa chọn ở `localStorage("caselab.lang")` |
-| `assets/js/data/i18n-data.js` · `i18n-lessons.js` | Bản tiếng Anh cho lớp dữ liệu: 6 track, 44 module, 17 case (tên + câu mồi), 6 lộ trình nghề, 100 tiêu đề bài học |
+| `assets/js/data/i18n-data.js` · `i18n-lessons.js` | Bản tiếng Anh cho lớp dữ liệu: 6 track, 44 module, 17 case (tên + câu mồi), 30 lộ trình nghề, 100 tiêu đề bài học |
 | `assets/js/data/lessons-en/*.js` | Nội dung 10 phần bản tiếng Anh cho 100 bài (`LCEN(id,{...})` → `window.LESSON_CONTENT_EN`). Đáp án `mini.correct`, `calc.answer`, `calc.tol` phải trùng bản tiếng Việt — `tests/i18n.test.js` kiểm tra |
+| `assets/js/data/readings/*.js` | Bài đọc văn xuôi (~900–1.900 chữ) đứng trước 10 phần bài tập: `LRD(id, text)` → `window.READING`. Cú pháp rút gọn `## ` tiêu đề · `> ` đoạn thoại · `- ` gạch đầu dòng, render bằng `readingHTML()` trong app.js. Có bài đọc thì mục **A · Bài đọc** hiện phía trên phần 1 |
 | `assets/js/interview.js` | Interview Mode: phiên 5 vòng (Clarify → Structure → Case math → Chart reading → Recommendation), chấm từng vòng bằng từ khoá + con số, lưu ở `State.data.iv` |
 | `assets/js/competition.js` | Competition Simulator: phiên thi 3 deliverable có hạn chót (25% · 67% · 100% thời lượng đề), chấm 7 tiêu chí, nộp trễ trừ 10 điểm trình bày, lưu ở `State.data.comp` |
 | `assets/js/data/arena*.js` | Spec từng case: đề, exhibit (bars/table/metrics), 4 khuyến nghị, từ khoá chấm, con số then chốt, bài mẫu, nội dung lỗi |
@@ -451,6 +452,7 @@ Streak: số ngày liên tiếp có XP; hôm nay chưa học vẫn giữ chuỗi
 
 ```bash
 node tests/state.test.js      # 13 test logic tiến độ
+node tests/readings.test.js  # 5 test — 120 bài đọc đủ dài, đủ mục, có đoạn thoại và số liệu
 node tests/i18n.test.js      # 11 test — VI giữ nguyên, EN dịch đủ, 100/100 bài có bản EN, đáp án EN trùng VI, đủ 10 phần
 node tests/lessons.test.js    # 276 test — tính lại đáp án 100 bài từ đề + kiểm tra phụ các con số trong lời giải + khuôn 10 phần
 node tests/interview.test.js  # 10 test — 5 vòng, câu mẫu đạt 100, thiếu con số vẫn ghi lỗi

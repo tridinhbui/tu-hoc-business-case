@@ -14,6 +14,28 @@ let n=0; const t=(name,fn)=>{ fn(); n++; console.log("  ✓",name); };
 
 /* đáp án tính lại từ đề — mỗi dòng là một phép tính độc lập với dữ liệu bài */
 const RECOMPUTE = {
+  "f-profit-5": ()=> 200 - 90 - 20 - 60 - 14,
+  "f-profit-6": ()=> (200 - 90 - 20)/200*100,
+  "f-profit-7": ()=> (200 - 90 - 20 - 60 - 14) - (50 - 37.5),   // mất lãi góp kênh app, cố định 74 tỷ không đổi
+  "f-profit-8": ()=> { const tbCu=(6e6*8000 + 2e6*21000)/8e6;           // lãi góp bình quân năm cũ
+                       return (8.5e6*tbCu - (7e6*8000 + 1.5e6*21000))/1e9; },
+  "f-sizing-5": ()=> 1.2e6/75*4,
+  "f-sizing-6": ()=> { const chiTiet = 1237000*0.28*2.8*49*46000/1e9; return (2430 - chiTiet)/chiTiet*100; },
+  "f-sizing-7": ()=> 8000*80,
+  "f-sizing-8": ()=> 2430*0.4*0.08,
+  "k-live-1": ()=> 30-3-3-2,
+  "k-live-2": ()=> 8*40/60/30*100,
+  "k-live-3": ()=> (22-7)/3,
+  "k-live-4": ()=> 6*(0.3-0.15),
+  "k-live-5": ()=> (30-19-4)/2,
+  "k-price-1": ()=> 10/(40-10)*100,
+  "k-price-2": ()=> 120*5*0.7,
+  "k-price-3": ()=> (0.92*(105-60)/40 - 1)*100,
+  "k-price-4": ()=> (1 - 1.08*(40-10)/40)*100,
+  "k-size-1": ()=> (100e6*0.3*3*52*25000)/1e6/100e6,
+  "k-size-2": ()=> 40000*0.25*60e6/1e9,
+  "k-size-3": ()=> (1 - 0.15/0.25)*100,
+  "k-size-4": ()=> 600*0.4*0.2,
   "k-profit-1": ()=> (1 - 1.18*0.09/0.16)*100,
   "k-profit-2": ()=> 12000*0.75*0.75*1.2e6/1e9,
   "k-profit-3": ()=> 1200*0.22 - 1000*0.16,
@@ -30,10 +52,27 @@ const RECOMPUTE = {
   "f-profit-2": ()=> (7.2-4.1)*30,
   "f-profit-3": ()=> ((1100*0.8-600)/(1000*0.8-600) - 1)*100,
   "f-profit-4": ()=> 30e6/(25000-10000),
+  /* f-profit-5…12 · chuỗi bánh mì Lúa Vàng: doanh thu 200, giá vốn 90, biến đổi khác 20, cố định cửa hàng 60, chi phí chung 14 */
+  "f-profit-5": ()=> 200 - 90 - 20 - 60 - 14,
+  "f-profit-6": ()=> (200 - 90 - 20)/200*100,
+  "f-profit-7": ()=> 16 - (50 - 22.5 - 15),
+  "f-profit-8": ()=> { const avg=(6e6*8000+2e6*21000)/8e6; return -((7e6*8000+1.5e6*21000) - 8.5e6*avg)/1e6; },
+  "f-profit-9": ()=> 6 + 30*0.3*0.45,
+  "f-profit-10": ()=> 3 - 200*0.08*0.45,
+  "f-profit-11": ()=> (8 + 4 - 3 - 5 + 2) - 5*2,
+  "f-profit-12": ()=> 10*9/12 + 50*0.02*6/12 + (6e6*0.95*9000 - 6e6*8000)/1e9,
   "f-sizing-1": ()=> 1.2e6*0.3*3*50*45000/1e9,
   "f-sizing-2": ()=> 27*0.4/5,
   "f-sizing-3": ()=> 1.5*2*5*365,
   "f-sizing-4": ()=> 1e6*10*50000/1e9,
+  "f-sizing-5": ()=> 1.2e6/75*4,
+  "f-sizing-6": ()=> { const r=1200000*0.30*3*50*45000, e=1237000*0.28*2.8*49*46000; return (r-e)/e*100; },
+  "f-sizing-7": ()=> 8000*80,
+  "f-sizing-8": ()=> 2430*0.4*0.08,
+  "f-sizing-9": ()=> (2430-1800)/1800*100,
+  "f-sizing-10": ()=> 2e6*0.2*2*50*15000/1e9,
+  "f-sizing-11": ()=> 2430/0.3*0.4 - 2430/0.3*0.2,
+  "f-sizing-12": ()=> 2430*0.4*0.08*0.25*1e9/45000,
   "f-pricing-1": ()=> ((55000-18000)-(27000-18000))*10000/1e6,
   "f-pricing-2": ()=> ((2000*10e6)/(4500-3000)/10e6 - 1)*100,
   "f-pricing-3": ()=> (700*90000 + 300*150000)/1e6,
@@ -141,6 +180,48 @@ const SIDE = [
   ["f-model-1 · vé chỉ tạo 26% lợi nhuận gộp", ()=> assert.equal(Math.round(12/45.5*100),26)],
   ["f-model-3 · lỗ 5.000đ/xe, tăng giá 10% vừa hoà", ()=>{ assert.equal(40*2000-85000,-5000); assert.ok(40*2200>=85000); }],
   ["f-pricing-3 · VIP hơn một giá 20%", ()=> assert.equal((108-90)/90, 0.2)],
+  /* số liệu phụ trong ví dụ và bài đọc của f-sizing-5…12 */
+  ["f-sizing-5 · ba quận 32.000 → 8.000 học sinh → 96 tỷ", ()=>{ assert.equal(64000/2,32000); assert.equal(32000*0.25,8000); assert.equal(8000*12e6/1e9,96); }],
+  ["f-sizing-6 · bản chi tiết ≈ 2.186 tỷ, chênh ≈ 244 tỷ", ()=>{ const e=1237000*0.28*2.8*49*46000/1e9; assert.equal(Math.round(e),2186); assert.equal(Math.round(2430-e),244); }],
+  ["f-sizing-7 · phân tầng 620.000 ly; phía cầu 1,2 triệu; 19,2 tỷ/ngày; phần hạt 1.050–1.400 tỷ", ()=>{
+      assert.equal(1000*200+7000*60,620000); assert.equal(8e6*0.15,1.2e6); assert.equal(640000*30000/1e9,19.2);
+      assert.equal(Math.round(19.2*365/1000)*1000,7000); assert.equal(7000*0.15,1050); assert.equal(7000*0.2,1400);
+      assert.equal(Math.round(11.2e6/8000),1400); }],
+  ["f-sizing-8 · SAM 972; trần năng lực 19,44 tỷ; marketing ≈ 40 tỷ", ()=>{ assert.equal(2430*0.4,972);
+      assert.equal(60*20*360*45000/1e9,19.44); assert.equal(6e9/200000*30*45000/1e9,40.5); }],
+  ["f-sizing-9 · phía cung ≈ 1.814 tỷ; ở 22% phía cầu ≈ 1.782 tỷ; tỷ số 1,35", ()=>{
+      assert.equal(4000*30*360*42000/1e9,1814.4); assert.equal(Math.round(1.2e6*0.22*150*45000/1e9),1782); assert.equal(2430/1800,1.35); }],
+  ["f-sizing-10 · 300 · 600 · 1.050 tỷ; khoảng 3.700 trụ, ≈ 150 tỷ vốn", ()=>{ const k=r=>2e6*r*100*15000/1e9;
+      assert.deepEqual([0.1,0.2,0.35].map(k).map(Math.round),[300,600,1050]);
+      const tru=Math.round(40e6/360/30); assert.equal(Math.round(tru/100)*100,3700); assert.equal(Math.round(tru*40e6/1e9/10)*10,150); }],
+  ["f-sizing-11 · 1.620 · 2.430 · 3.240; cận dưới vượt ngưỡng khoảng 60%", ()=>{ assert.deepEqual([0.2,0.3,0.4].map(r=>Math.round(2430/0.3*r)),[1620,2430,3240]);
+      assert.equal(Math.round((1620/1000-1)*10)*10,60); }],
+  ["f-sizing-12 · 1.200 đơn/ngày = 60 tài xế × 20; kênh marketing 54 tỷ", ()=>{ assert.equal(432000/360,1200); assert.equal(60*20,1200); assert.equal(30000*40*45000/1e9,54); }],
+  /* chuỗi bánh mì Lúa Vàng · f-profit-5…12 */
+  ["f-profit-5 · biên gộp 55 · đóng góp 45 · EBITDA 8 · ròng 4", ()=>{ const eb=16, net=(eb-4-2)*0.8;
+      assert.equal(net,8); assert.deepEqual([110,90,eb,net].map(x=>Math.round(x/200*1000)/10),[55,45,8,4]); }],
+  ["f-profit-6 · chiến dịch lãi 0,4 tỷ; hoà vốn ≈ 11,1 tỷ doanh thu", ()=>{ assert.ok(Math.abs(12*0.45-5-0.4)<1e-9); assert.equal(Math.round(5/0.45*10)/10,11.1); assert.ok(11*0.45<5); }],
+  ["f-profit-7 · hai kênh cộng đúng 90 lãi góp; app −6 sau phân bổ; cửa hàng +22", ()=>{
+      assert.equal((150-67.5-5)+(50-22.5-15),90); assert.equal(74*0.25,18.5); assert.equal(12.5-18.5,-6); assert.equal(77.5-55.5,22); }],
+  ["f-profit-8 · lãi góp 90 → 80,5; sản lượng +5,625; giá −7; cơ cấu còn 18%", ()=>{ const avg=90e9/8e6;
+      assert.equal((7e6*7000+1.5e6*21000)/1e9,80.5); assert.equal(0.5e6*avg/1e9,5.625); assert.equal(7e6*-1000/1e9,-7);
+      assert.ok(Math.abs(5.625-8.125-7-(80.5-90))<1e-9); assert.equal(Math.round(1.5/8.5*100),18); }],
+  ["f-profit-9 · ba nhóm cộng đúng 200 · 90 · 60 · 30; nhóm yếu cố định 65% doanh thu", ()=>{
+      assert.equal(80+90+30,200); assert.equal(36+40.5+13.5,90); assert.equal(12+28.5+19.5,60); assert.equal(24+12-6,30);
+      assert.equal(80*0.45,36); assert.equal(19.5/30,0.65); assert.equal(24/30,0.8); }],
+  ["f-profit-10 · ngưỡng ≈ 6,7 tỷ; EBITDA còn 11,8", ()=>{ assert.equal(Math.round(3/0.45*10)/10,6.7); assert.ok(Math.abs(16-4.2-11.8)<1e-9); }],
+  ["f-profit-11 · dòng tiền hoạt động 6; rút về 30 ngày giải phóng 2,5 tỷ", ()=>{ assert.equal(8+4-3-5+2,6); assert.equal(5*30/60,2.5); assert.equal(10+5,15); }],
+  ["f-profit-12 · cả năm 14,3 tỷ; lãi góp mỗi ổ +12,5%; đệm 1,3 tỷ", ()=>{
+      assert.ok(Math.abs(10+1+3.3-14.3)<1e-9); assert.equal((9000-8000)/8000,0.125); assert.equal(5.7e6*9000/1e9,51.3);
+      assert.ok(Math.abs(11.3-10-1.3)<1e-9); }],
+  ["f-profit bài đọc 5–8 · văn phòng 3,5%; chiến dịch 32%, đệm 8%; app 25% vs 52%; giá thật ≈ 15 tỷ", ()=>{
+      assert.equal(Math.round(14/2/200*1000)/10,3.5); assert.equal(0.05*200,10); assert.equal(Math.round(1.6/5*100),32);
+      assert.equal(Math.round((12/(5/0.45)-1)*100),8); assert.equal(Math.round(5/0.55*10)/10,9.1);
+      assert.equal(12.5/50,0.25); assert.equal(Math.round(77.5/150*100),52); assert.equal(Math.round(22/150*100),15); assert.equal(Math.round(3.5/150*100),2);
+      assert.equal(40000-19000,21000); assert.equal(Math.round(7+8.125),15); assert.equal(Math.round(5.625/15.125*100),37); }],
+  ["f-profit bài đọc 9–12 · 750 triệu/cửa hàng; cắt 1/3 cố định ≈ 6,5 tỷ; ngưỡng 3,3%; trễ một quý hụt 1,2 tỷ", ()=>{
+      assert.equal(30e3/40,750); assert.equal(12/80,0.15); assert.equal(19.5/3,6.5); assert.equal(Math.round(5/10.05*12),6);
+      assert.equal(Math.round(3/0.45/200*1000)/10,3.3); assert.ok(Math.abs(10-(3.3+10*6/12+0.5)-1.2)<1e-9); }],
   ["i-profit-1 · phần riêng của hãng ≈ 83% mức giảm", ()=> assert.equal(Math.round(12.5/15*100),83)],
   ["i-profit-2 · số liệu hãng xe khớp bài trước", ()=>{ assert.equal(5e6*100000/1e9,500); assert.equal(4e6*130000/1e9,520);
       assert.equal(520-485,35); assert.equal((4e6-5e6)*100000/1e9,-100); }],

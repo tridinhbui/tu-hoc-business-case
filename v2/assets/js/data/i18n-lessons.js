@@ -1,5 +1,20 @@
 /* Bản tiếng Anh cho tiêu đề bài học. Nội dung bên trong bài vẫn là tiếng Việt. */
 I18N.add({
+  /* Case Method — Tầng 3 · buổi phỏng vấn thật */
+  "Sáu mươi giây đầu":"The first sixty seconds",
+  "Chủ động xin dữ liệu":"Asking for data on your own initiative",
+  "Ai đang dẫn case này":"Who is leading this case",
+  "Bị ngắt, bị phản biện, bị đổi dữ kiện":"Interrupted, challenged, handed new facts",
+  "Quản lý 30 phút":"Managing the thirty minutes",
+  /* Case Method — Họ 4 và Họ 5 */
+  "Nhận diện case giá":"Recognising a pricing case",
+  "Ba chân của giá: sàn, trần và giá trị":"The three legs of price: floor, ceiling and value",
+  "Đo phản ứng thật thay vì hỏi ý định":"Measure real response instead of asking about intent",
+  "Khi đối thủ trả lời lại":"When the competitor answers back",
+  "Ước lượng để làm gì":"What the estimate is for",
+  "Phễu ước lượng và ba đầu vào":"The sizing funnel and its three entry points",
+  "Giả định nào nhạy nhất":"Which assumption matters most",
+  "Từ tổng thị trường xuống phần khả đạt":"From total market down to the reachable share",
   /* Case Method — Họ 1 · Lợi nhuận */
   "Nhận diện case lợi nhuận":"Recognising a profit case",
   "Cây chuẩn và ba biến thể":"The standard tree and its three variants",
@@ -399,4 +414,24 @@ I18N.add({
   /* Sensitivity analysis */
   "Kịch bản tốt, cơ sở, xấu: dựng cho đúng":"Best, base and worst case: building them properly",
   "Biểu đồ tornado và cách trình bày độ nhạy":"Tornado charts and how to present sensitivity"
+});
+
+/* ── Case Method · họ Giá và họ Ước lượng ── */
+I18N.add({
+  "Đọc đề giá: khách hàng nào, sản phẩm nào":"Reading a pricing brief: which customer, which product",
+  "Đo sẵn lòng chi trả bằng dữ liệu có sẵn":"Measuring willingness to pay with the data you already have",
+  "Cấu trúc giá: gói, tầng và theo mức dùng":"Price structure: bundles, tiers and usage",
+  "Tăng giá từng bước và rủi ro mất khách":"Stepped price increases and the risk of losing customers",
+  "Giá khuyến mãi và cái giá dài hạn của nó":"Promotional pricing and its long-run cost",
+  "Định giá khi chi phí đầu vào biến động":"Pricing when input costs swing",
+  "Viết khuyến nghị cho một case giá":"Writing the recommendation for a pricing case",
+  "Chạy thử trọn vẹn một case giá 30 phút":"A full 30-minute pricing case, end to end",
+  "Chọn cách tiếp cận theo dữ liệu sẵn có":"Choosing the approach that fits the data you have",
+  "Ước lượng theo cung, theo cầu và theo thay thế":"Sizing from supply, from demand and from substitutes",
+  "Kiểm tra bậc độ lớn trước khi đi tiếp":"Checking order of magnitude before moving on",
+  "Ước lượng thị trường ngách và thị trường mới":"Sizing a niche and sizing a brand-new market",
+  "Từ ước lượng tới dự báo nhiều năm":"From a size estimate to a multi-year forecast",
+  "Trình bày ước lượng và bảo vệ giả định":"Presenting an estimate and defending the assumptions",
+  "Viết khuyến nghị dựa trên một ước lượng":"Writing a recommendation built on an estimate",
+  "Chạy thử trọn vẹn một case ước lượng 30 phút":"A full 30-minute sizing case, end to end"
 });

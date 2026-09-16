@@ -75,7 +75,10 @@ t("export → import khôi phục nguyên trạng; file rác bị từ chối",(
 });
 t("dữ liệu mẫu khớp prototype",()=>{
   S.seedDemo();
-  assert.equal(S.trackStats("fundamentals").pct,64);
+  /* curriculum có thể mở rộng, nên kiểm tra tính nhất quán thay vì một con số cố định */
+  const f=S.trackStats("fundamentals");
+  assert.ok(f.done>0 && f.done<=f.total, "seedDemo phải có bài đã học ở track nền tảng");
+  assert.equal(f.pct, Math.round(f.done/f.total*100));
   assert.equal(S.overall().done, W.TRACKS.reduce((a,t)=>a+S.trackStats(t.id).done,0));
   assert.equal(S.lessonStatus("f-profit-2"),"in_progress");
   assert.equal(S.streak(),6);

@@ -36,9 +36,9 @@ R({
   unit:"tỷ|%|đ",
   model:{
     problem:"Chuỗi rạp có nên tăng giá vé 10% để cải thiện lợi nhuận, khi lượt xem và doanh thu bắp nước đều phụ thuộc vào giá vé?",
-    hyps:["Tăng giá làm doanh thu vé tăng vì cầu ít co giãn","Lượt xem giảm theo co giãn đo được ở thử nghiệm",
+    hyps:["Tăng giá vé làm doanh thu vé tăng vì cầu ít co giãn","Lượt xem giảm theo co giãn đo được ở thử nghiệm",
           "Mất lượt kéo theo mất lãi góp bắp nước","Phần chia doanh thu với nhà phát hành ăn mất nửa phần giá tăng thêm"],
-    evidence:"Ex.1 và Ex.2: giá 99.000đ × 7,52 triệu lượt = 744,48 tỷ, doanh thu vé tăng 24,48 tỷ; rạp chỉ giữ 50% nên lãi góp vé tăng 12,24 tỷ. Mất 0,48 triệu lượt × 30.000đ × 70% = 10,08 tỷ lãi bắp nước, nên phần ròng chỉ còn 2,16 tỷ. H1 bị bác bỏ ở mức tăng đồng loạt; H2, H3, H4 đúng. Ex.3: suất trong tuần công suất ghế chỉ 21% nên nên định giá theo khung giờ và ngày trong tuần thay vì tăng giá cả hệ thống.",
+    evidence:"Ex.1 và Ex.2: theo co giãn đo được, giá 99.000đ × 7,52 triệu lượt = 744,48 tỷ, doanh thu vé tăng 24,48 tỷ; rạp chỉ giữ 50% nên lãi góp vé tăng 12,24 tỷ. Mất 0,48 triệu lượt × 30.000đ × 70% = 10,08 tỷ lãi bắp nước, nên phần ròng chỉ còn 2,16 tỷ. H1 bị bác bỏ ở mức tăng đồng loạt; H2, H3, H4 đúng. Ex.3: suất trong tuần công suất ghế chỉ 21% nên nên định giá theo khung giờ và ngày trong tuần thay vì tăng giá cả hệ thống.",
     rec:"B"},
   mistakes:{
     logicLesson:"i-profit-3",
@@ -195,7 +195,7 @@ R({
     problem:"Chuỗi nhà thuốc nên trả bao nhiêu cho 300 nhà thuốc được chào giá 900 tỷ, và thương vụ có hơn phương án tự mở không?",
     hyps:["EBITDA hiện tại của mục tiêu đủ lớn để đỡ mức giá chào","Bội số giá chào cao hơn mặt bằng thị trường",
           "Synergy mua hàng đủ kéo bội số thực về vùng hợp lý","Phương án tự mở chậm hơn và rủi ro mặt bằng cao hơn"],
-    evidence:"Ex.1: doanh thu 300 × 6 = 1.800 tỷ, EBITDA 6% = 108 tỷ, nên giá chào 900 tỷ tương đương 8,3 lần EBITDA. Ex.2: ngành giao dịch quanh 7 lần nên H2 đúng. Ex.3: synergy mua hàng 1,5 điểm trên 1.800 tỷ = 27 tỷ, đưa EBITDA lên 135 tỷ và bội số thực về 6,7 lần — H3 đúng, H1 bị bác bỏ nếu chỉ nhìn EBITDA hiện tại. H4 đúng: tự mở mất 5 năm. Mức hợp lý là 7 × 135 = 945 tỷ nhưng phải trả một phần theo kết quả vì synergy chưa thực hiện, và hợp đồng thuê còn 3 năm là ràng buộc khi tái cấu trúc.",
+    evidence:"Ex.1: doanh thu 300 × 6 = 1.800 tỷ, EBITDA 6% = 108 tỷ, nên giá chào 900 tỷ tương đương 8,3 lần EBITDA. Ex.2: ngành giao dịch quanh 7 lần nên H2 đúng. Ex.3: synergy mua hàng 1,5 điểm trên 1.800 tỷ = 27 tỷ, đưa EBITDA lên 135 tỷ và bội số thực về 6,7 lần — H3 đúng, H1 bị bác bỏ nếu chỉ nhìn EBITDA hiện tại. H4 đúng: tự mở mất 5 năm. Mức hợp lý là 7 × 135 = 945 tỷ nhưng phải trả một phần theo kết quả để rủi ro thực hiện synergy nằm ở bên bán, và hợp đồng thuê còn 3 năm là ràng buộc khi tái cấu trúc.",
     rec:"B"},
   mistakes:{
     logicLesson:"i-entry-3",

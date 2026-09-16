@@ -1,5 +1,5 @@
-/* ===== GIÁO TRÌNH 336 BÀI · 7 TRACK · 47 MODULE =====
-   112 bài đã có nội dung đầy đủ; 224 bài mở rộng đang biên soạn (soon:1).
+/* ===== GIÁO TRÌNH 360 BÀI · 7 TRACK · 49 MODULE =====
+   120 bài đã có nội dung đầy đủ; 240 bài mở rộng đang biên soạn (soon:1).
    Mỗi bài đều theo khuôn 10 phần: vì sao quan trọng · tình huống mở đầu · framework ·
    ví dụ thực tế · mini case · quiz · bài tập · gợi ý slide · lỗi thường gặp · checklist. */
 
@@ -36,27 +36,27 @@ window.MODULES = [
   {id:"f-sizing-2", t:"Top-down và bottom-up: chọn đường nào", m:7, lv:1, out:"calculation"},
   {id:"f-sizing-3", t:"Chọn đơn vị tiêu dùng đúng", m:6, lv:1, out:"calculation"},
   {id:"f-sizing-4", t:"Giả định nào đáng tranh luận", m:7, lv:2, out:"chart insight"},
-  {id:"f-sizing-5", t:"Ước lượng dân số và tỷ lệ thâm nhập khi không có số liệu", m:7, lv:1, out:"calculation", soon:1},
-  {id:"f-sizing-6", t:"Làm tròn thông minh: sai 10% vẫn đúng kết luận", m:6, lv:1, out:"calculation", soon:1},
-  {id:"f-sizing-7", t:"Ước lượng theo phía cung thay vì phía cầu", m:7, lv:2, out:"calculation", soon:1},
-  {id:"f-sizing-8", t:"TAM, SAM, SOM: ba vòng tròn phục vụ ba câu hỏi khác nhau", m:8, lv:2, out:"slide", soon:1},
-  {id:"f-sizing-9", t:"Kiểm tra chéo khi hai cách tính ra hai con số khác nhau", m:7, lv:2, out:"calculation", soon:1},
-  {id:"f-sizing-10", t:"Ước lượng cho sản phẩm chưa từng tồn tại", m:8, lv:3, out:"recommendation", soon:1},
-  {id:"f-sizing-11", t:"Trình bày một ước lượng để người nghe tin", m:7, lv:2, out:"slide", soon:1},
-  {id:"f-sizing-12", t:"Từ quy mô thị trường tới mục tiêu doanh số khả thi", m:8, lv:3, out:"recommendation", soon:1}]},
+  {id:"f-sizing-5", t:"Ước lượng dân số và tỷ lệ thâm nhập khi không có số liệu", m:7, lv:1, out:"calculation"},
+  {id:"f-sizing-6", t:"Làm tròn thông minh: sai 10% vẫn đúng kết luận", m:6, lv:1, out:"calculation"},
+  {id:"f-sizing-7", t:"Ước lượng theo phía cung thay vì phía cầu", m:7, lv:2, out:"calculation"},
+  {id:"f-sizing-8", t:"TAM, SAM, SOM: ba vòng tròn phục vụ ba câu hỏi khác nhau", m:8, lv:2, out:"slide"},
+  {id:"f-sizing-9", t:"Kiểm tra chéo khi hai cách tính ra hai con số khác nhau", m:7, lv:2, out:"calculation"},
+  {id:"f-sizing-10", t:"Ước lượng cho sản phẩm chưa từng tồn tại", m:8, lv:3, out:"recommendation"},
+  {id:"f-sizing-11", t:"Trình bày một ước lượng để người nghe tin", m:7, lv:2, out:"slide"},
+  {id:"f-sizing-12", t:"Từ quy mô thị trường tới mục tiêu doanh số khả thi", m:8, lv:3, out:"recommendation"}]},
 { id:"f-profit", track:"fundamentals", n:"Profitability", vi:"Lợi nhuận", lessons:[
   {id:"f-profit-1", t:"Doanh thu không phải lợi nhuận", m:6, lv:1, out:"calculation"},
   {id:"f-profit-2", t:"Cây lợi nhuận và ba biến thể", m:8, lv:1, out:"slide"},
   {id:"f-profit-3", t:"Chi phí cố định và đòn bẩy hoạt động", m:7, lv:1, out:"calculation"},
   {id:"f-profit-4", t:"Điểm hoà vốn và biên an toàn", m:7, lv:2, out:"calculation"},
-  {id:"f-profit-5", t:"Đọc báo cáo kết quả kinh doanh trong ba phút", m:7, lv:1, out:"chart insight", soon:1},
-  {id:"f-profit-6", t:"Biên gộp, biên đóng góp, biên ròng: đừng nhầm ba con số", m:7, lv:1, out:"calculation", soon:1},
-  {id:"f-profit-7", t:"Phân bổ chi phí chung và những quyết định sai vì nó", m:8, lv:2, out:"calculation", soon:1},
-  {id:"f-profit-8", t:"Lợi nhuận giảm vì giá, vì sản lượng hay vì cơ cấu", m:8, lv:2, out:"chart insight", soon:1},
-  {id:"f-profit-9", t:"Tách lợi nhuận theo sản phẩm, kênh và khách hàng", m:8, lv:2, out:"chart insight", soon:1},
-  {id:"f-profit-10", t:"Khi cắt chi phí lại làm lợi nhuận giảm", m:7, lv:2, out:"recommendation", soon:1},
-  {id:"f-profit-11", t:"Lợi nhuận kế toán và dòng tiền lệch nhau ở đâu", m:8, lv:2, out:"calculation", soon:1},
-  {id:"f-profit-12", t:"Dựng kế hoạch phục hồi lợi nhuận 12 tháng", m:8, lv:3, out:"slide", soon:1}]},
+  {id:"f-profit-5", t:"Đọc báo cáo kết quả kinh doanh trong ba phút", m:7, lv:1, out:"chart insight"},
+  {id:"f-profit-6", t:"Biên gộp, biên đóng góp, biên ròng: đừng nhầm ba con số", m:7, lv:1, out:"calculation"},
+  {id:"f-profit-7", t:"Phân bổ chi phí chung và những quyết định sai vì nó", m:8, lv:2, out:"calculation"},
+  {id:"f-profit-8", t:"Lợi nhuận giảm vì giá, vì sản lượng hay vì cơ cấu", m:8, lv:2, out:"chart insight"},
+  {id:"f-profit-9", t:"Tách lợi nhuận theo sản phẩm, kênh và khách hàng", m:8, lv:2, out:"chart insight"},
+  {id:"f-profit-10", t:"Khi cắt chi phí lại làm lợi nhuận giảm", m:7, lv:2, out:"recommendation"},
+  {id:"f-profit-11", t:"Lợi nhuận kế toán và dòng tiền lệch nhau ở đâu", m:8, lv:2, out:"calculation"},
+  {id:"f-profit-12", t:"Dựng kế hoạch phục hồi lợi nhuận 12 tháng", m:8, lv:3, out:"slide"}]},
 { id:"f-pricing", track:"fundamentals", n:"Pricing", vi:"Định giá", lessons:[
   {id:"f-pricing-1", t:"Ba cách định giá: chi phí, đối thủ, giá trị", m:7, lv:2, out:"slide"},
   {id:"f-pricing-2", t:"Độ co giãn và vì sao giảm giá thường thua", m:8, lv:2, out:"calculation"},
@@ -215,6 +215,38 @@ window.MODULES = [
   {id:"k-entry-10", t:"Tiêu chí dừng: khi nào thì rút", m:7, lv:3, out:"checklist", soon:1},
   {id:"k-entry-11", t:"Viết khuyến nghị cho một case đầu tư", m:7, lv:3, out:"slide", soon:1},
   {id:"k-entry-12", t:"Chạy thử trọn vẹn một case gia nhập 30 phút", m:10, lv:3, out:"recommendation", soon:1}]},
+{ id:"k-price", track:"method", n:"Pricing family", vi:"Họ 4 · Giá & Cạnh tranh", lessons:[
+  {id:"k-price-1", t:"Nhận diện case giá", m:7, lv:2, out:"recommendation"},
+  {id:"k-price-2", t:"Ba chân của giá: sàn, trần và giá trị", m:8, lv:2, out:"slide"},
+  {id:"k-price-3", t:"Đo phản ứng thật thay vì hỏi ý định", m:8, lv:3, out:"chart insight"},
+  {id:"k-price-4", t:"Khi đối thủ trả lời lại", m:8, lv:3, out:"calculation"},
+  {id:"k-price-5", t:"Đọc đề giá: khách hàng nào, sản phẩm nào", m:8, lv:2, out:"chart insight", soon:1},
+  {id:"k-price-6", t:"Đo sẵn lòng chi trả bằng dữ liệu có sẵn", m:8, lv:2, out:"calculation", soon:1},
+  {id:"k-price-7", t:"Cấu trúc giá: gói, tầng và theo mức dùng", m:8, lv:3, out:"slide", soon:1},
+  {id:"k-price-8", t:"Tăng giá từng bước và rủi ro mất khách", m:8, lv:3, out:"calculation", soon:1},
+  {id:"k-price-9", t:"Giá khuyến mãi và cái giá dài hạn của nó", m:7, lv:3, out:"recommendation", soon:1},
+  {id:"k-price-10", t:"Định giá khi chi phí đầu vào biến động", m:8, lv:3, out:"calculation", soon:1},
+  {id:"k-price-11", t:"Viết khuyến nghị cho một case giá", m:7, lv:3, out:"slide", soon:1},
+  {id:"k-price-12", t:"Chạy thử trọn vẹn một case giá 30 phút", m:10, lv:3, out:"recommendation", soon:1}]},
+{ id:"k-size", track:"method", n:"Sizing family", vi:"Họ 5 · Ước lượng", lessons:[
+  {id:"k-size-1", t:"Ước lượng để làm gì", m:7, lv:2, out:"recommendation"},
+  {id:"k-size-2", t:"Phễu ước lượng và ba đầu vào", m:8, lv:2, out:"slide"},
+  {id:"k-size-3", t:"Giả định nào nhạy nhất", m:8, lv:2, out:"chart insight"},
+  {id:"k-size-4", t:"Từ tổng thị trường xuống phần khả đạt", m:8, lv:3, out:"calculation"},
+  {id:"k-size-5", t:"Chọn cách tiếp cận theo dữ liệu sẵn có", m:7, lv:2, out:"calculation", soon:1},
+  {id:"k-size-6", t:"Ước lượng theo cung, theo cầu và theo thay thế", m:8, lv:2, out:"calculation", soon:1},
+  {id:"k-size-7", t:"Kiểm tra bậc độ lớn trước khi đi tiếp", m:7, lv:2, out:"calculation", soon:1},
+  {id:"k-size-8", t:"Ước lượng thị trường ngách và thị trường mới", m:8, lv:3, out:"recommendation", soon:1},
+  {id:"k-size-9", t:"Từ ước lượng tới dự báo nhiều năm", m:8, lv:3, out:"calculation", soon:1},
+  {id:"k-size-10", t:"Trình bày ước lượng và bảo vệ giả định", m:7, lv:3, out:"speaking answer", soon:1},
+  {id:"k-size-11", t:"Viết khuyến nghị dựa trên một ước lượng", m:7, lv:3, out:"slide", soon:1},
+  {id:"k-size-12", t:"Chạy thử trọn vẹn một case ước lượng 30 phút", m:10, lv:3, out:"recommendation", soon:1}]},
+{ id:"k-live", track:"method", n:"Live interview", vi:"Tầng 3 · Buổi phỏng vấn thật", lessons:[
+  {id:"k-live-1", t:"Sáu mươi giây đầu", m:7, lv:2, out:"speaking answer"},
+  {id:"k-live-2", t:"Chủ động xin dữ liệu", m:7, lv:2, out:"speaking answer"},
+  {id:"k-live-3", t:"Ai đang dẫn case này", m:8, lv:3, out:"speaking answer"},
+  {id:"k-live-4", t:"Bị ngắt, bị phản biện, bị đổi dữ kiện", m:8, lv:3, out:"calculation"},
+  {id:"k-live-5", t:"Quản lý 30 phút", m:7, lv:3, out:"checklist"}]},
 
 /* ============ 3. CONSULTING CASE INTERVIEW — 22 bài ============ */
 { id:"i-profit", track:"consulting", n:"Profitability case", vi:"Case lợi nhuận", lessons:[

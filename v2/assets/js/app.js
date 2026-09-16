@@ -196,6 +196,13 @@ const ACT = {
   compReset(id){ if(!confirm("Xoá phiên thi này và làm lại từ đầu? Điểm đã ghi vẫn giữ.")) return; COMP.reset(id); COMPUI.rec=""; render(); },
 
   ivStart(id){ IVIEW.start(id, Date.now()); toast("Bắt đầu phỏng vấn"); render(); },
+  ivf(k,v){ IVF[k]=v; render(true); },
+  ivRandom(){
+    const todo = ivFiltered().filter(c=>ivState(c.id)==="todo");
+    const pool = todo.length ? todo : ivCases().filter(c=>ivState(c.id)==="todo");
+    const list = pool.length ? pool : ivCases();
+    location.hash = "#/interview/" + list[Math.floor(Math.random()*list.length)].id;
+  },
   ivModel(id){ const rd=IVIEW.roundOf(IVIEW.get(id)); if(rd>4) return;
     IVIEW.markModel(id); document.getElementById("iv-ans").value = IVIEW.CFG[id].rounds[rd].model;
     toast("Đã điền câu mẫu — phiên này sẽ không tính điểm"); },
@@ -683,6 +690,23 @@ const lessonContent = id => (window.LESSON_CONTENT||{})[id];
 /* chế độ EN dùng bản dịch nếu bài đó đã có; chưa có thì giữ bản tiếng Việt */
 const lessonC = id => ((window.I18N&&I18N.lang==="en") && (window.LESSON_CONTENT_EN||{})[id]) || lessonContent(id);
 
+/* bài trong lộ trình, nội dung đang biên soạn — hiển thị rõ thay vì mượn nội dung bài khác */
+function vLessonSoon(l, m, t, mIdx, lIdx){
+  const nextReady = (window.LESSONS||[]).find(x=>x.track===l.track && !x.soon && State.lessonStatus(x.id)!=="done")
+                 || (window.LESSONS||[]).find(x=>!x.soon);
+  return `<div style="max-width:720px;margin:0 auto;padding:48px 20px">
+    <a class="reader-back-btn" href="#/tracks">← Quay lại lộ trình</a>
+    <div class="card" style="margin-top:20px;padding:32px">
+      <div class="tag" style="background:#FEF3C7;color:#92400E;font-weight:800;font-size:11px;padding:4px 10px;border-radius:6px">ĐANG BIÊN SOẠN</div>
+      <h1 style="margin:14px 0 6px;font-size:26px;line-height:1.25">${esc(l.t)}</h1>
+      <div class="muted" style="font-size:13px">${esc(t?t.n:"")} · ${esc(m.vi||m.n)} · Chặng ${mIdx+1} • Bài ${lIdx+1} · ${l.m} phút · output: ${esc(l.out||"")}</div>
+      <p style="margin:18px 0 0;line-height:1.7">Bài này đã có trong lộ trình nhưng phần nội dung 10 mục (bài đọc, mini case, bài tập tính, checklist)
+         vẫn đang được biên soạn và đối chiếu số liệu. Chúng tôi chỉ mở bài khi đáp án đã được kiểm chứng.</p>
+      ${nextReady?`<a class="btn" style="margin-top:20px;display:inline-block" href="#/lesson/${nextReady.id}">Học bài đã sẵn sàng: ${esc(nextReady.t)}</a>`:""}
+    </div>
+  </div>`;
+}
+
 function vLesson(id){
   const l = window.LESSON_BY_ID[id] || window.LESSON_BY_ID["f-profit-2"];
   const m = window.MODULE_BY_ID[l.module] || window.MODULES[0];
@@ -690,6 +714,8 @@ function vLesson(id){
   const mIdx = window.MODULES.findIndex(x=>x.id===m.id);
   const lIdx = m.lessons.findIndex(x=>x.id===l.id);
   const own = lessonC(l.id), C = own || lessonC("f-profit-2") || lessonContent("f-profit-2");
+  /* bài đã nằm trong lộ trình nhưng chưa biên soạn xong: không mượn nội dung bài khác */
+  if(!own) return vLessonSoon(l, m, t, mIdx, lIdx);
   const rec = State.touchLesson(l.id), done = rec.status==="done";
   const qb = rec.quiz.branch, qc = rec.quiz.calc;
   const chkN = C.checklist.filter((_,i)=>rec.chk[i]).length;
@@ -749,9 +775,9 @@ function vLesson(id){
         </span>
         <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--muted)">
           <div style="width:50px;height:5px;background:#D1D5DB;border-radius:999px;overflow:hidden">
-            <div style="width:${done?100:100}%;height:100%;background:#6B7280;border-radius:999px"></div>
+            <div style="width:${done?100:qDone*50}%;height:100%;background:#6B7280;border-radius:999px"></div>
           </div>
-          <span>4/4</span>
+          <span>${qDone}/2</span>
         </div>
         <span class="tag" style="background:#F3F4F6;color:#374151;font-weight:800;font-size:11px;padding:4px 10px;border-radius:6px">CHẶNG ${mIdx+1} • BÀI ${lIdx+1}</span>
       </div>
@@ -768,31 +794,23 @@ function vLesson(id){
           <div class="lesson-info-row">
             <span>~${l.m || 6} phút cả bài</span>
             <span class="dot-sep">•</span>
-            <span>4 câu quiz</span>
+            <span>Mini case + bài tính</span>
             <span class="dot-sep">•</span>
-            <span style="color:var(--emerald);font-weight:700">Đọc xong!</span>
+            <span style="color:${done?"var(--emerald)":"var(--muted)"};font-weight:700">${done?"Đã hoàn thành":`${qDone}/2 đã làm`}</span>
           </div>
-          <div class="bar mb" style="height:4px;background:#E5E7EB">${bar(100, 'emerald')}</div>
+          <div class="bar mb" style="height:4px;background:#E5E7EB">${bar(done?100:qDone*50, 'emerald')}</div>
         </div>
 
-        <!-- XP CONDITIONS BOX (Exact replica of screenshot) -->
-        <div class="xp-conditions-box" style="background:#ECFDF5;border:1.5px solid #10B981;border-radius:12px;padding:16px 20px;margin-bottom:20px">
-          <div class="xp-conditions-title" style="font-size:12px;font-weight:800;color:#059669;margin-bottom:10px;display:flex;align-items:center;gap:6px">
-            <span>✓</span> ĐIỀU KIỆN HOÀN THÀNH & NHẬN XP
+        <!-- ĐIỀU KIỆN HOÀN THÀNH — lấy từ trạng thái thật của bài, không tick sẵn -->
+        ${(()=>{ const items=[[qb&&qb.correct,"Chọn đúng mini case"],[qc&&qc.correct,"Tính đúng bài tập"],[chkN>=3,`Tick ít nhất 3 mục checklist (${chkN}/5)`]];
+          const all=items.every(x=>x[0]);
+          return `<div class="xp-conditions-box" style="background:${all?"#ECFDF5":"#F9FAFB"};border:1.5px solid ${all?"#10B981":"#E5E7EB"};border-radius:12px;padding:16px 20px;margin-bottom:20px">
+          <div class="xp-conditions-title" style="font-size:12px;font-weight:800;color:${all?"#059669":"#6B7280"};margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span>${all?"✓":"○"}</span> ĐIỀU KIỆN HOÀN THÀNH & NHẬN XP
           </div>
-          <div class="xp-cond-item" style="color:#065F46;margin-bottom:7px;display:flex;align-items:center;gap:8px;font-weight:600">
-            <span style="color:#059669;font-weight:800">✓</span>
-            <span>Đọc hết 100% nội dung bài</span>
-          </div>
-          <div class="xp-cond-item" style="color:#065F46;margin-bottom:7px;display:flex;align-items:center;gap:8px;font-weight:600">
-            <span style="color:#059669;font-weight:800">✓</span>
-            <span>Trả lời câu hỏi "Dừng & Kiểm tra" giữa bài</span>
-          </div>
-          <div class="xp-cond-item" style="color:#065F46;display:flex;align-items:center;gap:8px;font-weight:600">
-            <span style="color:#059669;font-weight:800">✓</span>
-            <span>Hoàn thành "Kiểm tra nhanh" (4/4 câu)</span>
-          </div>
-        </div>
+          ${items.map(([ok,txt],i)=>`<div class="xp-cond-item" style="color:${ok?"#065F46":"#6B7280"};${i<2?"margin-bottom:7px;":""}display:flex;align-items:center;gap:8px;font-weight:600">
+            <span style="color:${ok?"#059669":"#9CA3AF"};font-weight:800">${ok?"✓":"○"}</span><span>${txt}</span></div>`).join("")}
+        </div>`; })()}
 
         <!-- AI CASE COACH CALLOUT (Tài Tài - Exact Replica) -->
         <div class="ai-coach-box" style="background:#18181B;color:#FFF;border-radius:12px;padding:16px 20px;margin-bottom:24px;border:none;box-shadow:0 4px 12px rgba(0,0,0,.15)">
@@ -802,7 +820,7 @@ function vLesson(id){
               <span class="ai-coach-name" style="color:#FAFAFA;font-weight:800">Tài Tài · <span style="font-weight:500;color:#A1A1AA">mẹo tự động cho bài này</span></span>
               <span class="ai-coach-tag" style="background:#27272A;color:#A1A1AA;font-size:10px">TỰ ĐỘNG</span>
             </div>
-            <p class="ai-coach-text" style="color:#E4E4E7;font-size:13.5px;margin:0">Quy tắc 50/30/20: 50% nhu cầu thiết yếu, 30% muốn, 20% tiết kiệm và đầu tư.</p>
+            <p class="ai-coach-text" style="color:#E4E4E7;font-size:13.5px;margin:0">${rich(C.fw.warn || (C.mistakes[0]||["",""])[1])}</p>
           </div>
         </div>
 
@@ -892,52 +910,60 @@ function vLesson(id){
           <div class="quick-quiz-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
             <span class="quick-quiz-title" style="font-size:13px;font-weight:800;letter-spacing:.04em;color:#111827">KIỂM TRA NHANH</span>
             <div style="display:flex;align-items:center;gap:6px">
-              <span class="quick-quiz-count" style="font-size:12px;font-weight:700;color:#6B7280">4/4</span>
+              <span class="quick-quiz-count" style="font-size:12px;font-weight:700;color:#6B7280">${qDone}/2</span>
               <span style="font-size:11px;color:#9CA3AF">▲</span>
             </div>
           </div>
 
-          <!-- Visual Progress Dashes Bar (4 red/green dashes) -->
-          <div class="quiz-dash-bar" style="display:flex;gap:6px;margin-bottom:18px">
-            <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:#EF4444"></div>
-            <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:#EF4444"></div>
-            <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:#EF4444"></div>
-            <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:#EF4444"></div>
-          </div>
+          <!-- Hai vạch tiến độ: mini case · bài tính. Xám = chưa làm, xanh = đúng, đỏ = sai -->
+          ${(()=>{ const dash=q=>!q?"#E5E7EB":q.correct?"#10B981":"#EF4444";
+            const pill=q=>!q?`<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#F3F4F6;color:#6B7280">Chưa làm</span>`
+              : q.correct?`<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#D1FAE5;color:#059669">Đúng</span>`
+              : `<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#FEE2E2;color:#DC2626">Chưa đúng</span>`;
+            const card=`background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:16px`;
+            const opt=o=>{ const picked=qb&&qb.pick===o[0], right=o[0]===C.mini.correct, show=!!qb;
+              const st= show&&right ? "border:1.5px solid #10B981;background:#ECFDF5;color:#065F46"
+                      : show&&picked ? "border:1.5px solid #EF4444;background:#FEF2F2;color:#991B1B"
+                      : "border:1px solid #E5E7EB;background:#FFF;color:#374151;cursor:pointer";
+              return `<div class="quiz-step-opt" ${show?"":`onclick="ACT.pickBranch('${l.id}','${o[0]}')"`} style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;${st}">
+                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">${o[0]}</span>
+                <span class="quiz-opt-label" style="flex:1">${rich(o[1])}${show&&(right||picked)&&o[2]?`<span style="display:block;margin-top:6px;font-weight:500;font-size:12px;color:#4B5563">${rich(o[2])}</span>`:""}</span>
+                ${show&&right?`<span class="quiz-opt-check" style="color:#059669;font-weight:800;font-size:16px">✓</span>`:""}
+              </div>`; };
+            return `<div class="quiz-dash-bar" style="display:flex;gap:6px;margin-bottom:18px">
+              <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:${dash(qb)}"></div>
+              <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:${dash(qc)}"></div>
+            </div>
 
-          <!-- Question Step Card -->
-          <div class="quiz-step-card" style="background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:16px">
-            <div class="quiz-step-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-              <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU 1 / 4</span>
-              <span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#FEE2E2;color:#DC2626">Chưa đúng</span>
+            <div class="quiz-step-card" style="${card};margin-bottom:12px">
+              <div class="quiz-step-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU 1 / 2 · MINI CASE</span>${pill(qb)}
+              </div>
+              <div class="quiz-step-q" style="font-size:14px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:14px">${rich(C.mini.q)}</div>
+              <div class="quiz-step-options" style="display:flex;flex-direction:column;gap:8px">${C.mini.opts.map(opt).join("")}</div>
             </div>
-            <div class="quiz-step-q" style="font-size:14px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:14px">Công thức tính tài sản ròng là gì?</div>
-            
-            <div class="quiz-step-options" style="display:flex;flex-direction:column;gap:8px">
-              <div class="quiz-step-opt" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #E5E7EB;border-radius:10px;background:#FFF;font-size:13px;font-weight:600;color:#374151">
-                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">A</span>
-                <span class="quiz-opt-label">Lương gross trừ đi thuế thu nhập cá nhân</span>
+
+            <div class="quiz-step-card" style="${card}">
+              <div class="quiz-step-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU 2 / 2 · BÀI TÍNH</span>${pill(qc)}
               </div>
-              <div class="quiz-step-opt" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #E5E7EB;border-radius:10px;background:#FFF;font-size:13px;font-weight:600;color:#374151">
-                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">B</span>
-                <span class="quiz-opt-label">Thu nhập hàng tháng – Chi tiêu hàng tháng</span>
-              </div>
-              <div class="quiz-step-opt" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #E5E7EB;border-radius:10px;background:#FFF;font-size:13px;font-weight:600;color:#374151">
-                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">C</span>
-                <span class="quiz-opt-label">Tiền tiết kiệm cộng tiền đang đầu tư</span>
-              </div>
-              <div class="quiz-step-opt selected-right" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid #10B981;border-radius:10px;background:#ECFDF5;font-size:13px;font-weight:600;color:#065F46">
-                <span class="quiz-opt-letter" style="width:24px;height:24px;border-radius:6px;background:#F3F4F6;color:#6B7280;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">D</span>
-                <span class="quiz-opt-label" style="flex:1">Tổng tài sản trừ đi tổng nợ phải trả</span>
-                <span class="quiz-opt-check" style="color:#059669;font-weight:800;font-size:16px">✓</span>
-              </div>
-            </div>
-          </div>
+              <div class="quiz-step-q" style="font-size:14px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:12px">${rich(C.calc.q)}</div>
+              ${qc
+                ? `<div class="small" style="margin-bottom:8px;color:#4B5563">Bạn trả lời: <b>${qc.value!=null?viNum(qc.value):"—"}</b> ${esc(C.calc.unit)}</div>
+                   <div class="callout ${qc.correct?"ok":"warn"}" style="padding:10px 12px;font-size:12.5px"><b>Lời giải:</b> ${rich(C.calc.solution)}</div>`
+                : `<div style="display:flex;gap:8px;align-items:center">
+                     <input class="calc" id="calc-${l.id}" inputmode="decimal" placeholder="Nhập con số" style="flex:1;min-width:0"
+                       onkeydown="if(event.key==='Enter')ACT.checkCalc('${l.id}')">
+                     <span class="small muted">${esc(C.calc.unit)}</span>
+                     <button class="btn btn-sm btn-p" onclick="ACT.checkCalc('${l.id}')">Kiểm tra</button>
+                   </div>
+                   ${C.calc.hint?`<div class="small muted" style="margin-top:8px">Gợi ý: ${rich(C.calc.hint)}</div>`:""}`}
+            </div>`; })()}
 
           <!-- Action buttons -->
           <div style="margin-top:16px">
             <button class="btn btn-p" style="width:100%;background:#064E3B;color:#FFF;padding:10px;border-radius:10px;font-weight:800" onclick="ACT.completeLesson('${l.id}')">
-              Hoàn thành bài · +15 XP
+              ${done?"Đã hoàn thành ✓":`Hoàn thành bài · +${State.XP.lesson} XP`}
             </button>
             ${nextL?`<a class="btn btn-sm btn-gh" style="width:100%;margin-top:6px;text-align:center;display:block" href="#/lesson/${nextL.id}">Bài tiếp theo →</a>`:""}
           </div>
@@ -1229,12 +1255,12 @@ function vCareer(){
   const shown = filter==="all" ? cats : cats.filter(g=>g.id===filter);
   return `<div class="main">
   <h1>Career Path</h1>
-  <p class="muted" style="max-width:72ch;margin-top:6px">${window.CAREERS.length} nghề chia thành ${cats.length} nhóm. Mỗi nghề có lộ trình track riêng, bộ kỹ năng cần đạt và một tiêu chí tốt nghiệp đo được. Chọn nghề để hệ thống sắp xếp lại thứ tự bài học cho bạn.</p>
+  <p class="muted" style="max-width:72ch;margin-top:6px">Mỗi nghề có lộ trình track riêng, bộ kỹ năng cần đạt và một tiêu chí tốt nghiệp đo được. Chọn nghề để hệ thống sắp xếp lại thứ tự bài học cho bạn.</p>
 
   <div class="chips mt">
-    <button class="chip ${filter==="all"?"on":""}" onclick="ACT.careerCat('all')">Tất cả · ${window.CAREERS.length}</button>
+    <button class="chip ${filter==="all"?"on":""}" onclick="ACT.careerCat('all')">Tất cả<span class="c">${window.CAREERS.length}</span></button>
     ${cats.map(g=>{const n=window.CAREERS.filter(c=>c.cat===g.id).length;
-      return `<button class="chip ${filter===g.id?"on":""}" onclick="ACT.careerCat('${g.id}')">${esc(g.n)} · ${n}</button>`;}).join("")}
+      return `<button class="chip ${filter===g.id?"on":""}" onclick="ACT.careerCat('${g.id}')">${esc(g.n)}<span class="c">${n}</span></button>`;}).join("")}
   </div>
 
   ${shown.map(g=>`<section class="mt">
@@ -1252,7 +1278,7 @@ function vCareer(){
 function vCareerDetail(id){
   const c = window.CAREER_BY_ID[id]; if(!c) return vCareer();
   const tracks = c.tracks.map(t=>window.TRACK_BY_ID[t]), mine = State.data.career===c.id;
-  const first = window.LESSONS.find(l=>c.tracks.includes(l.track) && State.lessonStatus(l.id)!=="done");
+  const first = window.LESSONS.find(l=>c.tracks.includes(l.track) && !l.soon && State.lessonStatus(l.id)!=="done");
   return `<div class="main">
   <div class="row" style="gap:13px;margin-bottom:6px">
     <span class="tile tile-lg t-${c.color}">${c.icon}</span>
@@ -1425,29 +1451,118 @@ function startCompTimer(id){
 
 /* ════════ 8. CONSULTING INTERVIEW MODE ════════ */
 const ivCases = () => window.CASES.filter(c=>c.mode==="interview" && IVIEW.CFG[c.id]);
+const IVF = {style:"", type:"", diff:"", status:""};
+const ivStyle = id => IVIEW.CFG[id].style.startsWith("Candidate") ? "candidate" : "interviewer";
+const ivState = id => { const rd = IVIEW.roundOf(IVIEW.get(id)); return rd<0 ? "todo" : rd<5 ? "doing" : "done"; };
+const ivFiltered = () => ivCases().filter(c =>
+  (!IVF.style || ivStyle(c.id)===IVF.style) && (!IVF.type || c.type===IVF.type) &&
+  (!IVF.diff || String(c.diff)===IVF.diff) && (!IVF.status || ivState(c.id)===IVF.status));
+
+/* case nên phỏng vấn tiếp: phiên đang dở → dạng chưa thử, dễ trước → điểm thấp nhất */
+function ivNext(except){
+  const all = ivCases().filter(c=>c.id!==except);
+  const doing = all.find(c=>ivState(c.id)==="doing");
+  if(doing) return {c:doing, why:"Bạn đang dở phiên này — làm nốt trước khi mở case mới."};
+  const done = all.filter(c=>ivState(c.id)==="done"), tried = new Set(done.map(c=>c.type));
+  const todo = all.filter(c=>ivState(c.id)==="todo")
+    .sort((a,b)=>(tried.has(a.type)-tried.has(b.type)) || (a.diff-b.diff));
+  if(todo.length) return {c:todo[0], why: tried.has(todo[0].type)
+    ? "Case chưa phỏng vấn, độ khó vừa sức với tiến độ hiện tại."
+    : `Dạng ${todo[0].type} bạn chưa phỏng vấn lần nào.`};
+  const low = done.sort((a,b)=>IVIEW.get(a.id).result.total-IVIEW.get(b.id).result.total)[0];
+  return low ? {c:low, why:"Điểm thấp nhất của bạn — phỏng vấn lại để gỡ điểm."} : null;
+}
+
+/* thống kê chỉ lấy phiên tự trả lời, bỏ phiên dùng câu mẫu */
+function ivStats(){
+  const cases = ivCases();
+  const fin = cases.map(c=>IVIEW.get(c.id)).filter(x=>x && x.result && x.result.recorded).map(x=>x.result);
+  const avg = a => a.length ? Math.round(a.reduce((x,y)=>x+y,0)/a.length) : null;
+  const rounds = IVIEW.ROUNDS.map((r,i)=>[r.n, avg(fin.map(x=>x.dims[i][1]))]);
+  const weakest = fin.length ? rounds.slice().sort((a,b)=>a[1]-b[1])[0] : null;
+  return {total:cases.length, done:cases.filter(c=>ivState(c.id)==="done").length,
+          doing:cases.filter(c=>ivState(c.id)==="doing").length, avg:avg(fin.map(x=>x.total)), rounds, weakest, n:fin.length};
+}
+
+function ivCard(c){
+  const sess=IVIEW.get(c.id), rd=IVIEW.roundOf(sess), r=State.caseRec(c.id);
+  const tag = rd<0 ? `<span class="tag">Chưa phỏng vấn</span>` : rd<5 ? `<span class="tag tag-a">Đang thi · vòng ${rd+1}/5</span>`
+            : `<span class="tag ${sess.result.total>=80?"tag-e":"tag-a"}">Đã xong · ${sess.result.total} điểm</span>`;
+  const ind = (window.INDUSTRIES.find(i=>i.id===c.ind)||{}).n || c.ind;
+  return `<div class="card" style="cursor:pointer" onclick="location.hash='#/interview/${c.id}'">
+    <div class="card-b">
+      <div class="row" style="justify-content:space-between;margin-bottom:9px;gap:8px"><span class="lbl">${esc(IVIEW.CFG[c.id].style)}</span>${tag}</div>
+      <h3 style="margin-bottom:6px">${esc(c.t)}</h3>
+      <p class="small muted" style="margin:0 0 12px">${esc(c.hook)}</p>
+      <div class="wrap-row"><span class="tag tag-accent">${esc(c.type)}</span><span class="tag tag-neutral">${esc(ind)}</span><span class="tag">${c.min} phút</span>${diffBadge(c.diff)}</div>
+    </div>
+    <div class="card-f row" style="justify-content:space-between">
+      <span class="small muted">${r&&r.attempts?`Điểm cao nhất ${r.best}`:"Chưa có điểm"}</span>
+      <span class="btn btn-sm btn-p">${rd<0?"Bắt đầu phỏng vấn":rd<5?"Tiếp tục":"Xem kết quả"} →</span>
+    </div></div>`;
+}
 
 function vInterview(id){
   if(id && IVIEW.CFG[id]) return vIvRoom(id);
+  const all = ivCases(), rows = ivFiltered(), st = ivStats(), nx = ivNext();
+  const any = IVF.style||IVF.type||IVF.diff||IVF.status;
+  const count = (k,v) => all.filter(c=>k==="type"?c.type===v:ivStyle(c.id)===v).length;
+  const types = window.CASE_TYPES.filter(t=>count("type",t));
+  const sel = (k, opts, lbl) => `<select onchange="ACT.ivf('${k}',this.value)">
+    <option value="">${lbl}</option>${opts.map(([v,n])=>`<option value="${esc(v)}" ${IVF[k]===String(v)?"selected":""}>${esc(n)}</option>`).join("")}</select>`;
+  const metric = (k,v,n) => `<div class="card metric"><div class="k">${esc(k)}</div><div class="v num">${v}</div>${n?`<div class="n">${esc(n)}</div>`:""}</div>`;
+
   return `<div class="main">
-  <h1>Consulting Interview Mode</h1>
-  <p class="muted" style="margin-top:4px;max-width:72ch">Case chạy theo 5 vòng như phỏng vấn thật: làm rõ đề → cấu trúc → case math → đọc exhibit → khuyến nghị. Mỗi vòng được chấm riêng; trả lời thiếu con số hoặc thiếu nhánh sẽ vào Mistake Review.</p>
-  <div class="grid g2 mt">
-    ${ivCases().map(c=>{
-      const sess=IVIEW.get(c.id), rd=IVIEW.roundOf(sess), r=State.caseRec(c.id);
-      const tag = rd<0 ? `<span class="tag">Chưa phỏng vấn</span>` : rd<5 ? `<span class="tag tag-a">Đang thi · vòng ${rd+1}/5</span>`
-                : `<span class="tag ${sess.result.total>=80?"tag-e":"tag-a"}">Đã xong · ${sess.result.total} điểm</span>`;
-      return `<div class="card" style="cursor:pointer" onclick="location.hash='#/interview/${c.id}'">
-        <div class="card-b">
-          <div class="row" style="justify-content:space-between;margin-bottom:9px"><span class="lbl">${esc(IVIEW.CFG[c.id].style)}</span>${tag}</div>
-          <h3 style="margin-bottom:6px">${esc(c.t)}</h3>
-          <p class="small muted" style="margin:0 0 12px">${esc(c.hook)}</p>
-          <div class="wrap-row"><span class="tag tag-accent">${esc(c.type)}</span><span class="tag">${c.min} phút</span>${diffBadge(c.diff)}</div>
-        </div>
-        <div class="card-f row" style="justify-content:space-between">
-          <span class="small muted">${r&&r.attempts?`Điểm cao nhất ${r.best}`:"Chưa có điểm"}</span>
-          <span class="btn btn-sm btn-p">${rd<0?"Bắt đầu phỏng vấn":rd<5?"Tiếp tục":"Xem kết quả"} →</span>
-        </div></div>`;}).join("")}
+  <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:flex-end">
+    <div><h1>Consulting Interview Mode</h1>
+      <p class="muted" style="margin-top:4px;max-width:72ch">Case chạy theo 5 vòng như phỏng vấn thật: làm rõ đề → cấu trúc → case math → đọc exhibit → khuyến nghị. Mỗi vòng được chấm riêng; trả lời thiếu con số hoặc thiếu nhánh sẽ vào Mistake Review.</p></div>
+    <button class="btn" onclick="ACT.ivRandom()" title="Phỏng vấn thật không cho bạn chọn đề">Phỏng vấn ngẫu nhiên</button>
   </div>
+
+  <div class="grid g4 mt">
+    ${metric("Đã phỏng vấn", `${st.done}<span class="muted" style="font-size:15px;font-weight:600">/${st.total}</span>`, st.doing?`${st.doing} phiên đang dở`:"")}
+    ${metric("Điểm trung bình", st.avg==null?"—":st.avg, st.n?`Từ ${st.n} phiên tự trả lời`:"Chưa có phiên tự trả lời")}
+    ${metric("Vòng yếu nhất", st.weakest?esc(st.weakest[0]):"—", st.weakest?`Trung bình ${st.weakest[1]} điểm`:"")}
+    ${metric("Dạng case đã thử", new Set(all.filter(c=>ivState(c.id)==="done").map(c=>c.type)).size+`<span class="muted" style="font-size:15px;font-weight:600">/${types.length}</span>`, "")}
+  </div>
+
+  <div class="grid g2 mt">
+    <div class="card"><div class="card-h"><h3>Nên phỏng vấn tiếp</h3></div>
+      ${nx?`<div class="card-b">
+        <div class="lbl" style="margin-bottom:6px">${esc(IVIEW.CFG[nx.c.id].style)}</div>
+        <h3 style="margin-bottom:6px">${esc(nx.c.t)}</h3>
+        <p class="small muted" style="margin:0 0 12px">${esc(nx.why)}</p>
+        <div class="wrap-row"><span class="tag tag-accent">${esc(nx.c.type)}</span><span class="tag">${nx.c.min} phút</span>${diffBadge(nx.c.diff)}</div>
+      </div>
+      <div class="card-f row" style="justify-content:flex-end"><a class="btn btn-sm btn-p" href="#/interview/${nx.c.id}">${ivState(nx.c.id)==="doing"?"Tiếp tục":"Bắt đầu phỏng vấn"} →</a></div>`
+      :`<div class="card-b"><p class="small muted" style="margin:0">Bạn đã phỏng vấn hết các case.</p></div>`}
+    </div>
+    <div class="card"><div class="card-h"><h3>Điểm theo vòng</h3>${st.n?`<span class="small muted">${st.n} phiên</span>`:""}</div>
+      <div class="card-b" style="padding-top:8px">
+        ${st.n ? st.rounds.map(([n,v])=>`<div class="rubric-row"><span class="nm">${esc(n)}</span>${bar(v, v>=80?"":v>=50?"amber":"rose")}<span class="sc num">${v}</span></div>`).join("")
+          : `<p class="small muted" style="margin:0">Hoàn thành một phiên tự trả lời để thấy vòng nào bạn đang mất điểm. Phiên dùng câu mẫu không được tính.</p>`}
+      </div></div>
+  </div>
+
+  <div class="toolbar mt">
+    <div class="field"><label class="lbl">Kiểu dẫn case</label>
+      <div class="seg">${[["","Tất cả"],["interviewer","Interviewer-led"],["candidate","Candidate-led"]].map(([k,n])=>
+        `<button class="${IVF.style===k?"on":""}" onclick="ACT.ivf('style','${k}')">${n}</button>`).join("")}</div></div>
+    <div class="field"><label class="lbl">Độ khó</label>${sel("diff", Object.entries(DIFF).filter(([k])=>all.some(c=>String(c.diff)===k)), "Tất cả")}</div>
+    <div class="field"><label class="lbl">Trạng thái</label>${sel("status", [["todo","Chưa phỏng vấn"],["doing","Đang dở"],["done","Đã xong"]], "Tất cả")}</div>
+    <div style="margin-left:auto" class="row">
+      <span class="small muted">${rows.length} kết quả</span>
+      ${any?`<button class="btn btn-sm btn-gh" onclick="Object.assign(IVF,{style:'',type:'',diff:'',status:''});render(true)">Xoá lọc</button>`:""}
+    </div>
+  </div>
+  <div class="chips" style="margin:-4px 0 16px">
+    <button class="chip ${!IVF.type?"on":""}" onclick="ACT.ivf('type','')">Tất cả dạng<span class="c">${all.length}</span></button>
+    ${types.map(t=>`<button class="chip ${IVF.type===t?"on":""}" onclick="ACT.ivf('type','${esc(t)}')">${esc(t)}<span class="c">${count("type",t)}</span></button>`).join("")}
+  </div>
+
+  ${rows.length ? `<div class="grid g2">${rows.map(ivCard).join("")}</div>`
+    : `<div class="card"><div class="empty" style="border:0">Không có case nào khớp bộ lọc.</div></div>`}
+
   <div class="card mt"><div class="card-h"><h3>Năm vòng và cách chấm</h3></div><div class="card-b" style="padding-top:4px">
     <div class="pipe">${IVIEW.ROUNDS.map((r,i)=>`<div class="st"><span class="ic">${i+1}</span>
       <div class="bd"><div class="nm">${esc(r.n)}</div><div class="ds">${esc(["Nhắc lại đề trong một câu và hỏi 2–3 câu làm rõ.","Nêu cấu trúc đủ nhánh cho loại case này.","Tính ra con số then chốt, nói cả phép tính.","Đọc exhibit và rút ra câu \"vậy thì sao\".","Khuyến nghị gắn với ràng buộc và con số vừa tính."][i])}</div></div>
@@ -1502,8 +1617,9 @@ function vIvRoom(id){
         <div class="callout ${R.total>=80?"ok":""} mt" style="padding:10px 12px;font-size:12.5px"><b>Nhận xét:</b> ${esc(R.feedback)}</div>
         <p class="small muted" style="margin:8px 0 0">${R.recorded?`Đã ghi vào tiến độ${R.gain?` · +${R.gain} XP`:""}${R.mistakes?` · ${R.mistakes} lỗi vào <a href="#/review">Mistake Review</a>`:""}.`:"Phiên dùng câu mẫu — chỉ để xem cách chấm, không ghi điểm."}</p>
       </div>
-      <div class="card-f row" style="justify-content:space-between"><a class="btn btn-sm btn-gh" href="#/interview">← Danh sách case</a>
-        <button class="btn btn-sm" onclick="ACT.ivReset('${id}')">Phỏng vấn lại</button></div></div>`;
+      <div class="card-f row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><a class="btn btn-sm btn-gh" href="#/interview">← Danh sách case</a>
+        <div class="row" style="gap:8px"><button class="btn btn-sm" onclick="ACT.ivReset('${id}')">Phỏng vấn lại</button>
+        ${(nx=>nx?`<a class="btn btn-sm btn-p" href="#/interview/${nx.c.id}" title="${esc(nx.c.t)}">Case tiếp theo →</a>`:"")(ivNext(id))}</div></div></div>`;
   }
 
   return `<div class="main" style="padding-bottom:0"><a class="small muted" href="#/interview">← Danh sách case phỏng vấn</a></div>

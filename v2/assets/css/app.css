@@ -21,37 +21,35 @@
   --stone-400:#A8A29E; --stone-500:#78716C; --stone-600:#57534E; --stone-700:#44403C;
   --stone-800:#292524; --stone-900:#1C1917; --stone-950:#0C0A09;
 
-  /* Nền & bề mặt. --bg là giấy ngà, KHÔNG phải trắng: trắng thuần làm
-     thẻ trắng ở trên mất hẳn đường biên thị giác. */
-  --bg:#FBFAF7;
+  /* Nền & bề mặt. --bg là màu cát ấm / giấy ngà chuẩn */
+  --bg:#F8F7F2;
   --surface:#FFFFFF;
-  --surface-2:var(--stone-50);
-  --surface-3:var(--stone-100);
+  --surface-2:#FFFFFF;
+  --surface-3:#F3F4F6;
 
-  /* Mực. --text không phải #000: đen thuần trên giấy ngà bị chói. */
-  --text:var(--stone-900);
-  --text-2:var(--stone-700);
-  --muted:var(--stone-500);
-  --muted-2:var(--stone-400);
+  /* Mực. */
+  --text:#111827;
+  --text-2:#374151;
+  --muted:#6B7280;
+  --muted-2:#9CA3AF;
 
-  --border:var(--stone-200);
-  --border-2:var(--stone-300);
+  --border:#E5E7EB;
+  --border-2:#D1D5DB;
 
-  /* Thương hiệu: emerald. Hành động chính, tiến độ, trạng thái đúng. */
-  --primary:#059669;
-  --primary-hover:#047857;
-  --primary-soft:#ECFDF5;
-  --primary-ring:rgba(5,150,105,.22);
+  /* Thương hiệu: emerald đậm chuẩn sister platform */
+  --primary:#0D684D;
+  --primary-hover:#064E3B;
+  --primary-soft:#E6F5EC;
+  --primary-ring:rgba(13,104,77,.22);
 
-  /* Bảng màu ngữ nghĩa — dùng cho tag, tile, series biểu đồ.
-     Tên token giữ nguyên như bản cũ vì data/*.js đang tham chiếu trực tiếp. */
-  --emerald:#059669;      --emerald-soft:#ECFDF5;   /* đúng · tăng trưởng */
-  --amber:#B45309;        --amber-soft:#FFFBEB;     /* nhấn · thưởng · hạn chót */
+  /* Bảng màu ngữ nghĩa */
+  --emerald:#0D684D;      --emerald-soft:#E6F5EC;   /* đúng · tăng trưởng */
+  --amber:#B45309;        --amber-soft:#FEF3C7;     /* nhấn · thưởng · hạn chót */
   --rose:#BE123C;         --rose-soft:#FFF1F2;      /* sai · cảnh báo */
-  --accent:#115E59;       --accent-soft:#ECFDF5;    /* teal đậm — nhấn nguội, không phải xanh dương */
-  --olive:#4D7C0F;        --olive-soft:#F7FEE7;     /* ô liu — nhóm phụ, tách hẳn khỏi amber */
-  --neutral:var(--stone-500); --neutral-soft:var(--stone-100);
-  --ink:var(--stone-900);                           /* mực đặc — header framework, seg active */
+  --accent:#0D684D;       --accent-soft:#E6F5EC;    /* màu nhấn thương hiệu */
+  --olive:#4D7C0F;        --olive-soft:#F7FEE7;     /* ô liu */
+  --neutral:#6B7280;      --neutral-soft:#F3F4F6;
+  --ink:#111827;
 
   /* Màu series cho exhibit/chart. Đặt tên theo VAI TRÒ trong lập luận, không theo
      màu: đọc data file là biết dòng nào đang được nhấn, dòng nào là đối chứng.

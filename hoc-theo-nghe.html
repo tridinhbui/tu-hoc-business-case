@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tự Học Tài Chính — Bản đồ nghề nghiệp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8faf8;
+      --sidebar-bg: #ffffff;
+      --sidebar-border: #e8eee8;
+      --card-bg: #ffffff;
+      --border: #e2e8e2;
+      --border-subtle: #edf2ed;
+      
+      --text-main: #14281b;
+      --text-secondary: #4d6353;
+      --text-muted: #829688;
+      
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-forest: #064e3b;
+      --primary-mint: #e6f7ee;
+      --primary-mint-hover: #d3f3e2;
+      
+      --amber-bg: #fef8eb;
+      --amber-border: #fde68a;
+      --amber-text: #b45309;
+      --orange-accent: #f97316;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-2xl: 24px;
+      --radius-pill: 9999px;
+      
+      --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════ SIDEBAR ════════════ */
+    .sidebar {
+      width: 250px;
+      min-width: 250px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--sidebar-border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .sidebar-header {
+      padding: 22px 18px 14px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-title-group {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      font-weight: 800;
+      color: #059669;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-main {
+      font-size: 15px;
+      font-weight: 800;
+      color: #064e3b;
+      letter-spacing: -0.01em;
+    }
+
+    .search-box {
+      margin: 10px 14px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f6faf6;
+      border: 1px solid #e0eae0;
+      border-radius: var(--radius-pill);
+      padding: 7px 14px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .search-box:hover {
+      background: #eff6ef;
+      border-color: #cedece;
+    }
+
+    .search-box kbd {
+      margin-left: auto;
+      font-size: 10px;
+      background: #ffffff;
+      border: 1px solid #d6e2d6;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 10px 16px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: #e2ebe2;
+      border-radius: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8.5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 2px;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover {
+      background: #f2f7f2;
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background: #d8f3e3;
+      color: #046a41;
+      font-weight: 700;
+    }
+
+    .nav-item .icon {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      color: currentColor;
+    }
+
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      padding: 16px 12px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-section-title .chevron {
+      font-size: 9px;
+      opacity: 0.6;
+    }
+
+    .nav-tag {
+      margin-left: auto;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.02em;
+    }
+
+    .tag-new {
+      background: #dcfce7;
+      color: #047857;
+    }
+
+    .tag-hot {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .tag-checkin {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+
+    .sidebar-footer {
+      padding: 14px;
+      border-top: 1px solid var(--sidebar-border);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gold-wallet-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .gold-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      color: #854d0e;
+      flex: 1;
+    }
+
+    .gold-pill .gold-count {
+      margin-left: auto;
+      font-size: 13px;
+      font-weight: 800;
+      color: #a16207;
+    }
+
+    .bell-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f4f6f4;
+      border: 1px solid #e0eae0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+
+    .bell-btn:hover {
+      background: #eaf1ea;
+    }
+
+    .bell-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 8px;
+      border: 1.5px solid #fff;
+    }
+
+    .user-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 8px;
+      border-radius: var(--radius-md);
+      background: #f8faf8;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .user-profile-card:hover {
+      background: #f0f4f0;
+      border-color: #e0eae0;
+    }
+
+    .user-avatar-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #15803d;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      overflow: hidden;
+    }
+
+    .user-avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-email {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ════════════ MAIN CONTAINER ════════════ */
+    .main-container {
+      flex: 1;
+      min-width: 0;
+      overflow-y: auto;
+      padding: 22px 32px 60px;
+    }
+
+    /* Top Breadcrumb Category */
+    .top-category-track {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #065f46;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Top Header Section */
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .header-left {
+      max-width: 600px;
+    }
+
+    .page-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0f291e;
+    }
+
+    .info-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e1;
+      background: transparent;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .info-btn:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    .page-subtitle {
+      font-size: 13.5px;
+      color: #52665a;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .header-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: transform 0.15s;
+    }
+
+    .header-pill:hover {
+      transform: translateY(-1px);
+    }
+
+    .pill-hero {
+      background: #fef9c3;
+      color: #92400e;
+      border: 1px solid #fef08a;
+    }
+
+    .pill-xp {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .pill-ready {
+      background: #0f3a2c;
+      color: #ecfdf5;
+      border: 1px solid #0f3a2c;
+    }
+
+    .pill-next {
+      background: #ffedd5;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+
+    /* Tabs Segmented Switcher */
+    .tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1px solid #dce4dc;
+      background: #ffffff;
+      color: #374151;
+      font-family: inherit;
+    }
+
+    .tab-btn:hover {
+      background: #f3f7f3;
+      border-color: #cbd5e1;
+    }
+
+    .tab-btn.active {
+      background: #0f3a2c;
+      color: #ffffff;
+      border-color: #0f3a2c;
+      box-shadow: 0 2px 4px rgba(15, 58, 44, 0.15);
+    }
+
+    /* ════════════ TWO-COLUMN CONTENT LAYOUT ════════════ */
+    .career-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 1200px) {
+      .career-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── LEFT COLUMN ── */
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Stats Overview Top Card */
+    .stats-card {
+      background: #ffffff;
+      border: 1px solid #e2e8e2;
+      border-radius: var(--radius-xl);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 24px;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .stat-col {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-col-divider {
+      border-left: 1px solid #eef2ee;
+      padding-left: 20px;
+    }
+
+    .circle-progress-wrap {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circle-progress-wrap svg {
+      transform: rotate(-90deg);
+      width: 46px;
+      height: 46px;
+    }
+
+    .circle-progress-bg {
+      fill: none;
+      stroke: #e2e8f0;
+      stroke-width: 3.5;
+    }
+
+    .circle-progress-val {
+      fill: none;
+      stroke: #059669;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-dasharray: 125.6;
+      stroke-dashoffset: 125.6;
+      transition: stroke-dashoffset 0.8s ease;
+    }
+
+    .circle-progress-txt {
+      position: absolute;
+      font-size: 11px;
+      font-weight: 800;
+      color: #14281b;
+    }
+
+    .stat-meta-title {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .stat-meta-val {
+      font-size: 16px;
+      font-weight: 800;
+      color: #14281b;
+      line-height: 1.2;
+    }
+
+    .stat-meta-sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-priority {
+      background: #e6f7ee;
+      color: #059669;
+      border: 1px solid #bbf7d0;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.02em;
+      margin-left: 6px;
+    }
+
+    .bar-track {
+      width: 100%;
+      height: 5px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 5px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: #059669;
+      border-radius: 4px;
+      width: 8%;
+    }
+
+    .stat-right-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    /* ════════════ MAP CANVAS CARD ════════════ */
+    .map-card {
+      background: #ffffff;
+      border: 1px solid #e2e8e2;
+      border-radius: var(--radius-2xl);
+      padding: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+
+    .map-viewport-container {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: #f1ebd9;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+    }
+
+    .map-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.4s ease;
+      user-select: none;
+    }
+
+    /* Floating Region Badge Header */
+    .floating-map-header {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(226, 232, 226, 0.9);
+      border-radius: var(--radius-xl);
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      z-index: 20;
+      cursor: pointer;
+    }
+
+    .floating-pin-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e6f7ee;
+      border: 1px solid #bbf7d0;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .floating-header-texts {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .floating-header-sub {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #059669;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .floating-header-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #14281b;
+    }
+
+    .floating-header-detail {
+      font-size: 10.5px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    /* SVG Connecting Path */
+    .map-svg-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .map-route-line {
+      fill: none;
+      stroke: #fb923c;
+      stroke-width: 3;
+      stroke-dasharray: 6 5;
+      stroke-linecap: round;
+      opacity: 0.85;
+      filter: drop-shadow(0 2px 4px rgba(251, 146, 60, 0.4));
+    }
+
+    /* Map Quest Nodes */
+    .map-quest-node {
+      position: absolute;
+      z-index: 10;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translate(-50%, -50%);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .map-quest-node:hover {
+      z-index: 25;
+      transform: translate(-50%, -54%) scale(1.04);
+    }
+
+    .node-pin-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      border: 3px solid #ffffff;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(234, 88, 12, 0.4);
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .node-pin-circle::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(249, 115, 22, 0.35);
+      animation: pulse-ring 2s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.9); opacity: 1; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    .node-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 7px 11px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      width: 145px;
+      text-align: left;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .map-quest-node:hover .node-card {
+      border-color: #059669;
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.15);
+    }
+
+    .node-quest-tag {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+
+    .node-role-name {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #0f291e;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+
+    .node-progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 5px;
+      gap: 6px;
+    }
+
+    .node-progress-txt {
+      font-size: 9px;
+      font-weight: 700;
+      color: #64748b;
+      white-space: nowrap;
+    }
+
+    .node-progress-bar {
+      flex: 1;
+      height: 3px;
+      background: #f1f5f9;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .node-progress-fill {
+      height: 100%;
+      background: #059669;
+      border-radius: 2px;
+    }
+
+    .node-progress-percent {
+      font-size: 9px;
+      font-weight: 800;
+      color: #059669;
+    }
+
+    /* Node Positions based on Screenshot */
+    #node-1 { left: 24%; top: 58%; }
+    #node-2 { left: 36%; top: 70%; }
+    #node-3 { left: 48%; top: 58%; }
+    #node-4 { left: 59%; top: 68%; }
+    #node-5 { left: 42%; top: 82%; }
+    #node-6 { left: 55%; top: 83%; }
+
+    /* Map Footer Toolbar */
+    .map-footer-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 6px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .map-legend-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .dot-done { background: #059669; }
+    .dot-current { background: #f97316; }
+    .dot-locked { background: #cbd5e1; }
+
+    .btn-view-all-regions {
+      background: transparent;
+      border: 1px solid #d1d5db;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0f3a2c;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+
+    .btn-view-all-regions:hover {
+      background: #f1f5f9;
+      border-color: #9ca3af;
+      transform: translateX(2px);
+    }
+
+    /* ── RIGHT COLUMN (WIDGETS) ── */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .widget-card {
+      background: #ffffff;
+      border: 1px solid #e2e8e2;
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .widget-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .widget-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: #14281b;
+      text-transform: uppercase;
+    }
+
+    .widget-counter-badge {
+      margin-left: auto;
+      background: #ffedd5;
+      color: #c2410c;
+      font-size: 10px;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Priority Quest Task Items */
+    .priority-task-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid #f0f4f0;
+      background: #ffffff;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .priority-task-item:hover {
+      background: #f8faf8;
+      border-color: #059669;
+      transform: translateX(2px);
+    }
+
+    .task-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #e6f7ee;
+      border: 1px solid #bbf7d0;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .task-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .task-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .task-quest-pill {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      text-transform: uppercase;
+    }
+
+    .task-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #14281b;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .task-sub {
+      font-size: 10.5px;
+      color: #64748b;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .task-arrow {
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 700;
+      transition: transform 0.15s;
+    }
+
+    .priority-task-item:hover .task-arrow {
+      color: #059669;
+      transform: translateX(2px);
+    }
+
+    .widget-link-footer {
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #059669;
+      text-decoration: none;
+      padding-top: 4px;
+      transition: color 0.15s;
+      cursor: pointer;
+    }
+
+    .widget-link-footer:hover {
+      color: #047857;
+      text-decoration: underline;
+    }
+
+    /* Region Overview Progress Card */
+    .overview-content-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 6px 0;
+    }
+
+    .overview-donut-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .overview-donut-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .overview-stats-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .overview-stat-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tip Banner Card */
+    .tip-banner-card {
+      background: #fefcf3;
+      border: 1px solid #fef08a;
+      border-radius: var(--radius-xl);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tip-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #b45309;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .tip-body-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .tip-text {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #713f12;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .tip-thumb {
+      width: 44px;
+      height: 38px;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 6px;
+    }
+
+    /* Floating FAB Menu */
+    .fab-menu-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #111827;
+      color: #ffffff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    .fab-menu-btn:hover {
+      transform: scale(1.05);
+      background: #1f2937;
+    }
+
+    .fab-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 8px;
+      border: 1.5px solid #fff;
+    }
+
+    /* ════════════ MODAL DIALOGS ════════════ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-2xl);
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      border: 1px solid #e2e8f0;
+      animation: modalSlideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlideUp {
+      from { transform: translateY(20px) scale(0.96); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .modal-close-btn {
+      background: #f1f5f9;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .modal-close-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* Region Selector Cards inside Modal */
+    .region-select-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .region-select-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .region-select-card:hover {
+      border-color: #059669;
+      background: #f8faf8;
+    }
+
+    .region-select-card.active {
+      border-color: #059669;
+      background: #e6f7ee;
+    }
+
+    .region-select-card.locked {
+      opacity: 0.6;
+      background: #f8fafc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════ SIDEBAR ════════════ -->
+  <aside class="sidebar">
+    <!-- Brand Header -->
+    <div class="sidebar-header">
+      <a href="dashboard.html" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </div>
+        <div class="brand-title-group">
+          <span class="brand-sub">TỰ HỌC</span>
+          <span class="brand-main">TÀI CHÍNH</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Search Input -->
+    <div class="search-box" onclick="alert('Tìm kiếm nhanh theo kỹ năng, bài học, case study (Nhấn ⌘K)')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Tìm kiếm...</span>
+      <kbd>⌘K</kbd>
+    </div>
+
+    <!-- Nav List -->
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </span>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="case-social.html" class="nav-item">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span>FinSocial</span>
+      </a>
+
+      <!-- SECTION 1: HỌC TẬP -->
+      <div class="nav-section-title">
+        <span>🌱 HỌC TẬP</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="index.html#/roadmap" class="nav-item">
+        <span class="icon">🧭</span>
+        <span>Bắt đầu từ đâu</span>
+      </a>
+      <a href="hoc-bai.html" class="nav-item">
+        <span class="icon">📖</span>
+        <span>Học bài</span>
+      </a>
+      <a href="hoc-theo-nghe.html" class="nav-item active">
+        <span class="icon">💼</span>
+        <span>Học theo nghề</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🎓</span>
+        <span>Chứng chỉ</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--text-muted)">›</span>
+      </a>
+
+      <!-- SECTION 2: THỰC HÀNH -->
+      <div class="nav-section-title">
+        <span>⚡ THỰC HÀNH</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">📝</span>
+        <span>Quiz</span>
+        <span class="nav-tag tag-new">TIN MỚI</span>
+      </a>
+      <a href="thi-vuot-chang.html" class="nav-item">
+        <span class="icon">🏆</span>
+        <span>Thi vượt chặng</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🎮</span>
+        <span>Game Kingdom</span>
+        <span class="nav-tag tag-hot">HOT</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">💼</span>
+        <span>Luyện phỏng vấn</span>
+      </a>
+
+      <!-- SECTION 3: CỘNG ĐỒNG -->
+      <div class="nav-section-title">
+        <span>👥 CỘNG ĐỒNG</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">🏛️</span>
+        <span>Thư viện</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🤝</span>
+        <span>Học nhóm</span>
+        <span class="nav-tag tag-checkin">CHECK-IN</span>
+      </a>
+      <a href="thong-ke.html" class="nav-item">
+        <span class="icon">📊</span>
+        <span>Thống kê</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <div class="gold-wallet-row">
+        <div class="gold-pill">
+          <span>🪙</span>
+          <span>Túi vàng</span>
+          <span class="gold-count">60</span>
+        </div>
+        <button class="bell-btn" title="Thông báo" onclick="alert('Bạn có 9+ thông báo mới về bài học và thử thách!')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="bell-badge">9+</span>
+        </button>
+      </div>
+
+      <a href="ho-so.html" class="user-profile-card" title="Tài khoản">
+        <div class="user-avatar-circle">ĐTB</div>
+        <div class="user-info">
+          <div class="user-name">Đình Trí Bùi</div>
+          <div class="user-email">tribd.tec@gmail.com</div>
+        </div>
+        <span style="font-size: 10px; color: var(--text-muted);">▼</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ════════════ MAIN CONTENT AREA ════════════ -->
+  <main class="main-container">
+    
+    <!-- Chapter / Track Indicator -->
+    <div class="top-category-track">
+      01 — LỘ TRÌNH SỰ NGHIỆP &amp; KỸ NĂNG CHUẨN HOÁ
+    </div>
+
+    <!-- Header Row -->
+    <div class="header-row">
+      <div class="header-left">
+        <div class="page-title-row">
+          <h1 class="page-title">Bản đồ nghề nghiệp</h1>
+          <button class="info-btn" title="Thông tin bản đồ nghề nghiệp" onclick="openInfoModal()">ⓘ</button>
+        </div>
+        <p class="page-subtitle">Chọn vùng, đi theo lộ trình và chinh phục mục tiêu nghề nghiệp.</p>
+      </div>
+
+      <div class="header-badges">
+        <div class="header-pill pill-hero">
+          LVL 2 HERO
+        </div>
+        <div class="header-pill pill-xp">
+          ⚡ 79 XP
+        </div>
+        <div class="header-pill pill-ready">
+          ⏱ 0% SẴN SÀNG LỘ TRÌNH
+        </div>
+        <div class="header-pill pill-next">
+          🎯 MỐC KẾ TIẾP: Còn 5 bài để mở Vùng "Dữ liệu &amp; Công nghệ" -
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Switcher -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="switchTab('map')">
+        🗺 Bản đồ vùng nghề
+      </button>
+      <button class="tab-btn" onclick="switchTab('tasks')">
+        ⚡ Nhiệm vụ &amp; Ưu tiên
+      </button>
+      <button class="tab-btn" onclick="switchTab('skills')">
+        🎯 Mục tiêu &amp; Kỹ năng
+      </button>
+    </div>
+
+    <!-- Main Grid (Left Map + Right Widgets) -->
+    <div class="career-grid" id="tabContentMap">
+      
+      <!-- ── LEFT COLUMN ── -->
+      <div class="left-column">
+        
+        <!-- Summary Stats Card -->
+        <div class="stats-card">
+          <!-- Col 1: Progress Circle -->
+          <div class="stat-col">
+            <div class="circle-progress-wrap">
+              <svg viewBox="0 0 46 46">
+                <circle class="circle-progress-bg" cx="23" cy="23" r="20"></circle>
+                <circle class="circle-progress-val" cx="23" cy="23" r="20" style="stroke-dashoffset: 124;"></circle>
+              </svg>
+              <span class="circle-progress-txt">0%</span>
+            </div>
+            <div>
+              <div class="stat-meta-title">TIẾN ĐỘ LỘ TRÌNH</div>
+              <div class="stat-meta-val">0%</div>
+              <div class="stat-meta-sub">🌱 3/669 BÀI XONG</div>
+            </div>
+          </div>
+
+          <!-- Col 2: Active Region -->
+          <div class="stat-col stat-col-divider" style="flex-direction: column; align-items: flex-start;">
+            <div class="stat-meta-title">VÙNG NGHỀ ĐANG HỌC</div>
+            <div style="display: flex; align-items: center; gap: 4px; width: 100%;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #14281b;">Kế toán &amp; Kiểm soát</span>
+              <span class="badge-priority">ƯU TIÊN</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 10px; margin-top: 4px;">
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 2%;"></div>
+              </div>
+              <span style="font-size: 10px; font-weight: 800; color: var(--text-muted); white-space: nowrap;">0/6 NGHỀ MASTER</span>
+            </div>
+          </div>
+
+          <!-- Col 3: Region Unlocks -->
+          <div class="stat-col stat-col-divider stat-right-meta">
+            <div class="stat-meta-title">VÙNG MỞ</div>
+            <div class="stat-meta-val" style="font-size: 18px;">2/7</div>
+            <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 700;">0/44 NGHỀ MASTER</div>
+          </div>
+        </div>
+
+        <!-- Interactive Map Container -->
+        <div class="map-card">
+          
+          <div class="map-viewport-container">
+            <!-- Background Artwork Image -->
+            <img src="assets/img/career-map-isometric.jpg" alt="Career World Map" class="map-bg-img" id="mapBg">
+
+            <!-- Floating Top Center Region Badge -->
+            <div class="floating-map-header" onclick="openRegionModal()">
+              <div class="floating-pin-icon">
+                📍
+              </div>
+              <div class="floating-header-texts">
+                <span class="floating-header-sub">VÙNG NGHỀ ĐANG HỌC</span>
+                <span class="floating-header-title">Kế toán &amp; Kiểm soát</span>
+                <span class="floating-header-detail">6 vai trò trong vùng • 195 BÀI XONG</span>
+              </div>
+            </div>
+
+            <!-- SVG Route Line -->
+            <svg class="map-svg-overlay" viewBox="0 0 800 480">
+              <path class="map-route-line" d="M 210 280 C 260 300, 270 330, 295 340 C 330 350, 360 300, 390 280 C 430 250, 460 300, 490 325 C 510 340, 440 375, 360 395 C 410 405, 450 400, 465 400"></path>
+            </svg>
+
+            <!-- 6 Interactive Nodes -->
+            <!-- Node 1: Kế toán viên -->
+            <div class="map-quest-node" id="node-1" onclick="openRoleModal('ktv')">
+              <div class="node-pin-circle">1</div>
+              <div class="node-card">
+                <div class="node-quest-tag">Quest #1</div>
+                <div class="node-role-name">Kế toán viên</div>
+                <div class="node-progress-row">
+                  <span class="node-progress-txt">1/89 BÀI XONG</span>
+                  <div class="node-progress-bar"><div class="node-progress-fill" style="width: 1%;"></div></div>
+                  <span class="node-progress-percent">1%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Node 2: Kiểm toán viên -->
+            <div class="map-quest-node" id="node-2" onclick="openRoleModal('ktvv')">
+              <div class="node-pin-circle">2</div>
+              <div class="node-card">
+                <div class="node-quest-tag">Quest #2</div>
+                <div class="node-role-name">Kiểm toán viên</div>
+                <div class="node-progress-row">
+                  <span class="node-progress-txt">1/136 BÀI XONG</span>
+                  <div class="node-progress-bar"><div class="node-progress-fill" style="width: 1%;"></div></div>
+                  <span class="node-progress-percent">1%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Node 3: FP&A -->
+            <div class="map-quest-node" id="node-3" onclick="openRoleModal('fpa')">
+              <div class="node-pin-circle">3</div>
+              <div class="node-card">
+                <div class="node-quest-tag">Quest #3</div>
+                <div class="node-role-name">FP&amp;A (Kế hoạch &amp; P...</div>
+                <div class="node-progress-row">
+                  <span class="node-progress-txt">1/122 BÀI XONG</span>
+                  <div class="node-progress-bar"><div class="node-progress-fill" style="width: 1%;"></div></div>
+                  <span class="node-progress-percent">1%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Node 4: Kế toán trưởng / CFO -->
+            <div class="map-quest-node" id="node-4" onclick="openRoleModal('ktt')">
+              <div class="node-pin-circle">4</div>
+              <div class="node-card">
+                <div class="node-quest-tag">Quest #4</div>
+                <div class="node-role-name">Kế toán trưởng / CF...</div>
+                <div class="node-progress-row">
+                  <span class="node-progress-txt">1/119 BÀI XONG</span>
+                  <div class="node-progress-bar"><div class="node-progress-fill" style="width: 1%;"></div></div>
+                  <span class="node-progress-percent">1%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Node 5: Tư vấn thuế / tài chính -->
+            <div class="map-quest-node" id="node-5" onclick="openRoleModal('tvt')">
+              <div class="node-pin-circle">5</div>
+              <div class="node-card">
+                <div class="node-quest-tag">Quest #5</div>
+                <div class="node-role-name">Chuyên viên Tư vấn ...</div>
+                <div class="node-progress-row">
+                  <span class="node-progress-txt">1/116 BÀI XONG</span>
+                  <div class="node-progress-bar"><div class="node-progress-fill" style="width: 1%;"></div></div>
+                  <span class="node-progress-percent">1%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Node 6: Chuyên viên Kế toán quản trị -->
+            <div class="map-quest-node" id="node-6" onclick="openRoleModal('ktqt')">
+              <div class="node-pin-circle">6</div>
+              <div class="node-card">
+                <div class="node-quest-tag">Quest #6</div>
+                <div class="node-role-name">Chuyên viên Kế toán...</div>
+                <div class="node-progress-row">
+                  <span class="node-progress-txt">1/119 BÀI XONG</span>
+                  <div class="node-progress-bar"><div class="node-progress-fill" style="width: 1%;"></div></div>
+                  <span class="node-progress-percent">1%</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Legend & Region Switcher Bar -->
+          <div class="map-footer-toolbar">
+            <div class="map-legend-row">
+              <div class="legend-item">
+                <span class="legend-dot dot-done"></span>
+                <span>Đã hoàn thành</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot dot-current"></span>
+                <span>Đang học</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot dot-locked"></span>
+                <span>Chưa mở</span>
+              </div>
+            </div>
+
+            <button class="btn-view-all-regions" onclick="openRegionModal()">
+              <span>🧭</span>
+              <span>Xem tất cả vùng nghề →</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ── RIGHT COLUMN (WIDGETS) ── -->
+      <div class="right-column">
+        
+        <!-- Card 1: Top Priority Quests -->
+        <div class="widget-card">
+          <div class="widget-header">
+            <span style="font-size: 15px;">📜</span>
+            <span class="widget-title">NHIỆM VỤ ƯU TIÊN HÀNG ĐẦU</span>
+            <span class="widget-counter-badge">3</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Quest Item 1 -->
+            <a href="hoc-bai.html" class="priority-task-item">
+              <div class="task-icon-box">
+                📄
+              </div>
+              <div class="task-content">
+                <div class="task-badge-row">
+                  <span class="task-quest-pill">QUEST #1</span>
+                </div>
+                <div class="task-title">Chỗ khuất của báo cáo, Bài 1: Tiền vào tài khoản không ph...</div>
+                <div class="task-sub">Kế toán viên • 3 phút</div>
+              </div>
+              <span class="task-arrow">›</span>
+            </a>
+
+            <!-- Quest Item 2 -->
+            <a href="hoc-bai.html" class="priority-task-item">
+              <div class="task-icon-box" style="background: #f0fdfa; border-color: #99f6e4; color: #0d9488;">
+                🏢
+              </div>
+              <div class="task-content">
+                <div class="task-badge-row">
+                  <span class="task-quest-pill" style="background: #ccfbf1; color: #0f766e; border-color: #5eead4;">QUEST #2</span>
+                </div>
+                <div class="task-title">Chỗ khuất của báo cáo, Bài 3: Lợi nhuận nằm ở quốc gia n...</div>
+                <div class="task-sub">Kế toán viên • 9 phút</div>
+              </div>
+              <span class="task-arrow">›</span>
+            </a>
+
+            <!-- Quest Item 3 -->
+            <a href="hoc-bai.html" class="priority-task-item">
+              <div class="task-icon-box">
+                📄
+              </div>
+              <div class="task-content">
+                <div class="task-badge-row">
+                  <span class="task-quest-pill">QUEST #1</span>
+                </div>
+                <div class="task-title">Kế toán là ngôn ngữ của kinh doanh</div>
+                <div class="task-sub">Kế toán viên • 3 phút</div>
+              </div>
+              <span class="task-arrow">›</span>
+            </a>
+          </div>
+
+          <div class="widget-link-footer" onclick="switchTab('tasks')">
+            Xem tất cả nhiệm vụ →
+          </div>
+        </div>
+
+        <!-- Card 2: Region Overview Stats -->
+        <div class="widget-card">
+          <div class="widget-header">
+            <span style="font-size: 15px;">🌿</span>
+            <span class="widget-title">TỔNG QUAN VÙNG NGHỀ</span>
+          </div>
+
+          <div class="overview-content-row">
+            <div class="overview-donut-box">
+              <div class="circle-progress-wrap" style="width: 52px; height: 52px;">
+                <svg viewBox="0 0 46 46">
+                  <circle class="circle-progress-bg" cx="23" cy="23" r="20"></circle>
+                  <circle class="circle-progress-val" cx="23" cy="23" r="20" style="stroke-dashoffset: 124.3; stroke: #059669;"></circle>
+                </svg>
+                <span class="circle-progress-txt" style="font-size: 12px;">1%</span>
+              </div>
+              <span class="overview-donut-label">Tiến độ tổng</span>
+            </div>
+
+            <div class="overview-stats-list">
+              <div class="overview-stat-row">
+                <span style="color: #059669; font-size: 12px;">●</span>
+                <span>1/195 BÀI XONG</span>
+              </div>
+              <div class="overview-stat-row">
+                <span>🎖️</span>
+                <span>0/6 NGHỀ MASTER</span>
+              </div>
+              <div class="overview-stat-row">
+                <span>🧭</span>
+                <span>2/7 VÙNG MỞ</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="widget-link-footer" onclick="openRegionModal()">
+            Xem chi tiết tiến độ →
+          </div>
+        </div>
+
+        <!-- Card 3: Daily Tip / Motivation -->
+        <div class="tip-banner-card">
+          <div class="tip-header">
+            <span>⚡ GỢI Ý HÔM NAY</span>
+          </div>
+          <div class="tip-body-row">
+            <div class="tip-text">
+              Mỗi nhiệm vụ hoàn thành là một bước đến gần mục tiêu của bạn hơn!
+            </div>
+            <img src="assets/img/tip-thumb.jpg" alt="Sunrise Mountain" class="tip-thumb">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Secondary View: Nhiệm vụ & Ưu tiên -->
+    <div id="tabContentTasks" style="display: none; margin-top: 10px;">
+      <div class="widget-card" style="padding: 24px;">
+        <h2 style="font-size: 18px; margin-bottom: 12px; color: #064e3b;">Danh sách tất cả nhiệm vụ trong vùng Kế toán &amp; Kiểm soát</h2>
+        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 20px;">Hoàn thành các nhiệm vụ theo thứ tự ưu tiên để tích lũy XP và mở khóa chứng chỉ chuẩn hóa.</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="priority-task-item" style="padding: 16px;">
+            <div class="task-icon-box" style="width: 40px; height: 40px;">📄</div>
+            <div class="task-content">
+              <div class="task-badge-row"><span class="task-quest-pill">QUEST #1 • BÀI 1</span></div>
+              <div class="task-title" style="font-size: 14px;">Chỗ khuất của báo cáo, Bài 1: Tiền vào tài khoản không phải là doanh thu</div>
+              <div class="task-sub">Kế toán viên • 3 phút • +15 XP</div>
+            </div>
+            <a href="hoc-bai.html" class="tab-btn active" style="padding: 6px 14px; text-decoration: none;">Học ngay</a>
+          </div>
+
+          <div class="priority-task-item" style="padding: 16px;">
+            <div class="task-icon-box" style="width: 40px; height: 40px; background: #f0fdfa; color: #0d9488;">🏢</div>
+            <div class="task-content">
+              <div class="task-badge-row"><span class="task-quest-pill" style="background: #ccfbf1; color: #0f766e;">QUEST #2 • BÀI 3</span></div>
+              <div class="task-title" style="font-size: 14px;">Chỗ khuất của báo cáo, Bài 3: Lợi nhuận nằm ở quốc gia nào? Chuyển giá và thuế suất hiệu dụng</div>
+              <div class="task-sub">Kế toán viên • 9 phút • +25 XP</div>
+            </div>
+            <a href="hoc-bai.html" class="tab-btn active" style="padding: 6px 14px; text-decoration: none;">Học ngay</a>
+          </div>
+
+          <div class="priority-task-item" style="padding: 16px;">
+            <div class="task-icon-box" style="width: 40px; height: 40px;">📄</div>
+            <div class="task-content">
+              <div class="task-badge-row"><span class="task-quest-pill">QUEST #1 • BÀI 2</span></div>
+              <div class="task-title" style="font-size: 14px;">Kế toán là ngôn ngữ của kinh doanh: Đọc hiểu Bảng cân đối kế toán &amp; P&amp;L</div>
+              <div class="task-sub">Kế toán viên • 3 phút • +15 XP</div>
+            </div>
+            <a href="hoc-bai.html" class="tab-btn active" style="padding: 6px 14px; text-decoration: none;">Học ngay</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary View: Mục tiêu & Kỹ năng -->
+    <div id="tabContentSkills" style="display: none; margin-top: 10px;">
+      <div class="widget-card" style="padding: 24px;">
+        <h2 style="font-size: 18px; margin-bottom: 12px; color: #064e3b;">Ma trận Kỹ năng nghề nghiệp: Kế toán &amp; Kiểm soát</h2>
+        <p style="font-size: 13.5px; color: #64748b; margin-bottom: 20px;">Bộ kỹ năng tiêu chuẩn được định hình theo yêu cầu tuyển dụng thực tế của Big 4 và các tập đoàn lớn.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+          <div style="background: #f8faf8; border: 1px solid #e2e8e2; border-radius: 12px; padding: 16px;">
+            <div style="font-size: 12px; font-weight: 800; color: #059669; margin-bottom: 6px;">KỸ NĂNG 01</div>
+            <div style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Đọc hiểu &amp; Phân tích BCTC</div>
+            <p style="font-size: 12px; color: #64748b;">Nắm vững 3 báo cáo cốt lõi (BS, P&amp;L, Cash Flow) và các bút toán điều chỉnh.</p>
+            <div style="margin-top: 12px; font-size: 11px; font-weight: 700; color: #0f3a2c;">Tiến độ: 1/12 bài (8%)</div>
+          </div>
+
+          <div style="background: #f8faf8; border: 1px solid #e2e8e2; border-radius: 12px; padding: 16px;">
+            <div style="font-size: 12px; font-weight: 800; color: #059669; margin-bottom: 6px;">KỸ NĂNG 02</div>
+            <div style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Kiểm toán &amp; Kiểm soát nội bộ</div>
+            <p style="font-size: 12px; color: #64748b;">Quy trình audit, phát hiện gian lận số liệu, quản trị rủi ro thất thoát dòng tiền.</p>
+            <div style="margin-top: 12px; font-size: 11px; font-weight: 700; color: #0f3a2c;">Tiến độ: 0/18 bài (0%)</div>
+          </div>
+
+          <div style="background: #f8faf8; border: 1px solid #e2e8e2; border-radius: 12px; padding: 16px;">
+            <div style="font-size: 12px; font-weight: 800; color: #059669; margin-bottom: 6px;">KỸ NĂNG 03</div>
+            <div style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Lập kế hoạch FP&amp;A &amp; Dự báo</div>
+            <p style="font-size: 12px; color: #64748b;">Mô hình hóa ngân sách, variance analysis, rolling forecast và KPIs quản trị.</p>
+            <div style="margin-top: 12px; font-size: 11px; font-weight: 700; color: #0f3a2c;">Tiến độ: 0/15 bài (0%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ════════════ FLOATING FAB BUTTON ════════════ -->
+  <button class="fab-menu-btn" title="Menu nhanh" onclick="openRegionModal()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+    <span class="fab-badge">9+</span>
+  </button>
+
+  <!-- ════════════ MODAL: XEM TẤT CẢ VÙNG NGHỀ ════════════ -->
+  <div class="modal-backdrop" id="regionModal" onclick="if(event.target===this) closeRegionModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <div style="font-size: 10.5px; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.05em;">TỔNG QUAN HỆ THỐNG NGHỀ NGHIỆP</div>
+          <h2 style="font-size: 19px; font-weight: 800; color: #0f291e; margin-top: 2px;">Tất cả vùng nghề tài chính</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeRegionModal()">✕</button>
+      </div>
+
+      <div class="region-select-list">
+        <!-- Region 1: Active -->
+        <div class="region-select-card active" onclick="selectRegion('kt')">
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #0f291e;">1. Kế toán &amp; Kiểm soát</span>
+              <span class="badge-priority">ĐANG HỌC</span>
+            </div>
+            <div style="font-size: 11.5px; color: #4d6353; margin-top: 3px;">6 vai trò nghề • 195 bài học thực chiến • 1/195 hoàn thành</div>
+          </div>
+          <span style="font-size: 14px; font-weight: 800; color: #059669;">✓</span>
+        </div>
+
+        <!-- Region 2: Unlocked Next -->
+        <div class="region-select-card" onclick="selectRegion('data')">
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #0f291e;">2. Dữ liệu &amp; Công nghệ Tài chính (FinTech &amp; Data)</span>
+              <span style="background: #fef3c7; color: #b45309; font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 999px;">MỞ SAU 5 BÀI</span>
+            </div>
+            <div style="font-size: 11.5px; color: #4d6353; margin-top: 3px;">7 vai trò nghề • Python, SQL, Financial Modeling, Power BI</div>
+          </div>
+          <span style="font-size: 13px; color: #64748b;">›</span>
+        </div>
+
+        <!-- Region 3: Investment -->
+        <div class="region-select-card locked">
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #64748b;">3. Phân tích Đầu tư &amp; Quản lý Quỹ (IB &amp; Asset Management)</span>
+              <span>🔒</span>
+            </div>
+            <div style="font-size: 11.5px; color: #94a3b8; margin-top: 3px;">8 vai trò nghề • Cần đạt cấp Lvl 3 để mở khóa</div>
+          </div>
+        </div>
+
+        <!-- Region 4: Corporate Finance -->
+        <div class="region-select-card locked">
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #64748b;">4. Quản trị Tài chính Doanh nghiệp (Corporate Finance &amp; CFO)</span>
+              <span>🔒</span>
+            </div>
+            <div style="font-size: 11.5px; color: #94a3b8; margin-top: 3px;">6 vai trò nghề • Cần đạt cấp Lvl 3 để mở khóa</div>
+          </div>
+        </div>
+
+        <!-- Region 5: Banking -->
+        <div class="region-select-card locked">
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #64748b;">5. Ngân hàng &amp; Tín dụng Thương mại</span>
+              <span>🔒</span>
+            </div>
+            <div style="font-size: 11.5px; color: #94a3b8; margin-top: 3px;">6 vai trò nghề • Cần đạt cấp Lvl 4 để mở khóa</div>
+          </div>
+        </div>
+
+        <!-- Region 6: Consulting -->
+        <div class="region-select-card locked">
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #64748b;">6. Tư vấn Chiến lược &amp; Quản trị Doanh nghiệp</span>
+              <span>🔒</span>
+            </div>
+            <div style="font-size: 11.5px; color: #94a3b8; margin-top: 3px;">6 vai trò nghề • Cần đạt cấp Lvl 4 để mở khóa</div>
+          </div>
+        </div>
+
+        <!-- Region 7: Wealth Management -->
+        <div class="region-select-card locked">
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 14.5px; font-weight: 800; color: #64748b;">7. Tài chính Cá nhân &amp; Wealth Management</span>
+              <span>🔒</span>
+            </div>
+            <div style="font-size: 11.5px; color: #94a3b8; margin-top: 3px;">5 vai trò nghề • Cần đạt cấp Lvl 5 để mở khóa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ MODAL: CHI TIẾT VAI TRÒ NGHỀ ════════════ -->
+  <div class="modal-backdrop" id="roleModal" onclick="if(event.target===this) closeRoleModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <div style="font-size: 10.5px; font-weight: 800; color: #059669; text-transform: uppercase;" id="modalRoleTag">QUEST #1 • VAI TRÒ NGHỀ</div>
+          <h2 style="font-size: 20px; font-weight: 800; color: #0f291e; margin-top: 2px;" id="modalRoleTitle">Kế toán viên (General Accountant)</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeRoleModal()">✕</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="background: #f8faf8; border: 1px solid #e2e8e2; border-radius: 12px; padding: 14px;">
+          <div style="font-size: 11.5px; font-weight: 800; color: #064e3b; margin-bottom: 4px;">MÔ TẢ VAI TRÒ &amp; MỤC TIÊU ĐÀO TẠO</div>
+          <p style="font-size: 12.5px; color: #4d6353; line-height: 1.5;" id="modalRoleDesc">
+            Làm chủ hệ thống chứng từ, hạch toán các nghiệp vụ kinh tế phát sinh, lập bảng cân đối số phát sinh và bộ Báo cáo tài chính chuẩn mực theo VAS/IFRS.
+          </p>
+        </div>
+
+        <div>
+          <div style="font-size: 12px; font-weight: 800; color: #14281b; margin-bottom: 8px;">KỸ NĂNG CỐT LÕI YÊU CẦU</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;" id="modalRoleSkills">
+            <span style="background: #e6f7ee; color: #059669; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;">Hạch toán VAS</span>
+            <span style="background: #e6f7ee; color: #059669; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;">Báo cáo Thuế</span>
+            <span style="background: #e6f7ee; color: #059669; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;">Excel &amp; ERP</span>
+            <span style="background: #e6f7ee; color: #059669; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;">Kiểm kê dòng tiền</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-size: 12px; font-weight: 700; color: #64748b;">Tiến độ: <strong style="color: #059669;" id="modalRoleProgress">1/89 bài xong (1%)</strong></div>
+          <a href="hoc-bai.html" class="tab-btn active" style="text-decoration: none; padding: 8px 20px;">Vào học ngay →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ JAVASCRIPT LOGIC ════════════ -->
+  <script>
+    // Tab switching
+    function switchTab(tab) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(t => t.classList.remove('active'));
+      
+      document.getElementById('tabContentMap').style.display = 'none';
+      document.getElementById('tabContentTasks').style.display = 'none';
+      document.getElementById('tabContentSkills').style.display = 'none';
+
+      if (tab === 'map') {
+        tabs[0].classList.add('active');
+        document.getElementById('tabContentMap').style.display = 'grid';
+      } else if (tab === 'tasks') {
+        tabs[1].classList.add('active');
+        document.getElementById('tabContentTasks').style.display = 'block';
+      } else if (tab === 'skills') {
+        tabs[2].classList.add('active');
+        document.getElementById('tabContentSkills').style.display = 'block';
+      }
+    }
+
+    // Role modal data
+    const ROLES = {
+      ktv: {
+        tag: 'QUEST #1 • VAI TRÒ NGHỀ',
+        title: 'Kế toán viên (General Accountant)',
+        desc: 'Làm chủ hệ thống chứng từ, hạch toán các nghiệp vụ kinh tế phát sinh, lập bảng cân đối số phát sinh và bộ Báo cáo tài chính chuẩn mực theo VAS/IFRS.',
+        skills: ['Hạch toán VAS', 'Báo cáo Thuế', 'Excel & ERP', 'Kiểm kê dòng tiền'],
+        prog: '1/89 bài xong (1%)'
+      },
+      ktvv: {
+        tag: 'QUEST #2 • VAI TRÒ NGHỀ',
+        title: 'Kiểm toán viên (Auditor / Assurance)',
+        desc: 'Quy trình kiểm toán độc lập, thu thập bằng chứng kiểm toán, thử nghiệm kiểm soát và đánh giá rủi ro gian lận báo cáo tài chính.',
+        skills: ['Audit Procedures', 'Substantive Testing', 'Internal Controls', 'Big 4 Methodologies'],
+        prog: '1/136 bài xong (1%)'
+      },
+      fpa: {
+        tag: 'QUEST #3 • VAI TRÒ NGHỀ',
+        title: 'FP&A (Kế hoạch & Phân tích Tài chính)',
+        desc: 'Xây dựng mô hình tài chính dự báo ngân sách (Budgeting & Forecasting), phân tích chênh lệch Variance Analysis và đề xuất tối ưu hóa chi phí cho Ban Giám đốc.',
+        skills: ['Financial Modeling', 'Variance Analysis', 'Rolling Forecast', 'Business Partnering'],
+        prog: '1/122 bài xong (1%)'
+      },
+      ktt: {
+        tag: 'QUEST #4 • VAI TRÒ NGHỀ',
+        title: 'Kế toán trưởng / Giám đốc Tài chính (CFO)',
+        desc: 'Chiến lược cấu trúc vốn, quản trị rủi ro thanh khoản, tối ưu hóa chính sách thuế và chỉ đạo vận hành bộ máy kế toán tài chính toàn diện.',
+        skills: ['Treasury Management', 'Capital Allocation', 'Tax Planning', 'C-Level Decision Making'],
+        prog: '1/119 bài xong (1%)'
+      },
+      tvt: {
+        tag: 'QUEST #5 • VAI TRÒ NGHỀ',
+        title: 'Chuyên viên Tư vấn Thuế & Tài chính (Tax Consultant)',
+        desc: 'Tư vấn tuân thủ pháp luật thuế, hiệp định tránh đánh thuế 2 lần, chuyển giá (Transfer Pricing) và cấu trúc giao dịch M&A hiệu quả.',
+        skills: ['CIT & VAT Compliance', 'Transfer Pricing', 'M&A Tax Due Diligence', 'Cross-border Tax'],
+        prog: '1/116 bài xong (1%)'
+      },
+      ktqt: {
+        tag: 'QUEST #6 • VAI TRÒ NGHỀ',
+        title: 'Chuyên viên Kế toán Quản trị (Management Accountant)',
+        desc: 'Thiết lập hệ thống tính giá thành sản phẩm (Cost Accounting), phân tích điểm hòa vốn, phân bổ định phí - biến phí phục vụ quyết định định giá.',
+        skills: ['Cost Accounting', 'Activity-Based Costing', 'Break-even Analysis', 'KPI Dashboard'],
+        prog: '1/119 bài xong (1%)'
+      }
+    };
+
+    function openRoleModal(key) {
+      const r = ROLES[key];
+      if (!r) return;
+      document.getElementById('modalRoleTag').innerText = r.tag;
+      document.getElementById('modalRoleTitle').innerText = r.title;
+      document.getElementById('modalRoleDesc').innerText = r.desc;
+      document.getElementById('modalRoleProgress').innerText = r.prog;
+      document.getElementById('modalRoleSkills').innerHTML = r.skills.map(s => `<span style="background: #e6f7ee; color: #059669; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;">${s}</span>`).join('');
+      document.getElementById('roleModal').classList.add('active');
+    }
+
+    function closeRoleModal() {
+      document.getElementById('roleModal').classList.remove('active');
+    }
+
+    function openRegionModal() {
+      document.getElementById('regionModal').classList.add('active');
+    }
+
+    function closeRegionModal() {
+      document.getElementById('regionModal').classList.remove('active');
+    }
+
+    function selectRegion(reg) {
+      if (reg === 'kt') {
+        closeRegionModal();
+      } else if (reg === 'data') {
+        alert('Vùng Dữ liệu & Công nghệ Tài chính sẽ mở sau khi bạn hoàn thành thêm 5 bài học nữa!');
+      }
+    }
+
+    function openInfoModal() {
+      alert('Lộ trình sự nghiệp được chuẩn hóa theo chuẩn năng lực ngành tài chính - kế toán quốc tế (ACCA, CFA, CMA, CIMA). Đi theo từng Quest trên bản đồ để mở khóa kiến thức và kỹ năng thực chiến!');
+    }
+  </script>
+</body>
+</html>

@@ -229,7 +229,7 @@ function nextLesson(){
   if(inProg.length) return window.LESSON_BY_ID[inProg[0][0]];
   const order = careerTrackOrder();
   for(const t of order){
-    const l = window.LESSONS.find(x=>x.track===t && lessonStatus(x.id)!=="done");
+    const l = window.LESSONS.find(x=>x.track===t && !x.soon && lessonStatus(x.id)!=="done");
     if(l) return l;
   }
   return null;
@@ -241,8 +241,11 @@ function careerTrackOrder(){
 }
 function nextLessonAfter(id){
   const i = window.LESSONS.findIndex(l=>l.id===id);
-  const l = window.LESSONS[i+1];
-  return l && l.track===window.LESSONS[i].track ? l : null;
+  if(i<0) return null;
+  const track = window.LESSONS[i].track;
+  /* bỏ qua bài đang biên soạn: chỉ dẫn người học tới bài đã có nội dung */
+  const l = window.LESSONS.slice(i+1).find(x=>x.track===track && !x.soon);
+  return l || null;
 }
 
 const caseRec = id => S.cases[id] || null;
@@ -302,6 +305,15 @@ function toggleCheck(lessonId, i){
   const r = touchLesson(lessonId);
   r.chk[i] = !r.chk[i]; save();
 }
+/* Tiến độ đọc bài đọc: chỉ tăng, không giảm khi cuộn ngược */
+function setReadPct(id, pct){
+  const r = S.lessons[id] || (S.lessons[id] = {status:"not_started", quiz:{}, chk:[]});
+  const v = Math.max(0, Math.min(100, Math.round(pct)));
+  if((r.readPct||0) >= v) return r.readPct||0;
+  r.readPct = v; if(r.status==="not_started") r.status="in_progress";
+  save(); return v;
+}
+const readPct = id => (S.lessons[id]||{}).readPct || 0;
 function completeLesson(id){
   const r = touchLesson(id);
   if(r.status==="done") return false;
@@ -370,7 +382,7 @@ function seedDemo(){
   for(let i=13;i>=1;i--) if(i!==7 && i!==12 && i!==13) dates.push(addDays(today(),-i));
   let di = 0;
   window.TRACKS.forEach(t=>{
-    const ls = window.LESSONS.filter(l=>l.track===t.id && l.id!=="f-profit-2");   // bài này để dạng đang học dở
+    const ls = window.LESSONS.filter(l=>l.track===t.id && !l.soon && l.id!=="f-profit-2");   // bài này để dạng đang học dở
     const n = Math.round((ls.length+(t.id==="fundamentals"?1:0))*pct[t.id]/100);
     ls.slice(0,n).forEach(l=>{
       const at = dates[di++ % dates.length];
@@ -417,7 +429,7 @@ window.State = {
   xpTotal, xpWeek, xpPrevWeek, level, streak, bestStreak, weekStrip,
   lessonStatus, lessonRec, trackStats, moduleStats, overall, nextLesson, nextLessonAfter, careerTrackOrder,
   caseRec, casesSolved, avgScore, openMistakes, mistakesByKind, reviewQueue, dueToday, missions, careerProgress,
-  touchLesson, answerQuiz, toggleCheck, completeLesson, recordAttempt, saveDraft,
+  touchLesson, answerQuiz, toggleCheck, completeLesson, recordAttempt, saveDraft, setReadPct, readPct,
   addMistake, reviewMistake, resolveMistake, setCareer, setName,
   getReaderPrefs, setReaderFontSize, setReaderTheme, isBookmarked, toggleBookmark,
   getLessonNote, setLessonNote, getDailyChallenge, answerDailyChallenge,
