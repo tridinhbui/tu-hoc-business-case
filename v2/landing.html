@@ -3,274 +3,1689 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CASELAB — Học business case bằng cách làm case</title>
-<meta name="description" content="Bài học có bài tập tính toán và đáp án, 17 đề case có exhibit và bộ chấm 6 tiêu chí, phòng thi competition và phỏng vấn consulting 5 vòng. Học bằng tiếng Việt, thuật ngữ giữ tiếng Anh.">
+<title>TỰ HỌC TÀI CHÍNH & BUSINESS CASE — Nền tảng thực chiến thế hệ mới</title>
+<meta name="description" content="Hơn 880+ bài học tương tác, 100+ đề case có bài tập thực hành, miễn phí vĩnh viễn. Học từ cơ bản tới chuyên sâu, phân tích tình huống thực tế và tích lũy XP.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/app.css?v=35">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css?v=36">
 <style>
-  /* Trang landing chỉ được thêm LAYOUT. Mọi màu/bán kính/bóng đều lấy từ
-     globals (app.css) — nếu ở đây xuất hiện một mã màu hex, đó là dấu hiệu
-     một hệ thiết kế thứ hai đang hình thành. */
-  .ld{max-width:1120px;margin:0 auto;padding:0 28px}
-  .ld-top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);
-    backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-  .ld-top .in{display:flex;align-items:center;gap:22px;height:66px}
-  .ld-top nav{display:flex;gap:22px;margin-left:auto}
-  .ld-top nav a{font-size:13px;font-weight:700;color:var(--muted);transition:.2s ease-out}
-  .ld-top nav a:hover{color:var(--text)}
-  .brand{display:flex;align-items:center;gap:10px}
-  .brand .mk{width:32px;height:32px;border-radius:var(--radius-control);background:var(--stone-900);
-    color:#FAFAF9;display:grid;place-items:center;font-size:12px;font-weight:800;letter-spacing:.04em}
-  :root[data-theme="dark"] .brand .mk{background:var(--primary);color:var(--stone-950)}
-  .brand b{font-size:15px;font-weight:800;letter-spacing:.01em}
-  .brand span{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--muted-2);font-weight:700}
+/* ═══════════════════════════════════════════════════════════════════════════
+   LANDING PAGE STYLES — PIXEL-PERFECT REPLICA OF THE REFERENCE DESIGN
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --ld-bg: #FBFBF9;
+  --ld-surface: #FFFFFF;
+  --ld-emerald-deep: #064E3B;
+  --ld-emerald: #059669;
+  --ld-emerald-light: #10B981;
+  --ld-emerald-soft: #ECFDF5;
+  --ld-emerald-border: #A7F3D0;
+  --ld-amber: #F59E0B;
+  --ld-amber-soft: #FEF3C7;
+  --ld-rose: #E11D48;
+  --ld-rose-soft: #FFF1F2;
+  --ld-text: #1C1917;
+  --ld-muted: #6B7280;
+  --ld-border: #E5E7EB;
+}
 
-  /* NGOẠI LỆ DUY NHẤT về font trong toàn sản phẩm: tiêu đề cửa vào.
-     Dùng class riêng, KHÔNG ghi đè token font để làm việc này. */
-  .font-entrance{font-family:var(--font-entrance);font-weight:400;letter-spacing:-.02em}
+body {
+  background: var(--ld-bg);
+  color: var(--ld-text);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
 
-  .hero{padding:84px 0 64px;display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center}
-  .hero h1{font-size:52px;line-height:1.08;margin:16px 0 18px}
-  .hero h1 em{font-style:italic;color:var(--primary-hover)}
-  .hero p.lead{font-size:16.5px;line-height:1.65;font-weight:500;color:var(--text-2);max-width:56ch;margin:0}
-  .hero .row{margin-top:28px;gap:12px;flex-wrap:wrap}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);
-    border-radius:var(--radius-card);background:var(--surface);margin-top:36px;box-shadow:var(--shadow-card)}
-  .stats div{padding:16px 18px;border-left:1px solid var(--border)}
-  .stats div:first-child{border-left:0}
-  .stats .n{font-size:25px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-  .stats .k{font-size:11.5px;font-weight:600;color:var(--muted);margin-top:2px}
+/* ── 1. TOP ANNOUNCEMENT BAR ── */
+.top-announcement {
+  background: var(--ld-emerald-deep);
+  color: #ECFDF5;
+  font-size: 13px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  text-align: center;
+  z-index: 50;
+}
+.top-announcement-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34D399;
+  display: inline-block;
+  flex: none;
+}
+.top-announcement a {
+  color: #FDE047;
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 4px;
+}
+.top-announcement a:hover {
+  text-decoration: underline;
+}
+.top-announcement-close {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #A7F3D0;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
 
-  .shot{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);
-    box-shadow:var(--shadow-pop);overflow:hidden}
-  .shot>.bar{display:flex;align-items:center;gap:6px;padding:11px 14px;border-bottom:1px solid var(--border);
-    background:var(--surface-2);height:auto;border-radius:0}
-  .shot>.bar i{width:9px;height:9px;border-radius:var(--radius-pill);background:var(--border-2);display:block}
-  .shot>.bar span{margin-left:8px;font-size:11px;font-weight:700;color:var(--muted-2)}
-  .shot .body{padding:18px}
+/* ── 2. NAVBAR ── */
+.ld-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(251, 251, 249, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+}
+.ld-nav-in {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ld-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ld-emerald-deep);
+}
+.ld-brand-logo {
+  font-size: 22px;
+}
+.ld-brand-name {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ld-emerald-deep);
+}
+.ld-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.ld-login-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ld-text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.ld-login-link:hover {
+  color: var(--ld-emerald);
+}
+.ld-btn-primary {
+  background: #0F5132;
+  color: #FFFFFF;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(15, 81, 50, 0.2);
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+.ld-btn-primary:hover {
+  background: #0B3D26;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(15, 81, 50, 0.3);
+}
 
-  .sec{padding:64px 0}
-  .sec h2{font-size:29px;letter-spacing:-.028em}
-  .sec .sub{color:var(--muted);margin:9px 0 0;max-width:68ch;font-size:14.5px;font-weight:500}
-  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
-  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:28px}
-  .flow .s{border:1px solid var(--border);border-radius:var(--radius-card);background:var(--surface);
-    padding:16px;box-shadow:var(--shadow-card)}
-  .flow .s .i{width:27px;height:27px;border-radius:9px;background:var(--primary-soft);color:var(--primary-hover);
-    display:grid;place-items:center;font-weight:800;font-size:12px;margin-bottom:10px}
-  .flow .s b{font-size:13.5px;display:block;font-weight:800}
-  .flow .s p{font-size:12.5px;color:var(--muted);margin:5px 0 0;line-height:1.5;font-weight:500}
+/* ── 3. HERO SECTION ── */
+.ld-hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 56px 24px 72px;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+}
+@media(max-width: 1024px) {
+  .ld-hero {
+    grid-template-columns: 1fr;
+    padding: 36px 20px 48px;
+  }
+}
 
-  .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
-  .faq{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.hero-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--ld-emerald-soft);
+  border: 1px solid var(--ld-emerald-border);
+  color: var(--ld-emerald);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+}
+.hero-headline {
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--ld-text);
+  margin: 0 0 20px;
+}
+.hero-headline .hl-green {
+  color: #047857;
+  position: relative;
+}
+.hero-subhead {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #4B5563;
+  margin: 0 0 32px;
+  max-width: 540px;
+  font-weight: 500;
+}
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.hero-btn-main {
+  background: #0F5132;
+  color: #FFF;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(15, 81, 50, 0.25);
+  transition: all 0.2s ease;
+}
+.hero-btn-main:hover {
+  background: #0B3D26;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 81, 50, 0.35);
+}
+.hero-btn-outline {
+  background: #FFFFFF;
+  color: #374151;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid #D1D5DB;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  transition: all 0.2s ease;
+}
+.hero-btn-outline:hover {
+  background: #F9FAFB;
+  border-color: #9CA3AF;
+}
 
-  /* Dải mực: một mặt phẳng, không gradient, không ảnh phủ — để nó đọc như một
-     trang giấy khác màu trong cùng cuốn sách, chứ không như một app khác. */
-  .cta{padding:72px 0 76px;text-align:center}
-  .cta h2{font-size:34px;letter-spacing:-.03em}
-  .cta .sub{margin:12px auto 24px}
-  .cta .btn{background:transparent;color:#F5F5F4;border-color:rgba(245,245,244,.28);box-shadow:none}
-  .cta .btn:hover{background:rgba(245,245,244,.08);border-color:rgba(245,245,244,.45)}
-  .cta .btn-p{background:var(--primary);border-color:var(--primary);color:#fff}
-  .cta .btn-p:hover{background:var(--primary-hover);border-color:var(--primary-hover)}
+/* Hero Stats Ribbon */
+.hero-stats-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 18px;
+  padding: 18px 22px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 24px;
+  max-width: 520px;
+}
+.hero-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-stat-icon {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #F3F4F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.hero-stat-val {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--ld-text);
+  line-height: 1.2;
+}
+.hero-stat-lbl {
+  font-size: 12px;
+  color: var(--ld-muted);
+  font-weight: 600;
+}
 
-  .foot{padding:28px 0 44px;color:var(--muted);font-size:12.5px;font-weight:500}
+/* Left milestone decoration */
+.hero-milestone-decor {
+  position: absolute;
+  left: -20px;
+  bottom: 0px;
+  opacity: 0.15;
+  pointer-events: none;
+  font-size: 120px;
+  line-height: 1;
+  z-index: 0;
+}
 
-  /* Con của grid mặc định có min-width:auto — một bảng bên trong sẽ tự nong
-     cột rộng hơn màn hình. Kẹp lại, và cho riêng bảng cuộn ngang trong khung. */
-  .hero>*{min-width:0}
-  .shot .body{overflow-x:auto}
+/* ── 4. RIGHT HERO INTERACTIVE SANDBOX ── */
+.hero-sandbox-wrap {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.sandbox-top-badges {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.badge-live {
+  background: #ECFDF5;
+  color: #059669;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.badge-stage-pill {
+  background: #FEF3C7;
+  color: #D97706;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.sandbox-lesson-meta {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #059669;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.sandbox-lesson-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ld-text);
+  margin: 0 0 18px;
+}
+.sandbox-selector-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.sandbox-sel-label {
+  font-size: 12px;
+  color: var(--ld-muted);
+  font-weight: 600;
+}
+.sandbox-stock-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  font-size: 12px;
+  font-weight: 700;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sandbox-stock-btn.active {
+  background: #ECFDF5;
+  border-color: #059669;
+  color: #059669;
+}
+.sandbox-calc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.sandbox-calc-box {
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 12px 10px;
+  text-align: center;
+}
+.sandbox-calc-box.highlight {
+  background: #ECFDF5;
+  border-color: #10B981;
+}
+.sandbox-calc-lbl {
+  font-size: 11px;
+  color: var(--ld-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.sandbox-calc-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ld-text);
+}
+.sandbox-calc-box.highlight .sandbox-calc-val {
+  color: #059669;
+}
 
-  @media(max-width:960px){ .hero{grid-template-columns:1fr;padding-top:52px} .hero h1{font-size:38px}
-    .cards3,.flow,.tracks,.faq,.stats{grid-template-columns:1fr 1fr} .ld-top nav{display:none} }
-  @media(max-width:620px){ .cards3,.flow,.tracks,.faq,.stats{grid-template-columns:1fr}
-    .ld{padding:0 18px} .ld-top .in{gap:10px} .brand>span>span:last-child{display:none}
-    .ld-top .in .btn{padding:7px 12px;font-size:12px}
-    .stats div{border-left:0;border-top:1px solid var(--border)} .stats div:first-child{border-top:0}
-    .hero h1{font-size:33px} .cta h2{font-size:26px} .hero{padding-top:36px} }
+/* Stepper dots */
+.sandbox-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+.sandbox-step-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #9CA3AF;
+}
+.sandbox-step-item.active {
+  color: #059669;
+}
+.sandbox-step-item.current {
+  color: #D97706;
+}
+.step-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  background: #E5E7EB;
+  color: #6B7280;
+}
+.sandbox-step-item.active .step-dot {
+  background: #059669;
+  color: #FFF;
+}
+.sandbox-step-item.current .step-dot {
+  background: #F59E0B;
+  color: #FFF;
+}
+
+/* Quick Challenge Subcard */
+.sandbox-quiz-card {
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.sandbox-quiz-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.sandbox-quiz-t {
+  font-size: 11px;
+  font-weight: 800;
+  color: #059669;
+  letter-spacing: 0.03em;
+}
+.sandbox-quiz-xp {
+  font-size: 11px;
+  font-weight: 800;
+  color: #D97706;
+  background: #FEF3C7;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.sandbox-quiz-q {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ld-text);
+  margin-bottom: 12px;
+}
+.sandbox-quiz-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  background: #FFFFFF;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sandbox-quiz-opt:last-child {
+  margin-bottom: 0;
+}
+.sandbox-quiz-opt.correct {
+  border-color: #059669;
+  background: #ECFDF5;
+  color: #064E3B;
+}
+
+/* Pro tip callout */
+.sandbox-tip-box {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #92400E;
+  margin-bottom: 16px;
+}
+
+/* Sandbox Bottom Strip */
+.sandbox-footer-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4B5563;
+  padding-top: 14px;
+  border-top: 1px solid #E5E7EB;
+}
+
+/* ── 5. FLOATING AI BOT WIDGET ── */
+.floating-ai-bot {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  width: 320px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  animation: botSlideUp 0.4s ease-out;
+}
+@keyframes botSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.bot-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #F3F4F6;
+  background: #FAF5FF;
+}
+.bot-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ECFDF5;
+  border: 1.5px solid #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex: none;
+}
+.bot-title-group {
+  flex: 1;
+  min-width: 0;
+}
+.bot-badge-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #059669;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.bot-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ld-text);
+  line-height: 1.2;
+}
+.bot-sub {
+  font-size: 10.5px;
+  color: #9CA3AF;
+}
+.bot-body {
+  padding: 16px;
+}
+.bot-bubble {
+  background: #ECFDF5;
+  border: 1px solid #D1FAE5;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #064E3B;
+  margin-bottom: 14px;
+}
+.bot-btn-cta {
+  width: 100%;
+  background: #0F5132;
+  color: #FFFFFF;
+  padding: 11px 16px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(15, 81, 50, 0.2);
+  transition: background 0.15s;
+  text-decoration: none;
+}
+.bot-btn-cta:hover {
+  background: #0B3D26;
+}
+.bot-footer-text {
+  font-size: 10.5px;
+  color: #9CA3AF;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* ── 6. SECTION 2: AUDIENCE / PERSONA SELECTOR ── */
+.sec-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+.sec-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #059669;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.sec-title {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--ld-text);
+  margin: 0 0 12px;
+}
+.sec-subhead {
+  font-size: 15.5px;
+  color: #4B5563;
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 0 48px;
+}
+
+.persona-layout-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 32px;
+  align-items: stretch;
+}
+@media(max-width: 960px) {
+  .persona-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.persona-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.persona-nav-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.persona-nav-card:hover {
+  border-color: #9CA3AF;
+  background: #F9FAFB;
+}
+.persona-nav-card.active {
+  border-color: #059669;
+  background: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.08);
+}
+.persona-badge-num {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #F3F4F6;
+  color: #4B5563;
+}
+.persona-nav-card.active .persona-badge-num {
+  background: #059669;
+  color: #FFFFFF;
+}
+.persona-info {
+  flex: 1;
+  min-width: 0;
+}
+.persona-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ld-text);
+  margin-bottom: 2px;
+}
+.persona-desc-short {
+  font-size: 12.5px;
+  color: #6B7280;
+}
+.persona-icon-decor {
+  font-size: 20px;
+  color: #9CA3AF;
+}
+.persona-nav-card.active .persona-icon-decor {
+  color: #059669;
+}
+
+/* Persona Preview Card */
+.persona-showcase-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.showcase-header-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.showcase-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #FEF3C7;
+  color: #B45309;
+}
+.showcase-step-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9CA3AF;
+}
+.showcase-main-h {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ld-text);
+  margin: 0 0 6px;
+}
+.showcase-sub-h {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 16px;
+}
+.showcase-body-text {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #4B5563;
+  margin-bottom: 24px;
+}
+.showcase-streak-banner {
+  background: #18181B;
+  border-radius: 16px;
+  padding: 20px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.showcase-streak-banner::after {
+  content: ;
+  position: absolute;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(245,158,11,0.4) 0%, transparent 70%);
+}
+.streak-title-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #FBBF24;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.streak-art {
+  font-size: 36px;
+  filter: drop-shadow(0 0 10px #F59E0B);
+}
+
+/* ── 7. SECTION 3: SIMULATION & PRACTICE MAP ── */
+.map-terminal-frame {
+  background: #12151A;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  border: 1px solid #2A303C;
+}
+.map-terminal-top {
+  background: #1A1F2B;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #2A303C;
+}
+.map-user-tag {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #E2E8F0;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.map-badge-online {
+  background: #064E3B;
+  color: #34D399;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.map-top-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.map-stat-coin {
+  color: #FBBF24;
+  background: #2D2305;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #78350F;
+}
+.map-stat-energy {
+  color: #38BDF8;
+}
+.map-btn-route {
+  background: #D97706;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Ticker bar */
+.map-ticker-strip {
+  background: #0D1117;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 11.5px;
+  color: #94A3B8;
+  border-bottom: 1px solid #1E293B;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.ticker-badge {
+  font-weight: 800;
+  color: #38BDF8;
+  letter-spacing: 0.04em;
+}
+.ticker-green {
+  color: #34D399;
+  font-weight: 700;
+}
+
+/* Map Canvas */
+.map-canvas-area {
+  padding: 48px 24px;
+  background: radial-gradient(circle at center, #1E2433 0%, #0F131C 100%);
+  position: relative;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.map-nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+  z-index: 10;
+}
+@media(max-width: 768px) {
+  .map-nodes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.map-node-card {
+  background: #181E29;
+  border: 1px solid #2D3748;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.map-node-card:hover, .map-node-card.selected {
+  border-color: #10B981;
+  background: #1C2433;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+.map-node-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #242D3D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex: none;
+}
+.map-node-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #34D399;
+  text-transform: uppercase;
+}
+.map-node-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+/* Map HUD Bottom */
+.map-hud-bottom {
+  background: #151A24;
+  padding: 18px 24px;
+  border-top: 1px solid #2A303C;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+@media(max-width: 640px) {
+  .map-hud-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.map-hud-left {
+  font-size: 12.5px;
+  color: #94A3B8;
+}
+.map-hud-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #F8FAFC;
+  margin-bottom: 2px;
+}
+
+/* ── 8. SECTION 4: THE LEARNING ECOSYSTEM ── */
+.eco-tabs-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.eco-tab-btn {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #4B5563;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s;
+}
+.eco-tab-btn.active {
+  background: #0F5132;
+  color: #FFFFFF;
+  border-color: #0F5132;
+  box-shadow: 0 4px 14px rgba(15, 81, 50, 0.2);
+}
+
+.eco-showcase-box {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.04);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+@media(max-width: 960px) {
+  .eco-showcase-box {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+}
+.eco-left-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ld-text);
+  margin: 0 0 14px;
+  line-height: 1.3;
+}
+.eco-left-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #4B5563;
+  margin-bottom: 24px;
+}
+.eco-proof-card {
+  background: #FAF5FF;
+  border: 1px solid #E9D5FF;
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.eco-proof-lbl {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #6B21A8;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.eco-proof-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.proof-m-item {
+  font-size: 12px;
+  color: #6B7280;
+}
+.proof-m-item b {
+  display: block;
+  font-size: 15px;
+  color: var(--ld-text);
+  margin-top: 2px;
+}
+.proof-m-item b.red {
+  color: #E11D48;
+}
+
+/* Right Financial Table */
+.eco-table-card {
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 20px;
+}
+.eco-table-header {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--ld-text);
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+.eco-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.eco-data-table tr {
+  border-bottom: 1px solid #E5E7EB;
+}
+.eco-data-table td {
+  padding: 10px 0;
+  color: #374151;
+}
+.eco-data-table td.num {
+  text-align: right;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.eco-data-table td.red {
+  color: #E11D48;
+}
+.cfo-highlight-row {
+  background: #FFF1F2;
+  font-weight: 800;
+}
+.cfo-highlight-row td {
+  padding: 12px 10px;
+  color: #BE123C;
+}
+
+/* ── 9. CTA & FOOTER ── */
+.ld-bottom-cta {
+  background: #064E3B;
+  color: #FFF;
+  padding: 80px 24px;
+  text-align: center;
+  border-radius: 32px;
+  max-width: 1280px;
+  margin: 0 auto 60px;
+}
+.ld-bottom-cta h2 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
+}
+.ld-bottom-cta p {
+  font-size: 16px;
+  color: #A7F3D0;
+  margin: 0 auto 32px;
+  max-width: 580px;
+}
+.ld-footer {
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 13px;
+  color: #6B7280;
+  border-top: 1px solid #E5E7EB;
+}
 </style>
-<script>
-/* Theme boot — chạy trước khi paint để không nháy trắng.
-   Không đặt data-theme nếu người dùng chưa chọn: khi đó prefers-color-scheme quyết định. */
-(function(){try{var t=localStorage.getItem("caselab.theme");
-if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
-function toggleTheme(){
-  var r=document.documentElement,cur=r.getAttribute("data-theme");
-  if(!cur)cur=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
-  var next=cur==="dark"?"light":"dark";
-  r.setAttribute("data-theme",next);
-  try{localStorage.setItem("caselab.theme",next);}catch(e){}
-  paintThemeBtn();
-}
-function paintThemeBtn(){
-  var b=document.getElementById("themeBtn"); if(!b)return;
-  var r=document.documentElement.getAttribute("data-theme")
-      ||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
-  b.textContent = r==="dark" ? "☀" : "☾";
-  b.title = r==="dark" ? "Chuyển sang nền sáng" : "Chuyển sang nền tối";
-}
-addEventListener("DOMContentLoaded",paintThemeBtn);
-</script>
 </head>
 <body>
 
-<header class="ld-top"><div class="ld in">
-  <a class="brand" href="#"><span class="mk">CL</span><span><b>CASELAB</b><span>Case training studio</span></span></a>
-  <nav>
-    <a href="#cach-hoc">Cách học</a><a href="#noi-dung">Nội dung</a><a href="#vi-du">Ví dụ</a><a href="#cau-hoi">Câu hỏi</a>
-  </nav>
-  <span id="langBox" style="margin-left:8px"></span>
-  <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Đổi nền sáng/tối" style="margin-left:8px">☾</button>
-  <a class="btn btn-p btn-sm" href="index.html#/dashboard">Vào học</a>
-</div></header>
+<!-- 1. TOP ANNOUNCEMENT BAR -->
+<div class=top-announcement id=topAnnouncement>
+  <span class=top-announcement-dot></span>
+  <span>Cam kết toàn bộ bài học tại đây <b>miễn phí mãi mãi</b> vì sự phát triển của cộng đồng học tài chính cá nhân, CFA, lập kế hoạch tài chính, đầu tư &amp; business case...</span>
+  <a href="https://facebook.com" target="_blank">Tham gia group Facebook →</a>
+  <button class="top-announcement-close" onclick="document.getElementById('topAnnouncement').style.display='none'">✕</button>
+</div>
+
+<!-- 2. NAVBAR -->
+<header class="ld-nav">
+  <div class="ld-nav-in">
+    <a class="ld-brand" href="#">
+      <span class="ld-brand-logo">🌱</span>
+      <span class="ld-brand-name">TỰ HỌC TÀI CHÍNH</span>
+    </a>
+    <div class="ld-nav-actions">
+      <a class="ld-login-link" href="index.html#/settings">Đăng nhập</a>
+      <a class="ld-btn-primary" href="index.html#/dashboard">
+        Vào học ngay <span style="font-size:16px">→</span>
+      </a>
+    </div>
+  </div>
+</header>
 
 <main>
-  <section class="band band-bleed band-paper band-divider paper-grain"><div class="ld hero">
-    <div>
-      <div class="lbl-b" style="color:var(--primary-hover)">Business case training studio</div>
-      <h1 class="font-entrance">Học case bằng <em>cách làm case</em></h1>
-      <p class="lead">Không video, không lý thuyết suông. Mỗi bài học kết thúc bằng một output thật — một phép tính, một slide, một khuyến nghị — rồi bạn mang nó vào một đề case có exhibit và bộ chấm.</p>
-      <div class="row">
-        <a class="btn btn-p btn-lg" href="index.html#/dashboard">Bắt đầu học — miễn phí</a>
-        <a class="btn btn-lg" href="index.html#/lesson/f-profit-2">Xem thử một bài học</a>
+  <!-- 3. HERO SECTION -->
+  <section class="ld-hero">
+    <div class="hero-left-col">
+      <div class="hero-tag-pill">
+        <span>🌱</span> LỘ TRÌNH TÀI CHÍNH TỪ CON SỐ 0 • BẢN SẮC VIỆT NAM 🇻🇳
       </div>
-      <div class="stats" id="stats"></div>
+      <h1 class="hero-headline">
+        Tự học <span class="hl-green">tài chính</span>🌱<br>
+        từ con số <span class="hl-green">0</span> ,<br>
+        nền tảng <span class="hl-green">thế hệ mới</span>🌱
+      </h1>
+      <p class="hero-subhead">
+        Hơn 880 bài học tương tác, miễn phí vĩnh viễn. Học theo lộ trình từ cơ bản tới chuyên sâu, phân tích tình huống thực tế và tích lũy XP mở khóa chứng chỉ năng lực.
+      </p>
+
+      <div class="hero-cta-group">
+        <a class="hero-btn-main" href="index.html#/tracks">
+          Bắt đầu học miễn phí <span style="font-size:16px">→</span>
+        </a>
+        <a class="hero-btn-outline" href="index.html#/tracks">
+          📖 Khám phá lộ trình
+        </a>
+      </div>
+
+      <!-- Stats ribbon -->
+      <div class="hero-stats-card">
+        <div class="hero-stat-item">
+          <div class="hero-stat-icon">📒</div>
+          <div>
+            <div class="hero-stat-val">• 903+</div>
+            <div class="hero-stat-lbl">bài học có quiz</div>
+          </div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-icon">🪙</div>
+          <div>
+            <div class="hero-stat-val">• 0đ</div>
+            <div class="hero-stat-lbl">miễn phí mãi mãi</div>
+          </div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-icon">👥</div>
+          <div>
+            <div class="hero-stat-val">• 4.301+</div>
+            <div class="hero-stat-lbl">người học tham gia</div>
+          </div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-icon">🏆</div>
+          <div>
+            <div class="hero-stat-val">• 37.965+</div>
+            <div class="hero-stat-lbl">lượt hoàn thành bài học</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-milestone-decor">🪨</div>
     </div>
 
-    <div class="shot">
-      <div class="bar"><i></i><i></i><i></i><span>Practice Arena · chấm theo 6 tiêu chí</span></div>
-      <div class="body">
-        <div class="lbl mb">Đề bài</div>
-        <p class="small" style="margin:0 0 12px">Chuỗi cà phê 180 cửa hàng: doanh thu tăng 18% nhưng EBITDA margin rơi từ 16% xuống 9%. Tìm nguyên nhân và một khuyến nghị làm được trong 90 ngày.</p>
-        <table class="tb"><tbody>
-          <tr><td>Doanh thu cửa hàng cũ</td><td class="r num">6,70 tỷ</td></tr>
-          <tr><td>Doanh thu cửa hàng mới</td><td class="r num">4,10 tỷ</td></tr>
-          <tr><td>Điểm hoà vốn</td><td class="r num">7,20 tỷ</td></tr>
-        </tbody></table>
-        <div class="divider"></div>
-        <div class="rubric-row"><span class="nm">Structure / MECE</span><div class="bar"><i style="width:85%"></i></div><span class="sc num">85</span></div>
-        <div class="rubric-row"><span class="nm">Analysis &amp; math</span><div class="bar"><i style="width:80%"></i></div><span class="sc num">80</span></div>
-        <div class="rubric-row"><span class="nm">Insight</span><div class="bar amber"><i style="width:75%"></i></div><span class="sc num">75</span></div>
-        <div class="callout mt" style="padding:9px 12px;font-size:12px"><b>Feedback:</b> chưa nêu vì sao hợp đồng thuê 5 năm làm vấn đề cấp bách hơn.</div>
+    <!-- Right Interactive Sandbox Card -->
+    <div class="hero-sandbox-wrap" id="heroSandbox">
+      <div class="sandbox-top-badges">
+        <span class="badge-live">● ĐANG HỌC TRỰC TUYẾN</span>
+        <span class="badge-stage-pill">BÀI 24 / CHẶNG 01</span>
+      </div>
+
+      <div class="sandbox-lesson-meta">📈 BÀI HỌC HÔM NAY — 5 PHÚT</div>
+      <h3 class="sandbox-lesson-title">Đọc chỉ số P/E trong 5 phút</h3>
+
+      <div class="sandbox-selector-row">
+        <span class="sandbox-sel-label">Chọn doanh nghiệp tính toán:</span>
+        <button class="sandbox-stock-btn active" onclick="setCompany('A')">C.Ty A</button>
+        <button class="sandbox-stock-btn" onclick="setCompany('B')">C.Ty B</button>
+        <button class="sandbox-stock-btn" onclick="setCompany('C')">C.Ty C</button>
+        <button class="sandbox-stock-btn" style="color:#059669;background:#ECFDF5">Thử nghiệm</button>
+      </div>
+
+      <div class="sandbox-calc-grid">
+        <div class="sandbox-calc-box">
+          <div class="sandbox-calc-lbl">Giá CP (P)</div>
+          <div class="sandbox-calc-val" id="valPrice">75.000đ</div>
+        </div>
+        <div class="sandbox-calc-box">
+          <div class="sandbox-calc-lbl">EPS năm</div>
+          <div class="sandbox-calc-val" id="valEPS">5.000đ</div>
+        </div>
+        <div class="sandbox-calc-box highlight">
+          <div class="sandbox-calc-lbl">P/E = P/EPS</div>
+          <div class="sandbox-calc-val" id="valPE">15 lần</div>
+        </div>
+      </div>
+
+      <div class="sandbox-stepper">
+        <div class="sandbox-step-item active">
+          <span class="step-dot">✓</span> Hiểu bản chất P/E
+        </div>
+        <div class="sandbox-step-item current">
+          <span class="step-dot">2</span> So sánh định giá ngành
+        </div>
+        <div class="sandbox-step-item">
+          <span class="step-dot">3</span> Kiểm tra dòng tiền CFO
+        </div>
+      </div>
+
+      <!-- Quick Quiz Box -->
+      <div class="sandbox-quiz-card">
+        <div class="sandbox-quiz-h">
+          <span class="sandbox-quiz-t">THỬ THÁCH NHANH</span>
+          <span class="sandbox-quiz-xp">+20 XP</span>
+        </div>
+        <div class="sandbox-quiz-q">P/E = 15 lần có ý nghĩa gì?</div>
+        <div class="sandbox-quiz-opt correct">
+          <span>Hoàn vốn sau 15 năm</span>
+          <span style="color:#059669;font-weight:800">✓</span>
+        </div>
+        <div class="sandbox-quiz-opt">
+          <span>Doanh nghiệp phá sản</span>
+        </div>
+      </div>
+
+      <div class="sandbox-tip-box">
+        💡 <b>GHI CHÚ CHUYÊN GIA:</b> Không mua chỉ vì P/E thấp — hãy soi cả dòng tiền CFO thực tế.
+      </div>
+
+      <div class="sandbox-footer-strip">
+        <span>XP hôm nay <b>✨ +79 XP</b></span>
+        <span>Chuỗi ngày học <b>🔥 2 ngày</b></span>
+        <span>Kho báu đã mở <b>🏆 3/30</b></span>
       </div>
     </div>
-  </div></section>
-  <section class="band band-bleed band-paper band-divider"><div class="ld sec" id="cach-hoc">
-    <h2>Ba điều khác với một khoá học thông thường</h2>
-    <p class="sub">Sản phẩm này dạy cách giải case, không dạy lý thuyết kinh doanh.</p>
-    <div class="cards3">
-      <div class="card"><div class="card-b">
-        <span class="tile t-ink">▤</span>
-        <h3 style="margin:12px 0 6px">Mỗi bài có một output</h3>
-        <p class="small muted" style="margin:0">Kết thúc bài là một phép tính, một slide, một insight từ biểu đồ hoặc một câu trả lời nói — có đáp án và lời giải, không phải đọc xong rồi thôi.</p>
-      </div></div>
-      <div class="card"><div class="card-b">
-        <span class="tile t-emerald">◎</span>
-        <h3 style="margin:12px 0 6px">Đề case có exhibit và bộ chấm</h3>
-        <p class="small muted" style="margin:0">Bạn viết problem statement, cây giả thuyết, bằng chứng và khuyến nghị. Hệ thống chấm 6 tiêu chí và chỉ ra điểm yếu nhất.</p>
-      </div></div>
-      <div class="card"><div class="card-b">
-        <span class="tile t-rose">◍</span>
-        <h3 style="margin:12px 0 6px">Sai được giữ lại và xếp lịch ôn</h3>
-        <p class="small muted" style="margin:0">Mỗi câu sai được phân loại — framework, tính toán, lập luận, đọc exhibit, trình bày — rồi nhắc ôn theo giãn cách 1, 3, 7 ngày.</p>
-      </div></div>
+  </section>
+
+  <!-- 4. SECTION 2: AUDIENCE / PERSONA SELECTOR -->
+  <section class="sec-container" style="background:#FAFBF8;border-top:1px solid #E5E7EB;border-bottom:1px solid #E5E7EB">
+    <div class="sec-tag">● 02 / DÀNH CHO AI</div>
+    <h2 class="sec-title">Đối tượng phù hợp</h2>
+    <p class="sec-subhead">
+      Dù bạn bắt đầu từ con số 0 hay đang chuẩn bị cho vòng phỏng vấn analyst ngân hàng đầu tư, nền tảng đều thiết kế lộ trình đo đạc riêng cho bạn.
+    </p>
+
+    <div class="persona-layout-grid">
+      <!-- Left 4 Tabs -->
+      <div class="persona-nav-list">
+        <div class="persona-nav-card active" onclick="setPersona(0)">
+          <span class="persona-badge-num">01</span>
+          <div class="persona-info">
+            <div class="persona-name">Người mới vỡ lòng &amp; sinh viên</div>
+            <div class="persona-desc-short">Xây dựng nền tảng tài chính cá nhân từ con số 0</div>
+          </div>
+          <span class="persona-icon-decor">📖</span>
+        </div>
+
+        <div class="persona-nav-card" onclick="setPersona(1)">
+          <span class="persona-badge-num">02</span>
+          <div class="persona-info">
+            <div class="persona-name">Nhà đầu tư &amp; chuyên viên phân tích</div>
+            <div class="persona-desc-short">Đọc báo cáo tài chính &amp; định giá cổ phiếu thực chiến</div>
+          </div>
+          <span class="persona-icon-decor">⚙️</span>
+        </div>
+
+        <div class="persona-nav-card" onclick="setPersona(2)">
+          <span class="persona-badge-num">03</span>
+          <div class="persona-info">
+            <div class="persona-name">Ứng viên CFA &amp; technical interview IB</div>
+            <div class="persona-desc-short">Rèn luyện 400 câu hỏi phỏng vấn ngân hàng đầu tư</div>
+          </div>
+          <span class="persona-icon-decor">🎖️</span>
+        </div>
+
+        <div class="persona-nav-card" onclick="setPersona(3)">
+          <span class="persona-badge-num">04</span>
+          <div class="persona-info">
+            <div class="persona-name">Người học theo nhóm &amp; cộng đồng FinSocial</div>
+            <div class="persona-desc-short">Học tập có đồng đội, thi đua XP &amp; chia sẻ góc nhìn</div>
+          </div>
+          <span class="persona-icon-decor">👥</span>
+        </div>
+      </div>
+
+      <!-- Right Dynamic Showcase Card -->
+      <div class="persona-showcase-card" id="personaShowcase">
+        <div>
+          <div class="showcase-header-tag">
+            <span class="showcase-pill" id="psTag">✨ TÀI CHÍNH CÁ NHÂN · LÃI KÉP · QUẢN LÝ DÒNG TIỀN</span>
+            <span class="showcase-step-num" id="psIndex">01 / 04</span>
+          </div>
+          <h3 class="showcase-main-h" id="psTitle">📖 Người mới vỡ lòng &amp; sinh viên</h3>
+          <div class="showcase-sub-h" id="psSub">Xây dựng nền tảng tài chính cá nhân từ con số 0</div>
+          <p class="showcase-body-text" id="psText">
+            Dành cho người muốn làm chủ dòng tiền, lập ngân sách cá nhân, hiểu về quy tắc tài sản an toàn và sức mạnh lãi kép mà không bị ngợp bởi thuật ngữ phức tạp.
+          </p>
+
+          <div class="showcase-streak-banner">
+            <div>
+              <div class="streak-title-badge">STREAK CHỐNG QUÊN</div>
+              <div style="font-size:15px;font-weight:700">Duy trì học 15 phút mỗi ngày</div>
+            </div>
+            <div class="streak-art">🔥</div>
+          </div>
+        </div>
+
+        <div>
+          <a class="hero-btn-main" style="width:100%;justify-content:center;box-sizing:border-box" href="index.html#/tracks">
+            Bắt đầu học chặng 1 →
+          </a>
+        </div>
+      </div>
     </div>
-  </div></section>
-  <section class="band band-bleed band-academic band-divider"><div class="ld sec">
-    <h2>Đường đi của một người học</h2>
-    <p class="sub">Năm bước lặp lại, và bước nào cũng có con số để biết mình đang ở đâu.</p>
-    <div class="flow">
-      <div class="s"><div class="i">1</div><b>Học</b><p>Bài 6–9 phút theo khuôn 10 phần, kết thúc bằng bài tập có đáp án.</p></div>
-      <div class="s"><div class="i">2</div><b>Luyện Arena</b><p>Giải đề case có exhibit, được chấm 6 tiêu chí và nhận feedback.</p></div>
-      <div class="s"><div class="i">3</div><b>Thi Competition</b><p>Ba deliverable có hạn chót: phân tích, slide outline, Q&amp;A với giám khảo.</p></div>
-      <div class="s"><div class="i">4</div><b>Phỏng vấn</b><p>Năm vòng như phỏng vấn consulting, chấm riêng từng vòng.</p></div>
-      <div class="s"><div class="i">5</div><b>Ôn lỗi</b><p>Lỗi cũ quay lại đúng lúc, kèm bài học cần xem lại.</p></div>
+  </section>
+
+  <!-- 5. SECTION 3: SIMULATION & PRACTICE MAP -->
+  <section class="sec-container">
+    <div class="sec-tag">04 | TÌNH HUỐNG THẬT &amp; KIỂM TRA SỨC CHỊU ĐỰNG</div>
+    <h2 class="sec-title">Tập xử lý tình huống trước khi gặp thật</h2>
+    <p class="sec-subhead">
+      Mô phỏng lúc doanh nghiệp cạn tiền mặt, lúc thị trường giá xuống kéo dài, và một thương vụ M&amp;A có thật — bằng đúng công cụ định giá người trong nghề dùng.
+    </p>
+
+    <div class="map-terminal-frame">
+      <!-- Terminal Top HUD -->
+      <div class="map-terminal-top">
+        <div class="map-user-tag">
+          <span style="font-weight:800;color:#FBBF24">Lv.2</span>
+          <span>Bản đồ hành trình tài chính</span>
+          <span class="map-badge-online">TRỰC TUYẾN</span>
+        </div>
+        <div class="map-top-stats">
+          <span class="map-stat-coin">💰 60 Coins</span>
+          <span class="map-stat-energy">⚡ Năng lượng 100%</span>
+          <button class="map-btn-route" onclick="location.href='index.html#/tracks'">⚙ Vào lộ trình</button>
+        </div>
+      </div>
+
+      <!-- Ticker -->
+      <div class="map-ticker-strip">
+        <span class="ticker-badge">WALL ST. TICKER</span>
+        <span class="ticker-green">📈 VN-INDEX: 1.285,40 (+1,45%)</span>
+        <span>|</span>
+        <span>Times Square: case study #12 đang mở</span>
+        <span>|</span>
+        <span>Hội quỹ đầu cơ: hạng #1 Phố Wall</span>
+      </div>
+
+      <!-- Map Nodes Area -->
+      <div class="map-canvas-area">
+        <div class="map-nodes-grid">
+          <div class="map-node-card" onclick="selectMapNode(0)">
+            <div class="map-node-icon-box">🏛️</div>
+            <div>
+              <div class="map-node-tag">WALL STREET TRADING</div>
+              <div class="map-node-title">Sàn NYSE &amp; Boss Phố Wall</div>
+            </div>
+          </div>
+
+          <div class="map-node-card" onclick="selectMapNode(1)">
+            <div class="map-node-icon-box">🎯</div>
+            <div>
+              <div class="map-node-tag">ACTIVE RECALL DRILL</div>
+              <div class="map-node-title">Đấu Trường Kiến Thức</div>
+            </div>
+          </div>
+
+          <div class="map-node-card selected" onclick="selectMapNode(2)">
+            <div class="map-node-icon-box" style="border:1.5px solid #10B981">👑</div>
+            <div>
+              <div class="map-node-tag">THỰC HÀNH TƯƠNG TÁC</div>
+              <div class="map-node-title">Tổng Hợp Mini Game BCTC</div>
+            </div>
+          </div>
+
+          <div class="map-node-card" onclick="selectMapNode(3)">
+            <div class="map-node-icon-box">🏙️</div>
+            <div>
+              <div class="map-node-tag">M&amp;A CASE STUDY</div>
+              <div class="map-node-title">Quảng Trường Times M&amp;A</div>
+            </div>
+          </div>
+
+          <div class="map-node-card" onclick="selectMapNode(4)">
+            <div class="map-node-icon-box">📊</div>
+            <div>
+              <div class="map-node-tag">FINANCIAL MODELING</div>
+              <div class="map-node-title">Tập Đoàn Goldman Case</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map HUD Bottom -->
+      <div class="map-hud-bottom">
+        <div class="map-hud-left">
+          <div class="map-hud-title" id="mapHudTitle">📍 ĐANG CHỌN: TỔNG HỢP MINI GAME TÀI CHÍNH</div>
+          <div id="mapHudDesc">Kho tàng 10+ mini game thực hành tương tác giúp thuộc làu các công thức tài chính.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="color:#FBBF24;font-size:12.5px;font-weight:700">Thưởng hoàn thành: <b>+150 XP</b></span>
+          <a class="ld-btn-primary" href="index.html#/arena">Vào phân khu này →</a>
+        </div>
+      </div>
     </div>
-  </div></section>
-  <section class="band band-bleed band-paper band-divider"><div class="ld sec" id="noi-dung">
-    <h2>Sáu track, một lộ trình</h2>
-    <p class="sub">Chọn nghề mục tiêu, hệ thống sắp lại thứ tự bài học theo nghề đó.</p>
-    <div class="tracks" id="tracks"></div>
-  </div></section>
-  <section class="band band-bleed band-academic band-divider"><div class="ld sec" id="vi-du">
-    <h2>Bên trong một bài học</h2>
-    <p class="sub">Mọi bài đều theo cùng một khuôn, nên bạn không phải học lại cách học.</p>
-    <div class="grid g2 mt">
-      <div class="card"><div class="card-b">
-        <div class="lbl mb">Khuôn 10 phần</div>
-        <ol style="margin:0;padding-left:18px;font-size:13px;line-height:1.9;color:var(--text-2)">
-          <li>Vì sao bài này quan trọng</li><li>Tình huống mở đầu</li><li>Framework chính</li>
-          <li>Ví dụ có số liệu</li><li>Mini case tương tác</li><li>Bài tập tính toán</li>
-          <li>Gợi ý trình bày trên slide</li><li>Lỗi thường gặp</li><li>Quiz kiểm tra</li><li>Checklist và cầu nối sang Arena</li>
-        </ol>
-      </div></div>
-      <div class="card"><div class="card-b">
-        <div class="lbl mb">Bài tập thật trong bài “Cây lợi nhuận”</div>
-        <p class="small" style="margin:0 0 10px">30 cửa hàng mới đạt 4,10 tỷ nhưng cần 7,20 tỷ để hoà vốn. Tổng ảnh hưởng lên EBITDA?</p>
-        <div class="row" style="gap:9px"><input class="calc" value="93" readonly><span class="muted small">tỷ VND</span></div>
-        <div class="callout ok mt" style="padding:10px 12px;font-size:12.5px"><b>Đúng.</b> (7,20 − 4,10) × 30 = 93 tỷ, tương đương ≈7,9 điểm biên — gần như giải thích trọn vẹn mức sụt từ 16% xuống 9%.</div>
-      </div></div>
+  </section>
+
+  <!-- 6. SECTION 4: THE LEARNING ECOSYSTEM -->
+  <section class="sec-container" style="background:#FAFBF8;border-top:1px solid #E5E7EB">
+    <div class="sec-tag">05 | THE LEARNING ECOSYSTEM</div>
+    <h2 class="sec-title">Mọi thứ bạn cần <span style="color:#059669">nằm chung một chỗ</span></h2>
+    <p class="sec-subhead">
+      Bài học, công cụ tính, phòng học nhóm và bảng xếp hạng nằm chung một chỗ, không phải mở năm ứng dụng.
+    </p>
+
+    <!-- Eco Tabs -->
+    <div class="eco-tabs-row">
+      <button class="eco-tab-btn active" onclick="setEcoTab(0)">📖 01. Học lý thuyết</button>
+      <button class="eco-tab-btn" onclick="setEcoTab(1)">🎯 02. Quiz phản xạ</button>
+      <button class="eco-tab-btn" onclick="setEcoTab(2)">🔄 03. Ôn ngắt quãng</button>
+      <button class="eco-tab-btn" onclick="setEcoTab(3)">👥 04. Học nhóm</button>
+      <button class="eco-tab-btn" onclick="setEcoTab(4)">💬 05. Mạng FinSocial</button>
     </div>
-  </div></section>
-  <section class="band band-bleed band-paper band-divider"><div class="ld sec" id="cau-hoi">
-    <h2>Câu hỏi thường gặp</h2>
-    <div class="faq">
-      <div class="card"><div class="card-b"><h3 style="margin:0 0 6px">Cần nền tảng gì trước khi học?</h3>
-        <p class="small muted" style="margin:0">Không cần. Track Business Fundamentals bắt đầu từ việc đọc một bảng doanh thu — chi phí. Thuật ngữ giữ nguyên tiếng Anh và giải thích bằng tiếng Việt.</p></div></div>
-      <div class="card"><div class="card-b"><h3 style="margin:0 0 6px">Chấm điểm hoạt động thế nào?</h3>
-        <p class="small muted" style="margin:0">Bộ chấm đọc cấu trúc, con số then chốt và khuyến nghị của bạn. Đây là bản prototype nên nó nghiêm với con số và cấu trúc, chưa thay được người chấm.</p></div></div>
-      <div class="card"><div class="card-b"><h3 style="margin:0 0 6px">Dữ liệu học của tôi lưu ở đâu?</h3>
-        <p class="small muted" style="margin:0">Trên chính trình duyệt của bạn. Không cần tài khoản. Muốn chuyển sang máy khác thì xuất file sao lưu trong phần Tài khoản &amp; dữ liệu.</p></div></div>
-      <div class="card"><div class="card-b"><h3 style="margin:0 0 6px">Số liệu trong case có thật không?</h3>
-        <p class="small muted" style="margin:0">Số liệu là minh hoạ để luyện tập, không phải số liệu công bố của doanh nghiệp. Điều quan trọng là cách giải, không phải con số của một công ty cụ thể.</p></div></div>
+
+    <!-- Big Showcase Card -->
+    <div class="eco-showcase-box">
+      <div>
+        <div style="font-size:12px;font-weight:800;color:#059669;letter-spacing:0.03em;margin-bottom:8px">01 / BÀI HỌC KỸ THUẬT</div>
+        <h3 class="eco-left-title">Phân tích dòng tiền &amp; báo cáo tài chính</h3>
+        <p class="eco-left-body">
+          Lợi nhuận kế toán có thể tăng trưởng nhờ các khoản phải thu hoặc điều chuyển chi phí. Tuy nhiên, <b>dòng tiền từ hoạt động kinh doanh (CFO)</b> mới là thước đo sống còn để xác định doanh nghiệp có thực sự thu được tiền mặt về két hay không.
+        </p>
+
+        <!-- Proof Card -->
+        <div class="eco-proof-card">
+          <div class="eco-proof-lbl">BẰNG CHỨNG SỐ LIỆU TÀI CHÍNH (MINH HOẠ DOANH NGHIỆP THỰC TẾ)</div>
+          <div class="eco-proof-metrics">
+            <div class="proof-m-item">Doanh thu thuần<b>1.200,0 tỷ đ</b></div>
+            <div class="proof-m-item">Lợi nhuận ròng<b style="color:#059669">+180,5 tỷ đ</b></div>
+            <div class="proof-m-item">Dòng tiền CFO<b class="red">-45,2 tỷ đ</b></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px">
+          <a class="hero-btn-outline" style="font-size:13px;padding:10px 18px" href="index.html#/tracks">
+            Xem toàn bộ giáo trình →
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Financial Table -->
+      <div class="eco-table-card">
+        <div class="eco-table-header">
+          <span>BÁO CÁO LƯU CHUYỂN TIỀN TỆ HỢP NHẤT · TRÍCH ĐOẠN</span>
+          <span style="color:#9CA3AF">Đơn vị: tỷ VNĐ</span>
+        </div>
+        <table class="eco-data-table">
+          <tbody>
+            <tr>
+              <td>Lợi nhuận trước thuế</td>
+              <td class="num">215,8</td>
+            </tr>
+            <tr>
+              <td>(+) Khấu hao tài sản cố định</td>
+              <td class="num" style="color:#059669">+38,4</td>
+            </tr>
+            <tr>
+              <td>(-) Tăng các khoản phải thu</td>
+              <td class="num red">-285,6</td>
+            </tr>
+            <tr class="cfo-highlight-row">
+              <td>Lưu chuyển tiền từ HĐKD (CFO)</td>
+              <td class="num red">-45,2</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="font-size:11.5px;color:#6B7280;margin-top:14px;line-height:1.5">
+          * Chú thích: Khoản phải thu tăng đột biến 285 tỷ đã hấp thụ toàn bộ dòng tiền thu về từ bán hàng.
+        </div>
+      </div>
     </div>
-  </div></section>
-  <section class="band band-bleed band-ink"><div class="ld cta">
-    <h2>Mở một case và bắt đầu</h2>
-    <p class="sub" style="margin:10px auto 22px">Không cần đăng ký. Tiến độ lưu ngay trên trình duyệt này.</p>
-    <div class="row" style="justify-content:center">
-      <a class="btn btn-p btn-lg" href="index.html#/dashboard">Vào học ngay</a>
-      <a class="btn btn-lg" href="index.html#/arena/cl-01">Thử giải một case</a>
+  </section>
+
+  <!-- 7. BOTTOM CTA BANNER -->
+  <section style="padding:0 24px">
+    <div class="ld-bottom-cta">
+      <h2>Bắt đầu hành trình của bạn ngay hôm nay</h2>
+      <p>Không cần thẻ tín dụng. Tiến độ học tập và điểm XP được lưu trực tiếp trên trình duyệt của bạn.</p>
+      <a class="hero-btn-main" style="background:#FBBF24;color:#18181B;font-weight:800;font-size:16px" href="index.html#/dashboard">
+        Vào học miễn phí ngay →
+      </a>
     </div>
-  </div></section>
-  <section class="band band-bleed band-paper"><div class="ld foot">CASELAB · Business case training studio · Số liệu trong bài học và đề case là minh hoạ cho mục đích luyện tập.</div>
-</div></section>
+  </section>
 </main>
 
-<script src="assets/js/i18n.js?v=35"></script>
-<script src="assets/js/data/curriculum.js?v=35"></script>
-<script src="assets/js/data/i18n-data.js?v=35"></script>
-<script src="assets/js/data/i18n-lessons.js?v=35"></script>
-<script src="assets/js/data/library.js?v=35"></script>
-<script src="assets/js/data/careers.js?v=35"></script>
-<script>
-(function(){
-  const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const stats = [
-    [window.LESSONS.length, "bài học có bài tập"],
-    [window.CASES.length, "đề case có exhibit"],
-    [window.TRACKS.length, "track theo nghề"],
-    [window.MODULES.length, "module"]
-  ];
-  document.getElementById("stats").innerHTML = stats.map(([n,k])=>
-    `<div><div class="n">${n}</div><div class="k">${esc(k)}</div></div>`).join("");
+<!-- FLOATING AI BOT WIDGET -->
+<div class="floating-ai-bot" id="aiBotWidget">
+  <div class="bot-header">
+    <div class="bot-avatar">🤖</div>
+    <div class="bot-title-group">
+      <div class="bot-badge-tag">✨ TRỢ LÝ AI TỰ HỌC</div>
+      <div class="bot-name">Tự Học Tài Chính</div>
+      <div class="bot-sub">Luôn bên bạn trên hành trình học tập</div>
+    </div>
+    <button style="border:none;background:transparent;cursor:pointer;color:#9CA3AF" onclick="document.getElementById('aiBotWidget').style.display='none'">✕</button>
+  </div>
+  <div class="bot-body">
+    <div class="bot-bubble">
+      <b>Xin chào bạn! 👋👋</b><br>
+      Bạn đã sẵn sàng bắt đầu một nền tảng tài chính cá nhân vững, hoàn toàn miễn phí vĩnh viễn chưa?
+    </div>
+    <a class="bot-btn-cta" href="index.html#/dashboard">
+      <span>🎁 Đăng ký ngay (Miễn phí)</span>
+      <span>→</span>
+    </a>
+    <div class="bot-footer-text">✓ 100% miễn phí • Bảo mật tuyệt đối • Hủy bất cứ lúc nào</div>
+  </div>
+</div>
 
-  document.getElementById("tracks").innerHTML = window.TRACKS.map(t=>{
-    const lessons = window.LESSONS.filter(l=>l.track===t.id).length;
-    return `<a class="card" href="index.html#/tracks">
-      <div class="card-b">
-        <div class="row" style="gap:10px"><span class="tile t-${t.color}">${t.icon}</span>
-          <div><h3>${esc(t.n)}</h3><div class="small muted">${esc(t.vi)} · ${lessons} bài</div></div></div>
-        <p class="small" style="margin:12px 0 0">${esc(t.promise)}</p>
-        <div class="small muted mt-s">Dành cho: ${esc(t.for)}</div>
-      </div></a>`;
-  }).join("");
-  document.getElementById("langBox").innerHTML = I18N.toggle();
-  I18N.apply(document.body);
-})();
+<footer class="ld-footer">
+  TỰ HỌC TÀI CHÍNH &amp; BUSINESS CASE · Nền tảng EdTech thế hệ mới · Toàn bộ bài học mở miễn phí cho cộng đồng.
+</footer>
+
+<script>
+// Interactive Company Selector on Hero
+const COMPANIES = {
+  A: { p: '75.000đ', eps: '5.000đ', pe: '15 lần' },
+  B: { p: '120.000đ', eps: '6.000đ', pe: '20 lần' },
+  C: { p: '45.000đ', eps: '4.500đ', pe: '10 lần' }
+};
+function setCompany(key) {
+  document.querySelectorAll('.sandbox-stock-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  const d = COMPANIES[key] || COMPANIES.A;
+  document.getElementById('valPrice').textContent = d.p;
+  document.getElementById('valEPS').textContent = d.eps;
+  document.getElementById('valPE').textContent = d.pe;
+}
+
+// Interactive Personas
+const PERSONAS = [
+  {
+    tag: '✨ TÀI CHÍNH CÁ NHÂN · LÃI KÉP · QUẢN LÝ DÒNG TIỀN',
+    idx: '01 / 04',
+    title: '📖 Người mới vỡ lòng & sinh viên',
+    sub: 'Xây dựng nền tảng tài chính cá nhân từ con số 0',
+    text: 'Dành cho người muốn làm chủ dòng tiền, lập ngân sách cá nhân, hiểu về quy tắc tài sản an toàn và sức mạnh lãi kép mà không bị ngợp bởi thuật ngữ phức tạp.'
+  },
+  {
+    tag: '✨ BÁO CÁO TÀI CHÍNH · ĐỊNH GIÁ DOANH NGHIỆP',
+    idx: '02 / 04',
+    title: '⚙️ Nhà đầu tư & chuyên viên phân tích',
+    sub: 'Đọc báo cáo tài chính & định giá cổ phiếu thực chiến',
+    text: 'Nắm vững kỹ năng bóc tách 3 báo cáo tài chính, soi dòng tiền CFO, tính toán WACC, DCF và định giá P/E, EV/EBITDA theo chuẩn giới phân tích chuyên nghiệp.'
+  },
+  {
+    tag: '✨ INVESTMENT BANKING · CONSULTING · FINANCIAL MODELING',
+    idx: '03 / 04',
+    title: '🎖️ Ứng viên CFA & technical interview IB',
+    sub: 'Rèn luyện 400 câu hỏi phỏng vấn ngân hàng đầu tư',
+    text: 'Luyện tập phản xạ giải case math, market sizing, LBO mini model và vượt qua 5 vòng phỏng vấn tình huống khắc nghiệt của MBB và các định chế tài chính lớn.'
+  },
+  {
+    tag: '✨ CỘNG ĐỒNG HỌC TẬP · THI ĐẤU XP · THẢO LUẬN',
+    idx: '04 / 04',
+    title: '👥 Người học theo nhóm & cộng đồng FinSocial',
+    sub: 'Học tập có đồng đội, thi đua XP & chia sẻ góc nhìn',
+    text: 'Tham gia giải đề case hàng tuần, kết nối với những người bạn cùng chí hướng, thi đấu leo rank bảng xếp hạng và tích lũy profile chuyên môn.'
+  }
+];
+
+function setPersona(index) {
+  document.querySelectorAll('.persona-nav-card').forEach((c, i) => c.classList.toggle('active', i === index));
+  const p = PERSONAS[index];
+  document.getElementById('psTag').textContent = p.tag;
+  document.getElementById('psIndex').textContent = p.idx;
+  document.getElementById('psTitle').textContent = p.title;
+  document.getElementById('psSub').textContent = p.sub;
+  document.getElementById('psText').textContent = p.text;
+}
+
+// Map Node Selector
+const NODES = [
+  { title: '📍 ĐANG CHỌN: SÀN NYSE & BOSS PHỐ WALL', desc: 'Mô phỏng đặt lệnh và phân tích tâm lý thị trường chứng khoán.' },
+  { title: '📍 ĐANG CHỌN: ĐẤU TRƯỜNG KIẾN THỨC', desc: 'Đánh Boss bằng các câu hỏi trắc nghiệm Active Recall tốc độ cao.' },
+  { title: '📍 ĐANG CHỌN: TỔNG HỢP MINI GAME TÀI CHÍNH', desc: 'Kho tàng 10+ mini game thực hành tương tác giúp thuộc làu các công thức tài chính.' },
+  { title: '📍 ĐANG CHỌN: QUẢNG TRƯỜNG TIMES M&A', desc: 'Phân tích thương vụ sáp nhập và định giá cộng hưởng giá trị.' },
+  { title: '📍 ĐANG CHỌN: TẬP ĐOÀN GOLDMAN CASE', desc: 'Xây dựng mô hình tài chính 3 báo cáo cho dự án đầu tư phức tạp.' }
+];
+
+function selectMapNode(index) {
+  document.querySelectorAll('.map-node-card').forEach((c, i) => c.classList.toggle('selected', i === index));
+  document.getElementById('mapHudTitle').textContent = NODES[index].title;
+  document.getElementById('mapHudDesc').textContent = NODES[index].desc;
+}
+
+// Eco Tabs
+function setEcoTab(index) {
+  document.querySelectorAll('.eco-tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+}
 </script>
+
 </body>
 </html>
