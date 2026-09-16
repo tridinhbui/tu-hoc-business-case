@@ -96,6 +96,16 @@ window.MODULES = [
   {id:"k-profit-2", t:"Cây chuẩn và ba biến thể", m:8, lv:2, out:"slide"},
   {id:"k-profit-3", t:"Ba yêu cầu dữ liệu đắt giá nhất", m:8, lv:2, out:"chart insight"},
   {id:"k-profit-4", t:"Bốn bẫy và hình dạng lời giải tốt", m:8, lv:3, out:"calculation"}]},
+{ id:"k-growth", track:"method", n:"Growth family", vi:"Họ 2 · Tăng trưởng", lessons:[
+  {id:"k-growth-1", t:"Nhận diện case tăng trưởng", m:7, lv:2, out:"recommendation"},
+  {id:"k-growth-2", t:"Ma trận sản phẩm × khách hàng", m:8, lv:2, out:"slide"},
+  {id:"k-growth-3", t:"Tăng trưởng này đến từ đâu", m:8, lv:2, out:"chart insight"},
+  {id:"k-growth-4", t:"Bốn bẫy của một kế hoạch tăng trưởng", m:8, lv:3, out:"calculation"}]},
+{ id:"k-entry", track:"method", n:"Investment family", vi:"Họ 3 · Gia nhập & Đầu tư", lessons:[
+  {id:"k-entry-1", t:"Nhận diện case đầu tư", m:7, lv:2, out:"recommendation"},
+  {id:"k-entry-2", t:"Giá trị thu được trừ giá phải trả", m:8, lv:3, out:"slide"},
+  {id:"k-entry-3", t:"Ba dữ liệu quyết định được quyết định", m:8, lv:2, out:"chart insight"},
+  {id:"k-entry-4", t:"So sánh hai phương án trên cùng một mốc", m:8, lv:3, out:"calculation"}]},
 
 /* ============ 3. CONSULTING CASE INTERVIEW — 22 bài ============ */
 { id:"i-profit", track:"consulting", n:"Profitability case", vi:"Case lợi nhuận", lessons:[

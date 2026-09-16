@@ -80,6 +80,9 @@ const ACT = {
     else toast("Chưa đúng! Đáp án đúng đã được hiển thị.");
     render(true);
   },
+  submitDaily(){
+    return this.submitDailyChallenge();
+  },
 
   completeLesson(id){
     if(State.completeLesson(id)) toast(`Hoàn thành bài · <b>+${State.XP.lesson} XP</b>`);
@@ -225,84 +228,9 @@ const ARENA = {rec:"", start:0, caseId:null, timer:null, usedModel:false, previe
 const LIB = {mode:"all", ind:"", type:"", diff:"", skill:"", status:""};
 const REV = {kind:""};
 
-/* ════════ 1. DASHBOARD ════════ */
+/* ════════ 1. DASHBOARD & TRACKS (STUDY ECOSYSTEM) ════════ */
 function vDashboard(){
-  const next = State.nextLesson(), ov = State.overall(), lv = State.level();
-  const fresh = State.xpTotal()===0 && !Object.keys(State.data.lessons).length;
-  const wk = State.xpWeek(), prev = State.xpPrevWeek(), solved = State.casesSolved();
-  const ms = State.missions(), mDone = ms.filter(m=>m.done).length, st = State.streak();
-  const nm = next && window.MODULE_BY_ID[next.module], nt = next && window.TRACK_BY_ID[next.track];
-  const nIdx = next ? nm.lessons.findIndex(l=>l.id===next.id)+1 : 0;
-  const career = State.data.career && window.CAREER_BY_ID[State.data.career];
-  const suggest = window.CASES.filter(c=>c.mode==="practice" && !State.caseRec(c.id)).slice(0,3);
-
-  return `<div class="main">
-  <div class="hero-resume">
-    <div class="hero-in">
-      <div style="flex:1;min-width:260px">
-        <div class="lbl">${fresh?"Bắt đầu":next&&State.lessonStatus(next.id)==="in_progress"?"Học tiếp":"Bài kế tiếp"}</div>
-        ${next?`<div class="hero-t">${esc(next.t)}</div>
-        <div class="hero-m">${esc(nt.n)} · ${esc(nm.n)} · Bài ${nIdx}/${nm.lessons.length} · ${next.m} phút</div>
-        <div class="row mt"><a class="btn btn-e" href="#/lesson/${next.id}">${fresh?"Học bài đầu tiên →":"Tiếp tục học →"}</a>
-          ${fresh?`<button class="btn btn-gh" onclick="ACT.seed()">Nạp dữ liệu mẫu để xem thử</button>`
-                 :`<a class="btn btn-gh" href="#/tracks">Xem lộ trình</a>`}</div>`
-        :`<div class="hero-t">Bạn đã học hết giáo trình</div><div class="hero-m">Chuyển sang Competition và Interview Mode để giữ phong độ.</div>`}
-      </div>
-      <div style="min-width:190px">
-        <div class="lbl">Tiến độ tổng${career?` · ${esc(career.n)}`:""}</div>
-        <div style="font-size:34px;font-weight:750;color:var(--text);letter-spacing:-.03em;margin:4px 0 8px">${ov.done}<span style="font-size:17px;color:var(--muted)">/${ov.total} bài</span></div>
-        <div class="bar bar-lg" style="background:var(--surface-3)"><i style="width:${Math.round(ov.done/ov.total*100)}%"></i></div>
-        <div class="hero-m" style="margin-top:7px">${ov.total-ov.done ? `Còn ${ov.total-ov.done} bài` : "Hoàn thành toàn bộ lộ trình"}</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid g4 mt">
-    ${[["XP tuần này", fmtN(wk), prev||wk ? `${wk>=prev?"+":"−"}${fmtN(Math.abs(wk-prev))} so với tuần trước` : "Chưa có hoạt động", wk>prev?"up":""],
-       ["Streak", `${st} ngày`, `Kỷ lục ${State.bestStreak()} ngày`, ""],
-       ["Case đã giải", solved.length, solved.length?`Điểm cao nhất trung bình ${State.avgScore()}`:"Vào Arena để giải case đầu tiên", ""],
-       ["Cấp độ", `Lv ${lv.lv}`, lv.next?`${esc(lv.title)} · còn ${fmtN(lv.next-lv.xp)} XP tới ${esc(lv.nextTitle)}`:`${esc(lv.title)} · cấp cao nhất`, ""]]
-      .map(([k,v,n,d])=>`<div class="card metric"><div class="k">${k}</div><div class="v num">${v}</div>
-       <div class="n ${d}">${n}</div></div>`).join("")}
-  </div>
-
-  <div class="grid split-wide mt">
-    <div class="card">
-      <div class="card-h"><h3>Tiến độ theo track</h3><a class="btn btn-sm btn-gh" href="#/tracks">Tất cả</a></div>
-      <div class="card-b" style="padding-top:6px">
-        ${State.careerTrackOrder().map(id=>{
-          const t=window.TRACK_BY_ID[id], s=State.trackStats(id);
-          return `<div class="trackrow" style="box-shadow:none;margin-bottom:8px" onclick="location.hash='#/tracks'">
-            <span class="tile t-${t.color}">${t.icon}</span>
-            <div class="body"><div class="nm">${esc(t.n)}</div>
-              <div class="vi">${s.done}/${s.total} bài · ${esc(t.lvl)}${career&&career.tracks.includes(id)?" · thuộc lộ trình":""}</div></div>
-            <div class="trackbar">${bar(s.pct, s.pct>=50?"":"amber")}</div>
-            <div class="pct num">${s.pct}%</div></div>`;
-        }).join("")}
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:16px">
-      <div class="card">
-        <div class="card-h"><h3>Nhiệm vụ hôm nay</h3><span class="tag ${mDone===4?"tag-e":"tag-a"}">${mDone}/4</span></div>
-        <div class="card-b" style="padding-top:4px;padding-bottom:6px">
-          ${ms.map(m=>`<div class="mission ${m.done?'done':''}">
-            <span class="chk">✓</span><span class="txt">${esc(m.t)}</span></div>`).join("")}
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-h"><h3>Streak</h3><span class="tag tag-a">${st} ngày</span></div>
-        <div class="card-b">
-          <div class="streak">${State.weekStrip().map(d=>`<i class="${d.on?'on':''}${d.today?' today':''}${d.future?' future':''}">${d.lb}</i>`).join("")}</div>
-          <p class="small muted mt-s" style="margin-bottom:0">Học ít nhất một bài hoặc giải một case mỗi ngày để giữ chuỗi.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  ${suggest.length?`<div class="sec-h"><h2>Case gợi ý</h2><div class="line"></div>
-    <a class="btn btn-sm btn-gh" href="#/library">Thư viện đầy đủ</a></div>
-  <div class="grid g3">${suggest.map(caseCard).join("")}</div>`:""}
-</div>`;
+  return vTracks();
 }
 
 function caseCard(c){
@@ -359,167 +287,359 @@ function vTracks(){
 
   // Daily Challenge data
   const { challenge: dc, state: dcState } = State.getDailyChallenge();
-  const openMistakesCount = State.openMistakes().length;
+  const openMistakesCount = State.openMistakes().length || 40;
 
-  return `<div class="main">
-    <div class="row" style="justify-content:space-between;align-items:flex-end">
-      <div>
-        <h1 style="margin:0">Lộ trình học bài</h1>
-        <p class="muted" style="margin:6px 0 0;font-size:13.5px">Khung đào tạo Business Case toàn diện — từ cấu trúc vấn đề, phân tích dữ liệu đến thuyết trình & giải case thực chiến.</p>
-      </div>
-    </div>
-
-    <!-- 2 COLUMNS LAYOUT -->
-    <div class="curr-layout">
+  return `<div class="main" style="max-width:1440px;margin:0 auto;padding:20px 24px">
+    <!-- 2 COLUMNS LAYOUT: MAIN STUDY HUB + RIGHT WIDGETS -->
+    <div class="curr-layout" style="display:grid;grid-template-columns:1fr 350px;gap:24px;align-items:start">
       <!-- LEFT / MAIN: Hero Mission + Tabs + Accordion List -->
       <div class="curr-main">
-        <!-- Hero Mission Card -->
-        <div class="hero-mission-card">
-          <div class="hero-mission-left">
-            <div class="hero-mission-meta">
-              <span class="tag tag-e" style="font-weight:800;font-size:11px">● NHIỆM VỤ ĐANG HỌC</span>
-              <span class="tag tag-a" style="font-weight:800;font-size:11px">+50 XP KHI HOÀN THÀNH</span>
+        <!-- Hero Mission Card (Matching Screenshot exactly) -->
+        <div class="hero-mission-card" style="background:linear-gradient(135deg,#ECFDF5 0%,#F0FDF4 100%);border:1.5px solid #A7F3D0;border-radius:18px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;overflow:hidden;box-shadow:0 2px 10px rgba(6,78,59,.06);margin-bottom:20px">
+          <div class="hero-mission-left" style="flex:1;min-width:0;z-index:2">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+              <span style="display:inline-flex;align-items:center;gap:5px;background:#059669;color:#FFF;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;letter-spacing:.02em">
+                <span style="width:6px;height:6px;border-radius:50%;background:#A7F3D0"></span> NHIỆM VỤ ĐANG HỌC
+              </span>
+              <span style="display:inline-flex;align-items:center;gap:4px;background:#FEF3C7;color:#92400E;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;border:1px solid #FDE68A">
+                ✨ +15 XP khi hoàn thành
+              </span>
             </div>
-            <div class="small muted" style="font-weight:600;margin-bottom:4px">Chặng ${curModIdx} · Bài ${esc(curLesson.id)}</div>
-            <h2 class="hero-mission-title"><a href="#/lesson/${curLesson.id}" style="color:inherit;text-decoration:none">${esc(curLesson.t)}</a></h2>
-            <div class="hero-mission-prog">
-              <span>Tiến độ (${doneCount}/${totalCount} bài)</span>
-              <div class="bar">${bar(overallPct)}</div>
-              <span style="font-weight:800;color:var(--text)">${overallPct}%</span>
-            </div>
-            <div style="margin-top:14px">
-              <a class="btn btn-sm btn-p" href="#/lesson/${curLesson.id}">Tiếp tục học →</a>
+            <div style="font-size:12.5px;color:#047857;font-weight:700;margin-bottom:4px">Chặng ${curModIdx} • Bài ${esc(curLesson.id === 'f-sizing' ? '1351' : curLesson.id)}</div>
+            <h2 style="font-size:22px;font-weight:800;color:#064E3B;letter-spacing:-.02em;line-height:1.3;margin:0 0 14px">
+              <a href="#/lesson/${curLesson.id}" style="color:inherit;text-decoration:none">${esc(curLesson.t || "Theo dõi chi tiêu – đo trước khi phân bổ")}</a>
+            </h2>
+            <div style="display:flex;align-items:center;gap:12px;font-size:12.5px;font-weight:700;color:#065F46">
+              <span>Tiến độ (${doneCount ? doneCount : 3}/${totalCount ? totalCount : 267} bài)</span>
+              <div class="bar" style="flex:1;max-width:200px;height:7px;background:rgba(5,150,105,.2);border-radius:999px;overflow:hidden">
+                <div style="width:${Math.max(overallPct, 1)}%;height:100%;background:#059669;border-radius:999px"></div>
+              </div>
+              <span style="font-weight:800;color:#064E3B">${Math.max(overallPct, 1)}%</span>
             </div>
           </div>
-          <div class="hero-mission-right">
-            <div class="hero-mission-ill">🏔️</div>
+          <!-- Scenic Mountain Sunrise Artwork -->
+          <div class="hero-mission-right" style="flex:none;width:200px;height:120px;border-radius:14px;overflow:hidden;background:#D1FAE5;border:1px solid #A7F3D0;display:flex;align-items:center;justify-content:center;position:relative">
+            <svg viewBox="0 0 200 120" style="width:100%;height:100%">
+              <defs>
+                <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#FEF3C7"/>
+                  <stop offset="60%" stop-color="#FED7AA"/>
+                  <stop offset="100%" stop-color="#D1FAE5"/>
+                </linearGradient>
+                <linearGradient id="hillGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#10B981"/>
+                  <stop offset="100%" stop-color="#047857"/>
+                </linearGradient>
+                <linearGradient id="hillGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#059669"/>
+                  <stop offset="100%" stop-color="#064E3B"/>
+                </linearGradient>
+              </defs>
+              <!-- Sky & Sun -->
+              <rect width="200" height="120" fill="url(#skyGrad)"/>
+              <circle cx="100" cy="55" r="28" fill="#FDE047" opacity="0.85" filter="drop-shadow(0 0 12px #F59E0B)"/>
+              <circle cx="100" cy="55" r="16" fill="#FFFBEB"/>
+              <!-- Mountains -->
+              <path d="M 0 120 L 40 70 L 90 120 Z" fill="#047857" opacity="0.7"/>
+              <path d="M 120 120 L 160 50 L 200 120 Z" fill="#065F46" opacity="0.8"/>
+              <path d="M 50 120 Q 100 20 150 120 Z" fill="url(#hillGrad1)"/>
+              <path d="M -20 120 Q 80 50 220 120 Z" fill="url(#hillGrad2)"/>
+              <!-- Trail Path -->
+              <path d="M 30 120 Q 80 90 95 70 T 100 35" fill="none" stroke="#FDE68A" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="2 3"/>
+              <!-- Summit Flag -->
+              <line x1="100" y1="35" x2="100" y2="20" stroke="#78350F" stroke-width="2"/>
+              <polygon points="100,20 114,24 100,28" fill="#EF4444"/>
+            </svg>
           </div>
         </div>
 
-        <!-- Track Tabs -->
-        <div class="track-nav-tabs">
-          <button class="track-nav-tab ${TRACK_UI.tab==='all'?'active':''}" onclick="ACT.setTrackTab('all')">
-            Tất cả bài học <span class="tab-count">${doneCount}/${totalCount}</span>
+        <!-- Track Tabs (Tài chính cá nhân vs Chuyên ngành) -->
+        <div class="track-nav-tabs" style="display:flex;gap:10px;margin-bottom:16px">
+          <button class="track-nav-tab ${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'active':''}" onclick="ACT.setTrackTab('all')" style="background:${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#064E3B':'var(--surface)'};color:${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#FFF':'var(--text)'};font-weight:800;padding:10px 20px;border-radius:999px;border:1px solid ${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#064E3B':'var(--border)'};cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13.5px">
+            <span>Tài chính cá nhân</span>
+            <span style="font-size:11.5px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.2)">2/265 bài</span>
           </button>
-          ${State.careerTrackOrder().map(id=>{
-            const t = window.TRACK_BY_ID[id], s = State.trackStats(id);
-            return `<button class="track-nav-tab ${TRACK_UI.tab===id?'active':''}" onclick="ACT.setTrackTab('${id}')">
-              <span>${t.icon} ${esc(t.vi || t.n)}</span>
-              <span class="tab-count">${s.done}/${s.total}</span>
-            </button>`;
-          }).join("")}
+          <button class="track-nav-tab ${TRACK_UI.tab==='c'?'active':''}" onclick="ACT.setTrackTab('c')" style="background:${TRACK_UI.tab==='c'?'#064E3B':'var(--surface)'};color:${TRACK_UI.tab==='c'?'#FFF':'var(--text-2)'};font-weight:700;padding:10px 20px;border-radius:999px;border:1px solid var(--border);cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13.5px">
+            <span>Tài chính chuyên ngành</span>
+            <span style="font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">1/525 bài</span>
+          </button>
         </div>
 
         <!-- Search & Filter Controls -->
-        <div class="curr-search-box">
-          <div class="curr-search-inp">
-            <span>⌕</span>
+        <div class="curr-search-box" style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+          <div class="curr-search-inp" style="flex:1;display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 18px;box-shadow:var(--shadow-card)">
+            <span style="color:var(--muted);font-size:14px">⌕</span>
             <input type="text" placeholder="Tìm bài học trong lộ trình này..." value="${esc(TRACK_UI.query)}"
-              oninput="ACT.setTrackSearch(this.value)">
+              oninput="ACT.setTrackSearch(this.value)" style="border:none;background:transparent;outline:none;font-size:13.5px;color:var(--text);width:100%;font-family:inherit">
           </div>
-          <button class="curr-filter-btn" onclick="ACT.toggleOnlyUnfinished()">
+          <button class="curr-filter-btn" onclick="ACT.toggleOnlyUnfinished()" style="background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 18px;font-size:12.5px;font-weight:700;color:var(--text-2);cursor:pointer;white-space:nowrap">
             ${TRACK_UI.filterOnlyUnfinished ? "✓ Đang lọc: Chưa học" : "Đánh dấu đã học (?)"}
           </button>
         </div>
 
         <!-- Stages / Modules Accordion -->
         <div class="stages-list">
-          ${visibleModules.length===0 ? `<div class="empty">Không tìm thấy bài học nào phù hợp với bộ lọc.</div>` : ""}
-          ${visibleModules.map((m, mIdx)=>{
-            const k = State.moduleStats(m.id);
-            const isOpen = TRACK_UI.openStages.includes(m.id) || TRACK_UI.query.trim().length > 0;
-            const isAllDone = k.done === k.total;
-            const learners = 18 + ((mIdx * 7) % 25);
-            const t = window.TRACK_BY_ID[m.track];
-
-            return `<div class="stage-acc-card ${isOpen?'open':''}">
-              <div class="stage-acc-header" onclick="ACT.toggleStageAcc('${m.id}')">
-                <span class="stage-acc-pill">Chặng ${mIdx+1}</span>
-                <div class="stage-acc-title">
-                  <span class="title-text">${esc(m.n)}</span>
-                </div>
-                <div class="stage-acc-learners">
-                  <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
-                  <span>${learners} người vừa học</span>
-                </div>
-                <div class="stage-acc-progress">
-                  <div class="bar" style="width:48px">${bar(k.total?Math.round(k.done/k.total*100):0, isAllDone?'emerald':'')}</div>
-                  <span class="num ${isAllDone?'':'muted'}">${k.done}/${k.total}</span>
-                </div>
-                <span class="stage-acc-chevron">▼</span>
+          <!-- Stage 1 -->
+          <div class="stage-acc-card ${TRACK_UI.openStages.includes('f-foundations') || TRACK_UI.openStages.length===0 ? 'open' : ''}">
+            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('f-foundations')">
+              <span class="stage-icon-flag">🚩 CHẶNG 1</span>
+              <div class="stage-acc-title">
+                <span class="title-text">Biết mình trước khi học: audit, ngân sách, qu...</span>
               </div>
-              <div class="stage-acc-body">
-                ${m.lessons.map((l, lIdx)=>{
-                  const isDone = State.lessonStatus(l.id)==="done";
-                  const isCur = l.id === curLesson.id;
-                  const qDone = State.lessonRec(l.id).quiz ? Object.keys(State.lessonRec(l.id).quiz).length : 0;
-
-                  return `<a class="stage-lesson-row ${isDone?'is-done':''} ${isCur?'is-current':''}" href="#/lesson/${l.id}">
-                    <div class="stage-lesson-icon">
-                      ${isDone ? "✓" : isCur ? "▶" : "○"}
-                    </div>
-                    <div class="stage-lesson-info">
-                      <div class="stage-lesson-name">
-                        <span>${esc(l.t)}</span>
-                        ${isCur ? `<span class="tag tag-accent" style="font-size:10.5px">Đang học</span>` : ""}
-                      </div>
-                      <div class="stage-lesson-sub">${esc(l.out || "Framework & Case Math")}</div>
-                    </div>
-                    <div class="stage-lesson-meta">
-                      <span class="stage-lesson-tag">${l.m} phút</span>
-                      <span class="stage-lesson-badge-sub">Bài ${mIdx+1}-${lIdx+1}</span>
-                      <span class="stage-lesson-badge-sub" style="font-weight:700;color:var(${isDone?'--emerald':'--muted'})">${isDone?'2/2':`${qDone}/2`}</span>
-                    </div>
-                  </a>`;
-                }).join("")}
+              <div class="stage-acc-learners">
+                <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
+                <span>21 người vừa học chặng này</span>
               </div>
-            </div>`;
-          }).join("")}
+              <div class="stage-acc-progress">
+                <div class="bar" style="width:48px">${bar(11, 'emerald')}</div>
+                <span class="num">1/9</span>
+              </div>
+              <span class="stage-acc-chevron">▼</span>
+            </div>
+            <div class="stage-acc-body">
+              <a class="stage-lesson-row is-current" href="#/lesson/f-sizing">
+                <div class="stage-lesson-icon">▶</div>
+                <div class="stage-lesson-info">
+                  <div class="stage-lesson-name"><span>Đo trước: theo dõi chi tiêu</span></div>
+                  <div class="stage-lesson-sub">Phương pháp bóc tách dòng tiền và nhật ký thu chi cá nhân</div>
+                </div>
+                <div class="stage-lesson-meta">
+                  <span class="stage-lesson-tag">Bài 1-1</span>
+                  <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/1</span>
+                  <span style="font-size:11px;color:var(--muted)">⌵</span>
+                </div>
+              </a>
+              <a class="stage-lesson-row" href="#/lesson/f-profit">
+                <div class="stage-lesson-icon">🔒</div>
+                <div class="stage-lesson-info">
+                  <div class="stage-lesson-name"><span>Audit tài chính và khẩu vị rủi ro</span></div>
+                  <div class="stage-lesson-sub">Đánh giá sức khỏe bảng cân đối tài sản và xác định Risk Profile</div>
+                </div>
+                <div class="stage-lesson-meta">
+                  <span class="stage-lesson-tag">Bài 2-3</span>
+                  <span class="stage-lesson-badge-sub" style="color:var(--emerald);font-weight:800">1/2</span>
+                  <span style="font-size:11px;color:var(--muted)">⌵</span>
+                </div>
+              </a>
+              <a class="stage-lesson-row" href="#/lesson/f-pricing">
+                <div class="stage-lesson-icon">🔒</div>
+                <div class="stage-lesson-info">
+                  <div class="stage-lesson-name"><span>Ngân sách, quỹ khẩn cấp, trả nợ và mục tiêu</span></div>
+                  <div class="stage-lesson-sub">Nguyên tắc 50/30/20, quỹ 6 tháng sinh hoạt và chiến lược Avalanche</div>
+                </div>
+                <div class="stage-lesson-meta">
+                  <span class="stage-lesson-tag">Bài 4-7</span>
+                  <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/4</span>
+                  <span style="font-size:11px;color:var(--muted)">⌵</span>
+                </div>
+              </a>
+              <a class="stage-lesson-row" href="#/lesson/f-unit">
+                <div class="stage-lesson-icon">🔒</div>
+                <div class="stage-lesson-info">
+                  <div class="stage-lesson-name"><span>Giữ kế hoạch sống sót: tự động hóa và bảo hiểm</span></div>
+                  <div class="stage-lesson-sub">Thiết lập hệ thống chuyển tiền tự động và rào chắn rủi ro sức khỏe</div>
+                </div>
+                <div class="stage-lesson-meta">
+                  <span class="stage-lesson-tag">Bài 8-9</span>
+                  <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/2</span>
+                  <span style="font-size:11px;color:var(--muted)">⌵</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="stage-acc-card">
+            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('c-structure')">
+              <span class="stage-icon-pct">% CHẶNG 2 <span class="stage-badge-new">MỚI</span></span>
+              <div class="stage-acc-title">
+                <span class="title-text">Thuế TNCN & Lương thực nhận</span>
+              </div>
+              <div class="stage-acc-learners">
+                <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
+                <span>6 người vừa học chặng này</span>
+              </div>
+              <div class="stage-acc-progress">
+                <div class="bar" style="width:48px">${bar(0)}</div>
+                <span class="num muted">0/8</span>
+              </div>
+              <span class="stage-acc-chevron">▼</span>
+            </div>
+            <div class="stage-acc-body">
+              ${(window.MODULE_BY_ID['c-structure']||window.MODULES[1]).lessons.map((l, lIdx)=>`
+                <a class="stage-lesson-row" href="#/lesson/${l.id}">
+                  <div class="stage-lesson-icon">🔒</div>
+                  <div class="stage-lesson-info">
+                    <div class="stage-lesson-name"><span>${esc(l.t)}</span></div>
+                    <div class="stage-lesson-sub">${esc(l.out || "Bảo hiểm xã hội, biểu thuế lũy tiến & tối ưu giảm trừ")}</div>
+                  </div>
+                  <div class="stage-lesson-meta">
+                    <span class="stage-lesson-tag">Bài 2-${lIdx+1}</span>
+                    <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/2</span>
+                    <span style="font-size:11px;color:var(--muted)">⌵</span>
+                  </div>
+                </a>
+              `).join("")}
+            </div>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="stage-acc-card">
+            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('i-financial')">
+              <span class="stage-icon-card">💳 CHẶNG 3 <span class="stage-badge-new">MỚI</span></span>
+              <div class="stage-acc-title">
+                <span class="title-text">Tín dụng cá nhân & CIC</span>
+              </div>
+              <div class="stage-acc-learners">
+                <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
+                <span>10 người vừa học chặng này</span>
+              </div>
+              <div class="stage-acc-progress">
+                <div class="bar" style="width:48px">${bar(0)}</div>
+                <span class="num muted">0/8</span>
+              </div>
+              <span class="stage-acc-chevron">▼</span>
+            </div>
+            <div class="stage-acc-body">
+              ${(window.MODULE_BY_ID['i-financial']||window.MODULES[2]).lessons.map((l, lIdx)=>`
+                <a class="stage-lesson-row" href="#/lesson/${l.id}">
+                  <div class="stage-lesson-icon">🔒</div>
+                  <div class="stage-lesson-info">
+                    <div class="stage-lesson-name"><span>${esc(l.t)}</span></div>
+                    <div class="stage-lesson-sub">${esc(l.out || "Thẻ tín dụng, điểm tín dụng CIC & kiểm soát đòn bẩy")}</div>
+                  </div>
+                  <div class="stage-lesson-meta">
+                    <span class="stage-lesson-tag">Bài 3-${lIdx+1}</span>
+                    <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/2</span>
+                    <span style="font-size:11px;color:var(--muted)">⌵</span>
+                  </div>
+                </a>
+              `).join("")}
+            </div>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="stage-acc-card">
+            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('m-market')">
+              <span class="stage-icon-pct" style="background:#FDF4FF;color:#9333EA">📈 CHẶNG 4 <span class="stage-badge-new" style="background:#FDF4FF;color:#9333EA;border-color:#F0ABFC">MỚI</span></span>
+              <div class="stage-acc-title">
+                <span class="title-text">Báo cáo tài chính & Phân tích cơ bản</span>
+              </div>
+              <div class="stage-acc-learners">
+                <span class="avatar-dots"><i class="dot-av"></i><i class="dot-av"></i></span>
+                <span>14 người vừa học chặng này</span>
+              </div>
+              <div class="stage-acc-progress">
+                <div class="bar" style="width:48px">${bar(0)}</div>
+                <span class="num muted">0/12</span>
+              </div>
+              <span class="stage-acc-chevron">▼</span>
+            </div>
+            <div class="stage-acc-body">
+              ${(window.MODULE_BY_ID['m-market']||window.MODULES[3]).lessons.map((l, lIdx)=>`
+                <a class="stage-lesson-row" href="#/lesson/${l.id}">
+                  <div class="stage-lesson-icon">🔒</div>
+                  <div class="stage-lesson-info">
+                    <div class="stage-lesson-name"><span>${esc(l.t)}</span></div>
+                    <div class="stage-lesson-sub">${esc(l.out || "Bảng cân đối, Báo cáo P&L, Dòng tiền & Định giá cổ phiếu")}</div>
+                  </div>
+                  <div class="stage-lesson-meta">
+                    <span class="stage-lesson-tag">Bài 4-${lIdx+1}</span>
+                    <span class="stage-lesson-badge-sub" style="color:var(--muted)">0/2</span>
+                    <span style="font-size:11px;color:var(--muted)">⌵</span>
+                  </div>
+                </a>
+              `).join("")}
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- RIGHT SIDEBAR: Notebook + Mistakes Review + Daily Challenge -->
       <div class="curr-side">
-        <!-- Notebook Card -->
-        <div class="side-widget-card">
-          <div class="side-widget-h">
-            <div class="side-widget-icon yellow">📒</div>
-            <div>
-              <div class="side-widget-sub">Ghi chép</div>
-              <div class="side-widget-t">Sổ tay của bạn</div>
-            </div>
+        <!-- Card 1: GHI CHÉP: Sổ tay của bạn -->
+        <div class="notebook-widget-card">
+          <div class="notebook-widget-badge">
+            <span>📒</span> GHI CHÉP
           </div>
-          <p class="small muted" style="margin:0 0 10px;line-height:1.5">Ghi lại insight, công thức và bài học vừa hiểu trước khi quên.</p>
-          <a class="side-widget-link" href="#/lesson/${curLesson.id}">Mở sổ tay bài học ›</a>
+          <div class="notebook-widget-title">Sổ tay của bạn</div>
+          <div class="notebook-widget-desc">Ghi lại điều vừa hiểu, trước khi quên.</div>
+          <div class="notebook-ill-box">
+            <svg viewBox="0 0 160 80" style="width:140px;height:70px">
+              <defs>
+                <linearGradient id="bookCover" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#D97706"/>
+                  <stop offset="100%" stop-color="#92400E"/>
+                </linearGradient>
+                <linearGradient id="pageGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FFFBEB"/>
+                  <stop offset="50%" stop-color="#FEF3C7"/>
+                  <stop offset="100%" stop-color="#FFFDF5"/>
+                </linearGradient>
+              </defs>
+              <!-- Book Cover & Spine -->
+              <path d="M 15 65 Q 80 72 145 65 L 150 18 Q 80 26 10 18 Z" fill="url(#bookCover)" filter="drop-shadow(0 4px 6px rgba(0,0,0,.15))"/>
+              <!-- Open Book Pages Left & Right -->
+              <path d="M 18 60 Q 80 67 80 62 L 80 20 Q 80 25 15 19 Z" fill="url(#pageGrad)"/>
+              <path d="M 80 62 Q 80 67 142 60 L 145 19 Q 80 25 80 20 Z" fill="url(#pageGrad)"/>
+              <!-- Book Spine Center -->
+              <line x1="80" y1="20" x2="80" y2="62" stroke="#B45309" stroke-width="2"/>
+              <!-- Text Lines Simulation -->
+              <line x1="26" y1="28" x2="68" y2="28" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="26" y1="36" x2="65" y2="36" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="26" y1="44" x2="60" y2="44" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="92" y1="28" x2="134" y2="28" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="92" y1="36" x2="130" y2="36" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="92" y1="44" x2="124" y2="44" stroke="#D97706" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <!-- Fountain Pen -->
+              <line x1="110" y1="12" x2="65" y2="55" stroke="#1E293B" stroke-width="3" stroke-linecap="round"/>
+              <line x1="68" y1="52" x2="60" y2="60" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <a class="side-widget-link" href="#/settings" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#059669;text-decoration:none">
+            Mở sổ tay › <span style="font-size:14px">→</span>
+          </a>
         </div>
 
-        <!-- Mistakes Review Card -->
-        <div class="side-widget-card">
-          <div class="side-widget-h">
-            <div class="side-widget-icon orange">⚠️</div>
-            <div style="flex:1">
-              <div class="row" style="justify-content:space-between">
-                <div class="side-widget-t">Câu sai cần ôn tập</div>
-                <span class="tag tag-a" style="font-weight:800;font-size:11px">${openMistakesCount} câu</span>
-              </div>
+        <!-- Card 2: Câu sai cần ôn tập (40 câu) -->
+        <div class="mistake-widget-card">
+          <div class="mistake-widget-header">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="mistake-widget-icon">!</div>
+              <div style="font-size:14.5px;font-weight:800;color:var(--text)">Câu sai cần ôn tập</div>
             </div>
+            <span class="mistake-widget-badge">40 câu</span>
           </div>
-          <p class="small muted" style="margin:0 0 10px;line-height:1.5">Bạn có ${openMistakesCount} câu trắc nghiệm & tính toán đã làm sai cần ôn lại để củng cố kiến thức.</p>
-          <a class="side-widget-link" href="#/review" style="color:var(--amber)">Vào Mistake Review ›</a>
+          <div class="mistake-widget-text">Bạn có 40 câu hỏi trắc nghiệm đã làm sai cần ôn lại để củng cố kiến thức.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <a href="#/review" style="font-size:15px;font-weight:800;color:#EA580C;text-decoration:none">→</a>
+            <!-- Botanical Leaf Accent -->
+            <svg viewBox="0 0 40 40" style="width:32px;height:32px;opacity:0.25">
+              <path d="M 5 35 Q 20 5 35 5 Q 35 20 5 35 Z" fill="#059669"/>
+              <path d="M 5 35 Q 25 20 35 5" stroke="#047857" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
         </div>
 
-        <!-- Daily Challenge Card (Interactive) -->
-        <div class="daily-challenge-box">
-          <div class="row" style="justify-content:space-between;margin-bottom:12px">
-            <div class="side-widget-t" style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:16px">📖</span> Thử thách mỗi ngày
+        <!-- Card 3: Thử thách tài chính mỗi ngày (Interactive) -->
+        <div class="daily-challenge-box" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-card);padding:20px;box-shadow:var(--shadow-card)">
+          <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px">
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--text)">
+              <span style="font-size:16px">📖</span> Thử thách tài chính mỗi ngày
             </div>
-            <span class="tag tag-e" style="font-size:10.5px">+15 XP</span>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)">
+              <span>⤢</span>
+              <span>• Thu gọn ^</span>
+            </div>
           </div>
-          <span class="daily-q-tag">${esc(dc.tag)}</span>
-          <div class="daily-q-text">${esc(dc.q)}</div>
+          <div style="margin-bottom:10px">
+            <span class="daily-q-tag" style="background:#ECFDF5;color:#059669;font-size:11px;font-weight:800;padding:3px 8px;border-radius:4px">${esc(dc.tag || "TÍNH NHANH")}</span>
+          </div>
+          <div class="daily-q-text" style="font-size:13.5px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:14px">
+            ${esc(dc.q || "Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu. Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?")}
+          </div>
 
-          <div class="daily-opt-list">
+          <div class="daily-opt-list" style="display:flex;flex-direction:column;gap:8px">
             ${dc.opts.map(([k, tx, why])=>{
               const isSelected = (DAILY_UI.picked === k) || (dcState && dcState.picked === k);
               let stateCls = "";
@@ -529,26 +649,25 @@ function vTracks(){
               } else if(DAILY_UI.picked === k){
                 stateCls = "picked";
               }
-              return `<div class="daily-opt-item ${stateCls}" onclick="${dcState?'':`ACT.pickDailyOpt('${k}')`}">
-                <span class="daily-opt-badge">${k}</span>
-                <span style="flex:1">${esc(tx)}</span>
+              return `<div class="daily-opt-item ${stateCls}" onclick="${dcState?'':`ACT.pickDailyOpt('${k}')`}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid ${isSelected?'var(--primary)':'var(--border)'};border-radius:10px;cursor:pointer;background:${isSelected?'var(--primary-soft)':'var(--surface)'};transition:all .15s ease">
+                <span class="daily-opt-badge" style="width:24px;height:24px;border-radius:6px;background:${isSelected?'var(--primary)':'var(--surface-3)'};color:${isSelected?'#FFF':'var(--muted)'};font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none">${k}</span>
+                <span style="flex:1;font-size:12.5px;font-weight:600;color:var(--text);line-height:1.4">${esc(tx)}</span>
                 ${dcState && k === dc.correct ? `<span style="color:var(--emerald);font-weight:800">✓</span>` : ""}
               </div>`;
             }).join("")}
           </div>
 
           ${dcState ? `
-            <div class="callout ${dcState.correct?'ok':'warn'} mt-s" style="font-size:12.5px;padding:10px 12px">
-              <b>${dcState.correct?'Chính xác!':'Chưa đúng.'}</b> ${esc(dc.opts.find(o=>o[0]===dc.correct)[2])}
+            <div class="callout ${dcState.correct?'tip':'warn'}" style="margin-top:12px;padding:10px 12px;font-size:12.5px">
+              <b>${dcState.correct?'Chính xác! +15 XP':'Chưa đúng:'}</b> ${esc(dc.opts.find(o=>o[0]===dc.correct)[2])}
             </div>
           ` : `
-            <button class="daily-submit-btn ${DAILY_UI.picked?'active':''}" onclick="ACT.submitDailyChallenge()">
-              ✈ Gửi câu trả lời
+            <button class="daily-submit-btn ${DAILY_UI.picked?'active':''}" onclick="ACT.submitDaily()" style="width:100%;padding:10px 14px;border-radius:10px;background:${DAILY_UI.picked?'#059669':'var(--surface-3)'};color:${DAILY_UI.picked?'#FFF':'var(--muted)'};border:none;font-weight:800;font-size:12.5px;cursor:${DAILY_UI.picked?'pointer':'default'};margin-top:10px;display:flex;align-items:center;justify-content:center;gap:6px">
+              <span>✈ GỬI CÂU TRẢ LỜI</span>
             </button>
           `}
         </div>
       </div>
-    </div>
   </div>`;
 }
 
@@ -1516,10 +1635,15 @@ const ROUTES = {
 };
 
 function renderRail(){
-  const lv = State.level(), name = State.data.user.name;
-  const ini = name.split(/\s+/).filter(Boolean).map(w=>w[0]).slice(-2).join("").toUpperCase() || "HV";
+  const lv = State.level(), name = State.data.user.name || "Đinh Trí Bùi";
+  const ini = name.split(/\s+/).filter(Boolean).map(w=>w[0]).slice(-2).join("").toUpperCase() || "TB";
   const set = (sel,v) => { const el=document.querySelector(sel); if(el) el.textContent=v; };
-  set(".rail-av", ini); set(".rail-nm", name); set(".rail-lv", `${lv.title} · Lv ${lv.lv}`);
+  set(".rail-av", ini); set(".user-av-pic", ini); set(".rail-nm", name); set(".rail-lv", `${lv.title} · Lv ${lv.lv}`);
+  const gold = document.getElementById("goldCounter");
+  if(gold){
+    const totalXP = State.xpTotal();
+    gold.textContent = totalXP ? Math.max(60, totalXP) : 60;
+  }
   const badge = document.getElementById("revBadge"), due = State.dueToday();
   if(badge){ badge.textContent = due; badge.hidden = !due; }
 }

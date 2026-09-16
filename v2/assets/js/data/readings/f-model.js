@@ -129,3 +129,71 @@ Cái giá phải trả là **kiểm soát chất lượng**. Hai trăm cửa hà
 
 Phần dưới bắt bạn nhận diện mô hình từ mô tả và tính doanh thu phí nhượng quyền. Bài cuối module sẽ đi sâu hơn một bậc: khi một mô hình đang lỗ, làm sao tìm ra đúng **một biến** quyết định nó sống hay chết.
 `);
+
+LRD("f-model-3", `
+Một startup cho thuê xe đạp điện theo phút có 5.000 xe ở TP.HCM và đang lỗ. Ban điều hành họp và chốt: tăng giá thuê.
+
+Nhưng nhìn vào số liệu, giá không phải chỗ hỏng. Mỗi xe đang được thuê trung bình 40 phút một ngày, giá 2.000đ một phút, tức doanh thu 80.000đ. Chi phí mỗi xe mỗi ngày là 85.000đ. Mỗi xe lỗ 5.000đ, nhân 5.000 xe là 25 triệu đồng mỗi ngày.
+
+Khoảng cách giữa 40 phút và mức cần thiết là bao nhiêu? Chỉ **2,5 phút**. Đây không phải một mô hình không khả thi — đây là một mô hình thiếu 2,5 phút sử dụng mỗi xe mỗi ngày.
+
+Sự khác nhau giữa hai cách mô tả đó quyết định toàn bộ khuyến nghị.
+
+## P&L một tài sản mỗi ngày
+
+Với các mô hình dựa trên tài sản — cho thuê xe, khách sạn, phòng gym, máy móc, xe tải — cách phân tích hiệu quả nhất là dựng bảng lãi lỗ cho **một tài sản trong một ngày**.
+
+Phía doanh thu: số phút (hoặc giờ, đêm, chuyến) được sử dụng nhân với giá mỗi đơn vị.
+
+Phía chi phí, liệt kê mọi khoản phát sinh cho một xe trong một ngày: khấu hao xe 18.000đ, sạc pin và thu gom 35.000đ, sửa chữa và thất thoát 20.000đ, bảo hiểm và nền tảng 12.000đ. Tổng 85.000đ.
+
+Điều đáng chú ý ngay: **hầu hết chi phí tính theo xe, không theo phút**. Chiếc xe tốn 85.000đ một ngày dù nó chạy 10 phút hay 400 phút. Cấu trúc đó nói với bạn rằng biến quyết định không phải giá mà là **mức độ sử dụng**.
+
+## Tìm biến quyết định
+
+Trong một mô hình có năm, sáu biến, chỉ một hoặc hai biến thật sự quyết định sống chết. Ba tiêu chí để nhận ra chúng:
+
+**Khoảng cách tới ngưỡng gần nhất.** Biến nào chỉ cần thay đổi một chút là mô hình đổi từ lỗ sang lãi?
+
+**Doanh nghiệp tác động được.** Số phút sử dụng thì tác động được — bằng cách đặt xe ở chỗ đông người, bằng khuyến mãi giờ thấp điểm, bằng rút xe khỏi khu vực vắng. Thời tiết thì không.
+
+**Không kéo theo phản ứng ngược.** Tăng giá là biến tác động được, nhưng nó kéo theo giảm số phút thuê — hai biến không độc lập.
+
+Ở đây, số phút sử dụng thắng cả ba tiêu chí. Tăng giá thì có thể đạt hoà vốn trên giấy nhưng thực tế khách sẽ thuê ít đi, và vì gần như toàn bộ chi phí cố định theo xe, mất số phút còn đau hơn được thêm giá.
+
+## Ngưỡng hoà vốn của biến quyết định
+
+Phép tính rất gọn: chi phí mỗi xe mỗi ngày chia cho giá mỗi phút.
+
+85.000 ÷ 2.000 = **42,5 phút một ngày**.
+
+Đặt cạnh mức hiện tại 40 phút, khoảng thiếu là 2,5 phút — tức khoảng 6%. Một mô hình cách hoà vốn 6% ở biến chính là một mô hình có thể sửa bằng vận hành, không phải một mô hình cần bỏ.
+
+Và cách sửa lộ ra ngay từ cấu trúc: nếu một số xe đang nằm ở khu vực ít khách và chỉ được thuê 10 phút một ngày, thì **rút bớt xe ở đó và dồn về khu đông** sẽ nâng số phút trung bình của đội xe còn lại. Nghịch lý thú vị: giảm số xe có thể làm tăng lợi nhuận, vì chi phí giảm theo xe còn doanh thu thì dồn lại.
+
+Hướng thứ hai là tấn công chi phí lớn nhất: sạc pin và thu gom chiếm 35.000đ, hơn 40% tổng chi phí. Đổi sang pin tháo rời để nhân viên đổi pin tại chỗ thay vì chở xe về kho có thể cắt phần lớn khoản này, và nó hạ ngưỡng hoà vốn xuống hẳn.
+
+## Nói ra như thế nào
+
+> "Em sẽ dựng bảng lãi lỗ cho một xe trong một ngày.
+
+> Doanh thu 40 phút nhân 2.000đ là 80.000đ. Chi phí gồm khấu hao 18, sạc và thu gom 35, sửa chữa 20, bảo hiểm và nền tảng 12 — tổng 85.000đ. Mỗi xe lỗ 5.000đ một ngày.
+
+> Điểm quan trọng là gần như toàn bộ chi phí tính theo xe chứ không theo phút, nên biến quyết định là mức sử dụng chứ không phải giá.
+
+> Ngưỡng hoà vốn là 85.000 chia 2.000, tức 42,5 phút — chỉ thiếu 2,5 phút. Em đề xuất rút xe khỏi khu vực ít khách để nâng số phút của các xe còn lại, và xem xét pin tháo rời để cắt khoản thu gom 35.000đ."
+
+## Bốn chỗ hay trượt
+
+**Kết luận "mô hình không khả thi".** Khoảng cách 6% ở biến chính là vấn đề vận hành, không phải vấn đề mô hình.
+
+**Tăng giá mà không tính phản ứng khách.** Số phút giảm có thể xoá sạch phần tăng giá.
+
+**Phân tích ở cấp toàn công ty.** Tổng lỗ 25 triệu một ngày không cho biết biến nào cần sửa; P&L một xe thì có.
+
+**Mở rộng đội xe khi mỗi xe đang lỗ.** Thêm xe chỉ nhân thêm khoản lỗ — và còn làm giảm số phút trung bình.
+
+## Trước khi sang phần bài tập
+
+Phần dưới bắt bạn dựng P&L một xe, tìm biến quyết định và tính ngưỡng 42,5 phút. Đây là bài cuối của module mô hình kinh doanh: ba bài vừa rồi cho bạn cách đọc một doanh nghiệp từ ba góc — nó kiếm tiền ở đâu, nó thuộc loại mô hình nào, và biến nào quyết định nó sống hay chết.
+`);

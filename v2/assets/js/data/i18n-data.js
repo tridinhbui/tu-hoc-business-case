@@ -8,6 +8,8 @@ I18N.add({
   "Giải được một case chưa từng gặp bằng một quy trình lặp lại, không bằng trí nhớ.":"Solve a case you have never seen using a repeatable process, not memory.",
   "Người đã biết framework nhưng vẫn lúng túng khi gặp đề lạ":"Learners who know the frameworks but freeze on an unfamiliar brief",
   "Họ 1 · Lợi nhuận":"Family 1 · Profit",
+  "Họ 2 · Tăng trưởng":"Family 2 · Growth",
+  "Họ 3 · Gia nhập & Đầu tư":"Family 3 · Entry & investment",
   "Nền tảng kinh doanh":"Business fundamentals",
   "Hiểu cách một doanh nghiệp kiếm tiền và đọc được con số cơ bản.":"Understand how a business makes money and read its basic numbers.",
   "Người mới học business, chưa biết bắt đầu từ đâu":"Beginners who don't know where to start",

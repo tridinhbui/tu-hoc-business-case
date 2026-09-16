@@ -34,32 +34,89 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
 <body>
 <div class="app">
   <aside class="rail">
-    <a class="rail-brand" href="landing.html" style="border:0;padding-left:18px">
-      <span class="rail-mark">CL</span>
-      <span><span class="rail-name">CASELAB</span><span class="rail-sub">case training studio</span></span>
+    <a class="rail-brand" href="landing.html" style="border:0;padding:20px 18px 14px;display:flex;align-items:center;gap:10px;text-decoration:none">
+      <span style="font-size:22px;line-height:1">🌱</span>
+      <span style="font-weight:800;font-size:16px;color:#065F46;letter-spacing:-.01em">TỰ HỌC TÀI CHÍNH</span>
     </a>
-    <div class="rail-sec">Học tập</div>
+    
+    <div style="padding:0 14px 10px">
+      <div class="sidebar-search-box" onclick="location.hash='#/tracks'" style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);padding:7px 12px;cursor:pointer">
+        <span style="color:var(--muted);font-size:13px">⌕</span>
+        <span style="color:var(--muted);font-size:12.5px;flex:1">Tìm kiếm...</span>
+        <kbd style="font-size:10px;padding:2px 5px;background:var(--surface-3);border-radius:4px;color:var(--muted);font-family:inherit">⌘K</kbd>
+      </div>
+    </div>
+
+    <nav id="nav-top" style="margin-bottom:6px">
+      <a href="#/dashboard"><span class="ic">📊</span>Dashboard</a>
+      <a href="#/finsocial"><span class="ic">🌐</span>FinSocial</a>
+    </nav>
+
+    <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
+      <span>HỌC TẬP</span>
+      <span style="font-size:10px;opacity:.6">⌵</span>
+    </div>
     <nav id="nav1">
-      <a href="#/dashboard"><span class="ic">◳</span>Dashboard</a>
-      <a href="#/tracks"><span class="ic">▤</span>Lộ trình học</a>
-      <a href="#/lesson/f-profit-2"><span class="ic">◧</span>Bài học mẫu</a>
+      <a href="#/tracks"><span class="ic">🧭</span>Bắt đầu từ đâu</a>
+      <a href="#/tracks" class="on"><span class="ic">📖</span>Học bài</a>
+      <a href="#/career"><span class="ic">💼</span>Học theo nghề</a>
+      <a href="#/review" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">📜</span>Chứng chỉ</span>
+        <span style="font-size:11px;opacity:.5">›</span>
+      </a>
     </nav>
-    <div class="rail-sec">Luyện tập</div>
+
+    <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
+      <span>THỰC HÀNH</span>
+      <span style="font-size:10px;opacity:.6">⌵</span>
+    </div>
     <nav id="nav2">
-      <a href="#/arena"><span class="ic">◎</span>Practice Arena</a>
-      <a href="#/library"><span class="ic">◫</span>Case Library</a>
-      <a href="#/competition"><span class="ic">◈</span>Competition</a>
-      <a href="#/interview"><span class="ic">◉</span>Interview Mode</a>
+      <a href="#/arena" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">📝</span>Quiz</span>
+        <span class="nav-tag-pill green">TIN MỚI</span>
+      </a>
+      <a href="#/competition"><span class="ic">🏆</span>Thi vượt chặng</a>
+      <a href="#/arena" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">🎮</span>Game Kingdom</span>
+        <span class="nav-tag-pill orange">HOT</span>
+      </a>
+      <a href="#/interview"><span class="ic">🎙️</span>Luyện phỏng vấn</a>
     </nav>
-    <div class="rail-sec">Phát triển</div>
+
+    <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
+      <span>CỘNG ĐỒNG</span>
+      <span style="font-size:10px;opacity:.6">⌵</span>
+    </div>
     <nav id="nav3">
-      <a href="#/career"><span class="ic">◭</span>Career Path</a>
-      <a href="#/review"><span class="ic">◍</span>Mistake Review <span class="tag tag-a" id="revBadge" style="margin-left:auto;padding:1px 7px" hidden>0</span></a>
+      <a href="#/library"><span class="ic">🏛️</span>Thư viện</a>
+      <a href="#/arena" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">👥</span>Học nhóm</span>
+        <span class="nav-tag-pill yellow">CHECK-IN</span>
+      </a>
+      <a href="#/review"><span class="ic">📈</span>Thống kê</a>
     </nav>
-    <div class="rail-foot">
-      <a class="rail-user" href="#/settings" title="Tài khoản & sao lưu">
-        <span class="rail-av">HV</span>
-        <span><span class="rail-nm">Học viên</span><br><span class="rail-lv">Intern · Lv 1</span></span>
+
+    <div class="rail-foot" style="margin-top:auto;border-top:1px solid var(--border);padding:12px 14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--text)">
+          <span>🪙</span><span>Túi vàng</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-weight:800;font-size:13px;color:#D97706" id="goldCounter">60</span>
+          <div style="position:relative;cursor:pointer">
+            <span style="font-size:14px">🔔</span>
+            <span style="position:absolute;top:-5px;right:-7px;background:#EF4444;color:#FFF;font-size:9px;font-weight:800;border-radius:999px;padding:1px 4px">9+</span>
+          </div>
+        </div>
+      </div>
+
+      <a class="rail-user-profile" href="#/settings" style="display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:10px;text-decoration:none;color:inherit;background:transparent;transition:background .15s ease">
+        <div class="user-av-pic" style="width:34px;height:34px;border-radius:50%;background:#064E3B;color:#ECFDF5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none">TB</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" class="rail-nm">Đinh Trí Bùi</div>
+          <div style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">tribd.tec@gmail.com</div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);flex:none">⌵</span>
       </a>
     </div>
   </aside>
@@ -129,6 +186,8 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
 <script src="assets/js/data/lessons-en/s-cost.js?v=36"></script>
 <script src="assets/js/data/lessons-en/s-service.js?v=36"></script>
 <script src="assets/js/data/lessons/k-profit.js?v=36"></script>
+<script src="assets/js/data/lessons/k-growth.js?v=36"></script>
+<script src="assets/js/data/lessons/k-entry.js?v=36"></script>
 <script src="assets/js/data/lessons/f-sizing.js?v=36"></script>
 <script src="assets/js/data/lessons/f-profit.js?v=36"></script>
 <script src="assets/js/data/lessons/f-pricing.js?v=36"></script>

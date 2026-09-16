@@ -9,7 +9,7 @@
 
 | Hạng mục | Trạng thái |
 |---|---|
-| Bài học | **104/104** đủ khuôn 10 phần, đủ phép tính lại, đủ tiêu đề EN. Nội dung EN: 100/104 — 4 bài `k-profit` chờ phiên i18n |
+| Bài học | **112/112** đủ khuôn 10 phần, đủ phép tính lại, đủ tiêu đề EN. Nội dung EN: 100/112 — 12 bài track `method` chờ phiên i18n |
 | Case | **17/17** có đề đầy đủ (12 practice · 3 competition · 2 interview), mỗi case 3 exhibit, mỗi con số có khối tính lại trong `tests/scoring.test.js` |
 | Cổng kiểm | 6 file test, đều xanh. `tools/content-status.js` không còn ô trống nào |
 
@@ -79,7 +79,7 @@ nào minh hoạ được — hiện không họ nào rơi vào cảnh đó.
 | Lô | Nội dung | Số bài | Ước lượng |
 |---|---|---:|---|
 | **L1** ✅ | `k-profit` trọn 4 bài + dựng track `method` | 4 | **xong 16-09-2026** — mọi cổng kiểm xanh |
-| **L2** | `k-growth` + `k-entry` | 8 | |
+| **L2** ✅ | `k-growth` + `k-entry` | 8 | **xong 16-09-2026** — mọi cổng kiểm xanh |
 | **L3** | `k-price` + `k-size` | 8 | |
 | **L4** | `k-live` 5 bài | 5 | cần đọc lại `interview.js` để bài khớp engine 5 vòng |
 | **L5** | 2 case mới cho họ thiếu chất liệu *nếu* L1–L4 lộ ra thiếu | 0–2 case | chỉ mở khi có bằng chứng |

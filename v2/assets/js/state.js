@@ -89,6 +89,18 @@ function setLessonNote(lessonId, text){
 /* ── daily challenge widget ── */
 const DAILY_CHALLENGES = [
   {
+    id: "dc-0",
+    tag: "TÍNH NHANH",
+    q: "Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu. Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?",
+    opts: [
+      ["A", "64%, vượt xa ngưỡng an toàn thường được khuyến nghị là dưới 40% thu nhập", "Tổng nghĩa vụ nợ 16 triệu / 25 triệu = 64%, vượt quá ngưỡng an toàn tài chính cá nhân."],
+      ["B", "44%, chỉ tính khoản vay cũ nên khoản trả góp mới chưa được cộng vào mẫu", "Chưa cộng thêm khoản nghĩa vụ nợ mới."],
+      ["C", "20%, chỉ tính khoản trả góp mới vì đó là phần nghĩa vụ vừa phát sinh thêm", "Chỉ tính khoản nợ mới mà bỏ quên khoản nợ cũ đang trả."],
+      ["D", "16 triệu, lấy tổng số tiền phải trả mỗi tháng thay cho một tỷ lệ phần trăm", "Số tuyệt đối chứ không phải tỷ lệ phần trăm (DTI)."]
+    ],
+    correct: "A"
+  },
+  {
     id: "dc-1",
     tag: "TÍNH NHANH",
     q: "Doanh thu 50 tỷ, Biên gộp (Gross Margin) 40%, Chi phí vận hành (OPEX) 12 tỷ. Biên lợi nhuận hoạt động (Operating Margin) là bao nhiêu?",
