@@ -1,7 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  // Must match the Worker name connected to Workers Builds in the dashboard.
-  "name": "tu-hoc-business-case",
+  // Its own Worker: the repo's main branch now holds a different project (STRATLAB) that deploys
+  // to "tu-hoc-business-case". Sharing that name meant each push replaced the other product.
+  "name": "tu-hoc-business-case-app",
   "main": "./worker/index.ts",
   "compatibility_date": "2026-08-01",
   "observability": { "enabled": true },
@@ -22,14 +23,14 @@
   // Safe production defaults. Local overrides live in .dev.vars (DEV_MODE, TURNSTILE_SECRET).
   "vars": {
     "DEV_MODE": "false",
-    "APP_ORIGIN": "https://tu-hoc-business-case.tridinhbui0901.workers.dev",
+    "APP_ORIGIN": "https://tu-hoc-business-case-app.tridinhbui0901.workers.dev",
     "MAIL_FROM": "no-reply@example.com",
     // Google OAuth client id (public by design). The secret is a Worker secret: wrangler secret put GOOGLE_CLIENT_SECRET
     "GOOGLE_CLIENT_ID": "877684848523-p9fs8dugmm9hdfn6odqpnl4o3qca19eo.apps.googleusercontent.com",
     // Public Turnstile sitekey; empty until the widget exists (the login form then shows that sign-in is closed).
     "TURNSTILE_SITEKEY": "",
     // Frontend hostnames siteverify must report in production. Never add localhost here.
-    "TURNSTILE_HOSTNAMES": "tu-hoc-business-case.tridinhbui0901.workers.dev"
+    "TURNSTILE_HOSTNAMES": "tu-hoc-business-case-app.tridinhbui0901.workers.dev"
   },
 
   // No resource ids: `wrangler deploy` provisions D1, KV, R2 and Queues that do not exist yet
@@ -38,9 +39,10 @@
     { "binding": "DB_CONTENT", "database_name": "bc_content", "migrations_dir": "migrations/content" },
     { "binding": "DB_LEARNING", "database_name": "bc_learning", "migrations_dir": "migrations/learning" }
   ],
+  // Pinned by id so the rename keeps the existing sessions and cache instead of provisioning new ones.
   "kv_namespaces": [
-    { "binding": "CONTENT_CACHE" },
-    { "binding": "SESSIONS" }
+    { "binding": "CONTENT_CACHE", "id": "10cd003bc1a346c4ad9882d8c91b488e" },
+    { "binding": "SESSIONS", "id": "7e6548ea072e4075bf5b0e1959f1c27a" }
   ],
   "r2_buckets": [
     { "binding": "R2_CONTENT", "bucket_name": "bc-content" },

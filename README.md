@@ -87,13 +87,23 @@ Brief để một agent khác viết cùng: [authoring/AGENT-BRIEF.md](authoring
 
 ## Deploy lên Cloudflare
 
-Repo được nối với **Workers Builds** (Worker `tu-hoc-business-case`). Mỗi lần push lên `main`, Cloudflare build và deploy.
+Dự án này sống ở nhánh **`cloudflare-platform`** và deploy vào Worker **`tu-hoc-business-case-app`**
+(https://tu-hoc-business-case-app.tridinhbui0901.workers.dev).
 
-Không cần sửa cấu hình build trên dashboard: để **Build command** trống, **Deploy command** là `npx wrangler deploy`. Wrangler tự chạy `npx vite build` trước khi deploy nhờ khai báo `build.command` trong `wrangler.jsonc`.
+Nhánh `main` của repo là một dự án khác (STRATLAB) và Workers Builds đang deploy nhánh đó vào Worker
+`tu-hoc-business-case`. Hai Worker khác tên nên không còn ghi đè nhau. Đổi lại, nhánh này **không**
+tự deploy: sau khi push phải chạy
+
+```bash
+npx wrangler deploy
+```
+
+Wrangler tự chạy `npx vite build` trước khi deploy nhờ khai báo `build.command` trong `wrangler.jsonc`.
+Nếu sau này nối lại Workers Builds thì để **Build command** trống và **Deploy command** là `npx wrangler deploy`.
 
 Không đổi `build.command` thành `npm run build`: script đó gọi `wrangler types`, mà `wrangler types` lại chạy custom build, gây đệ quy vô hạn.
 
-`wrangler.jsonc` không ghi id tài nguyên: lần deploy đầu, Wrangler tự tạo D1 (`bc_content`, `bc_learning`), KV, R2 (`bc-content`, `bc-submissions`) và Queues rồi gắn vào Worker.
+`wrangler.jsonc` ghi id KV (để đổi tên Worker không mất session) nhưng không ghi id D1/R2/Queues: Wrangler khớp chúng theo tên và tự tạo nếu chưa có.
 
 `wrangler deploy` **không** chạy migration. Sau lần deploy đầu tiên và sau mỗi migration mới:
 
@@ -108,6 +118,7 @@ npm run db:seed:remote
 
 - Tài khoản **Workers Paid** — gói Free giới hạn CPU 10 ms mỗi request, D1 500 MB mỗi database, và không có Email Sending.
 - Tên miền dùng Cloudflare DNS, onboard vào Email Sending, bật binding `send_email`. Chưa có bước này thì magic link không gửi được (API trả 503) — lúc đó đăng nhập bằng Google là cách duy nhất.
+- Secret là **của từng Worker**: sau khi đổi tên Worker phải đặt lại `GOOGLE_CLIENT_SECRET` (và `TURNSTILE_SECRET` nếu có) cho Worker mới.
 - Tạo widget Turnstile, gắn vào form đăng nhập ở `src/pages/Login.tsx`, đặt secret: `wrangler secret put TURNSTILE_SECRET`. Không đưa `.dev.vars` lên production.
 - Đặt `APP_ORIGIN` và `MAIL_FROM` đúng tên miền thật trong `wrangler.jsonc`.
 
@@ -117,7 +128,7 @@ Hai cách đăng nhập dùng chung một tài khoản: định danh là **email
 
 1. Google Cloud Console → **APIs & Services → Credentials → Create OAuth client ID → Web application**.
 2. **Authorized redirect URIs** (phải khớp từng ký tự):
-   - `https://tu-hoc-business-case.tridinhbui0901.workers.dev/api/auth/google/callback`
+   - `https://tu-hoc-business-case-app.tridinhbui0901.workers.dev/api/auth/google/callback`
    - `http://127.0.0.1:5173/api/auth/google/callback` (chạy máy)
 3. Điền client id vào `vars.GOOGLE_CLIENT_ID` trong `wrangler.jsonc` (id là công khai), rồi đặt secret:
 

@@ -18,6 +18,7 @@ DELETE FROM lesson_rubrics;
 DELETE FROM rubric_criterion_levels;
 DELETE FROM rubric_criteria;
 DELETE FROM rubrics;
+DELETE FROM lesson_blocks;
 DELETE FROM lesson_skills;
 DELETE FROM lessons;
 DELETE FROM module_skills;
