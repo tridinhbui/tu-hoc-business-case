@@ -583,6 +583,7 @@
       <button class="sb-item" data-view="moderation"><span class="ic">🛡️</span>Kiểm duyệt<span class="sb-count warn" id="cntMod">0</span></button>
 
       <div class="sb-sec">NỘI DUNG</div>
+      <a class="sb-item" href="soan-bai.html"><span class="ic">✍️</span>Soạn bài</a>
       <button class="sb-item" data-view="content"><span class="ic">📚</span>Bài học &amp; case<span class="sb-count" id="cntContent">0</span></button>
       <button class="sb-item" data-view="revenue"><span class="ic">💳</span>Doanh thu</button>
       <button class="sb-item" data-view="logs"><span class="ic">🧾</span>Nhật ký</button>
@@ -778,7 +779,10 @@
           <h1>Bài học &amp; case</h1>
           <p>Nhấn vào một bài để chỉnh sửa · bật/tắt xuất bản ngay trên bảng</p>
         </div>
-        <button class="btn primary" id="btnNewCase">＋ Thêm case mới</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="btnNewCase">＋ Thêm nhanh</button>
+          <a class="btn primary" href="soan-bai.html" style="text-decoration:none">✍️ Mở xưởng soạn bài</a>
+        </div>
       </div>
 
       <section class="card">
@@ -1897,6 +1901,32 @@
 
     /* ═══════════ KHỞI TẠO ═══════════ */
     var restored = restore();
+
+    /* bài gửi duyệt từ xưởng soạn bài (soan-bai.html) */
+    (function mergeStudio() {
+      var subs;
+      try { subs = JSON.parse(localStorage.getItem('thtc-studio-submissions') || '[]'); } catch (e) { subs = []; }
+      var added = 0;
+      subs.forEach(function (sub) {
+        var existing = CONTENT.filter(function (c) { return c.id === sub.id; })[0];
+        if (existing && existing.submittedAt === sub.submittedAt) return;
+        if (existing) {
+          existing.title = sub.title;
+          existing.state = 'review';
+          existing.submittedAt = sub.submittedAt;
+        } else {
+          CONTENT.unshift({ id: sub.id, title: sub.title, type: 'Bài đọc', learners: 0, pass: 0, rating: 0,
+                            state: 'review', submittedAt: sub.submittedAt,
+                            desc: 'Gửi từ xưởng soạn bài · bài đọc ' + (sub.words || 0).toLocaleString('vi-VN') + ' chữ + 10 phần, đã đạt cổng kiểm tra.' });
+        }
+        LOGS.unshift({ ic: '✍️', t: '<b>Đinh Trí Bùi</b> gửi duyệt bài <b>' + esc(sub.id) + '</b> — ' + esc(sub.title) + ' từ xưởng soạn bài', at: sub.submittedAt });
+        added++;
+      });
+      if (added) {
+        persist();
+        setTimeout(function () { toast(added + ' bài mới từ xưởng soạn bài đang chờ duyệt'); }, 900);
+      }
+    })();
     renderKpi(7); renderChart(7); renderFunnel(); renderTodo(); renderHardCases();
     renderLearners(); renderContent(); renderMod(); renderRevenue(); renderLogs(); renderBell();
     updateCounts();
