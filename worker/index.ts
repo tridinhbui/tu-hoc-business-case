@@ -1,5 +1,6 @@
 import { adminOverview } from "./admin";
 import { googleCallback, googleEnabled, startGoogleLogin } from "./google";
+import { landingView } from "./landing";
 import { currentUser, logout, requestMagicLink, requireUser, verifyMagicLink } from "./auth";
 import { reviewAttempt, startAttempt, submitAttempt, uploadArtifact } from "./attempts";
 import { claimAttempt, consumeGrading, gradeAttempt, graderQueue } from "./grading";
@@ -25,6 +26,9 @@ route("GET", "/api/config", async (_req, env) => json({
   // magic links need Cloudflare Email Sending, which only exists on a Paid account with a domain
   magicLink: isDev(env) || !!env.EMAIL,
 }));
+
+// public landing page (no session required)
+route("GET", "/api/landing", (_req, env) => landingView(env));
 
 // auth
 route("POST", "/api/auth/request", (req, env) => requestMagicLink(req, env));

@@ -180,3 +180,13 @@ export type AdminOverview = {
     cases_by_status: { status: string; n: number }[];
   };
 };
+
+export type LandingView = {
+  tracks: { id: string; name: string; role: string; modules: number }[];
+  paths: { id: string; name: string; weeks: number; hours_per_week: string; persona: string; lessons: number }[];
+  counts: {
+    lessons: number; modules: number; cases: number; capstones: number;
+    skills: number; mistake_codes: number; minutes: number;
+  };
+  kinds: { kind: string; n: number }[];
+};

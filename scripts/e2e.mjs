@@ -140,6 +140,17 @@ async function main() {
     !JSON.stringify(config.data).includes("1x0000000000000000000000000000000AA") &&
     !JSON.stringify(config.data).includes("test-client-secret"), config.data);
 
+  console.log("== public landing");
+  const visitor = new Client("visitor");
+  const landing = await visitor.call("GET", "/api/landing");
+  check("the landing data is public and counts published content",
+    landing.status === 200 && landing.data.counts.lessons === 6 && landing.data.counts.modules >= 1 &&
+    landing.data.counts.skills >= 1 && landing.data.counts.minutes > 0, landing.data?.counts);
+  check("it lists tracks and the kinds of practice", 
+    landing.data.tracks?.length >= 1 && landing.data.kinds?.some((k) => k.n > 0), landing.data?.tracks);
+  check("it carries no learner data", !JSON.stringify(landing.data).includes("@example.com"));
+  check("visiting it grants no session", !visitor.cookie && (await visitor.call("GET", "/api/progress")).status === 401);
+
   console.log("== google login");
   const anon = new Client("anon");
   const start = await anon.call("GET", "/api/auth/google/start");

@@ -78,6 +78,16 @@ export const KIND_LABELS: Record<string, string> = {
   checkpoint: "Checkpoint",
 };
 
+// The six learner personas the paths were written for (§02 of the curriculum).
+export const PERSONA_LABELS: Record<string, string> = {
+  P1: "Người mới hoàn toàn với business",
+  P2: "Sinh viên luyện case competition",
+  P3: "Người luyện consulting case interview",
+  P4: "Người học marketing strategy",
+  P5: "Người học operations / supply chain",
+  P6: "Business analyst / product / strategy",
+};
+
 export const LOCK_TEXT: Record<LockReason, { short: string; help: string }> = {
   level: { short: "Chưa đủ cấp", help: "Bài này dành cho cấp cao hơn. Qua checkpoint của cấp hiện tại để mở." },
   prereq: { short: "Cần module trước", help: "Qua checkpoint của module tiên quyết để mở bài này." },

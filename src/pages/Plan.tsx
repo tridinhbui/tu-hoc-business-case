@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { api, type PathPlan, type PathSummary } from "../api";
-import { ErrorNote, formatDate, KindTag, LevelChip, Link, Loading, LOCK_TEXT, StatusPill, useLoad } from "../lib";
+import { ErrorNote, formatDate, KindTag, LevelChip, Link, Loading, LOCK_TEXT, PERSONA_LABELS, StatusPill, useLoad } from "../lib";
 
 export function PlanPage() {
   const list = useLoad(() => api<{ items: PathSummary[] }>("/api/paths"), []);
@@ -58,7 +58,7 @@ function PathChooser({ items, activeId, onJoined, onCancel }: { items: PathSumma
         <div className="path-grid">
           {items.map((p) => (
             <article key={p.id} className={`panel path-card${p.id === activeId ? " is-active" : ""}`}>
-              <p className="eyebrow">{p.id} · {p.persona}</p>
+              <p className="eyebrow">{p.id} · {PERSONA_LABELS[p.persona] ?? p.persona}</p>
               <h2>{p.name}</h2>
               <dl className="path-facts">
                 <div><dt>Thời lượng</dt><dd>{p.weeks} tuần</dd></div>

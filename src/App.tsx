@@ -4,6 +4,7 @@ import { AttemptPage } from "./pages/Attempt";
 import { GradePage } from "./pages/Grade";
 import { GraderQueuePage } from "./pages/GraderQueue";
 import { LessonPage } from "./pages/Lesson";
+import { LandingPage } from "./pages/Landing";
 import { LoginPage } from "./pages/Login";
 import { PathPage } from "./pages/Path";
 import { AdminPage } from "./pages/Admin";
@@ -17,13 +18,15 @@ export function App() {
 
   if (me.loading && !me.data) return <main className="wrap"><Loading /></main>;
   const user = me.data?.user ?? null;
-  if (!user) return <LoginPage />;
+  // Visitors see what the programme is before being asked to sign in; a saved link goes straight to login.
+  if (!user) return path === "/" ? <LandingPage /> : <LoginPage />;
 
   const isGrader = user.role !== "learner";
   const isStaff = user.role === "instructor" || user.role === "admin";
   let page;
   let m: RegExpMatchArray | null;
-  if (path === "/" || path === "/path") page = <PathPage />;
+  // /login has nothing left to offer someone already signed in.
+  if (path === "/" || path === "/path" || path === "/login") page = <PathPage />;
   else if ((m = path.match(/^\/lessons\/([^/]+)$/))) page = <LessonPage lessonId={m[1]} />;
   else if ((m = path.match(/^\/attempts\/([^/]+)$/))) page = <AttemptPage attemptId={m[1]} />;
   else if (path === "/plan") page = <PlanPage />;
