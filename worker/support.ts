@@ -1,3 +1,4 @@
+import { autoAnswer } from "./assistant";
 import { requireRole, type User } from "./auth";
 import { AppEnv, HttpError, json, now, readJson, uuid } from "./util";
 
@@ -10,6 +11,8 @@ type Thread = {
   id: string;
   user_id: string;
   status: "open" | "closed";
+  auto_answered: number;
+  needs_human: number;
   created_at: number;
   last_message_at: number;
   learner_read_at: number;
@@ -18,7 +21,7 @@ type Thread = {
 
 type Message = {
   id: string;
-  author_side: "learner" | "staff";
+  author_side: "learner" | "staff" | "assistant";
   body: string;
   context_path: string | null;
   created_at: number;
@@ -54,15 +57,20 @@ async function checkRate(env: AppEnv, userId: string) {
 /** The learner's own thread. Reading it marks staff replies as seen. */
 export async function myThread(env: AppEnv, user: User): Promise<Response> {
   const thread = await env.DB_LEARNING.prepare(
-    "SELECT id, user_id, status, created_at, last_message_at, learner_read_at, staff_read_at FROM support_threads WHERE user_id = ?1",
+    `SELECT id, user_id, status, auto_answered, needs_human, created_at, last_message_at, learner_read_at, staff_read_at
+     FROM support_threads WHERE user_id = ?1`,
   ).bind(user.id).first<Thread>();
   if (!thread) return json({ thread: null, messages: [], unread: 0 });
 
   const messages = await messagesOf(env, thread.id);
-  const unread = messages.filter((m) => m.author_side === "staff" && m.created_at > thread.learner_read_at).length;
+  const unread = messages.filter((m) => m.author_side !== "learner" && m.created_at > thread.learner_read_at).length;
   await env.DB_LEARNING.prepare("UPDATE support_threads SET learner_read_at = ?2 WHERE id = ?1")
     .bind(thread.id, now()).run();
-  return json({ thread: { id: thread.id, status: thread.status }, messages, unread });
+  return json({
+    thread: { id: thread.id, status: thread.status, auto_answered: thread.auto_answered === 1, needs_human: thread.needs_human === 1 },
+    messages,
+    unread,
+  });
 }
 
 /** Sends as the learner, opening the thread on the first message. */
@@ -91,21 +99,39 @@ export async function sendFromLearner(request: Request, env: AppEnv, user: User)
        VALUES (?1, ?2, ?3, 'learner', ?4, ?5, ?6)`,
     ).bind(uuid(), threadId, user.id, body, contextPath, at),
   ]);
-  return json({ thread: { id: threadId, status: "open" }, messages: await messagesOf(env, threadId) }, 201);
+
+  // The assistant answers only what it can read off this learner's record; anything else waits for staff.
+  const auto = await autoAnswer(env, user, body, contextPath);
+  if (auto) {
+    await env.DB_LEARNING.batch([
+      env.DB_LEARNING.prepare(
+        `INSERT INTO support_messages (id, thread_id, author_id, author_side, body, context_path, created_at)
+         VALUES (?1, ?2, NULL, 'assistant', ?3, NULL, ?4)`,
+      ).bind(uuid(), threadId, auto.body, at + 1),
+      env.DB_LEARNING.prepare("UPDATE support_threads SET auto_answered = 1 WHERE id = ?1").bind(threadId),
+    ]);
+  }
+
+  return json({
+    thread: { id: threadId, status: "open", auto_answered: !!auto, needs_human: false },
+    answeredBy: auto ? auto.intent : null,
+    messages: await messagesOf(env, threadId),
+  }, 201);
 }
 
 /** Staff inbox: every thread, the ones waiting on a reply first. */
 export async function staffInbox(env: AppEnv, user: User): Promise<Response> {
   requireRole(user, ["instructor", "admin"]);
   const { results } = await env.DB_LEARNING.prepare(
-    `SELECT t.id, t.status, t.last_message_at, t.staff_read_at, u.display_name, u.email, u.level,
+    `SELECT t.id, t.status, t.last_message_at, t.staff_read_at, t.auto_answered, t.needs_human,
+            u.display_name, u.email, u.level,
             (SELECT body FROM support_messages m WHERE m.thread_id = t.id ORDER BY m.created_at DESC LIMIT 1) AS last_body,
             (SELECT author_side FROM support_messages m WHERE m.thread_id = t.id ORDER BY m.created_at DESC LIMIT 1) AS last_side,
             (SELECT COUNT(*) FROM support_messages m WHERE m.thread_id = t.id AND m.author_side = 'learner'
                AND m.created_at > t.staff_read_at) AS unread
      FROM support_threads t JOIN users u ON u.id = t.user_id
-     ORDER BY unread > 0 DESC, t.last_message_at DESC LIMIT 100`,
-  ).all<{ last_body: string | null; unread: number }>();
+     ORDER BY t.needs_human DESC, unread > 0 DESC, t.last_message_at DESC LIMIT 100`,
+  ).all<{ last_body: string | null; unread: number; needs_human: number }>();
 
   return json({
     items: results.map((row) => ({
@@ -113,6 +139,7 @@ export async function staffInbox(env: AppEnv, user: User): Promise<Response> {
       last_body: row.last_body ? row.last_body.slice(0, PREVIEW_CHARS) : null,
     })),
     waiting: results.filter((r) => r.unread > 0).length,
+    needHuman: results.filter((r) => r.needs_human === 1).length,
   });
 }
 
@@ -148,10 +175,22 @@ export async function replyFromStaff(request: Request, env: AppEnv, user: User, 
        VALUES (?1, ?2, ?3, 'staff', ?4, NULL, ?5)`,
     ).bind(uuid(), threadId, user.id, body, at),
     env.DB_LEARNING.prepare(
-      "UPDATE support_threads SET last_message_at = ?2, staff_read_at = ?2, status = ?3 WHERE id = ?1",
+      // A human has now answered, so the thread leaves the "needs a person" queue.
+      "UPDATE support_threads SET last_message_at = ?2, staff_read_at = ?2, needs_human = 0, status = ?3 WHERE id = ?1",
     ).bind(threadId, at, payload.close === true ? "closed" : "open"),
   ]);
   return json({ messages: await messagesOf(env, threadId) }, 201);
+}
+
+/** The learner says the automatic answer did not do it; the thread jumps the queue. */
+export async function escalate(env: AppEnv, user: User): Promise<Response> {
+  const thread = await env.DB_LEARNING.prepare("SELECT id FROM support_threads WHERE user_id = ?1")
+    .bind(user.id).first<{ id: string }>();
+  if (!thread) throw new HttpError(404, "Bạn chưa có cuộc trò chuyện nào.");
+  await env.DB_LEARNING.prepare(
+    "UPDATE support_threads SET needs_human = 1, staff_read_at = 0, status = 'open', last_message_at = ?2 WHERE id = ?1",
+  ).bind(thread.id, now()).run();
+  return json({ needs_human: true });
 }
 
 /** Small enough for the app shell to poll: just the number on the badge. */
@@ -166,7 +205,7 @@ export async function unreadBadge(env: AppEnv, user: User): Promise<Response> {
   }
   const row = await env.DB_LEARNING.prepare(
     `SELECT COUNT(*) AS n FROM support_messages m JOIN support_threads t ON t.id = m.thread_id
-     WHERE t.user_id = ?1 AND m.author_side = 'staff' AND m.created_at > t.learner_read_at`,
+     WHERE t.user_id = ?1 AND m.author_side <> 'learner' AND m.created_at > t.learner_read_at`,
   ).bind(user.id).first<{ n: number }>();
   return json({ unread: row?.n ?? 0, side: "learner" });
 }

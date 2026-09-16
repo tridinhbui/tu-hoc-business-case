@@ -183,14 +183,33 @@ async function main() {
     JSON.stringify((await learner.call("GET", "/api/support")).data) === JSON.stringify({ thread: null, messages: [], unread: 0 }));
   check("an empty message is refused", (await learner.call("POST", "/api/support/messages", { body: "   " })).status === 400);
   const asked = await learner.call("POST", "/api/support/messages", { body: "Bài 018 bị khoá mà em không hiểu vì sao.", contextPath: "/lessons/018" });
-  check("the first message opens the thread", asked.status === 201 && asked.data.messages.length === 1 && asked.data.thread.id);
+  check("the first message opens the thread",
+    asked.status === 201 && asked.data.messages[0].author_side === "learner" && asked.data.thread.id, asked.data?.thread);
+  // The answer has to agree with the gate, whatever the gate currently says about 018.
+  const state018 = (await progressOf(learner, "018")).status;
+  const autoBody = asked.data.messages[1]?.body ?? "";
+  const saysLocked = /đang khoá vì/.test(autoBody);
+  check("a question about progress is answered straight away, from the learner's own record",
+    asked.data.answeredBy === "why-locked" && asked.data.messages[1]?.author_side === "assistant" &&
+    autoBody.includes("018") && saysLocked === (state018 === "locked"),
+    { state018, autoBody });
+  check("the automatic answer is never signed as staff",
+    asked.data.messages.every((m) => m.author_side !== "staff"), asked.data?.messages);
+  const opinion = await learner.call("POST", "/api/support/messages", { body: "Theo thầy thì em nên chọn ngành nào ạ?" });
+  check("a question it cannot read off the record gets no automatic answer",
+    opinion.data.answeredBy === null && opinion.data.messages.at(-1).author_side === "learner", opinion.data?.answeredBy);
+  const escalated = await learner.call("POST", "/api/support/escalate");
+  check("the learner can insist on a person", escalated.status === 200 && escalated.data.needs_human === true);
+
   check("learners cannot read the staff inbox (403)", (await learner.call("GET", "/api/support/threads")).status === 403);
   check("peer graders cannot either (403)", (await grader.call("GET", "/api/support/threads")).status === 403);
 
   const inbox = await instructor.call("GET", "/api/support/threads");
   const waiting = inbox.data.items?.[0];
   check("staff see the thread waiting, with who asked and from which page",
-    inbox.status === 200 && inbox.data.waiting === 1 && waiting.unread === 1 && waiting.last_side === "learner", waiting);
+    inbox.status === 200 && inbox.data.waiting === 1 && waiting.unread === 2 && waiting.last_side === "learner", waiting);
+  check("threads where the learner asked for a person come first and are marked",
+    inbox.data.needHuman === 1 && waiting.needs_human === 1 && waiting.auto_answered === 1, waiting);
   const threadId = asked.data.thread.id;
   const supportView = await instructor.call("GET", `/api/support/threads/${threadId}`);
   check("the message carries the page the learner was on",
@@ -199,11 +218,13 @@ async function main() {
     (await instructor.call("GET", "/api/support/unread")).data.unread === 0);
 
   const replied = await instructor.call("POST", `/api/support/threads/${threadId}/messages`, { body: "Bài 018 chờ bạn qua checkpoint B1 nhé." });
-  check("staff reply lands in the thread", replied.status === 201 && replied.data.messages.length === 2);
+  check("answering clears the request for a person",
+    (await instructor.call("GET", "/api/support/threads")).data.needHuman === 0);
+  check("staff reply lands in the thread", replied.status === 201 && replied.data.messages.at(-1).author_side === "staff");
   check("the learner now has one unread", (await learner.call("GET", "/api/support/unread")).data.unread === 1);
   const mine = await learner.call("GET", "/api/support");
   check("the learner reads it and the badge clears",
-    mine.data.messages.length === 2 && mine.data.unread === 1 &&
+    mine.data.messages.length === 4 && mine.data.unread === 1 &&
     (await learner.call("GET", "/api/support/unread")).data.unread === 0, mine.data);
   check("a learner cannot answer another learner's thread (403)",
     (await learner.call("POST", `/api/support/threads/${threadId}/messages`, { body: "x" })).status === 403);

@@ -49,6 +49,15 @@ export function SupportChat() {
     if (open) endRef.current?.scrollIntoView({ block: "end" });
   }, [open, thread?.messages.length]);
 
+  async function askHuman() {
+    try {
+      await api("/api/support/escalate", { method: "POST" });
+      await loadThread();
+    } catch (err) {
+      setError(err as Error);
+    }
+  }
+
   async function send(event: FormEvent) {
     event.preventDefault();
     const body = draft.trim();
@@ -56,11 +65,11 @@ export function SupportChat() {
     setSending(true);
     setError(null);
     try {
-      const data = await api<{ messages: SupportMessage[] }>("/api/support/messages", {
+      const data = await api<SupportThreadView & { messages: SupportMessage[] }>("/api/support/messages", {
         method: "POST",
         body: { body, contextPath: window.location.pathname },
       });
-      setThread((current) => ({ thread: current?.thread ?? null, messages: data.messages, unread: 0 }));
+      setThread({ thread: data.thread, messages: data.messages, unread: 0 });
       setDraft("");
     } catch (err) {
       setError(err as Error);
@@ -80,7 +89,7 @@ export function SupportChat() {
         <section className="chat-panel" aria-label="Trò chuyện với ban quản trị">
           <header>
             <b>Hỏi ban quản trị</b>
-            <small className="muted">Người thật trả lời, thường trong ngày làm việc.</small>
+            <small className="muted">Câu hỏi về tiến độ của bạn được trả lời ngay; còn lại ban quản trị trả lời.</small>
           </header>
 
           <div className="chat-log">
@@ -94,13 +103,23 @@ export function SupportChat() {
                 <div key={m.id} className={`chat-msg is-${m.author_side}`}>
                   <p>{m.body}</p>
                   <small className="muted">
-                    {m.author_side === "staff" ? "Ban quản trị" : "Bạn"} · {formatDate(m.created_at)}
+                    {m.author_side === "assistant" ? "Trả lời tự động" : m.author_side === "staff" ? "Ban quản trị" : "Bạn"}
+                    {" · "}{formatDate(m.created_at)}
                   </small>
                 </div>
               ))
             )}
             <div ref={endRef} />
           </div>
+
+          {thread?.thread?.auto_answered && !thread.thread.needs_human && (
+            <button type="button" className="btn-small" onClick={askHuman} disabled={sending}>
+              Vẫn cần người thật
+            </button>
+          )}
+          {thread?.thread?.needs_human && (
+            <p className="notice small" role="status">Đã chuyển cho ban quản trị. Bạn sẽ nhận trả lời ngay tại đây.</p>
+          )}
 
           <form onSubmit={send} className="chat-form">
             <textarea

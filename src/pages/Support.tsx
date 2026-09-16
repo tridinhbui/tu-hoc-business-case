@@ -22,6 +22,7 @@ export function SupportInboxPage() {
           {inbox.data.waiting === 0
             ? "Không có câu hỏi nào đang chờ."
             : `${inbox.data.waiting} cuộc trò chuyện đang chờ trả lời.`}
+          {inbox.data.needHuman > 0 && ` ${inbox.data.needHuman} trong số đó đã được trả lời tự động nhưng người học vẫn muốn gặp người thật — xếp lên đầu.`}
         </p>
       </header>
 
@@ -37,9 +38,11 @@ export function SupportInboxPage() {
                   <small className="muted">{t.email} · cấp {t.level}</small>
                 </span>
                 <span className="inbox-preview muted small">
-                  {t.last_side === "staff" ? "Đã trả lời: " : ""}{t.last_body ?? "—"}
+                  {t.last_side === "staff" ? "Đã trả lời: " : t.last_side === "assistant" ? "Tự động: " : ""}{t.last_body ?? "—"}
                 </span>
                 <span className="inbox-meta">
+                  {t.needs_human === 1 && <span className="pill pill-failed">cần người thật</span>}
+                  {t.needs_human !== 1 && t.auto_answered === 1 && <span className="tag">đã tự trả lời</span>}
                   {t.unread > 0 && <span className="pill pill-locked">{t.unread} mới</span>}
                   {t.status === "closed" && <span className="tag">đã đóng</span>}
                   <small className="muted">{since(t.last_message_at)}</small>
@@ -85,10 +88,11 @@ function Conversation({ threadId, onSent }: { threadId: string; onSent: () => vo
     <div className="thread">
       <div className="chat-log">
         {view.data.messages.map((m) => (
-          <div key={m.id} className={`chat-msg is-${m.author_side === "staff" ? "learner" : "staff"}`}>
+          <div key={m.id} className={`chat-msg is-${m.author_side === "learner" ? "staff" : "learner"}`}>
             <p>{m.body}</p>
             <small className="muted">
-              {m.author_side === "staff" ? "Bạn" : view.data!.thread.display_name} · {formatDate(m.created_at)}
+              {m.author_side === "staff" ? "Bạn" : m.author_side === "assistant" ? "Trả lời tự động" : view.data!.thread.display_name}
+              {" · "}{formatDate(m.created_at)}
               {m.context_path ? ` · đang ở ${m.context_path}` : ""}
             </small>
           </div>

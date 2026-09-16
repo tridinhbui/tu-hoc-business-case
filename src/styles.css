@@ -389,3 +389,4 @@ td.r, th.r { text-align: right; }
 .inbox-meta { display: flex; gap: 8px; align-items: center; }
 .thread { border-top: 1px solid var(--rule); padding: 14px; display: grid; gap: 12px; }
 @media (max-width: 640px) { .inbox-row { grid-template-columns: 1fr; } }
+.chat-msg.is-assistant { background: var(--surface-2); border-left: 2px solid var(--l3); margin-right: 24px; }

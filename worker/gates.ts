@@ -1,6 +1,15 @@
 import { AppEnv, chunk, now } from "./util";
 
 export type LockReason = "level" | "prereq" | "untimed_first" | "remediation" | "mistake_review";
+
+/** Why a lesson is locked, in words a learner can act on. The UI has its own copy for the badge. */
+export const LOCK_HELP: Record<LockReason, { short: string; help: string }> = {
+  level: { short: "chưa đủ cấp", help: "Bài này thuộc cấp cao hơn cấp hiện tại của bạn. Qua checkpoint của cấp đang học là mở." },
+  prereq: { short: "chưa qua module tiên quyết", help: "Có một module nền phải hoàn thành trước. Qua checkpoint của module đó là bài này mở." },
+  untimed_first: { short: "phải làm bản không bấm giờ trước", help: "Đạt bản thường của bài này rồi mới luyện bản bấm giờ, để tốc độ không đến trước độ chính xác." },
+  remediation: { short: "đang có drill sửa lỗi", help: "Một mã lỗi của bạn lặp lại nên loại bài này tạm bị chặn. Làm đủ số lượt của drill đang được giao là mở lại." },
+  mistake_review: { short: "cần review bài đã chấm", help: "Bài chấm gần nhất có lỗi chưa được xem lại. Mở bài đó, đọc nhận xét và viết lại phần sai là xong." },
+};
 export type ProgressRow = {
   lesson_id: string;
   status: "locked" | "available" | "in_progress" | "passed" | "failed";

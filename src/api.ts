@@ -221,11 +221,11 @@ export type KingdomView = {
 };
 
 export type SupportMessage = {
-  id: string; author_side: "learner" | "staff"; body: string; context_path: string | null; created_at: number;
+  id: string; author_side: "learner" | "staff" | "assistant"; body: string; context_path: string | null; created_at: number;
 };
 
 export type SupportThreadView = {
-  thread: { id: string; status: "open" | "closed" } | null;
+  thread: { id: string; status: "open" | "closed"; auto_answered?: boolean; needs_human?: boolean } | null;
   messages: SupportMessage[];
   unread?: number;
 };
@@ -233,9 +233,11 @@ export type SupportThreadView = {
 export type SupportInbox = {
   items: {
     id: string; status: "open" | "closed"; last_message_at: number; display_name: string; email: string;
-    level: number; last_body: string | null; last_side: "learner" | "staff" | null; unread: number;
+    level: number; last_body: string | null; last_side: "learner" | "staff" | "assistant" | null;
+    unread: number; auto_answered: number; needs_human: number;
   }[];
   waiting: number;
+  needHuman: number;
 };
 
 export type SupportStaffThread = {
