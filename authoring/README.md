@@ -15,7 +15,12 @@ Nội dung do người viết, tách khỏi khung chương trình do `scripts/bu
 Frontmatter `key: value` giữa hai dòng `---`, rồi các khối `## kind · Tiêu đề`.
 
 Khối của thân bài: `goal`, `concept`, `worked_example`, `pitfall`, `checklist`, `exercise`, `source`.
-Khối của case: `context`, `question`, `reveal · <trigger>`, `trap · <MÃ LỖI>`, `frame.structure`, `frame.numbers`, `frame.scoring`, `panel.numbers|feasibility|challenge`.
+Khối của case: `context`, `question`, `reveal · <trigger>`, `trap · <MÃ LỖI>`, `frame.structure`, `frame.numbers`, `frame.check`, `frame.scoring`, `panel.numbers|feasibility|challenge`.
+
+Hai chuẩn mượn từ [HUONG-DAN-VIET-CASE.md](https://github.com/tridinhbui/tu-hoc-business-case/blob/main/HUONG-DAN-VIET-CASE.md) của STRATLAB, để case viết một lần dùng được cho cả hai sản phẩm:
+
+- **`insight:` trong frontmatter** — một câu, điều đi ngược trực giác mà case dạy. Người đọc gật đầu ngay thì insight chưa đủ mạnh.
+- **`## frame.check`** — mỗi dòng `tên con số = biểu thức`, tham chiếu số khác bằng `[tên]`. Bộ kiểm tra tính lại và chặn nếu lệch quá 8%.
 
 ## Lệnh
 
@@ -26,4 +31,4 @@ npm run content:authored                    # sinh seed/authored.sql
 npm run db:seed:local                       # nạp vào D1 local
 ```
 
-`npm run content:check` chặn: thiếu goal/worked_example/pitfall/exercise, thiếu dòng `Output:`, mã lỗi không tồn tại, case dưới 3 mẩu dữ liệu giữ lại, case không có bẫy, `frame.numbers` sai JSON, còn chữ TODO, và case đặt `published` khi chưa chạy thử đủ 3 lần.
+`npm run content:check` chặn: thiếu goal/worked_example/pitfall/exercise, thiếu dòng `Output:`, mã lỗi không tồn tại, case dưới 3 mẩu dữ liệu giữ lại, case không có bẫy, `frame.numbers` sai JSON, số liệu không khớp với chính phép tính của nó, thiếu `insight:`, còn chữ TODO, và case đặt `published` khi chưa chạy thử đủ 3 lần.

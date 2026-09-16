@@ -12,6 +12,7 @@ Validation is the point. Nothing reaches a learner that fails the rules in QUALI
 draft that is still missing its worked example or its trap fails here instead of failing in front
 of a class.
 """
+import ast
 import json
 import re
 import sys
@@ -28,10 +29,40 @@ PANEL_CATEGORIES = ["numbers", "feasibility", "challenge"]
 MISTAKE_RE = re.compile(r"\b[A-Z]{3}-\d{2}\b")
 TODO_RE = re.compile(r"\b(TODO|TBD|XXX|\.\.\.\?)\b")
 
+# Tolerance band for the arithmetic self-check, following the STRATLAB authoring guide:
+# wide enough for honest rounding, narrow enough that a wrong answer still fails.
+CHECK_TOLERANCE = 0.08
+
 QUALITY = """every lesson: a goal, at least one worked example, at least one pitfall naming a real
 mistake code, and an exercise whose output line says exactly what the learner hands in;
-every case: at least three reveal items, at least one trap naming a real mistake code, and a
-complete answer frame."""
+every case: one counter-intuitive insight, at least three reveal items, at least one trap naming a
+real mistake code, a complete answer frame, and numbers that agree with their own arithmetic."""
+
+
+def evaluate(expression: str, numbers: dict) -> float:
+    """Arithmetic only, over literals and [key] references into frame.numbers."""
+
+    def substitute(match: re.Match) -> str:
+        key = match.group(1)
+        if key not in numbers:
+            raise Problem(f"`frame.check` refers to [{key}], which is not in frame.numbers")
+        value = numbers[key]
+        if not isinstance(value, (int, float)) or isinstance(value, bool):
+            raise Problem(f"`frame.check` refers to [{key}], which is not a number")
+        return repr(value)
+
+    filled = re.sub(r"\[([^\]]+)\]", substitute, expression)
+    try:
+        tree = ast.parse(filled, mode="eval")
+    except SyntaxError as err:
+        raise Problem(f"`frame.check` expression {expression!r} does not parse ({err.msg})") from err
+    for node in ast.walk(tree):
+        if not isinstance(node, (ast.Expression, ast.BinOp, ast.UnaryOp, ast.Constant,
+                                 ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Pow, ast.USub)):
+            raise Problem(f"`frame.check` allows arithmetic only, not {type(node).__name__} in {expression!r}")
+        if isinstance(node, ast.Constant) and not isinstance(node.value, (int, float)):
+            raise Problem(f"`frame.check` allows numbers only, not {node.value!r}")
+    return float(eval(compile(tree, "<check>", "eval")))  # noqa: S307 - the tree above is arithmetic only
 
 
 class Problem(Exception):
@@ -157,7 +188,7 @@ def build_case(path: Path, lessons: set[str], codes: set[str]) -> list[str]:
         raise Problem(f"{path.name}: a case goes live only after 3 pilot runs (pilot_runs = {pilot_runs})")
 
     body = {kind: (title, text) for kind, title, text in sections}
-    for required in CASE_SECTIONS:
+    for required in CASE_SECTIONS:  # frame.check is optional; when present it is enforced above
         if required not in body:
             raise Problem(f"{path.name}: missing section `## {required}`")
         check_prose(path, required, body[required][1])
@@ -169,6 +200,36 @@ def build_case(path: Path, lessons: set[str], codes: set[str]) -> list[str]:
         raise Problem(f"{path.name}: `frame.numbers` is not valid JSON ({err})") from err
     if not isinstance(numbers, dict) or not numbers:
         raise Problem(f"{path.name}: `frame.numbers` must be a non-empty JSON object of the numbers a grader checks")
+
+    insight = meta.get("insight", "").strip()
+    if len(insight) < 20:
+        raise Problem(
+            f"{path.name}: needs an `insight:` line — the one counter-intuitive thing this case teaches. "
+            "A case whose insight makes everyone nod immediately is not worth 30 minutes of anyone's time."
+        )
+
+    # Numbers have to survive their own arithmetic: every `key = expression` line in frame.check is
+    # recomputed from the other numbers and compared with what the answer frame claims.
+    if "frame.check" in body:
+        for line in body["frame.check"][1].splitlines():
+            line = re.sub(r"^\s*-\s*", "", line).strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" not in line:
+                raise Problem(f"{path.name}: `frame.check` line is not `key = expression`: {line[:60]!r}")
+            key, expression = line.split("=", 1)
+            key = key.strip().strip("[]")
+            if key not in numbers:
+                raise Problem(f"{path.name}: `frame.check` checks {key!r}, which is not in frame.numbers")
+            claimed = numbers[key]
+            if not isinstance(claimed, (int, float)) or isinstance(claimed, bool):
+                raise Problem(f"{path.name}: `frame.check` checks {key!r}, which is not a number")
+            computed = evaluate(expression.strip(), numbers)
+            if claimed == 0 or abs(computed - claimed) / abs(claimed) > CHECK_TOLERANCE:
+                raise Problem(
+                    f"{path.name}: the arithmetic does not agree — {key!r} says {claimed:,g} "
+                    f"but {expression.strip()} works out to {computed:,g}"
+                )
 
     reveals = [(t, b) for k, t, b in sections if k == "reveal"]
     traps = [(t, b) for k, t, b in sections if k == "trap"]

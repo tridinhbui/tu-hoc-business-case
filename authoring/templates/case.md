@@ -7,6 +7,7 @@ duration_min: 30
 is_fictional: true
 status: draft
 pilot_runs: 0
+insight: Một câu — điều đi ngược trực giác mà case này dạy. Nếu người đọc gật đầu ngay thì insight chưa đủ mạnh, viết lại.
 ---
 
 ## context
@@ -38,6 +39,12 @@ Chuỗi lập luận mong đợi và những việc bắt buộc phải thấy t
 ```json
 { "tên con số": 0 }
 ```
+
+## frame.check
+
+Mỗi dòng `tên con số = biểu thức`, tham chiếu số khác bằng [tên trong ngoặc vuông]. Bộ kiểm tra tính lại và bắt lỗi nếu lệch quá 8%.
+
+- tổng doanh thu = [số đơn vị] * [giá] / 1000000000
 
 ## frame.scoring
 
