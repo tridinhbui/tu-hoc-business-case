@@ -187,3 +187,139 @@ Câu cuối là thứ nâng khuyến nghị từ "nghe hay" lên "làm được"
 
 Phần dưới bắt bạn tính doanh thu của cả ba phương án — một giá thấp, một giá cao, và phân tầng — rồi nhận diện rủi ro hàng rào yếu. Đây là bài cuối của module định giá: ba bài vừa rồi cho bạn đủ công cụ để trả lời gần như mọi câu hỏi giá trong một đề case, từ định giá ra mắt tới điều chỉnh giá và phân tầng.
 `);
+
+LRD("f-pricing-4", `
+Bản khảo sát online của nước ép Xanh về tới bàn giám đốc với một con số rất đẹp: 70% khách hàng nói họ vẫn sẽ mua nếu giá chai 500ml tăng từ 49.000đ lên 55.000đ. Đội marketing đề xuất tăng giá toàn chuỗi ngay tháng sau.
+
+Giám đốc tài chính hỏi một câu: "70% đó đã trả thêm 6.000đ bao giờ chưa?"
+
+Chưa. Họ chỉ bấm vào một ô trên màn hình. Và bấm vào ô "vẫn mua" không tốn một đồng nào.
+
+## Lời nói và hành vi
+
+Sẵn lòng chi trả có hai dạng. Dạng tuyên bố là điều khách nói khi được hỏi. Dạng bộc lộ là điều khách làm khi phải móc ví.
+
+Hai con số này gần như không bao giờ trùng nhau, và độ lệch có chiều khá ổn định: người ta nói sẽ trả nhiều hơn mức họ thật sự trả. Lý do không phải khách nói dối. Khi trả lời khảo sát, họ tưởng tượng mình là phiên bản lý trí, quan tâm sức khoẻ, không bận tâm vài nghìn đồng. Khi đứng trước quầy lúc 7 giờ sáng, cạnh một quán cà phê bán 25.000đ, họ là phiên bản thật.
+
+Có thêm một lệch nữa: người trả lời khảo sát về nước ép hữu cơ phần lớn là người đã thích nước ép hữu cơ. Mẫu tự chọn lọc theo hướng có lợi cho sản phẩm.
+
+Vì vậy nguyên tắc đầu tiên khi đọc số liệu sẵn lòng chi trả: hỏi xem nó đến từ lời nói hay từ hành vi.
+
+## Bốn cách đo, từ rẻ tới đáng tin
+
+Hỏi trực tiếp "bạn trả tối đa bao nhiêu" là rẻ nhất, nhanh nhất, và lạc quan nhất. Dùng được để có một khoảng thô ban đầu, không dùng được để ra quyết định.
+
+Thang giá Van Westendorp hỏi bốn câu: mức nào quá rẻ tới mức bạn nghi ngờ chất lượng, mức nào rẻ, mức nào bắt đầu đắt, mức nào quá đắt để mua. Giao điểm của các đường cho ra một khoảng giá chấp nhận được. Tốt hơn một câu hỏi đơn, nhưng vẫn là lời nói.
+
+Lựa chọn đánh đổi, hay conjoint, cho khách chọn giữa các phương án khác nhau cùng lúc về giá, dung tích, nguyên liệu, bao bì. Vì khách phải hy sinh thứ này để lấy thứ kia, câu trả lời gần hành vi hơn. Nhược điểm là tốn thời gian thiết kế và cần mẫu đủ lớn.
+
+Thử nghiệm giá thật: bán thật ở hai mức giá trên hai nhóm cửa hàng tương đương. Đắt nhất về thời gian, và là cách duy nhất đo được hành vi thật.
+
+## Đọc một thử nghiệm giá cho đúng
+
+Nước ép Xanh chạy thử bốn tuần ở 5 cửa hàng. Giá cũ 49.000đ bán 400 chai mỗi tuần. Giá mới 55.000đ bán 340 chai.
+
+Đọc theo sản lượng: mất 60 chai, tức 15%. Đội bán hàng kết luận thất bại.
+
+Đọc theo doanh thu: 400 nhân 49.000 bằng 19,6 triệu; 340 nhân 55.000 bằng 18,7 triệu. Doanh thu giảm. Cũng kết luận thất bại.
+
+Đọc theo lãi góp, cách duy nhất đúng: mỗi chai chi phí 18.000đ. Giá cũ lãi góp 31.000đ mỗi chai, nhân 400 bằng 12,4 triệu. Giá mới lãi góp 37.000đ, nhân 340 bằng 12,58 triệu. Lãi góp tăng.
+
+Ba cách đọc, hai kết luận ngược nhau. Doanh thu và sản lượng đều bỏ qua việc mỗi chai bán ra ở giá mới mang về nhiều tiền hơn.
+
+Để ý thêm một điều: khảo sát nói 70% vẫn mua, tức mất 30%. Thử nghiệm cho thấy chỉ mất 15%. Lần này khảo sát bi quan hơn thực tế về sản lượng — nhưng điều đó không làm khảo sát đáng tin hơn. Nó chỉ sai theo hướng khác. Bạn không biết trước nó sẽ sai hướng nào, đó chính là vấn đề.
+
+## Biên độ an toàn mỏng tới đâu
+
+Kết luận "giá mới tốt hơn" đứng vững tới mức nào? Cách kiểm tra là tính ngưỡng: ở giá mới, cần bán bao nhiêu chai để lãi góp bằng giá cũ?
+
+12,4 triệu chia 37.000đ, khoảng 335 chai. Thử nghiệm bán 340 chai. Chênh 5 chai mỗi tuần trên 5 cửa hàng — tức một cửa hàng bán ít đi một chai mỗi tuần là kết luận đảo chiều.
+
+Đây là loại phát hiện làm thay đổi khuyến nghị. Không phải "tăng giá toàn chuỗi" mà là "kéo dài thử nghiệm thêm bốn tuần trên mười cửa hàng để chắc chắn sản lượng không giảm thêm". Bốn tuần đầu có thể còn khách mua theo quán tính; khách thật sự nhạy cảm giá có khi phải sau vài lần mua mới đổi thói quen.
+
+## Thiết kế thử nghiệm để tin được
+
+Vài nguyên tắc giúp thử nghiệm không tự đánh lừa mình.
+
+Nhóm thử và nhóm đối chứng phải tương đương: cùng loại vị trí, cùng lượng khách trước đó, không có cửa hàng nào cạnh đối thủ trong nhóm này mà không có trong nhóm kia.
+
+Đủ dài: ít nhất bốn tuần, bỏ tuần đầu khi phân tích.
+
+Đo đúng thứ: lãi góp, không phải doanh thu hay sản lượng. Và nếu có thể, đo cả việc khách có chuyển sang cỡ chai khác hay sản phẩm khác không.
+
+Viết sẵn ngưỡng quyết định trước khi chạy, để kết quả không bị diễn giải theo mong muốn của ai đó.
+
+## Nói ra như thế nào
+
+> "Em không dựa vào khảo sát, vì 70% nói vẫn mua là lời nói chứ chưa phải hành vi. Em dùng kết quả thử nghiệm bốn tuần ở 5 cửa hàng.
+
+> Sản lượng giảm 15%, từ 400 xuống 340 chai mỗi tuần, doanh thu cũng giảm. Nhưng lãi góp tăng từ 12,4 lên 12,58 triệu vì mỗi chai lãi thêm 6.000đ.
+
+> Tuy vậy ngưỡng hoà lãi góp là 335 chai, thử nghiệm chỉ vượt 5 chai. Em đề xuất chưa áp dụng toàn chuỗi mà kéo dài thử nghiệm thêm bốn tuần ở 10 cửa hàng, với ngưỡng quyết định đã chốt trước."
+`);
+
+LRD("f-pricing-5", `
+Quầy nước ép Xanh treo một bảng giá đơn giản: chai 250ml 35.000đ, chai 500ml 59.000đ. Mỗi ngày 1.000 khách, 700 người chọn chai nhỏ.
+
+Đội marketing đề xuất thêm một cỡ chai thứ ba: 400ml, giá 55.000đ. Giám đốc vận hành phản đối ngay: "Chai 400ml thì ai mua? Chỉ đắt hơn 500ml có 4.000đ mà ít hơn 100ml. Thêm khuôn chai, thêm tồn kho, thêm nhãn, để bán cho vài chục người?"
+
+Anh ấy nói đúng: chai 400ml sẽ bán rất ít. Anh ấy chỉ không nhận ra đó chính là mục đích.
+
+## Khách không biết giá đúng là bao nhiêu
+
+Hầu hết khách hàng không có trong đầu một con số "một chai nước ép đáng giá bao nhiêu". Họ không tính chi phí trái cây, không biết biên lợi nhuận ngành. Thứ họ làm là so sánh: so với cái đứng cạnh, so với lần mua trước, so với con số đầu tiên họ nhìn thấy.
+
+Điều này tạo ra ba hiệu ứng mà người làm giá phải biết.
+
+Mỏ neo: con số đầu tiên khách thấy trở thành thước đo cho mọi con số sau. Một thực đơn mở đầu bằng món 250.000đ làm món 120.000đ bên dưới trông vừa phải. Cùng món đó đặt dưới một món 60.000đ thì trông đắt.
+
+Giá tham chiếu: khách so với giá đã quen trả, hoặc với lựa chọn thay thế gần nhất. Khách uống cà phê 25.000đ mỗi sáng sẽ thấy nước ép 49.000đ đắt, dù so với một bữa sinh tố ở quán thì không.
+
+Lựa chọn mồi nhử: một phương án được thiết kế để kém hấp dẫn rõ rệt so với phương án bên cạnh, khiến phương án bên cạnh trông như món hời.
+
+## Chai 400ml làm việc thế nào
+
+Trước khi có chai 400ml, khách so hai lựa chọn: 250ml giá 35.000đ, hay 500ml giá 59.000đ. Chai lớn đắt hơn 24.000đ. Khoảng cách này đủ lớn để phần lớn khách chọn chai nhỏ.
+
+Khi chai 400ml xuất hiện ở giá 55.000đ, khách có một phép so sánh mới, dễ hơn nhiều: 400ml giá 55.000đ, hay 500ml giá 59.000đ. Chỉ thêm 4.000đ mà được thêm 100ml. Chai 500ml bỗng trông như được tặng một phần tư.
+
+Phép so sánh dễ này không làm khách chọn chai 400ml. Nó làm họ nhìn chai 500ml bằng con mắt khác. Một phần khách vốn chọn chai nhỏ giờ bước lên chai lớn.
+
+Theo số liệu thử, cơ cấu chuyển từ 70% chai nhỏ, 30% chai lớn sang 40% chai nhỏ, 5% chai 400ml, 55% chai lớn.
+
+## Đổi hiệu ứng ra tiền
+
+Nói về tâm lý giá mà không đổi ra tiền thì dễ bị xem là mẹo vặt. Hãy tính.
+
+Lãi góp mỗi chai: 250ml giá 35.000đ, chi phí 10.000đ, lãi 25.000đ. 400ml giá 55.000đ, chi phí 15.000đ, lãi 40.000đ. 500ml giá 59.000đ, chi phí 18.000đ, lãi 41.000đ.
+
+Trước: 700 chai nhỏ nhân 25.000 cộng 300 chai lớn nhân 41.000, bằng 29,8 triệu mỗi ngày.
+
+Sau: 400 chai nhỏ nhân 25.000, cộng 50 chai 400ml nhân 40.000, cộng 550 chai lớn nhân 41.000, bằng 34,55 triệu mỗi ngày.
+
+Tăng 4,75 triệu mỗi ngày, khoảng 16%, tương đương khoảng 140 triệu mỗi tháng. Không sản phẩm nào đổi giá. Chi phí thêm khuôn chai và tồn kho mà giám đốc vận hành lo ngại thường chỉ bằng một phần nhỏ con số này.
+
+## Thiết kế mồi nhử cho đúng
+
+Mồi nhử hoạt động khi nó gần phương án muốn đẩy về giá nhưng kém rõ rệt về giá trị.
+
+Nếu đặt chai 400ml ở giữa, ví dụ 47.000đ, nó trở thành một lựa chọn thoả hiệp hợp lý. Khách vốn định mua chai lớn có thể lùi xuống, và cơ cấu xấu đi thay vì tốt lên.
+
+Nếu đặt nó rẻ hơn chai nhỏ, nó chẳng còn là mồi mà là sản phẩm phá giá.
+
+Mồi nhử cũng chỉ tác dụng trong vùng khách đang phân vân. Khách chỉ có 35.000đ trong túi không lên chai 59.000đ vì một chai 400ml. Đừng kỳ vọng tâm lý giá cứu được một sản phẩm có giá vượt xa giá trị khách cảm nhận.
+
+## Giá lẻ: khi nào dùng, khi nào tránh
+
+49.000đ thay vì 50.000đ là kỹ thuật cũ nhất. Não người đọc từ trái sang phải và neo vào chữ số đầu: "bốn mươi mấy". Với hàng phổ thông, khách hay so giá, nó có tác dụng.
+
+Với hàng cao cấp, giá lẻ lại gửi tín hiệu ngược: trông như hàng khuyến mãi, hàng đang cố cạnh tranh bằng giá. Một chai nước ép hữu cơ định vị cao cấp có khi bán tốt hơn ở 60.000đ tròn so với 59.000đ.
+
+## Nói ra như thế nào
+
+> "Chai 400ml không phải để bán. Nó để khách so với chai 500ml: chỉ thêm 4.000đ mà được thêm 100ml, nên chai lớn trông hời hơn hẳn.
+
+> Theo số liệu thử, tỷ lệ chọn chai 500ml tăng từ 30% lên 55%. Tính lãi góp, mỗi ngày tăng từ 29,8 lên 34,55 triệu, tức thêm khoảng 140 triệu mỗi tháng mà không đổi giá sản phẩm nào.
+
+> Điều quan trọng là giá chai 400ml phải gần chai lớn, không được ở giữa, nếu không nó sẽ kéo khách xuống. Em đề xuất theo dõi cơ cấu bán hằng tuần trong hai tháng đầu để chắc hiệu ứng không mờ đi."
+`);

@@ -462,7 +462,7 @@ function vTracks(){
           </div>
 
           <!-- Stage 2 -->
-          <div class="stage-acc-card">
+          <div class="stage-acc-card ${TRACK_UI.openStages.includes('c-structure') ? 'open' : ''}">
             <div class="stage-acc-header" onclick="ACT.toggleStageAcc('c-structure')">
               <span class="stage-icon-pct">% CHẶNG 2 <span class="stage-badge-new">MỚI</span></span>
               <div class="stage-acc-title">
@@ -497,7 +497,7 @@ function vTracks(){
           </div>
 
           <!-- Stage 3 -->
-          <div class="stage-acc-card">
+          <div class="stage-acc-card ${TRACK_UI.openStages.includes('i-financial') ? 'open' : ''}">
             <div class="stage-acc-header" onclick="ACT.toggleStageAcc('i-financial')">
               <span class="stage-icon-card">💳 CHẶNG 3 <span class="stage-badge-new">MỚI</span></span>
               <div class="stage-acc-title">
@@ -532,7 +532,7 @@ function vTracks(){
           </div>
 
           <!-- Stage 4 -->
-          <div class="stage-acc-card">
+          <div class="stage-acc-card ${TRACK_UI.openStages.includes('m-market') ? 'open' : ''}">
             <div class="stage-acc-header" onclick="ACT.toggleStageAcc('m-market')">
               <span class="stage-icon-pct" style="background:#FDF4FF;color:#9333EA">📈 CHẶNG 4 <span class="stage-badge-new" style="background:#FDF4FF;color:#9333EA;border-color:#F0ABFC">MỚI</span></span>
               <div class="stage-acc-title">

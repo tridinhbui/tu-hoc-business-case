@@ -14,8 +14,8 @@
       --surface-subtle: #f8faf8;
       --sidebar-bg: #ffffff;
       --sidebar-border: #edf2ed;
-      --border-color: #e4ebe4;
-      --border-light: #f1f5f1;
+      --border-color: #e2e8e2;
+      --border-light: #f0f4f0;
       
       --text-main: #111827;
       --text-secondary: #4b5563;
@@ -23,48 +23,48 @@
       
       --primary: #059669;
       --primary-dark: #047857;
+      --primary-forest: #032b1a;
       --primary-light: #e6f7ee;
-      --primary-mint: #e6f7ee;
-      --primary-ring: rgba(5, 150, 105, 0.18);
+      --primary-ring: rgba(5, 150, 105, 0.2);
 
-      --hero-bg-start: #042417;
-      --hero-bg-mid: #063923;
-      --hero-bg-end: #031c12;
-      --hero-card-bg: rgba(6, 44, 28, 0.85);
-      --hero-border: rgba(16, 185, 129, 0.25);
+      --hero-bg-start: #021a11;
+      --hero-bg-mid: #053320;
+      --hero-bg-end: #01130c;
+      --hero-card-bg: rgba(3, 30, 18, 0.82);
+      --hero-border: rgba(16, 185, 129, 0.22);
       
       --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-xl: 26px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 28px;
       --radius-pill: 9999px;
       
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-      --shadow-card: 0 2px 10px -2px rgba(10, 30, 20, 0.05), 0 1px 3px rgba(0,0,0,0.03);
-      --shadow-hover: 0 12px 28px -6px rgba(10, 30, 20, 0.12);
+      --shadow-card: 0 2px 8px -2px rgba(10, 30, 20, 0.05), 0 1px 3px rgba(0,0,0,0.02);
+      --shadow-hover: 0 10px 24px -4px rgba(10, 30, 20, 0.1);
       --shadow-popover: 0 20px 40px -8px rgba(0,0,0,0.14), 0 8px 16px -4px rgba(0,0,0,0.06);
       
       --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     [data-theme="dark"] {
-      --bg: #0c120e;
-      --surface: #141c16;
-      --surface-subtle: #101712;
-      --sidebar-bg: #101712;
-      --sidebar-border: #1f2a22;
-      --border-color: #223026;
-      --border-light: #19241c;
+      --bg: #0b110e;
+      --surface: #131b15;
+      --surface-subtle: #0f1611;
+      --sidebar-bg: #0f1611;
+      --sidebar-border: #1c261e;
+      --border-color: #202c23;
+      --border-light: #18221a;
       
-      --text-main: #edf5ee;
-      --text-secondary: #a3baa8;
-      --text-muted: #718877;
+      --text-main: #ecf5ed;
+      --text-secondary: #9cb1a1;
+      --text-muted: #6e8374;
 
-      --hero-bg-start: #031910;
-      --hero-bg-mid: #052618;
-      --hero-bg-end: #02120b;
-      --hero-card-bg: rgba(4, 28, 18, 0.9);
-      --hero-border: rgba(16, 185, 129, 0.2);
+      --hero-bg-start: #01150e;
+      --hero-bg-mid: #042417;
+      --hero-bg-end: #010d08;
+      --hero-card-bg: rgba(2, 20, 13, 0.9);
+      --hero-border: rgba(16, 185, 129, 0.18);
     }
 
     * {
@@ -130,11 +130,11 @@
     }
 
     .search-box {
-      margin: 10px 16px 14px;
+      margin: 8px 16px 14px;
       display: flex;
       align-items: center;
       gap: 8px;
-      background: var(--surface-subtle);
+      background: #f8faf8;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-pill);
       padding: 7px 14px;
@@ -142,6 +142,10 @@
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s;
+    }
+
+    [data-theme="dark"] .search-box {
+      background: #141c16;
     }
 
     .search-box:hover {
@@ -194,7 +198,7 @@
     }
 
     .nav-item.active {
-      background: #d8f3e3;
+      background: #daf5e6;
       color: #046a41;
       font-weight: 700;
     }
@@ -457,99 +461,88 @@
     }
 
     .content-container {
-      max-width: 1240px;
+      max-width: 1220px;
       width: 100%;
       margin: 0 auto;
       padding: 28px 36px 60px;
     }
 
-    /* ════════════ HERO BANNER ════════════ */
+    /* ════════════ HERO BANNER (PIXEL PERFECT MATCH) ════════════ */
     .hero-banner {
-      background: linear-gradient(135deg, var(--hero-bg-start) 0%, var(--hero-bg-mid) 55%, var(--hero-bg-end) 100%);
-      border: 1px solid var(--hero-border);
+      background: radial-gradient(circle at 85% 50%, #064e32 0%, #022316 45%, #01140c 100%);
+      border: 1px solid rgba(16, 185, 129, 0.22);
       border-radius: var(--radius-xl);
-      padding: 36px 40px;
+      padding: 34px 38px;
       position: relative;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 32px;
-      box-shadow: 0 16px 36px -12px rgba(4, 40, 24, 0.4);
-      margin-bottom: 24px;
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.35);
+      margin-bottom: 22px;
     }
 
-    /* Glow overlays inside hero */
+    /* Subtle ambient glow behind 3D art */
     .hero-banner::before {
       content: "";
       position: absolute;
-      top: -40%;
-      right: 15%;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.28) 0%, rgba(16, 185, 129, 0) 70%);
+      top: -20%;
+      right: 5%;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.28) 0%, rgba(16, 185, 129, 0) 65%);
       pointer-events: none;
-      filter: blur(30px);
-    }
-
-    .hero-banner::after {
-      content: "";
-      position: absolute;
-      bottom: -30%;
-      left: 10%;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(5, 150, 105, 0.22) 0%, rgba(5, 150, 105, 0) 70%);
-      pointer-events: none;
-      filter: blur(35px);
+      filter: blur(25px);
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 680px;
+      max-width: 650px;
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.16);
+      border: 1px solid rgba(16, 185, 129, 0.38);
       border-radius: var(--radius-pill);
-      padding: 5px 14px;
-      font-size: 12.5px;
-      font-weight: 700;
+      padding: 4px 13px;
+      font-size: 12px;
+      font-weight: 600;
       color: #34d399;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       backdrop-filter: blur(8px);
     }
 
     .hero-title {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 800;
       color: #ffffff;
-      line-height: 1.2;
-      letter-spacing: -0.025em;
-      margin-bottom: 14px;
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
     }
 
     .hero-subtitle {
-      font-size: 14.5px;
-      line-height: 1.6;
+      font-size: 13.5px;
+      line-height: 1.55;
       color: #cbd5e1;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
+      font-weight: 400;
     }
 
     .hero-subcard {
-      background: var(--hero-card-bg);
-      border: 1px solid var(--hero-border);
-      border-radius: var(--radius-md);
-      padding: 14px 18px;
+      background: rgba(2, 28, 18, 0.82);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      border-radius: 14px;
+      padding: 12px 16px;
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
     }
 
     .hero-subcard-icon {
@@ -559,7 +552,7 @@
     }
 
     .hero-subcard-title {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       color: #34d399;
       letter-spacing: 0.04em;
@@ -569,80 +562,137 @@
 
     .hero-subcard-desc {
       font-size: 12.5px;
-      color: #d1fae5;
-      line-height: 1.5;
+      color: #a7f3d0;
+      line-height: 1.45;
     }
 
-    /* Hero Right Graphic 3D composition */
+    /* Hero Right 3D Visual Asset (Exact Look) */
     .hero-graphic {
       position: relative;
       z-index: 2;
       flex-shrink: 0;
-      width: 220px;
-      height: 180px;
+      width: 200px;
+      height: 170px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .hero-graphic-box {
-      width: 200px;
-      height: 160px;
-      border-radius: 18px;
-      background: linear-gradient(145deg, rgba(16, 185, 129, 0.22) 0%, rgba(6, 44, 28, 0.7) 100%);
-      border: 1.5px solid rgba(52, 211, 153, 0.45);
-      box-shadow: 0 18px 35px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(14px);
+    .hero-3d-scene {
+      width: 190px;
+      height: 155px;
       position: relative;
-      padding: 14px;
+      perspective: 1000px;
+    }
+
+    .hero-tablet-card {
+      position: absolute;
+      inset: 8px 10px;
+      background: linear-gradient(145deg, #093c28 0%, #031c12 100%);
+      border: 1.5px solid #34d399;
+      border-radius: 16px;
+      box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 25px rgba(16, 185, 129, 0.35);
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      overflow: hidden;
-      animation: floatGraphic 5s ease-in-out infinite alternate;
+      transform: rotateY(-12deg) rotateX(10deg);
+      transition: transform 0.3s ease;
     }
 
-    @keyframes floatGraphic {
-      0% { transform: translateY(0px) rotate(1deg); }
-      100% { transform: translateY(-8px) rotate(-1deg); }
+    .hero-tablet-card:hover {
+      transform: rotateY(-6deg) rotateX(5deg) scale(1.03);
     }
 
-    .floating-coin {
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #fde047 0%, #ca8a04 100%);
-      box-shadow: 0 4px 10px rgba(202, 138, 4, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 800;
-      color: #713f12;
-      z-index: 3;
-    }
-
-    .coin-1 { top: -8px; left: 10px; animation: floatCoin 4s ease-in-out infinite alternate; }
-    .coin-2 { bottom: -10px; right: 20px; animation: floatCoin 3.5s ease-in-out infinite alternate-reverse; }
-    .coin-3 { top: 30px; right: -12px; width: 22px; height: 22px; font-size: 11px; animation: floatCoin 4.2s ease-in-out infinite 0.5s; }
-
-    @keyframes floatCoin {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-6px) rotate(15deg); }
-    }
-
-    /* ════════════ LIVE TICKER BAR ════════════ */
-    .status-ticker-bar {
-      background: #e6f7ee;
-      border: 1px solid #c3edd7;
-      border-radius: var(--radius-pill);
-      padding: 10px 20px;
+    .tablet-top-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 22px;
-      transition: all 0.2s;
+    }
+
+    .tablet-brand-text {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #34d399;
+    }
+
+    .tablet-tag {
+      font-size: 8px;
+      font-weight: 800;
+      background: rgba(52, 211, 153, 0.2);
+      color: #a7f3d0;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .tablet-chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 48px;
+      padding: 4px 0;
+    }
+
+    .chart-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      background: rgba(52, 211, 153, 0.4);
+    }
+
+    .chart-bar.active {
+      background: #34d399;
+      box-shadow: 0 0 12px #34d399;
+    }
+
+    .tablet-bottom-badge {
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #ecfdf5;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .floating-gold-coin {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fef08a 0%, #ca8a04 70%, #713f12 100%);
+      box-shadow: 0 6px 14px rgba(202, 138, 4, 0.5), inset 0 1px 1px #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #713f12;
+      z-index: 4;
+      animation: coinBob 3.5s ease-in-out infinite alternate;
+    }
+
+    .coin-pos-1 { top: -6px; left: 6px; animation-delay: 0s; }
+    .coin-pos-2 { top: 12px; right: -8px; width: 22px; height: 22px; font-size: 11px; animation-delay: 0.8s; }
+    .coin-pos-3 { bottom: -6px; right: 24px; animation-delay: 1.4s; }
+
+    @keyframes coinBob {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-7px) rotate(12deg); }
+    }
+
+    /* ════════════ STATUS TICKER BAR (EXACT MATCH) ════════════ */
+    .status-ticker-bar {
+      background: #e6f7ee;
+      border: 1px solid #c7edd8;
+      border-radius: var(--radius-pill);
+      padding: 9px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
     }
 
     [data-theme="dark"] .status-ticker-bar {
@@ -655,20 +705,14 @@
       align-items: center;
       gap: 10px;
       font-size: 13px;
-      color: #065f46;
-      font-weight: 600;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    [data-theme="dark"] .ticker-left {
-      color: #6ee7b7;
-    }
-
     .pulse-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #10b981;
       position: relative;
@@ -680,7 +724,7 @@
       position: absolute;
       inset: -3px;
       border-radius: 50%;
-      background: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.45);
       animation: pulseRipple 1.8s infinite ease-out;
     }
 
@@ -691,12 +735,17 @@
 
     .ticker-label {
       font-weight: 800;
+      color: #065f46;
       letter-spacing: 0.02em;
+    }
+
+    [data-theme="dark"] .ticker-label {
+      color: #6ee7b7;
     }
 
     .ticker-typing {
       color: var(--text-main);
-      font-weight: 600;
+      font-weight: 500;
     }
 
     [data-theme="dark"] .ticker-typing {
@@ -705,8 +754,8 @@
 
     .ticker-cursor {
       display: inline-block;
-      width: 2px;
-      height: 14px;
+      width: 1.5px;
+      height: 13px;
       background: #059669;
       margin-left: 2px;
       vertical-align: middle;
@@ -721,17 +770,17 @@
     .ticker-right-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--surface);
+      gap: 5px;
+      background: #ffffff;
       border: 1px solid #a7f3d0;
       border-radius: var(--radius-pill);
       padding: 4px 12px;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       color: #047857;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       flex-shrink: 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
 
     [data-theme="dark"] .ticker-right-pill {
@@ -740,11 +789,11 @@
       color: #34d399;
     }
 
-    /* ════════════ SEARCH & ACTIONS TOOLBAR ════════════ */
+    /* ════════════ SEARCH & ACTION TOOLBAR (EXACT MATCH) ════════════ */
     .toolbar-row {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       margin-bottom: 16px;
     }
 
@@ -758,60 +807,65 @@
       left: 16px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-muted);
+      color: #94a3b8;
       pointer-events: none;
     }
 
     .doc-search-input {
       width: 100%;
-      background: var(--surface);
-      border: 1.5px solid var(--border-color);
+      background: #ffffff;
+      border: 1.5px solid #d1d5db;
       border-radius: var(--radius-pill);
-      padding: 12px 20px 12px 46px;
-      font-size: 14px;
+      padding: 10px 18px 10px 44px;
+      font-size: 13.5px;
       font-family: var(--font);
       color: var(--text-main);
       outline: none;
       transition: all 0.2s;
     }
 
+    [data-theme="dark"] .doc-search-input {
+      background: var(--surface);
+      border-color: var(--border-color);
+    }
+
     .doc-search-input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px var(--primary-ring);
+      box-shadow: 0 0 0 3px var(--primary-ring);
     }
 
     .btn-share-doc {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--primary);
+      gap: 6px;
+      background: #059669;
       color: #ffffff;
       border: none;
       border-radius: var(--radius-pill);
-      padding: 12px 24px;
-      font-size: 13.5px;
+      padding: 10px 20px;
+      font-size: 13px;
       font-weight: 700;
       font-family: var(--font);
       cursor: pointer;
       transition: all 0.2s;
       white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+      box-shadow: 0 2px 6px rgba(5, 150, 105, 0.25);
     }
 
     .btn-share-doc:hover {
-      background: var(--primary-dark);
+      background: #047857;
       transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.32);
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.35);
     }
 
-    /* ════════════ FILTER TABS ════════════ */
+    /* ════════════ FILTER TABS (EXACT MATCH) ════════════ */
     .filter-tabs-row {
       display: flex;
       align-items: center;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 24px;
+      padding-bottom: 6px;
+      margin-bottom: 22px;
       scrollbar-width: none;
     }
 
@@ -820,54 +874,48 @@
     }
 
     .filter-pill {
-      background: var(--surface);
-      border: 1px solid var(--border-color);
+      background: #f1f5f1;
+      border: 1px solid transparent;
       border-radius: var(--radius-pill);
-      padding: 8px 18px;
-      font-size: 13px;
+      padding: 7px 16px;
+      font-size: 12.5px;
       font-weight: 600;
-      color: var(--text-secondary);
+      color: #374151;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.18s ease;
-      display: flex;
+      transition: all 0.15s ease;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
+    }
+
+    [data-theme="dark"] .filter-pill {
+      background: #18221b;
+      color: #9cb1a1;
     }
 
     .filter-pill:hover {
-      border-color: #cbd5e1;
-      background: var(--surface-subtle);
-      color: var(--text-main);
+      background: #e5ece5;
+      color: #111827;
+    }
+
+    [data-theme="dark"] .filter-pill:hover {
+      background: #202d24;
+      color: #ecf5ed;
     }
 
     .filter-pill.active {
-      background: #0d4a2d;
-      border-color: #0d4a2d;
+      background: #046a41;
       color: #ffffff;
       font-weight: 700;
-      box-shadow: 0 2px 6px rgba(13, 74, 45, 0.25);
+      box-shadow: 0 2px 5px rgba(4, 106, 65, 0.25);
     }
 
     [data-theme="dark"] .filter-pill.active {
       background: #059669;
-      border-color: #059669;
+      color: #ffffff;
     }
 
-    .filter-count {
-      font-size: 11px;
-      opacity: 0.8;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 1px 6px;
-      border-radius: var(--radius-pill);
-    }
-
-    .filter-pill:not(.active) .filter-count {
-      background: var(--border-light);
-      color: var(--text-muted);
-    }
-
-    /* ════════════ DOCUMENT CARDS GRID ════════════ */
+    /* ════════════ DOCUMENT CARDS GRID (EXACT MATCH) ════════════ */
     .doc-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -875,30 +923,29 @@
     }
 
     .doc-card {
-      background: var(--surface);
+      background: #ffffff;
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
+      border-radius: 16px;
       overflow: hidden;
       box-shadow: var(--shadow-card);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
-      position: relative;
+    }
+
+    [data-theme="dark"] .doc-card {
+      background: var(--surface);
     }
 
     .doc-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow-hover);
-      border-color: #bbf7d0;
+      border-color: #a7f3d0;
     }
 
-    [data-theme="dark"] .doc-card:hover {
-      border-color: rgba(52, 211, 153, 0.4);
-    }
-
-    /* Thumbnail Area */
+    /* Card Thumbnail */
     .doc-thumb {
-      height: 160px;
+      height: 155px;
       width: 100%;
       position: relative;
       overflow: hidden;
@@ -908,156 +955,137 @@
       justify-content: center;
     }
 
-    /* Excel Spreadsheet Realistic Preview */
-    .spreadsheet-mockup {
+    /* Excel Spreadsheet Replica */
+    .excel-preview-box {
       width: 100%;
       height: 100%;
-      background: #ffffff;
-      padding: 8px 10px;
-      font-size: 9px;
-      color: #334155;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      overflow: hidden;
-      user-select: none;
-      position: relative;
-    }
-
-    .sheet-grid-table {
-      width: 100%;
-      border-collapse: collapse;
-      opacity: 0.9;
-    }
-
-    .sheet-grid-table th {
-      background: #e2e8f0;
-      border: 1px solid #cbd5e1;
-      padding: 3px 6px;
-      font-weight: 700;
+      background: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 8.5px;
       color: #475569;
-      text-align: left;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
     }
 
-    .sheet-grid-table td {
-      border: 1px solid #e2e8f0;
-      padding: 3px 6px;
-      font-size: 8.5px;
+    .excel-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .excel-table th {
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+      padding: 3px 5px;
+      font-weight: 700;
+      font-size: 8px;
+      color: #334155;
+      text-align: left;
       white-space: nowrap;
     }
 
-    .sheet-header-green {
-      background: #dcfce7 !important;
-      color: #166534 !important;
-      font-weight: 700;
+    .excel-table td {
+      border: 1px solid #e2e8f0;
+      padding: 3px 5px;
+      font-size: 8px;
+      white-space: nowrap;
     }
 
-    .sheet-mockup-overlay {
+    .excel-table-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(15,23,42,0.3) 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(15,23,42,0.2) 100%);
       pointer-events: none;
     }
 
-    /* Vector/Document Graphic Mockup */
-    .doc-vector-mockup {
+    /* Vector Document Graphic Replica */
+    .vector-doc-box {
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #062b1b 0%, #0c3e27 100%);
+      background: #032b1c;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
     }
 
-    .doc-vector-mockup .doc-big-icon {
-      width: 58px;
-      height: 68px;
+    .vector-file-icon {
+      width: 54px;
+      height: 66px;
       border: 2.5px solid #10b981;
-      border-radius: 8px;
+      border-radius: 6px;
       position: relative;
+      background: rgba(16, 185, 129, 0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      background: rgba(16, 185, 129, 0.08);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
     }
 
-    .doc-vector-mockup .doc-line {
-      height: 2.5px;
-      background: #10b981;
-      border-radius: 2px;
-    }
-
-    .doc-corner-fold {
+    .vector-file-corner {
       position: absolute;
       top: -1px;
       right: -1px;
       width: 14px;
       height: 14px;
-      background: #0c3e27;
+      background: #032b1c;
       border-left: 2.5px solid #10b981;
       border-bottom: 2.5px solid #10b981;
       border-bottom-left-radius: 4px;
     }
 
-    /* Badges overlay on thumbnail */
-    .thumb-badge-category {
+    .vector-file-line {
+      height: 2.5px;
+      background: #10b981;
+      border-radius: 2px;
+    }
+
+    /* Badges Overlay */
+    .badge-cat-top-left {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 9px;
+      left: 9px;
       background: rgba(15, 23, 42, 0.82);
       color: #ffffff;
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
       letter-spacing: 0.04em;
-      padding: 3.5px 9px;
+      padding: 3px 8px;
       border-radius: var(--radius-pill);
-      backdrop-filter: blur(6px);
       text-transform: uppercase;
       z-index: 2;
     }
 
-    .thumb-badge-tag {
+    .badge-tag-top-right {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 10px;
+      top: 9px;
+      right: 9px;
+      font-size: 9.5px;
       font-weight: 800;
-      padding: 3.5px 9px;
+      padding: 3px 8px;
       border-radius: var(--radius-pill);
       z-index: 2;
-      backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
     }
 
-    .tag-badge-hot {
-      background: rgba(245, 158, 11, 0.9);
+    .tag-hot-badge {
+      background: #ea580c;
       color: #ffffff;
-      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
     }
 
-    .tag-badge-free {
-      background: rgba(6, 182, 212, 0.9);
+    .tag-free-badge {
+      background: #0891b2;
       color: #ffffff;
-      box-shadow: 0 2px 6px rgba(6, 182, 212, 0.4);
     }
 
-    .tag-badge-new {
-      background: rgba(16, 185, 129, 0.9);
-      color: #ffffff;
-      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
-    }
-
-    /* Card Details */
+    /* Card Body */
     .doc-card-body {
-      padding: 16px 18px;
+      padding: 16px 18px 12px;
       flex: 1;
-      display: flex;
-      flex-direction: column;
     }
 
     .doc-card-title {
@@ -1065,108 +1093,94 @@
       font-weight: 700;
       color: var(--text-main);
       line-height: 1.35;
-      margin-bottom: 8px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 40px;
-    }
-
-    .doc-card-desc {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      line-height: 1.45;
-      margin-bottom: 12px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
+    /* Card Footer */
     .doc-card-footer {
-      padding: 12px 18px;
+      padding: 11px 18px;
       border-top: 1px solid var(--border-light);
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-top: auto;
-      background: var(--surface-subtle);
+      background: #ffffff;
     }
 
-    .doc-size-info {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-muted);
+    [data-theme="dark"] .doc-card-footer {
+      background: var(--surface);
     }
 
-    .btn-view-download {
+    .doc-card-size {
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+    }
+
+    .btn-card-action {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: transparent;
       border: none;
       font-size: 12.5px;
       font-weight: 700;
       color: #047857;
       cursor: pointer;
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      transition: all 0.15s;
+      padding: 2px 4px;
+      transition: color 0.15s;
     }
 
-    [data-theme="dark"] .btn-view-download {
+    [data-theme="dark"] .btn-card-action {
       color: #34d399;
     }
 
-    .btn-view-download:hover {
-      background: #e6f7ee;
+    .btn-card-action:hover {
       color: #065f46;
+      text-decoration: underline;
     }
 
-    [data-theme="dark"] .btn-view-download:hover {
-      background: rgba(5, 150, 105, 0.2);
-      color: #6ee7b7;
-    }
-
-    /* Floating Quick Button (bottom-right matching screenshot) */
+    /* ════════════ FLOATING ACTION BUTTON (BOTTOM RIGHT) ════════════ */
     .floating-menu-btn {
       position: fixed;
-      bottom: 24px;
-      right: 28px;
-      width: 48px;
-      height: 48px;
+      bottom: 22px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: #111827;
       color: #ffffff;
-      border: 2px solid rgba(255,255,255,0.15);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 60;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s;
     }
 
     .floating-menu-btn:hover {
-      transform: scale(1.08);
+      transform: scale(1.06);
     }
 
     .floating-badge {
       position: absolute;
-      top: -4px;
-      right: -4px;
+      top: -3px;
+      right: -3px;
       background: #ef4444;
       color: #ffffff;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       padding: 1px 5px;
       border-radius: var(--radius-pill);
       border: 2px solid #ffffff;
     }
 
-    /* ════════════ MODALS & OVERLAYS ════════════ */
+    /* ════════════ MODAL ════════════ */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -1192,23 +1206,22 @@
     .modal-card {
       background: var(--surface);
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      max-width: 620px;
+      border-radius: 20px;
+      max-width: 580px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      position: relative;
-      animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes scaleUp {
-      from { transform: scale(0.94); opacity: 0; }
+      from { transform: scale(0.95); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
     .modal-header {
-      padding: 20px 24px;
+      padding: 18px 22px;
       border-bottom: 1px solid var(--border-light);
       display: flex;
       align-items: center;
@@ -1216,7 +1229,7 @@
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--text-main);
     }
@@ -1224,16 +1237,15 @@
     .modal-close-btn {
       background: transparent;
       border: none;
-      font-size: 20px;
+      font-size: 18px;
       color: var(--text-muted);
       cursor: pointer;
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.15s;
     }
 
     .modal-close-btn:hover {
@@ -1242,11 +1254,11 @@
     }
 
     .modal-body {
-      padding: 24px;
+      padding: 22px;
     }
 
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .form-label {
@@ -1262,12 +1274,11 @@
       background: var(--surface-subtle);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 10px 14px;
-      font-size: 13.5px;
+      padding: 9px 13px;
+      font-size: 13px;
       font-family: var(--font);
       color: var(--text-main);
       outline: none;
-      transition: border 0.2s;
     }
 
     .form-input:focus, .form-select:focus, .form-textarea:focus {
@@ -1278,32 +1289,31 @@
     .dropzone {
       border: 2px dashed var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 28px 20px;
+      padding: 24px 18px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.2s;
       background: var(--surface-subtle);
     }
 
     .dropzone:hover {
       border-color: var(--primary);
-      background: #e6f7ee22;
+      background: #e6f7ee20;
     }
 
     .toast-msg {
       position: fixed;
-      bottom: 30px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
       background: #0f172a;
       color: #ffffff;
-      padding: 12px 24px;
+      padding: 11px 22px;
       border-radius: var(--radius-pill);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       z-index: 300;
       opacity: 0;
@@ -1316,7 +1326,7 @@
     }
 
     /* Responsive */
-    @media (max-width: 1100px) {
+    @media (max-width: 1080px) {
       .doc-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -1385,7 +1395,7 @@
 
       <!-- SECTION 1: HỌC TẬP -->
       <div class="nav-section-title">
-        <span>⚡ HỌC TẬP</span>
+        <span>🌱 HỌC TẬP</span>
         <span>▼</span>
       </div>
       <a href="dashboard.html" class="nav-item">
@@ -1396,7 +1406,7 @@
         <span class="icon">📖</span>
         <span>Học bài</span>
       </a>
-      <a href="hoc-theo-nghe.html" class="nav-item">
+      <a href="#" class="nav-item">
         <span class="icon">💼</span>
         <span>Học theo nghề</span>
       </a>
@@ -1420,7 +1430,7 @@
         <span class="icon">🏆</span>
         <span>Thi vượt chặng</span>
       </a>
-      <a href="game-kingdom.html" class="nav-item">
+      <a href="#" class="nav-item">
         <span class="icon">🎮</span>
         <span>Game Kingdom</span>
         <span class="nav-tag tag-hot">HOT</span>
@@ -1439,7 +1449,7 @@
         <span class="icon">🏛️</span>
         <span>Thư viện</span>
       </a>
-      <a href="#" class="nav-item">
+      <a href="hoc-nhom.html" class="nav-item">
         <span class="icon">🤝</span>
         <span>Học nhóm</span>
         <span class="nav-tag tag-checkin">CHECK-IN</span>
@@ -1466,7 +1476,7 @@
           <span class="menu-ic">👥</span>
           <span>Bạn bè & Kết nối</span>
         </a>
-        <a href="#" class="menu-item">
+        <a href="cua-hang-rpg.html" class="menu-item">
           <span class="menu-ic">🛍️</span>
           <span>Cửa hàng RPG</span>
         </a>
@@ -1516,12 +1526,12 @@
       <div class="user-profile-card" onclick="toggleUserPopover()" id="userCardBtn" title="Menu tài khoản">
         <div class="user-avatar-small">
           <div style="width:100%;height:100%;background:#1e293b;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px;">
-            TB
+            ĐTB
           </div>
         </div>
         <div class="user-info-text">
           <div class="user-info-name">Đinh Trí Bùi</div>
-          <div class="user-info-email">trid.teo@gmail.com</div>
+          <div class="user-info-email">triod.teo@gmail.com</div>
         </div>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted);"><path d="M6 9l6 6 6-6"/></svg>
       </div>
@@ -1557,27 +1567,29 @@
 
         <!-- 3D Finance Composition Illustration -->
         <div class="hero-graphic">
-          <div class="floating-coin coin-1">🪙</div>
-          <div class="floating-coin coin-2">✨</div>
-          <div class="floating-coin coin-3">🪙</div>
-          <div class="hero-graphic-box">
-            <div style="display:flex;align-items:center;justify-content:space-between;">
-              <span style="font-size:10px;font-weight:800;color:#34d399;letter-spacing:0.05em;">FINANCE PRO</span>
-              <span style="font-size:9px;background:rgba(52,211,153,0.2);color:#6ee7b7;padding:2px 6px;border-radius:4px;font-weight:700;">LIVE</span>
-            </div>
+          <div class="hero-3d-scene">
+            <div class="floating-gold-coin coin-pos-1">🪙</div>
+            <div class="floating-gold-coin coin-pos-2">✨</div>
+            <div class="floating-gold-coin coin-pos-3">🪙</div>
             
-            <!-- Glowing Mini Chart -->
-            <div style="display:flex;align-items:flex-end;gap:5px;height:55px;padding:4px 0;">
-              <div style="flex:1;height:40%;background:rgba(52,211,153,0.3);border-radius:3px 3px 0 0;"></div>
-              <div style="flex:1;height:65%;background:rgba(52,211,153,0.5);border-radius:3px 3px 0 0;"></div>
-              <div style="flex:1;height:50%;background:rgba(52,211,153,0.4);border-radius:3px 3px 0 0;"></div>
-              <div style="flex:1;height:85%;background:rgba(52,211,153,0.7);border-radius:3px 3px 0 0;"></div>
-              <div style="flex:1;height:100%;background:#34d399;border-radius:3px 3px 0 0;box-shadow:0 0 10px #34d399;"></div>
-            </div>
+            <div class="hero-tablet-card">
+              <div class="tablet-top-row">
+                <span class="tablet-brand-text">FINANCE</span>
+                <span class="tablet-tag">LIVE</span>
+              </div>
+              
+              <div class="tablet-chart-bars">
+                <div class="chart-bar" style="height: 38%;"></div>
+                <div class="chart-bar" style="height: 60%;"></div>
+                <div class="chart-bar" style="height: 48%;"></div>
+                <div class="chart-bar" style="height: 82%;"></div>
+                <div class="chart-bar active" style="height: 100%;"></div>
+              </div>
 
-            <div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:6px;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-              <span style="font-size:10px;color:#ecfdf5;font-weight:700;">+24.8% DCF Yield</span>
+              <div class="tablet-bottom-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <span>+24.8% DCF Yield</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1599,46 +1611,295 @@
       <!-- TOOLBAR: SEARCH & SHARE BUTTON -->
       <section class="toolbar-row">
         <div class="search-input-wrap">
-          <svg class="search-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg class="search-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="text" id="docSearchInput" class="doc-search-input" placeholder="Tìm kiếm tài liệu, mô hình Excel, ebook..." oninput="handleSearch(this.value)">
         </div>
         <button class="btn-share-doc" onclick="openShareModal()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           <span>Chia sẻ tài liệu của bạn</span>
         </button>
       </section>
 
       <!-- FILTER TABS -->
       <nav class="filter-tabs-row" id="filterTabs">
-        <button class="filter-pill active" onclick="setCategoryFilter('all', this)">
-          <span>Tất cả</span>
-          <span class="filter-count" id="count-all">12</span>
-        </button>
-        <button class="filter-pill" onclick="setCategoryFilter('mau-bieu', this)">
-          <span>Mẫu biểu</span>
-          <span class="filter-count" id="count-mau-bieu">2</span>
-        </button>
-        <button class="filter-pill" onclick="setCategoryFilter('ebook', this)">
-          <span>Ebook / Tài liệu đọc</span>
-          <span class="filter-count" id="count-ebook">3</span>
-        </button>
-        <button class="filter-pill" onclick="setCategoryFilter('checklist', this)">
-          <span>Checklist</span>
-          <span class="filter-count" id="count-checklist">2</span>
-        </button>
-        <button class="filter-pill" onclick="setCategoryFilter('cong-cu', this)">
-          <span>Công cụ (Excel/Sheet)</span>
-          <span class="filter-count" id="count-cong-cu">4</span>
-        </button>
-        <button class="filter-pill" onclick="setCategoryFilter('khac', this)">
-          <span>Khác</span>
-          <span class="filter-count" id="count-khac">1</span>
-        </button>
+        <button class="filter-pill active" onclick="setCategoryFilter('all', this)">Tất cả</button>
+        <button class="filter-pill" onclick="setCategoryFilter('mau-bieu', this)">Mẫu biểu</button>
+        <button class="filter-pill" onclick="setCategoryFilter('ebook', this)">Ebook / Tài liệu đọc</button>
+        <button class="filter-pill" onclick="setCategoryFilter('checklist', this)">Checklist</button>
+        <button class="filter-pill" onclick="setCategoryFilter('cong-cu', this)">Công cụ (Excel/Sheet)</button>
+        <button class="filter-pill" onclick="setCategoryFilter('khac', this)">Khác</button>
       </nav>
 
       <!-- DOCUMENT CARDS GRID -->
       <div class="doc-grid" id="docGrid">
-        <!-- Cards rendered dynamically via JS -->
+        <!-- Card 1: Valuation Model – CCC -->
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <span class="badge-cat-top-left">CÔNG CỤ (EXCEL/SHEET)</span>
+            <span class="badge-tag-top-right tag-hot-badge">🔥 HOT</span>
+            <div class="excel-preview-box">
+              <table class="excel-table">
+                <thead>
+                  <tr>
+                    <th>HƯỚNG DẪN SỬ...</th>
+                    <th>HƯỚNG DẪN SỬ...</th>
+                    <th>HƯỚNG DẪN SỬ...</th>
+                    <th>HƯỚNG DẪN SỬ...</th>
+                    <th>Hãy làm theo...</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>MODEL NÀY GIÚP...</td>
+                    <td>MODEL NÀY GIÚP...</td>
+                    <td>MODEL NÀY GIÚP...</td>
+                    <td>MODEL NÀY GIÚP...</td>
+                    <td>MODEL NÀY GIÚP...</td>
+                  </tr>
+                  <tr>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                  </tr>
+                  <tr>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                  </tr>
+                  <tr>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                  </tr>
+                  <tr>
+                    <td>Mô tả 01... Triệu đ...</td>
+                    <td>Mô tả 01... Triệu đ...</td>
+                    <td>Mô tả 01... Triệu đ...</td>
+                    <td>Mô tả 01... Triệu đ...</td>
+                    <td>Mô tả 01... Triệu đ...</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="excel-table-overlay"></div>
+            </div>
+          </div>
+          <div class="doc-card-body">
+            <h3 class="doc-card-title">Valuation Model – CCC</h3>
+          </div>
+          <div class="doc-card-footer">
+            <span class="doc-card-size">2.5 MB</span>
+            <button class="btn-card-action" onclick="openDocPreview(1)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Xem & tải</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Valuation Model – CCC -->
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <span class="badge-cat-top-left">CÔNG CỤ (EXCEL/SHEET)</span>
+            <span class="badge-tag-top-right tag-free-badge">FREE</span>
+            <div class="excel-preview-box">
+              <table class="excel-table">
+                <thead>
+                  <tr>
+                    <th>HƯỚNG DẪN SỬ...</th>
+                    <th>HƯỚNG DẪN SỬ...</th>
+                    <th>HƯỚNG DẪN SỬ...</th>
+                    <th>HƯỚNG DẪN SỬ...</th>
+                    <th>Hãy làm theo...</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>MODEL NÀY GIÚP...</td>
+                    <td>MODEL NÀY GIÚP...</td>
+                    <td>MODEL NÀY GIÚP...</td>
+                    <td>MODEL NÀY GIÚP...</td>
+                    <td>MODEL NÀY GIÚP...</td>
+                  </tr>
+                  <tr>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                  </tr>
+                  <tr>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                    <td>Model này giúp ...</td>
+                  </tr>
+                  <tr>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                    <td>4 BƯỚC SỬ DỤNG</td>
+                  </tr>
+                  <tr>
+                    <td>Mô tả 01... Triệu đ...</td>
+                    <td>Mô tả 01... Triệu đ...</td>
+                    <td>Mô tả 01... Triệu đ...</td>
+                    <td>Mô tả 01... Triệu đ...</td>
+                    <td>Mô tả 01... Triệu đ...</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="excel-table-overlay"></div>
+            </div>
+          </div>
+          <div class="doc-card-body">
+            <h3 class="doc-card-title">Valuation Model – CCC</h3>
+          </div>
+          <div class="doc-card-footer">
+            <span class="doc-card-size">2.5 MB</span>
+            <button class="btn-card-action" onclick="openDocPreview(2)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Xem & tải</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: Working Capital Model – Vốn lưu động -->
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <span class="badge-cat-top-left">KHÁC</span>
+            <span class="badge-tag-top-right tag-hot-badge">🔥 HOT</span>
+            <div class="vector-doc-box">
+              <div class="vector-file-icon">
+                <div class="vector-file-corner"></div>
+                <div class="vector-file-line" style="width: 26px;"></div>
+                <div class="vector-file-line" style="width: 20px;"></div>
+                <div class="vector-file-line" style="width: 26px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-card-body">
+            <h3 class="doc-card-title">Working Capital Model – Vốn lưu động</h3>
+          </div>
+          <div class="doc-card-footer">
+            <span class="doc-card-size">44 KB</span>
+            <button class="btn-card-action" onclick="openDocPreview(3)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Xem & tải</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4: Financial Modeling 3-Statement -->
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <span class="badge-cat-top-left">CÔNG CỤ (EXCEL/SHEET)</span>
+            <span class="badge-tag-top-right tag-hot-badge">🔥 HOT</span>
+            <div class="excel-preview-box">
+              <table class="excel-table">
+                <thead>
+                  <tr>
+                    <th>INCOME STATEMENT</th>
+                    <th>BALANCE SHEET</th>
+                    <th>CASH FLOWS</th>
+                    <th>ASSUMPTIONS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Revenue: $120M</td>
+                    <td>Cash: $45M</td>
+                    <td>Operating CF</td>
+                    <td>Growth: +15%</td>
+                  </tr>
+                  <tr>
+                    <td>COGS: ($65M)</td>
+                    <td>AR: $18M</td>
+                    <td>Investing CF</td>
+                    <td>Tax: 20%</td>
+                  </tr>
+                  <tr>
+                    <td>Gross Profit: $55M</td>
+                    <td>Inventory: $12M</td>
+                    <td>Financing CF</td>
+                    <td>WACC: 9.8%</td>
+                  </tr>
+                  <tr>
+                    <td>EBITDA: $28M</td>
+                    <td>Total Assets: $98M</td>
+                    <td>Net Cash: +$14M</td>
+                    <td>Capex: 5% Rev</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="excel-table-overlay"></div>
+            </div>
+          </div>
+          <div class="doc-card-body">
+            <h3 class="doc-card-title">Financial Modeling 3-Statement Model (P&L, BS, CFS)</h3>
+          </div>
+          <div class="doc-card-footer">
+            <span class="doc-card-size">3.8 MB</span>
+            <button class="btn-card-action" onclick="openDocPreview(4)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Xem & tải</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 5: Checklist Thẩm định Tín dụng SME -->
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <span class="badge-cat-top-left">CHECKLIST</span>
+            <span class="badge-tag-top-right tag-free-badge">FREE</span>
+            <div class="vector-doc-box">
+              <div class="vector-file-icon" style="border-color: #34d399;">
+                <div class="vector-file-corner" style="border-color: #34d399;"></div>
+                <div style="color:#34d399;font-size:16px;font-weight:800;">✓</div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-card-body">
+            <h3 class="doc-card-title">Checklist Thẩm định Tín dụng & Đánh giá Rủi ro SME</h3>
+          </div>
+          <div class="doc-card-footer">
+            <span class="doc-card-size">680 KB</span>
+            <button class="btn-card-action" onclick="openDocPreview(5)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Xem & tải</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 6: Ebook Phân tích BCTC Toàn diện -->
+        <div class="doc-card">
+          <div class="doc-thumb">
+            <span class="badge-cat-top-left">EBOOK / TÀI LIỆU ĐỌC</span>
+            <span class="badge-tag-top-right tag-hot-badge">🔥 HOT</span>
+            <div class="vector-doc-box" style="background: linear-gradient(135deg, #063422 0%, #031c12 100%);">
+              <div style="border: 2px solid #10b981; border-radius: 8px; padding: 10px 14px; text-align: center; background: rgba(0,0,0,0.3);">
+                <div style="font-size: 18px; margin-bottom: 2px;">📚</div>
+                <div style="font-size: 8.5px; font-weight: 800; color: #34d399; letter-spacing: 0.05em;">FINANCE GUIDE</div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-card-body">
+            <h3 class="doc-card-title">Ebook Cẩm nang Phân tích Báo cáo Tài chính Toàn diện</h3>
+          </div>
+          <div class="doc-card-footer">
+            <span class="doc-card-size">14.5 MB</span>
+            <button class="btn-card-action" onclick="openDocPreview(6)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Xem & tải</span>
+            </button>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1646,7 +1907,7 @@
 
   <!-- QUICK FLOATING ACTION BUTTON (Matches bottom right hamburger in image) -->
   <button class="floating-menu-btn" title="Menu nhanh" onclick="toggleUserPopover()">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     <span class="floating-badge">9+</span>
   </button>
 
@@ -1664,35 +1925,35 @@
         <button class="modal-close-btn" onclick="closeModal('viewModal')">✕</button>
       </div>
       <div class="modal-body">
-        <div style="background:var(--surface-subtle);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:14px;margin-bottom:18px;">
-          <h4 style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.03em;">Mô tả chi tiết</h4>
-          <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;" id="modalDocDesc">
-            Mô hình phân tích và định giá toàn diện bao gồm chu kỳ chuyển đổi tiền mặt (Cash Conversion Cycle - CCC), dự phóng dòng tiền chiết khấu (DCF) và phân tích độ nhạy (Sensitivity Analysis).
+        <div style="background:var(--surface-subtle);border:1px solid var(--border-color);border-radius:12px;padding:14px;margin-bottom:16px;">
+          <h4 style="font-size:12.5px;font-weight:700;color:var(--primary);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.03em;">Mô tả chi tiết</h4>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;" id="modalDocDesc">
+            Mô hình phân tích và định giá toàn diện bao gồm chu kỳ chuyển đổi tiền mặt (Cash Conversion Cycle - CCC), dự phóng dòng tiền chiết khấu (DCF) và phân tích độ nhạy.
           </p>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:12px;margin-bottom:20px;">
-          <div style="background:var(--surface-subtle);border:1px solid var(--border-color);padding:10px 14px;border-radius:var(--radius-md);text-align:center;">
-            <div style="font-size:11.5px;color:var(--text-muted);font-weight:600;">Lượt tải</div>
-            <div style="font-size:16px;font-weight:800;color:var(--text-main);" id="modalDocDownloads">1,420+</div>
+        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-bottom:18px;">
+          <div style="background:var(--surface-subtle);border:1px solid var(--border-color);padding:10px;border-radius:10px;text-align:center;">
+            <div style="font-size:11px;color:var(--text-muted);font-weight:600;">Lượt tải</div>
+            <div style="font-size:15px;font-weight:800;color:var(--text-main);" id="modalDocDownloads">1,840+</div>
           </div>
-          <div style="background:var(--surface-subtle);border:1px solid var(--border-color);padding:10px 14px;border-radius:var(--radius-md);text-align:center;">
-            <div style="font-size:11.5px;color:var(--text-muted);font-weight:600;">Đánh giá</div>
-            <div style="font-size:16px;font-weight:800;color:#f59e0b;" id="modalDocRating">⭐ 4.9/5</div>
+          <div style="background:var(--surface-subtle);border:1px solid var(--border-color);padding:10px;border-radius:10px;text-align:center;">
+            <div style="font-size:11px;color:var(--text-muted);font-weight:600;">Đánh giá</div>
+            <div style="font-size:15px;font-weight:800;color:#f59e0b;" id="modalDocRating">⭐ 4.9/5</div>
           </div>
-          <div style="background:var(--surface-subtle);border:1px solid var(--border-color);padding:10px 14px;border-radius:var(--radius-md);text-align:center;">
-            <div style="font-size:11.5px;color:var(--text-muted);font-weight:600;">Bản quyền</div>
-            <div style="font-size:14px;font-weight:800;color:#059669;">Free 100%</div>
+          <div style="background:var(--surface-subtle);border:1px solid var(--border-color);padding:10px;border-radius:10px;text-align:center;">
+            <div style="font-size:11px;color:var(--text-muted);font-weight:600;">Bản quyền</div>
+            <div style="font-size:13.5px;font-weight:800;color:#059669;">Free 100%</div>
           </div>
         </div>
 
-        <div style="display:flex;gap:12px;">
-          <button class="btn-share-doc" style="flex:1;justify-content:center;padding:14px;" onclick="triggerDownload()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-share-doc" style="flex:1;justify-content:center;padding:12px;" onclick="triggerDownload()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span>Tải về ngay (.xlsx)</span>
           </button>
-          <button class="filter-pill" style="padding:14px 18px;" onclick="copyDocLink()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <button class="filter-pill" style="padding:12px 16px;" onclick="copyDocLink()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
             <span>Chia sẻ</span>
           </button>
         </div>
@@ -1729,9 +1990,9 @@
             <label class="form-label">Tệp đính kèm (Excel, PDF, Word, PowerBI) *</label>
             <div class="dropzone" onclick="document.getElementById('fileUploadInput').click()">
               <input type="file" id="fileUploadInput" style="display:none;" onchange="handleFileSelected(this)">
-              <div style="font-size:28px;margin-bottom:6px;">📁</div>
-              <div style="font-weight:700;font-size:13.5px;color:var(--text-main);" id="dropzoneText">Nhấn để chọn tệp hoặc kéo thả vào đây</div>
-              <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;">Hỗ trợ .xlsx, .xls, .pdf, .docx, .pbix (Tối đa 50MB)</div>
+              <div style="font-size:26px;margin-bottom:4px;">📁</div>
+              <div style="font-weight:700;font-size:13px;color:var(--text-main);" id="dropzoneText">Nhấn để chọn tệp hoặc kéo thả vào đây</div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Hỗ trợ .xlsx, .xls, .pdf, .docx, .pbix (Tối đa 50MB)</div>
             </div>
           </div>
 
@@ -1740,7 +2001,7 @@
             <textarea class="form-textarea" rows="3" placeholder="Chia sẻ cách sử dụng hoặc giá trị tài liệu này mang lại cho người học..."></textarea>
           </div>
 
-          <button type="submit" class="btn-share-doc" style="width:100%;justify-content:center;padding:13px;">
+          <button type="submit" class="btn-share-doc" style="width:100%;justify-content:center;padding:12px;">
             <span>🚀 Gửi tài liệu lên thư viện</span>
           </button>
         </form>
@@ -1756,321 +2017,25 @@
 
   <!-- ════════════ JAVASCRIPT LOGIC ════════════ -->
   <script>
-    // Document Database
-    const DOCUMENTS = [
-      {
-        id: 1,
-        title: "Valuation Model – CCC",
-        category: "cong-cu",
-        categoryLabel: "CÔNG CỤ (EXCEL/SHEET)",
-        tag: "hot",
-        tagLabel: "🔥 HOT",
-        size: "2.5 MB",
-        ext: ".xlsx",
-        downloads: "1,840",
-        rating: "4.9",
-        thumbType: "excel",
-        desc: "Mô hình tính toán Chu kỳ chuyển đổi tiền mặt (Cash Conversion Cycle) kết hợp định giá chiết khấu dòng tiền DCF chuyên sâu cho các case study M&A."
-      },
-      {
-        id: 2,
-        title: "Valuation Model – CCC",
-        category: "cong-cu",
-        categoryLabel: "CÔNG CỤ (EXCEL/SHEET)",
-        tag: "free",
-        tagLabel: "🆓 FREE",
-        size: "2.5 MB",
-        ext: ".xlsx",
-        downloads: "1,210",
-        rating: "4.8",
-        thumbType: "excel",
-        desc: "File Excel chuẩn định giá doanh nghiệp với phân tích độ nhạy WACC và tăng trưởng vĩnh viễn (Terminal Growth Rate)."
-      },
-      {
-        id: 3,
-        title: "Working Capital Model – Vốn lưu động",
-        category: "khac",
-        categoryLabel: "KHÁC",
-        tag: "hot",
-        tagLabel: "🔥 HOT",
-        size: "44 KB",
-        ext: ".xlsx",
-        downloads: "950",
-        rating: "4.9",
-        thumbType: "vector",
-        desc: "Mô hình tối ưu hóa dòng tiền vốn lưu động cho doanh nghiệp bán lẻ và sản xuất quy mô vừa và lớn."
-      },
-      {
-        id: 4,
-        title: "Financial Modeling 3-Statement (P&L, BS, CFS)",
-        category: "cong-cu",
-        categoryLabel: "CÔNG CỤ (EXCEL/SHEET)",
-        tag: "new",
-        tagLabel: "✨ MỚI",
-        size: "3.8 MB",
-        ext: ".xlsx",
-        downloads: "2,350",
-        rating: "5.0",
-        thumbType: "excel",
-        desc: "Mô hình liên kết 3 báo cáo tài chính chuẩn mực phố Wall, tự động cân đối bảng cân đối kế toán thông qua dòng tiền."
-      },
-      {
-        id: 5,
-        title: "Checklist Thẩm định Tín dụng & Đánh giá Rủi ro SME",
-        category: "checklist",
-        categoryLabel: "CHECKLIST",
-        tag: "free",
-        tagLabel: "🆓 FREE",
-        size: "680 KB",
-        ext: ".pdf",
-        downloads: "890",
-        rating: "4.7",
-        thumbType: "vector",
-        desc: "Checklist 45 tiêu chí chấm điểm rủi ro tài chính, thẩm định hồ sơ vay vốn và khả năng thanh toán của khách hàng doanh nghiệp."
-      },
-      {
-        id: 6,
-        title: "Ebook Cẩm nang Phân tích BCTC Toàn diện 2026",
-        category: "ebook",
-        categoryLabel: "EBOOK / TÀI LIỆU ĐỌC",
-        tag: "hot",
-        tagLabel: "🔥 HOT",
-        size: "14.5 MB",
-        ext: ".pdf",
-        downloads: "3,400",
-        rating: "4.9",
-        thumbType: "vector",
-        desc: "Giáo trình hướng dẫn bóc tách báo cáo tài chính từ căn bản đến phát hiện các dấu hiệu bóp méo số liệu kế toán."
-      },
-      {
-        id: 7,
-        title: "M&A Due Diligence Toolkit & Master Checklist",
-        category: "checklist",
-        categoryLabel: "CHECKLIST",
-        tag: "hot",
-        tagLabel: "🔥 HOT",
-        size: "1.8 MB",
-        ext: ".xlsx",
-        downloads: "1,120",
-        rating: "4.9",
-        thumbType: "vector",
-        desc: "Bộ công cụ rà soát đặc biệt trong các thương vụ sáp nhập & mua lại, bao gồm thẩm định tài chính, thuế và pháp lý."
-      },
-      {
-        id: 8,
-        title: "Template Báo cáo Quản trị Doanh nghiệp (CFO Dashboard)",
-        category: "mau-bieu",
-        categoryLabel: "MẪU BIỂU",
-        tag: "free",
-        tagLabel: "🆓 FREE",
-        size: "5.2 MB",
-        ext: ".pbix",
-        downloads: "1,670",
-        rating: "4.8",
-        thumbType: "excel",
-        desc: "Mẫu báo cáo Dashboard động trên Excel & Power BI trực quan hóa doanh thu, EBITDA, dòng tiền hoạt động theo thời gian thực."
-      },
-      {
-        id: 9,
-        title: "Ebook 100 Câu hỏi Phỏng vấn Investment Banking & PE",
-        category: "ebook",
-        categoryLabel: "EBOOK / TÀI LIỆU ĐỌC",
-        tag: "hot",
-        tagLabel: "🔥 HOT",
-        size: "8.4 MB",
-        ext: ".pdf",
-        downloads: "2,890",
-        rating: "5.0",
-        thumbType: "vector",
-        desc: "Bộ câu hỏi tình huống và bài toán tài chính thực tế thường gặp trong các vòng phỏng vấn ngân hàng đầu tư và quỹ đầu tư tư nhân."
-      },
-      {
-        id: 10,
-        title: "Mẫu Kế hoạch Tài chính & Dự báo Ngân sách Năm",
-        category: "mau-bieu",
-        categoryLabel: "MẪU BIỂU",
-        tag: "free",
-        tagLabel: "🆓 FREE",
-        size: "2.1 MB",
-        ext: ".xlsx",
-        downloads: "1,340",
-        rating: "4.8",
-        thumbType: "excel",
-        desc: "Template lập kế hoạch ngân sách chi phí hoạt động (OPEX), chi phí vốn (CAPEX) và dự báo doanh số theo kịch bản."
-      },
-      {
-        id: 11,
-        title: "Mô hình LBO (Leveraged Buyout Model) Chuẩn Quốc tế",
-        category: "cong-cu",
-        categoryLabel: "CÔNG CỤ (EXCEL/SHEET)",
-        tag: "hot",
-        tagLabel: "🔥 HOT",
-        size: "4.1 MB",
-        ext: ".xlsx",
-        downloads: "980",
-        rating: "4.9",
-        thumbType: "excel",
-        desc: "Mô hình mua lại bằng vốn vay (LBO) chi tiết với cấu trúc nợ đa tầng, lịch trả nợ gốc lãi và tính toán IRR của nhà đầu tư."
-      },
-      {
-        id: 12,
-        title: "Sổ tay Thuật ngữ Tài chính & Đầu tư Song ngữ Anh - Việt",
-        category: "ebook",
-        categoryLabel: "EBOOK / TÀI LIỆU ĐỌC",
-        tag: "free",
-        tagLabel: "🆓 FREE",
-        size: "3.2 MB",
-        ext: ".pdf",
-        downloads: "1,550",
-        rating: "4.7",
-        thumbType: "vector",
-        desc: "Từ điển bỏ túi tra cứu hơn 1.200 thuật ngữ tài chính, kế toán quản trị, chứng khoán và kinh tế vĩ mô chuẩn xác."
-      }
+    const DOC_DATABASE = [
+      { id: 1, title: "Valuation Model – CCC", category: "cong-cu", size: "2.5 MB", ext: ".xlsx", downloads: "1,840", rating: "4.9", desc: "Mô hình tính toán Chu kỳ chuyển đổi tiền mặt kết hợp định giá chiết khấu dòng tiền DCF." },
+      { id: 2, title: "Valuation Model – CCC", category: "cong-cu", size: "2.5 MB", ext: ".xlsx", downloads: "1,210", rating: "4.8", desc: "File Excel chuẩn định giá doanh nghiệp với phân tích độ nhạy WACC và tăng trưởng vĩnh viễn." },
+      { id: 3, title: "Working Capital Model – Vốn lưu động", category: "khac", size: "44 KB", ext: ".xlsx", downloads: "950", rating: "4.9", desc: "Mô hình tối ưu hóa dòng tiền vốn lưu động cho doanh nghiệp bán lẻ và sản xuất." },
+      { id: 4, title: "Financial Modeling 3-Statement Model (P&L, BS, CFS)", category: "cong-cu", size: "3.8 MB", ext: ".xlsx", downloads: "2,350", rating: "5.0", desc: "Mô hình liên kết 3 báo cáo tài chính chuẩn mực phố Wall." },
+      { id: 5, title: "Checklist Thẩm định Tín dụng & Đánh giá Rủi ro SME", category: "checklist", size: "680 KB", ext: ".pdf", downloads: "890", rating: "4.7", desc: "Checklist 45 tiêu chí chấm điểm rủi ro tài chính và thẩm định hồ sơ vay vốn." },
+      { id: 6, title: "Ebook Cẩm nang Phân tích Báo cáo Tài chính Toàn diện", category: "ebook", size: "14.5 MB", ext: ".pdf", downloads: "3,400", rating: "4.9", desc: "Giáo trình hướng dẫn bóc tách báo cáo tài chính từ căn bản đến nâng cao." }
     ];
 
-    let currentCategory = 'all';
-    let searchQuery = '';
-
-    // Render cards
-    function renderCards() {
-      const grid = document.getElementById('docGrid');
-      const filtered = DOCUMENTS.filter(doc => {
-        const matchCat = currentCategory === 'all' || doc.category === currentCategory;
-        const matchSearch = doc.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            doc.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            doc.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchCat && matchSearch;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: var(--surface); border: 1px dashed var(--border-color); border-radius: var(--radius-lg);">
-            <div style="font-size: 40px; margin-bottom: 12px;">🔍</div>
-            <h3 style="font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Không tìm thấy tài liệu phù hợp</h3>
-            <p style="font-size: 13.5px; color: var(--text-muted); max-width: 400px; margin: 0 auto 16px;">Hãy thử tìm kiếm với từ khóa khác hoặc đóng góp tài liệu này cho cộng đồng nhé!</p>
-            <button class="btn-share-doc" onclick="openShareModal()">+ Đóng góp tài liệu mới</button>
-          </div>
-        `;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(doc => {
-        let tagClass = "tag-badge-hot";
-        if (doc.tag === 'free') tagClass = "tag-badge-free";
-        if (doc.tag === 'new') tagClass = "tag-badge-new";
-
-        let thumbHtml = '';
-        if (doc.thumbType === 'excel') {
-          thumbHtml = `
-            <div class="spreadsheet-mockup">
-              <table class="sheet-grid-table">
-                <thead>
-                  <tr>
-                    <th class="sheet-header-green">HƯỚNG DẪN SỬ...</th>
-                    <th class="sheet-header-green">HƯỚNG DẪN SỬ...</th>
-                    <th class="sheet-header-green">HƯỚNG DẪN SỬ...</th>
-                    <th>HƯỚNG DẪN SỬ...</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>MODEL NÀY GIÚP...</td>
-                    <td>MODEL NÀY GIÚP...</td>
-                    <td>MODEL NÀY GIÚP...</td>
-                    <td>MODEL NÀY GIÚP...</td>
-                  </tr>
-                  <tr>
-                    <td>Model này giúp ...</td>
-                    <td>Model này giúp ...</td>
-                    <td>Model này giúp ...</td>
-                    <td>Model này giúp ...</td>
-                  </tr>
-                  <tr>
-                    <td>Model này giúp ...</td>
-                    <td>Model này giúp ...</td>
-                    <td>Model này giúp ...</td>
-                    <td>Model này giúp ...</td>
-                  </tr>
-                  <tr>
-                    <td>4 BƯỚC SỬ DỤNG</td>
-                    <td>4 BƯỚC SỬ DỤNG</td>
-                    <td>4 BƯỚC SỬ DỤNG</td>
-                    <td>4 BƯỚC SỬ DỤNG</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="sheet-mockup-overlay"></div>
-            </div>
-          `;
-        } else {
-          thumbHtml = `
-            <div class="doc-vector-mockup">
-              <div class="doc-big-icon">
-                <div class="doc-corner-fold"></div>
-                <div class="doc-line" style="width:28px;"></div>
-                <div class="doc-line" style="width:22px;"></div>
-                <div class="doc-line" style="width:28px;"></div>
-              </div>
-            </div>
-          `;
-        }
-
-        return `
-          <div class="doc-card">
-            <div class="doc-thumb">
-              <span class="thumb-badge-category">${doc.categoryLabel}</span>
-              <span class="thumb-badge-tag ${tagClass}">${doc.tagLabel}</span>
-              ${thumbHtml}
-            </div>
-            <div class="doc-card-body">
-              <h3 class="doc-card-title">${doc.title}</h3>
-              <p class="doc-card-desc">${doc.desc}</p>
-            </div>
-            <div class="doc-card-footer">
-              <span class="doc-size-info">${doc.size}</span>
-              <button class="btn-view-download" onclick="openDocPreview(${doc.id})">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Xem & tải</span>
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Category Filter Handler
-    function setCategoryFilter(category, btnElement) {
-      currentCategory = category;
-      document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
-      if (btnElement) btnElement.classList.add('active');
-      renderCards();
-    }
-
-    // Search Handler
-    function handleSearch(val) {
-      searchQuery = val;
-      renderCards();
-    }
-
-    function focusSearch() {
-      const searchInput = document.getElementById('docSearchInput');
-      searchInput.focus();
-      searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    // Modal Handlers
     let activeDoc = null;
-    function openDocPreview(docId) {
-      activeDoc = DOCUMENTS.find(d => d.id === docId);
-      if (!activeDoc) return;
 
+    function openDocPreview(id) {
+      activeDoc = DOC_DATABASE.find(d => d.id === id);
+      if (!activeDoc) return;
       document.getElementById('modalDocTitle').textContent = activeDoc.title;
-      document.getElementById('modalDocMeta').textContent = `${activeDoc.categoryLabel} · ${activeDoc.size} · ${activeDoc.ext}`;
+      document.getElementById('modalDocMeta').textContent = `${activeDoc.size} · ${activeDoc.ext}`;
       document.getElementById('modalDocDesc').textContent = activeDoc.desc;
       document.getElementById('modalDocDownloads').textContent = `${activeDoc.downloads}+`;
       document.getElementById('modalDocRating').textContent = `⭐ ${activeDoc.rating}/5`;
-      document.getElementById('modalDocIcon').textContent = activeDoc.thumbType === 'excel' ? '📊' : '📄';
-
       document.getElementById('viewModal').classList.add('active');
     }
 
@@ -2082,25 +2047,54 @@
       document.getElementById(modalId).classList.remove('active');
     }
 
-    // Close on click outside modal card
     window.addEventListener('click', (e) => {
       if (e.target.classList.contains('modal-overlay')) {
         e.target.classList.remove('active');
       }
     });
 
-    // Simulated Download Action
+    function setCategoryFilter(cat, btn) {
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      
+      const cards = document.querySelectorAll('.doc-card');
+      cards.forEach((card, index) => {
+        const doc = DOC_DATABASE[index];
+        if (!doc) return;
+        if (cat === 'all' || doc.category === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function handleSearch(val) {
+      const q = val.toLowerCase().trim();
+      const cards = document.querySelectorAll('.doc-card');
+      cards.forEach((card, index) => {
+        const doc = DOC_DATABASE[index];
+        if (!doc) return;
+        const match = doc.title.toLowerCase().includes(q) || doc.desc.toLowerCase().includes(q);
+        card.style.display = match ? 'flex' : 'none';
+      });
+    }
+
+    function focusSearch() {
+      const el = document.getElementById('docSearchInput');
+      el.focus();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
     function triggerDownload() {
       closeModal('viewModal');
       showToast(`Đang tải xuống "${activeDoc ? activeDoc.title : 'Tài liệu'}"...`);
-      
-      // Reward gold coin animation
       setTimeout(() => {
         const wallet = document.getElementById('walletCount');
         const currentGold = parseInt(wallet.textContent, 10) || 60;
         wallet.textContent = currentGold + 5;
         showToast(`🎉 Tải thành công! Bạn nhận được +5 Túi vàng học tập.`);
-      }, 1200);
+      }, 1000);
     }
 
     function copyDocLink() {
@@ -2110,19 +2104,18 @@
 
     function handleFileSelected(input) {
       if (input.files && input.files[0]) {
-        document.getElementById('dropzoneText').textContent = `Đã chọn: ${input.files[0].name} (${(input.files[0].size / 1024 / 1024).toFixed(2)} MB)`;
+        document.getElementById('dropzoneText').textContent = `Đã chọn: ${input.files[0].name}`;
       }
     }
 
     function handleShareSubmit(e) {
       e.preventDefault();
       closeModal('shareModal');
-      showToast('Cảm ơn bạn! Tài liệu đã được gửi và đang chờ duyệt vào kho chung.');
+      showToast('Cảm ơn bạn! Tài liệu đã được gửi và đang chờ duyệt.');
       document.getElementById('shareDocForm').reset();
       document.getElementById('dropzoneText').textContent = 'Nhấn để chọn tệp hoặc kéo thả vào đây';
     }
 
-    // Toast Notification helper
     let toastTimeout;
     function showToast(msg) {
       const toast = document.getElementById('toastMsg');
@@ -2134,18 +2127,14 @@
       }, 3500);
     }
 
-    // Live Ticker Typing Animation
+    // Ticker Typing Animation
     const tickerItems = [
       "File Excel báo cáo lưu chuyển tiền tệ",
-      "Mô hình DCF Valuation 3-Statement chuẩn CFA",
-      "Checklist thẩm định tài chính M&A Doanh nghiệp",
-      "Bộ 100 câu hỏi phỏng vấn Investment Banking",
-      "Template CFO Dashboard quản trị dòng tiền trên Power BI",
-      "Mô hình LBO nâng cao cho các quỹ Private Equity"
+      "Mô hình DCF Valuation 3-Statement",
+      "Checklist thẩm định tài chính M&A",
+      "Bộ câu hỏi phỏng vấn Investment Banking"
     ];
-    let tickerIdx = 0;
-    let charIdx = 0;
-    let isDeleting = false;
+    let tickerIdx = 0, charIdx = 0, isDeleting = false;
 
     function typeTicker() {
       const tickerElem = document.getElementById('tickerText');
@@ -2160,23 +2149,19 @@
       }
 
       let speed = isDeleting ? 30 : 60;
-
       if (!isDeleting && charIdx === currentWord.length) {
-        speed = 2200; // Pause at end of sentence
+        speed = 2200;
         isDeleting = true;
       } else if (isDeleting && charIdx === 0) {
         isDeleting = false;
         tickerIdx = (tickerIdx + 1) % tickerItems.length;
         speed = 500;
       }
-
       setTimeout(typeTicker, speed);
     }
 
-    // User Popover Toggle
     function toggleUserPopover() {
-      const popover = document.getElementById('userPopover');
-      popover.classList.toggle('show');
+      document.getElementById('userPopover').classList.toggle('show');
     }
 
     document.addEventListener('click', (e) => {
@@ -2187,7 +2172,6 @@
       }
     });
 
-    // Theme Switcher
     function setTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       document.getElementById('themeLightBtn').classList.toggle('active', theme === 'light');
@@ -2201,24 +2185,17 @@
       showToast(lang === 'vi' ? 'Đã đổi sang Tiếng Việt' : 'Switched to English');
     }
 
-    // Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         focusSearch();
       }
-      if (e.key === 'Escape') {
-        closeModal('viewModal');
-        closeModal('shareModal');
-      }
     });
 
-    // Initialize
     window.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('app-theme') || 'light';
       setTheme(savedTheme);
-      renderCards();
-      setTimeout(typeTicker, 800);
+      setTimeout(typeTicker, 600);
     });
   </script>
 </body>

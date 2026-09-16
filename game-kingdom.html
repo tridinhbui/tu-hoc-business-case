@@ -6,7 +6,7 @@
   <title>Tự Học Tài Chính — Đế Chế Wall Street (Game Kingdom)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f4f7f4;
@@ -94,7 +94,7 @@
       font-weight: 800;
       color: #064e3b;
       letter-spacing: -0.01em;
-      line-height: 1.2;
+      line-height: 1.15;
     }
 
     .search-box {
@@ -303,15 +303,12 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: #d8f3e3;
-      color: #046a41;
-      font-weight: 800;
-      font-size: 12px;
+      background: #e2e8f0;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      border: 1px solid #c2ebd1;
     }
 
     .user-info {
@@ -336,7 +333,7 @@
       text-overflow: ellipsis;
     }
 
-    /* ════════════ MAIN WRAPPER ════════════ */
+    /* ════════════ MAIN GAME KINGDOM LAYOUT ════════════ */
     .game-kingdom-layout {
       flex: 1;
       display: flex;
@@ -351,64 +348,79 @@
     .top-header-bar {
       background: #ffffff;
       border-bottom: 1px solid #e5ece5;
-      padding: 10px 24px;
+      padding: 8px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 40;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .avatar-level-badge {
+    /* Crown Character Level Badge in Header */
+    .avatar-level-container {
       position: relative;
       width: 44px;
       height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-level-circle {
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: #fef8eb;
+      background: #fffbeb;
       border: 2px solid #f59e0b;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+      position: relative;
+      overflow: visible;
     }
 
-    .avatar-crown {
+    .header-crown {
       position: absolute;
-      top: -8px;
-      font-size: 13px;
-      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
     }
 
-    .avatar-face {
-      font-size: 22px;
-      line-height: 1;
+    .header-avatar-svg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
     }
 
-    .level-tag-bottom {
+    .header-level-tag {
       position: absolute;
-      bottom: -6px;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
       background: #f59e0b;
       color: #ffffff;
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 800;
-      padding: 1px 6px;
+      padding: 0.5px 5px;
       border-radius: 999px;
       letter-spacing: 0.02em;
       border: 1.5px solid #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
       white-space: nowrap;
     }
 
     .header-title-block {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
     }
 
     .title-row {
@@ -418,21 +430,18 @@
     }
 
     .kingdom-title {
-      font-size: 16px;
+      font-size: 15.5px;
       font-weight: 800;
       color: #0f172a;
       letter-spacing: -0.01em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .badge-online {
       background: #e6f7ee;
       color: #059669;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
-      padding: 2px 8px;
+      padding: 1.5px 7px;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
@@ -446,11 +455,11 @@
       height: 5px;
       background: #10b981;
       border-radius: 50%;
-      box-shadow: 0 0 6px #10b981;
+      box-shadow: 0 0 5px #10b981;
     }
 
     .kingdom-subtitle {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 600;
       color: #64748b;
     }
@@ -461,43 +470,55 @@
       gap: 12px;
     }
 
-    .header-stat-pill {
+    .stat-pill-gold {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
+      gap: 6px;
+      padding: 5px 12px;
+      background: #fef8eb;
+      border: 1px solid #fde68a;
       border-radius: var(--radius-pill);
-      font-size: 12px;
-      font-weight: 700;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      font-size: 11.5px;
+      color: #92400e;
       user-select: none;
     }
 
-    .stat-gold {
-      background: #fef8eb;
-      border-color: #fde68a;
-      color: #92400e;
-    }
-
-    .stat-gold .val {
+    .stat-pill-gold .lbl {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
       color: #b45309;
-      font-weight: 800;
     }
 
-    .stat-energy {
-      background: #ecfeff;
-      border-color: #a5f3fc;
-      color: #0891b2;
+    .stat-pill-gold .val {
+      font-weight: 800;
+      color: #78350f;
+    }
+
+    .stat-pill-energy {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      padding: 5px 12px;
+      background: #ecfeff;
+      border: 1px solid #a5f3fc;
+      border-radius: var(--radius-pill);
+      font-size: 11.5px;
+      color: #0891b2;
+      user-select: none;
+    }
+
+    .stat-pill-energy .lbl {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #0284c7;
     }
 
     .energy-bar-wrap {
-      width: 50px;
+      width: 44px;
       height: 6px;
-      background: #cffafe;
+      background: #bae6fd;
       border-radius: 999px;
       overflow: hidden;
       display: inline-block;
@@ -506,7 +527,7 @@
     .energy-bar-fill {
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, #06b6d4, #3b82f6);
+      background: linear-gradient(90deg, #06b6d4, #0284c7);
       border-radius: 999px;
     }
 
@@ -538,7 +559,7 @@
       padding: 6px 14px;
       background: #ffffff;
       color: #2563eb;
-      border: 1.5px solid #bfdbfe;
+      border: 1.5px solid #60a5fa;
       border-radius: var(--radius-pill);
       font-size: 12px;
       font-weight: 700;
@@ -548,20 +569,19 @@
 
     .btn-cards:hover {
       background: #eff6ff;
-      border-color: #93c5fd;
+      border-color: #3b82f6;
     }
 
     /* ── TICKER BAR (DARK BANNER) ── */
     .ticker-bar-wrap {
-      background: #0d121c;
+      background: #000000;
       color: #e2e8f0;
-      padding: 7px 20px;
+      padding: 6px 20px;
       display: flex;
       align-items: center;
       gap: 16px;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 600;
-      border-bottom: 1px solid #1e293b;
       z-index: 35;
       overflow: hidden;
       white-space: nowrap;
@@ -569,35 +589,30 @@
 
     .ticker-badge {
       background: #b45309;
-      color: #fff;
-      font-size: 10.5px;
+      color: #ffffff;
+      font-size: 10px;
       font-weight: 800;
-      padding: 2px 10px;
+      padding: 2px 9px;
       border-radius: var(--radius-pill);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       flex-shrink: 0;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+      letter-spacing: 0.03em;
     }
 
     .ticker-dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: #fbbf24;
-      animation: pulse-dot 1.5s infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.6; }
+      box-shadow: 0 0 6px #fbbf24;
     }
 
     .ticker-items-scroller {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 24px;
       overflow: hidden;
     }
 
@@ -605,10 +620,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      letter-spacing: 0.01em;
+      font-family: var(--font);
     }
 
-    .t-green { color: #4ade80; font-weight: 700; }
+    .t-green { color: #22c55e; font-weight: 700; }
     .t-boss { color: #f87171; font-weight: 700; }
     .t-cyan { color: #38bdf8; font-weight: 700; }
     .t-purple { color: #c084fc; font-weight: 700; }
@@ -619,8 +634,12 @@
       position: relative;
       overflow: hidden;
       cursor: grab;
-      background: #f1ede4;
+      background: #f7f5ed;
       user-select: none;
+      margin: 12px 16px 16px 16px;
+      border-radius: 20px;
+      border: 1px solid #e2ebe2;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.03);
     }
 
     .map-canvas-viewport.grabbing {
@@ -633,17 +652,17 @@
       top: 14px;
       left: 50%;
       transform: translateX(-50%);
-      background: #fef9ee;
+      background: #fffbeb;
       border: 1px solid #fde68a;
-      box-shadow: 0 4px 12px rgba(180, 83, 9, 0.08);
+      box-shadow: 0 2px 8px rgba(180, 83, 9, 0.06);
       border-radius: var(--radius-pill);
-      padding: 6px 18px;
+      padding: 5px 16px;
       font-size: 11.5px;
       font-weight: 700;
       color: #92400e;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       z-index: 30;
       pointer-events: none;
     }
@@ -651,66 +670,65 @@
     .top-region-tag {
       position: absolute;
       top: 14px;
-      right: 24px;
-      background: #e6f7ee;
-      border: 1px solid #bbf7d0;
+      right: 20px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
       color: #059669;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
-      padding: 5px 14px;
+      padding: 5px 12px;
       border-radius: var(--radius-pill);
       z-index: 30;
-      letter-spacing: 0.03em;
-      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.08);
+      letter-spacing: 0.04em;
+      box-shadow: 0 2px 6px rgba(5, 150, 105, 0.06);
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .top-region-tag:hover {
       background: #d1fae5;
-      transform: translateY(-1px);
     }
 
     /* Floating Equipment Widget */
     .floating-gear-card {
       position: absolute;
       top: 50px;
-      right: 24px;
-      width: 240px;
+      right: 20px;
+      width: 220px;
       background: #ffffff;
       border: 1px solid #e2ebe2;
-      border-radius: var(--radius-lg);
-      padding: 12px 14px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      border-radius: 14px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
       z-index: 30;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
     }
 
     .floating-gear-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.09);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.09);
     }
 
     .gear-card-top {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .gear-icon-box {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       background: #fef8eb;
       border: 1.5px solid #fde68a;
-      border-radius: 10px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 15px;
       position: relative;
     }
 
@@ -720,10 +738,10 @@
       right: -4px;
       background: #059669;
       color: white;
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 800;
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -737,7 +755,7 @@
     }
 
     .gear-card-label {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
       color: #059669;
       letter-spacing: 0.05em;
@@ -745,23 +763,23 @@
     }
 
     .gear-card-title {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       color: #0f172a;
       line-height: 1.2;
     }
 
     .gear-card-desc {
-      font-size: 10px;
+      font-size: 9.5px;
       color: #64748b;
       line-height: 1.25;
       margin-top: 1px;
     }
 
     .gear-card-footer {
-      border-top: 1px dashed #e2e8e2;
-      padding-top: 6px;
-      font-size: 11px;
+      border-top: 1px solid #f1f5f1;
+      padding-top: 5px;
+      font-size: 10.5px;
       font-weight: 700;
       color: #b45309;
       display: flex;
@@ -774,18 +792,13 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 2400px;
-      height: 1400px;
+      width: 2200px;
+      height: 1300px;
       transform-origin: 0 0;
       transition: transform 0.05s ease-out;
-      background: #ede8dc;
-      background-image: 
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, transparent 80%),
-        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(160, 140, 110, 0.04) 40px),
-        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(160, 140, 110, 0.04) 40px);
+      background: #f5f2e8;
     }
 
-    /* Canvas Vector Background Artwork */
     .map-artwork-svg {
       position: absolute;
       top: 0;
@@ -800,42 +813,39 @@
       position: absolute;
       background: #ffffff;
       border: 1px solid #e2ebe2;
-      border-radius: var(--radius-lg);
-      padding: 10px 14px;
+      border-radius: 14px;
+      padding: 8px 12px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 20;
       user-select: none;
-      min-width: 250px;
-      max-width: 280px;
+      width: 250px;
     }
 
     .map-node-card:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
       border-color: #cbd5e1;
     }
 
-    .node-thumb {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
+    .node-thumb-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: #0f172a;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
-      font-size: 20px;
     }
 
-    .node-thumb img {
+    .node-thumb-box svg {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -845,12 +855,13 @@
       position: absolute;
       top: 2px;
       left: 2px;
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(0, 0, 0, 0.75);
       color: #ffffff;
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 800;
-      padding: 1px 4px;
-      border-radius: 4px;
+      padding: 1px 3.5px;
+      border-radius: 3px;
+      z-index: 2;
     }
 
     .node-content {
@@ -860,9 +871,9 @@
 
     .node-badge {
       display: inline-block;
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 800;
-      padding: 2px 6px;
+      padding: 1.5px 6px;
       border-radius: 999px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -871,11 +882,11 @@
 
     .badge-cyan { background: #e0f2fe; color: #0284c7; }
     .badge-purple { background: #f3e8ff; color: #9333ea; }
-    .badge-orange { background: #fee2e2; color: #dc2626; }
-    .badge-blue { background: #dbeafe; color: #1d4ed8; }
+    .badge-orange { background: #ffedd5; color: #ea580c; }
+    .badge-blue { background: #dbeafe; color: #2563eb; }
 
     .node-title {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 800;
       color: #0f172a;
       white-space: nowrap;
@@ -885,61 +896,55 @@
     }
 
     .node-desc {
-      font-size: 10.5px;
+      font-size: 10px;
       color: #64748b;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      line-height: 1.25;
-      margin-top: 2px;
+      line-height: 1.2;
+      margin-top: 1px;
     }
 
-    /* ── SPECIAL BOSS NODE CARD (GLOWING RED) ── */
+    /* ── SPECIAL BOSS NODE CARD (GLOWING RED BORDER & AURA) ── */
     .boss-node-card {
       position: absolute;
       background: #ffffff;
       border: 2px solid #ef4444;
-      border-radius: var(--radius-xl);
-      padding: 12px 16px;
+      border-radius: 16px;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      box-shadow: 0 0 25px rgba(239, 68, 68, 0.35), 0 8px 24px rgba(0,0,0,0.12);
+      gap: 12px;
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.45), 0 6px 20px rgba(0,0,0,0.1);
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       z-index: 25;
-      min-width: 290px;
-      animation: boss-glow-pulse 2s infinite alternate;
-    }
-
-    @keyframes boss-glow-pulse {
-      0% {
-        box-shadow: 0 0 16px rgba(239, 68, 68, 0.3), 0 6px 20px rgba(0,0,0,0.1);
-        border-color: #ef4444;
-      }
-      100% {
-        box-shadow: 0 0 32px rgba(239, 68, 68, 0.6), 0 10px 30px rgba(239, 68, 68, 0.25);
-        border-color: #dc2626;
-      }
+      width: 270px;
     }
 
     .boss-node-card:hover {
-      transform: translateY(-4px) scale(1.04);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 35px rgba(239, 68, 68, 0.6), 0 8px 25px rgba(0,0,0,0.15);
     }
 
-    .boss-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+    .boss-thumb-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       background: #1e1b4b;
       border: 1.5px solid #ef4444;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+    }
+
+    .boss-thumb-box svg {
+      width: 100%;
+      height: 100%;
     }
 
     .boss-badge {
@@ -947,7 +952,7 @@
       color: white;
       font-size: 8.5px;
       font-weight: 800;
-      padding: 2px 7px;
+      padding: 1.5px 6px;
       border-radius: 999px;
       display: inline-block;
       letter-spacing: 0.04em;
@@ -955,23 +960,23 @@
     }
 
     .boss-title {
-      font-size: 14.5px;
+      font-size: 13.5px;
       font-weight: 800;
       color: #0f172a;
       line-height: 1.2;
     }
 
     .boss-subtitle {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
       color: #64748b;
       margin-top: 1px;
     }
 
     .boss-hp-bar {
-      margin-top: 5px;
+      margin-top: 4px;
       width: 100%;
-      height: 5px;
+      height: 4.5px;
       background: #fee2e2;
       border-radius: 999px;
       overflow: hidden;
@@ -982,18 +987,18 @@
       height: 100%;
       background: linear-gradient(90deg, #f97316, #ef4444);
       border-radius: 999px;
-      box-shadow: 0 0 6px #ef4444;
+      box-shadow: 0 0 5px #ef4444;
     }
 
     /* ── WAYPOINT NODES ON ROAD ── */
     .waypoint-node {
       position: absolute;
-      width: 22px;
+      width: 26px;
       height: 14px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      background: linear-gradient(135deg, #fef08a, #f59e0b);
       border: 2px solid #ffffff;
-      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4), 0 0 12px rgba(251, 191, 36, 0.6);
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.5), 0 0 10px rgba(251, 191, 36, 0.7);
       transform: translate(-50%, -50%);
       z-index: 15;
       cursor: pointer;
@@ -1001,10 +1006,10 @@
     }
 
     .waypoint-node:hover {
-      transform: translate(-50%, -50%) scale(1.4);
+      transform: translate(-50%, -50%) scale(1.3);
     }
 
-    /* ── PLAYER AVATAR TOKEN ON MAP ── */
+    /* ── PLAYER AVATAR TOKEN ON ROAD ── */
     .player-map-token {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -1018,19 +1023,19 @@
 
     @keyframes avatar-float {
       0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-      50% { transform: translate(-50%, -50%) translateY(-6px); }
+      50% { transform: translate(-50%, -50%) translateY(-5px); }
     }
 
-    .token-glow-ring {
-      width: 50px;
-      height: 50px;
+    .token-circle {
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: #fef8eb;
-      border: 3px solid #f59e0b;
+      border: 2.5px solid #f59e0b;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.6), 0 6px 14px rgba(0,0,0,0.15);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.6), 0 4px 10px rgba(0,0,0,0.15);
       position: relative;
     }
 
@@ -1038,23 +1043,19 @@
       position: absolute;
       top: -12px;
       font-size: 16px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    }
-
-    .token-face {
-      font-size: 26px;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
     }
 
     .token-level-tag {
       margin-top: -6px;
       background: #f59e0b;
       color: #ffffff;
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
-      padding: 1px 8px;
+      padding: 1px 7px;
       border-radius: 999px;
       border: 1.5px solid #ffffff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
 
     /* ── FLOATING ACTION BUTTON (BOTTOM RIGHT) ── */
@@ -1062,15 +1063,15 @@
       position: absolute;
       bottom: 24px;
       right: 24px;
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: #18181b;
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
       cursor: pointer;
       z-index: 40;
       border: 2px solid rgba(255,255,255,0.1);
@@ -1088,9 +1089,9 @@
       right: -2px;
       background: #ef4444;
       color: white;
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 800;
-      padding: 1px 5px;
+      padding: 1px 4px;
       border-radius: 999px;
       border: 2px solid white;
     }
@@ -1098,28 +1099,28 @@
     /* ── MAP CONTROLS (ZOOM & RESET) ── */
     .map-controls-panel {
       position: absolute;
-      bottom: 24px;
-      left: 24px;
+      bottom: 20px;
+      left: 20px;
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(8px);
       border: 1px solid #e2ebe2;
       border-radius: var(--radius-pill);
-      padding: 4px 8px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      padding: 3px 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
       z-index: 30;
     }
 
     .ctrl-btn {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: none;
       background: transparent;
       color: #334155;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       cursor: pointer;
       display: flex;
@@ -1134,15 +1135,15 @@
 
     .ctrl-divider {
       width: 1px;
-      height: 16px;
+      height: 14px;
       background: #cbd5e1;
     }
 
     .ctrl-label {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: #64748b;
-      padding: 0 4px;
+      padding: 0 3px;
     }
 
     /* ════════════ MODAL DIALOGS ════════════ */
@@ -1168,7 +1169,7 @@
       background: #ffffff;
       border-radius: var(--radius-xl);
       width: 90%;
-      max-width: 560px;
+      max-width: 540px;
       max-height: 85vh;
       overflow-y: auto;
       box-shadow: 0 20px 40px rgba(0,0,0,0.25);
@@ -1178,12 +1179,12 @@
     }
 
     @keyframes modal-pop {
-      from { transform: scale(0.9); opacity: 0; }
+      from { transform: scale(0.92); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
     .modal-header {
-      padding: 20px 24px 16px;
+      padding: 18px 22px 14px;
       border-bottom: 1px solid #edf2f7;
       display: flex;
       align-items: center;
@@ -1191,22 +1192,22 @@
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: #0f172a;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .modal-close {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       border: none;
       background: #f1f5f9;
       color: #64748b;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1220,29 +1221,28 @@
     }
 
     .modal-body {
-      padding: 20px 24px;
+      padding: 18px 22px;
     }
 
     .modal-footer {
-      padding: 16px 24px 20px;
+      padding: 14px 22px 18px;
       border-top: 1px solid #edf2f7;
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: 12px;
+      gap: 10px;
     }
 
     .btn-primary {
       background: #059669;
       color: white;
       border: none;
-      padding: 9px 20px;
+      padding: 8px 18px;
       border-radius: var(--radius-pill);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
     }
 
     .btn-primary:hover {
@@ -1254,9 +1254,9 @@
       background: #f1f5f9;
       color: #475569;
       border: none;
-      padding: 9px 18px;
+      padding: 8px 16px;
       border-radius: var(--radius-pill);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
     }
@@ -1265,43 +1265,17 @@
       background: linear-gradient(135deg, #ef4444, #dc2626);
       color: white;
       border: none;
-      padding: 10px 22px;
+      padding: 9px 20px;
       border-radius: var(--radius-pill);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
       transition: all 0.2s;
     }
 
     .btn-danger:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(239, 68, 68, 0.45);
-    }
-
-    /* Modal custom styles for Boss */
-    .boss-stat-banner {
-      background: #0f172a;
-      border-radius: var(--radius-lg);
-      padding: 16px 20px;
-      color: white;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .boss-avatar-large {
-      font-size: 40px;
-      width: 60px;
-      height: 60px;
-      background: #1e293b;
-      border: 2px solid #ef4444;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
     }
   </style>
 </head>
@@ -1358,8 +1332,8 @@
         <span class="icon">📖</span>
         <span>Học bài</span>
       </a>
-      <a href="hoc-theo-nghe.html" class="nav-item">
-        <span class="icon">💼</span>
+      <a href="index.html#/companies" class="nav-item">
+        <span class="icon">🏢</span>
         <span>Học theo nghề</span>
       </a>
       <a href="ho-so.html" class="nav-item">
@@ -1428,7 +1402,11 @@
 
       <a href="ho-so.html" class="user-profile-card" title="Tài khoản cá nhân">
         <div class="user-avatar-circle">
-          <span>ĐTB</span>
+          <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="18" fill="#d1fae5"/>
+            <circle cx="18" cy="14" r="7" fill="#047857"/>
+            <path d="M6 32c0-6.627 5.373-12 12-12s12 5.373 12 12" fill="#047857"/>
+          </svg>
         </div>
         <div class="user-info">
           <div class="user-name">Đinh Trí Bùi</div>
@@ -1445,11 +1423,28 @@
     <!-- ── TOP HEADER BAR ── -->
     <header class="top-header-bar">
       <div class="header-left">
-        <div class="avatar-level-badge">
-          <span class="avatar-crown">👑</span>
-          <span class="avatar-face">👨‍💼</span>
-          <span class="level-tag-bottom">\Lv.2</span>
+        <div class="avatar-level-container">
+          <div class="avatar-level-circle">
+            <span class="header-crown">👑</span>
+            <!-- Cartoon Avatar with glasses -->
+            <svg class="header-avatar-svg" viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="16" fill="#fed7aa"/>
+              <!-- Hair -->
+              <path d="M6 16c0-7 5.373-12 12-12s12 5 12 12c-2-3-5-4-8-3-3-2-6-1-8 2-3 0-5 0-8 1z" fill="#1e293b"/>
+              <!-- Glasses -->
+              <rect x="8" y="14" width="8" height="6" rx="2" fill="none" stroke="#0f172a" stroke-width="1.6"/>
+              <rect x="20" y="14" width="8" height="6" rx="2" fill="none" stroke="#0f172a" stroke-width="1.6"/>
+              <line x1="16" y1="17" x2="20" y2="17" stroke="#0f172a" stroke-width="1.6"/>
+              <!-- Eyes -->
+              <circle cx="12" cy="17" r="1" fill="#0f172a"/>
+              <circle cx="24" cy="17" r="1" fill="#0f172a"/>
+              <!-- Smile -->
+              <path d="M14 24 Q18 27 22 24" fill="none" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="header-level-tag">\Lv.2</span>
+          </div>
         </div>
+
         <div class="header-title-block">
           <div class="title-row">
             <h1 class="kingdom-title">ĐẾ CHẾ WALL STREET</h1>
@@ -1461,17 +1456,17 @@
 
       <div class="header-right">
         <!-- Vốn đầu tư -->
-        <div class="header-stat-pill stat-gold">
-          <span>🪙</span>
-          <span>VỐN ĐẦU TƯ:</span>
+        <div class="stat-pill-gold">
+          <span style="font-size:14px">🪙</span>
+          <span class="lbl">VỐN ĐẦU TƯ</span>
           <span class="val" id="topGold">60 Coins</span>
         </div>
 
         <!-- Năng lượng -->
-        <div class="header-stat-pill stat-energy">
-          <span>⚡</span>
-          <span>NĂNG LƯỢNG:</span>
-          <span style="font-weight:800">100%</span>
+        <div class="stat-pill-energy">
+          <span style="font-size:14px">⚡</span>
+          <span class="lbl">NĂNG LƯỢNG</span>
+          <span style="font-weight:800;color:#0369a1">100%</span>
           <div class="energy-bar-wrap">
             <div class="energy-bar-fill"></div>
           </div>
@@ -1512,7 +1507,7 @@
     <!-- ── MAP CANVAS VIEWPORT ── -->
     <div class="map-canvas-viewport" id="mapViewport">
 
-      <!-- Top Helper Floating Pill -->
+      <!-- Top Helper Notification Pill -->
       <div class="top-helper-toast">
         <span>🔗</span>
         <span>Kéo tự do (Canvas Drag & Pan) để di chuyển bản đồ không cần cuộn trang web!</span>
@@ -1545,198 +1540,208 @@
       <!-- Canvas Stage (Draggable Area) -->
       <div class="map-canvas-stage" id="mapStage">
 
-        <!-- Hand-drawn vector sketch background representing Wall Street NYC, NYSE building, skyscrapers & elevated bridge -->
-        <svg class="map-artwork-svg" viewBox="0 0 2400 1400" xmlns="http://www.w3.org/2000/svg">
+        <!-- ── DETAILED VECTOR SKETCH ART MAP BACKGROUND ── -->
+        <svg class="map-artwork-svg" viewBox="0 0 2200 1300" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <!-- Gradients -->
-            <linearGradient id="roadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#fdfcf9" stop-opacity="0.95"/>
-              <stop offset="100%" stop-color="#f3ede2" stop-opacity="0.95"/>
+            <linearGradient id="roadDeckGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#faf8f2"/>
+              <stop offset="100%" stop-color="#ece4d4"/>
             </linearGradient>
-            <linearGradient id="roadRail" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#d4c8b6"/>
-              <stop offset="100%" stop-color="#b8a892"/>
+            <linearGradient id="roadRailGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#cfc4b0"/>
+              <stop offset="100%" stop-color="#ab9c84"/>
             </linearGradient>
-            <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#eae4d6" stop-opacity="0.7"/>
-              <stop offset="100%" stop-color="#f7f4ed" stop-opacity="0.9"/>
+            <linearGradient id="paperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f8f5ee"/>
+              <stop offset="50%" stop-color="#f3efe4"/>
+              <stop offset="100%" stop-color="#eae4d4"/>
             </linearGradient>
           </defs>
 
-          <!-- Sky / Paper background wash -->
-          <rect width="2400" height="1400" fill="url(#skyGrad)"/>
+          <!-- Paper texture base -->
+          <rect width="2200" height="1300" fill="url(#paperGrad)"/>
 
-          <!-- ── ARCHITECTURAL SKETCH BACKGROUND (NYC WALL STREET) ── -->
-          <g stroke="#8d7f6c" stroke-width="1.2" fill="none" opacity="0.4" stroke-linecap="round" stroke-linejoin="round">
-            <!-- Distant Manhattan Skyline -->
-            <!-- Empire / Chrysler Tower left -->
-            <path d="M 380 550 L 380 280 L 410 240 L 410 180 L 415 140 L 415 100 L 416 80 L 417 100 L 417 140 L 422 180 L 422 240 L 450 280 L 450 550"/>
-            <line x1="390" y1="280" x2="440" y2="280"/>
-            <line x1="400" y1="240" x2="430" y2="240"/>
-            <line x1="405" y1="180" x2="425" y2="180"/>
-            <path d="M 390 320 L 440 320 M 390 360 L 440 360 M 390 400 L 440 400 M 390 440 L 440 440 M 390 480 L 440 480"/>
+          <!-- ── ARCHITECTURAL BUILDINGS SKETCH ── -->
+          <!-- Background Skyscrapers Line Art (Sepia Charcoal Style) -->
+          <g stroke="#91816d" stroke-width="1.3" fill="none" opacity="0.45" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Left Highrises -->
+            <path d="M 280 500 L 280 200 L 320 160 L 320 120 L 330 80 L 330 60 L 332 80 L 340 120 L 340 160 L 380 200 L 380 500"/>
+            <line x1="290" y1="200" x2="370" y2="200"/>
+            <line x1="300" y1="240" x2="360" y2="240"/>
+            <line x1="300" y1="280" x2="360" y2="280"/>
+            <line x1="300" y1="320" x2="360" y2="320"/>
 
-            <!-- Tall Skyscraper Center 1 -->
-            <path d="M 680 580 L 680 200 L 720 180 L 760 180 L 800 200 L 800 580"/>
-            <line x1="680" y1="260" x2="800" y2="260"/>
-            <line x1="680" y1="340" x2="800" y2="340"/>
-            <line x1="680" y1="420" x2="800" y2="420"/>
-            <line x1="740" y1="180" x2="740" y2="120"/>
+            <path d="M 440 520 L 440 240 L 500 210 L 560 240 L 560 520"/>
+            <line x1="460" y1="260" x2="540" y2="260"/>
+            <line x1="460" y1="310" x2="540" y2="310"/>
+            <line x1="460" y1="360" x2="540" y2="360"/>
 
-            <!-- Trinity Church Gothic Spire -->
-            <path d="M 980 620 L 980 420 L 1020 280 L 1025 210 L 1030 280 L 1070 420 L 1070 620"/>
-            <path d="M 1000 420 Q 1025 390 1050 420"/>
-            <path d="M 1010 460 Q 1025 435 1040 460"/>
-            <line x1="1025" y1="210" x2="1025" y2="180"/>
-            <line x1="1018" y1="190" x2="1032" y2="190"/>
+            <!-- Center Gothic Steeple (Trinity Church) -->
+            <path d="M 780 550 L 780 360 L 810 240 L 815 160 L 820 240 L 850 360 L 850 550"/>
+            <line x1="815" y1="160" x2="815" y2="130"/>
+            <line x1="808" y1="140" x2="822" y2="140"/>
+            <path d="M 795 360 Q 815 330 835 360"/>
 
-            <!-- Modern Glass Highrise Behind NYSE -->
-            <path d="M 1480 600 L 1480 160 L 1580 120 L 1680 160 L 1680 600"/>
-            <path d="M 1480 220 L 1680 220 M 1480 280 L 1680 280 M 1480 340 L 1680 340 M 1480 400 L 1680 400"/>
-            <path d="M 1530 140 L 1530 600 M 1580 120 L 1580 600 M 1630 140 L 1630 600"/>
+            <!-- Central Modern Towers -->
+            <path d="M 940 560 L 940 180 L 1020 140 L 1100 180 L 1100 560"/>
+            <line x1="940" y1="220" x2="1100" y2="220"/>
+            <line x1="940" y1="270" x2="1100" y2="270"/>
+            <line x1="940" y1="320" x2="1100" y2="320"/>
+            <line x1="980" y1="160" x2="980" y2="560"/>
+            <line x1="1020" y1="140" x2="1020" y2="560"/>
+            <line x1="1060" y1="160" x2="1060" y2="560"/>
+
+            <!-- Wall Street canyon background buildings -->
+            <path d="M 1220 540 L 1220 220 L 1280 200 L 1340 220 L 1340 540"/>
+            <path d="M 1360 480 L 1360 160 L 1440 120 L 1520 160 L 1520 480"/>
           </g>
 
-          <!-- ── DETAILED NEW YORK STOCK EXCHANGE (NYSE) BUILDING SKETCH ── -->
-          <g transform="translate(1360, 360)">
-            <rect x="0" y="80" width="620" height="420" fill="#e8e0d0" stroke="#7c6e5a" stroke-width="1.8" opacity="0.6"/>
+          <!-- ── DETAILED NEW YORK STOCK EXCHANGE (NYSE) FACADE ── -->
+          <g transform="translate(1260, 320)">
+            <!-- Building Shadow/Wall Wash -->
+            <rect x="0" y="70" width="580" height="400" fill="#e5dcce" stroke="#71624e" stroke-width="1.8" opacity="0.6"/>
 
-            <!-- Grand Triangular Pediment (Roof) -->
-            <polygon points="0,80 310,-10 620,80" fill="#f4ede0" stroke="#685945" stroke-width="2.5"/>
-            <polygon points="40,70 310,12 580,70" fill="none" stroke="#92816b" stroke-width="1.2"/>
-            <circle cx="310" cy="50" r="14" stroke="#7c6c56" stroke-width="1.5" fill="#e5dccb"/>
-            <path d="M 270 65 Q 285 40 300 65 M 320 65 Q 335 40 350 65 M 230 65 Q 240 50 250 65 M 370 65 Q 380 50 390 65" stroke="#7c6c56" stroke-width="1.6"/>
+            <!-- Pediment Triangular Roof -->
+            <polygon points="0,70 290,-10 580,70" fill="#f4ede1" stroke="#5d4e3a" stroke-width="2.2"/>
+            <!-- Statues in pediment -->
+            <polygon points="35,60 290,10 545,60" fill="none" stroke="#8c7a65" stroke-width="1.2"/>
+            <circle cx="290" cy="42" r="12" stroke="#6a5843" stroke-width="1.5" fill="#e2d8c5"/>
+            <path d="M 250 55 Q 265 35 280 55 M 300 55 Q 315 35 330 55 M 215 55 Q 225 42 235 55 M 345 55 Q 355 42 365 55" stroke="#6a5843" stroke-width="1.5"/>
 
-            <!-- Entablature -->
-            <rect x="0" y="80" width="620" height="30" fill="#ede5d5" stroke="#685945" stroke-width="2"/>
-            <text x="310" y="102" font-family="'Cinzel', serif" font-size="14" font-weight="900" fill="#685945" text-anchor="middle" letter-spacing="4">NEW YORK STOCK EXCHANGE</text>
+            <!-- Entablature with Wall Street Engraving -->
+            <rect x="0" y="70" width="580" height="28" fill="#eadecc" stroke="#5d4e3a" stroke-width="1.8"/>
+            <text x="290" y="90" font-family="Cinzel, serif" font-size="13" font-weight="900" fill="#5d4e3a" text-anchor="middle" letter-spacing="3.5">NEW YORK STOCK EXCHANGE</text>
 
-            <!-- Grand Corinthian Columns (6 Columns) -->
-            <g transform="translate(45, 110)">
-              <rect x="0" y="0" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-              <rect x="6" y="15" width="28" height="260" fill="#f9f5ec" stroke="#685945" stroke-width="1.5"/>
-              <line x1="13" y1="15" x2="13" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="20" y1="15" x2="20" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="27" y1="15" x2="27" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <rect x="0" y="275" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
+            <!-- 6 Neoclassical Corinthian Columns -->
+            <!-- Column 1 -->
+            <g transform="translate(38, 98)">
+              <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+              <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
+              <line x1="11" y1="14" x2="11" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="18" y1="14" x2="18" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+            </g>
+            <!-- Column 2 -->
+            <g transform="translate(130, 98)">
+              <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+              <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
+              <line x1="11" y1="14" x2="11" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="18" y1="14" x2="18" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+            </g>
+            <!-- Column 3 -->
+            <g transform="translate(222, 98)">
+              <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+              <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
+              <line x1="11" y1="14" x2="11" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="18" y1="14" x2="18" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+            </g>
+            <!-- Column 4 -->
+            <g transform="translate(318, 98)">
+              <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+              <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
+              <line x1="11" y1="14" x2="11" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="18" y1="14" x2="18" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+            </g>
+            <!-- Column 5 -->
+            <g transform="translate(410, 98)">
+              <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+              <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
+              <line x1="11" y1="14" x2="11" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="18" y1="14" x2="18" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+            </g>
+            <!-- Column 6 -->
+            <g transform="translate(502, 98)">
+              <rect x="0" y="0" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
+              <rect x="5" y="14" width="26" height="240" fill="#f8f5ee" stroke="#5d4e3a" stroke-width="1.4"/>
+              <line x1="11" y1="14" x2="11" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="18" y1="14" x2="18" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <line x1="25" y1="14" x2="25" y2="254" stroke="#a0917c" stroke-width="0.9"/>
+              <rect x="0" y="254" width="36" height="14" fill="#d9cfbe" stroke="#5d4e3a" stroke-width="1.4"/>
             </g>
 
-            <g transform="translate(145, 110)">
-              <rect x="0" y="0" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-              <rect x="6" y="15" width="28" height="260" fill="#f9f5ec" stroke="#685945" stroke-width="1.5"/>
-              <line x1="13" y1="15" x2="13" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="20" y1="15" x2="20" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="27" y1="15" x2="27" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <rect x="0" y="275" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-            </g>
-
-            <g transform="translate(245, 110)">
-              <rect x="0" y="0" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-              <rect x="6" y="15" width="28" height="260" fill="#f9f5ec" stroke="#685945" stroke-width="1.5"/>
-              <line x1="13" y1="15" x2="13" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="20" y1="15" x2="20" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="27" y1="15" x2="27" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <rect x="0" y="275" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-            </g>
-
-            <g transform="translate(345, 110)">
-              <rect x="0" y="0" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-              <rect x="6" y="15" width="28" height="260" fill="#f9f5ec" stroke="#685945" stroke-width="1.5"/>
-              <line x1="13" y1="15" x2="13" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="20" y1="15" x2="20" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="27" y1="15" x2="27" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <rect x="0" y="275" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-            </g>
-
-            <g transform="translate(445, 110)">
-              <rect x="0" y="0" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-              <rect x="6" y="15" width="28" height="260" fill="#f9f5ec" stroke="#685945" stroke-width="1.5"/>
-              <line x1="13" y1="15" x2="13" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="20" y1="15" x2="20" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="27" y1="15" x2="27" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <rect x="0" y="275" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-            </g>
-
-            <g transform="translate(535, 110)">
-              <rect x="0" y="0" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-              <rect x="6" y="15" width="28" height="260" fill="#f9f5ec" stroke="#685945" stroke-width="1.5"/>
-              <line x1="13" y1="15" x2="13" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="20" y1="15" x2="20" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <line x1="27" y1="15" x2="27" y2="275" stroke="#a0917c" stroke-width="1"/>
-              <rect x="0" y="275" width="40" height="15" fill="#ded4c2" stroke="#685945" stroke-width="1.5"/>
-            </g>
-
-            <!-- Grand Stone Podium & Steps -->
-            <rect x="-30" y="400" width="680" height="60" fill="#e5dcce" stroke="#685945" stroke-width="2"/>
-            <line x1="-30" y1="415" x2="650" y2="415" stroke="#a0917c" stroke-width="1.2"/>
-            <line x1="-30" y1="430" x2="650" y2="430" stroke="#a0917c" stroke-width="1.2"/>
-            <line x1="-30" y1="445" x2="650" y2="445" stroke="#a0917c" stroke-width="1.2"/>
+            <!-- Base Steps -->
+            <rect x="-20" y="366" width="620" height="50" fill="#e0d6c4" stroke="#5d4e3a" stroke-width="1.8"/>
+            <line x1="-20" y1="380" x2="600" y2="380" stroke="#93826e" stroke-width="1"/>
+            <line x1="-20" y1="395" x2="600" y2="395" stroke="#93826e" stroke-width="1"/>
           </g>
 
-          <!-- ── WINDING ELEVATED BRIDGE / HIGHWAY ROADWAY ── -->
-          <!-- Bridge Pillar Supports -->
-          <g fill="#dfd6c5" stroke="#7c6e5a" stroke-width="1.8">
-            <path d="M 520 480 L 520 680 L 560 680 L 560 480 Z"/>
-            <path d="M 980 500 L 980 820 L 1020 820 L 1020 500 Z"/>
-            <path d="M 1280 620 L 1280 940 L 1320 940 L 1320 620 Z"/>
-            <path d="M 1820 540 L 1820 860 L 1860 860 L 1860 540 Z"/>
+          <!-- ── CURVED ELEVATED BRIDGE & HIGHWAY ── -->
+          <!-- Bridge Pillar Bases -->
+          <g fill="#dfd6c5" stroke="#71624e" stroke-width="1.6">
+            <path d="M 440 440 L 440 640 L 475 640 L 475 440 Z"/>
+            <path d="M 880 460 L 880 780 L 915 780 L 915 460 Z"/>
+            <path d="M 1200 580 L 1200 900 L 1235 900 L 1235 580 Z"/>
+            <path d="M 1660 500 L 1660 820 L 1695 820 L 1695 500 Z"/>
           </g>
 
-          <!-- Main Curved Roadbed Shadow -->
-          <path d="M 160 460 Q 600 440 920 450 T 1500 480 Q 1860 520 1980 880 Q 1920 1140 1480 1180 Q 1060 1200 680 1020 Q 320 860 220 740" 
-                fill="none" stroke="rgba(120, 100, 75, 0.25)" stroke-width="110" stroke-linecap="round"/>
+          <!-- Road Shadow -->
+          <path d="M 140 440 Q 520 420 840 430 T 1420 450 Q 1740 490 1860 820 Q 1800 1080 1380 1120 Q 980 1140 600 960 Q 260 820 160 700" 
+                fill="none" stroke="rgba(110, 90, 65, 0.2)" stroke-width="96" stroke-linecap="round"/>
 
-          <!-- Road Concrete Deck Surface -->
-          <path d="M 160 450 Q 600 430 920 440 T 1500 470 Q 1860 510 1980 870 Q 1920 1130 1480 1170 Q 1060 1190 680 1010 Q 320 850 220 730" 
-                fill="none" stroke="url(#roadGrad)" stroke-width="84" stroke-linecap="round"/>
+          <!-- Road Deck Surface -->
+          <path d="M 140 430 Q 520 410 840 420 T 1420 440 Q 1740 480 1860 810 Q 1800 1070 1380 1110 Q 980 1130 600 950 Q 260 810 160 690" 
+                fill="none" stroke="url(#roadDeckGrad)" stroke-width="76" stroke-linecap="round"/>
 
-          <!-- Road Edge Guard Rails (Top & Bottom) -->
-          <path d="M 160 408 Q 600 388 920 398 T 1500 428 Q 1860 468 2022 870 Q 1962 1172 1480 1212 Q 1060 1232 660 1052 Q 290 892 180 772" 
-                fill="none" stroke="url(#roadRail)" stroke-width="4.5" stroke-linecap="round"/>
-          <path d="M 160 492 Q 600 472 920 482 T 1500 512 Q 1858 552 1938 870 Q 1878 1088 1480 1128 Q 1060 1148 700 968 Q 350 808 260 688" 
-                fill="none" stroke="url(#roadRail)" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- Guardrails Top & Bottom -->
+          <path d="M 140 392 Q 520 372 840 382 T 1420 402 Q 1740 442 1898 810 Q 1838 1108 1380 1148 Q 980 1168 580 988 Q 230 848 120 728" 
+                fill="none" stroke="url(#roadRailGrad)" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 140 468 Q 520 448 840 458 T 1420 478 Q 1738 518 1822 810 Q 1762 1032 1380 1072 Q 980 1092 620 912 Q 290 772 200 652" 
+                fill="none" stroke="url(#roadRailGrad)" stroke-width="4" stroke-linecap="round"/>
 
-          <!-- Road Dashed Centerline -->
-          <path d="M 160 450 Q 600 430 920 440 T 1500 470 Q 1860 510 1980 870 Q 1920 1130 1480 1170 Q 1060 1190 680 1010 Q 320 850 220 730" 
-                fill="none" stroke="#d5c8b2" stroke-width="3" stroke-dasharray="16, 16" stroke-linecap="round"/>
-
-          <!-- Crosswalk / Perspective Lines on Highway -->
-          <g stroke="#b8a892" stroke-width="1.5" opacity="0.6">
-            <line x1="320" y1="412" x2="320" y2="488"/>
-            <line x1="620" y1="392" x2="620" y2="468"/>
-            <line x1="880" y1="398" x2="880" y2="478"/>
-            <line x1="1200" y1="416" x2="1200" y2="496"/>
-            <line x1="1680" y1="480" x2="1730" y2="540"/>
-            <line x1="1920" y1="720" x2="2000" y2="760"/>
-            <line x1="1720" y1="1020" x2="1760" y2="1080"/>
-            <line x1="1260" y1="1136" x2="1260" y2="1210"/>
-            <line x1="820" y1="1068" x2="860" y2="1140"/>
-          </g>
+          <!-- Centerline Dashes -->
+          <path d="M 140 430 Q 520 410 840 420 T 1420 440 Q 1740 480 1860 810 Q 1800 1070 1380 1110 Q 980 1130 600 950 Q 260 810 160 690" 
+                fill="none" stroke="#d5c8b2" stroke-width="2.5" stroke-dasharray="14, 14" stroke-linecap="round"/>
         </svg>
 
-        <!-- ── WAYPOINT NODES (GOLDEN GLOWING CAPSULES) ── -->
-        <div class="waypoint-node" style="top: 440px; left: 630px;" title="Chặng 1.1"></div>
-        <div class="waypoint-node" style="top: 445px; left: 880px;" title="Chặng 1.2"></div>
-        <div class="waypoint-node" style="top: 470px; left: 1220px;" title="Chặng 2.1"></div>
-        <div class="waypoint-node" style="top: 540px; left: 1680px;" title="Chặng 2.2 (Gần Boss)"></div>
-        <div class="waypoint-node" style="top: 760px; left: 1960px;" title="Chặng 3.1"></div>
-        <div class="waypoint-node" style="top: 1040px; left: 1740px;" title="Chặng 3.2"></div>
-        <div class="waypoint-node" style="top: 1170px; left: 1280px;" title="Chặng 4.1"></div>
-        <div class="waypoint-node" style="top: 1060px; left: 850px;" title="Chặng 4.2"></div>
+        <!-- ── GOLDEN WAYPOINTS ON ROAD ── -->
+        <div class="waypoint-node" style="top: 420px; left: 560px;" title="Chặng 1"></div>
+        <div class="waypoint-node" style="top: 425px; left: 820px;" title="Chặng 2"></div>
+        <div class="waypoint-node" style="top: 445px; left: 1160px;" title="Chặng 3"></div>
+        <div class="waypoint-node" style="top: 510px; left: 1580px;" title="Chặng 4 (Gần Boss)"></div>
+        <div class="waypoint-node" style="top: 720px; left: 1840px;" title="Chặng 5"></div>
+        <div class="waypoint-node" style="top: 980px; left: 1640px;" title="Chặng 6"></div>
+        <div class="waypoint-node" style="top: 1110px; left: 1200px;" title="Chặng 7"></div>
+        <div class="waypoint-node" style="top: 1000px; left: 780px;" title="Chặng 8"></div>
 
-        <!-- ── PLAYER AVATAR TOKEN ON MAP (AT NODE 01) ── -->
-        <div class="player-map-token" style="top: 410px; left: 480px;" onclick="alert('Nhân vật: Đinh Trí Bùi (Lv.2 Tập sự Phố Wall)\nKinh nghiệm: 340 / 500 XP\nVốn đầu tư: 60 Coins')">
-          <div class="token-glow-ring">
+        <!-- ── PLAYER AVATAR TOKEN (AT NODE 01 ON ROAD) ── -->
+        <div class="player-map-token" style="top: 395px; left: 420px;" onclick="alert('Nhân vật: Đinh Trí Bùi (Lv.2 Tập sự Phố Wall)\nKinh nghiệm: 340 / 500 XP\nVốn đầu tư: 60 Coins')">
+          <div class="token-circle">
             <span class="token-crown">👑</span>
-            <span class="token-face">👨‍💼</span>
+            <svg viewBox="0 0 36 36" style="width:34px;height:34px;border-radius:50%">
+              <circle cx="18" cy="18" r="16" fill="#fed7aa"/>
+              <path d="M6 16c0-7 5.373-12 12-12s12 5 12 12c-2-3-5-4-8-3-3-2-6-1-8 2-3 0-5 0-8 1z" fill="#1e293b"/>
+              <rect x="8" y="14" width="8" height="6" rx="2" fill="none" stroke="#0f172a" stroke-width="1.6"/>
+              <rect x="20" y="14" width="8" height="6" rx="2" fill="none" stroke="#0f172a" stroke-width="1.6"/>
+              <line x1="16" y1="17" x2="20" y2="17" stroke="#0f172a" stroke-width="1.6"/>
+              <circle cx="12" cy="17" r="1" fill="#0f172a"/>
+              <circle cx="24" cy="17" r="1" fill="#0f172a"/>
+              <path d="M14 24 Q18 27 22 24" fill="none" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
           </div>
           <span class="token-level-tag">\Lv.2</span>
         </div>
 
-        <!-- ════════════ MAP NODE 01: ĐẤU TRƯỜNG KIẾN THỨC ════════════ -->
-        <div class="map-node-card" style="top: 620px; left: 280px;" onclick="openModal('node01Modal')">
-          <div class="node-thumb">
+        <!-- ════════════ NODE 01: ĐẤU TRƯỜNG KIẾN THỨC ════════════ -->
+        <div class="map-node-card" style="top: 590px; left: 240px;" onclick="openModal('node01Modal')">
+          <div class="node-thumb-box">
             <span class="node-num-tag">01</span>
-            <span>👨‍💼</span>
+            <!-- Businessman Portrait -->
+            <svg viewBox="0 0 40 40">
+              <rect width="40" height="40" fill="#1e3a8a"/>
+              <circle cx="20" cy="16" r="8" fill="#fcd34d"/>
+              <path d="M10 40c0-6 4-10 10-10s10 4 10 10" fill="#0f172a"/>
+              <!-- Tie -->
+              <polygon points="19,30 21,30 22,36 20,38 18,36" fill="#f59e0b"/>
+            </svg>
           </div>
           <div class="node-content">
             <span class="node-badge badge-cyan">NYSE CENTRAL</span>
@@ -1745,11 +1750,19 @@
           </div>
         </div>
 
-        <!-- ════════════ MAP NODE 02: QUẢNG TRƯỜNG TIMES SQUARE ════════════ -->
-        <div class="map-node-card" style="top: 920px; left: 420px;" onclick="openModal('node02Modal')">
-          <div class="node-thumb">
+        <!-- ════════════ NODE 02: QUẢNG TRƯỜNG TIMES SQUARE ════════════ -->
+        <div class="map-node-card" style="top: 890px; left: 380px;" onclick="openModal('node02Modal')">
+          <div class="node-thumb-box">
             <span class="node-num-tag">02</span>
-            <span>🏙️</span>
+            <!-- Times Square Neon City -->
+            <svg viewBox="0 0 40 40">
+              <rect width="40" height="40" fill="#2e1065"/>
+              <rect x="6" y="10" width="12" height="30" fill="#581c87"/>
+              <rect x="22" y="6" width="14" height="34" fill="#3b0764"/>
+              <rect x="8" y="14" width="8" height="10" fill="#f43f5e"/>
+              <rect x="24" y="12" width="10" height="14" fill="#38bdf8"/>
+              <circle cx="20" cy="34" r="3" fill="#fbbf24"/>
+            </svg>
           </div>
           <div class="node-content">
             <span class="node-badge badge-purple">TIMES SQUARE</span>
@@ -1758,11 +1771,19 @@
           </div>
         </div>
 
-        <!-- ════════════ MAP NODE 03: TỔNG HỢP MINI GAME ════════════ -->
-        <div class="map-node-card" style="top: 720px; left: 980px;" onclick="openModal('node03Modal')">
-          <div class="node-thumb">
+        <!-- ════════════ NODE 03: TỔNG HỢP MINI GAME ════════════ -->
+        <div class="map-node-card" style="top: 680px; left: 920px;" onclick="openModal('node03Modal')">
+          <div class="node-thumb-box">
             <span class="node-num-tag">03</span>
-            <span>🏛️</span>
+            <!-- Bank Columns Graphic -->
+            <svg viewBox="0 0 40 40">
+              <rect width="40" height="40" fill="#7c2d12"/>
+              <polygon points="4,14 20,4 36,14" fill="#fdba74"/>
+              <rect x="8" y="16" width="4" height="18" fill="#ffedd5"/>
+              <rect x="18" y="16" width="4" height="18" fill="#ffedd5"/>
+              <rect x="28" y="16" width="4" height="18" fill="#ffedd5"/>
+              <rect x="4" y="34" width="32" height="4" fill="#fdba74"/>
+            </svg>
           </div>
           <div class="node-content">
             <span class="node-badge badge-orange">TỔNG HỢP MINI GAME</span>
@@ -1771,11 +1792,18 @@
           </div>
         </div>
 
-        <!-- ════════════ MAP NODE 04: TẬP ĐOÀN GOLDMAN SACHS ════════════ -->
-        <div class="map-node-card" style="top: 860px; left: 1620px;" onclick="openModal('node04Modal')">
-          <div class="node-thumb">
+        <!-- ════════════ NODE 04: TẬP ĐOÀN GOLDMAN SACHS ════════════ -->
+        <div class="map-node-card" style="top: 830px; left: 1540px;" onclick="openModal('node04Modal')">
+          <div class="node-thumb-box">
             <span class="node-num-tag">04</span>
-            <span>🏢</span>
+            <!-- High Tech Glass Skyscraper -->
+            <svg viewBox="0 0 40 40">
+              <rect width="40" height="40" fill="#0f172a"/>
+              <polygon points="12,40 12,10 28,4 28,40" fill="#1e40af"/>
+              <line x1="12" y1="18" x2="28" y2="12" stroke="#60a5fa" stroke-width="1.5"/>
+              <line x1="12" y1="26" x2="28" y2="20" stroke="#60a5fa" stroke-width="1.5"/>
+              <line x1="12" y1="34" x2="28" y2="28" stroke="#60a5fa" stroke-width="1.5"/>
+            </svg>
           </div>
           <div class="node-content">
             <span class="node-badge badge-blue">GOLDMAN SACHS WALL ST.</span>
@@ -1784,11 +1812,24 @@
           </div>
         </div>
 
-        <!-- ════════════ SPECIAL NODE 05: SÀN NYSE & BOSS PHỐ WALL ════════════ -->
-        <div class="boss-node-card" style="top: 340px; left: 1380px;" onclick="openModal('bossModal')">
-          <div class="boss-thumb">
+        <!-- ════════════ NODE 05: SÀN NYSE & BOSS PHỐ WALL (GLOWING RED) ════════════ -->
+        <div class="boss-node-card" style="top: 310px; left: 1290px;" onclick="openModal('bossModal')">
+          <div class="boss-thumb-box">
             <span class="node-num-tag" style="background:#ef4444">05</span>
-            <span>🐂</span>
+            <!-- Menacing Bull Boss Icon -->
+            <svg viewBox="0 0 40 40">
+              <rect width="40" height="40" fill="#1e1b4b"/>
+              <!-- Bull Horns -->
+              <path d="M 6 12 Q 10 4 18 14 Q 10 10 6 12" fill="#ef4444"/>
+              <path d="M 34 12 Q 30 4 22 14 Q 30 10 34 12" fill="#ef4444"/>
+              <!-- Bull Head -->
+              <polygon points="14,14 26,14 24,30 16,30" fill="#312e81"/>
+              <!-- Glowing Red Eyes -->
+              <circle cx="16" cy="20" r="1.5" fill="#f87171"/>
+              <circle cx="24" cy="20" r="1.5" fill="#f87171"/>
+              <!-- Nose Ring -->
+              <circle cx="20" cy="28" r="3" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+            </svg>
           </div>
           <div class="node-content">
             <span class="boss-badge">BOSS 85% HP</span>
@@ -1808,13 +1849,13 @@
         <span class="ctrl-divider"></span>
         <button class="ctrl-btn" onclick="zoomOut()" title="Thu nhỏ">−</button>
         <span class="ctrl-divider"></span>
-        <button class="ctrl-btn" onclick="resetMap()" title="Về vị trí trung tâm" style="font-size:12px">🎯</button>
+        <button class="ctrl-btn" onclick="resetMap()" title="Về vị trí trung tâm" style="font-size:11px">🎯</button>
         <span class="ctrl-label" id="zoomLabel">100%</span>
       </div>
 
       <!-- Floating Action Button (FAB) -->
       <button class="fab-menu-btn" onclick="openModal('quickMenuModal')" title="Menu nhanh">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         <span class="fab-badge">9+</span>
       </button>
 
@@ -1835,41 +1876,43 @@
         <button class="modal-close" onclick="closeModal('bossModal')">✕</button>
       </div>
       <div class="modal-body">
-        <div class="boss-stat-banner">
-          <div class="boss-avatar-large">🐂</div>
+        <div style="background:#0f172a;border-radius:14px;padding:16px;color:white;margin-bottom:14px;display:flex;align-items:center;gap:14px">
+          <div style="font-size:36px;width:56px;height:56px;background:#1e1b4b;border:2px solid #ef4444;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 14px rgba(239,68,68,0.5)">
+            🐂
+          </div>
           <div style="flex:1">
-            <div style="font-size:16px;font-weight:800;color:#f87171">THE WALL STREET BULL MONSTER</div>
-            <div style="font-size:12px;color:#94a3b8;margin-top:2px">Độ khó: ★★★★★ • Cấp độ yêu cầu: Lv.2+</div>
-            <div style="margin-top:8px;font-size:11px;font-weight:700;color:#fbbf24">
+            <div style="font-size:15px;font-weight:800;color:#f87171">THE WALL STREET BULL MONSTER</div>
+            <div style="font-size:11.5px;color:#94a3b8;margin-top:2px">Độ khó: ★★★★★ • Cấp độ yêu cầu: Lv.2+</div>
+            <div style="margin-top:6px;font-size:11px;font-weight:700;color:#fbbf24">
               Máu Boss: 850,000 / 1,000,000 HP (85%)
             </div>
-            <div class="boss-hp-bar" style="height:8px;margin-top:4px">
+            <div class="boss-hp-bar" style="height:6px;margin-top:3px">
               <div class="boss-hp-fill" style="width:85%"></div>
             </div>
           </div>
         </div>
 
-        <h4 style="font-size:13.5px;font-weight:800;margin-bottom:8px;color:#1e293b">Quy tắc khiêu chiến Boss:</h4>
-        <ul style="font-size:12.5px;color:#475569;line-height:1.6;padding-left:18px;margin-bottom:16px">
+        <h4 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#1e293b">Quy tắc khiêu chiến Boss:</h4>
+        <ul style="font-size:12px;color:#475569;line-height:1.6;padding-left:16px;margin-bottom:14px">
           <li>Mỗi câu trả lời đúng phân tích Case Study / BCTC gây <b>5,000 - 15,000 Sát thương</b> lên Boss.</li>
           <li>Đồng đội toàn server cùng hợp lực hạ gục Boss để mở khóa <b>Kho Báu Cổ Đông</b>.</li>
-          <li>Phần thưởng khi tiêu diệt: <b>+500 Vàng</b>, <b>Thẻ Bài Hiếm DCF Master</b>, <b>Huy Hiệu Phố Wall</b>.</li>
+          <li>Phần thưởng: <b>+500 Vàng</b>, <b>Thẻ Bài Hiếm DCF Master</b>, <b>Huy Hiệu Phố Wall</b>.</li>
         </ul>
 
-        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;display:flex;justify-content:space-between;align-items:center">
           <div>
-            <div style="font-size:11px;font-weight:700;color:#64748b">LƯỢT ĐÁNH HÔM NAY</div>
-            <div style="font-size:14px;font-weight:800;color:#059669">3 / 3 Lượt Miễn Phí</div>
+            <div style="font-size:10.5px;font-weight:700;color:#64748b">LƯỢT ĐÁNH HÔM NAY</div>
+            <div style="font-size:13px;font-weight:800;color:#059669">3 / 3 Lượt Miễn Phí</div>
           </div>
           <div style="text-align:right">
-            <div style="font-size:11px;font-weight:700;color:#64748b">TIÊU HAO</div>
-            <div style="font-size:14px;font-weight:800;color:#0891b2">⚡ 10 Năng lượng</div>
+            <div style="font-size:10.5px;font-weight:700;color:#64748b">TIÊU HAO</div>
+            <div style="font-size:13px;font-weight:800;color:#0891b2">⚡ 10 Năng lượng</div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn-secondary" onclick="closeModal('bossModal')">Để sau</button>
-        <button class="btn-danger" onclick="alert('Bắt đầu trận chiến với Boss NYSE! Trả lời 5 câu hỏi tình huống định giá M&A.');closeModal('bossModal')">⚔️ KHIÊU CHIẾN BOSS NGAY</button>
+        <button class="btn-danger" onclick="alert('Bắt đầu trận chiến với Boss NYSE!');closeModal('bossModal')">⚔️ KHIÊU CHIẾN BOSS NGAY</button>
       </div>
     </div>
   </div>
@@ -1885,19 +1928,19 @@
         <button class="modal-close" onclick="closeModal('node01Modal')">✕</button>
       </div>
       <div class="modal-body">
-        <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:14px">
+        <p style="font-size:12.5px;color:#475569;line-height:1.5;margin-bottom:12px">
           Đấu trường trắc nghiệm đối kháng thời gian thực. Sử dụng kiến thức từ các bài học về Định giá, Báo cáo tài chính, và Chiến lược doanh nghiệp.
         </p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px">
-            <div style="font-size:11px;font-weight:800;color:#166534">PHÒNG LUYỆN TẬP</div>
-            <div style="font-size:13px;font-weight:700;color:#15803d;margin-top:2px">10 Câu Cơ Bản</div>
-            <div style="font-size:11px;color:#166534;margin-top:4px">Thưởng: +20 Vàng</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px">
+            <div style="font-size:10.5px;font-weight:800;color:#166534">PHÒNG LUYỆN TẬP</div>
+            <div style="font-size:12.5px;font-weight:700;color:#15803d;margin-top:2px">10 Câu Cơ Bản</div>
+            <div style="font-size:10.5px;color:#166534;margin-top:3px">Thưởng: +20 Vàng</div>
           </div>
-          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px">
-            <div style="font-size:11px;font-weight:800;color:#1e40af">ĐẤU XẾP HẠNG PVP</div>
-            <div style="font-size:13px;font-weight:700;color:#1d4ed8;margin-top:2px">Chạm Trán 1vs1</div>
-            <div style="font-size:11px;color:#1e40af;margin-top:4px">Thưởng: +50 Vàng, +XP Rank</div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px">
+            <div style="font-size:10.5px;font-weight:800;color:#1e40af">ĐẤU XẾP HẠNG PVP</div>
+            <div style="font-size:12.5px;font-weight:700;color:#1d4ed8;margin-top:2px">Chạm Trán 1vs1</div>
+            <div style="font-size:10.5px;color:#1e40af;margin-top:3px">Thưởng: +50 Vàng, +XP Rank</div>
           </div>
         </div>
       </div>
@@ -1919,13 +1962,13 @@
         <button class="modal-close" onclick="closeModal('node02Modal')">✕</button>
       </div>
       <div class="modal-body">
-        <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:14px">
+        <p style="font-size:12.5px;color:#475569;line-height:1.5;margin-bottom:12px">
           Khu vực khám phá Case Study thực tế từ các thương hiệu hàng đầu thế giới (Apple, Tesla, Vinamilk, Shopee, Netflix).
         </p>
-        <div style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:12px;padding:14px;margin-bottom:12px">
-          <span style="font-size:10px;font-weight:800;background:#9333ea;color:white;padding:2px 6px;border-radius:4px">CASE #12 ĐANG MỞ</span>
-          <div style="font-size:14px;font-weight:800;color:#581c87;margin-top:6px">Chiến lược xoay trục chuỗi cung ứng toàn cầu</div>
-          <div style="font-size:11.5px;color:#6b21a8;margin-top:3px">Thời gian ước tính: 15 phút • Cấp độ: Trung bình</div>
+        <div style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:12px;margin-bottom:10px">
+          <span style="font-size:9.5px;font-weight:800;background:#9333ea;color:white;padding:2px 6px;border-radius:4px">CASE #12 ĐANG MỞ</span>
+          <div style="font-size:13px;font-weight:800;color:#581c87;margin-top:4px">Chiến lược xoay trục chuỗi cung ứng toàn cầu</div>
+          <div style="font-size:11px;color:#6b21a8;margin-top:2px">Thời gian: 15 phút • Cấp độ: Trung bình</div>
         </div>
       </div>
       <div class="modal-footer">
@@ -1946,23 +1989,23 @@
         <button class="modal-close" onclick="closeModal('node03Modal')">✕</button>
       </div>
       <div class="modal-body">
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;align-items:center;gap:12px;background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:12px">
-            <span style="font-size:24px">📊</span>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:10px;background:#fef2f2;border:1px solid #fecaca;padding:10px;border-radius:10px">
+            <span style="font-size:22px">📊</span>
             <div style="flex:1">
-              <div style="font-size:13px;font-weight:800;color:#991b1b">Phân Loại Nhanh BCTC (Speed Sorter)</div>
-              <div style="font-size:11px;color:#7f1d1d">Kéo thả các khoản mục vào Bảng CĐKT, KQKD, LCTT trong 60 giây.</div>
+              <div style="font-size:12.5px;font-weight:800;color:#991b1b">Phân Loại Nhanh BCTC (Speed Sorter)</div>
+              <div style="font-size:10.5px;color:#7f1d1d">Kéo thả các khoản mục vào Bảng CĐKT, KQKD, LCTT trong 60s.</div>
             </div>
-            <button class="btn-primary" style="padding:6px 12px;font-size:12px" onclick="alert('Đang mở mini game Phân Loại Nhanh BCTC!')">Chơi</button>
+            <button class="btn-primary" style="padding:5px 10px;font-size:11.5px" onclick="alert('Đang mở mini game Phân Loại Nhanh BCTC!')">Chơi</button>
           </div>
 
-          <div style="display:flex;align-items:center;gap:12px;background:#fffbeb;border:1px solid #fde68a;padding:12px;border-radius:12px">
-            <span style="font-size:24px">🧩</span>
+          <div style="display:flex;align-items:center;gap:10px;background:#fffbeb;border:1px solid #fde68a;padding:10px;border-radius:10px">
+            <span style="font-size:22px">🧩</span>
             <div style="flex:1">
-              <div style="font-size:13px;font-weight:800;color:#92400e">Ghép Cây Chỉ Số DuPont</div>
-              <div style="font-size:11px;color:#78350f">Ghép đúng các mắt xích ROE = Margin × Turnover × Leverage.</div>
+              <div style="font-size:12.5px;font-weight:800;color:#92400e">Ghép Cây Chỉ Số DuPont</div>
+              <div style="font-size:10.5px;color:#78350f">Ghép đúng các mắt xích ROE = Margin × Turnover × Leverage.</div>
             </div>
-            <button class="btn-primary" style="padding:6px 12px;font-size:12px;background:#d97706" onclick="alert('Đang mở mini game Ghép Cây DuPont!')">Chơi</button>
+            <button class="btn-primary" style="padding:5px 10px;font-size:11.5px;background:#d97706" onclick="alert('Đang mở mini game Ghép Cây DuPont!')">Chơi</button>
           </div>
         </div>
       </div>
@@ -1983,12 +2026,12 @@
         <button class="modal-close" onclick="closeModal('node04Modal')">✕</button>
       </div>
       <div class="modal-body">
-        <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:14px">
+        <p style="font-size:12.5px;color:#475569;line-height:1.5;margin-bottom:12px">
           Sàn đấu trường M&A, Dealmaking và mô phỏng định giá công ty tỷ đô. Bạn sẽ đóng vai trò Investment Banking Analyst thương thảo hợp đồng sáp nhập.
         </p>
-        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px">
-          <div style="font-size:12px;font-weight:800;color:#1e40af">DEAL HIỆN TẠI: M&A TECH CORP & FINTECH LABS</div>
-          <div style="font-size:11px;color:#1d4ed8;margin-top:2px">Giá trị hợp đồng: 2.4 Tỷ USD • Yêu cầu: DCF Model & Synergies Analysis</div>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px">
+          <div style="font-size:11.5px;font-weight:800;color:#1e40af">DEAL: M&A TECH CORP & FINTECH LABS</div>
+          <div style="font-size:10.5px;color:#1d4ed8;margin-top:2px">Giá trị hợp đồng: 2.4 Tỷ USD • DCF Model & Synergies Analysis</div>
         </div>
       </div>
       <div class="modal-footer">
@@ -2009,19 +2052,19 @@
         <button class="modal-close" onclick="closeModal('shopModal')">✕</button>
       </div>
       <div class="modal-body">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;text-align:center">
-            <div style="font-size:32px">☕</div>
-            <div style="font-size:13px;font-weight:800;color:#0f172a;margin-top:4px">Cà Phê Wall Street</div>
-            <div style="font-size:11px;color:#64748b">+50% Tốc độ hồi Năng lượng</div>
-            <button class="btn-primary" style="margin-top:8px;padding:4px 12px;font-size:11.5px;width:100%" onclick="buyItem('Cà Phê Wall Street', 15)">Mua 15 🪙</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;text-align:center">
+            <div style="font-size:28px">☕</div>
+            <div style="font-size:12.5px;font-weight:800;color:#0f172a;margin-top:3px">Cà Phê Wall Street</div>
+            <div style="font-size:10.5px;color:#64748b">+50% Tốc độ hồi Năng lượng</div>
+            <button class="btn-primary" style="margin-top:8px;padding:4px 10px;font-size:11px;width:100%" onclick="buyItem('Cà Phê Wall Street', 15)">Mua 15 🪙</button>
           </div>
 
-          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;text-align:center">
-            <div style="font-size:32px">💻</div>
-            <div style="font-size:13px;font-weight:800;color:#0f172a;margin-top:4px">Terminal Bloomberg</div>
-            <div style="font-size:11px;color:#64748b">+15% Sát thương khi đánh Boss</div>
-            <button class="btn-primary" style="margin-top:8px;padding:4px 12px;font-size:11.5px;width:100%" onclick="buyItem('Terminal Bloomberg', 40)">Mua 40 🪙</button>
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;text-align:center">
+            <div style="font-size:28px">💻</div>
+            <div style="font-size:12.5px;font-weight:800;color:#0f172a;margin-top:3px">Terminal Bloomberg</div>
+            <div style="font-size:10.5px;color:#64748b">+15% Sát thương khi đánh Boss</div>
+            <button class="btn-primary" style="margin-top:8px;padding:4px 10px;font-size:11px;width:100%" onclick="buyItem('Terminal Bloomberg', 40)">Mua 40 🪙</button>
           </div>
         </div>
       </div>
@@ -2042,21 +2085,21 @@
         <button class="modal-close" onclick="closeModal('cardsModal')">✕</button>
       </div>
       <div class="modal-body">
-        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px">
-          <div style="background:#fefce8;border:1.5px solid #facc15;border-radius:10px;padding:10px;text-align:center">
-            <div style="font-size:24px">📈</div>
-            <div style="font-size:11px;font-weight:800;color:#854d0e">DCF Master</div>
-            <div style="font-size:9px;color:#a16207">Hạng Vàng</div>
+        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
+          <div style="background:#fefce8;border:1.5px solid #facc15;border-radius:8px;padding:8px;text-align:center">
+            <div style="font-size:22px">📈</div>
+            <div style="font-size:10.5px;font-weight:800;color:#854d0e">DCF Master</div>
+            <div style="font-size:8.5px;color:#a16207">Hạng Vàng</div>
           </div>
-          <div style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:10px;padding:10px;text-align:center">
-            <div style="font-size:24px">🤝</div>
-            <div style="font-size:11px;font-weight:800;color:#1e40af">M&A Titan</div>
-            <div style="font-size:9px;color:#2563eb">Hạng Bạc</div>
+          <div style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:8px;padding:8px;text-align:center">
+            <div style="font-size:22px">🤝</div>
+            <div style="font-size:10.5px;font-weight:800;color:#1e40af">M&A Titan</div>
+            <div style="font-size:8.5px;color:#2563eb">Hạng Bạc</div>
           </div>
-          <div style="background:#f3e8ff;border:1.5px solid #d8b4fe;border-radius:10px;padding:10px;text-align:center">
-            <div style="font-size:24px">🛡️</div>
-            <div style="font-size:11px;font-weight:800;color:#6b21a8">Risk Hedger</div>
-            <div style="font-size:9px;color:#9333ea">Hạng Tím</div>
+          <div style="background:#f3e8ff;border:1.5px solid #d8b4fe;border-radius:8px;padding:8px;text-align:center">
+            <div style="font-size:22px">🛡️</div>
+            <div style="font-size:10.5px;font-weight:800;color:#6b21a8">Risk Hedger</div>
+            <div style="font-size:8.5px;color:#9333ea">Hạng Tím</div>
           </div>
         </div>
       </div>
@@ -2077,11 +2120,11 @@
         <button class="modal-close" onclick="closeModal('gearModal')">✕</button>
       </div>
       <div class="modal-body">
-        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin-bottom:12px">
-          <div style="font-size:13.5px;font-weight:800;color:#0f172a">Bộ đồ Executive Suit (Mặc định)</div>
-          <div style="font-size:11.5px;color:#64748b;margin-top:2px">Cổ đông ngoài bến đỗ nhiệm vụ. Tăng +5% uy tín khi giải case study.</div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:10px">
+          <div style="font-size:13px;font-weight:800;color:#0f172a">Bộ đồ Executive Suit (Mặc định)</div>
+          <div style="font-size:11px;color:#64748b;margin-top:2px">Cổ đông ngoài bến đỗ nhiệm vụ. Tăng +5% uy tín khi giải case study.</div>
         </div>
-        <p style="font-size:12px;color:#64748b">Mở thêm trang bị bằng cách đạt danh hiệu tại các kỳ thi vượt chặng!</p>
+        <p style="font-size:11.5px;color:#64748b">Mở thêm trang bị bằng cách đạt danh hiệu tại các kỳ thi vượt chặng!</p>
       </div>
       <div class="modal-footer">
         <button class="btn-secondary" onclick="closeModal('gearModal')">Đóng</button>
@@ -2101,15 +2144,15 @@
       </div>
       <div class="modal-body">
         <div style="display:flex;flex-direction:column;gap:8px">
-          <a href="thi-vuot-chang.html" class="nav-item" style="background:#f8fafc;padding:12px 16px">
+          <a href="thi-vuot-chang.html" class="nav-item" style="background:#f8fafc;padding:10px 14px">
             <span class="icon">🏆</span>
             <span>Thi vượt chặng theo lộ trình</span>
           </a>
-          <a href="hoc-bai.html" class="nav-item" style="background:#f8fafc;padding:12px 16px">
+          <a href="hoc-bai.html" class="nav-item" style="background:#f8fafc;padding:10px 14px">
             <span class="icon">📖</span>
             <span>Học bài & Lý thuyết</span>
           </a>
-          <a href="dashboard.html" class="nav-item" style="background:#f8fafc;padding:12px 16px">
+          <a href="dashboard.html" class="nav-item" style="background:#f8fafc;padding:10px 14px">
             <span class="icon">📊</span>
             <span>Về trang Dashboard chính</span>
           </a>
@@ -2129,7 +2172,7 @@
 
     let isPanning = false;
     let startX = 0, startY = 0;
-    let currentX = -320, currentY = -120;
+    let currentX = -260, currentY = -80;
     let scale = 1.0;
     const minScale = 0.6;
     const maxScale = 1.8;
@@ -2212,8 +2255,8 @@
 
     function resetMap() {
       scale = 1.0;
-      currentX = -320;
-      currentY = -120;
+      currentX = -260;
+      currentY = -80;
       updateTransform();
     }
 

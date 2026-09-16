@@ -14,6 +14,11 @@ let n=0; const t=(name,fn)=>{ fn(); n++; console.log("  ✓",name); };
 
 /* đáp án tính lại từ đề — mỗi dòng là một phép tính độc lập với dữ liệu bài */
 const RECOMPUTE = {
+  "k-profit-5": ()=> (0.12-0.08)*560,
+  "k-profit-6": ()=> { const aSieuThi=18, aOnline=-6, bSieuThi=10, bOnline=4;
+                       return (aSieuThi+bSieuThi+bOnline) - (aSieuThi+bSieuThi); },   // ngừng ô A-online so với đóng cả kênh online
+  "k-profit-7": ()=> 0.25*20 + 0.75*8,
+  "k-profit-8": ()=> 30/0.4,
   "f-profit-5": ()=> 200 - 90 - 20 - 60 - 14,
   "f-profit-6": ()=> (200 - 90 - 20)/200*100,
   "f-profit-7": ()=> (200 - 90 - 20 - 60 - 14) - (50 - 37.5),   // mất lãi góp kênh app, cố định 74 tỷ không đổi
@@ -76,6 +81,13 @@ const RECOMPUTE = {
   "f-pricing-1": ()=> ((55000-18000)-(27000-18000))*10000/1e6,
   "f-pricing-2": ()=> ((2000*10e6)/(4500-3000)/10e6 - 1)*100,
   "f-pricing-3": ()=> (700*90000 + 300*150000)/1e6,
+  /* f-pricing-4…9 · nước ép Xanh: chi phí 18.000đ, giá 49.000đ, 20.000 chai/tháng */
+  "f-pricing-4": ()=> 400*(49000-18000)/(55000-18000),
+  "f-pricing-5": ()=> (1000*(0.4*25000+0.05*40000+0.55*41000) - 1000*(0.7*25000+0.3*41000))/1e6,
+  "f-pricing-6": ()=> (1 - (49000-18000)/(54000-18000))*100,
+  "f-pricing-7": ()=> (3000*0.4*(98000-3*18000) + 3000*0.6*((98000-3*18000)-(98000-2*18000)))/1e6 - 15,
+  "f-pricing-8": ()=> ((800000-16*18000) - 16*(49000-18000))/1000,
+  "f-pricing-9": ()=> (1 - (43000-18000)/(49000-18000))*100,
   "f-unit-1": ()=> 0.2*150000 + 15000 - 25000 - 8000 - 0.02*150000,
   "f-unit-2": ()=> (150000*0.7/0.05)/(600e6/1000),
   "f-unit-3": ()=> (600e6/1000)/(150000*0.7),
@@ -222,6 +234,18 @@ const SIDE = [
   ["f-profit bài đọc 9–12 · 750 triệu/cửa hàng; cắt 1/3 cố định ≈ 6,5 tỷ; ngưỡng 3,3%; trễ một quý hụt 1,2 tỷ", ()=>{
       assert.equal(30e3/40,750); assert.equal(12/80,0.15); assert.equal(19.5/3,6.5); assert.equal(Math.round(5/10.05*12),6);
       assert.equal(Math.round(3/0.45/200*1000)/10,3.3); assert.ok(Math.abs(10-(3.3+10*6/12+0.5)-1.2)<1e-9); }],
+  /* nước ép Xanh · f-pricing-4…9 */
+  ["f-pricing-4 · lãi góp 12,4 → 12,58 triệu; doanh thu 19,6 → 18,7; giữ 85% sản lượng", ()=>{
+      assert.equal(400*31000/1e6,12.4); assert.equal(340*37000/1e6,12.58); assert.equal(400*49000/1e6,19.6); assert.equal(340*55000/1e6,18.7); assert.equal(340/400,0.85); }],
+  ["f-pricing-5 · 29,8 → 34,55 triệu (+16%), khoảng 140 triệu/tháng", ()=>{ assert.equal(Math.round(4.75/29.8*100),16); assert.equal(Math.round(4.75*30/10)*10,140); }],
+  ["f-pricing-6 · giá +10,2%, lãi góp mỗi chai +16,1%, khoảng 2.780 chai", ()=>{
+      assert.equal(Math.round((54/49-1)*1000)/10,10.2); assert.equal(Math.round((36/31-1)*1000)/10,16.1); assert.equal(Math.round(20000*(1-31/36)/10)*10,2780); }],
+  ["f-pricing-7 · 1.200 bộ tăng thêm, 1.800 bộ ăn mòn, −18.000đ mỗi bộ", ()=>{ assert.equal(3000*0.4,1200); assert.equal((98000-54000)-(98000-36000),-18000); }],
+  ["f-pricing-8 · lẻ 496 · gói 512 · dùng hết 440; giảm 18% mỗi chai", ()=>{
+      assert.equal(16*31000,496000); assert.equal(800000-20*18000,440000); assert.equal(496-440,56); assert.equal(Math.round((1-40/49)*100),18); }],
+  ["f-pricing-9 · 620 · 500 · 527 triệu; ngưỡng ≈ 3.870 chai", ()=>{
+      assert.equal(20000*31000/1e6,620); assert.equal(20000*25000/1e6,500); assert.equal(17000*31000/1e6,527);
+      assert.equal(Math.round(20000*(1-25/31)/10)*10,3870); assert.equal(620-527,93); }],
   ["i-profit-1 · phần riêng của hãng ≈ 83% mức giảm", ()=> assert.equal(Math.round(12.5/15*100),83)],
   ["i-profit-2 · số liệu hãng xe khớp bài trước", ()=>{ assert.equal(5e6*100000/1e9,500); assert.equal(4e6*130000/1e9,520);
       assert.equal(520-485,35); assert.equal((4e6-5e6)*100000/1e9,-100); }],
