@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thống kê & Vinh danh BXH — Tự Học Tài Chính</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f8f5;
+      --surface: #ffffff;
+      --surface-subtle: #f8faf8;
+      --sidebar-bg: #ffffff;
+      --sidebar-border: #e9efe9;
+      --border-color: #e4ebe4;
+      --border-light: #f0f4f0;
+      
+      --text-main: #172a1e;
+      --text-secondary: #526657;
+      --text-muted: #839789;
+      
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-light: #e6f7ee;
+      --primary-ring: rgba(5, 150, 105, 0.15);
+      
+      --emerald-pill: #e6f7ee;
+      --emerald-text: #059669;
+      --amber-pill: #fef5e7;
+      --amber-text: #b45309;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+      
+      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.04);
+      --shadow-card: 0 4px 16px -2px rgba(20, 40, 25, 0.05), 0 2px 6px -1px rgba(20, 40, 25, 0.03);
+      --shadow-hover: 0 10px 24px -4px rgba(20, 40, 25, 0.08);
+      --shadow-popover: 0 12px 36px -4px rgba(0, 0, 0, 0.14), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+      
+      --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1411;
+      --surface: #18201a;
+      --surface-subtle: #141a15;
+      --sidebar-bg: #141a15;
+      --sidebar-border: #232d25;
+      --border-color: #263329;
+      --border-light: #1c261e;
+      
+      --text-main: #edf5ee;
+      --text-secondary: #a3baa8;
+      --text-muted: #6e8474;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════ SIDEBAR ════════════ */
+    .sidebar {
+      width: 256px;
+      min-width: 256px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--sidebar-border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 14px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: #0d4a2d;
+      line-height: 1.15;
+    }
+
+    [data-theme="dark"] .brand-title {
+      color: #6ee7b7;
+    }
+
+    .search-box {
+      margin: 10px 16px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 7px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .search-box kbd {
+      margin-left: auto;
+      font-size: 10.5px;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 12px 16px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8.5px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 2px;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: var(--surface-subtle);
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background: #d8f3e3;
+      color: #046a41;
+      font-weight: 700;
+    }
+
+    [data-theme="dark"] .nav-item.active {
+      background: #064e3b;
+      color: #6ee7b7;
+    }
+
+    .nav-item .icon {
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+    }
+
+    .nav-section-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #799180;
+      padding: 16px 14px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .nav-tag {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+    }
+
+    .tag-new {
+      background: #dcfce7;
+      color: #0f766e;
+    }
+
+    .tag-hot {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .tag-checkin {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    /* Sidebar Footer */
+    .sidebar-footer {
+      padding: 14px;
+      border-top: 1px solid var(--sidebar-border);
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .gold-wallet-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gold-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fbf6ec;
+      border: 1px solid #f3e6ce;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      color: #8c5b16;
+      flex: 1;
+      margin-right: 8px;
+    }
+
+    [data-theme="dark"] .gold-pill {
+      background: #2b2210;
+      border-color: #4a3818;
+      color: #fcd34d;
+    }
+
+    .gold-count {
+      margin-left: auto;
+      font-size: 13px;
+      font-weight: 800;
+      color: #5c3c0a;
+    }
+
+    [data-theme="dark"] .gold-count {
+      color: #fde68a;
+    }
+
+    .bell-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      color: var(--text-secondary);
+    }
+
+    .bell-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 999px;
+      border: 2px solid var(--surface);
+      line-height: 1;
+    }
+
+    .user-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 8px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.15s;
+      position: relative;
+    }
+
+    .user-profile-card:hover {
+      background: var(--surface-subtle);
+    }
+
+    .user-avatar-small {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #059669;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-email {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-chevron {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    /* Popover */
+    .user-popover-menu {
+      position: absolute;
+      bottom: 74px;
+      left: 14px;
+      width: 270px;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-popover);
+      padding: 10px 8px;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      animation: popIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .user-popover-menu.open {
+      display: flex;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: var(--radius-md);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+
+    .menu-item:hover {
+      background: var(--surface-subtle);
+    }
+
+    .menu-item .menu-ic {
+      font-size: 15px;
+      color: var(--text-secondary);
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-row-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+    }
+
+    .menu-toggle-group {
+      display: inline-flex;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .toggle-btn.active {
+      background: var(--surface);
+      color: var(--text-main);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .menu-item.logout {
+      color: #ef4444;
+      margin-top: 4px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 10px;
+    }
+
+    .menu-item.logout .menu-ic {
+      color: #ef4444;
+    }
+
+    /* ════════════ MAIN CONTAINER (MATCHING IMAGE 3) ════════════ */
+    .main-container {
+      flex: 1;
+      padding: 24px 32px 60px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ════════════ LEFT COLUMN: NHỊP HỌC & HỒ SƠ ════════════ */
+    .left-analytics-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .badge-section-mint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #e6f7ee;
+      border: 1px solid #bbf7d0;
+      color: #047857;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.03em;
+      align-self: flex-start;
+    }
+
+    /* 3 Metrics in Row */
+    .metric-cards-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .metric-card-box {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 14px 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .metric-card-label {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .metric-card-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .metric-card-sub {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    /* Reminder Notes */
+    .study-notes-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 2px 4px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .study-note-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot-green {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      flex-shrink: 0;
+    }
+
+    /* Tiến trình học tập card */
+    .progress-study-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 20px 22px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-title-tiny {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .chart-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .chart-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .pill-added-count {
+      background: #e6f7ee;
+      color: #059669;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* 8-Week Bar Chart Visualization */
+    .chart-grid-container {
+      height: 140px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 10px 10px 0 24px;
+      position: relative;
+      border-left: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 20px;
+    }
+
+    .chart-y-axis {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-muted);
+      padding-bottom: 4px;
+    }
+
+    .chart-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .bar-visual-fill {
+      width: 100%;
+      max-width: 20px;
+      background: #d1fae5;
+      border-radius: 4px 4px 0 0;
+      transition: all 0.2s;
+    }
+
+    .bar-visual-fill.active {
+      background: #10b981;
+    }
+
+    .chart-bar-col:hover .bar-visual-fill {
+      background: #059669;
+    }
+
+    .bar-label-w {
+      font-size: 9.5px;
+      color: var(--text-muted);
+    }
+
+    /* Roadmap distribution bar */
+    .distribution-title-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .multi-seg-bar {
+      height: 7px;
+      border-radius: var(--radius-pill);
+      background: #f1f5f9;
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .seg-personal {
+      width: 33%;
+      background: #10b981;
+    }
+
+    .seg-specialized {
+      width: 67%;
+      background: #1e293b;
+    }
+
+    .seg-bonus {
+      width: 0%;
+      background: #f59e0b;
+    }
+
+    .distribution-legend {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ════════════ RIGHT COLUMN: VINH DANH BXH ════════════ */
+    .right-leaderboard-col {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 24px 28px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .leaderboard-top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .bxh-tag-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      color: #b45309;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 6px;
+    }
+
+    .bxh-main-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+    }
+
+    .btn-filter-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #e6f7ee;
+      color: #059669;
+      font-size: 12.5px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #bbf7d0;
+      cursor: pointer;
+    }
+
+    /* Filter Tabs Scroll */
+    .filter-tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    .filter-tabs-row::-webkit-scrollbar {
+      height: 4px;
+    }
+    .filter-tabs-row::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    .filter-pill-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .filter-pill-tab:hover {
+      background: #f0fdf4;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-pill-tab.active {
+      background: #fffbeb;
+      border-color: #f59e0b;
+      color: #b45309;
+      box-shadow: 0 1px 3px rgba(245, 158, 11, 0.12);
+    }
+
+    /* Assessment Banner Note */
+    .scoring-notice-card {
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .shield-icon-badge {
+      width: 28px;
+      height: 28px;
+      background: #f59e0b;
+      color: #fff;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .scoring-notice-content {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #78350f;
+    }
+
+    .scoring-notice-content strong {
+      font-weight: 800;
+      color: #451a03;
+    }
+
+    /* ════════════ 3D TOP 5 PODIUM (MATCHING IMAGE 3) ════════════ */
+    .podium-stage-container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      align-items: flex-end;
+      margin-bottom: 28px;
+      padding: 20px 8px 0;
+    }
+
+    .podium-card-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Rank Card Box */
+    .podium-user-box {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 14px 8px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .rank-tag-pill {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .tag-rank-4 { background: #dcfce7; color: #059669; }
+    .tag-rank-2 { background: #e2e8f0; color: #475569; }
+    .tag-rank-1 { background: #fef3c7; color: #b45309; }
+    .tag-rank-3 { background: #ffedd5; color: #c2410c; }
+    .tag-rank-5 { background: #e0f2fe; color: #0369a1; }
+
+    .podium-avatar-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #059669;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 8px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .crown-gold {
+      position: absolute;
+      top: -14px;
+      font-size: 20px;
+      animation: bounce 2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .podium-user-name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .podium-special-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 8px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      max-width: 95%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge-p4 { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+    .badge-p2 { background: #f8fafc; color: #334155; border-color: #cbd5e1; }
+    .badge-p1 { background: #fefce8; color: #a16207; border-color: #fef08a; }
+    .badge-p3 { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
+    .badge-p5 { background: #f0f9ff; color: #0369a1; border-color: #bae6fd; }
+
+    .podium-score-gauge {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .podium-action-icons {
+      display: flex;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* 3D Pedestal Cylinders */
+    .pedestal-3d {
+      width: 100%;
+      border-radius: 12px 12px 6px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .pedestal-num-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+    }
+
+    /* Pedestal 1: Gold Tallest */
+    .ped-1 {
+      height: 110px;
+      background: linear-gradient(180deg, #fbbf24 0%, #d97706 60%, #b45309 100%);
+      border: 2px solid #fde68a;
+    }
+
+    /* Pedestal 2: Silver 2nd */
+    .ped-2 {
+      height: 80px;
+      background: linear-gradient(180deg, #94a3b8 0%, #64748b 60%, #475569 100%);
+      border: 2px solid #cbd5e1;
+    }
+
+    /* Pedestal 3: Bronze 3rd */
+    .ped-3 {
+      height: 65px;
+      background: linear-gradient(180deg, #fb923c 0%, #ea580c 60%, #9a3412 100%);
+      border: 2px solid #fed7aa;
+    }
+
+    /* Pedestal 4: Teal */
+    .ped-4 {
+      height: 45px;
+      background: linear-gradient(180deg, #2dd4bf 0%, #0d9488 60%, #115e59 100%);
+      border: 2px solid #99f6e4;
+    }
+
+    /* Pedestal 5: Blue */
+    .ped-5 {
+      height: 35px;
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 60%, #075985 100%);
+      border: 2px solid #bae6fd;
+    }
+
+    /* Next Ranks Banner Button */
+    .next-ranks-card {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .next-ranks-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-view-ranks {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius-pill);
+      padding: 5px 14px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════ SIDEBAR ════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="dashboard.html" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-title">
+          TỰ HỌC<br>TÀI CHÍNH
+        </div>
+      </a>
+    </div>
+
+    <div class="search-box">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <span>Tìm kiếm...</span>
+      <kbd>⌘K</kbd>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item">
+        <span class="icon">📰</span>
+        <span>FinSocial</span>
+      </a>
+
+      <div class="nav-section-title">
+        <span>🌱 HỌC TẬP</span>
+        <span>▼</span>
+      </div>
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">🧭</span>
+        <span>Bắt đầu từ đầu</span>
+      </a>
+      <a href="bai-hoc.html" class="nav-item">
+        <span class="icon">📖</span>
+        <span>Học bài</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">💼</span>
+        <span>Học theo nghề</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🎓</span>
+        <span>Chứng chỉ</span>
+        <span style="margin-left:auto;font-size:12px;color:var(--text-muted)">›</span>
+      </a>
+
+      <div class="nav-section-title">
+        <span>⚡ THỰC HÀNH</span>
+        <span>▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">📝</span>
+        <span>Quiz</span>
+        <span class="nav-tag tag-new">TIN MỚI</span>
+      </a>
+      <a href="thi-vuot-chang.html" class="nav-item">
+        <span class="icon">🏆</span>
+        <span>Thi vượt chặng</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🎮</span>
+        <span>Game Kingdom</span>
+        <span class="nav-tag tag-hot">HOT</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">💼</span>
+        <span>Luyện phỏng vấn</span>
+      </a>
+
+      <div class="nav-section-title">
+        <span>👥 CỘNG ĐỒNG</span>
+        <span>▼</span>
+      </div>
+      <a href="#" class="nav-item">
+        <span class="icon">🏛️</span>
+        <span>Thư viện</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">🤝</span>
+        <span>Học nhóm</span>
+        <span class="nav-tag tag-checkin">CHECK-IN</span>
+      </a>
+      <a href="thong-ke.html" class="nav-item active">
+        <span class="icon">📊</span>
+        <span>Thống kê</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">📄</span>
+        <span>Tài liệu Miễn phí</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-popover-menu" id="userPopover">
+        <a href="ho-so.html" class="menu-item">
+          <span class="menu-ic">👤</span>
+          <span>Hồ sơ cá nhân</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span class="menu-ic">👥</span>
+          <span>Bạn bè & Kết nối</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span class="menu-ic">🛍️</span>
+          <span>Cửa hàng RPG</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span class="menu-ic">⚙️</span>
+          <span>Cài đặt tài khoản</span>
+        </a>
+
+        <div class="menu-row-toggle">
+          <span style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--text-secondary)">🌐</span> Ngôn ngữ
+          </span>
+          <div class="menu-toggle-group">
+            <button class="toggle-btn active" id="langViBtn" onclick="setLang('vi')">VI</button>
+            <button class="toggle-btn" id="langEnBtn" onclick="setLang('en')">EN</button>
+          </div>
+        </div>
+
+        <div class="menu-row-toggle">
+          <span style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--text-secondary)">🌗</span> Giao diện
+          </span>
+          <div class="menu-toggle-group">
+            <button class="toggle-btn active" id="themeLightBtn" onclick="setTheme('light')">☀️ SÁNG</button>
+            <button class="toggle-btn" id="themeDarkBtn" onclick="setTheme('dark')">🌙 TỐI</button>
+          </div>
+        </div>
+
+        <a href="login.html" class="menu-item logout">
+          <span class="menu-ic">🚪</span>
+          <span>Đăng xuất</span>
+        </a>
+      </div>
+
+      <div class="gold-wallet-row">
+        <div class="gold-pill">
+          <span>🪙</span>
+          <span>Túi vàng</span>
+          <span class="gold-count">60</span>
+        </div>
+        <button class="bell-btn" title="Thông báo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="bell-badge">9+</span>
+        </button>
+      </div>
+
+      <div class="user-profile-card" onclick="toggleUserPopover()" id="userCardBtn" title="Menu tài khoản">
+        <div class="user-avatar-small">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div class="user-info">
+          <div class="user-name">Đình Trí Bùi</div>
+          <div class="user-email">tribd.tec@gmail.com</div>
+        </div>
+        <span class="user-chevron">▼</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-container">
+    <section class="left-analytics-col">
+      <span class="badge-section-mint">
+        <span>🌿</span>
+        NHỊP HỌC & HỒ SƠ
+      </span>
+
+      <div class="metric-cards-row">
+        <div class="metric-card-box">
+          <div class="metric-card-label">🔥 STREAK</div>
+          <div class="metric-card-val">2</div>
+          <div class="metric-card-sub">Kỷ lục 2 ngày</div>
+        </div>
+
+        <div class="metric-card-box">
+          <div class="metric-card-label">🎯 QUIZ TB</div>
+          <div class="metric-card-val" style="font-size: 16px;">66.67%</div>
+          <div class="metric-card-sub">Chính xác</div>
+        </div>
+
+        <div class="metric-card-box">
+          <div class="metric-card-label">📖 ĐÃ HỌC</div>
+          <div class="metric-card-val">3</div>
+          <div class="metric-card-sub">Bài học</div>
+        </div>
+      </div>
+
+      <div class="study-notes-box">
+        <div class="study-note-item">
+          <span class="dot-green"></span>
+          <span>7 ngày chưa học</span>
+        </div>
+        <div class="study-note-item">
+          <span class="dot-green"></span>
+          <span>09:00 · Buổi sáng</span>
+        </div>
+      </div>
+
+      <div class="progress-study-card">
+        <div class="card-title-tiny">TIẾN TRÌNH HỌC TẬP</div>
+        <div class="chart-header-row">
+          <div class="chart-title-group">
+            <span>📈</span>
+            <span>Tổng quan 8 tuần</span>
+          </div>
+          <span class="pill-added-count">+0 bài tuần này</span>
+        </div>
+
+        <div class="chart-grid-container">
+          <div class="chart-y-axis">
+            <span>4</span>
+            <span>3</span>
+            <span>2</span>
+            <span>1</span>
+            <span>0</span>
+          </div>
+
+          <div class="chart-bar-col">
+            <div class="bar-visual-fill" style="height: 0%;"></div>
+            <span class="bar-label-w">T1</span>
+          </div>
+          <div class="chart-bar-col">
+            <div class="bar-visual-fill" style="height: 0%;"></div>
+            <span class="bar-label-w">T2</span>
+          </div>
+          <div class="chart-bar-col">
+            <div class="bar-visual-fill" style="height: 0%;"></div>
+            <span class="bar-label-w">T3</span>
+          </div>
+          <div class="chart-bar-col">
+            <div class="bar-visual-fill" style="height: 0%;"></div>
+            <span class="bar-label-w">T4</span>
+          </div>
+          <div class="chart-bar-col">
+            <div class="bar-visual-fill" style="height: 0%;"></div>
+            <span class="bar-label-w">T5</span>
+          </div>
+          <div class="chart-bar-col">
+            <div class="bar-visual-fill" style="height: 0%;"></div>
+            <span class="bar-label-w">T6</span>
+          </div>
+          <div class="chart-bar-col">
+            <div class="bar-visual-fill" style="height: 0%;"></div>
+            <span class="bar-label-w">T7</span>
+          </div>
+          <div class="chart-bar-col">
+            <div class="bar-visual-fill active" style="height: 25%;"></div>
+            <span class="bar-label-w">T8</span>
+          </div>
+        </div>
+
+        <div class="distribution-title-row">
+          <span>Phân bổ theo lộ trình</span>
+          <span>3 bài</span>
+        </div>
+
+        <div class="multi-seg-bar">
+          <div class="seg-personal" title="Cá nhân (33%)"></div>
+          <div class="seg-specialized" title="Chuyên ngành (67%)"></div>
+          <div class="seg-bonus" title="Bonus (0%)"></div>
+        </div>
+
+        <div class="distribution-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#10b981"></span>
+            <span>Cá nhân (33%)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#1e293b"></span>
+            <span>Chuyên ngành (67%)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#f59e0b"></span>
+            <span>Bonus (0%)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="right-leaderboard-col">
+      <div class="leaderboard-top-header">
+        <div>
+          <span class="bxh-tag-gold">
+            <span>🏆</span>
+            VINH DANH BXH
+          </span>
+          <h2 class="bxh-main-title">Top 5 nổi bật</h2>
+        </div>
+
+        <button class="btn-filter-dropdown">
+          <span>Điểm tổng hợp</span>
+          <span style="font-size: 10px;">▼</span>
+        </button>
+      </div>
+
+      <div class="filter-tabs-row">
+        <button class="filter-pill-tab active">
+          <span>⭐</span>
+          <span>Điểm tổng hợp</span>
+        </button>
+        <button class="filter-pill-tab">
+          <span>⚡</span>
+          <span>XP Tổng</span>
+        </button>
+        <button class="filter-pill-tab">
+          <span>📖</span>
+          <span>Số bài</span>
+        </button>
+        <button class="filter-pill-tab">
+          <span>🎯</span>
+          <span>Điểm TB</span>
+        </button>
+        <button class="filter-pill-tab">
+          <span>🔥</span>
+          <span>Chuỗi ngày</span>
+        </button>
+        <button class="filter-pill-tab">
+          <span>💼</span>
+          <span>Sự nghiệp</span>
+        </button>
+        <button class="filter-pill-tab">
+          <span>⚔️</span>
+          <span>Đấu trường CFA...</span>
+        </button>
+      </div>
+
+      <div class="scoring-notice-card">
+        <div class="shield-icon-badge">🛡️</div>
+        <div class="scoring-notice-content">
+          <strong>Đánh giá toàn diện, nặng về kiến thức</strong><br>
+          Thang 1000 điểm, gồm: 35% XP học hàng ngày (không tính điểm danh), 30% bài thi thăng cấp, 20% điểm kiểm tra trung bình, 15% chuỗi ngày học. Chỉ tính bài thi được máy chủ chấm.
+        </div>
+      </div>
+
+      <div class="podium-stage-container">
+        <div class="podium-card-column">
+          <div class="podium-user-box">
+            <span class="rank-tag-pill tag-rank-4">#4 TOP</span>
+            <div class="podium-avatar-wrap" style="background:#0d9488;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="podium-user-name">Minh Huy</div>
+            <div class="podium-special-badge badge-p4">🌱 HỌC CHẮC TỪNG BƯỚC</div>
+            <div class="podium-score-gauge">342/1000</div>
+            <div class="podium-action-icons">
+              <span>🤍</span>
+              <span>⚔️</span>
+            </div>
+          </div>
+          <div class="pedestal-3d ped-4">
+            <div class="pedestal-num-circle">4</div>
+          </div>
+        </div>
+
+        <div class="podium-card-column">
+          <div class="podium-user-box">
+            <span class="rank-tag-pill tag-rank-2">#2 BẠC</span>
+            <div class="podium-avatar-wrap" style="background:#475569;">
+              TC
+            </div>
+            <div class="podium-user-name">TC</div>
+            <div class="podium-special-badge badge-p2">🎯 CÂN BẰNG MỌI MẶT</div>
+            <div class="podium-score-gauge">397/1000</div>
+            <div class="podium-action-icons">
+              <span>🤍</span>
+              <span>⚔️</span>
+            </div>
+          </div>
+          <div class="pedestal-3d ped-2">
+            <div class="pedestal-num-circle">2</div>
+          </div>
+        </div>
+
+        <div class="podium-card-column">
+          <div class="podium-user-box" style="border-color:#fef08a;box-shadow:0 8px 24px rgba(245,158,11,0.12);">
+            <div class="crown-gold">👑</div>
+            <span class="rank-tag-pill tag-rank-1">1</span>
+            <div class="podium-avatar-wrap" style="background:#d97706;width:50px;height:50px;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="podium-user-name" style="font-size:14.5px;">Thúy Đặng</div>
+            <div class="podium-special-badge badge-p1">🏆 HỌC VIÊN TOÀN DIỆN SỐ 1</div>
+            <div class="podium-score-gauge" style="font-size:15px;color:#b45309;">417/1000</div>
+            <div class="podium-action-icons">
+              <span>🤍</span>
+              <span>⚔️</span>
+            </div>
+          </div>
+          <div class="pedestal-3d ped-1">
+            <div class="pedestal-num-circle" style="background:rgba(255,255,255,0.4);">⭐</div>
+          </div>
+        </div>
+
+        <div class="podium-card-column">
+          <div class="podium-user-box">
+            <span class="rank-tag-pill tag-rank-3">#3 ĐỒNG</span>
+            <div class="podium-avatar-wrap" style="background:#ea580c;">
+              K
+            </div>
+            <div class="podium-user-name">Kim Anh Vũ</div>
+            <div class="podium-special-badge badge-p3">💡 NỀN TẢNG RẤT CHẮC</div>
+            <div class="podium-score-gauge">347/1000</div>
+            <div class="podium-action-icons">
+              <span>🤍</span>
+              <span>⚔️</span>
+            </div>
+          </div>
+          <div class="pedestal-3d ped-3">
+            <div class="pedestal-num-circle">3</div>
+          </div>
+        </div>
+
+        <div class="podium-card-column">
+          <div class="podium-user-box">
+            <span class="rank-tag-pill tag-rank-5">#5 TOP</span>
+            <div class="podium-avatar-wrap" style="background:#0284c7;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="podium-user-name">Kim Nguyen</div>
+            <div class="podium-special-badge badge-p5">🌊 VỪA ĐỀU VỪA SÂU</div>
+            <div class="podium-score-gauge">332/1000</div>
+            <div class="podium-action-icons">
+              <span>🤍</span>
+              <span>⚔️</span>
+            </div>
+          </div>
+          <div class="pedestal-3d ped-5">
+            <div class="pedestal-num-circle">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="next-ranks-card">
+        <div class="next-ranks-title">
+          <span>🏆</span>
+          <span>CÁC VỊ TRÍ VINH DANH TIẾP THEO</span>
+        </div>
+        <button class="btn-view-ranks" onclick="alert('Xem danh sách top 6 - 20')">
+          BẢNG VINH DANH #6 - #20 ▼
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function toggleUserPopover() {
+      const p = document.getElementById("userPopover");
+      p.classList.toggle("open");
+    }
+
+    document.addEventListener("click", function(e) {
+      const card = document.getElementById("userCardBtn");
+      const popover = document.getElementById("userPopover");
+      if (card && popover && !card.contains(e.target) && !popover.contains(e.target)) {
+        popover.classList.remove("open");
+      }
+    });
+
+    function setTheme(mode) {
+      document.documentElement.setAttribute("data-theme", mode);
+      document.getElementById("themeLightBtn").classList.toggle("active", mode === "light");
+      document.getElementById("themeDarkBtn").classList.toggle("active", mode === "dark");
+    }
+
+    function setLang(lang) {
+      document.getElementById("langViBtn").classList.toggle("active", lang === "vi");
+      document.getElementById("langEnBtn").classList.toggle("active", lang === "en");
+    }
+  </script>
+</body>
+</html>

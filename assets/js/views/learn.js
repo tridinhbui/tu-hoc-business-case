@@ -307,17 +307,52 @@ window.VIEWS.learn = function(){
             </div>
           </div>
 
-          <!-- BANNER MINH HOẠ BÊN PHẢI -->
-          <div class="cur-hero-banner">
-            <svg viewBox="0 0 240 110" preserveAspectRatio="none" style="width:100%; height:100%;">
-              <path d="M0 40 C 60 20, 120 60, 180 30 C 210 15, 230 25, 240 20 L 240 110 L 0 110 Z" fill="#D1FAE5" opacity="0.9"/>
-              <path d="M0 65 C 70 50, 140 80, 200 55 C 225 45, 235 55, 240 50 L 240 110 L 0 110 Z" fill="#A7F3D0" opacity="0.95"/>
-              <circle cx="200" cy="30" r="16" fill="#FDE68A" opacity="0.8"/>
-              <path d="M60 85L80 50L100 85Z" fill="#059669" opacity="0.6"/>
-              <path d="M140 90L160 55L180 90Z" fill="#047857" opacity="0.7"/>
+          <!-- BANNER MINH HOẠ BÊN PHẢI NÚI NON HOÀNG HÔN XANH MƯỚT -->
+          <div class="cur-hero-banner" style="position:relative; width:260px; height:130px; border-radius:16px; overflow:hidden;">
+            <svg viewBox="0 0 400 200" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+              <defs>
+                <linearGradient id="skyGradLearn" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#fff9ec"/>
+                  <stop offset="50%" stop-color="#fef3c7"/>
+                  <stop offset="100%" stop-color="#d1fae5"/>
+                </linearGradient>
+                <linearGradient id="sunRayLearn" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="hillGrad1Learn" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6ee7b7"/>
+                  <stop offset="100%" stop-color="#059669"/>
+                </linearGradient>
+                <linearGradient id="hillGrad2Learn" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#34d399"/>
+                  <stop offset="100%" stop-color="#047857"/>
+                </linearGradient>
+                <linearGradient id="mountainGradLearn" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#a7f3d0"/>
+                  <stop offset="100%" stop-color="#065f46"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="200" fill="url(#skyGradLearn)"/>
+              <circle cx="280" cy="90" r="38" fill="#fde68a" opacity="0.6"/>
+              <polygon points="280,90 200,0 240,0" fill="url(#sunRayLearn)"/>
+              <polygon points="280,90 320,0 360,0" fill="url(#sunRayLearn)"/>
+              <polygon points="280,90 400,30 400,70" fill="url(#sunRayLearn)"/>
+              <path d="M120 200 L210 90 L290 200 Z" fill="#93c5fd" opacity="0.35"/>
+              <path d="M230 200 L300 70 L380 200 Z" fill="#6ee7b7" opacity="0.5"/>
+              <line x1="300" y1="70" x2="300" y2="55" stroke="#b91c1c" stroke-width="2"/>
+              <polygon points="300,55 314,60 300,65" fill="#ef4444"/>
+              <path d="M0 150 Q100 110 200 140 T400 130 L400 200 L0 200 Z" fill="url(#mountainGradLearn)"/>
+              <path d="M0 165 Q120 130 250 160 T400 150 L400 200 L0 200 Z" fill="url(#hillGrad2Learn)"/>
+              <path d="M60 200 C90 180 140 170 170 160 C200 150 250 140 280 110 L300 70" fill="none" stroke="#fed7aa" stroke-width="4" stroke-linecap="round" stroke-dasharray="3,3"/>
+              <path d="M0 185 Q160 150 400 175 L400 200 L0 200 Z" fill="url(#hillGrad1Learn)"/>
+              <circle cx="90" cy="175" r="7" fill="#047857"/>
+              <circle cx="102" cy="178" r="5" fill="#065f46"/>
+              <circle cx="180" cy="165" r="6" fill="#047857"/>
+              <circle cx="340" cy="180" r="8" fill="#064e3b"/>
             </svg>
-            <div style="position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:flex-end; padding:12px;">
-              <a class="btn btn-sm btn-primary" href="#/lesson/c-tree-1" style="font-size:12px; border-radius:var(--radius-pill);">Vào học &nbsp;→</a>
+            <div style="position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:flex-end; padding:12px; z-index:2;">
+              <a class="btn btn-sm btn-primary" href="#/lesson/c-tree-1" style="font-size:12px; border-radius:var(--radius-pill); box-shadow:0 3px 10px rgba(0,0,0,0.15);">Vào học &nbsp;→</a>
             </div>
           </div>
         </div>

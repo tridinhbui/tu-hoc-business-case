@@ -342,6 +342,108 @@
       font-size: 12px;
     }
 
+    /* ════════════ USER POPOVER MENU (MATCHING IMAGE 1) ════════════ */
+    .user-popover-menu {
+      position: absolute;
+      bottom: 74px;
+      left: 14px;
+      width: 270px;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.14), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+      padding: 10px 8px;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      animation: popIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .user-popover-menu.open {
+      display: flex;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: var(--radius-md);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+
+    .menu-item:hover {
+      background: var(--surface-subtle);
+    }
+
+    .menu-item .menu-ic {
+      font-size: 15px;
+      color: var(--text-secondary);
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-row-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+    }
+
+    .menu-toggle-group {
+      display: inline-flex;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.12s;
+    }
+
+    .toggle-btn.active {
+      background: var(--surface);
+      color: var(--text-main);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .menu-item.logout {
+      color: #ef4444;
+      margin-top: 4px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 10px;
+    }
+
+    .menu-item.logout .menu-ic {
+      color: #ef4444;
+    }
+
     /* ════════════ MAIN CONTENT ════════════ */
     .main-container {
       flex: 1;
@@ -1311,7 +1413,7 @@
   <!-- ════════════ SIDEBAR ════════════ -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <a href="#" class="brand-logo">
+      <a href="dashboard.html" class="brand-logo">
         <div class="brand-icon">
           <!-- Green Sprout SVG -->
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -1320,7 +1422,7 @@
             <path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.3" />
           </svg>
         </div>
-        <span class="brand-title">TỰ HỌC<br>TÀI CHÍNH</span>
+        <span class="brand-title">TỰ HỌC<br>BUSINESS CASE</span>
       </a>
     </div>
 
@@ -1333,7 +1435,7 @@
 
     <!-- Navigation List -->
     <nav class="sidebar-nav">
-      <a href="#" class="nav-item active">
+      <a href="dashboard.html" class="nav-item active">
         <span class="icon">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         </span>
@@ -1352,11 +1454,11 @@
         <span>🌱 HỌC TẬP</span>
         <span class="chevron">▼</span>
       </div>
-      <a href="#" class="nav-item">
+      <a href="index.html#/roadmap" class="nav-item">
         <span class="icon">🧭</span>
-        <span>Bắt đầu từ đầu</span>
+        <span>Bắt đầu từ đâu</span>
       </a>
-      <a href="bai-hoc.html" class="nav-item">
+      <a href="hoc-bai.html" class="nav-item">
         <span class="icon">📖</span>
         <span>Học bài</span>
       </a>
@@ -1408,14 +1510,63 @@
         <span>Học nhóm</span>
         <span class="nav-tag tag-checkin">CHECK-IN</span>
       </a>
-      <a href="#" class="nav-item">
+      <a href="thong-ke.html" class="nav-item">
         <span class="icon">📊</span>
         <span>Thống kê</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">📄</span>
+        <span>Tài liệu Miễn phí</span>
       </a>
     </nav>
 
     <!-- Sidebar Footer (Wallet & User profile) -->
     <div class="sidebar-footer">
+      <!-- Popover Menu (Matching Image 1) -->
+      <div class="user-popover-menu" id="userPopover">
+        <a href="ho-so.html" class="menu-item">
+          <span class="menu-ic">👤</span>
+          <span>Hồ sơ cá nhân</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span class="menu-ic">👥</span>
+          <span>Bạn bè & Kết nối</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span class="menu-ic">🛍️</span>
+          <span>Cửa hàng RPG</span>
+        </a>
+        <a href="#" class="menu-item">
+          <span class="menu-ic">⚙️</span>
+          <span>Cài đặt tài khoản</span>
+        </a>
+
+        <div class="menu-row-toggle">
+          <span style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--text-secondary)">🌐</span> Ngôn ngữ
+          </span>
+          <div class="menu-toggle-group">
+            <button class="toggle-btn active" id="langViBtn" onclick="setLang('vi')">VI</button>
+            <button class="toggle-btn" id="langEnBtn" onclick="setLang('en')">EN</button>
+          </div>
+        </div>
+
+        <div class="menu-row-toggle">
+          <span style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--text-secondary)">🌗</span> Giao diện
+          </span>
+          <div class="menu-toggle-group">
+            <button class="toggle-btn active" id="themeLightBtn" onclick="setTheme('light')">☀️ SÁNG</button>
+            <button class="toggle-btn" id="themeDarkBtn" onclick="setTheme('dark')">🌙 TỐI</button>
+          </div>
+        </div>
+
+        <a href="login.html" class="menu-item logout">
+          <span class="menu-ic">🚪</span>
+          <span>Đăng xuất</span>
+        </a>
+      </div>
+
       <div class="gold-wallet-row">
         <div class="gold-pill">
           <span class="coin-icon">🪙</span>
@@ -1428,14 +1579,14 @@
         </button>
       </div>
 
-      <a href="login.html" class="user-profile-card" style="text-decoration:none;color:inherit;" title="Đăng nhập / Tài khoản">
+      <div class="user-profile-card" onclick="toggleUserPopover()" id="userCardBtn" title="Menu tài khoản">
         <div style="width:34px;height:34px;border-radius:50%;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">ĐTB</div>
         <div class="user-info">
-          <div class="user-name">Đinh Trí Bùi</div>
+          <div class="user-name">Đình Trí Bùi</div>
           <div class="user-email">tribd.tec@gmail.com</div>
         </div>
         <span class="user-chevron">▼</span>
-      </a>
+      </div>
     </div>
   </aside>
 
@@ -1810,6 +1961,36 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     <span class="fab-badge">9+</span>
   </button>
+
+  <script>
+    function toggleUserPopover() {
+      const p = document.getElementById('userPopover');
+      if (p) p.classList.toggle('open');
+    }
+
+    document.addEventListener('click', function(e) {
+      const card = document.getElementById('userCardBtn');
+      const popover = document.getElementById('userPopover');
+      if (card && popover && !card.contains(e.target) && !popover.contains(e.target)) {
+        popover.classList.remove('open');
+      }
+    });
+
+    function setTheme(mode) {
+      document.documentElement.setAttribute('data-theme', mode);
+      const l = document.getElementById('themeLightBtn');
+      const d = document.getElementById('themeDarkBtn');
+      if (l) l.classList.toggle('active', mode === 'light');
+      if (d) d.classList.toggle('active', mode === 'dark');
+    }
+
+    function setLang(lang) {
+      const vi = document.getElementById('langViBtn');
+      const en = document.getElementById('langEnBtn');
+      if (vi) vi.classList.toggle('active', lang === 'vi');
+      if (en) en.classList.toggle('active', lang === 'en');
+    }
+  </script>
 
 </body>
 </html>
