@@ -586,6 +586,86 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('1
 Nếu chưa đạt: bài sẽ bị khoá lại cho tới khi bạn xem phần nhận xét và viết lại phần sai. Đó không phải hình phạt — mã lỗi bạn dính ở đây sẽ quyết định drill nào được giao, và làm lại sau khi đã sửa đúng chỗ thì lần sau qua thật, không phải qua nhờ may.
 
 Output: một tài liệu gồm ba phần (mỗi đề một phần), mỗi phần có problem statement ba dòng và bảng câu hỏi làm rõ hai cột (câu hỏi · lý do), cộng một dòng cuối bài tự đánh giá đề nào bạn thấy chắc nhất và vì sao.');
+DELETE FROM lesson_blocks WHERE lesson_id = '103';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.01', '103', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Cổng của module A3. Bạn nhận **một công ty chưa từng nghiên cứu** và có 40 phút để nộp: canvas một trang, ba đòn bẩy lợi nhuận xếp hạng có số, và một rủi ro thuộc về mô hình.
+
+Điểm khác biệt so với bài teardown 011: ở đó bạn có hai mô hình để so sánh, so sánh làm lộ ra bản chất. Ở đây **chỉ có một công ty**, không có gì để đối chiếu — nên bạn phải tự dựng mốc so sánh. Đó chính là thứ checkpoint này đo.
+
+Bài do giảng viên chấm. Đạt từ **70** điểm và **không tiêu chí nào ở mức 1**.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.02', '103', 2, 'concept', 'Bốn tiêu chí và trọng số, biết trước để phân bổ công sức', '| Tiêu chí | Trọng số | Nó hỏi gì |
+|---|---|---|
+| Dòng doanh thu đúng | 25 | Ai trả tiền, trả theo đơn vị nào, tiền vào trước hay sau khi phục vụ |
+| Cấu trúc chi phí đúng | 25 | Chặng nào ăn bao nhiêu phần trăm, cái nào biến đổi, cái nào cố định |
+| Đòn bẩy chọn đúng và giải thích được | 30 | Ba đòn bẩy xếp hạng, mỗi cái kèm ước lượng tác động |
+| Nhận diện rủi ro mô hình | 20 | Rủi ro nằm trong cấu trúc kiếm tiền, không phải rủi ro chung chung |
+
+Trọng số nói cho bạn biết nên tiêu thời gian ở đâu: **đòn bẩy nặng nhất (30)** nhưng lại là phần người học hay làm vội trong 5 phút cuối. Đảo lại thứ tự đó là cách dễ nhất để thêm điểm.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.03', '103', 3, 'concept', 'Không có mốc so sánh thì tự dựng lấy ba mốc', 'Khi chỉ có một công ty, "biên gộp 38%" tự nó không nói lên điều gì. Ba mốc dựng được ngay trong phòng thi, không cần tra cứu:
+
+1. **So với chính nó theo thời gian.** Con số này năm ngoái thế nào? Nếu đề không cho, hỏi. Xu hướng nói nhiều hơn mức tuyệt đối — đây cũng là cách tránh **FIN-01**.
+2. **So với cấu trúc lý thuyết của mô hình.** Mô hình sàn trung gian sống bằng mật độ; nếu công ty này có biên tốt nhưng mật độ thấp thì biên tốt đó là tạm thời.
+3. **So với kịch bản xấu.** Doanh thu giảm 30% thì còn lại gì? Với công ty nặng chi phí cố định, câu trả lời thường đã đủ để viết phần rủi ro.
+
+Ba mốc này hoạt động cả khi bạn chưa biết gì về ngành. Đừng đợi có số ngành mới dám kết luận — hãy nói rõ mốc mình đang dùng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.04', '103', 4, 'concept', 'Bốn mươi phút chia thế nào', '- **5 phút — đọc và gọi tên mô hình.** Viết ra: đây là mô hình gì, nên chỉ số sống còn là gì. Cả bài sau đó xoay quanh câu này.
+- **10 phút — canvas sáu ô.** Điền nhanh, chừa ô nào chưa rõ để hỏi, không ngồi nghĩ.
+- **10 phút — dựng bảng kinh tế đơn vị.** Một đơn vị bán ra: thu bao nhiêu, chi bao nhiêu, còn bao nhiêu. Có số thì tính, không có số thì đặt giả định và ghi rõ.
+- **10 phút — ba đòn bẩy.** Mỗi đòn bẩy phải có một phép nhân đi kèm; không có số thì chưa gọi là đòn bẩy.
+- **5 phút — rủi ro mô hình và soát lại.**
+
+Nếu đến phút 25 mà chưa có bảng kinh tế đơn vị, hãy bỏ bớt chi tiết ở canvas và đi tiếp. Canvas đẹp mà không có đòn bẩy chỉ lấy được 50 điểm trọng số; đòn bẩy tốt mà canvas sơ sài vẫn qua.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.05', '103', 5, 'worked_example', 'Teardown 40 phút cho một chuỗi rửa xe', '**Đề (rút gọn):** Chuỗi 5 điểm rửa xe máy và ô tô ở ngoại thành. Rửa xe máy 40.000đ, ô tô 120.000đ. Mỗi điểm trung bình 60 xe máy và 15 ô tô/ngày, mở 28 ngày/tháng. Mỗi điểm có 4 nhân viên lương 7 triệu/tháng, mặt bằng 25 triệu/tháng, nước và hoá chất khoảng 8.000đ/xe máy và 25.000đ/ô tô. Chuỗi vừa mua gói phần mềm quản lý 15 triệu/tháng cho cả chuỗi.
+
+**Phút 0–5 — gọi tên mô hình:** bán đứt theo lượt dịch vụ, **nặng chi phí cố định** (nhân sự và mặt bằng cố định, doanh thu phụ thuộc lượt xe). → Chỉ số sống còn: **số lượt trên một điểm mỗi ngày**, tức công suất sử dụng.
+
+**Phút 5–15 — canvas rút gọn:**
+
+| Ô | Nội dung |
+|---|---|
+| Khách trả tiền | Chủ xe cá nhân, trả ngay sau dịch vụ |
+| Đơn vị tính tiền | Một lượt rửa, hai mức giá theo loại xe |
+| Chi phí một đơn vị | Nước + hoá chất: 8.000đ / 25.000đ |
+| Chi phí dù không bán | Lương 28 triệu + mặt bằng 25 triệu mỗi điểm, phần mềm 15 triệu toàn chuỗi |
+| Tiền vào trước hay sau | Sau khi phục vụ, không có công nợ — dòng tiền sạch |
+| Cái gì chặn người khác làm giống | Gần như không có, trừ vị trí. **Đây là ô quan trọng nhất của đề này.** |
+
+**Phút 15–25 — kinh tế một điểm mỗi tháng:**
+
+- Doanh thu: (60 × 40.000 + 15 × 120.000) × 28 = (2.400.000 + 1.800.000) × 28 = **117,6 triệu**
+- Biến đổi: (60 × 8.000 + 15 × 25.000) × 28 = (480.000 + 375.000) × 28 = **23,94 triệu** → biên gộp **79,6%**
+- Cố định mỗi điểm: 28 + 25 = 53 triệu; phần mềm phân bổ 15 ÷ 5 = 3 triệu → **56 triệu**
+- **Lợi nhuận mỗi điểm: 117,6 − 23,94 − 56 = 37,66 triệu/tháng**
+- Hoà vốn: lãi gộp trung bình mỗi lượt = (4,2 triệu − 855.000) ÷ 75 lượt ≈ 44.600đ → cần 56.000.000 ÷ 44.600 ≈ **1.256 lượt/tháng ≈ 45 lượt/ngày**, bằng 60% mức hiện tại.
+
+**Phút 25–35 — ba đòn bẩy, xếp hạng:**
+
+1. **Tỷ trọng ô tô (43% doanh thu chỉ từ 20% số lượt).** Một lượt ô tô mang lãi gộp 95.000đ so với 32.000đ của xe máy. Chuyển 5 lượt xe máy/ngày thành 5 lượt ô tô: +8,8 triệu/tháng mỗi điểm. Cách làm: ưu tiên khung giờ, giá combo, tận dụng cầu nâng.
+2. **Công suất giờ thấp điểm (cố định 56 triệu là 47,6% doanh thu).** Thêm 10 lượt xe máy/ngày ở khung vắng: +8,96 triệu/tháng, không tốn thêm chi phí cố định.
+3. **Hoá chất và nước (20,4% doanh thu).** Giảm 10% định mức: +2,39 triệu/tháng. Nhỏ hơn hai đòn bẩy trên và có rủi ro rửa không sạch.
+
+**Phút 35–40 — rủi ro mô hình:** ô số 6 trống — **không có gì chặn người khác mở điểm rửa xe ngay cạnh**. Với biên gộp 79,6% và vốn đầu tư thấp, ngành này mời gọi đối thủ. Dấu hiệu nhận biết sớm: số lượt mỗi điểm giảm trong khi tổng lượt toàn khu vực không giảm. Khi đó lợi nhuận 37,66 triệu/điểm sẽ bị chia sẻ rất nhanh, và vì chi phí cố định chiếm gần một nửa doanh thu, mất 25% lượt là gần hết lãi.
+
+Chú ý cách viết rủi ro: nó đọc thẳng từ **cấu trúc** (biên cao + rào cản thấp + cố định nặng), không phải từ câu "thị trường cạnh tranh".');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.06', '103', 6, 'pitfall', 'Những gì làm trượt checkpoint này', '**BIZ-02 — canvas đầy đủ nhưng không có đòn bẩy.** Mất trọn 30 điểm trọng số nặng nhất. Đây là kiểu trượt phổ biến nhất ở A3.
+
+**BIZ-04 — giả định biên lợi nhuận không có cơ sở.** Viết "ngành này biên khoảng 30%" mà không neo vào dữ kiện nào trong đề. Nếu phải đoán, hãy đoán từ số có sẵn: giá bán trừ chi phí nguyên vật liệu đã cho.
+
+**FIN-01 — đọc số tuyệt đối không so sánh.** "Lợi nhuận 37,66 triệu/tháng" không nói lên gì cho tới khi đặt cạnh vốn đầu tư, cạnh tháng trước, hoặc cạnh kịch bản xấu.
+
+**REC-04 — impact ghi "tăng đáng kể".** Ở tiêu chí đòn bẩy, một đề xuất không có phép nhân đi kèm bị tính là chưa giải thích được, dù ý tưởng hay.
+
+**Rủi ro chung chung.** "Cạnh tranh gay gắt", "kinh tế khó khăn" áp cho công ty nào cũng đúng, nên không nói gì về công ty này. Rủi ro mô hình phải chỉ được vào một ô cụ thể trong canvas.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.07', '103', 7, 'checklist', 'Soát trong 5 phút cuối', '- Canvas đủ sáu ô, ô rào cản không bỏ trống.
+- Có bảng kinh tế một đơn vị với ít nhất một biên tính ra được.
+- Ba đòn bẩy, mỗi cái có một phép nhân và một con số tiền.
+- Đòn bẩy xếp hạng có lý do, không liệt kê ngang hàng.
+- Rủi ro chỉ đích danh một ô trong canvas và có dấu hiệu nhận biết sớm.
+- Mọi giả định tự đặt đều ghi rõ là giả định, kèm căn cứ suy ra.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.08', '103', 8, 'exercise', 'Bài nộp', 'Làm checkpoint trong **40 phút liên tục**, với một công ty do giảng viên phát — bạn sẽ gặp lần đầu ngay trong lúc làm. Không tra cứu.
+
+Chưa đạt thì bài bị khoá cho tới khi bạn xem lại phần chấm và viết lại chỗ sai. Mã lỗi dính ở đây quyết định drill được giao, nên hãy đọc kỹ phần gắn mã hơn là nhìn điểm số.
+
+Output: canvas sáu ô, bảng kinh tế một đơn vị (doanh thu · biến đổi · cố định · còn lại · hoà vốn), ba đòn bẩy xếp hạng có ước lượng bằng tiền, và một đoạn ngắn về rủi ro mô hình kèm dấu hiệu nhận biết sớm.');
 DELETE FROM panel_questions WHERE case_id = 'C-040';
 DELETE FROM case_answer_frames WHERE case_id = 'C-040';
 DELETE FROM case_traps WHERE case_id = 'C-040';
@@ -640,3 +720,20 @@ INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('R
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 2, 'Có một vài câu đáng hỏi nhưng phần lớn dồn vào một nhóm, và không giải thích vì sao hỏi.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 3, 'Mỗi câu kèm lý do "nếu trả lời khác thì tôi làm khác ở đâu"; câu hỏi rải qua ít nhất ba nhóm khác nhau; có câu về kinh tế một đơn vị.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 4, 'Như mức 3, và có ít nhất một câu nhắm vào phân bố thay vì trung bình, hoặc vào "vì sao là bây giờ" — tức là câu hỏi có khả năng lật ngược chẩn đoán ban đầu.');
+DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-A3');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.1', 1, 'Không nói được ai trả tiền hoặc tính tiền theo đơn vị nào; nhầm người dùng với người trả tiền khi hai bên khác nhau.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.1', 2, 'Nêu đúng nguồn doanh thu chính nhưng bỏ sót nguồn phụ, hoặc không nói được tiền vào trước hay sau khi phục vụ.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.1', 3, 'Đủ ba điều: ai trả, tính theo đơn vị nào, tiền vào lúc nào; nếu có nhiều nguồn thì tách riêng từng nguồn.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.1', 4, 'Như mức 3, và gọi đúng tên mô hình doanh thu rồi rút ra được chỉ số sống còn tương ứng của mô hình đó.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.2', 1, 'Liệt kê chi phí bằng số tuyệt đối, không quy về phần trăm doanh thu, hoặc trộn lẫn giá vốn với chi phí cố định.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.2', 2, 'Có tách các chặng chi phí nhưng không phân biệt biến đổi với cố định, nên không nói được điều gì xảy ra khi doanh thu thay đổi.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.2', 3, 'Mỗi chặng có phần trăm doanh thu và nhãn biến đổi hay cố định; tính được một biên (gộp hoặc hoạt động) đúng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.2', 4, 'Như mức 3, và tính được điểm hoà vốn hoặc mô tả được kịch bản doanh thu giảm mạnh, chỉ ra chi phí nào không co lại theo.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.3', 1, 'Không có đòn bẩy, hoặc đề xuất chung chung kiểu "tăng marketing", "cải thiện dịch vụ", không gắn với dòng chi phí hay doanh thu nào.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.3', 2, 'Có ba đề xuất nhưng liệt kê ngang hàng, hoặc thiếu ước lượng tác động nên không biết cái nào đáng làm trước.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.3', 3, 'Ba đòn bẩy xếp hạng, mỗi cái gắn với một dòng cụ thể trong cấu trúc kinh tế và kèm một phép tính ra số tiền.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.3', 4, 'Như mức 3, và thứ tự xếp hạng có lý do rõ ràng theo tác động nhân với khả năng thực hiện; nêu được tác dụng phụ hoặc điều kiện kèm theo của đòn bẩy rủi ro nhất.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 1, 'Không nêu rủi ro, hoặc chỉ nêu rủi ro áp cho doanh nghiệp nào cũng đúng như "cạnh tranh gay gắt", "kinh tế khó khăn".');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 2, 'Rủi ro có liên quan tới doanh nghiệp này nhưng nằm ở vận hành hằng ngày chứ không nằm trong cách nó kiếm tiền.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 3, 'Rủi ro chỉ đích danh một thành phần của mô hình — rào cản gia nhập, phụ thuộc một nguồn khách, cơ cấu chi phí cố định, thời điểm thu tiền.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 4, 'Như mức 3, và kèm dấu hiệu nhận biết sớm quan sát được, cộng ước lượng hệ quả nếu rủi ro xảy ra.');

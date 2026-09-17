@@ -4,9 +4,9 @@ Tình trạng hôm nay (chạy `python3 scripts/authoring-queue.py --all` để 
 
 | | |
 |---|---|
-| Thân bài đã viết | **9 / 122** |
+| Thân bài đã viết | **10 / 122** |
 | Đề case đã đặc tả | **30** (29 từ blueprint + 1 viết tay) |
-| Rubric thiếu mô tả 4 mức | **38 / 40** (RM-A1 đã xong) |
+| Rubric thiếu mô tả 4 mức | **37 / 40** (RM-A1, RM-A3 đã xong) |
 | Mã lỗi chưa có nguyên nhân gốc | 127 / 136 |
 | Giả định chưa có nguồn | 30 / 30 |
 
@@ -37,7 +37,7 @@ Nhịp đề nghị, giả sử mỗi ngày dành 2 giờ:
 
 | Tuần | Sản lượng | Cột mốc |
 |---|---|---|
-| 1–2 | 14 thân bài (tuần 1–2 của PATH-6) | Người học đi được hai tuần đầu |
+| 1–2 | 14 thân bài (tuần 1–2 của PATH-6) | Người học đi được hai tuần đầu — **xong 10/14**, tuần 1 và 2 đã đủ bài kèm rubric A1, A3 |
 | 3–4 | 13 thân bài + 2 đề case (tuần 3–4) | Hết phần A và B nền |
 | 5 | 6 thân bài + checkpoint L1 | **PATH-6 chạy trọn vẹn** → mở lớp thử 20 người |
 | 6–10 | PATH-1 phần còn thiếu | Path 1 tới capstone |
@@ -67,7 +67,7 @@ Lưu ý một chỗ cần siết trước khi mở cho người học ngoài: hi
 
 ## Ba khoản nợ nội dung, xếp theo mức độ gây hại
 
-1. **38/40 rubric thiếu mô tả 4 mức** (RM-A1 đã viết xong, nạp qua `authoring/rubrics/`). Đây là khoản nợ nguy hiểm nhất: không có mô tả mức thì hai người chấm cùng một bài ra hai điểm khác nhau, và toàn bộ điểm readiness mất ý nghĩa. Viết mô tả mức cho rubric của các bài trong PATH-6 **trước** khi mở lớp thử.
+1. **37/40 rubric thiếu mô tả 4 mức** (RM-A1 và RM-A3 đã viết xong, nạp qua `authoring/rubrics/`). Đây là khoản nợ nguy hiểm nhất: không có mô tả mức thì hai người chấm cùng một bài ra hai điểm khác nhau, và toàn bộ điểm readiness mất ý nghĩa. Viết mô tả mức cho rubric của các bài trong PATH-6 **trước** khi mở lớp thử.
 2. **127/136 mã lỗi chưa có nguyên nhân gốc.** Không có nguyên nhân gốc thì drill sửa lỗi chỉ là "làm lại bài tương tự", không sửa được gì. Viết dần theo nhóm mã, mỗi khi chạm tới nhóm đó trong bài học.
 3. **30/30 giả định chưa có nguồn.** Schema đã chặn: `verified_at` chỉ đặt được khi có `source_url`. Không được bịa nguồn; cái nào không tra được thì để `confidence = 'guess'` và nói rõ với người học rằng đó là số phỏng đoán.
 
