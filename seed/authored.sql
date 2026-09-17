@@ -235,6 +235,363 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('0
 Cách làm: đọc đề, viết problem statement ba dòng, rồi viết năm câu hỏi làm rõ kèm lý do cho từng câu. Dữ liệu của đề chỉ được phát khi bạn hỏi đúng — nên hãy hỏi trước, rồi mới xem phần được phát.
 
 Output: một trang gồm problem statement ba dòng, bảng năm câu hỏi (cột câu hỏi · cột "nếu trả lời khác thì làm khác ở đâu"), và một câu nói rõ bạn đã tái định nghĩa vấn đề ở chỗ nào.');
+DELETE FROM lesson_blocks WHERE lesson_id = '005';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('005.01', '005', 1, 'goal', 'Sau bài này bạn làm được gì', 'Chia một vấn đề doanh thu thành **issue tree hai tầng** bằng công thức, trong 5 phút, sao cho mỗi lá là một con số đo được và cộng lại đúng bằng gốc.
+
+Đây là kỹ thuật chia đáng tin cậy nhất trong case, vì nó không dựa vào trí nhớ về framework mà dựa vào **một phép nhân luôn đúng**: Doanh thu = Giá × Số lượng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('005.02', '005', 2, 'concept', 'Chia bằng công thức thì không bao giờ hở', 'Có hai cách chia một vấn đề: chia theo **hạng mục** (theo vùng, theo kênh, theo sản phẩm) và chia theo **công thức** (theo phép toán tạo ra con số đó). Cách thứ hai an toàn hơn vì bạn kiểm được ngay: các nhánh nhân hoặc cộng lại phải ra đúng gốc. Nếu không ra, cây sai — phát hiện trong 10 giây, không cần tranh luận.
+
+Ba công thức phủ gần hết case doanh thu:
+
+- **Doanh thu = Giá × Sản lượng.** Dùng khi bán hàng hoá, dịch vụ tính theo lượt.
+- **Doanh thu = Số khách × Tần suất mua × Giá trị mỗi lần.** Dùng khi khách quay lại — nhà hàng, ứng dụng, bán lẻ.
+- **Doanh thu = Lượng truy cập × Tỷ lệ chuyển đổi × Giá trị đơn.** Dùng khi có phễu — thương mại điện tử, phần mềm, giáo dục.
+
+Chọn công thức nào là chọn cách doanh nghiệp **thật sự vận hành**, không phải chọn cái quen tay. Một chuỗi cà phê nên chia theo *số khách × tần suất × giá trị mỗi lần* chứ không phải *giá × sản lượng*, vì cái làm doanh thu đi lên đi xuống ở đó là tần suất quay lại.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('005.03', '005', 3, 'concept', 'Tầng hai mới là chỗ có việc để làm', 'Tầng một chỉ tách công thức. Tầng hai tách mỗi thành phần thành những thứ **có người chịu trách nhiệm và có thể tác động được**:
+
+```
+Doanh thu
+├── Giá
+│   ├── Giá niêm yết
+│   ├── Chiết khấu và khuyến mãi
+│   └── Cơ cấu sản phẩm bán ra (mix)
+└── Sản lượng
+    ├── Số khách mới
+    ├── Tỷ lệ khách quay lại
+    └── Số lượng mỗi lần mua
+```
+
+Kiểm tra một cây tốt bằng ba câu:
+
+1. **Cộng/nhân lại có ra gốc không?** Nếu không, thiếu nhánh.
+2. **Mỗi lá có phải một con số lấy được không?** "Chất lượng dịch vụ" không phải lá; "tỷ lệ khách quay lại trong 30 ngày" mới là lá.
+3. **Có nhánh nào chồng lên nhánh khác không?** "Khuyến mãi" và "giá bán trung bình" chồng nhau vì khuyến mãi đã nằm trong giá trung bình.
+
+Hai tầng là đủ cho hầu hết mini case. Cây năm tầng nhìn công phu nhưng không ai đào hết trong 30 phút — đó là **TRE-04**.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('005.04', '005', 4, 'worked_example', 'Chia một đề giảm doanh thu trong 5 phút', '**Đề:** Một chuỗi 20 cửa hàng tiện lợi báo doanh thu quý này giảm 9% so với quý trước. Số cửa hàng không đổi.
+
+**Bước 1 — chọn công thức theo cách chuỗi vận hành.** Khách mua lặp lại nhiều lần trong tuần, nên dùng:
+
+```
+Doanh thu = Số khách × Số lần mua/khách × Giá trị mỗi lần mua
+```
+
+**Bước 2 — tầng hai cho từng thành phần:**
+
+| Thành phần | Nhánh tầng hai | Lá đo được |
+|---|---|---|
+| Số khách | Khách mới · Khách cũ còn quay lại | Số thẻ thành viên mới/tháng · Tỷ lệ quay lại 30 ngày |
+| Số lần mua | Tần suất theo nhóm khách · Giờ cao điểm | Lượt giao dịch/khách/tháng · Lượt/ngày theo khung giờ |
+| Giá trị mỗi lần | Số món/giỏ · Giá trung bình mỗi món · Tỷ lệ hàng khuyến mãi | Số dòng hoá đơn · Doanh thu ÷ số món · % doanh thu từ hàng giảm giá |
+
+**Bước 3 — gắn số để biết đào nhánh nào.** Giả sử hỏi được: số giao dịch giảm 2%, giá trị mỗi giao dịch giảm 7%.
+
+Kiểm tra: 0,98 × 0,93 = 0,911 → giảm 8,9%, khớp với 9% đã cho. **Cây đúng.**
+
+**Bước 4 — kết luận đào nhánh nào trước.** 7 trong 9 điểm phần trăm nằm ở **giá trị mỗi lần mua**, nên đào nhánh đó trước: giỏ hàng nhỏ đi vì bớt món, hay vì khách chuyển sang món rẻ hơn, hay vì tỷ lệ hàng khuyến mãi tăng? Ba khả năng này dẫn tới ba hành động hoàn toàn khác nhau.
+
+Chú ý: cây không trả lời câu hỏi. Cây **thu hẹp chỗ phải tìm** từ toàn bộ hoạt động kinh doanh xuống một nhánh có ba khả năng. Đó đã là 80% giá trị của nó.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('005.05', '005', 5, 'pitfall', 'Năm lỗi làm hỏng một cây', '**TRE-01 — cây template dán vào mọi đề.** Rút ra "3C, 4P" cho đề nào cũng vậy. Dấu hiệu: cây của bạn không chứa một chữ nào riêng của đề này.
+
+**TRE-02 — nhánh chồng lấn.** "Khách mới" và "khách mua online" chồng nhau: một khách mới mua online nằm ở cả hai. Sửa: chia theo một trục mỗi lần, nếu cần hai trục thì làm hai cây.
+
+**TRE-03 — lá không đo được.** "Trải nghiệm khách hàng kém" không phải lá vì không ai lấy được con số đó trong 30 phút. Đổi thành "tỷ lệ khách quay lại 30 ngày" hoặc "thời gian chờ thanh toán trung bình".
+
+**TRE-04 — cây năm tầng không ai dùng được.** Mỗi tầng thêm vào nhân số lá lên gấp ba. Hai tầng, tối đa 9 lá, là mức làm việc được.
+
+**TRE-05 — chia theo framework thay vì theo vấn đề.** Đề hỏi doanh thu giảm mà cây lại chia thành "điểm mạnh / điểm yếu / cơ hội / thách thức". Framework mô tả, công thức truy vết.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('005.06', '005', 6, 'checklist', 'Soát trước khi nộp', '- Cây có đúng hai tầng, không nhiều hơn.
+- Tầng một là một công thức, và công thức khớp với cách doanh nghiệp vận hành.
+- Nhân hoặc cộng các nhánh lại ra đúng con số gốc.
+- Mỗi lá là một số lấy được, có đơn vị.
+- Không có hai nhánh nào chứa cùng một thứ.
+- Có một câu nói rõ sẽ đào nhánh nào trước và vì sao.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('005.07', '005', 7, 'exercise', 'Bài nộp', 'Vẽ issue tree hai tầng cho **ba** đề sau, mỗi đề tối đa 7 phút:
+
+1. Một phòng khám nha khoa có doanh thu giảm 15% trong 6 tháng, số lượt khám không đổi.
+2. Một shop quần áo online có doanh thu tăng 20% nhưng lợi nhuận giảm.
+3. Một trung tâm tiếng Anh có số học viên không đổi nhưng doanh thu giảm 8%.
+
+Với mỗi đề: chọn công thức, ghi rõ vì sao chọn công thức đó cho mô hình này, và khoanh nhánh bạn sẽ đào trước kèm một dòng lý do.
+
+Output: một trang gồm ba cây hai tầng (vẽ bằng text lồng nhau hoặc sơ đồ), mỗi cây kèm dòng "chọn công thức này vì…" và dòng "đào nhánh … trước vì…".');
+DELETE FROM lesson_blocks WHERE lesson_id = '006';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('006.01', '006', 1, 'goal', 'Sau bài này bạn làm được gì', 'Phát hiện và **chữa** một cây phân tích sai: chỉ ra nhánh nào chồng lấn, nhánh nào thiếu, lá nào không đo được, rồi viết lại thành cây dùng được — trong 5 phút mỗi cây.
+
+Chữa cây khó hơn vẽ cây mới, và cũng là việc bạn làm nhiều hơn trong thực tế: trong case competition, cây đầu tiên của nhóm gần như luôn có một trong ba lỗi dưới đây.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('006.02', '006', 2, 'concept', 'MECE nghĩa là gì, và vì sao nó thường bị hiểu sai', 'MECE = *mutually exclusive, collectively exhaustive*: các nhánh **không chồng nhau** và **không sót gì**.
+
+Hai nửa này khó khác nhau:
+
+- **Không chồng nhau** dễ kiểm: lấy một trường hợp cụ thể, xem nó rơi vào mấy nhánh. Rơi vào hai nhánh là chồng.
+- **Không sót gì** khó kiểm hơn: phải hỏi "còn cách nào khác để việc này xảy ra không?". Cách chắc chắn nhất là chia bằng công thức hoặc chia bằng cặp đối lập (khách mới / khách cũ, trong nước / ngoài nước).
+
+Sai lầm phổ biến là coi MECE như một huy hiệu chất lượng. MECE là **điều kiện tối thiểu**, không phải mục tiêu. Một cây MECE hoàn hảo nhưng chia sai trục vẫn vô dụng: chia doanh thu theo "thứ Hai / thứ Ba / … / Chủ nhật" là MECE tuyệt đối và chẳng giúp gì.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('006.03', '006', 3, 'concept', 'Khi nào chấp nhận chồng lấn', 'Trong thực tế, đôi khi bạn cố tình phá MECE — và điều đó chấp nhận được nếu nói rõ. Ba trường hợp:
+
+1. **Chồng lấn nhỏ, chi phí tách lớn.** Ví dụ "khách doanh nghiệp" và "khách mua số lượng lớn" chồng nhau khoảng 10%. Tách ra tốn nhiều công hơn giá trị thu được → ghi chú "hai nhóm chồng ~10%, không tách vì …".
+2. **Cần hai góc nhìn song song.** Muốn nhìn theo vùng *và* theo kênh thì làm **hai cây**, không nhồi cả hai trục vào một cây.
+3. **Nhánh "khác" có kiểm soát.** Một nhánh "khác" chiếm dưới 10% là chấp nhận được; chiếm 30% thì đó là chỗ bạn chưa hiểu vấn đề, không phải chỗ để gom cho gọn.
+
+Nguyên tắc chung: **chồng lấn được phép, chồng lấn giấu đi thì không.** Người chấm phân biệt rất rõ hai thứ đó.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('006.04', '006', 4, 'worked_example', 'Chữa ba cây sai', '**Cây 1 — đề: vì sao lợi nhuận nhà hàng giảm**
+
+```
+Lợi nhuận giảm
+├── Doanh thu giảm
+├── Chi phí tăng
+└── Cạnh tranh tăng
+```
+
+*Lỗi:* "Cạnh tranh tăng" không cùng loại với hai nhánh kia — nó là **nguyên nhân**, còn hai nhánh kia là **thành phần**. Trộn nguyên nhân với thành phần vào cùng một tầng là lỗi hay gặp nhất (**TRE-02** ở dạng ngầm: cạnh tranh tác động qua chính doanh thu, nên nó nằm chồng lên nhánh 1).
+
+*Chữa:*
+
+```
+Lợi nhuận = Doanh thu − Chi phí
+├── Doanh thu: số khách × giá trị mỗi lượt
+│   (cạnh tranh tăng là một giả thuyết cho việc số khách giảm)
+└── Chi phí: biến đổi (nguyên liệu) · cố định (mặt bằng, lương)
+```
+
+**Cây 2 — đề: vì sao ứng dụng mất người dùng**
+
+```
+Mất người dùng
+├── Trải nghiệm kém
+├── Ứng dụng chậm
+├── Giao diện khó dùng
+└── Đối thủ tốt hơn
+```
+
+*Lỗi:* "Ứng dụng chậm" và "giao diện khó dùng" đều nằm trong "trải nghiệm kém" — ba nhánh chồng nhau (**TRE-02**). Và không nhánh nào đo được (**TRE-03**).
+
+*Chữa:* chia theo **vòng đời người dùng**, mỗi lá là một tỷ lệ lấy được:
+
+```
+Người dùng hoạt động = Người mới + Người cũ còn lại
+├── Người mới: lượt cài đặt × tỷ lệ mở lần đầu × tỷ lệ hoàn tất đăng ký
+└── Người cũ còn lại: tỷ lệ quay lại ngày 1 · ngày 7 · ngày 30
+```
+
+Lúc này "ứng dụng chậm" trở về đúng vai trò của nó: một giả thuyết giải thích vì sao tỷ lệ ngày 7 tụt.
+
+**Cây 3 — đề: chi phí logistics tăng**
+
+```
+Chi phí logistics
+├── Chi phí vận chuyển
+│   ├── Xăng dầu
+│   ├── Tài xế
+│   ├── Bảo trì xe
+│   ├── Khấu hao
+│   └── Bảo hiểm
+├── Chi phí kho
+│   ├── Thuê kho
+│   ├── Nhân sự kho
+│   └── ...
+```
+
+*Lỗi:* cây đúng về mặt MECE nhưng **liệt kê dàn đều** (**TRE-04**): năm lá ngang hàng, không biết đào đâu.
+
+*Chữa:* thêm một bước **gắn tỷ trọng** rồi cắt nhánh:
+
+```
+Chi phí logistics (100%)
+├── Vận chuyển 68%  ← đào nhánh này
+│   ├── Chi phí trên mỗi km (xăng, bảo trì)
+│   └── Số km trên mỗi đơn (tuyến, tỷ lệ đầy xe)
+└── Kho 32%
+    └── Chi phí trên mỗi đơn lưu kho
+```
+
+Cây sau ít lá hơn nhưng nói được nhiều hơn, vì nó đã **chuyển từ liệt kê sang truy vết**: chi phí vận chuyển = số km × chi phí mỗi km, nên chỉ có hai đường để nó tăng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('006.05', '006', 5, 'pitfall', 'Ba dấu hiệu nhận ra cây hỏng từ xa', '**TRE-05 — chia theo framework thay vì theo vấn đề.** Nhìn thấy "3C", "4P", "SWOT" trong cây phân tích nguyên nhân là gần như chắc chắn sai trục. Framework hợp để *mô tả bối cảnh*, không hợp để *truy nguyên nhân*.
+
+**TRE-03 — lá không đo được.** Đọc từng lá và hỏi: ai lấy được số này trong 30 phút, bằng cách nào? Không trả lời được thì viết lại lá.
+
+**TRE-01 — cây không chứa chữ nào riêng của đề.** Thử đọc cây mà che tên công ty đi: nếu nó áp cho bất kỳ doanh nghiệp nào cũng đúng, cây chưa phân tích gì cả.
+
+Một dấu hiệu tinh vi hơn: **cây đẹp mà không có tỷ trọng**. Không có số ở các nhánh thì mọi nhánh trông ngang nhau, và người đọc không biết bạn sẽ đào đâu — hãy gắn ít nhất một ước lượng phần trăm cho các nhánh tầng một.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('006.06', '006', 6, 'checklist', 'Soát khi chữa một cây', '- Mỗi tầng chỉ chứa một loại: thành phần với thành phần, nguyên nhân với nguyên nhân.
+- Thử một trường hợp cụ thể: nó rơi vào đúng một nhánh.
+- Hỏi "còn cách nào khác không" cho mỗi nhóm nhánh.
+- Mỗi lá có đơn vị và nguồn lấy số.
+- Nhánh "khác" dưới 10%, nếu lớn hơn thì tách tiếp.
+- Nhánh tầng một có tỷ trọng ước lượng, và có nói rõ sẽ đào nhánh nào.
+- Chồng lấn nào còn lại đều được ghi chú, không giấu.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('006.07', '006', 7, 'exercise', 'Bài nộp', 'Dưới đây là năm cây sai. Với mỗi cây: **gọi tên lỗi bằng mã** (TRE-01…TRE-05), giải thích trong một câu, và vẽ lại bản đã chữa.
+
+1. *Doanh thu giảm* → {Sản phẩm, Giá cả, Khuyến mãi, Nhân viên, Đối thủ}
+2. *Chi phí tăng* → {Chi phí cố định, Chi phí biến đổi, Chi phí nhân sự}
+3. *Khách hàng không hài lòng* → {Chất lượng kém, Phục vụ chậm, Giá cao}
+4. *Lợi nhuận giảm* → cây 5 tầng, 28 lá, không có tỷ trọng nào
+5. *Thị phần giảm* → {Điểm mạnh, Điểm yếu, Cơ hội, Thách thức}
+
+Thời lượng 25 phút, tức 5 phút mỗi cây. Hết 5 phút thì chuyển, cây nào chưa xong ghi lại lý do.
+
+Output: một trang gồm năm mục, mỗi mục có: mã lỗi · một câu giải thích · cây đã chữa (dạng text lồng nhau).');
+DELETE FROM lesson_blocks WHERE lesson_id = '007';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('007.01', '007', 1, 'goal', 'Sau bài này bạn làm được gì', 'Với cùng một đề, dựng được **ba cây theo ba trục chia khác nhau**, rồi chọn một cây và nói được vì sao chọn nó — chứ không phải vẽ cây đầu tiên nghĩ ra rồi đi luôn.
+
+Trục chia đầu tiên quyết định phần còn lại của bài. Chọn sai trục thì mọi phân tích phía sau vẫn đúng về kỹ thuật nhưng trả lời nhầm câu hỏi.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('007.02', '007', 2, 'concept', 'Bốn trục chia, và trục nào hợp với loại đề nào', '| Trục chia | Cắt theo | Hợp khi | Không hợp khi |
+|---|---|---|---|
+| **Công thức** | Phép toán tạo ra con số | Đề hỏi vì sao một số thay đổi | Đề hỏi có nên làm một việc mới |
+| **Quy trình** | Các bước nối tiếp nhau | Vấn đề nằm ở một khâu: sản xuất, phễu bán hàng, chuỗi cung ứng | Các bước chạy song song, không phụ thuộc nhau |
+| **Đối tượng** | Nhóm khách, vùng, sản phẩm, kênh | Nghi ngờ vấn đề chỉ xảy ra ở một nhóm | Tất cả các nhóm đều giảm đều nhau |
+| **Quyết định** | Các phương án loại trừ nhau | Đề hỏi chọn cái nào: làm hay mua, vào hay không vào | Đề hỏi tìm nguyên nhân |
+
+Quy tắc chọn nhanh: **đề hỏi "vì sao" → trục công thức hoặc quy trình; đề hỏi "có nên / chọn cái nào" → trục quyết định; nghi ngờ vấn đề cục bộ → trục đối tượng.**');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('007.03', '007', 3, 'concept', 'Cách chọn trục trong 60 giây: thử trước, chọn sau', 'Đừng chọn bằng cảm giác. Thử nhanh hai hoặc ba trục, mỗi trục viết đúng tầng một (3 nhánh), rồi chấm theo ba câu hỏi:
+
+1. **Trục nào tách được vấn đề ra khỏi phần lành?** Cây tốt phải làm một nhánh phình lên và các nhánh khác teo lại. Nếu cả ba nhánh đều "có vẻ liên quan" thì trục đó chưa cắt được gì.
+2. **Trục nào có dữ liệu để kiểm?** Cây đẹp mà không lấy được số nào trong thời lượng case là cây để trưng bày.
+3. **Trục nào dẫn thẳng tới hành động khác nhau?** Nếu hai nhánh dẫn tới cùng một việc phải làm, chúng không đáng tách.
+
+Sáu mươi giây bỏ ra để thử ba trục rẻ hơn nhiều so với hai mươi phút đi sai đường.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('007.04', '007', 4, 'worked_example', 'Ba cây cho cùng một đề', '**Đề:** Một chuỗi 30 nhà thuốc báo lợi nhuận quý giảm 18%. Doanh thu chỉ giảm 3%.
+
+Dữ kiện đầu tiên đã gợi ý điều gì đó: doanh thu gần như không đổi mà lợi nhuận rơi mạnh → vấn đề nằm ở **biên**, không phải ở lượng bán. Nhưng hãy thử ba trục trước khi kết luận.
+
+**Cây A — trục công thức**
+
+```
+Lợi nhuận = Doanh thu × Biên
+├── Doanh thu (−3%)
+└── Biên (còn lại ~−15%)
+    ├── Giá bán trung bình
+    ├── Giá vốn hàng nhập
+    └── Cơ cấu mặt hàng (thuốc kê đơn / không kê đơn / thực phẩm chức năng)
+```
+
+*Chấm:* tách được ngay phần lành (doanh thu) khỏi phần hỏng (biên). Dữ liệu có sẵn trong hệ thống bán hàng. Ba lá dẫn tới ba hành động khác nhau. **Mạnh ở cả ba câu hỏi.**
+
+**Cây B — trục đối tượng**
+
+```
+Lợi nhuận theo nhóm cửa hàng
+├── 10 cửa hàng trung tâm
+├── 12 cửa hàng khu dân cư
+└── 8 cửa hàng mới mở
+```
+
+*Chấm:* rất tốt **nếu** vấn đề cục bộ — ví dụ 8 cửa hàng mới đang lỗ kéo cả chuỗi. Dữ liệu dễ lấy. Nhưng nếu cả 30 cửa hàng cùng tụt biên thì cây này không nói được nguyên nhân, chỉ nói được "ở đâu". **Hợp làm cây thứ hai, sau khi cây A chỉ ra biên.**
+
+**Cây C — trục quy trình**
+
+```
+Chuỗi giá trị
+├── Mua hàng → 2. Lưu kho → 3. Bán → 4. Thu tiền
+```
+
+*Chấm:* hợp khi nghi ngờ thất thoát hoặc tồn kho hỏng. Nhưng với dữ kiện "doanh thu gần như không đổi", quy trình bán không phải chỗ gãy. **Yếu nhất trong ba cây cho đề này.**
+
+**Chọn và nói lý do:**
+
+> Chọn cây A vì dữ kiện đã tách sẵn doanh thu khỏi lợi nhuận, nên trục công thức cắt đúng chỗ hỏng ngay tầng một. Sau khi biết biên tụt ở đâu, dùng cây B như tầng ba để xem hiện tượng đó tập trung ở nhóm cửa hàng nào. Cây C để dành, chỉ dùng nếu cả hai cây kia không giải thích được.
+
+Chú ý cách nói: không bác bỏ hai cây kia, mà **xếp thứ tự dùng**. Người phỏng vấn nghe câu đó biết ngay bạn chọn có cân nhắc, không phải chọn bừa.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('007.05', '007', 5, 'pitfall', 'Bốn lỗi khi chọn trục', '**TRE-05 — chia theo framework thay vì theo vấn đề.** Với đề trên mà mở bằng "phân tích 4P" thì đã đi lạc: 4P mô tả chiến lược marketing, không truy được 15 điểm phần trăm biên đi đâu mất.
+
+**TRE-01 — luôn dùng một trục quen.** Người quen trục công thức sẽ ép mọi đề vào công thức, kể cả đề hỏi "có nên mở nhà máy mới" — loại đề đó cần trục quyết định.
+
+**TRE-02 — trộn hai trục trong một tầng.** "Theo vùng" và "theo kênh" nằm cùng tầng thì một cửa hàng online ở Hà Nội rơi vào hai nhánh. Cần hai góc nhìn thì làm hai cây.
+
+**Chọn trục mà không có dữ liệu.** Trục hay nhất trên lý thuyết nhưng không lấy được số nào trong 30 phút thì kém hơn trục khá hơn mà kiểm được. Luôn hỏi trước: *số cho nhánh này lấy ở đâu?*');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('007.06', '007', 6, 'checklist', 'Soát trước khi nộp', '- Có đúng ba cây cho cùng một đề, mỗi cây theo một trục khác nhau.
+- Mỗi cây viết đủ tầng một và ít nhất một nhánh có tầng hai.
+- Mỗi cây được chấm theo ba câu hỏi: tách được vấn đề? có dữ liệu? dẫn tới hành động khác nhau?
+- Có một đoạn nói rõ chọn cây nào, và xếp thứ tự dùng hai cây còn lại.
+- Không cây nào trộn hai trục trong cùng một tầng.
+- Cây được chọn có ít nhất một nhánh gắn ước lượng tỷ trọng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('007.07', '007', 7, 'exercise', 'Bài nộp', 'Chọn **một** trong hai đề, dựng **ba cây theo ba trục khác nhau** trong 30 phút:
+
+1. Một hãng xe khách tuyến cố định có lượng khách giữ nguyên nhưng lợi nhuận giảm 22%.
+2. Một sàn thương mại điện tử ngành mỹ phẩm có số đơn tăng 15% nhưng doanh thu chỉ tăng 2%.
+
+Với mỗi cây, ghi trục chia đã dùng. Cuối bài, viết một đoạn 3–4 câu: chọn cây nào, vì sao, và hai cây còn lại dùng vào lúc nào.
+
+Output: một trang gồm ba cây (text lồng nhau), bảng chấm ba cây theo ba câu hỏi, và đoạn kết luận chọn trục.');
+DELETE FROM lesson_blocks WHERE lesson_id = '008';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('008.01', '008', 1, 'goal', 'Sau bài này bạn làm được gì', 'Làm trọn một mini case chẩn đoán: từ một hiện tượng ("doanh thu giảm 12%") dựng **issue tree ba tầng có driver**, gắn số vào các nhánh, và nói được **đào nhánh nào trước cùng lý do**.
+
+Khác biệt so với bài 005: ở đó bạn chia bằng công thức cho gọn. Ở đây có tầng ba — nơi mỗi lá phải là một **driver**: một con số mà nếu nó đổi thì kết quả đổi theo, và có người chịu trách nhiệm về nó.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('008.02', '008', 2, 'concept', 'Tầng ba là nơi cây chạm vào thực tế', 'Ba tầng có ba vai trò khác nhau:
+
+- **Tầng 1 — công thức.** Đảm bảo không sót. Ví dụ: GMV = số chuyến × giá trị mỗi chuyến.
+- **Tầng 2 — thành phần vận hành.** Số chuyến = số người đặt × số chuyến mỗi người. Vẫn còn là số tổng hợp.
+- **Tầng 3 — driver.** Thứ thật sự chuyển động: tỷ lệ đặt thành công, thời gian chờ tài xế, tỷ lệ huỷ chuyến, số tài xế hoạt động giờ cao điểm.
+
+Kiểm tra một lá có phải driver không bằng hai câu: **ai trong công ty chịu trách nhiệm về con số này?** và **tuần sau nó có thể khác đi không?** Nếu cả hai đều "không" thì đó là một đặc điểm, không phải driver — và không đào được.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('008.03', '008', 3, 'concept', 'Gắn số trước khi đào, luôn luôn', 'Cây không có số thì mọi nhánh trông ngang nhau, và người ta thường đào nhánh mình **thích** thay vì nhánh **nặng**. Quy trình ba bước:
+
+1. **Phân bổ 100% cho tầng một.** Dựa vào dữ kiện đề cho hoặc hỏi lấy.
+2. **Cắt nhánh nhẹ.** Nhánh chiếm dưới 10% biến động thì ghi "đã kiểm, không phải chỗ này" và bỏ qua — nói rõ là đã kiểm, đừng im lặng.
+3. **Chỉ đào nhánh nặng nhất** và nói câu này thành lời: *"9 trong 12 điểm phần trăm nằm ở đây, nên em đào nhánh này trước."*
+
+Câu nói đó là thứ phân biệt người chẩn đoán với người liệt kê. Nó cũng cho người phỏng vấn cơ hội xác nhận hoặc chỉnh hướng — rất có lợi cho bạn.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('008.04', '008', 4, 'worked_example', 'Dựng cây ba tầng cho một ứng dụng gọi xe', '**Đề:** Ứng dụng gọi xe hai bánh, bốn thành phố. Quý vừa rồi GMV giảm 12%, trong khi **số người mở ứng dụng không đổi**.
+
+Dữ kiện cuối rất quan trọng: nhu cầu chưa mất, nên vấn đề nằm ở đoạn giữa — từ "mở app" tới "chuyến hoàn thành" — hoặc ở giá trị mỗi chuyến.
+
+**Tầng 1 — công thức:**
+
+```
+GMV = Số chuyến hoàn thành × Giá trị trung bình mỗi chuyến
+```
+
+**Tầng 2 — tách mỗi thành phần:**
+
+```
+Số chuyến hoàn thành = Số lượt đặt × Tỷ lệ đặt thành công
+Giá trị mỗi chuyến   = Quãng đường trung bình × Giá mỗi km − Khuyến mãi
+```
+
+**Tầng 3 — driver, và đây là tầng có việc để làm:**
+
+| Nhánh tầng 2 | Driver tầng 3 | Ai chịu trách nhiệm |
+|---|---|---|
+| Số lượt đặt | Tỷ lệ người mở app rồi đặt · tần suất đặt mỗi người | Sản phẩm, marketing |
+| Tỷ lệ đặt thành công | Số tài xế hoạt động giờ cao điểm · thời gian chờ ghép · tỷ lệ tài xế từ chối | Vận hành cung |
+| Quãng đường trung bình | Cơ cấu chuyến ngắn/dài · vùng phục vụ | Sản phẩm, giá |
+| Giá mỗi km và khuyến mãi | Giá cơ bản · hệ số giờ cao điểm · ngân sách mã giảm giá | Giá và tăng trưởng |
+
+**Gắn số.** Hỏi và nhận được: số lượt đặt không đổi, **tỷ lệ đặt thành công giảm từ 88% xuống 79%**, giá trị mỗi chuyến giảm 2%.
+
+Kiểm: 0,79 ÷ 0,88 = 0,898 → riêng tỷ lệ thành công đã kéo GMV xuống 10,2%; nhân thêm 0,98 → tổng giảm **12,0%**. Khớp đúng con số đề cho. Cây đúng và **không cần đào ba nhánh còn lại**.
+
+**Đào tiếp một tầng vào đúng chỗ:** tỷ lệ đặt thành công giảm 9 điểm phần trăm thì chỉ có ba đường:
+
+1. Không đủ tài xế ở thời điểm khách đặt → hỏi số tài xế hoạt động theo khung giờ, so với quý trước.
+2. Có tài xế nhưng từ chối chuyến → hỏi tỷ lệ từ chối và lý do (chuyến ngắn, đường xấu, thu nhập mỗi chuyến giảm).
+3. Ghép được nhưng khách huỷ vì chờ lâu → hỏi thời gian chờ trung bình và tỷ lệ huỷ của khách.
+
+Ba đường này dẫn tới ba hành động hoàn toàn khác: tuyển thêm tài xế · đổi cơ chế thưởng · cải thiện thuật toán ghép. Đó là dấu hiệu cây đã chia đúng.
+
+**Câu chốt khi trình bày:**
+
+> "Số người mở app không đổi và số lượt đặt không đổi, nên vấn đề không nằm ở cầu. Toàn bộ 12% rơi vào tỷ lệ đặt thành công, giảm từ 88% xuống 79%. Em sẽ đào phía cung trước — cụ thể là số tài xế hoạt động giờ cao điểm và tỷ lệ từ chối chuyến — vì đó là hai driver trực tiếp của tỷ lệ này."');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('008.05', '008', 5, 'pitfall', 'Bốn lỗi trong mini case chẩn đoán', '**TRE-03 — lá không đo được.** "Tài xế không hài lòng" không phải driver. "Tỷ lệ từ chối chuyến" và "thu nhập trung bình mỗi giờ của tài xế" mới là driver, và chúng giải thích luôn sự không hài lòng kia.
+
+**TRE-04 — đào cả bốn nhánh cho công bằng.** Ba mươi phút không đủ để đào bốn nhánh; đào dàn đều nghĩa là không nhánh nào tới nơi. Gắn số, chọn một nhánh, nói rõ vì sao bỏ ba nhánh kia.
+
+**TRE-01 — cây dán sẵn cho mọi đề "doanh thu giảm".** Đề này có một dữ kiện riêng — số người mở app không đổi — mà cây phải phản ánh. Cây không dùng dữ kiện đặc thù của đề là cây chưa đọc đề.
+
+**FRM-04 — nhảy sang giải pháp khi chưa chẩn đoán xong.** "Nên tăng thưởng cho tài xế" nói ở phút thứ 5 là đoán. Cùng câu đó nói sau khi đã chỉ ra tỷ lệ từ chối tăng thì là khuyến nghị có căn cứ.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('008.06', '008', 6, 'checklist', 'Soát trước khi nộp', '- Cây có đủ ba tầng, tầng một là công thức khớp với mô hình.
+- Mọi lá tầng ba đều là driver: có người phụ trách và có thể đổi trong vài tuần.
+- Có gắn số hoặc ước lượng tỷ trọng cho các nhánh tầng một và hai.
+- Phép nhân/cộng các nhánh ra đúng con số gốc của đề.
+- Có câu nói rõ đào nhánh nào trước và vì sao, kèm số.
+- Có ghi "đã kiểm, không phải chỗ này" cho nhánh bị loại, thay vì im lặng bỏ qua.
+- Chưa đưa giải pháp nào trước khi chẩn đoán xong.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('008.07', '008', 7, 'exercise', 'Bài nộp', 'Làm đề **C-008 — Doanh thu ứng dụng gọi xe giảm 12% một quý** trong 30 phút.
+
+Dữ liệu chỉ được phát khi bạn hỏi đúng thứ, nên hãy dựng cây trước rồi hỏi số cho từng nhánh — đừng hỏi lan man trước khi có cây.
+
+Output: một sơ đồ cây ba tầng (text lồng nhau hoặc hình), bảng driver tầng ba kèm cột "ai chịu trách nhiệm", các con số đã hỏi được gắn vào nhánh tương ứng, và một đoạn 3–4 câu nói rõ đào nhánh nào trước cùng lý do bằng số.');
 DELETE FROM lesson_blocks WHERE lesson_id = '009';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('009.01', '009', 1, 'goal', 'Sau bài này bạn làm được gì', 'Vẽ được **sơ đồ dòng tiền vào – ra** của một doanh nghiệp bất kỳ trong 15 phút: tiền vào từ ai, đi qua những chặng chi phí nào, còn lại bao nhiêu, và **chặng nào ăn mất nhiều nhất**.
 
@@ -586,6 +943,95 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('1
 Nếu chưa đạt: bài sẽ bị khoá lại cho tới khi bạn xem phần nhận xét và viết lại phần sai. Đó không phải hình phạt — mã lỗi bạn dính ở đây sẽ quyết định drill nào được giao, và làm lại sau khi đã sửa đúng chỗ thì lần sau qua thật, không phải qua nhờ may.
 
 Output: một tài liệu gồm ba phần (mỗi đề một phần), mỗi phần có problem statement ba dòng và bảng câu hỏi làm rõ hai cột (câu hỏi · lý do), cộng một dòng cuối bài tự đánh giá đề nào bạn thấy chắc nhất và vì sao.');
+DELETE FROM lesson_blocks WHERE lesson_id = '102';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('102.01', '102', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Cổng của module A2. Hai đề mới, **20 phút**, nộp: hai issue tree kèm một đoạn năm câu giải thích vì sao chọn trục chia đó và cắt nhánh nào.
+
+Hai mươi phút cho hai đề là cố ý. Checkpoint này không đo bạn vẽ cây đẹp tới đâu, mà đo bạn **chia đúng trục ngay lần đầu** — vì trong phỏng vấn thật bạn cũng chỉ có chừng đó thời gian trước khi phải nói thành lời.
+
+Giảng viên chấm. Đạt từ **70** điểm và không tiêu chí nào ở mức 1.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('102.02', '102', 2, 'concept', 'Năm tiêu chí, và chỗ dễ mất điểm nhất', '| Tiêu chí | Trọng số | Mất điểm khi |
+|---|---|---|
+| MECE | 25 | Hai nhánh chứa cùng một trường hợp, hoặc sót một đường quan trọng |
+| Trục chia phù hợp mục tiêu | 25 | Trục không trả lời được câu hỏi của đề |
+| Driver đo được ở lá | 20 | Lá là tính từ, không phải con số có đơn vị |
+| Độ sâu hợp lý, không lan man | 15 | Cây năm tầng, hoặc cây một tầng bỏ dở |
+| Lý do cắt nhánh | 15 | Bỏ nhánh mà không nói vì sao bỏ |
+
+Hai tiêu chí đầu chiếm một nửa số điểm, và cả hai được quyết định trong **hai phút đầu tiên** — lúc bạn chọn trục. Đừng vẽ ngay: dành 60 giây thử hai trục trước, như bài 007 chỉ ra.
+
+Tiêu chí "lý do cắt nhánh" là tiêu chí rẻ nhất để lấy điểm và cũng hay bị bỏ nhất. Một dòng *"nhánh giá bán chỉ chiếm ~5% biến động nên em không đào"* đã đủ.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('102.03', '102', 3, 'concept', 'Hai mươi phút chia thế nào', '- **Phút 0–2 (mỗi đề 1 phút):** đọc cả hai đề, khoanh dữ kiện đặc thù của từng đề — con số nào đứng yên, con số nào đổi. Dữ kiện đứng yên thường là thứ giúp bạn cắt nhánh sớm.
+- **Phút 2–4:** với mỗi đề, viết tầng một cho **hai trục** khác nhau, chọn một, gạch cái kia. Việc gạch bỏ này chính là nguyên liệu cho đoạn giải thích cuối bài.
+- **Phút 4–14 (5 phút mỗi đề):** vẽ hai tầng, gắn ước lượng tỷ trọng cho các nhánh tầng một.
+- **Phút 14–18:** viết đoạn năm câu cho cả hai đề.
+- **Phút 18–20:** soát theo checklist, đặc biệt là lá có đo được không.
+
+Bỏ trống đề thứ hai là cách trượt nhanh nhất, vì tiêu chí nào cũng bị kéo xuống mức 1.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('102.04', '102', 4, 'concept', 'Đoạn năm câu: viết theo đúng khuôn này', 'Đoạn giải thích chiếm phần lớn điểm của hai tiêu chí cuối. Khuôn năm câu dùng được cho mọi đề:
+
+1. Đề hỏi *…*, nên thứ cần tách là *…*.
+2. Em chọn trục *…* vì nó tách được phần hỏng khỏi phần lành ngay tầng một.
+3. Em đã cân nhắc trục *…* nhưng bỏ vì *(không có dữ liệu / không dẫn tới hành động khác nhau / trộn hai góc nhìn)*.
+4. Theo ước lượng, *…%* biến động nằm ở nhánh *…*, nên em đào nhánh đó trước.
+5. Em không đào nhánh *…* vì *…* — đã kiểm chứ không bỏ quên.
+
+Năm câu này mất chưa tới hai phút để viết và chạm vào cả năm tiêu chí.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('102.05', '102', 5, 'worked_example', 'Một đề, hai phút chọn trục, năm câu giải thích', '**Đề:** Một chuỗi 8 rạp chiếu phim có doanh thu vé giảm 14% trong 6 tháng. Số suất chiếu không đổi, giá vé không đổi.
+
+**Phút 1 — khoanh dữ kiện đứng yên:** số suất chiếu và giá vé **không đổi**. Vậy toàn bộ 14% phải nằm ở **số vé bán ra mỗi suất**. Cây nào không dùng dữ kiện này là cây chưa đọc đề.
+
+**Phút 2 — thử hai trục:**
+
+*Trục công thức:*
+
+```
+Doanh thu vé = Số suất × Số vé mỗi suất × Giá vé
+              (0%)      (−14%)           (0%)
+```
+
+*Trục đối tượng:*
+
+```
+Doanh thu vé theo nhóm rạp: trung tâm thương mại · khu dân cư · rạp mới
+```
+
+**Chọn:** trục công thức, vì nó **khoá ngay** vấn đề vào "số vé mỗi suất" bằng chính dữ kiện đề cho. Trục đối tượng để dùng sau, như tầng ba, để xem hiện tượng tập trung ở nhóm rạp nào.
+
+**Tầng hai và ba cho nhánh đã khoá:**
+
+```
+Số vé mỗi suất
+├── Tỷ lệ lấp đầy khung giờ vàng (tối T6–CN)
+│   ├── Số phim bom tấn phát hành trong kỳ
+│   └── Tỷ lệ khách quay lại 90 ngày
+└── Tỷ lệ lấp đầy khung giờ thường
+    ├── Giá vé thực thu sau khuyến mãi theo khung giờ
+    └── Cạnh tranh từ dịch vụ xem tại nhà
+```
+
+**Đoạn năm câu:**
+
+> Đề hỏi vì sao doanh thu vé giảm 14%, nên thứ cần tách là các thành phần tạo ra doanh thu vé. Em chọn trục công thức vì giá vé và số suất đều đứng yên, nên trục này khoá toàn bộ biến động vào số vé mỗi suất ngay ở tầng một. Em có cân nhắc trục theo nhóm rạp nhưng để lại làm tầng ba, vì nó cho biết *ở đâu* chứ chưa cho biết *vì sao*. Ước lượng khung giờ vàng chiếm khoảng 60% doanh thu vé, nên em đào tỷ lệ lấp đầy khung giờ vàng trước, bắt đầu bằng danh sách phim phát hành trong kỳ. Em không đào nhánh giá vé vì đề đã nói giá không đổi — đã kiểm, không phải bỏ quên.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('102.06', '102', 6, 'pitfall', 'Những gì làm trượt checkpoint này', '**TRE-01 — cây không dùng dữ kiện riêng của đề.** Với đề rạp chiếu phim, cây nào không phản ánh "giá và số suất đứng yên" là cây dán sẵn. Đây là lỗi kéo tụt cả tiêu chí MECE lẫn tiêu chí trục chia.
+
+**TRE-03 — lá là tính từ.** "Phim không hay" không đo được; "số phim bom tấn phát hành trong kỳ" và "điểm đánh giá trung bình" thì có.
+
+**TRE-04 — cây năm tầng trong 10 phút.** Không kịp và không ai dùng được. Hai tầng, thêm tầng ba cho đúng một nhánh đã đào.
+
+**Bỏ nhánh trong im lặng.** Cắt nhánh là đúng; cắt mà không nói thì người chấm không phân biệt được bạn đã cân nhắc hay đã quên. Mất trọn 15 điểm dễ nhất trong bài.
+
+**Bỏ trống đề thứ hai.** Một cây hoàn hảo cộng một ô trống luôn thấp điểm hơn hai cây khá.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('102.07', '102', 7, 'checklist', 'Soát trong 2 phút cuối', '- Cả hai đề đều có cây, không đề nào bỏ trống.
+- Mỗi cây dùng ít nhất một dữ kiện đặc thù của chính đề đó.
+- Thử một trường hợp cụ thể: nó rơi vào đúng một nhánh.
+- Mọi lá có đơn vị và nói được lấy số ở đâu.
+- Có ước lượng tỷ trọng cho nhánh tầng một.
+- Đoạn năm câu có đủ: chọn trục nào · bỏ trục nào · vì sao · đào nhánh nào · cắt nhánh nào và vì sao.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('102.08', '102', 8, 'exercise', 'Bài nộp', 'Làm checkpoint trong **20 phút liên tục**, hai đề do giảng viên phát, gặp lần đầu ngay trong lúc làm. Không tra cứu, không hỏi.
+
+Chưa đạt thì bài bị khoá cho tới khi bạn xem lại phần chấm và viết lại chỗ sai. Mã lỗi TRE dính ở đây quyết định drill được giao — thường là bài 006 (chữa cây sai) lặp lại vài lượt.
+
+Output: một tài liệu gồm hai phần, mỗi phần có một issue tree hai tầng (kèm tầng ba cho nhánh được chọn) và đoạn giải thích năm câu theo khuôn trong bài.');
 DELETE FROM lesson_blocks WHERE lesson_id = '103';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('103.01', '103', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Cổng của module A3. Bạn nhận **một công ty chưa từng nghiên cứu** và có 40 phút để nộp: canvas một trang, ba đòn bẩy lợi nhuận xếp hạng có số, và một rủi ro thuộc về mô hình.
 
@@ -720,6 +1166,27 @@ INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('R
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 2, 'Có một vài câu đáng hỏi nhưng phần lớn dồn vào một nhóm, và không giải thích vì sao hỏi.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 3, 'Mỗi câu kèm lý do "nếu trả lời khác thì tôi làm khác ở đâu"; câu hỏi rải qua ít nhất ba nhóm khác nhau; có câu về kinh tế một đơn vị.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A1.4', 4, 'Như mức 3, và có ít nhất một câu nhắm vào phân bố thay vì trung bình, hoặc vào "vì sao là bây giờ" — tức là câu hỏi có khả năng lật ngược chẩn đoán ban đầu.');
+DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-A2');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.1', 1, 'Các nhánh chồng lên nhau rõ rệt, hoặc sót một đường quan trọng khiến cây không giải thích được con số gốc.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.1', 2, 'Chồng lấn nhẹ hoặc thiếu một nhánh phụ; cộng các nhánh lại chưa ra gốc nhưng sai lệch nhỏ.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.1', 3, 'Thử một trường hợp cụ thể thì nó rơi vào đúng một nhánh; các nhánh cộng hoặc nhân lại ra đúng con số gốc.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.1', 4, 'Như mức 3, và phần chồng lấn còn lại được ghi chú rõ kèm lý do không tách, thay vì giấu đi.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.2', 1, 'Trục chia không liên quan tới câu hỏi của đề, hoặc dùng framework mô tả để truy nguyên nhân.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.2', 2, 'Trục dùng được nhưng là trục quen tay; không cân nhắc trục nào khác và không dùng dữ kiện đặc thù của đề.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.2', 3, 'Trục tách được phần hỏng khỏi phần lành ngay tầng một, và có dùng ít nhất một dữ kiện riêng của đề để chọn.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.2', 4, 'Như mức 3, và có nêu trục đã cân nhắc rồi loại, kèm lý do loại; xếp được thứ tự dùng các trục còn lại.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.3', 1, 'Lá là tính từ hoặc nhận định ("dịch vụ kém", "đối thủ mạnh"), không lấy được số.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.3', 2, 'Một số lá đo được nhưng phần còn lại vẫn là khái niệm chung; không nói được lấy số ở đâu.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.3', 3, 'Mọi lá là một con số có đơn vị, và nói được nguồn lấy số trong thời lượng của case.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.3', 4, 'Như mức 3, và mỗi driver gắn được với người hoặc bộ phận chịu trách nhiệm, tức là đào tiếp được ngay.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.4', 1, 'Cây một tầng bỏ dở, hoặc cây từ bốn tầng trở lên với hàng chục lá không ai dùng được.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.4', 2, 'Độ sâu không đều: một nhánh đào rất sâu trong khi các nhánh khác chưa có tầng hai, mà không giải thích vì sao.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.4', 3, 'Hai tầng cho toàn cây, thêm tầng ba đúng ở nhánh đã chọn để đào; tổng số lá vừa với thời lượng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.4', 4, 'Như mức 3, và độ sâu bám theo tỷ trọng: nhánh nặng được đào sâu hơn, và điều đó được nói thành lời.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.5', 1, 'Bỏ nhánh trong im lặng, không cho biết đã cân nhắc hay đã quên.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.5', 2, 'Có nhắc tới nhánh bị bỏ nhưng lý do chung chung kiểu "không quan trọng", "không đủ thời gian".');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.5', 3, 'Mỗi nhánh bị cắt có một lý do cụ thể: tỷ trọng nhỏ, dữ kiện đề đã loại trừ, hoặc không dẫn tới hành động khác.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A2.5', 4, 'Như mức 3, và có ước lượng bằng số cho phần bị cắt, kèm điều kiện sẽ quay lại nhánh đó nếu giả định ban đầu sai.');
 DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-A3');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.1', 1, 'Không nói được ai trả tiền hoặc tính tiền theo đơn vị nào; nhầm người dùng với người trả tiền khi hai bên khác nhau.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.1', 2, 'Nêu đúng nguồn doanh thu chính nhưng bỏ sót nguồn phụ, hoặc không nói được tiền vào trước hay sau khi phục vụ.');
