@@ -807,6 +807,224 @@ Yêu cầu: canvas sáu ô cho **cả hai** mô hình, một bảng so sánh b�
 Số liệu trong đề chỉ được phát khi bạn hỏi đúng thứ — hãy hỏi theo mô hình như bài 010 chỉ ra, đừng hỏi lan man.
 
 Output: canvas một trang (hai cột cho hai mô hình), bảng so sánh số liệu, ba dòng đòn bẩy có ước lượng bằng tiền, và một đoạn ngắn về rủi ro mô hình.');
+DELETE FROM lesson_blocks WHERE lesson_id = '012';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('012.01', '012', 1, 'goal', 'Sau bài này bạn làm được gì', 'Biến một **phát hiện** (một con số, một sự kiện trong dữ liệu) thành một **hệ quả hành động được** — câu "so what" — trong một câu, có số, và dẫn thẳng tới một việc phải làm.
+
+Đây là bước nối giữa phân tích và khuyến nghị. Rất nhiều bài case dừng ở phát hiện rồi nhảy thẳng sang đề xuất, và đoạn hở ở giữa chính là chỗ người chấm nhìn thấy rõ nhất.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('012.02', '012', 2, 'concept', 'Ba tầng: phát hiện → hệ quả → việc phải làm', '| Tầng | Ví dụ | Người nghe nghĩ gì |
+|---|---|---|
+| **Phát hiện** | "4 trong 20 cửa hàng đang lỗ" | "Rồi sao?" |
+| **Hệ quả** | "4 cửa hàng đó kéo lợi nhuận chuỗi giảm 2,1 tỷ/năm, tức 18% lợi nhuận toàn chuỗi" | "À, nghiêm trọng đấy" |
+| **Việc phải làm** | "Nên quyết trong quý này: đóng, chuyển mô hình, hay giữ có điều kiện — mỗi tháng chậm mất thêm 175 triệu" | "Được, làm gì tiếp theo?" |
+
+Tầng giữa là tầng hay bị bỏ. Nhảy từ phát hiện thẳng sang đề xuất khiến người nghe phải tự nối — và nếu họ nối khác bạn, khuyến nghị của bạn mất chỗ dựa.
+
+Công thức viết một câu so-what:
+
+```
+[Phát hiện có số] → [quy ra tiền hoặc quy ra thời gian] → [nên làm gì / nên quyết cái gì]
+```');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('012.03', '012', 3, 'concept', 'Bốn cách quy một phát hiện thành hệ quả', 'Không phải phát hiện nào cũng quy được thành tiền ngay. Bốn đường thường dùng:
+
+1. **Quy ra tiền.** Cách mạnh nhất. "Tỷ lệ huỷ đơn 8%" → "mất khoảng 4,8 tỷ doanh thu một năm".
+2. **Quy ra thời gian.** "Mỗi tháng chậm quyết định mất thêm 175 triệu" — biến một vấn đề trừu tượng thành đồng hồ đang chạy.
+3. **Quy ra tỷ trọng.** "18% lợi nhuận toàn chuỗi" nói nhiều hơn "2,1 tỷ" khi người nghe chưa biết quy mô.
+4. **Quy ra rủi ro có điều kiện.** "Nếu xu hướng này tiếp tục 4 quý nữa thì kênh cửa hàng chỉ còn một nửa" — dùng khi chưa có đủ dữ liệu để quy ra tiền.
+
+Chọn đường nào tuỳ người nghe: chủ doanh nghiệp nghe tiền, giám đốc vận hành nghe thời gian và tỷ trọng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('012.04', '012', 4, 'worked_example', 'Mười phát hiện, năm câu so-what', '**1. Phát hiện:** Biên gộp kênh online là 21%, kênh cửa hàng là 38%. Online chiếm 28% doanh thu và đang tăng 6 điểm phần trăm mỗi năm.
+
+*So what:* "Mỗi điểm phần trăm doanh thu chuyển từ cửa hàng sang online làm biên chung giảm 0,17 điểm; với tốc độ dịch chuyển hiện tại, biên chung mất khoảng 1 điểm mỗi năm — tương đương 1,2 tỷ trên doanh thu 120 tỷ. Nên hoặc kéo biên online lên, hoặc chấp nhận và tính lại kế hoạch lợi nhuận."
+
+**2. Phát hiện:** 4/20 cửa hàng lỗ, tổng lỗ 2,1 tỷ/năm, chuỗi lãi 11,6 tỷ.
+
+*So what:* "Bốn cửa hàng này đang ăn mất 18% lợi nhuận toàn chuỗi; xử lý chúng tương đương mở thêm ba cửa hàng tốt mà không tốn vốn đầu tư nào."
+
+Chú ý cách nói thứ hai: **quy về một việc người nghe đã hiểu giá trị** (mở cửa hàng mới) thay vì chỉ đưa con số.
+
+**3. Phát hiện:** Tỷ lệ giữ chân khách ở tháng thứ 3 giảm từ 62% xuống 44% qua bốn nhóm khách mới.
+
+*So what:* "Chi phí thu hút khách đang tạo ra khách kém bền hơn: mỗi 100 khách mới giờ chỉ còn 44 người sau ba tháng thay vì 62, nên chi phí thực trên mỗi khách giữ được đã tăng 40%. Cần kiểm chất lượng kênh thu hút trước khi tăng ngân sách."
+
+**4. Phát hiện:** Thời gian chờ trung bình 7 phút, nhưng 30% khách chờ 14 phút.
+
+*So what:* "Gần một phần ba khách đang có trải nghiệm gấp đôi mức trung bình, và đó chính là nhóm quyết định tỷ lệ quay lại; con số trung bình 7 phút đang che mất vấn đề chứ không mô tả nó."
+
+**5. Phát hiện:** Chi nhánh 20 người đạt 70 triệu/người, chi nhánh 6 người đạt 110 triệu/người.
+
+*So what:* "Năng suất biên của người thứ 7 trở đi thấp hơn hẳn; nếu hai chi nhánh dưới trung bình đạt mức trung bình thì có thêm 375 triệu/tháng mà không tuyển ai. Nên dừng kế hoạch tuyển ở các chi nhánh lớn cho tới khi biết nguyên nhân."
+
+**Năm phát hiện còn lại để bạn tự làm trong bài tập** — nhưng hãy để ý điểm chung của năm câu trên: **mỗi câu đều có một con số mới** mà phát hiện gốc chưa có. Đó là dấu hiệu bạn đã thật sự làm thêm một bước, chứ không chỉ diễn đạt lại.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('012.05', '012', 5, 'pitfall', 'Bốn lỗi khi viết so-what', '**REC-01 — "cần cải thiện marketing".** Đây là khuyến nghị rỗng, và nó thường xuất hiện đúng ở chỗ đáng lẽ phải có câu so-what. Cách sửa: trước khi đề xuất bất cứ điều gì, viết bằng được tầng hệ quả có số.
+
+**REC-04 — impact ghi "tăng đáng kể".** Một câu so-what không có số không phải so-what. Nếu thật sự không quy ra số được, hãy quy ra điều kiện: "nếu X tiếp diễn 4 quý thì Y".
+
+**CHT-01 — mô tả lại thay vì diễn giải.** "Biên online thấp hơn biên cửa hàng" là đọc lại dữ liệu. So-what phải thêm một tầng.
+
+**REC-02 — khuyến nghị không dùng dữ liệu vừa phân tích.** Nếu câu so-what của bạn đúng kể cả khi dữ liệu ngược lại, thì nó không gắn với phân tích nào cả.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('012.06', '012', 6, 'checklist', 'Soát trước khi nộp', '- Mỗi câu so-what có ít nhất một con số **mới**, không lặp lại số của phát hiện.
+- Mỗi câu dẫn tới một việc phải làm hoặc một quyết định phải ra.
+- Có nói quy mô tương đối (tỷ trọng), không chỉ số tuyệt đối.
+- Không câu nào dùng "đáng kể", "rất lớn", "cần cải thiện".
+- Đọc câu lên rồi hỏi "thì sao?" — không còn trả lời được nữa là đạt.
+- Không đưa giải pháp chi tiết ở bước này; đó là việc của bài 013.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('012.07', '012', 7, 'exercise', 'Bài nộp', 'Với **10 phát hiện** do giảng viên phát, viết 10 câu so-what trong 25 phút — tức 2 phút rưỡi mỗi câu.
+
+Mỗi câu phải có: một con số mới do bạn tính ra · một trong bốn cách quy hệ quả · một việc phải làm hoặc quyết định phải ra. Ghi kèm phép tính bạn dùng để ra con số mới.
+
+Output: một trang 10 mục, mỗi mục gồm: phát hiện gốc (một dòng) · phép tính · câu so-what một câu · cách quy hệ quả đã dùng (tiền / thời gian / tỷ trọng / rủi ro có điều kiện).');
+DELETE FROM lesson_blocks WHERE lesson_id = '013';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('013.01', '013', 1, 'goal', 'Sau bài này bạn làm được gì', 'Viết một **khuyến nghị thực thi được**: nói rõ làm gì, ai làm, tốn bao nhiêu, được bao nhiêu, rủi ro gì và giảm thiểu thế nào — trong 3–4 dòng.
+
+Đây là sản phẩm cuối của mọi case. Phân tích xuất sắc mà khuyến nghị mơ hồ thì người nghe không làm được gì, và bài coi như chưa xong.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('013.02', '013', 2, 'concept', 'Sáu thành phần của một khuyến nghị dùng được', '| Thành phần | Câu hỏi nó trả lời | Ví dụ |
+|---|---|---|
+| **Hành động** | Làm gì, cụ thể tới mức bắt tay vào được | "Chuyển 4 cửa hàng lỗ sang mô hình cửa hàng nhỏ 40 m²" |
+| **Chủ thể** | Ai chịu trách nhiệm | "Giám đốc vận hành, có tổ dự án 3 người" |
+| **Thời hạn** | Khi nào xong | "Hoàn tất trong quý 2" |
+| **Chi phí** | Tốn bao nhiêu | "Khoảng 1,2 tỷ cải tạo, 300 triệu/cửa hàng" |
+| **Impact** | Được bao nhiêu, tính thế nào | "Giảm lỗ 1,4 tỷ/năm: tiền thuê giảm 55%, doanh thu giảm ~20%" |
+| **Rủi ro và cách giảm** | Điều gì có thể hỏng, làm gì để đỡ | "Mất khách quen: thử 1 cửa hàng trước, đo doanh thu 2 tháng rồi mới nhân rộng" |
+
+Ba thành phần đầu làm khuyến nghị **thực thi được**; ba thành phần sau làm nó **đáng tin**. Thiếu nhóm đầu thì không ai làm được; thiếu nhóm sau thì không ai dám duyệt.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('013.03', '013', 3, 'concept', 'Xếp hạng, đừng liệt kê', 'Ba khuyến nghị xếp hạng luôn mạnh hơn tám khuyến nghị ngang hàng (**REC-03**). Cách xếp:
+
+1. **Tác động × khả năng làm được**, giống cách xếp đòn bẩy ở module A3.
+2. Khuyến nghị số 1 phải là thứ bạn **sẵn sàng bảo vệ khi bị vặn**, không phải thứ dễ nhất.
+3. Nếu hai khuyến nghị phụ thuộc nhau, nói rõ thứ tự: "làm B trước vì A cần dữ liệu từ B".
+
+Một cách trình bày gọn cho ba khuyến nghị: **ngay bây giờ (0–30 ngày) · quý này · quý sau**. Người nghe hiểu ngay đâu là việc phải quyết hôm nay.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('013.04', '013', 4, 'worked_example', 'Viết lại năm khuyến nghị yếu', '**1.** *Yếu:* "Cần cải thiện hoạt động marketing để tăng doanh thu."
+
+*Vì sao yếu:* **REC-01** — không ai biết bắt đầu từ đâu, và câu này đúng với mọi doanh nghiệp trên đời.
+
+*Viết lại:* "Dừng chi quảng cáo cho 4 cửa hàng lỗ (tiết kiệm 240 triệu/năm) và dồn sang 5 cửa hàng có doanh thu trên 1 tỷ/tháng, nơi mỗi đồng quảng cáo đang tạo ra doanh thu gấp 2,3 lần. Trưởng phòng marketing thực hiện trong tháng tới; đo bằng doanh thu tăng thêm của nhóm 5 cửa hàng sau 8 tuần."
+
+**2.** *Yếu:* "Nên tối ưu chi phí vận hành."
+
+*Viết lại:* "Đàm phán lại hợp đồng thuê của 4 cửa hàng lỗ với mục tiêu giảm 20% tiền thuê, hoặc chuyển sang mặt bằng nhỏ hơn khi hết hạn; tiết kiệm khoảng 860 triệu/năm. Giám đốc vận hành làm việc với chủ nhà trong 45 ngày. Rủi ro: chủ nhà không giảm — phương án dự phòng là chuyển địa điểm, đã khảo sát sẵn 3 mặt bằng thay thế."
+
+**3.** *Yếu:* "Đẩy mạnh kênh online vì đây là xu hướng."
+
+*Vì sao yếu:* **REC-02** — không dùng dữ liệu vừa phân tích. Phân tích cho thấy online biên 21% so với cửa hàng 38%, nên "đẩy mạnh" mà không sửa biên là làm lợi nhuận xấu đi.
+
+*Viết lại:* "Giữ tốc độ tăng của kênh online nhưng nâng giá trị đơn tối thiểu lên 350.000đ để được miễn phí giao hàng (hiện 200.000đ); mục tiêu đưa biên online từ 21% lên 27% trong hai quý, tương đương khoảng 2,0 tỷ lợi nhuận/năm. Rủi ro mất 5–8% số đơn nhỏ — chấp nhận được vì nhóm đơn này đang lỗ sau phí giao."
+
+**4.** *Yếu:* "Cần cải thiện trải nghiệm khách hàng để tăng tỷ lệ quay lại."
+
+*Viết lại:* "Giảm thời gian chờ của nhóm 30% khách chờ lâu nhất từ 14 xuống dưới 8 phút bằng cách thêm một quầy thanh toán ở 3 cửa hàng đông nhất vào khung 17–20h (chi phí 180 triệu/năm cho nhân sự bán thời gian); mục tiêu nâng tỷ lệ quay lại 30 ngày thêm 4 điểm phần trăm, tương đương khoảng 2,4 tỷ doanh thu/năm."
+
+**5.** *Yếu:* "Nên cân nhắc đóng các cửa hàng hoạt động kém."
+
+*Vì sao yếu:* "cân nhắc" không phải hành động, và "kém" không có ngưỡng.
+
+*Viết lại:* "Đặt ngưỡng rõ: cửa hàng nào không đạt lợi nhuận hoạt động dương sau 6 tháng cải tạo thì đóng. Áp dụng ngay cho 4 cửa hàng đang lỗ: cải tạo 2 cửa hàng có lưu lượng khách tốt, đóng 2 cửa hàng còn lại trong quý này (chi phí đóng khoảng 400 triệu, dừng lỗ 1,1 tỷ/năm). Quyết định do ban giám đốc chốt trong tháng."
+
+Điểm chung của năm bản viết lại: **mỗi câu đều có ít nhất hai con số** và một mốc thời gian. Đó là thứ phân biệt khuyến nghị với mong muốn.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('013.05', '013', 5, 'pitfall', 'Bốn lỗi kinh điển', '**REC-01 — "cần cải thiện marketing".** Kiểm tra nhanh: nếu khuyến nghị của bạn dán được vào một công ty khác ngành mà vẫn đúng, nó rỗng.
+
+**REC-02 — không dùng dữ liệu vừa phân tích.** Sau mỗi khuyến nghị, chỉ ra đúng một con số trong phần phân tích mà nó dựa vào. Không chỉ ra được thì bỏ.
+
+**REC-03 — liệt kê 8 đề xuất ngang hàng.** Chọn ba, xếp hạng, nói rõ vì sao cái số 1 đứng đầu.
+
+**REC-04 — impact ghi "tăng đáng kể".** Impact phải có phép tính, dù là ước lượng thô. "Khoảng 1,4 tỷ/năm, tính bằng tiền thuê giảm 55% trên 4 cửa hàng" tốt hơn nhiều so với "cải thiện đáng kể".');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('013.06', '013', 6, 'checklist', 'Soát trước khi nộp', '- Mỗi khuyến nghị có đủ sáu thành phần, hoặc nói rõ thành phần nào chưa đủ dữ liệu.
+- Mỗi khuyến nghị chỉ được vào một con số cụ thể trong phần phân tích.
+- Impact có phép tính đi kèm, không có chữ "đáng kể".
+- Đúng ba khuyến nghị, có xếp hạng, có lý do cho vị trí số 1.
+- Có ít nhất một rủi ro thật kèm cách giảm thiểu.
+- Thử dán khuyến nghị sang một công ty khác — nếu vẫn đúng thì viết lại.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('013.07', '013', 7, 'exercise', 'Bài nộp', 'Nhận **10 khuyến nghị yếu** do giảng viên phát; viết lại từng cái trong 25 phút (2 phút rưỡi mỗi cái).
+
+Với mỗi cái: gọi tên lỗi (REC-01…REC-04), viết lại đủ sáu thành phần, và ghi rõ con số nào trong phân tích làm chỗ dựa. Nếu dữ liệu chưa đủ để ước lượng impact, viết impact dưới dạng điều kiện: "nếu … thì …".
+
+Output: một tài liệu 10 mục, mỗi mục gồm: bản yếu · mã lỗi · bản viết lại 3–4 dòng · dòng "chỗ dựa dữ liệu".');
+DELETE FROM lesson_blocks WHERE lesson_id = '014';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('014.01', '014', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Đây là **checkpoint lên cấp**, không chỉ là cổng module: đạt bài này là bạn lên cấp 2 và mở ra toàn bộ các bài cấp 2 phía sau. Nó cũng là bài đầu tiên bạn phải làm **một mini case hoàn chỉnh trong 45 phút** — từ đọc đề tới khuyến nghị.
+
+Bài kiểm tra bốn việc của cấp 1 cùng lúc: định khung vấn đề (A1), chia vấn đề (A2), hiểu mô hình kinh doanh (A3), và chốt khuyến nghị (A4). Bốn module bạn đã học tách rời; ở đây chúng phải chạy liền mạch.
+
+Giảng viên chấm. Đạt từ **70** điểm, không tiêu chí nào ở mức 1.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('014.02', '014', 2, 'concept', 'Bốn mươi lăm phút, năm chặng', '| Thời gian | Chặng | Sản phẩm phải có trên giấy |
+|---|---|---|
+| 0–5 | Định khung | Problem statement 3 dòng, tiêu chí thành công có số |
+| 5–10 | Hỏi làm rõ | 4–5 câu hỏi, mỗi câu kèm lý do |
+| 10–20 | Chia vấn đề | Issue tree 2 tầng, có tỷ trọng ước lượng |
+| 20–35 | Phân tích và tính | Kinh tế một điểm bán, so sánh nhóm lỗ với nhóm lãi |
+| 35–45 | Khuyến nghị | 3 khuyến nghị xếp hạng, có impact và rủi ro |
+
+Cái bẫy lớn nhất của bài 45 phút là **dồn quá nhiều vào chặng phân tích**. Người trượt thường tính rất kỹ tới phút 40 rồi còn 5 phút để viết khuyến nghị — mà khuyến nghị chiếm 30 điểm, nặng nhất trong rubric.
+
+Quy tắc cứng: **phút 35 là dừng tính, bắt đầu viết khuyến nghị**, kể cả khi chưa tính xong. Một khuyến nghị dựa trên phân tích chưa hoàn chỉnh nhưng nói rõ "dựa trên số liệu hiện có" vẫn được điểm; không có khuyến nghị thì mất trắng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('014.03', '014', 3, 'concept', 'Đề này cài sẵn một bẫy, và bạn nên biết trước', 'Đề hỏi *"có nên đóng 6 điểm bán đang lỗ không"*. Câu hỏi đó mời bạn trả lời có hoặc không cho cả sáu — và đó là bẫy **FRM-04** ở dạng tinh vi.
+
+Sáu điểm bán lỗ gần như chắc chắn **không lỗ vì cùng một lý do**. Việc đầu tiên phải làm là **phân loại chúng**, vì mỗi nhóm nguyên nhân dẫn tới một hành động khác:
+
+| Nhóm | Dấu hiệu | Hành động |
+|---|---|---|
+| Lỗ do mới mở, chưa tới điểm hoà vốn | Mở dưới 12 tháng, doanh thu đang tăng đều | Giữ, đặt mốc kiểm lại |
+| Lỗ do mặt bằng quá đắt so với lưu lượng | Doanh thu ổn nhưng tiền thuê chiếm tỷ trọng lớn bất thường | Đàm phán hoặc chuyển địa điểm |
+| Lỗ do lưu lượng khách quá thấp | Doanh thu thấp hơn hẳn nhóm còn lại, không cải thiện | Đóng |
+| Lỗ do vận hành kém | Doanh thu bình thường nhưng hao hụt, nhân sự, tồn kho lệch chuẩn | Sửa vận hành, không đóng |
+
+Một điểm nữa cần xét trước khi đóng bất kỳ cửa hàng nào: **điểm bán lỗ vẫn có thể đang đóng góp cho chi phí cố định chung** (kho, đội giao, thương hiệu). Đóng nó, phần chi phí chung ấy dồn sang 14 điểm còn lại. Đây là chỗ phân biệt bài mức 3 với bài mức 4.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('014.04', '014', 4, 'worked_example', 'Khung bài mẫu, mức 4', '**Định khung (phút 0–5):**
+
+> **Câu hỏi:** Trong 6 điểm bán đang lỗ, điểm nào nên đóng, điểm nào nên giữ kèm điều kiện, và điều kiện đó là gì — quyết trong quý này.
+> **Tiêu chí:** sau 12 tháng, lợi nhuận toàn chuỗi tăng ít nhất 1,5 tỷ so với hiện tại, và không điểm bán nào còn lỗ quá 6 tháng liên tiếp.
+> **Người quyết định:** ban giám đốc; ràng buộc: hợp đồng thuê còn hạn, chi phí đóng cửa hàng khoảng 200 triệu/điểm.
+
+**Câu hỏi làm rõ (phút 5–10):** mỗi câu kèm lý do.
+
+1. Sáu điểm này mở bao lâu rồi? — *dưới 12 tháng thì lỗ là bình thường, chưa tới hoà vốn.*
+2. Cơ cấu chi phí của chúng khác gì 14 điểm còn lại? — *tách nguyên nhân mặt bằng khỏi nguyên nhân lưu lượng.*
+3. Doanh thu của chúng đang tăng, đi ngang hay giảm? — *xu hướng quyết định giữ hay đóng nhiều hơn mức tuyệt đối.*
+4. Chi phí chung phân bổ cho mỗi điểm là bao nhiêu? — *biết phần nào sẽ dồn sang điểm khác nếu đóng.*
+5. Hợp đồng thuê còn bao lâu và phí phạt chấm dứt sớm? — *quyết định đóng ngay hay chờ hết hạn.*
+
+**Chia vấn đề (phút 10–20):**
+
+```
+Lợi nhuận điểm bán = Doanh thu × Biên gộp − Chi phí điểm bán − Chi phí chung phân bổ
+├── Doanh thu: lưu lượng khách × giá trị giỏ hàng
+├── Biên gộp: cơ cấu mặt hàng · hao hụt
+└── Chi phí: thuê (cố định) · nhân sự (bán cố định) · chung phân bổ
+```
+
+**Phân tích (phút 20–35):** so nhóm 6 điểm lỗ với trung bình 14 điểm lãi, tìm nhân tố lệch nhiều nhất. Giả sử tìm ra: 2 điểm mới mở 8 tháng doanh thu đang tăng; 2 điểm tiền thuê chiếm 19% doanh thu so với 11% trung bình; 2 điểm lưu lượng chỉ bằng 55% trung bình và không cải thiện suốt 18 tháng.
+
+**Khuyến nghị (phút 35–45):**
+
+> **1 — Đóng 2 điểm lưu lượng thấp trong quý này.** Chi phí đóng 400 triệu, dừng lỗ khoảng 1,1 tỷ/năm; hoàn vốn quyết định này sau 4,4 tháng. Rủi ro: mất độ phủ khu vực — kiểm bằng cách xem 2 điểm này có khách trùng với điểm lân cận không.
+> **2 — Đàm phán lại 2 mặt bằng đắt, mục tiêu đưa tiền thuê về 13% doanh thu.** Nếu không đạt, chuyển địa điểm khi hết hạn. Tác động ước tính 620 triệu/năm. Chủ thể: giám đốc vận hành, 45 ngày.
+> **3 — Giữ 2 điểm mới mở, đặt mốc kiểm lại ở tháng thứ 12.** Điều kiện tiếp tục: doanh thu đạt 85% mức hoà vốn vào tháng 12. Không đạt thì áp dụng quyết định như nhóm 1.
+>
+> Lưu ý về chi phí chung: sau khi đóng 2 điểm, khoảng 180 triệu chi phí chung mỗi năm sẽ dồn sang 18 điểm còn lại, nên lợi ích ròng là **khoảng 0,9 tỷ** chứ không phải 1,1 tỷ.
+
+Câu cuối cùng đó là thứ nâng bài từ mức 3 lên mức 4: **tự trừ đi phần lợi ích ảo** trước khi người chấm phải hỏi.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('014.05', '014', 5, 'pitfall', 'Những gì làm trượt checkpoint này', '**FRM-04 — trả lời có/không cho cả sáu điểm bán.** Sáu điểm không cùng nguyên nhân; gộp chúng là bỏ qua toàn bộ phần phân tích.
+
+**REC-03 — liệt kê một loạt đề xuất ngang hàng.** Ba khuyến nghị xếp hạng, mỗi cái gắn với một nhóm nguyên nhân đã phân tích.
+
+**REC-04 — impact ghi "cải thiện đáng kể".** Mỗi khuyến nghị phải có một phép tính, dù thô.
+
+**BIZ-01 — nhầm doanh thu với lợi nhuận** khi so sánh các điểm bán; điểm doanh thu cao có thể đang lỗ vì thuê đắt.
+
+**Hết giờ trước khi viết khuyến nghị.** Lỗi quản lý thời gian này làm trượt nhiều người hơn mọi lỗi kiến thức cộng lại.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('014.06', '014', 6, 'checklist', 'Soát trong 3 phút cuối', '- Problem statement có tái định nghĩa, không chỉ chép lại câu hỏi của đề.
+- Tiêu chí thành công có số và mốc thời gian.
+- Có phân loại 6 điểm bán theo nguyên nhân, không xử lý gộp.
+- Issue tree có tỷ trọng, và có nói đào nhánh nào trước.
+- Ba khuyến nghị xếp hạng, mỗi cái có impact tính được và một rủi ro kèm cách giảm.
+- Có xét phần chi phí chung dồn lại khi đóng điểm bán.
+- Câu đầu tiên của phần khuyến nghị là câu trả lời, không phải phần mở đầu.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('014.07', '014', 7, 'exercise', 'Bài nộp', 'Làm đề **C-014 — Chuỗi cửa hàng tiện lợi lỗ ở 6 trong 20 điểm bán** trong **45 phút liên tục**. Dữ liệu chỉ được phát khi bạn hỏi đúng.
+
+Đây là bài quyết định việc lên cấp 2, nên hãy làm đúng điều kiện thi: bấm giờ, không tra cứu, không tạm dừng giữa chừng.
+
+Chưa đạt thì bạn ở lại cấp 1 và bài bị khoá tới khi xem lại phần chấm và viết lại phần sai. Điều đó bình thường — mã lỗi ở đây cho biết chính xác module nào cần luyện lại, và lần sau qua sẽ là qua thật.
+
+Output: một tài liệu gồm 5 phần theo đúng năm chặng: định khung · câu hỏi làm rõ có lý do · issue tree có tỷ trọng · phân tích kèm bảng số so sánh nhóm lỗ và nhóm lãi · ba khuyến nghị xếp hạng có impact, rủi ro và cách giảm thiểu.');
 DELETE FROM lesson_blocks WHERE lesson_id = '015';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('015.01', '015', 1, 'goal', 'Sau bài này bạn làm được gì', 'Làm tròn số **có kiểm soát** khi tính nhẩm: biết mình vừa làm tròn theo hướng nào, sai số cỡ bao nhiêu, và con số cuối còn dùng để kết luận được hay không.
 
@@ -2168,6 +2386,27 @@ INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('R
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 2, 'Rủi ro có liên quan tới doanh nghiệp này nhưng nằm ở vận hành hằng ngày chứ không nằm trong cách nó kiếm tiền.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 3, 'Rủi ro chỉ đích danh một thành phần của mô hình — rào cản gia nhập, phụ thuộc một nguồn khách, cơ cấu chi phí cố định, thời điểm thu tiền.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 4, 'Như mức 3, và kèm dấu hiệu nhận biết sớm quan sát được, cộng ước lượng hệ quả nếu rủi ro xảy ra.');
+DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-A4');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.1', 1, 'Khuyến nghị rỗng kiểu "cần cải thiện marketing", "nên tối ưu chi phí" — dán vào công ty nào cũng đúng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.1', 2, 'Có hành động cụ thể nhưng thiếu chủ thể hoặc thiếu thời hạn, nên không ai biết ai làm và làm khi nào.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.1', 3, 'Mỗi khuyến nghị nói rõ làm gì, ai làm, trong bao lâu, và ước lượng chi phí thực hiện.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.1', 4, 'Như mức 3, và ba khuyến nghị được xếp hạng có lý do; những khuyến nghị phụ thuộc nhau được chỉ rõ thứ tự làm.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.2', 1, 'Khuyến nghị không dựa vào dữ liệu nào trong bài; vẫn đúng kể cả khi số liệu ngược lại.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.2', 2, 'Có liên hệ chung chung tới phần phân tích nhưng không chỉ được con số cụ thể nào làm chỗ dựa.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.2', 3, 'Mỗi khuyến nghị chỉ đích danh một phát hiện hoặc một con số trong phần phân tích.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.2', 4, 'Như mức 3, và khuyến nghị bám theo phân nhóm nguyên nhân đã tìm ra, mỗi nhóm một hành động khác nhau thay vì một giải pháp chung.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.3', 1, 'Impact ghi "tăng đáng kể", "cải thiện rõ rệt", hoặc không có impact.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.3', 2, 'Có con số nhưng không nói tính bằng cách nào, nên không kiểm được.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.3', 3, 'Mỗi khuyến nghị có impact bằng tiền hoặc bằng phần trăm, kèm phép tính thô nhìn ra được.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.3', 4, 'Như mức 3, và có trừ đi phần lợi ích ảo — chi phí dồn lại, doanh thu mất đi, tác dụng phụ — để ra con số ròng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.4', 1, 'Không nêu rủi ro, hoặc chỉ nêu rủi ro chung chung áp cho mọi doanh nghiệp.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.4', 2, 'Nêu được rủi ro cụ thể nhưng không có cách giảm thiểu, hoặc cách giảm thiểu không khả thi.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.4', 3, 'Mỗi khuyến nghị quan trọng có một rủi ro thật kèm một cách giảm thiểu làm được ngay.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.4', 4, 'Như mức 3, và có nêu dấu hiệu nhận biết sớm hoặc cách thử quy mô nhỏ trước khi nhân rộng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.5', 1, 'Mở đầu bằng bối cảnh hoặc quá trình phân tích; câu trả lời xuất hiện ở cuối hoặc không xuất hiện.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.5', 2, 'Có câu trả lời nhưng bị chôn giữa các đoạn mô tả, người nghe phải tự tìm.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.5', 3, 'Câu đầu tiên là câu trả lời cho câu hỏi của đề, phần sau mới là lý do và bằng chứng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A4.5', 4, 'Như mức 3, và phần lý do được xếp theo thứ tự quan trọng giảm dần, đọc 30 giây đầu là đủ để ra quyết định.');
 DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-B1');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.1', 1, 'Dưới 60% số phép đúng trong dung sai, hoặc có ít nhất một lỗi lệch bậc độ lớn không được phát hiện.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.1', 2, 'Từ 60% đến dưới 85% đúng; các lỗi chủ yếu là sai đơn vị hoặc nhầm phần trăm với điểm phần trăm.');

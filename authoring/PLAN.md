@@ -4,9 +4,9 @@ Tình trạng hôm nay (chạy `python3 scripts/authoring-queue.py --all` để 
 
 | | |
 |---|---|
-| Thân bài đã viết | **27 / 122** |
+| Thân bài đã viết | **30 / 122** |
 | Đề case đã đặc tả | **30** (29 từ blueprint + 1 viết tay) |
-| Rubric thiếu mô tả 4 mức | **33 / 40** (A1, A2, A3, B1, B2, B3 đã xong) |
+| Rubric thiếu mô tả 4 mức | **32 / 40** (A1, A2, A3, A4, B1, B2, B3 đã xong) |
 | Mã lỗi chưa có nguyên nhân gốc | 127 / 136 |
 | Giả định chưa có nguồn | 30 / 30 |
 
@@ -67,7 +67,7 @@ Lưu ý một chỗ cần siết trước khi mở cho người học ngoài: hi
 
 ## Ba khoản nợ nội dung, xếp theo mức độ gây hại
 
-1. **33/40 rubric thiếu mô tả 4 mức** (A1, A2, A3, B1, B2, B3 đã viết xong, nạp qua `authoring/rubrics/`). Đây là khoản nợ nguy hiểm nhất: không có mô tả mức thì hai người chấm cùng một bài ra hai điểm khác nhau, và toàn bộ điểm readiness mất ý nghĩa. Viết mô tả mức cho rubric của các bài trong PATH-6 **trước** khi mở lớp thử.
+1. **32/40 rubric thiếu mô tả 4 mức** (A1, A2, A3, A4, B1, B2, B3 đã viết xong, nạp qua `authoring/rubrics/`). Đây là khoản nợ nguy hiểm nhất: không có mô tả mức thì hai người chấm cùng một bài ra hai điểm khác nhau, và toàn bộ điểm readiness mất ý nghĩa. Viết mô tả mức cho rubric của các bài trong PATH-6 **trước** khi mở lớp thử.
 2. **127/136 mã lỗi chưa có nguyên nhân gốc.** Không có nguyên nhân gốc thì drill sửa lỗi chỉ là "làm lại bài tương tự", không sửa được gì. Viết dần theo nhóm mã, mỗi khi chạm tới nhóm đó trong bài học.
 3. **30/30 giả định chưa có nguồn.** Schema đã chặn: `verified_at` chỉ đặt được khi có `source_url`. Không được bịa nguồn; cái nào không tra được thì để `confidence = 'guess'` và nói rõ với người học rằng đó là số phỏng đoán.
 
