@@ -1,0 +1,40 @@
+{
+"k-growth-1": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** đề có chữ \"tăng trưởng\" ngay câu đầu. **Vì sao sai:** tăng nhanh hơn với cùng cơ chế đốt tiền chỉ làm lỗ lớn nhanh hơn. **Tín hiệu bị bỏ qua:** \"đốt tiền ngày càng nhanh\" là một biến động đã đo được — dấu hiệu của họ Lợi nhuận.",
+    "B": "**Đúng.** Có một biến động đã đo được (dòng tiền âm dần) nên chẩn đoán trước: mỗi khách hàng mới tốn bao nhiêu để có, đem lại bao nhiêu, bao lâu hoàn vốn. **Câu nói mẫu:** \"Trước khi bàn tốc độ, tôi muốn biết mỗi đồng tăng trưởng đang được mua với giá nào.\" **Bước tiếp theo:** xin CAC và thời gian hoàn vốn CAC theo cohort.",
+    "C": "**Vì sao dễ chọn:** đốt tiền thì cần tiền, và nhà đầu tư đang ngồi đó. **Vì sao sai:** gọi vốn là hệ quả của kết luận, không phải phân tích. Nếu kinh tế một khách đang âm, thêm vốn chỉ kéo dài thời gian đốt.",
+    "D": "**Vì sao dễ chọn:** tăng trưởng 40% gợi câu hỏi còn bao nhiêu dư địa. **Vì sao sai:** thị trường còn rộng không giải thích được vì sao mỗi đồng tăng trưởng đang đắt lên. **Khi nào mới cần:** sau khi đã sửa được kinh tế một khách."
+  },
+  "solution": "**Bước 1 · Viết điều kiện.** Doanh thu sau hai năm = 1.000 × (1 + g)² = 1.400. **Bước 2 · Giải.** (1 + g)² = 1,4 → 1 + g = √1,4 ≈ 1,183 → g ≈ **18,3%**/năm. **Kiểm tra.** 1.000 × 1,183 = 1.183; × 1,183 ≈ 1.400. Khớp. **Bẫy thường gặp.** Chia đôi 40% thành 20%/năm — cho ra 1.000 × 1,2 × 1,2 = 1.440, vượt mục tiêu 40 tỷ. **Ý nghĩa.** Chia đôi luôn phóng đại tốc độ cần có; mọi sáng kiến sau đó bị đo bằng một thước quá cao."
+},
+"k-growth-2": {
+  "calcQ": "Sàn thương mại điện tử có 50.000 người bán hoạt động, GMV trung bình 200 triệu đồng mỗi người bán mỗi năm, take rate 3,0%. Doanh thu sàn hiện tại là bao nhiêu tỷ?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** ngành hàng mới nghe như tăng trưởng lớn nhất. **Vì sao sai ở thứ tự:** đây là ô 4 — vừa học sản phẩm mới vừa học khách mới, rủi ro cao nhất và thường thuộc họ Đầu tư. **Tín hiệu bị bỏ qua:** GMV mỗi người bán đang đi ngang — dư địa rẻ nhất vẫn còn nguyên ở ô 1.",
+    "B": "**Đúng.** Ô 1: cùng sản phẩm, cùng người bán, chỉ làm sâu hơn. Rẻ nhất để thử, cho tín hiệu nhanh nhất, và bảng số cho thấy GMV mỗi người bán đang đi ngang nên dư địa có thật. **Bước tiếp theo:** tìm nhóm người bán có GMV tăng nhanh nhất và hỏi họ đang dùng công cụ gì.",
+    "C": "**Vì sao dễ chọn:** số người bán đang tăng 12%/năm nên kéo thêm nghe thuận chiều. **Vì sao chưa phải bước đầu:** ô 2 tốn chi phí thu hút, và người bán mới thường có GMV thấp hơn người bán cũ. **Khi nào hợp lý:** sau khi đã biết công cụ nào nâng GMV, để người bán mới vào đã có công cụ đó.",
+    "D": "**Vì sao dễ chọn:** tài chính cho người bán là mô hình hấp dẫn nhiều sàn đã làm. **Vì sao chưa phải bước đầu:** ô 3 cần năng lực chấm điểm tín dụng và chịu rủi ro nợ xấu — sàn chưa có. **Khi nào hợp lý:** khi đã có dữ liệu giao dịch đủ dài để đánh giá rủi ro."
+  },
+  "solution": "**Bước 1 · Tổng GMV.** 50.000 người bán × 200 triệu = 10.000.000 triệu = 10.000 tỷ. **Bước 2 · Nhân take rate.** 10.000 tỷ × 3,0% = **300 tỷ**. **Kiểm tra đơn vị.** Mỗi người bán đem lại 200 triệu × 3% = 6 triệu; × 50.000 = 300.000 triệu = 300 tỷ. Khớp. **Bẫy thường gặp.** Ba đòn bẩy nhân với nhau nên không cộng phần trăm được: cả ba cùng tăng 10% thì doanh thu tăng 1,1³ − 1 = 33,1%, không phải 30%. **Ý nghĩa.** Mỗi đòn bẩy là một ô khác nhau của ma trận."
+},
+"k-growth-3": {
+  "calcQ": "Chuỗi bán lẻ có doanh thu năm trước 1.000 tỷ, năm nay 1.180 tỷ. 30 cửa hàng mở trong năm đóng góp 123 tỷ. Tăng trưởng like-for-like (chỉ tính cửa hàng cũ) là bao nhiêu phần trăm?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** doanh thu toàn hệ thống tăng 18% trông như bằng chứng. **Vì sao sai:** 18% gộp cả phần mua bằng vốn mở cửa hàng; tăng trưởng thật chỉ 5,7%. Nhân đôi tốc độ mở là nhân đôi nhu cầu vốn cho một cơ chế chưa được chứng minh hoàn vốn. **Tín hiệu bị bỏ qua:** chi phí mở mỗi cửa hàng 4 tỷ.",
+    "B": "**Đúng.** Tách hai nguồn: 57 tỷ từ cửa hàng cũ bán tốt hơn, 123 tỷ từ 30 cửa hàng mới. Mở cửa hàng vẫn có thể đúng, nhưng phải đánh giá bằng hoàn vốn mỗi cửa hàng (123 ÷ 30 = 4,1 tỷ doanh thu so với 4 tỷ vốn), không bằng tốc độ tăng của cả hệ thống.",
+    "C": "**Vì sao dễ chọn:** hài lòng thấp có thể giải thích like-for-like yếu. **Vì sao sai ở bước này:** câu hỏi là tăng trưởng đến từ đâu; khảo sát không tách được hai nguồn. **Khi nào hữu ích:** khi đã biết like-for-like yếu và cần tìm vì sao.",
+    "D": "**Vì sao dễ chọn:** quyết định mở thêm gợi câu hỏi thị trường còn chỗ không. **Vì sao sai:** thị trường còn rộng không nói gì về việc mỗi cửa hàng mới có hoàn vốn hay không."
+  },
+  "solution": "**Bước 1 · Mức tăng tuyệt đối.** 1.180 − 1.000 = 180 tỷ. **Bước 2 · Trừ phần do mở mới.** 180 − 123 = 57 tỷ đến từ cửa hàng cũ. **Bước 3 · Chia cho nền cũ.** 57 ÷ 1.000 = **5,7%**. **Kiểm tra.** 5,7% like-for-like + 12,3% do mở mới = 18% tổng. Khớp. **Bẫy thường gặp.** Chia 57 cho 1.180 ra 4,8% — sai vì like-for-like phải so với chính các cửa hàng đó năm trước. **Ý nghĩa.** Hai phần ba mức tăng là mua bằng vốn, một phần ba là bán tốt hơn thật."
+},
+"k-growth-4": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** 100.000 đơn vị là con số lớn và dễ lấy. **Vì sao sai:** đây là con số gộp — 30.000 đơn vị trong đó là khách tự chuyển từ dòng thường, doanh nghiệp không giàu thêm từ phần đó. **Hệ quả:** slide khai khống lợi ích, và giám khảo sẽ hỏi ngay phần ăn lẫn nhau.",
+    "B": "**Đúng.** Lãi góp tăng thêm là con số ròng duy nhất phản ánh doanh nghiệp giàu thêm bao nhiêu. **Công thức:** lãi góp dòng mới − lãi góp dòng cũ bị mất do khách chuyển sang. **Câu nói mẫu:** \"Dòng cao cấp đóng góp ròng 4,95 tỷ, bằng 83% con số gộp.\"",
+    "C": "**Vì sao dễ chọn:** thị phần là chỉ số chiến lược quen trên slide. **Vì sao sai:** nó đo vị thế, không đo tiền — và không trừ được phần lấy từ chính mình.",
+    "D": "**Vì sao dễ chọn:** tín hiệu sớm giúp quyết định nhanh. **Vì sao sai:** tháng đầu thường bị méo bởi khuyến mãi ra mắt và tò mò, không đại diện cho tác động cả năm."
+  },
+  "solution": "**Bước 1 · Lãi góp gộp của dòng mới.** 100.000 × 60.000đ = 6.000.000.000đ = 6,0 tỷ. **Bước 2 · Số đơn vị ăn lẫn.** 30% × 100.000 = 30.000 đơn vị dòng thường không còn bán được. **Bước 3 · Lãi góp mất đi.** 30.000 × 35.000đ = 1,05 tỷ. **Bước 4 · Ròng.** 6,0 − 1,05 = **4,95 tỷ**. **Kiểm tra.** Cách khác: 70.000 khách mới × 60.000 = 4,2 tỷ; 30.000 khách chuyển × (60.000 − 35.000) = 0,75 tỷ; tổng 4,95. Khớp. **Ý nghĩa.** Bỏ qua ăn lẫn là khai khống 1,05 tỷ."
+}
+}

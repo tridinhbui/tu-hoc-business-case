@@ -1,0 +1,42 @@
+{
+"k-entry-1": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** có một chuỗi phòng gym đang chạy nên cây lợi nhuận nghe tự nhiên. **Vì sao sai:** cây lợi nhuận mô tả hiện trạng; câu hỏi là trả bao nhiêu — tức giá trần. **Tín hiệu bị bỏ qua:** \"nên trả giá bao nhiêu\" là câu hỏi về điểm hoà giữa giá trị thu được và giá phải trả.",
+    "B": "**Đúng.** \"Trả bao nhiêu\" chính là tìm giá trần — mức mà giá trị thu được vừa bằng giá phải trả. Ba vế cho sẵn bản đồ: giá trị (lợi nhuận tương lai của chuỗi), giá (200 tỷ và các khoản phải bỏ thêm), rủi ro (thứ làm giảm mức giá chấp nhận được). **Bước tiếp theo:** xin EBITDA ổn định và bội số giao dịch gần đây.",
+    "C": "**Vì sao dễ chọn:** ước lượng thị trường là mở đầu quen của nhiều case. **Vì sao sai ở bước mở đầu:** quy mô thị trường là một đầu vào ở tầng dưới của vế giá trị, không phải cấu trúc. Mở đầu bằng nó là mất 5 phút trước khi nói được mình đang tìm gì.",
+    "D": "**Vì sao dễ chọn:** so thương vụ tương tự là cách định giá thật ngoài đời. **Vì sao chưa đủ:** bội số thị trường là một đầu vào của vế giá trị, không phải một cấu trúc trả lời câu hỏi. Cần đặt nó vào ba vế."
+  },
+  "solution": "**Bước 1 · Doanh thu khi đạt thị phần.** 800 × 8% = 64 tỷ/năm. **Bước 2 · Lãi góp mỗi năm.** 64 × 25% = 16 tỷ/năm. **Bước 3 · Hoàn vốn.** 120 ÷ 16 = **7,5 năm**. **Kiểm tra.** 16 × 7 = 112 < 120; 16 × 8 = 128 > 120 → giữa năm thứ 7 và 8. Khớp. **Điều con số này chưa tính.** Những năm đầu chưa đạt 8% thị phần, và chi phí cố định cấp thị trường — nên hoàn vốn thực còn dài hơn. **Ý nghĩa.** 7,5 năm là kịch bản tốt nhất, không phải kịch bản cơ sở."
+},
+"k-entry-2": {
+  "miniQ": "Chuỗi mục tiêu có EBITDA 25 tỷ/năm, bội số giao dịch trong ngành 8 lần, cộng hưởng chi phí dự kiến 6 tỷ/năm duy trì được 8 năm. Bên bán đòi 260 tỷ. Bạn phản hồi thế nào?",
+  "calcQ": "Chuỗi mục tiêu có EBITDA 25 tỷ/năm, bội số giao dịch trong ngành 8 lần. Cộng hưởng chi phí dự kiến 6 tỷ/năm, duy trì được 8 năm. Giá trần cho thương vụ này là bao nhiêu tỷ?",
+  "optText": { "B": "Từ chối, vì giá chào vượt giá trị độc lập cộng toàn bộ phần cộng hưởng" },
+  "why": {
+    "A": "**Vì sao dễ chọn:** nghe như có lời vì \"tổng giá trị tạo ra\" rất lớn. **Vì sao sai:** giá trị độc lập 200 tỷ + cộng hưởng 48 tỷ = 248 tỷ; trả 260 tỷ là chuyển hết cộng hưởng sang bên bán và mất thêm 12 tỷ. **Tín hiệu bị bỏ qua:** chưa tính giá trần trước khi phản hồi.",
+    "B": "**Đúng.** Giá trần = 25 × 8 + 6 × 8 = 248 tỷ. Trên giá trần thì thương vụ phá huỷ giá trị; đúng bằng giá trần thì bên mua gánh rủi ro thực thi mà không được gì. **Câu nói mẫu:** \"Khoảng đàm phán của chúng ta là 200–248 tỷ; ở 260 tỷ chúng ta trả tiền để nhận rủi ro.\"",
+    "C": "**Vì sao dễ chọn:** sợ mất thương vụ vào tay đối thủ. **Vì sao sai:** áp lực cạnh tranh là lý do phổ biến nhất khiến bên mua trả quá tay. Đối thủ trả 260 tỷ không làm thương vụ đáng giá hơn 248 tỷ với chúng ta.",
+    "D": "**Vì sao dễ chọn:** trả bằng cổ phiếu nghe như đỡ tốn tiền mặt. **Vì sao sai:** đổi hình thức thanh toán không đổi giá trị — cổ phiếu cũng là tài sản của cổ đông hiện hữu."
+  },
+  "solution": "**Bước 1 · Giá trị độc lập.** EBITDA × bội số = 25 × 8 = 200 tỷ. **Bước 2 · Giá trị cộng hưởng.** 6 tỷ/năm × 8 năm = 48 tỷ. **Bước 3 · Giá trần.** 200 + 48 = **248 tỷ**. **Đọc khoảng đàm phán.** Dưới 200 tỷ: bên mua giữ cả cộng hưởng. 200–248 tỷ: hai bên chia cộng hưởng. Trên 248 tỷ: bên mua lỗ. **Lưu ý.** Nhân cộng hưởng với 8 năm là đơn giản hoá; nếu đề cho lãi suất chiết khấu thì phải chiết khấu, và giá trần sẽ thấp hơn."
+},
+"k-entry-3": {
+  "calcQ": "Mỗi cửa hàng ở thị trường mới có doanh thu 4,80 tỷ/năm, biên đóng góp 25%, chi phí cố định cửa hàng 0,90 tỷ/năm. Chi phí trụ sở tại thị trường mới là 24 tỷ/năm. Cần tối thiểu bao nhiêu cửa hàng để phủ hết chi phí trụ sở?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** \"chỉ cần 2%\" nghe khiêm tốn và an toàn. **Vì sao sai:** nó giả định thị phần đến miễn phí; 2% của 1,2 tỷ đô vẫn cần hàng chục cửa hàng, nhiều năm, và phải giành từ tay người đang có. **Tín hiệu bị bỏ qua:** chưa biết một cửa hàng của mình lãi hay lỗ.",
+    "B": "**Đúng.** Quy mô thị trường đúng với mọi chuỗi đang ở đó nên không phân biệt được gì. Kinh tế một cửa hàng thì có: doanh thu, biên đóng góp, chi phí cố định của đúng một điểm bán. **Bước tiếp theo:** từ phần để lại mỗi cửa hàng, tính số cửa hàng cần để phủ chi phí trụ sở.",
+    "C": "**Vì sao dễ chọn:** dự phóng thị trường cần tăng trưởng vĩ mô. **Vì sao sai:** thêm một chỉ số vĩ mô vẫn không chạm được vào P&L của chuỗi — cùng vấn đề với con số thị trường ban đầu.",
+    "D": "**Vì sao dễ chọn:** khẩu vị khác nhau là rủi ro thật khi vào nước ngoài. **Vì sao chưa phải bước đầu:** hữu ích để thiết kế sản phẩm, nhưng chưa trả lời có nên vào. **Khi nào cần:** sau khi kinh tế cửa hàng cho thấy đáng vào."
+  },
+  "solution": "**Bước 1 · Lãi góp mỗi cửa hàng.** 4,80 × 25% = 1,20 tỷ. **Bước 2 · Trừ cố định cửa hàng.** 1,20 − 0,90 = 0,30 tỷ để lại cho cấp thị trường. **Bước 3 · Số cửa hàng.** 24 ÷ 0,30 = **80 cửa hàng**. **Kiểm tra.** 80 × 0,30 = 24. Khớp. **Độ nhạy.** Nếu biên đóng góp chỉ 23% thì mỗi cửa hàng để lại 0,204 tỷ → cần 118 cửa hàng. Hai điểm biên làm con số tăng gần 50%. **Ý nghĩa.** Câu hỏi chuyển từ \"có nên vào\" thành \"mở nổi 80 cửa hàng trong bao lâu\"."
+},
+"k-entry-4": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** hai phương án hoà nhau thật nên xin thêm dữ liệu nghe thận trọng. **Vì sao sai:** đề đầu tư luôn đòi một quyết định; \"cần thêm dữ liệu\" bị đọc là né. **Cách sửa:** được phép nêu giả định, không được phép bỏ quyết định.",
+    "B": "**Đúng.** Khi vế tài chính hoà nhau, vế thứ ba — rủi ro thực thi — quyết định. Mua lại có ngay mặt bằng, đội ngũ, khách quen; tự xây phải tìm 40 mặt bằng trong ba năm. **Câu nói mẫu:** \"Tôi chọn mua lại. Kết luận này đảo chiều nếu chuỗi mục tiêu có hợp đồng thuê hết hạn trong hai năm tới.\"",
+    "C": "**Vì sao dễ chọn:** rẻ hơn 120 tỷ là con số dễ thấy nhất. **Vì sao sai:** chỉ so một vế; bỏ qua bốn năm lợi nhuận đến chậm — đúng 120 tỷ. **Tín hiệu bị bỏ qua:** phép tính vừa cho thấy hai phương án hoà nhau.",
+    "D": "**Vì sao dễ chọn:** làm cả hai nghe như tối đa hoá. **Vì sao sai:** không trả lời câu hỏi được hỏi, nhân đôi nhu cầu vốn, và hai chuỗi cùng vùng có thể ăn khách của nhau."
+  },
+  "solution": "**Bước 1 · Chênh giá.** Mua lại 220 tỷ − tự xây 100 tỷ = 120 tỷ. **Bước 2 · Lợi thế của mua lại.** 30 tỷ lợi nhuận mỗi năm có ngay, trong khi tự xây phải chờ. **Bước 3 · Số năm bù.** 120 ÷ 30 = **4 năm**. **Đối chiếu.** Tự xây cần đúng bốn năm để đạt 30 tỷ/năm → hai phương án hoà nhau về tài chính. **Điều phép tính này bỏ qua.** Tiền 30 tỷ năm đầu đáng giá hơn năm thứ tư; nếu có chiết khấu, mua lại nhỉnh hơn một chút. **Ý nghĩa.** Quyết định phải dựa vào rủi ro thực thi."
+}
+}

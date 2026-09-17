@@ -224,6 +224,23 @@ const ACT = {
   ivStart(id){ IVIEW.start(id, Date.now()); toast("Bắt đầu phỏng vấn"); render(); },
   ivf(k,v){ IVF[k]=v; render(true); },
   ivHint(id){ IVIEW.useHint(id); render(true); },
+  mic(target){ micToggle(target); },
+  ivProbe(id){
+    micStop();
+    const el=document.getElementById("iv-probe"), tx=(el&&el.value||"").trim();
+    if(!tx){ toast("Nói ra câu trả lời của bạn trước"); return; }
+    const pr=IVIEW.probeAnswer(id, tx); if(pr) toast(`Câu hỏi vặn: ${pr.hits.filter(Boolean).length}/${pr.hits.length} ý`); render(true);
+  },
+  ivDrill(r){ IVIEW.drillStart(+r, Date.now()); location.hash==="#/interview/drill" ? render() : (location.hash="#/interview/drill"); },
+  ivDrillHint(){ IVIEW.drillHint(); render(true); },
+  ivDrillAnswer(){
+    micStop();
+    const el=document.getElementById("ivd-ans"), tx=(el&&el.value||"").trim();
+    if(!tx){ toast("Nói ra câu trả lời của bạn trước"); return; }
+    const it=IVIEW.drillAnswer(tx); if(it) toast(`${it.score}/100`); render(true);
+  },
+  ivDrillNext(){ IVIEW.drillNext(); render(); ivFocus("ivd-ans"); },
+  ivDrillQuit(){ IVIEW.drillReset(); location.hash="#/interview"; },
   ivRandom(){
     const todo = ivFiltered().filter(c=>ivState(c.id)==="todo");
     const pool = todo.length ? todo : ivCases().filter(c=>ivState(c.id)==="todo");
@@ -234,12 +251,13 @@ const ACT = {
     IVIEW.markModel(id); document.getElementById("iv-ans").value = IVIEW.CFG[id].rounds[rd].model;
     toast("Đã điền câu mẫu — phiên này sẽ không tính điểm"); },
   ivAnswer(id){
+    micStop();
     const el=document.getElementById("iv-ans"), tx=(el&&el.value||"").trim();
     if(!tx){ toast("Nói ra câu trả lời của bạn trước"); return; }
     const rd=IVIEW.roundOf(IVIEW.get(id)), sess=IVIEW.answer(id, tx, Date.now());
     if(sess.result) toast(`Tổng điểm <b>${sess.result.total}</b>${sess.result.gain?` · <b>+${sess.result.gain} XP</b>`:""}`);
     else toast(`Vòng ${rd+1}: ${IVIEW.scoreRound(IVIEW.CFG[id].rounds[rd], tx, id, rd)}/100`);
-    render();
+    render(true); ivFocus("iv-ans");
   },
   ivReset(id){ if(!confirm("Xoá phiên phỏng vấn này và làm lại từ đầu? Điểm đã ghi vẫn giữ.")) return; IVIEW.reset(id); render(); },
 
@@ -2093,6 +2111,7 @@ function ivCard(c){
 }
 
 function vInterview(id){
+  if(id==="drill") return vIvDrill();
   if(id && IVIEW.CFG[id]) return vIvRoom(id);
   const all = ivCases(), rows = ivFiltered(), st = ivStats(), nx = ivNext();
   const any = IVF.style||IVF.type||IVF.diff||IVF.status;
@@ -2136,7 +2155,15 @@ function vInterview(id){
       <div class="card-b" style="padding-top:8px">
         ${st.n ? st.rounds.map(([n,v])=>`<div class="rubric-row"><span class="nm">${esc(n)}</span>${bar(v, v>=80?"":v>=50?"amber":"rose")}<span class="sc num">${v}</span></div>`).join("")
           : `<p class="small muted" style="margin:0">Hoàn thành một phiên tự trả lời để thấy vòng nào bạn đang mất điểm. Phiên dùng câu mẫu không được tính.</p>`}
-      </div></div>
+      </div>
+      <div class="card-f">${(()=>{ const ds=IVIEW.drillSummary();
+        if(ds && !ds.finished) return `<div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <span class="small"><b>Đang luyện vòng ${esc(IVIEW.ROUNDS[ds.round].n)}</b> <span class="muted num">· ${ds.n}/${ds.total}</span></span>
+          <a class="btn btn-sm btn-p" href="#/interview/drill">Tiếp tục →</a></div>`;
+        const weak = st.weakest ? IVIEW.ROUNDS.findIndex(r=>r.n===st.weakest[0]) : -1;
+        return `<div class="lbl" style="margin-bottom:7px">Luyện riêng một vòng</div>
+          <div class="wrap-row">${IVIEW.ROUNDS.map((r,i)=>`<button class="btn btn-sm ${i===weak?"btn-p":""}" onclick="ACT.ivDrill(${i})" title="${i===weak?"Vòng yếu nhất":""}">${esc(r.n)}</button>`).join("")}</div>
+          <p class="small muted" style="margin:7px 0 0">5 câu cùng một vòng từ 5 case khác nhau · không tính điểm, không ghi lỗi.</p>`; })()}</div></div>
   </div>
 
   <div class="toolbar mt">
@@ -2181,6 +2208,47 @@ function ivNote(id, i, r, ans){
     <details class="iv-model"><summary>Câu mẫu vòng này</summary><div>${esc(r.model)}</div></details></span>`;
 }
 
+/* trả lời bằng giọng nói: Web Speech API của trình duyệt, tiếng Việt, ghi nối vào ô trả lời.
+   Trình duyệt không hỗ trợ thì không hiện nút. Mỗi lúc chỉ một micro chạy. */
+const MIC = {rec:null, target:null, base:""};
+const micApi = () => window.SpeechRecognition || window.webkitSpeechRecognition || null;
+const micBtn = target => micApi()
+  ? `<button class="btn btn-gh iv-mic" id="mic-${target}" onclick="ACT.mic('${target}')" aria-pressed="false" title="Trả lời bằng giọng nói"><i aria-hidden="true">🎙</i><span>Nói</span></button>` : "";
+function micPaint(){
+  document.querySelectorAll(".iv-mic").forEach(b => {
+    const on = !!MIC.rec && b.id === "mic-"+MIC.target;
+    b.classList.toggle("on", on); b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.querySelector("i").textContent = on ? "■" : "🎙";
+    b.querySelector("span").textContent = window.I18N ? I18N.t(on ? "Dừng" : "Nói") : (on ? "Dừng" : "Nói");
+  });
+}
+function micStop(){ if(MIC.rec){ const r = MIC.rec; MIC.rec = null; MIC.target = null; try{ r.stop(); }catch(e){} micPaint(); } }
+function micToggle(target){
+  const same = MIC.target === target;
+  micStop(); if(same) return;
+  const Api = micApi(), el = document.getElementById(target);
+  if(!Api || !el) return;
+  const rec = new Api();
+  rec.lang = "vi-VN"; rec.continuous = true; rec.interimResults = true;
+  MIC.rec = rec; MIC.target = target; MIC.base = el.value.trim() ? el.value.trim()+" " : "";
+  rec.onresult = e => {
+    const box = document.getElementById(target); if(!box){ micStop(); return; }
+    let text = ""; for(let i=0; i<e.results.length; i++) text += e.results[i][0].transcript;
+    box.value = MIC.base + text.trim();
+  };
+  rec.onerror = e => toast(e.error==="not-allowed" || e.error==="service-not-allowed"
+    ? "Trình duyệt chưa cho phép dùng micro" : e.error==="no-speech" ? "Chưa nghe thấy giọng nói — thử nói gần micro hơn" : "Không nhận được giọng nói, thử lại nhé");
+  rec.onend = () => { if(MIC.rec === rec){ MIC.rec = null; MIC.target = null; micPaint(); } };
+  try{ rec.start(); }catch(e){ MIC.rec = null; MIC.target = null; toast("Không bật được micro"); }
+  micPaint();
+}
+
+/* giữ nhịp gõ: sau khi gửi, đưa con trỏ vào ô trả lời kế tiếp — bỏ qua trên màn cảm ứng để không bật bàn phím bất ngờ */
+function ivFocus(elId){
+  if(window.matchMedia && matchMedia("(pointer: coarse)").matches) return;
+  const el = document.getElementById(elId); if(el) el.focus({preventScroll:true});
+}
+
 const IVT = {timer:null};
 function startIvTimer(id){
   clearInterval(IVT.timer);
@@ -2193,6 +2261,56 @@ function startIvTimer(id){
     node.classList.toggle("over", left<0);
   };
   tick(); IVT.timer = setInterval(tick, 1000);
+}
+
+/* ── luyện riêng một vòng ── */
+function vIvDrill(){
+  const d = IVIEW.drillGet(), back = `<a class="small muted" href="#/interview">← Danh sách case phỏng vấn</a>`;
+  if(!d) return `<div class="main">${back}<div class="card mt"><div class="card-b"><p style="margin:0">Chưa có bài luyện nào. Chọn một vòng ở thẻ "Điểm theo vòng" để bắt đầu.</p></div></div></div>`;
+  const R = IVIEW.ROUNDS[d.round], S = IVIEW.drillSummary();
+  const steps = `<div class="rounds mb">${d.items.map((x,k)=>`<div class="r ${k<d.at?"done":k===d.at?"cur":""}"><div class="n">Câu ${k+1}</div><div class="t num">${x.score!=null?x.score:"—"}</div></div>`).join("")}</div>`;
+
+  if(S.finished) return `<div class="main">${back}
+    <div class="card mt" style="max-width:760px"><div class="card-h"><h3>Kết quả luyện vòng · ${esc(R.n)}</h3><span class="tag ${S.avg>=80?"tag-e":"tag-a"} num">${S.avg}</span></div>
+      <div class="card-b" style="padding-top:8px">
+        ${d.items.map(x=>{ const c=window.CASE_BY_ID[x.id];
+          return `<div class="rubric-row"><a class="nm" href="#/interview/${x.id}" style="color:var(--text)">${esc(c.t)}</a>${bar(x.score, x.score>=80?"":x.score>=50?"amber":"rose")}<span class="sc num">${x.score}</span></div>`; }).join("")}
+        <p class="small muted" style="margin:10px 0 0">Bài luyện không ghi vào tiến độ. Muốn được chấm và ghi lỗi, hãy phỏng vấn trọn một case.</p>
+      </div>
+      <div class="card-f row" style="justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <button class="btn btn-sm btn-gh" onclick="ACT.ivDrillQuit()">← Danh sách case</button>
+        <button class="btn btn-sm btn-p" onclick="ACT.ivDrill(${d.round})">Luyện lại vòng này</button></div></div></div>`;
+
+  const it = d.items[d.at], c = window.CASE_BY_ID[it.id], spec = SCORING.cases[it.id], cfg = IVIEW.CFG[it.id];
+  const r = cfg.rounds[d.round], unlock = IVIEW.exhibitRounds(it.id), det = IVIEW.detail(it.id, d.round);
+  const left = `<div class="arena-l">
+    <div class="lbl">Luyện vòng · ${esc(R.n)}</div><h1 style="margin-top:3px">${esc(c.t)}</h1>
+    <div class="wrap-row mt-s"><span class="tag tag-accent">${esc(c.type)}</span>${diffBadge(c.diff)}<span class="tag">Không tính điểm</span></div>
+    <div class="brief mt"><div class="lbl mb">Bối cảnh</div>
+      <p style="margin:0 0 10px">${esc(spec.brief.context)}</p><p style="margin:0"><b>Nhiệm vụ:</b> ${esc(spec.brief.task)}</p></div>
+    ${spec.exhibits.map((ex,i)=>unlock[i]<=d.round ? renderExhibit(ex,i) : "").join("")}
+  </div>`;
+  const prev = d.round ? `<details class="card mb" style="padding:10px 14px"><summary class="small" style="cursor:pointer;font-weight:700">Các vòng trước của case này</summary>
+      <div class="chat mt-s">${cfg.rounds.slice(0,d.round).map((x,i)=>`<div class="msg q"><span class="av">PV</span><div class="bb"><div class="who">Người phỏng vấn · vòng ${i+1}</div>${esc(x.q)}
+        <span class="note"><b>Câu mẫu:</b> ${esc(x.model)}</span></div></div>`).join("")}</div></details>` : "";
+  const body = it.answer==null
+    ? `${det&&it.hint?`<div class="callout iv-hint"><b>Gợi ý:</b> ${esc(det.hint)}</div>`:""}
+      <div class="canvas-field mt"><label class="lbl" for="ivd-ans">Câu trả lời của bạn — ${esc(R.n)}</label>
+        <textarea id="ivd-ans" rows="3" onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey)){event.preventDefault();ACT.ivDrillAnswer()}" placeholder="${d.round===2||d.round===3?"Nói cả phép tính và con số…":"Nói thành lời như đang ngồi trước người phỏng vấn…"}"></textarea>
+        <div class="row mt-s"><button class="btn btn-p" onclick="ACT.ivDrillAnswer()">Trả lời</button>${micBtn("ivd-ans")}
+          ${det&&!it.hint?`<button class="btn btn-gh" onclick="ACT.ivDrillHint()">Gợi ý</button>`:""}
+          <button class="btn btn-gh" style="margin-left:auto" onclick="ACT.ivDrillQuit()">Dừng luyện</button></div></div>`
+    : `<div class="msg a"><span class="av">BẠN</span><div class="bb"><div class="who">Bạn</div>${esc(it.answer)}${ivNote(it.id, d.round, r, it.answer)}</div></div>
+      <div class="row mt" style="justify-content:flex-end"><button class="btn btn-p" onclick="ACT.ivDrillNext()">${d.at+1<d.items.length?"Câu tiếp theo":"Xem kết quả"} →</button></div>`;
+
+  return `<div class="main" style="padding-bottom:0">${back}</div>
+  <div class="arena">${left}<div class="arena-r">
+    ${steps}${prev}
+    <div class="card"><div class="card-h"><h3>Câu ${d.at+1}/${d.items.length}</h3><span class="small muted">${esc(R.n)}</span></div>
+      <div class="card-b"><div class="chat">
+        <div class="msg q"><span class="av">PV</span><div class="bb"><div class="who">Người phỏng vấn · vòng ${d.round+1}</div>${esc(r.q)}</div></div>
+        ${it.answer!=null?body:""}</div>${it.answer==null?body:""}</div></div>
+  </div></div>`;
 }
 
 function vIvRoom(id){
@@ -2240,11 +2358,11 @@ function vIvRoom(id){
       <label class="lbl" for="iv-ans">Câu trả lời của bạn — vòng ${rd+1} · ${esc(IVIEW.ROUNDS[rd].n)}</label>
       ${(()=>{ const det=IVIEW.detail(id,rd), open=sess.hints&&sess.hints[rd];
         return det&&open?`<div class="callout iv-hint"><b>Gợi ý:</b> ${esc(det.hint)}</div>`:""; })()}
-      <textarea id="iv-ans" rows="3" placeholder="${rd===2||rd===3?"Nói cả phép tính và con số…":"Nói thành lời như đang ngồi trước người phỏng vấn…"}"></textarea>
-      <div class="row mt-s"><button class="btn btn-p" onclick="ACT.ivAnswer('${id}')">Trả lời</button>
+      <textarea id="iv-ans" rows="3" onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey)){event.preventDefault();ACT.ivAnswer('${id}')}" placeholder="${rd===2||rd===3?"Nói cả phép tính và con số…":"Nói thành lời như đang ngồi trước người phỏng vấn…"}"></textarea>
+      <div class="row mt-s"><button class="btn btn-p" onclick="ACT.ivAnswer('${id}')">Trả lời</button>${micBtn("iv-ans")}
         ${IVIEW.detail(id,rd)&&!(sess.hints&&sess.hints[rd])?`<button class="btn btn-gh" onclick="ACT.ivHint('${id}')">Gợi ý</button>`:""}
         <button class="btn btn-gh" onclick="ACT.ivModel('${id}')">Câu mẫu</button>
-        <span class="small muted" style="margin-left:auto">Nói to trước rồi mới gõ lại</span></div>
+        <span class="small muted" style="margin-left:auto">Nói to trước rồi mới gõ lại · <kbd class="iv-kbd">Ctrl</kbd> + <kbd class="iv-kbd">Enter</kbd> để gửi</span></div>
     </div>` : "";
 
   let result = "";
@@ -2260,6 +2378,25 @@ function vIvRoom(id){
       <div class="card-f row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><a class="btn btn-sm btn-gh" href="#/interview">← Danh sách case</a>
         <div class="row" style="gap:8px"><button class="btn btn-sm" onclick="ACT.ivReset('${id}')">Phỏng vấn lại</button>
         ${(nx=>nx?`<a class="btn btn-sm btn-p" href="#/interview/${nx.c.id}" title="${esc(nx.c.t)}">Case tiếp theo →</a>`:"")(ivNext(id))}</div></div></div>`;
+  }
+
+  const pb = IVIEW.probe(id);
+  if(rd===5 && pb){
+    const pa = sess.probe;
+    result += `<div class="card mt"><div class="card-h"><h3>Câu hỏi vặn</h3><span class="small muted">Không tính vào điểm phiên</span></div>
+      <div class="card-b"><div class="chat">
+        <div class="msg q"><span class="av">PV</span><div class="bb"><div class="who">Người phỏng vấn · hỏi vặn</div>${esc(pb.q)}</div></div>
+        ${pa?`<div class="msg a"><span class="av">BẠN</span><div class="bb"><div class="who">Bạn</div>${esc(pa.answer)}
+          <span class="note"><span class="iv-check" style="margin-top:0"><b>Câu trả lời tốt có</b><span class="c num">${pa.hits.filter(Boolean).length}/${pb.points.length}</span></span>
+            <ul class="iv-points">${pb.points.map((p,k)=>`<li class="${pa.hits[k]?"ok":""}"><i aria-hidden="true">${pa.hits[k]?"✓":"○"}</i><span>${esc(p[0])}</span></li>`).join("")}</ul>
+            <span class="iv-trap"><b>Bẫy thường gặp:</b> ${esc(pb.trap)}</span>
+            <details class="iv-model"><summary>Câu mẫu</summary><div>${esc(pb.model)}</div></details></span></div></div>`:""}
+      </div>
+      ${pa?"":`<div class="canvas-field mt"><label class="lbl" for="iv-probe">Câu trả lời của bạn — hỏi vặn</label>
+        <textarea id="iv-probe" rows="3" onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey)){event.preventDefault();ACT.ivProbe('${id}')}" placeholder="Giữ lập luận bằng con số, và nói rõ bạn điều chỉnh gì…"></textarea>
+        <div class="row mt-s"><button class="btn btn-p" onclick="ACT.ivProbe('${id}')">Trả lời</button>${micBtn("iv-probe")}
+          <span class="small muted" style="margin-left:auto">Người phỏng vấn đang thử độ vững của khuyến nghị</span></div></div>`}
+      </div></div>`;
   }
 
   return `<div class="main" style="padding-bottom:0"><a class="small muted" href="#/interview">← Danh sách case phỏng vấn</a></div>
@@ -2475,6 +2612,7 @@ function render(keepScroll){
   if(key==="arena") startArenaTimer(); else clearInterval(ARENA.timer);
   if(key==="competition" && parts[1]) startCompTimer(parts[1]); else clearInterval(COMPUI.timer);
   if(key==="interview" && parts[1]) startIvTimer(parts[1]); else clearInterval(IVT.timer);
+  if(MIC.rec && !document.getElementById(MIC.target)) micStop(); else micPaint();
   window.scrollTo(0, keepScroll ? y : 0);
 }
 addEventListener("hashchange", ()=>render());

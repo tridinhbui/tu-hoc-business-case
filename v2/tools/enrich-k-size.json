@@ -1,0 +1,42 @@
+{
+"k-size-1": {
+  "calcQ": "Ước lượng thô thị trường cà phê ngoài nhà: dân số 100 triệu, 30% uống ngoài nhà, 3 lần/tuần (≈156 lần/năm), 25.000đ mỗi lần, ra 117.000 tỷ/năm. Quy về bình quân mỗi người dân mỗi năm là bao nhiêu triệu đồng?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** nhiều tầng trông chi tiết và nghiêm túc. **Vì sao sai:** mỗi tầng thêm là một giả định thêm; sai số nhân lên chứ không triệt tiêu. **Điều cần hỏi thay vào đó:** giả định nào đang có khoảng hợp lý rộng nhất.",
+    "B": "**Vì sao dễ chọn:** con số cụ thể nghe đáng tin. **Vì sao sai:** ba giả định thô không thể cho độ chính xác tới hàng tỷ; con số quá chính xác làm người nghe mất tin vào cả phần còn lại.",
+    "C": "**Vì sao dễ chọn:** đối thủ đang có mặt nên nhìn họ nghe thực tế. **Vì sao sai:** không biết quy mô thì không biết phần ta lấy được có đáng bỏ vốn không; nhìn đối thủ không thay được phép tính đó.",
+    "D": "**Đúng.** Ước lượng phục vụ quyết định chỉ cần đủ chính xác để đổi hoặc không đổi kết luận. **Phép thử:** đặt cả đầu thấp lẫn đầu cao của khoảng vào quyết định đầu tư — nếu cùng một kết luận, dừng tinh chỉnh và chuyển sang phần khác."
+  },
+  "solution": "**Bước 1 · Đổi đơn vị.** 117.000 tỷ = 117.000.000 triệu. **Bước 2 · Chia cho dân số.** 117.000.000 triệu ÷ 100.000.000 người = **1,17 triệu đồng/người/năm**. **Bước 3 · Quy về tháng.** 1,17 triệu ÷ 12 ≈ 98.000đ/tháng cho mỗi người, kể cả trẻ em và người không uống. **Kiểm tra bậc độ lớn.** Với người có uống (30%): 1,17 ÷ 0,3 = 3,9 triệu/năm ≈ 325.000đ/tháng ≈ 13 ly — nghe hợp lý. **Nếu ra 12 triệu/người/năm** thì gần như chắc chắn nhân nhầm một tầng. **Ý nghĩa.** Quy về bình quân đầu người là bước bắt lỗi rẻ nhất."
+},
+"k-size-2": {
+  "calcQ": "Có 40.000 doanh nghiệp trên 50 nhân viên. 25% trong số đó dùng phần mềm nhân sự trả phí, phí thuê bao trung bình 60 triệu đồng/năm. Quy mô thị trường là bao nhiêu tỷ đồng/năm?",
+  "why": {
+    "A": "**Đúng.** Thị trường thay thế mỗi năm chính là phần thiết bị đến hạn thay, nên đầu phễu phải là số thiết bị đang vận hành. **Công thức:** số thang máy ÷ vòng đời trung bình × giá thay mỗi chiếc. **Điều cần neo:** số thang máy lấy từ số toà nhà có thang theo số tầng, hoặc từ số liệu đăng kiểm.",
+    "B": "**Vì sao dễ chọn:** doanh thu công ty lớn là một con số có thật và tra được. **Vì sao sai:** đó là một phần của kết quả, không phải đầu vào của phễu — dùng nó là đi vòng từ đáp án ngược lên.",
+    "C": "**Vì sao dễ chọn:** toà nhà mới chắc chắn cần thang máy. **Vì sao sai:** đó là thị trường lắp mới — một thị trường khác, với khách hàng khác (chủ đầu tư) và chu kỳ khác (theo xây dựng).",
+    "D": "**Vì sao dễ chọn:** dân số đô thị là đầu phễu quen của mọi bài B2C. **Vì sao sai:** không nối được với số thang máy cần thay; đi từ dân số sang thang máy cần thêm nhiều giả định yếu mà vẫn không chạm được vòng đời thiết bị."
+  },
+  "solution": "**Bước 1 · Lọc doanh nghiệp.** 40.000 × 25% = 10.000 doanh nghiệp đang trả phí. **Bước 2 · Nhân phí.** 10.000 × 60 triệu = 600.000 triệu = **600 tỷ/năm**. **Kiểm tra bậc độ lớn.** Bình quân 15 triệu cho mỗi doanh nghiệp trên 50 nhân viên — tức khoảng 300.000đ mỗi nhân viên mỗi năm nếu mỗi doanh nghiệp có 50 người. Nghe hợp lý. **Tầng nào là giả định.** 40.000 neo được vào số đăng ký; 60 triệu có báo giá công khai; 25% là giả định yếu nhất. **Ý nghĩa.** Kết quả nhạy nhất với tỷ lệ 25%."
+},
+"k-size-3": {
+  "miniQ": "Phễu thị trường phần mềm nhân sự ra 600 tỷ từ ba giả định: 40.000 doanh nghiệp (±10%), tỷ lệ dùng 25% (có thể từ 15% tới 35%), phí 60 triệu/năm (±15%). Bạn còn mười phút cho phần ước lượng. Dùng thế nào?",
+  "why": {
+    "A": "**Đúng.** Tỷ lệ dùng làm kết quả dao động từ 360 tới 840 tỷ — rộng gấp bốn lần hai giả định kia. Đây là chỗ duy nhất mà mười phút công sức đổi được kết luận. **Cách thu hẹp:** hỏi số khách của hai nhà cung cấp lớn nhất, hoặc lập luận từ tỷ lệ doanh nghiệp đã dùng phần mềm kế toán trả phí.",
+    "B": "**Vì sao dễ chọn:** nhiều tầng trông kỹ lưỡng. **Vì sao sai:** sáu tầng là sáu giả định; sai số cộng dồn nhanh hơn độ chi tiết tăng lên, và không tầng mới nào thu hẹp được khoảng 15–35%.",
+    "C": "**Vì sao dễ chọn:** tính sai là lỗi dễ thấy nhất. **Vì sao sai ở đây:** 40.000 × 25% × 60 triệu là phép nhân đơn giản; sai số lớn nhất nằm ở giả định, không ở số học.",
+    "D": "**Vì sao dễ chọn:** kết quả tròn trông gọn trên slide. **Vì sao sai:** 600 hay 610 tỷ dẫn tới cùng một kết luận; làm tròn không đổi được chất lượng ước lượng."
+  },
+  "solution": "**Bước 1 · Kết quả tỷ lệ thuận với giả định.** Giữ nguyên hai giả định kia, thị trường tỷ lệ thuận với tỷ lệ dùng. **Bước 2 · So hai tỷ lệ.** 15% ÷ 25% = 0,6. **Bước 3 · Mức giảm.** 1 − 0,6 = **40%** — từ 600 xuống 360 tỷ. **So với hai giả định kia.** Số doanh nghiệp −10% chỉ làm giảm 10%; phí −15% làm giảm 15%. **Kiểm tra.** 40.000 × 15% × 60 triệu = 360 tỷ. Khớp. **Ý nghĩa.** Một giả định quyết định hai phần năm kết quả — đó là giả định phải nói ra trước khi giám khảo hỏi."
+},
+"k-size-4": {
+  "calcQ": "Tổng thị trường phần mềm nhân sự 600 tỷ/năm. Đội bán hàng chỉ phủ hai thành phố, chiếm 40% thị trường. Trong phần với tới được, kỳ vọng thắng 20% sau ba năm. Phần thị trường khả đạt sau ba năm là bao nhiêu tỷ/năm?",
+  "why": {
+    "A": "**Đúng.** Mẫu số đúng là phần với tới được bằng sản phẩm và kênh hiện tại, không phải toàn thị trường. **Câu nói mẫu:** \"10% của 600 tỷ là con số trên giấy; với đội bán hàng ở hai thành phố, phần ta với tới là 240 tỷ, và thắng 20% trong đó là 48 tỷ sau ba năm.\"",
+    "B": "**Vì sao dễ chọn:** 10% đúng là cao cho người mới. **Vì sao chưa phải lỗi chính:** kể cả hạ xuống 5% thì câu vẫn sai cấu trúc — vẫn tính trên tổng thị trường, kể cả những thành phố không có đội bán hàng.",
+    "C": "**Vì sao dễ chọn:** 60 tỷ có vẻ nhỏ so với nỗ lực. **Vì sao sai:** nhỏ hay lớn phụ thuộc vốn phải bỏ; đó là câu hỏi đánh giá, còn lỗi của câu kia là lỗi lập luận.",
+    "D": "**Vì sao dễ chọn:** kế hoạch ba năm nghe như cần tính lạm phát. **Vì sao sai:** ở mức ước lượng thô này, lạm phát vài phần trăm nhỏ hơn nhiều so với sai số của các giả định thị phần."
+  },
+  "solution": "**Bước 1 · Phần với tới được.** 600 × 40% = 240 tỷ. **Bước 2 · Phần thắng được.** 240 × 20% = **48 tỷ/năm**, sau ba năm. **Bước 3 · So với câu nói ban đầu.** 48 ÷ 600 = 8% tổng thị trường, không phải 10%; và đạt sau ba năm, không phải ngay. **Kiểm tra.** 600 × 0,4 × 0,2 = 48. Khớp. **Bẫy thường gặp.** Lấy 20% × 600 = 120 tỷ — bỏ qua hoàn toàn giới hạn kênh bán. **Ý nghĩa.** 48 tỷ mới là con số đặt cạnh vốn đầu tư để quyết định."
+}
+}

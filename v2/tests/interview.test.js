@@ -131,4 +131,39 @@ t("điểm vòng gộp cổng từ khoá/con số với số ý đạt được"
   const math=I.CFG["iv-01"].rounds[2];                     // chỉ nêu nguyên nhân, không có số nào
   assert.equal(I.scoreRound(math,"Chi phí hạt nhựa tăng mạnh hơn giá bán.","iv-01",2),25);
 });
+console.log("\nLuyện riêng một vòng");
+t("bài luyện: 5 case khác nhau, chấm như vòng thật, phải trả lời mới qua câu, không ghi tiến độ",()=>{
+  S.reset(); let seed=7; const rand=()=>((seed=seed*16807%2147483647)-1)/2147483646;
+  const d=I.drillStart(3,0,rand);
+  assert.equal(d.items.length,5); assert.equal(new Set(d.items.map(x=>x.id)).size,5);
+  d.items.forEach(x=>assert.ok(I.CFG[x.id],x.id));
+  assert.equal(I.drillNext(),false,"chưa trả lời thì chưa qua câu");
+  I.drillHint(); assert.equal(I.drillItem().hint,true);
+  const first=I.drillItem(); I.drillAnswer(I.CFG[first.id].rounds[3].model);
+  assert.equal(first.score,100); assert.equal(I.drillAnswer("trả lời lại"),null,"không sửa câu đã trả lời");
+  assert.ok(I.drillNext()); assert.equal(I.drillGet().at,1);
+  I.drillAnswer(""); assert.equal(I.drillGet().items[1].score,0);
+  for(let k=1;k<5;k++){ if(I.drillItem().answer==null) I.drillAnswer("chưa biết"); I.drillNext(); }
+  const sum=I.drillSummary(); assert.ok(sum.finished); assert.equal(sum.n,5); assert.equal(sum.round,3);
+  assert.ok(sum.avg>=20 && sum.avg<100);
+  assert.equal(S.xpTotal(),0); assert.equal(S.openMistakes().length,0); assert.equal(S.casesSolved().length,0);
+  S._reload(); assert.equal(I.drillSummary().n,5,"lưu qua localStorage");
+  I.drillReset(); assert.equal(I.drillGet(),null); assert.equal(I.drillSummary(),null);
+});
+console.log("\nCâu hỏi vặn sau khuyến nghị");
+t(`${ivs.length} case có câu hỏi vặn; câu mẫu đạt 3/3 ý, bỏ số thì mất ý dạng con số`,()=>{
+  ivs.forEach(c=>{ const p=I.probe(c.id); assert.ok(p && p.q && p.model && p.trap, c.id); assert.equal(p.points.length,3,c.id); });
+});
+t("câu hỏi vặn chỉ mở sau khi xong phiên, trả lời một lần, không đổi điểm phiên",()=>{
+  S.reset(); const id="iv-14", cfg=I.CFG[id]; I.start(id,0);
+  assert.equal(I.probeAnswer(id,"x"),null,"chưa xong phiên");
+  cfg.rounds.forEach((r,i)=>I.answer(id,r.model,i+1));
+  const total=I.get(id).result.total, xp=S.xpTotal();
+  const pr=I.probeAnswer(id,I.probe(id).model); assert.deepEqual(pr.hits,[true,true,true]);
+  assert.equal(I.probeAnswer(id,"lần hai"),null,"chỉ một lần");
+  assert.equal(I.get(id).result.total,total); assert.equal(S.xpTotal(),xp);
+  S._reload(); assert.ok(I.get(id).probe); I.reset(id); assert.equal(I.get(id),null);
+  I.start(id,0); cfg.rounds.forEach((r,i)=>I.answer(id,r.model,i+1));
+  assert.deepEqual(I.probeAnswer(id,"").hits,[false,false,false]); I.reset(id);
+});
 console.log(`\n${n} test đạt`);

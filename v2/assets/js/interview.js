@@ -803,11 +803,21 @@ function diagnose(cfgR, text){
 
 /* chi tiết từng vòng (data/interview-detail.js): gợi ý, 3 ý của câu trả lời tốt, bẫy thường gặp */
 const detail = (caseId, i) => ((window.IV_DETAIL||{})[caseId]||[])[i] || null;
+const hitPoints = (points, text) => { const t = String(text||"");
+  return points.map(p => !t.trim() ? false
+    : Array.isArray(p[1]) ? has(t, ...p[1]) : SCORING.mentionsNumber(t, p[1], p[2])); };
 function checkPoints(caseId, i, text){
-  const d = detail(caseId, i), t = String(text||"");
-  if(!d) return [];
-  return d.points.map(p => !t.trim() ? false
-    : Array.isArray(p[1]) ? has(t, ...p[1]) : SCORING.mentionsNumber(t, p[1], p[2]));
+  const d = detail(caseId, i);
+  return d ? hitPoints(d.points, text) : [];
+}
+
+/* câu hỏi vặn sau khuyến nghị: chỉ mở khi phiên đã xong, trả lời một lần, không cộng vào điểm phiên */
+const probe = caseId => (window.IV_PROBE||{})[caseId] || null;
+function probeAnswer(caseId, text){
+  const sess = get(caseId), p = probe(caseId);
+  if(!p || !sess || !sess.result || sess.probe) return null;
+  sess.probe = {answer:String(text), hits:hitPoints(p.points, text)};
+  State.save(); return sess.probe;
 }
 
 const FEEDBACK = {
@@ -875,5 +885,40 @@ function useHint(id){
 }
 function markModel(id){ const s = get(id); if(s){ s.usedModel = true; State.save(); } }
 
-window.IVIEW = { CFG, ROUNDS, score, scoreRound, diagnose, exhibitRounds, detail, checkPoints, get, roundOf, start, answer, reset, markModel, useHint };
+/* ── luyện riêng một vòng: 5 câu cùng vòng từ 5 case khác nhau.
+   Chỉ để luyện — không ghi điểm, XP hay lỗi. Lưu ở State.data.ivd để làm tiếp được. ── */
+const DRILL_SIZE = 5;
+function drillStart(round, now, rand){
+  rand = rand || Math.random;
+  const pool = Object.keys(CFG);
+  for(let i=pool.length-1; i>0; i--){ const j = Math.floor(rand()*(i+1)); [pool[i],pool[j]] = [pool[j],pool[i]]; }
+  State.data.ivd = {round, start:now, at:0,
+    items: pool.slice(0, DRILL_SIZE).map(id => ({id, answer:null, score:null, hint:false}))};
+  State.save(); return State.data.ivd;
+}
+const drillGet = () => State.data.ivd || null;
+const drillItem = () => { const d = drillGet(); return d && d.items[d.at] || null; };
+function drillAnswer(text){
+  const d = drillGet(), it = drillItem();
+  if(!it || it.answer != null) return null;
+  it.answer = String(text);
+  it.score = scoreRound(CFG[it.id].rounds[d.round], it.answer, it.id, d.round);
+  State.save(); return it;
+}
+function drillNext(){
+  const d = drillGet(), it = drillItem();
+  if(!it || it.answer == null) return false;
+  d.at++; State.save(); return true;
+}
+function drillHint(){ const it = drillItem(); if(it){ it.hint = true; State.save(); } }
+function drillReset(){ delete State.data.ivd; State.save(); }
+function drillSummary(){
+  const d = drillGet(); if(!d) return null;
+  const done = d.items.filter(x => x.score != null);
+  return {round:d.round, n:done.length, total:d.items.length, finished:d.at >= d.items.length,
+          avg: done.length ? Math.round(done.reduce((a,x)=>a+x.score, 0)/done.length) : null};
+}
+
+window.IVIEW = { CFG, ROUNDS, score, scoreRound, diagnose, exhibitRounds, detail, checkPoints, get, roundOf, start, answer, reset, markModel, useHint,
+  drillStart, drillGet, drillItem, drillAnswer, drillNext, drillHint, drillReset, drillSummary, probe, probeAnswer };
 })();

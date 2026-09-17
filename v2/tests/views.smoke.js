@@ -40,8 +40,26 @@ const res=run("vCompetition('cc-02')"); assert.ok(res.includes("Kết quả ban 
 assert.ok(run("vCompetition()").includes("Đã nộp"));
 // phòng phỏng vấn theo vòng
 run("IVIEW.start('iv-01',Date.now())"); assert.ok(run("vInterview('iv-01')").includes("iv-ans"));
+/* nút giọng nói: ẩn khi trình duyệt không có Web Speech API, hiện khi có */
+assert.ok(!run("vInterview('iv-01')").includes("iv-mic"), "không có API thì không hiện nút micro");
+run("window.webkitSpeechRecognition=function(){}"); assert.ok(run("vInterview('iv-01')").includes('id="mic-iv-ans"'));
+run("delete window.webkitSpeechRecognition");
+/* luyện riêng một vòng: chưa có bài · đang trả lời · đã trả lời · đã xong */
+assert.ok(run("vInterview('drill')").includes("Chưa có bài luyện"));
+for(let r=0;r<5;r++){
+  run(`IVIEW.drillStart(${r},Date.now())`); assert.ok(run("vInterview('drill')").includes("ivd-ans"), "luyện vòng "+(r+1));
+  run("IVIEW.drillHint()"); assert.ok(run("vInterview('drill')").includes("iv-hint"));
+  run(`IVIEW.drillAnswer(IVIEW.CFG[IVIEW.drillItem().id].rounds[${r}].model)`); assert.ok(run("vInterview('drill')").includes("iv-points"));
+  for(let k=0;k<5;k++){ run("IVIEW.drillItem() && IVIEW.drillItem().answer==null && IVIEW.drillAnswer('x')"); run("IVIEW.drillNext()"); }
+  assert.ok(run("vInterview('drill')").includes("Luyện lại vòng này"));
+  assert.ok(run("vInterview()").includes("Luyện riêng một vòng"));
+}
+run("IVIEW.drillStart(2,Date.now())"); assert.ok(run("vInterview()").includes("Đang luyện vòng")); run("IVIEW.drillReset()");
 run("IVIEW.CFG['iv-01'].rounds.forEach(r=>IVIEW.answer('iv-01',r.model,Date.now()))");
 const ivres=run("vInterview('iv-01')");
 assert.ok(ivres.includes("Kết quả phỏng vấn") && !/undefined|NaN/.test(ivres.replace(/<[^>]*>/g," ")));
 assert.ok(run("vInterview()").includes("Đã xong"));
+assert.ok(run("vInterview('iv-01')").includes("iv-probe"), "câu hỏi vặn hiện sau khi xong phiên");
+run("IVIEW.probeAnswer('iv-01', IVIEW.probe('iv-01').model)");
+const ivpr=run("vInterview('iv-01')"); assert.ok(ivpr.includes("Câu hỏi vặn") && !ivpr.includes("iv-probe") && ivpr.includes("3/3"));
 console.log(`${n} lần vẽ màn hình không lỗi (100 bài × 2 trạng thái + các màn chính)`);

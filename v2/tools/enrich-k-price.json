@@ -1,0 +1,41 @@
+{
+"k-price-1": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** tín dụng là một thị trường lớn, ước lượng nghe như bước chuẩn bị tốt. **Vì sao sai:** quy mô thị trường không chạm được vào biên của chính ngân hàng này. **Tín hiệu bị bỏ qua:** đề đã có một biến động đo được — biên lãi ròng giảm.",
+    "B": "**Vì sao dễ chọn:** câu hỏi cuối đúng là một quyết định giá. **Vì sao vội:** chưa biết biên giảm vì giá vốn huy động, vì cơ cấu danh mục hay vì chi phí rủi ro. Nâng lãi suất trên một danh mục đang xấu đi thường làm khách tốt rời trước, khách xấu ở lại — biên càng mỏng.",
+    "C": "**Đúng.** Có biến động đã đo được nên chẩn đoán trước, quyết định giá sau. **Câu nói mẫu:** \"Trước khi bàn lãi suất, tôi muốn tách biên giảm thành ba phần: giá vốn huy động, lợi suất cho vay, và chi phí rủi ro.\" **Bước tiếp theo:** nếu chi phí rủi ro là phần lớn nhất, nâng lãi suất đại trà là sai hướng.",
+    "D": "**Vì sao dễ chọn:** phân khúc mới có thể có biên tốt hơn. **Vì sao sai:** không trả lời câu hỏi được hỏi, và mở phân khúc mới khi chưa hiểu vì sao danh mục hiện tại xấu đi là lặp lại rủi ro ở chỗ mới."
+  },
+  "solution": "**Bước 1 · Giảm giá ăn vào biên.** Đặt giá 100, biến phí 60, biên 40. Giảm giá 10% → giá 90, biên mỗi đơn vị còn 30. **Bước 2 · Điều kiện lãi góp không đổi.** Sản lượng × 30 = sản lượng cũ × 40. **Bước 3 · Giải.** Sản lượng mới ÷ cũ = 40 ÷ 30 = 1,333 → phải tăng **33,3%**. **Kiểm tra.** 133,3 × 30 = 4.000 = 100 × 40. Khớp. **Độ nhạy.** Ở biên 20%, cùng mức giảm 10% đòi tăng 100% sản lượng. **Ý nghĩa.** Biên càng mỏng, giảm giá càng nguy hiểm."
+},
+"k-price-2": {
+  "calcQ": "Máy đóng gói giúp khách tiết kiệm 120 triệu chi phí nhân công mỗi năm, dùng được 5 năm. Nếu chia lại cho khách 30% giá trị tạo ra và giữ 70%, giá tối đa có thể đặt là bao nhiêu triệu?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** mức lãi 30% đúng là có thể thấp hoặc cao so với ngành. **Vì sao sai:** vấn đề không nằm ở con số 30% mà ở chỗ giá được neo vào chi phí. Đổi lãi thành 50% vẫn là định giá theo chi phí.",
+    "B": "**Vì sao dễ chọn:** thiếu một khoản chi phí nghe như lỗi kỹ thuật cụ thể. **Vì sao sai:** thêm chi phí bán hàng vào vẫn là định giá theo chi phí. Logic sai không sửa được bằng cách cộng thêm một dòng.",
+    "C": "**Đúng.** Khách tiết kiệm 120 triệu × 5 năm = 600 triệu nhờ máy. Giá 234 triệu bỏ lại vài trăm triệu trên bàn, trong khi khách vẫn sẵn sàng trả nhiều hơn. **Câu nói mẫu:** \"Chi phí cho biết ta được đi thấp tới đâu; giá trị cho khách mới cho biết nên đặt ở đâu.\"",
+    "D": "**Vì sao dễ chọn:** so với đối thủ là phản xạ đầu tiên khi xét giá. **Vì sao sai về dữ kiện:** 234 triệu thấp hơn 350 triệu của đối thủ. **Điều thật sự đáng lo:** thấp hơn đối thủ trong khi máy tốt hơn là đang tự hạ giá trị sản phẩm."
+  },
+  "solution": "**Bước 1 · Giá trị trọn đời.** 120 triệu/năm × 5 năm = 600 triệu. **Bước 2 · Phần giữ lại.** Chia 30% cho khách, giữ 70%: 600 × 0,7 = **420 triệu**. **Bước 3 · Đặt vào khoảng giá.** Sàn chi phí 180 · đối thủ 350 · đề xuất 420 · trần giá trị 600. **Kiểm tra.** Khách trả 420, tiết kiệm 600 → lợi ròng 180 triệu, đủ lý do để đổi máy. **Bẫy thường gặp.** Tính giá trị một năm (120) và kết luận giá không được vượt 120 triệu. **Ý nghĩa.** Phần chênh 70 triệu so với đối thủ có lý do rõ ràng."
+},
+"k-price-3": {
+  "calcQ": "Biên đóng góp trước đợt tăng giá là 40% (giá 100, biến phí 60). Doanh nghiệp tăng giá 5% và sản lượng giảm 8%. Lãi góp thay đổi bao nhiêu phần trăm?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** 62% là con số lớn và có vẻ khoa học. **Vì sao sai:** người trả lời khảo sát không mất gì khi nói sẽ rời đi, nên khảo sát ý định luôn phóng đại độ nhạy giá. **Tín hiệu bị bỏ qua:** đã có một lần tăng giá thật trong dữ liệu.",
+    "B": "**Vì sao dễ chọn:** mẫu lớn hơn nghe như chắc chắn hơn. **Vì sao sai:** lỗi nằm ở loại câu hỏi (hỏi ý định), không ở cỡ mẫu. 4.000 câu trả lời phóng đại vẫn là phóng đại.",
+    "C": "**Đúng.** Hành vi đã xảy ra thắng ý định khai báo: lần trước tăng 5% chỉ mất 8% sản lượng, và lãi góp vẫn tăng. **Dùng khảo sát vào việc gì:** so sánh tương đối giữa các phân khúc — nhóm nào nhạy hơn — chứ không dùng để định mức tăng.",
+    "D": "**Vì sao dễ chọn:** đã biết khảo sát phóng đại thì bỏ hẳn nghe gọn. **Vì sao sai:** khảo sát vẫn cho thông tin tương đối có ích — phân khúc nào nhạy giá hơn phân khúc nào."
+  },
+  "solution": "**Bước 1 · Biên mỗi đơn vị sau tăng giá.** Giá 105, biến phí vẫn 60 → biên 45. **Bước 2 · Sản lượng còn lại.** 100% − 8% = 0,92. **Bước 3 · Lãi góp mới so với cũ.** 0,92 × 45 = 41,4 so với 1 × 40 = 40. **Bước 4 · Mức thay đổi.** 41,4 ÷ 40 − 1 = **3,5%**. **Kiểm tra độ co giãn.** 8% ÷ 5% = 1,6 — nghe tệ, nhưng lãi góp vẫn tăng. **Ngưỡng hoà.** Mức tăng 5 điểm biên trên nền 45 → sản lượng được phép mất tới 11,1% mà lãi góp không giảm. **Ý nghĩa.** Nhìn lãi góp, không nhìn sản lượng."
+},
+"k-price-4": {
+  "miniQ": "Đề xuất giảm giá 10% để giành thị phần. Biên đóng góp 40%. Nếu đối thủ không theo, sản lượng +33% và lãi góp hoà; nếu đối thủ theo, sản lượng chỉ +8%. Đối thủ có chi phí thấp hơn ta 5 điểm, và khoảng 70% khách vẫn mua ở giá cũ. Khuyến nghị nào đúng hình dạng nhất?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** thị phần là mục tiêu dễ nói và giảm giá là đòn bẩy nhanh nhất. **Vì sao sai:** kịch bản tốt nhất chỉ hoà; kịch bản xấu (đối thủ theo) mất 19% lãi góp — và đối thủ có chi phí thấp hơn nên theo được lâu hơn. **Tín hiệu bị bỏ qua:** 70% khách không cần giảm giá vẫn mua.",
+    "B": "**Đúng.** Giới hạn giảm giá vào phân khúc nhạy giá, bảo vệ 70% khách không nhạy giá, và có mốc 8 tuần để rút lại nếu đối thủ theo. **Câu nói mẫu:** \"Tôi không khởi động cuộc chiến giá với một đối thủ có chi phí thấp hơn; tôi giảm có chọn lọc và đo phản ứng trong 8 tuần.\"",
+    "C": "**Vì sao dễ chọn:** biên đang bị ép nên tăng giá nghe như bù lại. **Vì sao sai:** đi ngược tình huống cạnh tranh khi không có giá trị khác biệt nào chống lưng — đối thủ chỉ cần đứng yên là lấy khách.",
+    "D": "**Vì sao dễ chọn:** giảm sâu hơn để chắc thắng. **Vì sao sai:** biên còn 25 điểm, cần sản lượng +60% chỉ để hoà; cuộc chiến giá đến nhanh hơn và ta — bên chi phí cao hơn — thua trước."
+  },
+  "solution": "**Bước 1 · Biên sau giảm giá.** 40 − 10 = 30 điểm. **Bước 2 · Lãi góp kịch bản đối thủ theo.** Sản lượng 1,08 × biên 30 = 32,4 so với lãi góp cũ 1 × 40 = 40. **Bước 3 · Mức thay đổi.** 32,4 ÷ 40 = 0,81 → giảm **19%**. **Đối chiếu kịch bản kia.** Đối thủ không theo: 1,333 × 30 = 40 → hoà. **Kiểm tra.** Hai kịch bản cách nhau 7,6 trên nền 40, đúng 19 điểm phần trăm. **Ý nghĩa.** Kết quả tốt nhất là hoà, kết quả xấu mất gần một phần năm — và người quyết định kịch bản nào xảy ra là đối thủ."
+}
+}
