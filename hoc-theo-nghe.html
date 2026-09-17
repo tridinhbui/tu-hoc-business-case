@@ -57,7 +57,7 @@
       overflow-x: hidden;
     }
 
-    /* ════════════ SIDEBAR ════════════ */
+    /* ════════════ UNIFIED SIDEBAR ════════════ */
     .sidebar {
       width: 235px;
       min-width: 235px;
@@ -360,10 +360,10 @@
       text-overflow: ellipsis;
     }
 
-    /* ════════════ MAIN CONTENT CONTAINER ════════════ */
+    /* ════════════ MAIN CONTAINER ════════════ */
     .main-container {
       flex: 1;
-      padding: 14px 24px 40px;
+      padding: 14px 22px 36px;
       max-width: 1400px;
       margin: 0 auto;
       width: 100%;
@@ -376,14 +376,14 @@
       font-weight: 700;
       color: #047857;
       letter-spacing: 0.03em;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .header-row {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
       margin-bottom: 12px;
       flex-wrap: wrap;
     }
@@ -522,7 +522,7 @@
     /* ════════════ TWO-COLUMN CONTENT LAYOUT ════════════ */
     .career-grid {
       display: grid;
-      grid-template-columns: 1fr 300px;
+      grid-template-columns: 1fr 285px;
       gap: 14px;
       align-items: start;
     }
@@ -545,18 +545,18 @@
       background: #ffffff;
       border: 1px solid #e2e8e2;
       border-radius: var(--radius-2xl);
-      padding: 10px;
+      padding: 8px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       position: relative;
     }
 
     .map-viewport-container {
       position: relative;
       width: 100%;
-      height: 480px;
+      height: 470px;
       border-radius: var(--radius-xl);
       overflow: hidden;
       background: #ebdabc;
@@ -576,7 +576,7 @@
     /* Floating Top Center Region Badge */
     .floating-map-header {
       position: absolute;
-      top: 14px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(255, 255, 255, 0.96);
@@ -584,10 +584,10 @@
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(226, 232, 226, 0.9);
       border-radius: var(--radius-xl);
-      padding: 6px 16px;
+      padding: 5px 14px;
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
       z-index: 20;
       cursor: pointer;
@@ -675,11 +675,11 @@
     }
 
     .node-pin-circle {
-      width: 26px;
-      height: 26px;
+      width: 25px;
+      height: 25px;
       border-radius: 50%;
       background: linear-gradient(135deg, #f97316, #ea580c);
-      border: 2.5px solid #ffffff;
+      border: 2px solid #ffffff;
       color: #ffffff;
       font-size: 11px;
       font-weight: 800;
@@ -711,7 +711,7 @@
       border-radius: var(--radius-md);
       padding: 5px 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      width: 125px;
+      width: 122px;
       text-align: left;
       transition: border-color 0.15s, box-shadow 0.15s;
     }
@@ -773,20 +773,20 @@
       color: #059669;
     }
 
-    /* Exact Node Coordinates */
-    #node-1 { left: 16.2%; top: 45.1%; }
-    #node-2 { left: 36.1%; top: 56.9%; }
-    #node-3 { left: 57.9%; top: 45.0%; }
-    #node-4 { left: 77.9%; top: 56.9%; }
-    #node-5 { left: 48.0%; top: 74.7%; }
-    #node-6 { left: 71.9%; top: 74.7%; }
+    /* Exact Pixel-derived Node Coordinates */
+    #node-1 { left: 16.24%; top: 45.04%; }
+    #node-2 { left: 36.06%; top: 56.87%; }
+    #node-3 { left: 57.94%; top: 45.02%; }
+    #node-4 { left: 77.89%; top: 56.87%; }
+    #node-5 { left: 48.04%; top: 74.69%; }
+    #node-6 { left: 71.86%; top: 74.69%; }
 
     /* Map Footer Toolbar */
     .map-footer-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 2px 4px;
+      padding: 2px 6px;
       flex-wrap: wrap;
       gap: 8px;
     }
@@ -819,7 +819,7 @@
     .btn-view-all-regions {
       background: transparent;
       border: none;
-      padding: 4px 8px;
+      padding: 4px 6px;
       font-size: 10.5px;
       font-weight: 800;
       color: #047857;
@@ -1092,8 +1092,8 @@
     }
 
     .tip-thumb {
-      width: 46px;
-      height: 34px;
+      width: 48px;
+      height: 36px;
       border-radius: 6px;
       overflow: hidden;
       flex-shrink: 0;
@@ -1205,7 +1205,7 @@
 </head>
 <body>
 
-  <!-- ════════════ SIDEBAR ════════════ -->
+  <!-- ════════════ UNIFIED SIDEBAR ════════════ -->
   <aside class="sidebar">
     <div class="sidebar-header">
       <a href="dashboard.html" class="brand-logo">
@@ -1292,6 +1292,15 @@
         <span>👥 CỘNG ĐỒNG</span>
         <span class="chevron">▼</span>
       </div>
+      <a href="tai-lieu.html" class="nav-item">
+        <span class="icon">🏛️</span>
+        <span>Thư viện</span>
+      </a>
+      <a href="hoc-nhom.html" class="nav-item">
+        <span class="icon">🤝</span>
+        <span>Học nhóm</span>
+        <span class="nav-tag tag-checkin">CHECK-IN</span>
+      </a>
       <a href="thong-ke.html" class="nav-item">
         <span class="icon">📊</span>
         <span>Thống kê</span>
@@ -1379,7 +1388,7 @@
           
           <div class="map-viewport-container">
             <!-- Background 3D Isometric Map Image -->
-            <img src="assets/img/career-map-sample.png" alt="Career World Map" class="map-bg-img" id="mapBg">
+            <img src="assets/img/career-map-isometric.jpg" alt="Career World Map" class="map-bg-img" id="mapBg">
 
             <!-- Floating Top Center Region Badge -->
             <div class="floating-map-header" onclick="openRegionModal()">
@@ -1395,7 +1404,7 @@
 
             <!-- SVG Route Line Connecting Nodes -->
             <svg class="map-svg-overlay" viewBox="0 0 800 480">
-              <path class="map-route-line" d="M 130 216 C 180 250, 240 270, 289 273 C 350 276, 400 230, 463 216 C 520 205, 570 240, 623 273 C 580 320, 460 340, 384 359 C 450 365, 510 362, 575 359"></path>
+              <path class="map-route-line" d="M 130 216 C 180 250, 240 270, 289 273 C 350 276, 400 230, 463 216 C 520 205, 570 240, 623 273 C 580 320, 500 360, 575 359 C 500 360, 440 360, 384 359"></path>
             </svg>
 
             <!-- 6 Interactive Nodes precisely placed along the path -->
@@ -1591,7 +1600,7 @@
                 </svg>
                 <span class="circle-donut-txt">1%</span>
               </div>
-              <span class="overview-donut-label">Tiến độ vùng</span>
+              <span class="overview-donut-label">Tiến độ tổng</span>
             </div>
 
             <div class="overview-stats-list">
