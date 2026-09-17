@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bắt đầu từ đâu — STRATLAB Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v2/assets/css/app.css?v=40">
+<script>
+(function(){try{var t=localStorage.getItem('caselab.theme');
+if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+function toggleTheme(){
+  var r=document.documentElement,cur=r.getAttribute('data-theme');
+  if(!cur)cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  var next=cur==='dark'?'light':'dark';
+  r.setAttribute('data-theme',next);
+  try{localStorage.setItem('caselab.theme',next);}catch(e){}
+  paintThemeBtn();
+}
+function paintThemeBtn(){
+  var b=document.getElementById('themeBtn'); if(!b)return;
+  var r=document.documentElement.getAttribute('data-theme')
+      ||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  b.textContent = r==='dark' ? '☀' : '☾';
+}
+addEventListener('DOMContentLoaded',paintThemeBtn);
+</script>
+</head>
+<body data-route="roadmap">
+<div class="app">
+  <!-- Persistent Sidebar -->
+  <aside class="rail">
+    <a class="rail-brand" href="v2/index.html#/roadmap" style="border:0;padding:20px 18px 14px;display:flex;align-items:center;gap:10px;text-decoration:none">
+      <div style="width:34px;height:34px;border-radius:8px;background:#18181B;border:1px solid #27272A;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 2px 6px rgba(0,0,0,.15)">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <path d="M4 18L10 12L14 16L20 6M20 6H15M20 6V11" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div style="display:flex;flex-direction:column;line-height:1.15">
+        <span style="font-weight:800;font-size:14px;color:var(--text);letter-spacing:-.02em">STRATLAB</span>
+        <span style="font-weight:700;font-size:9.5px;color:#059669;letter-spacing:.04em">EDTECH THỰC CHIẾN</span>
+      </div>
+    </a>
+    
+    <div style="padding:0 14px 10px">
+      <div class="sidebar-search-box" onclick="location.href='v2/index.html#/tracks'" style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);padding:7px 12px;cursor:pointer">
+        <span style="color:var(--muted);font-size:13px">⌕</span>
+        <span style="color:var(--muted);font-size:12.5px;flex:1">Tìm kiếm...</span>
+        <kbd style="font-size:10px;padding:2px 5px;background:var(--surface-3);border-radius:4px;color:var(--muted);font-family:inherit">⌘K</kbd>
+      </div>
+    </div>
+
+    <nav id="nav-top" style="margin-bottom:6px">
+      <a href="dashboard.html"><span class="ic">📊</span>Dashboard</a>
+      <a href="case-social.html"><span class="ic">🌐</span>CaseSocial</a>
+    </nav>
+
+    <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
+      <span>HỌC TẬP</span>
+      <span style="font-size:10px;opacity:.6">⌵</span>
+    </div>
+    <nav id="nav1">
+      <a href="bat-dau-tu-dau.html" class="on"><span class="ic">🧭</span>Bắt đầu từ đâu</a>
+      <a href="hoc-bai.html"><span class="ic">📖</span>Học bài</a>
+      <a href="hoc-theo-nghe.html"><span class="ic">💼</span>Học theo nghề</a>
+      <a href="thong-ke.html" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">📜</span>Chứng chỉ</span>
+        <span style="font-size:11px;opacity:.5">›</span>
+      </a>
+    </nav>
+
+    <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
+      <span>THỰC HÀNH</span>
+      <span style="font-size:10px;opacity:.6">⌵</span>
+    </div>
+    <nav id="nav2">
+      <a href="tai-lieu.html" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">📝</span>Quiz</span>
+        <span class="nav-tag-pill green">TIN MỚI</span>
+      </a>
+      <a href="thi-vuot-chang.html"><span class="ic">🏆</span>Thi vượt chặng</a>
+      <a href="game-kingdom.html" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">🎮</span>Game Kingdom</span>
+        <span class="nav-tag-pill orange">HOT</span>
+      </a>
+      <a href="v2/index.html#/interview"><span class="ic">🎙️</span>Luyện phỏng vấn</a>
+    </nav>
+
+    <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
+      <span>CỘNG ĐỒNG</span>
+      <span style="font-size:10px;opacity:.6">⌵</span>
+    </div>
+    <nav id="nav3">
+      <a href="tai-lieu.html"><span class="ic">🏛️</span>Thư viện</a>
+      <a href="hoc-nhom.html" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">👥</span>Học nhóm</span>
+        <span class="nav-tag-pill yellow">CHECK-IN</span>
+      </a>
+      <a href="thong-ke.html"><span class="ic">📈</span>Thống kê</a>
+    </nav>
+
+    <div class="rail-foot" style="margin-top:auto;border-top:1px solid var(--border);padding:12px 14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--text)">
+          <span>🪙</span><span>Túi vàng</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-weight:800;font-size:13px;color:#D97706">60</span>
+          <div style="position:relative;cursor:pointer">
+            <span style="font-size:14px">🔔</span>
+            <span style="position:absolute;top:-5px;right:-7px;background:#EF4444;color:#FFF;font-size:9px;font-weight:800;border-radius:999px;padding:1px 4px">9+</span>
+          </div>
+        </div>
+      </div>
+
+      <a class="rail-user-profile" href="ho-so.html" style="display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:10px;text-decoration:none;color:inherit">
+        <div class="user-av-pic" style="width:34px;height:34px;border-radius:50%;background:#064E3B;color:#ECFDF5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none">TB</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Đinh Trí Bùi</div>
+          <div style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">tribd.tec@gmail.com</div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);flex:none">⌵</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div style="padding:20px 24px;overflow-y:auto;flex:1">
+    <div class="main" style="max-width:1440px;margin:0 auto;padding:0 0 40px">
+      <!-- Top Stats Header Bar -->
+      <div class="stratlab-header-bar" style="margin-bottom:24px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+        <div class="stratlab-header-left">
+          <a class="stratlab-logo-pill" href="bat-dau-tu-dau.html">
+            <div class="stratlab-logo-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                <path d="M4 18L10 12L14 16L20 6M20 6H15M20 6V11" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span style="font-weight:800;color:var(--text);letter-spacing:-.02em">STRATLAB</span>
+            <span style="color:var(--muted);font-weight:500;font-size:12px">| EDTECH THỰC CHIẾN</span>
+          </a>
+          <span class="stratlab-subtag">Roadmap</span>
+        </div>
+
+        <div style="flex:1;max-width:280px">
+          <div style="display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:12px;color:var(--muted)">
+            <span>⌕</span>
+            <span style="flex:1">Tìm kiếm...</span>
+            <kbd style="font-size:10px;padding:1px 5px;background:var(--surface-3);border-radius:4px">Ctrl K</kbd>
+          </div>
+        </div>
+
+        <div class="stratlab-stat-chips">
+          <div class="stratlab-stat-chip"><span>RANK · CẤP BẬC:</span> <b>Intern · Lv. 1</b></div>
+          <div class="stratlab-stat-chip"><span>XP · ĐIỂM:</span> <b>0 / 400</b></div>
+          <div class="stratlab-stat-chip"><span>STREAK · CHUỖI:</span> <b>🔥 0 ngày</b></div>
+          <div class="stratlab-stat-chip"><span>CASES · ĐÃ GIẢI:</span> <b>0/36</b></div>
+          <div style="width:30px;height:30px;border-radius:50%;background:#059669;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800">TB</div>
+        </div>
+      </div>
+
+      <!-- Hero Title & Progress Card Grid -->
+      <div class="roadmap-hero-grid">
+        <div class="roadmap-hero-left">
+          <h1>Bạn muốn làm chủ tư duy giải Case,<br><span style="color:#059669">hay bước vào nghề Management Consulting?</span></h1>
+          <p>Chọn một hướng để hệ thống sắp xếp hành trình phù hợp. Bạn có thể đổi bất kỳ lúc nào.</p>
+          <div class="roadmap-time-badge">
+            <span>⏱</span> <b>6 – 8 phút mỗi ngày</b> · Mỗi bài học ngắn gọn, có bài tập tư duy thực hành. Không cần hơn.
+          </div>
+        </div>
+
+        <div class="roadmap-progress-darkcard">
+          <div class="progress-card-top">
+            <span class="progress-card-lbl">TIẾN ĐỘ HÀNH TRÌNH</span>
+            <span class="progress-card-tag">1/120 bài đã xong (1%)</span>
+          </div>
+          <div class="progress-card-body">
+            <div class="progress-ring-box">1%</div>
+            <div class="progress-track-info">
+              <div class="progress-track-sub">ĐANG CHỌN: NGHỀ NGHIỆP</div>
+              <div class="progress-track-name">Management Consulting (MBB / Big 4)</div>
+              <div class="progress-track-loc">📍 Đang ở: Tư duy cấu trúc & Khung MECE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Today's Lesson Callout Banner -->
+      <div class="today-lesson-banner">
+        <div class="today-banner-left">
+          <div class="today-play-btn">▶</div>
+          <div>
+            <div class="today-badge-h">HÔM NAY BẠN HỌC BÀI NÀY</div>
+            <div class="today-lesson-name">Kỹ thuật phân nhánh Issue Tree: Bóc tách mọi vấn đề kinh doanh chuẩn MECE</div>
+          </div>
+        </div>
+        <a class="today-open-btn" href="hoc-bai.html">
+          <span>Mở bài học</span> <span>→</span>
+        </a>
+      </div>
+
+      <!-- 4 Onboarding Tabs -->
+      <div class="onboarding-tabs">
+        <button class="onboarding-tab-btn active">01 Chọn hướng</button>
+        <button class="onboarding-tab-btn" onclick="alert('Đã lưu nhịp học Chuẩn: 2 bài/ngày!')">02 Chọn nhịp</button>
+        <button class="onboarding-tab-btn" onclick="alert('Cách học: 10 mục chuẩn MBB -> Mini Case -> Case Arena!')">03 Cách học</button>
+        <button class="onboarding-tab-btn" onclick="alert('Hỏi đáp: Lộ trình được thiết kế linh hoạt cho mọi xuất phát điểm.')">04 Giải đáp</button>
+      </div>
+
+      <!-- Illustrated Learning Map Canvas -->
+      <div class="stratlab-map-container">
+        <!-- SVG Landscape Background -->
+        <svg viewBox="0 0 1200 480" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#DEF7EC"/><stop offset="100%" stop-color="#BCF0DA"/></linearGradient>
+            <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E1F7EB"/><stop offset="100%" stop-color="#C6F6D5"/></linearGradient>
+            <linearGradient id="riverGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#7DD3FC"/></linearGradient>
+          </defs>
+          <path d="M 0 160 Q 300 80 600 180 T 1200 120 L 1200 480 L 0 480 Z" fill="url(#hill1)" opacity="0.6"/>
+          <path d="M 0 280 Q 400 200 800 320 T 1200 240 L 1200 480 L 0 480 Z" fill="url(#hill2)" opacity="0.7"/>
+          <path d="M 620 480 Q 640 320 580 240 T 700 80 T 750 0" fill="none" stroke="url(#riverGrad)" stroke-width="32" stroke-linecap="round" opacity="0.85"/>
+          <rect x="585" y="240" width="70" height="20" rx="4" fill="#D97706" opacity="0.85" transform="rotate(-15 620 250)"/>
+          <path d="M 80 140 Q 200 180 320 280 T 600 340 T 900 180 T 1120 360" fill="none" stroke="#10B981" stroke-width="5" stroke-dasharray="8 8" opacity="0.75"/>
+          <circle cx="180" cy="190" r="14" fill="#059669" opacity="0.5"/>
+          <circle cx="210" cy="200" r="10" fill="#10B981" opacity="0.6"/>
+          <circle cx="480" cy="180" r="16" fill="#047857" opacity="0.5"/>
+          <circle cx="820" cy="280" r="18" fill="#059669" opacity="0.5"/>
+          <circle cx="1020" cy="160" r="14" fill="#10B981" opacity="0.5"/>
+        </svg>
+
+        <!-- Start Flag -->
+        <div style="position:relative;z-index:3;margin-bottom:14px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;font-weight:800;background:#064E3B;color:#FFF;padding:4px 12px;border-radius:999px;letter-spacing:.04em">XUẤT PHÁT</span>
+        </div>
+
+        <!-- 7 Stations Grid -->
+        <div class="map-station-grid">
+          <div class="map-station-card active" onclick="location.href='hoc-bai.html'" style="cursor:pointer">
+            <div class="station-pin-badge">
+              <span>📍</span> <b>BẠN Ở ĐÂY</b>
+            </div>
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+                  <path d="M9 12H15M9 16H13M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:#059669">01</div>
+                <div class="station-title">Tư duy cấu trúc & Khung MECE</div>
+              </div>
+            </div>
+            <div class="station-desc">Khung Minto, cây vấn đề Issue Tree phân tách doanh thu & chi phí toàn diện.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:6%;height:100%;background:#059669;border-radius:999px"></div>
+              </div>
+              <span style="color:#059669;font-weight:800">1/18 bài (6%)</span>
+            </div>
+          </div>
+
+          <div class="map-station-card locked" onclick="location.href='hoc-bai.html'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M18 20V10M12 20V4M6 20V14" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">02</div>
+                <div class="station-title">Phân tích Lợi nhuận <span>🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Lợi nhuận = P × Q - Chi phí, tìm điểm rò rỉ biên lợi nhuận và dòng tiền.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/16 bài</span>
+            </div>
+          </div>
+
+          <div class="map-station-card locked" onclick="location.href='hoc-bai.html'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">03</div>
+                <div class="station-title">Thâm nhập thị trường <span>🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Market Sizing (TAM/SAM/SOM), rào cản gia nhập & Porter 5 Forces.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/20 bài</span>
+            </div>
+          </div>
+
+          <div class="map-station-card locked" onclick="location.href='hoc-bai.html'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M12 6.253V20M12 6.253C10.832 5.477 9.246 5 7.5 5C5.754 5 4.168 5.477 3 6.253V20C4.168 19.223 5.754 18.75 7.5 18.75C9.246 18.75 10.832 19.223 12 20M12 6.253C13.168 5.477 14.754 5 16.5 5C18.246 5 19.832 5.477 21 6.253V20C19.832 19.223 18.246 18.75 16.5 18.75C14.754 18.75 13.168 19.223 12 20" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">04</div>
+                <div class="station-title">M&A & Định Giá <span>🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Due Diligence, hiệp lực Synergy & mô hình định giá chiết khấu dòng tiền DCF.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/15 bài</span>
+            </div>
+          </div>
+
+          <div class="map-station-card locked" onclick="location.href='hoc-bai.html'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M19 11H5M19 11C20.1046 11 21 11.8954 21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V13C3 11.8954 3.89543 11 5 11M19 11V9C19 7.89543 18.1046 7 17 7M5 11V9C5 7.89543 5.89543 7 7 7M7 7V5C7 3.89543 7.89543 3 9 3H15C16.1046 3 17 3.89543 17 5V7M7 7H17" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">05</div>
+                <div class="station-title">Định lượng & Dữ liệu <span>🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Thống kê, hồi quy, phân tích độ nhạy & xây dựng mô hình tài chính Excel.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/72 bài</span>
+            </div>
+          </div>
+
+          <div class="map-station-card locked" onclick="location.href='hoc-bai.html'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M4 5A1 1 0 0 1 5 4H19A1 1 0 0 1 20 5V15A1 1 0 0 1 19 16H5A1 1 0 0 1 4 15V5ZM8 20L12 16L16 20" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">06</div>
+                <div class="station-title">Phân tích Dữ liệu <span>🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Làm sạch dữ liệu, trực quan hóa Dashboard & bóc tách insight từ Big Data.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/72 bài</span>
+            </div>
+          </div>
+
+          <div class="map-station-card locked" onclick="location.href='hoc-theo-nghe.html'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">07</div>
+                <div class="station-title">Kỹ năng nghề & Case Interview <span>🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Viết Executive Memo, bảo vệ luận điểm trước Partner & Mock Interview thực chiến.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/24 bài</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finish Flag -->
+        <div style="position:relative;z-index:3;margin-top:24px;display:flex;justify-content:flex-end">
+          <span style="font-size:12px;font-weight:800;background:#064E3B;color:#FFF;padding:6px 16px;border-radius:999px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px">
+            <span>🏁</span> ĐÍCH ĐẾN: MBB / BIG 4 CONSULTANT
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
