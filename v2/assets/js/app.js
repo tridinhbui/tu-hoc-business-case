@@ -339,202 +339,328 @@ function vRoadmap(){
     <!-- Tab Content 01: Illustrated Learning Map Canvas -->
     ${ROADMAP_UI.tab === '01' ? `
       <div class="stratlab-map-container">
-        <!-- SVG Landscape Background (Rolling hills, winding river, trees, bridge) -->
-        <svg viewBox="0 0 1200 480" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" preserveAspectRatio="none">
+        <!-- SVG Landscape Background (Isometric hills, winding sand road, river, bridge, trees) -->
+        <svg class="map-canvas-backdrop" viewBox="0 0 1200 700" preserveAspectRatio="none">
           <defs>
-            <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#DEF7EC"/><stop offset="100%" stop-color="#BCF0DA"/></linearGradient>
-            <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E1F7EB"/><stop offset="100%" stop-color="#C6F6D5"/></linearGradient>
-            <linearGradient id="riverGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#7DD3FC"/></linearGradient>
+            <linearGradient id="hillGrad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EAF5E9"/><stop offset="100%" stop-color="#DBEED8"/></linearGradient>
+            <linearGradient id="hillGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E1F1DE"/><stop offset="100%" stop-color="#CCE5C7"/></linearGradient>
+            <linearGradient id="riverGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#7DD3FC"/></linearGradient>
+            <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.06"/></filter>
           </defs>
-          <!-- Hills -->
-          <path d="M 0 160 Q 300 80 600 180 T 1200 120 L 1200 480 L 0 480 Z" fill="url(#hill1)" opacity="0.6"/>
-          <path d="M 0 280 Q 400 200 800 320 T 1200 240 L 1200 480 L 0 480 Z" fill="url(#hill2)" opacity="0.7"/>
-          <!-- River Meandering -->
-          <path d="M 620 480 Q 640 320 580 240 T 700 80 T 750 0" fill="none" stroke="url(#riverGrad)" stroke-width="32" stroke-linecap="round" opacity="0.85"/>
-          <!-- Wooden Bridge -->
-          <rect x="585" y="240" width="70" height="20" rx="4" fill="#D97706" opacity="0.85" transform="rotate(-15 620 250)"/>
-          <line x1="590" y1="242" x2="650" y2="242" stroke="#78350F" stroke-width="2" transform="rotate(-15 620 250)"/>
-          <line x1="590" y1="254" x2="650" y2="254" stroke="#78350F" stroke-width="2" transform="rotate(-15 620 250)"/>
-          <!-- Winding Road Dashed Path -->
-          <path d="M 80 140 Q 200 180 320 280 T 600 340 T 900 180 T 1120 360" fill="none" stroke="#10B981" stroke-width="5" stroke-dasharray="8 8" opacity="0.75"/>
-          <!-- Trees and Village Details -->
-          <circle cx="180" cy="190" r="14" fill="#059669" opacity="0.5"/>
-          <circle cx="210" cy="200" r="10" fill="#10B981" opacity="0.6"/>
-          <circle cx="480" cy="180" r="16" fill="#047857" opacity="0.5"/>
-          <circle cx="820" cy="280" r="18" fill="#059669" opacity="0.5"/>
-          <circle cx="1020" cy="160" r="14" fill="#10B981" opacity="0.5"/>
+          
+          <!-- Layer 1: Background Hills -->
+          <path d="M 0 180 Q 280 80 620 190 T 1200 130 L 1200 700 L 0 700 Z" fill="url(#hillGrad1)" opacity="0.75"/>
+          <!-- Layer 2: Midground Rolling Hills -->
+          <path d="M 0 340 Q 360 210 750 360 T 1200 280 L 1200 700 L 0 700 Z" fill="url(#hillGrad2)" opacity="0.6"/>
+          
+          <!-- Layer 3: River Flowing Down -->
+          <path d="M 780 0 Q 750 160 670 300 T 710 490 T 560 700" fill="none" stroke="url(#riverGrad)" stroke-width="36" stroke-linecap="round" opacity="0.9"/>
+          <!-- River glints -->
+          <path d="M 770 40 Q 745 160 675 280" fill="none" stroke="#FFF" stroke-width="2.5" opacity="0.5"/>
+          <path d="M 685 430 Q 700 480 620 620" fill="none" stroke="#FFF" stroke-width="2.5" opacity="0.5"/>
+
+          <!-- Wooden Plank Bridge -->
+          <g transform="translate(640, 275) rotate(-18)">
+            <rect x="0" y="0" width="76" height="28" rx="4" fill="#D97706" stroke="#92400E" stroke-width="2"/>
+            <line x1="12" y1="2" x2="12" y2="26" stroke="#78350F" stroke-width="2"/>
+            <line x1="26" y1="2" x2="26" y2="26" stroke="#78350F" stroke-width="2"/>
+            <line x1="40" y1="2" x2="40" y2="26" stroke="#78350F" stroke-width="2"/>
+            <line x1="54" y1="2" x2="54" y2="26" stroke="#78350F" stroke-width="2"/>
+            <line x1="66" y1="2" x2="66" y2="26" stroke="#78350F" stroke-width="2"/>
+            <rect x="0" y="0" width="76" height="3" fill="#FBBF24" opacity="0.5"/>
+          </g>
+
+          <!-- Layer 4: Sand Road Path Underlay & Center Dashed Line -->
+          <!-- Outer border -->
+          <path d="M 60 75 Q 150 160 210 240 T 430 330 T 670 300 T 880 170 T 1070 320 T 1000 540 T 740 600 T 430 540 T 110 610" 
+                fill="none" stroke="#D3C7AF" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+          <!-- Sand Surface -->
+          <path d="M 60 75 Q 150 160 210 240 T 430 330 T 670 300 T 880 170 T 1070 320 T 1000 540 T 740 600 T 430 540 T 110 610" 
+                fill="none" stroke="#E9DFCA" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Emerald Centerline Dash -->
+          <path d="M 60 75 Q 150 160 210 240 T 430 330 T 670 300 T 880 170 T 1070 320 T 1000 540 T 740 600 T 430 540 T 110 610" 
+                fill="none" stroke="#10B981" stroke-width="4.5" stroke-dasharray="9 9" stroke-linecap="round" opacity="0.85"/>
+
+          <!-- Scenery: Isometric Trees & Little Houses -->
+          <!-- Trees near Start -->
+          <circle cx="120" cy="130" r="14" fill="#047857" opacity="0.45"/>
+          <circle cx="135" cy="140" r="10" fill="#10B981" opacity="0.55"/>
+          <!-- Trees near River -->
+          <circle cx="610" cy="220" r="16" fill="#059669" opacity="0.5"/>
+          <circle cx="635" cy="235" r="11" fill="#10B981" opacity="0.6"/>
+          <!-- House 1 -->
+          <g transform="translate(730, 210)">
+            <polygon points="15,0 0,10 30,10" fill="#EF4444"/>
+            <rect x="3" y="10" width="24" height="15" fill="#FFFBEB" stroke="#E5E7EB"/>
+            <rect x="11" y="16" width="8" height="9" fill="#78350F"/>
+          </g>
+          <!-- Trees near St.3 & St.4 -->
+          <circle cx="810" cy="100" r="18" fill="#047857" opacity="0.4"/>
+          <circle cx="1120" cy="260" r="16" fill="#059669" opacity="0.5"/>
+          <circle cx="1140" cy="275" r="12" fill="#10B981" opacity="0.6"/>
+          <!-- Trees near St.5 & St.6 -->
+          <circle cx="830" cy="620" r="17" fill="#047857" opacity="0.45"/>
+          <circle cx="560" cy="530" r="15" fill="#059669" opacity="0.5"/>
+          <circle cx="280" cy="640" r="16" fill="#059669" opacity="0.45"/>
         </svg>
 
-        <!-- Start Flag -->
-        <div style="position:relative;z-index:3;margin-bottom:14px;display:flex;align-items:center;gap:8px">
-          <span style="font-size:11px;font-weight:800;background:#064E3B;color:#FFF;padding:4px 12px;border-radius:999px;letter-spacing:.04em">XUẤT PHÁT</span>
-        </div>
+        <!-- Spatial Container with 7 Stations & Start/Finish markers -->
+        <div class="map-station-spatial-area">
+          
+          <!-- Start Flag / Pill (Top-Left) -->
+          <div class="map-spatial-node" style="top:18px;left:28px">
+            <span style="font-size:11.5px;font-weight:800;background:#064E3B;color:#FFF;padding:5px 14px;border-radius:999px;letter-spacing:.04em;box-shadow:0 2px 6px rgba(6,78,59,.3);display:inline-flex;align-items:center;gap:6px">
+              <span>🚩</span> XUẤT PHÁT
+            </span>
+          </div>
 
-        <!-- 7 Interactive Stations along the Roadmap -->
-        <div class="map-station-grid">
           <!-- Station 01 (Active) -->
-          <div class="map-station-card active" onclick="location.hash='#/lesson/f-sizing'" style="cursor:pointer">
-            <div class="station-pin-badge">
-              <span>📍</span> <b>BẠN Ở ĐÂY</b>
-            </div>
-            <div class="station-card-top">
-              <div class="station-3d-icon">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                  <path d="M9 12H15M9 16H13M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+          <div class="map-spatial-node" style="top:90px;left:24px">
+            <div class="map-station-card active" onclick="location.hash='#/lesson/f-sizing'" style="cursor:pointer">
+              <div class="station-pin-badge">
+                <span>📍</span> <b>BẠN Ở ĐÂY</b>
               </div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:11.5px;font-weight:800;color:#059669">01</div>
-                <div class="station-title">Tư duy cấu trúc & Khung MECE</div>
+              <div class="station-card-top">
+                <div class="station-isometric-box">
+                  <svg viewBox="0 0 72 72" width="52" height="52" fill="none">
+                    <ellipse cx="36" cy="62" rx="26" ry="8" fill="#047857" opacity="0.18"/>
+                    <path d="M 14 48 L 36 58 L 58 48 L 36 38 Z" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1"/>
+                    <path d="M 14 48 L 36 58 L 36 61 L 14 51 Z" fill="#94A3B8"/>
+                    <path d="M 36 58 L 58 48 L 58 51 L 36 61 Z" fill="#64748B"/>
+                    <path d="M 18 45 L 36 53 L 54 45 L 36 37 Z" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+                    <path d="M 23 42 L 23 25 L 26 25 L 26 42 Z" fill="#F1F5F9"/>
+                    <path d="M 26 42 L 26 25 L 27.5 25.5 L 27.5 42.5 Z" fill="#CBD5E1"/>
+                    <path d="M 30 45 L 30 28 L 33 28 L 33 45 Z" fill="#F1F5F9"/>
+                    <path d="M 33 45 L 33 28 L 34.5 28.5 L 34.5 45.5 Z" fill="#CBD5E1"/>
+                    <path d="M 38 45 L 38 28 L 41 28 L 41 45 Z" fill="#F1F5F9"/>
+                    <path d="M 41 45 L 41 28 L 42.5 28.5 L 42.5 45.5 Z" fill="#CBD5E1"/>
+                    <path d="M 46 42 L 46 25 L 49 25 L 49 42 Z" fill="#F1F5F9"/>
+                    <path d="M 49 42 L 49 25 L 50.5 25.5 L 50.5 42.5 Z" fill="#CBD5E1"/>
+                    <path d="M 19 25 L 36 32 L 53 25 L 36 18 Z" fill="#E2E8F0"/>
+                    <path d="M 18 22 L 36 9 L 36 29 Z" fill="#10B981"/>
+                    <path d="M 36 9 L 54 22 L 36 29 Z" fill="#059669"/>
+                    <circle cx="36" cy="7" r="2" fill="#FBBF24"/>
+                  </svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <span class="station-num-pill">01</span>
+                  <div class="station-title">Tư duy cấu trúc & Khung MECE</div>
+                </div>
               </div>
-            </div>
-            <div class="station-desc">Khung Minto, cây vấn đề Issue Tree phân tách doanh thu & chi phí toàn diện.</div>
-            <div class="station-progress-row">
-              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
-                <div style="width:6%;height:100%;background:#059669;border-radius:999px"></div>
+              <div class="station-desc">Khung Minto, cây vấn đề Issue Tree phân tách doanh thu & chi phí toàn diện.</div>
+              <div class="station-progress-row">
+                <div class="station-progress-bar-wrap">
+                  <div class="station-progress-bar-fill" style="width:6%"></div>
+                </div>
+                <span style="color:#059669;font-weight:800">1/18 bài (6%)</span>
               </div>
-              <span style="color:#059669;font-weight:800">1/18 bài (6%)</span>
             </div>
           </div>
 
-          <!-- Station 02 -->
-          <div class="map-station-card locked" onclick="location.hash='#/lesson/f-profit'" style="cursor:pointer">
-            <div class="station-card-top">
-              <div class="station-3d-icon">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-                  <path d="M18 20V10M12 20V4M6 20V14" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+          <!-- Station 02 (Center) -->
+          <div class="map-spatial-node" style="top:260px;left:340px">
+            <div class="map-station-card locked" onclick="location.hash='#/lesson/f-profit'" style="cursor:pointer">
+              <div class="station-card-top">
+                <div class="station-isometric-box">
+                  <svg viewBox="0 0 72 72" width="52" height="52" fill="none">
+                    <ellipse cx="36" cy="62" rx="26" ry="8" fill="#64748B" opacity="0.16"/>
+                    <path d="M 16 50 L 36 60 L 56 50 L 36 40 Z" fill="#E2E8F0"/>
+                    <path d="M 22 46 L 36 53 L 36 18 L 22 11 Z" fill="#F1F5F9"/>
+                    <path d="M 36 53 L 50 46 L 50 11 L 36 18 Z" fill="#CBD5E1"/>
+                    <path d="M 22 11 L 36 18 L 50 11 L 36 4 Z" fill="#94A3B8"/>
+                    <rect x="25" y="18" width="3" height="4" fill="#38BDF8" transform="skewY(18)"/>
+                    <rect x="30" y="21" width="3" height="4" fill="#38BDF8" transform="skewY(18)"/>
+                    <rect x="25" y="26" width="3" height="4" fill="#38BDF8" transform="skewY(18)"/>
+                    <rect x="39" y="32" width="3" height="4" fill="#60A5FA" transform="skewY(-18)"/>
+                    <rect x="44" y="29" width="3" height="4" fill="#60A5FA" transform="skewY(-18)"/>
+                    <line x1="36" y1="4" x2="36" y2="1" stroke="#64748B" stroke-width="2"/>
+                    <circle cx="36" cy="1" r="1.5" fill="#EF4444"/>
+                  </svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <span class="station-num-pill">02</span>
+                  <div class="station-title">Phân tích Lợi nhuận <span style="font-size:12px">🔒</span></div>
+                </div>
               </div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">02</div>
-                <div class="station-title">Phân tích Lợi nhuận <span style="font-size:13px">🔒</span></div>
+              <div class="station-desc">Lợi nhuận = P × Q - Chi phí, tìm điểm rò rỉ biên lợi nhuận và dòng tiền.</div>
+              <div class="station-progress-row">
+                <div class="station-progress-bar-wrap">
+                  <div class="station-progress-bar-fill" style="width:0%"></div>
+                </div>
+                <span>0/16 bài</span>
               </div>
-            </div>
-            <div class="station-desc">Lợi nhuận = P × Q - Chi phí, tìm điểm rò rỉ biên lợi nhuận và dòng tiền.</div>
-            <div class="station-progress-row">
-              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
-                <div style="width:0%;height:100%;background:#059669"></div>
-              </div>
-              <span>0/16 bài</span>
             </div>
           </div>
 
-          <!-- Station 03 -->
-          <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
-            <div class="station-card-top">
-              <div class="station-3d-icon">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-                  <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+          <!-- Station 03 (Top Right) -->
+          <div class="map-spatial-node" style="top:70px;right:280px">
+            <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
+              <div class="station-card-top">
+                <div class="station-isometric-box">
+                  <svg viewBox="0 0 72 72" width="52" height="52" fill="none">
+                    <ellipse cx="36" cy="62" rx="26" ry="8" fill="#64748B" opacity="0.16"/>
+                    <path d="M 14 50 L 36 61 L 58 50 L 36 39 Z" fill="#CBD5E1"/>
+                    <path d="M 20 46 L 36 54 L 36 22 L 20 14 Z" fill="#E2E8F0"/>
+                    <path d="M 36 54 L 52 46 L 52 14 L 36 22 Z" fill="#94A3B8"/>
+                    <path d="M 19 13 L 23 15 L 23 18 L 19 16 Z" fill="#CBD5E1"/>
+                    <path d="M 26 16.5 L 30 18.5 L 30 21.5 L 26 19.5 Z" fill="#CBD5E1"/>
+                    <path d="M 41 20 L 45 18 L 45 21 L 41 23 Z" fill="#64748B"/>
+                    <path d="M 48 16.5 L 52 14.5 L 52 17.5 L 48 19.5 Z" fill="#64748B"/>
+                    <path d="M 26 49 L 26 40 Q 29 38 32 43 L 32 52 Z" fill="#334155"/>
+                    <line x1="36" y1="22" x2="36" y2="8" stroke="#64748B" stroke-width="2"/>
+                    <path d="M 36 8 L 46 12 L 36 16 Z" fill="#F59E0B"/>
+                  </svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <span class="station-num-pill">03</span>
+                  <div class="station-title">Thâm nhập thị trường <span style="font-size:12px">🔒</span></div>
+                </div>
               </div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">03</div>
-                <div class="station-title">Thâm nhập thị trường <span style="font-size:13px">🔒</span></div>
+              <div class="station-desc">Market Sizing (TAM/SAM/SOM), rào cản gia nhập & Porter 5 Forces.</div>
+              <div class="station-progress-row">
+                <div class="station-progress-bar-wrap">
+                  <div class="station-progress-bar-fill" style="width:0%"></div>
+                </div>
+                <span>0/20 bài</span>
               </div>
-            </div>
-            <div class="station-desc">Market Sizing (TAM/SAM/SOM), rào cản gia nhập & Porter 5 Forces.</div>
-            <div class="station-progress-row">
-              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
-                <div style="width:0%;height:100%;background:#059669"></div>
-              </div>
-              <span>0/20 bài</span>
             </div>
           </div>
 
-          <!-- Station 04 -->
-          <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
-            <div class="station-card-top">
-              <div class="station-3d-icon">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-                  <path d="M12 6.253V20M12 6.253C10.832 5.477 9.246 5 7.5 5C5.754 5 4.168 5.477 3 6.253V20C4.168 19.223 5.754 18.75 7.5 18.75C9.246 18.75 10.832 19.223 12 20M12 6.253C13.168 5.477 14.754 5 16.5 5C18.246 5 19.832 5.477 21 6.253V20C19.832 19.223 18.246 18.75 16.5 18.75C14.754 18.75 13.168 19.223 12 20" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+          <!-- Station 04 (Far Right) -->
+          <div class="map-spatial-node" style="top:250px;right:20px">
+            <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
+              <div class="station-card-top">
+                <div class="station-isometric-box">
+                  <svg viewBox="0 0 72 72" width="52" height="52" fill="none">
+                    <ellipse cx="36" cy="62" rx="26" ry="8" fill="#64748B" opacity="0.16"/>
+                    <path d="M 18 48 L 32 55 L 32 14 L 18 7 Z" fill="#E2E8F0"/>
+                    <path d="M 32 55 L 38 52 L 38 11 L 32 14 Z" fill="#94A3B8"/>
+                    <path d="M 18 7 L 32 14 L 38 11 L 24 4 Z" fill="#64748B"/>
+                    <path d="M 36 48 L 48 54 L 48 20 L 36 14 Z" fill="#CBD5E1"/>
+                    <path d="M 48 54 L 56 50 L 56 16 L 48 20 Z" fill="#64748B"/>
+                    <path d="M 28 26 L 42 33 L 42 28 L 28 21 Z" fill="#0284C7"/>
+                  </svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <span class="station-num-pill">04</span>
+                  <div class="station-title">M&A & Định Giá DN <span style="font-size:12px">🔒</span></div>
+                </div>
               </div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">04</div>
-                <div class="station-title">M&A & Định Giá <span style="font-size:13px">🔒</span></div>
+              <div class="station-desc">Due Diligence, hiệp lực Synergy & mô hình định giá chiết khấu DCF.</div>
+              <div class="station-progress-row">
+                <div class="station-progress-bar-wrap">
+                  <div class="station-progress-bar-fill" style="width:0%"></div>
+                </div>
+                <span>0/15 bài</span>
               </div>
-            </div>
-            <div class="station-desc">Due Diligence, hiệp lực Synergy & mô hình định giá chiết khấu dòng tiền DCF.</div>
-            <div class="station-progress-row">
-              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
-                <div style="width:0%;height:100%;background:#059669"></div>
-              </div>
-              <span>0/15 bài</span>
             </div>
           </div>
 
-          <!-- Station 05 -->
-          <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
-            <div class="station-card-top">
-              <div class="station-3d-icon">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-                  <path d="M19 11H5M19 11C20.1046 11 21 11.8954 21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V13C3 11.8954 3.89543 11 5 11M19 11V9C19 7.89543 18.1046 7 17 7M5 11V9C5 7.89543 5.89543 7 7 7M7 7V5C7 3.89543 7.89543 3 9 3H15C16.1046 3 17 3.89543 17 5V7M7 7H17" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+          <!-- Station 05 (Bottom Right) -->
+          <div class="map-spatial-node" style="bottom:24px;right:160px">
+            <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
+              <div class="station-card-top">
+                <div class="station-isometric-box">
+                  <svg viewBox="0 0 72 72" width="52" height="52" fill="none">
+                    <ellipse cx="36" cy="62" rx="26" ry="8" fill="#64748B" opacity="0.16"/>
+                    <path d="M 18 48 L 36 57 L 54 48 L 36 39 Z" fill="#E2E8F0"/>
+                    <ellipse cx="36" cy="35" rx="16" ry="12" fill="#F1F5F9"/>
+                    <path d="M 20 35 A 16 16 0 0 1 52 35 Z" fill="#E2E8F0"/>
+                    <path d="M 32 30 L 40 26 L 43 28 L 35 32 Z" fill="#334155"/>
+                    <line x1="37" y1="29" x2="48" y2="18" stroke="#64748B" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="49" cy="17" r="2.5" fill="#38BDF8"/>
+                  </svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <span class="station-num-pill">05</span>
+                  <div class="station-title">Định lượng & Dữ liệu <span style="font-size:12px">🔒</span></div>
+                </div>
               </div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">05</div>
-                <div class="station-title">Định lượng & Dữ liệu <span style="font-size:13px">🔒</span></div>
+              <div class="station-desc">Thống kê, hồi quy, phân tích độ nhạy & xây dựng mô hình tài chính Excel.</div>
+              <div class="station-progress-row">
+                <div class="station-progress-bar-wrap">
+                  <div class="station-progress-bar-fill" style="width:0%"></div>
+                </div>
+                <span>0/72 bài</span>
               </div>
-            </div>
-            <div class="station-desc">Thống kê, hồi quy, phân tích độ nhạy & xây dựng mô hình tài chính Excel.</div>
-            <div class="station-progress-row">
-              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
-                <div style="width:0%;height:100%;background:#059669"></div>
-              </div>
-              <span>0/72 bài</span>
             </div>
           </div>
 
-          <!-- Station 06 -->
-          <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
-            <div class="station-card-top">
-              <div class="station-3d-icon">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-                  <path d="M4 5A1 1 0 0 1 5 4H19A1 1 0 0 1 20 5V15A1 1 0 0 1 19 16H5A1 1 0 0 1 4 15V5ZM8 20L12 16L16 20" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+          <!-- Station 06 (Bottom Center) -->
+          <div class="map-spatial-node" style="bottom:24px;left:380px">
+            <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
+              <div class="station-card-top">
+                <div class="station-isometric-box">
+                  <svg viewBox="0 0 72 72" width="52" height="52" fill="none">
+                    <ellipse cx="36" cy="62" rx="26" ry="8" fill="#64748B" opacity="0.16"/>
+                    <path d="M 16 48 L 36 58 L 56 48 L 36 38 Z" fill="#E2E8F0"/>
+                    <path d="M 20 44 L 36 52 L 36 24 L 20 16 Z" fill="#F8FAFC"/>
+                    <path d="M 36 52 L 52 44 L 52 16 L 36 24 Z" fill="#CBD5E1"/>
+                    <path d="M 20 16 L 36 24 L 52 16 L 36 8 Z" fill="#94A3B8"/>
+                    <polygon points="26,27 36,32 36,44 26,39" fill="#38BDF8" opacity="0.85"/>
+                    <polygon points="36,32 46,27 46,39 36,44" fill="#0284C7" opacity="0.85"/>
+                    <circle cx="28" cy="22" r="1.5" fill="#10B981"/>
+                  </svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <span class="station-num-pill">06</span>
+                  <div class="station-title">Phân tích Dữ liệu <span style="font-size:12px">🔒</span></div>
+                </div>
               </div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">06</div>
-                <div class="station-title">Phân tích Dữ liệu <span style="font-size:13px">🔒</span></div>
+              <div class="station-desc">Làm sạch dữ liệu, trực quan hóa Dashboard & bóc tách insight từ Big Data.</div>
+              <div class="station-progress-row">
+                <div class="station-progress-bar-wrap">
+                  <div class="station-progress-bar-fill" style="width:0%"></div>
+                </div>
+                <span>0/72 bài</span>
               </div>
-            </div>
-            <div class="station-desc">Làm sạch dữ liệu, trực quan hóa Dashboard & bóc tách insight từ Big Data.</div>
-            <div class="station-progress-row">
-              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
-                <div style="width:0%;height:100%;background:#059669"></div>
-              </div>
-              <span>0/72 bài</span>
             </div>
           </div>
 
-          <!-- Station 07 -->
-          <div class="map-station-card locked" onclick="location.hash='#/career'" style="cursor:pointer">
-            <div class="station-card-top">
-              <div class="station-3d-icon">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+          <!-- Station 07 (Bottom Left) -->
+          <div class="map-spatial-node" style="bottom:130px;left:70px">
+            <div class="map-station-card locked" onclick="location.hash='#/career'" style="cursor:pointer">
+              <div class="station-card-top">
+                <div class="station-isometric-box">
+                  <svg viewBox="0 0 72 72" width="52" height="52" fill="none">
+                    <ellipse cx="36" cy="62" rx="26" ry="8" fill="#64748B" opacity="0.16"/>
+                    <path d="M 14 50 L 36 61 L 58 50 L 36 39 Z" fill="#E2E8F0"/>
+                    <path d="M 24 40 L 36 46 L 36 16 L 24 10 Z" fill="#F1F5F9"/>
+                    <path d="M 36 46 L 48 40 L 48 10 L 36 16 Z" fill="#94A3B8"/>
+                    <polygon points="36,4 34,14 38,14" fill="#F59E0B"/>
+                    <circle cx="36" cy="0" r="2.5" fill="#FBBF24"/>
+                    <path d="M 36 2 L 46 6 L 36 9 Z" fill="#10B981"/>
+                  </svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <span class="station-num-pill">07</span>
+                  <div class="station-title">Kỹ năng nghề & Case Apex <span style="font-size:12px">🔒</span></div>
+                </div>
               </div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">07</div>
-                <div class="station-title">Kỹ năng nghề & Case Interview <span style="font-size:13px">🔒</span></div>
+              <div class="station-desc">Viết Executive Memo, bảo vệ luận điểm Partner & Mock Case thực chiến.</div>
+              <div class="station-progress-row">
+                <div class="station-progress-bar-wrap">
+                  <div class="station-progress-bar-fill" style="width:0%"></div>
+                </div>
+                <span>0/24 bài</span>
               </div>
-            </div>
-            <div class="station-desc">Viết Executive Memo, bảo vệ luận điểm trước Partner & Mock Interview thực chiến.</div>
-            <div class="station-progress-row">
-              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
-                <div style="width:0%;height:100%;background:#059669"></div>
-              </div>
-              <span>0/24 bài</span>
             </div>
           </div>
-        </div>
 
-        <!-- Finish Flag -->
-        <div style="position:relative;z-index:3;margin-top:24px;display:flex;justify-content:flex-end">
-          <span style="font-size:12px;font-weight:800;background:#064E3B;color:#FFF;padding:6px 16px;border-radius:999px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px">
-            <span>🏁</span> ĐÍCH ĐẾN: MBB / BIG 4 CONSULTANT
-          </span>
+          <!-- Terminus Finish Flag (Bottom Far-Left) -->
+          <div class="map-spatial-node map-finish-flag" style="bottom:22px;left:28px">
+            <svg viewBox="0 0 36 54" width="32" height="48" fill="none">
+              <ellipse cx="18" cy="48" rx="14" ry="5" fill="#64748B" opacity="0.25"/>
+              <ellipse cx="18" cy="46" rx="12" ry="4" fill="#CBD5E1"/>
+              <line x1="18" y1="46" x2="18" y2="4" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="18" cy="3" r="2.5" fill="#F59E0B"/>
+              <path d="M 18 5 L 34 10 L 18 17 Z" fill="#18181B"/>
+              <path d="M 18 5 L 26 7.5 L 26 13.5 L 18 11 Z" fill="#FFFFFF"/>
+              <path d="M 26 7.5 L 34 10 L 26 13.5 Z" fill="#18181B"/>
+            </svg>
+            <span style="font-size:10px;font-weight:800;color:var(--text);margin-top:2px;background:#FFF;padding:2px 6px;border-radius:4px;border:1px solid var(--border)">ĐÍCH ĐẾN</span>
+          </div>
+
         </div>
       </div>
     ` : ROADMAP_UI.tab === '02' ? `
