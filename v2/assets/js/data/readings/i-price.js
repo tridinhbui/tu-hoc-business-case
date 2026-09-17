@@ -528,3 +528,103 @@ Kết luận, giá trị có số, bằng chứng từ hành vi mua, rủi ro k�
 
 Phần tiếp theo là bộ lọc nước gắn vòi của Nguồn Sạch, một sản phẩm chưa có đối thủ trực tiếp. Hãy đi đúng thứ tự của bài: tìm cách khách đang làm hôm nay và quy ra tiền mỗi năm, cộng phần hơn và trừ phần kém để có giá trị kinh tế, rồi nhân lãi góp mỗi bộ với số hộ mua ở từng mức giá — nhớ áp tỷ lệ chuyển đổi từ "chắc chắn sẽ mua" sang mua thật trước khi so.
 `);
+
+LRD("i-price-5", `
+Phòng họp của Nói Hay, một ứng dụng học tiếng Anh có hai phần: luyện nói với trợ lý AI và luyện thi IELTS. Giám đốc điều hành muốn gộp tất cả thành một gói duy nhất 240.000đ mỗi tháng, vì "đơn giản, khách không phải nghĩ". Giám đốc tài chính muốn bán riêng từng phần, vì "ai dùng gì trả nấy". Hai người đã tranh luận ba tuần, và cả hai đều có một bảng tính chứng minh mình đúng.
+
+Đề phỏng vấn dựa trên đúng tình huống này hỏi: Nói Hay nên cấu trúc giá thế nào?
+
+Ứng viên thứ nhất chọn phe. Gói duy nhất dễ bán hơn, đối thủ cũng đang bán gói, vậy chọn gói. Lập luận nghe hợp lý, nhưng không có con số nào cho thấy gói tốt hơn bán lẻ bao nhiêu.
+
+Ứng viên thứ hai hỏi xin một bảng: các nhóm khách chính, mỗi nhóm đông bao nhiêu, và **mỗi nhóm sẵn lòng trả bao nhiêu cho từng phần**. Từ bảng đó, cô tính được lãi góp của cả hai phương án mà hai giám đốc đang cãi nhau, và chỉ ra một phương án thứ ba tốt hơn cả hai.
+
+## Bắt đầu từ bảng sẵn lòng trả
+
+Mọi quyết định về cấu trúc giá đều quy về một bảng: hàng là phân khúc, cột là thành phần sản phẩm, ô là mức tối đa phân khúc đó sẵn lòng trả mỗi tháng. Với Nói Hay:
+
+- **Người đi làm**, 5.000 người: luyện nói 200.000đ, IELTS 40.000đ
+- **Người luyện thi**, 3.000 người: luyện nói 60.000đ, IELTS 220.000đ
+- **Người học nghiêm túc**, 2.000 người: luyện nói 150.000đ, IELTS 170.000đ
+
+Chi phí biến đổi mỗi người mỗi tháng là 50.000đ cho luyện nói, chủ yếu là chi phí máy chủ AI, và 30.000đ cho IELTS, chủ yếu là chấm bài.
+
+Bảng này không cần chính xác tuyệt đối. Nó cần đúng **thứ tự và hình dạng**: nhóm nào coi trọng phần nào hơn. Trong phỏng vấn, giám khảo thường cho sẵn bảng; ngoài đời, nó đến từ khảo sát, bán thử và dữ liệu sử dụng.
+
+## Một phép thử cho mọi cấu trúc: mỗi nhóm sẽ chọn gì
+
+Nguyên tắc duy nhất cần nhớ: **mỗi nhóm mua phương án cho họ phần dư lớn nhất**, tức giá trị với họ trừ giá phải trả, và không mua gì nếu mọi phương án đều âm. Áp nguyên tắc đó cho từng cấu trúc, tính lãi góp, rồi so.
+
+**Bán lẻ**, luyện nói 150.000đ và IELTS 170.000đ. Người đi làm mua luyện nói, người luyện thi mua IELTS, người nghiêm túc mua cả hai. Lãi góp: 5.000 × 100.000 + 3.000 × 140.000 + 2.000 × 240.000 = **1,4 tỷ** mỗi tháng.
+
+**Chỉ bán gói** 240.000đ. Tổng giá trị với ba nhóm lần lượt là 240.000đ, 280.000đ và 320.000đ, nên cả 10.000 người đều mua. Lãi góp: 10.000 × 160.000 = **1,6 tỷ**. Giám đốc điều hành thắng giám đốc tài chính 200 triệu.
+
+Nhưng thử nâng gói lên 280.000đ: người đi làm thấy gói chỉ đáng 240.000đ và bỏ đi. Lãi góp rơi xuống **1 tỷ**, mất 600 triệu chỉ vì 40.000đ. Gói duy nhất bị trói vào nhóm định giá thấp nhất.
+
+**Kết hợp**: vẫn bán lẻ, nhưng đắt hơn — luyện nói 190.000đ, IELTS 210.000đ — và thêm gói 320.000đ. Người đi làm vẫn mua luyện nói, vì gói đắt hơn giá trị với họ. Người luyện thi vẫn mua IELTS. Người nghiêm túc thấy mua lẻ từng phần đều âm, còn gói vừa bằng giá trị, nên chọn gói. Lãi góp: 5.000 × 140.000 + 3.000 × 180.000 + 2.000 × 240.000 = **1,72 tỷ**.
+
+Đặt giá gói đúng bằng mức sẵn lòng trả là cách tính trên giấy. Khi áp dụng thật, nên chừa cho khách một khoảng nhỏ để quyết định không bị lung lay.
+
+## Vì sao cấu trúc kết hợp thắng
+
+So với chỉ bán gói, cấu trúc kết hợp **lỗ ở nhóm đông nhất**: mỗi người đi làm để lại 140.000đ thay vì 160.000đ, mất 100 triệu. Nhưng người luyện thi để lại thêm 20.000đ mỗi người, tức 60 triệu, và người nghiêm túc thêm 80.000đ mỗi người, tức 160 triệu. Ròng thêm **120 triệu**.
+
+Gói phát huy tác dụng khi các nhóm **đánh giá các phần ngược nhau**: nhóm này coi trọng phần A, nhóm kia coi trọng phần B. Gói san phẳng sự khác biệt đó, nên bán được cho nhiều người ở một mức giá. Bán lẻ đắt lại thu tiền cao từ những người chỉ cần một phần và cần rất nhiều. Cấu trúc kết hợp lấy cả hai: gói cho nhóm ở giữa, hàng lẻ giá cao cho hai nhóm ở hai đầu.
+
+Nếu mọi nhóm đều đánh giá các phần giống nhau, gói gần như không tạo thêm gì. Đó là lúc câu trả lời "cứ bán gói cho đơn giản" đúng.
+
+## Khách tự chọn tầng: kiểm tra từ trên xuống
+
+Cấu trúc nhiều tầng chỉ hoạt động nếu mỗi nhóm **tự chọn đúng tầng dành cho mình**. Chỗ hay hỏng nhất là nhóm trả cao trượt xuống tầng rẻ.
+
+Thử hạ luyện nói lẻ từ 190.000đ xuống 140.000đ cho "cạnh tranh hơn". Với người nghiêm túc, luyện nói lẻ bây giờ còn dư 10.000đ, hơn gói vốn dư 0đ, nên cả 2.000 người chuyển từ gói sang luyện nói lẻ: mỗi người để lại 90.000đ thay vì 240.000đ, mất 300 triệu. Người đi làm trả ít đi 50.000đ, mất thêm 250 triệu. Tổng lãi góp còn **1,17 tỷ**, thấp hơn cả bán lẻ ban đầu.
+
+Quy tắc kiểm tra: đi từ tầng cao nhất xuống, và với mỗi tầng rẻ hơn, hỏi "nhóm của tầng trên có dư nhiều hơn nếu mua tầng này không?". Nếu có, tầng rẻ đang ăn tầng đắt.
+
+## Hàng rào giữ các tầng tách nhau
+
+Nhiều khi bảng sẵn lòng trả cho thấy nên có một mức giá thấp cho một nhóm riêng: sinh viên, người dùng giờ thấp điểm, khách ký hợp đồng dài. Mức giá đó chỉ đứng vững nếu có **hàng rào**: một điều kiện nhóm khác khó hoặc không muốn đáp ứng.
+
+Giả sử Nói Hay mở giá sinh viên cho luyện nói 120.000đ, cần thẻ sinh viên. Có 1.500 sinh viên chưa từng mua sẽ vào, mang thêm 1.500 × 70.000đ = **105 triệu**. Nhưng nếu 20% người đi làm, tức 1.000 người, mượn được thẻ, mỗi người trả ít đi 70.000đ: mất 70 triệu, ròng còn 35 triệu. Nếu 40% lách được, ròng thành **âm 35 triệu**.
+
+Vì vậy mỗi đề xuất giá theo phân khúc phải đi kèm một câu: hàng rào là gì, và nó rò rỉ tới mức nào thì đề xuất hết đáng làm.
+
+## Trình bày thành một slide
+
+Đầu ra của bài toán cấu trúc giá là một bảng so sánh trên một slide, không phải một đoạn văn.
+
+- Hàng: các cấu trúc đã thử — bán lẻ, chỉ bán gói, kết hợp
+- Cột: mỗi nhóm chọn gì, và lãi góp mỗi tháng
+- Dòng dưới cùng: rủi ro tự chọn tầng và hàng rào
+- Tiêu đề là kết luận có số: "Bán lẻ giá cao kèm gói 320.000đ thêm 120 triệu mỗi tháng so với chỉ bán gói"
+
+Người nghe nhìn một bảng là thấy vì sao phương án thắng, và thấy luôn hai phương án mà hai giám đốc đang bảo vệ nằm ở đâu.
+
+## Cùng khung, ngành khác
+
+**Phần mềm cho doanh nghiệp** thường có ba tầng Cơ bản, Chuyên nghiệp, Doanh nghiệp. Hàng rào là số người dùng, dung lượng hoặc một tính năng quản trị mà chỉ công ty lớn cần.
+
+**Nhà hàng** bán món lẻ và combo. Combo thường chứa một món có chi phí thấp nhưng giá trị cảm nhận cao, như nước uống, để kéo nhóm ở giữa lên.
+
+**Viễn thông** bán gói data kèm thoại. Người dùng nhiều data mà ít gọi và người gọi nhiều mà ít data là hai nhóm đánh giá ngược nhau — đúng điều kiện để gói có tác dụng.
+
+## Nói trong 60 giây
+
+> "Em đề xuất bán lẻ ở giá cao hơn — luyện nói 190.000đ, IELTS 210.000đ — và thêm một gói 320.000đ."
+> "Ba nhóm khách đánh giá hai phần rất khác nhau, nên gói 320.000đ giữ được người học nghiêm túc, còn hàng lẻ giá cao thu tiền từ người chỉ cần một phần."
+> "Lãi góp khoảng 1,72 tỷ mỗi tháng, hơn chỉ bán gói 120 triệu và hơn bán lẻ giá cũ 320 triệu."
+> "Rủi ro lớn nhất là giảm giá hàng lẻ sau này: xuống dưới 150.000đ thì người nghiêm túc sẽ bỏ gói, nên mọi đợt khuyến mãi phải kiểm tra lại bảng này trước."
+
+Kết luận, lý do từ bảng sẵn lòng trả, con số so với hai phương án đang tranh luận, rủi ro kèm điều kiện.
+
+## Những lỗi khiến phần cấu trúc giá bị trừ điểm
+
+- **Chọn cấu trúc theo sở thích hoặc theo đối thủ.** Không có bảng sẵn lòng trả thì không có căn cứ.
+- **Tính doanh thu thay vì lãi góp.** Gói bắt người mua trả cho phần họ ít dùng, và phần đó vẫn tốn chi phí.
+- **Quên rằng mỗi nhóm tự chọn.** Đặt giá xong phải chạy lại lựa chọn của từng nhóm, không được giả định họ mua đúng tầng mình nghĩ.
+- **Hạ giá tầng rẻ mà không kiểm tra tầng trên.** Khách tầng cao trượt xuống là khoản mất lớn nhất.
+- **Đề xuất giá phân khúc không kèm hàng rào.** Hàng rào lỏng biến một đề xuất có lãi thành lỗ.
+
+## Vào bài tập
+
+Phần tiếp theo là chuỗi phòng tập Năng Động, bán phòng tập và lớp nhóm cho ba nhóm khách đánh giá hai dịch vụ rất khác nhau. Làm đúng thứ tự của bài: dựng bảng sẵn lòng trả, cho từng nhóm chọn phương án có phần dư lớn nhất trong mỗi cấu trúc, cộng lãi góp, rồi kiểm tra tự chọn tầng và hàng rào trước khi viết tiêu đề slide.
+`);
