@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f7f5;
+      --bg: #f8faf8;
       --sidebar-bg: #ffffff;
       --sidebar-border: #e8eee8;
       --card-bg: #ffffff;
@@ -340,19 +340,19 @@
       flex-direction: column;
       height: 100vh;
       overflow-y: auto;
-      background: #f5f7f5;
+      background: #f8faf8;
       position: relative;
     }
 
     /* ── TOP HEADER / BREADCRUMB ── */
     .top-breadcrumb-bar {
-      padding: 16px 28px 12px;
+      padding: 18px 32px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
-      background: rgba(245, 247, 245, 0.95);
+      background: rgba(248, 250, 248, 0.96);
       backdrop-filter: blur(8px);
       z-index: 30;
     }
@@ -360,68 +360,66 @@
     .breadcrumb-title-group {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
     }
 
     .back-btn {
       color: #64748b;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .breadcrumb-title {
       font-size: 18px;
       font-weight: 800;
       color: #0f172a;
+      letter-spacing: -0.01em;
     }
 
     .reward-pill-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #fef9ee;
+      background: #fef8eb;
       border: 1px solid #fde68a;
       border-radius: var(--radius-pill);
-      padding: 6px 14px;
-      font-size: 12px;
+      padding: 5px 14px;
+      font-size: 11.5px;
       font-weight: 800;
       color: #b45309;
-      box-shadow: 0 1px 3px rgba(180, 83, 9, 0.05);
+      box-shadow: 0 1px 3px rgba(180, 83, 9, 0.04);
     }
 
     /* ── TWO-COLUMN GRID ── */
     .interview-grid-layout {
-      padding: 0 28px 60px;
+      padding: 0 32px 60px;
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 330px;
       gap: 24px;
       align-items: start;
-      max-width: 1440px;
+      max-width: 1400px;
     }
 
     /* ════════════ LEFT COLUMN: CONFIGURATION ════════════ */
     .config-column {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
     }
 
     /* ── HERO BANNER CARD ── */
     .hero-banner-card {
       background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 24px 28px;
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
       display: grid;
-      grid-template-columns: 1fr 240px;
+      grid-template-columns: 1fr 230px;
       gap: 20px;
       align-items: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
     }
 
     .hero-tag {
@@ -430,41 +428,41 @@
       gap: 4px;
       background: #e6f7ee;
       color: #059669;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
-      padding: 3px 8px;
+      padding: 2.5px 8px;
       border-radius: var(--radius-pill);
       letter-spacing: 0.04em;
       margin-bottom: 8px;
     }
 
     .hero-heading {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
       color: #0f172a;
       line-height: 1.25;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .hero-subtext {
-      font-size: 12.5px;
+      font-size: 12px;
       color: #64748b;
       line-height: 1.4;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .hero-progress-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 11.5px;
+      gap: 10px;
+      font-size: 11px;
       color: #64748b;
       font-weight: 600;
     }
 
     .hero-bar-track {
       width: 90px;
-      height: 6px;
+      height: 5.5px;
       background: #e2e8f0;
       border-radius: 999px;
       overflow: hidden;
@@ -479,15 +477,15 @@
 
     .hero-mountain-img-box {
       position: relative;
-      height: 115px;
-      border-radius: 14px;
+      height: 110px;
+      border-radius: 12px;
       overflow: hidden;
-      background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      background: #cffafe;
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
     .hero-mountain-svg {
@@ -495,7 +493,6 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
 
     .btn-hero-start {
@@ -503,9 +500,9 @@
       z-index: 2;
       background: #064e3b;
       color: #ffffff;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
-      padding: 6px 14px;
+      padding: 5px 14px;
       border-radius: var(--radius-pill);
       border: none;
       cursor: pointer;
@@ -515,34 +512,34 @@
 
     .btn-hero-start:hover {
       background: #04392b;
-      transform: translateY(-1px);
     }
 
     /* ── STEPPER ROADMAP HEADER ── */
     .stepper-header-card {
       background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
     .step-item {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .step-num-circle {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: #f1f5f9;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
       color: #64748b;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -552,6 +549,7 @@
 
     .step-item.active .step-num-circle {
       background: #064e3b;
+      border-color: #064e3b;
       color: #ffffff;
     }
 
@@ -562,22 +560,22 @@
     }
 
     .step-title {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       color: #0f172a;
     }
 
     .step-sub {
-      font-size: 10px;
+      font-size: 9.5px;
       color: #64748b;
     }
 
-    /* ── SECTION CONFIG SECTIONS ── */
+    /* ── SECTION TITLE ── */
     .section-title {
-      font-size: 13.5px;
+      font-size: 12.5px;
       font-weight: 800;
       color: #0f172a;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       letter-spacing: -0.01em;
     }
 
@@ -585,33 +583,31 @@
     .role-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
 
     .role-card {
       background: #ffffff;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 78px;
+      min-height: 72px;
       transition: all 0.15s ease;
       user-select: none;
     }
 
     .role-card:hover {
       border-color: #cbd5e1;
-      transform: translateY(-1px);
     }
 
     .role-card.selected {
       background: #064e3b;
       border-color: #064e3b;
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
     }
 
     .role-card.selected .role-title {
@@ -628,52 +624,52 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 4px;
+      gap: 3px;
     }
 
     .role-card.main-all .role-big-count {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
     .role-title {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       color: #1e293b;
       line-height: 1.25;
     }
 
     .role-count {
-      font-size: 10px;
+      font-size: 9.5px;
       color: #64748b;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 4px;
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
     /* Step 2: Difficulty Grid */
     .difficulty-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
 
     .diff-card {
       background: #ffffff;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 3px;
+      gap: 2px;
       transition: all 0.15s ease;
       user-select: none;
     }
@@ -686,7 +682,6 @@
       background: #064e3b;
       border-color: #064e3b;
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
     }
 
     .diff-card.selected .diff-title {
@@ -698,16 +693,16 @@
     }
 
     .diff-title {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 800;
       color: #1e293b;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
     .diff-sub {
-      font-size: 10px;
+      font-size: 9.5px;
       color: #64748b;
     }
 
@@ -715,20 +710,20 @@
     .count-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
 
     .count-card {
       background: #ffffff;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      font-size: 12.5px;
+      gap: 5px;
+      font-size: 12px;
       font-weight: 800;
       color: #1e293b;
       transition: all 0.15s ease;
@@ -743,26 +738,25 @@
       background: #064e3b;
       border-color: #064e3b;
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
     }
 
     /* Step 4: Topic Grid */
     .topic-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
 
     .topic-card {
       background: #ffffff;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 64px;
+      min-height: 58px;
       transition: all 0.15s ease;
       user-select: none;
     }
@@ -778,10 +772,10 @@
     }
 
     .topic-title {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       color: #1e293b;
-      line-height: 1.3;
+      line-height: 1.25;
     }
 
     .topic-card.selected .topic-title {
@@ -790,15 +784,15 @@
     }
 
     .topic-count {
-      font-size: 10.5px;
+      font-size: 10px;
       color: #64748b;
       font-weight: 700;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
     /* ── STICKY BOTTOM BUTTON ── */
     .start-action-bar {
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .btn-start-big {
@@ -807,31 +801,30 @@
       color: #ffffff;
       border: none;
       border-radius: var(--radius-pill);
-      padding: 14px 20px;
+      padding: 13px 20px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 2px;
-      box-shadow: 0 6px 18px rgba(6, 78, 59, 0.25);
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.25);
       transition: all 0.2s;
     }
 
     .btn-start-big:hover {
       background: #04392b;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(6, 78, 59, 0.35);
+      transform: translateY(-1px);
     }
 
     .btn-start-main-title {
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 900;
       letter-spacing: 0.04em;
     }
 
     .btn-start-sub-desc {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
       color: #a7f3d0;
       letter-spacing: 0.04em;
@@ -841,65 +834,65 @@
     .stats-column {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .stat-widget-card {
       background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px 18px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
     }
 
     .widget-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .widget-title {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.04em;
       color: #1e293b;
       text-transform: uppercase;
     }
 
-    /* Widget 1: Tiến độ của bạn */
+    /* Widget 1: Tiến độ */
     .progress-level-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
     .level-badge-box {
       background: #064e3b;
       color: white;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
-      padding: 6px 12px;
-      border-radius: 8px;
+      padding: 5px 10px;
+      border-radius: 6px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
 
     .xp-status-text {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: #64748b;
     }
 
     .widget-progress-track {
       width: 100%;
-      height: 6px;
+      height: 5.5px;
       background: #e2e8f0;
       border-radius: 999px;
       overflow: hidden;
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
     .widget-progress-fill {
@@ -912,15 +905,15 @@
     .stat-metric-3cols {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 14px;
-      padding-top: 12px;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 10px;
       border-top: 1px solid #f1f5f1;
       text-align: center;
     }
 
     .metric-col-title {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
       color: #64748b;
       text-transform: uppercase;
@@ -928,24 +921,24 @@
     }
 
     .metric-col-val {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 900;
-      margin-top: 3px;
+      margin-top: 2px;
     }
 
     .val-orange { color: #d97706; }
     .val-dark { color: #0f172a; }
     .val-green { color: #059669; }
 
-    /* Widget 2: Nhiệm vụ hàng ngày */
+    /* Widget 2: Nhiệm vụ */
     .quest-timer {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
       color: #64748b;
     }
 
     .quest-item {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .quest-item:last-child {
@@ -956,18 +949,18 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       color: #0f172a;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .quest-reward-tag {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
       color: #b45309;
       background: #fef8eb;
-      padding: 1px 6px;
+      padding: 1px 5px;
       border-radius: 4px;
     }
 
@@ -979,7 +972,7 @@
 
     .quest-bar {
       flex: 1;
-      height: 5px;
+      height: 4.5px;
       background: #e2e8f0;
       border-radius: 999px;
       overflow: hidden;
@@ -992,29 +985,29 @@
     }
 
     .quest-count-text {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       color: #64748b;
     }
 
-    /* Widget 3: Phần thưởng Rương */
+    /* Widget 3: Phần thưởng */
     .chest-timeline-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: relative;
-      margin-top: 14px;
-      padding: 0 10px;
+      margin-top: 12px;
+      padding: 0 8px;
     }
 
     .chest-timeline-row::before {
       content: "";
       position: absolute;
-      top: 18px;
-      left: 20px;
-      right: 20px;
+      top: 16px;
+      left: 18px;
+      right: 18px;
       height: 2px;
-      border-top: 2px dashed #cbd5e1;
+      border-top: 1.5px dashed #cbd5e1;
       z-index: 1;
     }
 
@@ -1024,19 +1017,19 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       cursor: pointer;
     }
 
     .chest-icon-box {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     }
 
     .chest-bronze { background: #b45309; color: white; }
@@ -1044,42 +1037,42 @@
     .chest-ruby { background: #be123c; color: white; }
 
     .chest-xp-lbl {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
       color: #64748b;
     }
 
-    /* Widget 4: Motivation Card */
+    /* Widget 4: Motivation */
     .motivation-card {
       background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .motivation-text {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       color: #475569;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     .motivation-thumb {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
       background: #f0fdf4;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 20px;
       flex-shrink: 0;
     }
 
-    /* ── FLOATING ACTION BUTTON (BOTTOM RIGHT) ── */
+    /* ── FLOATING ACTION BUTTON ── */
     .fab-menu-btn {
       position: fixed;
       bottom: 24px;
@@ -1140,7 +1133,7 @@
       background: #ffffff;
       border-radius: var(--radius-xl);
       width: 90%;
-      max-width: 620px;
+      max-width: 600px;
       max-height: 85vh;
       overflow-y: auto;
       box-shadow: 0 20px 40px rgba(0,0,0,0.25);
@@ -1388,7 +1381,7 @@
         <!-- HERO BANNER CARD -->
         <div class="hero-banner-card">
           <div>
-            <span class="hero-tag">✨ LỘ TRÌNH PHỎNG VẤN</span>
+            <span class="hero-tag">✦ LỘ TRÌNH PHỎNG VẤN</span>
             <h2 class="hero-heading">Luyện phỏng vấn theo nghề tài chính</h2>
             <p class="hero-subtext">Luyện tập có lộ trình — Bứt phá tự tin — Chinh phục nhà tuyển dụng</p>
             <div class="hero-progress-row">
@@ -1402,7 +1395,7 @@
 
           <div class="hero-mountain-img-box">
             <!-- Mountain Art Illustration -->
-            <svg class="hero-mountain-svg" viewBox="0 0 240 120" preserveAspectRatio="none">
+            <svg class="hero-mountain-svg" viewBox="0 0 230 110" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="skyMtn" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stop-color="#bae6fd"/>
@@ -1417,14 +1410,13 @@
                   <stop offset="100%" stop-color="#15803d"/>
                 </linearGradient>
               </defs>
-              <rect width="240" height="120" fill="url(#skyMtn)"/>
-              <!-- Mountains -->
-              <polygon points="20,120 90,30 160,120" fill="url(#mtnGrad1)"/>
-              <polygon points="100,120 170,20 240,120" fill="url(#mtnGrad2)"/>
-              <polygon points="-20,120 40,50 110,120" fill="#166534" opacity="0.7"/>
+              <rect width="230" height="110" fill="url(#skyMtn)"/>
+              <polygon points="15,110 85,25 155,110" fill="url(#mtnGrad1)"/>
+              <polygon points="95,110 165,15 235,110" fill="url(#mtnGrad2)"/>
+              <polygon points="-20,110 35,45 105,110" fill="#166534" opacity="0.6"/>
               <!-- Green flag at peak -->
-              <line x1="170" y1="20" x2="170" y2="8" stroke="#064e3b" stroke-width="2"/>
-              <polygon points="170,8 186,13 170,18" fill="#10b981"/>
+              <line x1="165" y1="15" x2="165" y2="4" stroke="#064e3b" stroke-width="1.8"/>
+              <polygon points="165,4 180,9 165,14" fill="#10b981"/>
             </svg>
             <button class="btn-hero-start" onclick="startPractice()">BẮT ĐẦU LUYỆN</button>
           </div>
@@ -1468,7 +1460,7 @@
           <div class="role-grid">
             <!-- Selected All Roles -->
             <div class="role-card selected main-all" onclick="selectRole(this, 'Tất cả', 276)">
-              <span style="font-size:18px">💼</span>
+              <span style="font-size:16px">💼</span>
               <div class="role-big-count">276 câu</div>
             </div>
 
@@ -1503,7 +1495,7 @@
             </div>
 
             <!-- Role 7 -->
-            <div class="role-card" style="display:flex;align-items:center;justify-content:center;text-align:center" onclick="alert('Mở thêm hơn 15+ vị trí ngành Quản lý quỹ, Ngân hàng đầu tư, Tư vấn chiến lược...')">
+            <div class="role-card" style="display:flex;align-items:center;justify-content:center;text-align:center" onclick="alert('Mở rộng thêm danh sách nghề nghiệp...')">
               <div>
                 <div class="role-title" style="color:#059669">Xem thêm</div>
                 <div class="role-count" style="justify-content:center;color:#059669">+ nghề khác</div>
@@ -1578,7 +1570,7 @@
               <div class="topic-title">Mô hình sáp nhập — Cơ bản</div>
               <div class="topic-count">24</div>
             </div>
-            <div class="topic-card" style="display:flex;align-items:center;justify-content:center;text-align:center" onclick="alert('Mở thêm 9 chủ đề nâng cao: LBO, Thẩm định tín dụng, Risk Hedging...')">
+            <div class="topic-card" style="display:flex;align-items:center;justify-content:center;text-align:center" onclick="alert('Mở thêm các chủ đề khác...')">
               <div>
                 <div class="topic-title" style="color:#059669">Xem thêm</div>
                 <div class="topic-count" style="color:#059669">+ 9 chủ đề</div>
@@ -1687,9 +1679,9 @@
         <div class="stat-widget-card">
           <div class="widget-header-row">
             <span class="widget-title">PHẦN THƯỞNG</span>
-            <a href="#" style="font-size:10.5px;font-weight:700;color:#059669;text-decoration:none">Xem tất cả</a>
+            <a href="#" style="font-size:10px;font-weight:700;color:#059669;text-decoration:none">Xem tất cả</a>
           </div>
-          <p style="font-size:10.5px;color:#64748b">Hoàn thành mục tiêu để mở rương</p>
+          <p style="font-size:10px;color:#64748b">Hoàn thành mục tiêu để mở rương</p>
 
           <div class="chest-timeline-row">
             <div class="chest-item" onclick="alert('Rương Đồng: +50 XP & 10 Túi Vàng')">
@@ -1710,7 +1702,7 @@
         <!-- WIDGET 4: MOTIVATION -->
         <div class="motivation-card">
           <div style="flex:1">
-            <div style="font-size:12px;font-weight:800;color:#064e3b;margin-bottom:2px">BẠN ĐANG LÀM RẤT TỐT!</div>
+            <div style="font-size:11.5px;font-weight:800;color:#064e3b;margin-bottom:2px">BẠN ĐANG LÀM RẤT TỐT!</div>
             <div class="motivation-text">Mỗi câu hỏi đúng là một bước gần hơn đến công việc mơ ước của bạn.</div>
           </div>
           <div class="motivation-thumb">🏔️</div>
@@ -1740,7 +1732,7 @@
       </div>
       <div class="modal-body">
         <div style="font-size:11px;font-weight:800;color:#059669;margin-bottom:6px">CHỦ ĐỀ: TÁI CẤU TRÚC / M&A DOANH NGHIỆP</div>
-        <p style="font-size:14px;font-weight:700;color:#0f172a;line-height:1.5;margin-bottom:16px">
+        <p style="font-size:13.5px;font-weight:700;color:#0f172a;line-height:1.5;margin-bottom:16px">
           Khi một doanh nghiệp gặp khủng hoảng thanh khoản nghiêm trọng và tỷ lệ Nợ vay / EBITDA vượt quá 8.0x, công cụ nào sau đây thường được ưu tiên thương thảo với chủ nợ trong quá trình tái cấu trúc tài chính ngoài tòa án (Out-of-court workout)?
         </p>
 
