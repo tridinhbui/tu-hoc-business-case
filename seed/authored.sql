@@ -1041,6 +1041,94 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('0
 3. Một doanh nghiệp tăng trưởng 9%/năm muốn gấp đôi doanh thu. Mất bao nhiêu năm? Nếu muốn rút xuống 5 năm thì cần tăng trưởng bao nhiêu mỗi năm, và mức đó có hợp lý không khi thị trường chỉ tăng 6%/năm?
 
 Output: bản ghi (hoặc bản chép) lời giải thích cho ba bài, kèm một trang tính gồm phép tính từng bước, kết quả quy về đơn vị dễ hình dung, và câu hỏi tiếp theo rút ra từ mỗi kết quả.');
+DELETE FROM lesson_blocks WHERE lesson_id = '018';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('018.01', '018', 1, 'goal', 'Sau bài này bạn làm được gì', 'Ước lượng quy mô một thị trường **từ trên xuống** trong ba bước — dân số hoặc tổng thể → lọc dần → nhân giá trị — và nộp bảng sizing có **ô giả định tách riêng**, mỗi ô ghi rõ lấy ở đâu.
+
+Top-down là cách vào nhanh nhất khi bạn không đếm được đơn vị cung. Bài 019 dạy chiều ngược lại (bottom-up); hai cách kiểm nhau, và bài này là nửa đầu của cặp đó.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('018.02', '018', 2, 'concept', 'Ba bước, không hơn', 'Mọi sizing top-down dùng được đều có đúng ba bước:
+
+1. **Chọn tổng thể xuất phát.** Dân số, số hộ, số doanh nghiệp, số xe đang lưu hành. Chọn cái nào là chọn **ai có khả năng mua**, không phải chọn con số dễ nhớ nhất.
+2. **Lọc bằng 2–3 bộ lọc.** Mỗi bộ lọc là một tỷ lệ: nhóm tuổi, thu nhập, khu vực, tần suất dùng. Nhiều hơn ba bộ lọc thì sai số nhân nhau vượt tầm kiểm soát.
+3. **Nhân giá trị.** Chi tiêu mỗi người mỗi lần × số lần một năm.
+
+Viết chuỗi ra trước khi điền số, y như bottom-up:
+
+```
+Thị trường = Tổng thể × Lọc 1 × Lọc 2 × Giá trị mỗi lần × Tần suất
+```
+
+**Một bộ lọc thiếu quan trọng hơn một con số sai.** Sai 20% ở một tỷ lệ chỉ lệch 20%; quên hẳn tần suất mua thì lệch 5–50 lần — đó là **SIZ-04**.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('018.03', '018', 3, 'concept', 'Chọn tổng thể xuất phát: chỗ quyết định cả bài', 'Người mới luôn mở bài bằng "dân số Việt Nam khoảng 100 triệu". Với đề B2C toàn quốc thì đúng; với đề khác thì đó là **SIZ-07**, và nó kéo cả bài đi sai đường.
+
+| Đề hỏi về | Tổng thể nên chọn | Vì sao không dùng dân số |
+|---|---|---|
+| Máy pha cà phê cho quán | Số quán cà phê | Người tiêu dùng không mua thiết bị công nghiệp |
+| Dịch vụ kế toán cho doanh nghiệp nhỏ | Số doanh nghiệp đang hoạt động | Khách là tổ chức, không phải cá nhân |
+| Lốp xe tải thay mới | Số xe tải × số lốp mỗi xe | Nhu cầu gắn với tài sản, không gắn với người |
+| Sữa công thức cho trẻ 0–2 tuổi | Số trẻ sinh mỗi năm × 2 | Chỉ một nhóm tuổi hẹp mới dùng |
+| Đồng phục học sinh | Số học sinh | Dân số gồm cả người không đi học |
+
+Quy tắc: **tổng thể xuất phát phải là thứ trực tiếp sinh ra nhu cầu.** Nếu phải lọc hơn ba lần mới tới được nhóm khách, gần như chắc chắn bạn chọn sai điểm xuất phát.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('018.04', '018', 4, 'concept', 'Ô giả định tách riêng, và nhãn A/B/C', 'Bảng sizing tốt luôn có hai phần: **phần giả định** và **phần tính**. Phần tính chỉ tham chiếu tới ô giả định, không gõ số cứng vào công thức. Lý do rất thực tế: khi người phỏng vấn hỏi "nếu tỷ lệ đó là 15% thay vì 25% thì sao", bạn sửa một ô và cả bảng chạy lại trong 5 giây.
+
+Mỗi ô giả định gắn một nhãn:
+
+- **A — quan sát được:** đếm, đọc bảng giá, nhìn thấy tận mắt.
+- **B — suy ra:** tính từ một con số khác mình tin.
+- **C — đoán:** không có căn cứ trực tiếp, chỉ dựa vào cảm nhận hợp lý.
+
+Ô nhãn C là chỗ cần nói ra trước khi người khác hỏi. Bảng mà mọi ô đều là C thì kết quả chỉ là một con số cho vui — và người chấm nhận ra ngay.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('018.05', '018', 5, 'worked_example', 'Thị trường bàn chải đánh răng thay mới, một thành phố', '**Đề:** Ước lượng doanh thu bàn chải đánh răng bán ra trong một thành phố 2 triệu dân, một năm.
+
+**Bước 1 — tổng thể:** dân số thành phố, 2 triệu người. Ở đây dân số là đúng, vì gần như ai cũng dùng bàn chải.
+
+**Bước 2 — bộ lọc:**
+
+| Ô giả định | Giá trị | Nhãn | Căn cứ |
+|---|---|---|---|
+| Dân số thành phố | 2.000.000 | A | Đề cho |
+| Tỷ lệ dùng bàn chải mua ngoài | 90% | C | Loại trừ trẻ quá nhỏ và nhóm không mua lẻ |
+| Số bàn chải thay mỗi năm | 3 | C | Khuyến cáo nha khoa là 3–4 tháng/lần, thực tế người dùng thay thưa hơn |
+| Giá trung bình mỗi chiếc | 25.000đ | B | Quan sát dải giá 12.000–60.000đ, phần lớn bán ở 20–30.000đ |
+
+**Bước 3 — nhân:**
+
+```
+2.000.000 × 90% × 3 × 25.000 = 135 tỷ đồng/năm
+```
+
+**Sanity check (ba câu của bài 015):**
+
+1. *Bậc độ lớn:* 135 tỷ cho một thành phố 2 triệu dân — với 100 triệu dân cả nước thì quy ra khoảng 6.750 tỷ toàn quốc. Hợp lý cho một mặt hàng tiêu dùng nhỏ.
+2. *Chia ngược:* 135 tỷ ÷ 2 triệu dân = 67.500đ mỗi người mỗi năm.
+3. *Đơn vị dễ hình dung:* 67.500đ/năm ≈ 5.600đ/tháng cho một người. Nghe hợp lý.
+
+**Khoảng dao động — phần bắt buộc:** ô yếu nhất là "số lần thay mỗi năm" (nhãn C). Nếu là 2 lần thay vì 3 thì thị trường còn **90 tỷ**; nếu là 4 thì lên **180 tỷ**. Nên câu trả lời nộp đi là **90–180 tỷ, điểm giữa khoảng 135 tỷ**, và giả định yếu nhất là tần suất thay.
+
+Chú ý: không có bước nào ở đây cần dữ liệu tra cứu. Toàn bộ sức mạnh nằm ở **chuỗi lập luận minh bạch**, và một người phản biện có thể chỉnh đúng một ô để có kết quả của riêng họ.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('018.06', '018', 6, 'pitfall', 'Bốn lỗi giết một bài top-down', '**SIZ-07 — luôn mở bằng "dân số Việt Nam là…".** Với đề B2B hoặc đề về tài sản (xe, máy móc, mặt bằng), dân số không sinh ra nhu cầu. Chọn tổng thể theo thứ trực tiếp tạo nhu cầu.
+
+**SIZ-03 — nhầm TAM với SOM.** Đề hỏi "thị trường cho sản phẩm của chúng tôi ở phân khúc cao cấp" mà bạn trả lời quy mô toàn ngành thì lệch cả chục lần. Đọc kỹ đề hỏi tổng thị trường, phần có thể phục vụ, hay phần thực tế giành được.
+
+**SIZ-04 — quên tần suất mua.** Chuỗi chỉ có "số người × giá" là chuỗi thiếu một tầng. Với hàng tiêu dùng nhanh, tần suất là nhân tử lớn nhất.
+
+**SIZ-01 — giả định không nói ra.** Có con số 90% trong phép tính nhưng ô giả định để trống. Người chấm không biết bạn cân nhắc hay bịa.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('018.07', '018', 7, 'checklist', 'Soát trước khi nộp', '- Chuỗi được viết ra trước khi điền số, và có đúng ba bước.
+- Tổng thể xuất phát là thứ trực tiếp sinh ra nhu cầu, không mặc định là dân số.
+- Không quá ba bộ lọc.
+- Có tần suất trong chuỗi (trừ khi hàng mua một lần trọn đời).
+- Mỗi giả định nằm ở ô riêng, có nhãn A/B/C và một dòng căn cứ.
+- Chạy đủ ba câu sanity check.
+- Kết quả trình bày dạng khoảng, kèm câu về giả định yếu nhất.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('018.08', '018', 8, 'exercise', 'Bài nộp', 'Ước lượng **ba** thị trường sau bằng top-down, mỗi đề 8 phút:
+
+1. Mũ bảo hiểm xe máy bán ra trong một tỉnh 1,5 triệu dân, một năm.
+2. Dịch vụ giặt là cho khách sạn tại một thành phố du lịch có 400 khách sạn.
+3. Sách giáo khoa lớp 1 bán ra toàn quốc trong một năm.
+
+Với mỗi đề: viết chuỗi trước, lập bảng ô giả định có nhãn A/B/C, tính, chạy ba câu sanity check, và nộp kết quả dạng khoảng kèm giả định yếu nhất.
+
+Output: một sheet ba tab (mỗi đề một tab), mỗi tab có vùng `giả định` (giá trị · nhãn · căn cứ) tách khỏi vùng `tính`, ô kết quả dạng khoảng, và một ô text ghi giả định yếu nhất cùng tác động nếu nó sai.');
 DELETE FROM lesson_blocks WHERE lesson_id = '019';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('019.01', '019', 1, 'goal', 'Sau bài này bạn làm được gì', 'Ước lượng quy mô một thị trường **từ dưới lên** — đi từ một đơn vị cung có thật (một cửa hàng, một xe, một nhân viên bán hàng) rồi nhân lên — và nói được vì sao con số của bạn lệch so với cách top-down.
 
@@ -1114,6 +1202,182 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('0
 Giới hạn 25 phút. Không tra cứu: mục tiêu là chuỗi lập luận, không phải số liệu chính xác.
 
 Output: một bảng tính có sheet `assumptions` (mỗi giả định một dòng, có nhãn A/B/C) và sheet `sizing` (chuỗi bottom-up, chuỗi top-down, chênh lệch tính bằng %, và một ô text ghi giả định yếu nhất).');
+DELETE FROM lesson_blocks WHERE lesson_id = '020';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('020.01', '020', 1, 'goal', 'Sau bài này bạn làm được gì', 'Tự lập **ngân hàng giả định** của riêng bạn: khoảng 30 con số nền dùng đi dùng lại trong sizing, mỗi con số kèm **khoảng dao động**, **mức tin cậy** và **nguồn**.
+
+Mục đích không phải học thuộc. Mục đích là khi gặp đề lạ, bạn không đứng hình 30 giây để nghĩ "dân số bao nhiêu nhỉ" — bạn có sẵn một khoảng và đi tiếp ngay, đồng thời biết con số nào của mình chắc và con số nào chỉ là phỏng đoán.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('020.02', '020', 2, 'concept', 'Ba mức tin cậy, và vì sao phải ghi nhãn', 'Mỗi con số trong ngân hàng mang một trong bốn nhãn:
+
+| Nhãn | Nghĩa | Ví dụ |
+|---|---|---|
+| **lookup** | Tra được từ nguồn công khai, có link | Dân số cả nước, số tỉnh thành |
+| **derived** | Suy ra từ một con số lookup khác | Số hộ gia đình = dân số ÷ quy mô hộ |
+| **convention** | Quy ước dùng chung trong phân tích, không cần nguồn | 1 năm ≈ 250 ngày làm việc, 52 tuần |
+| **guess** | Phỏng đoán, chưa có căn cứ | Tỷ lệ người uống cà phê mua ngoài hằng ngày |
+
+Quy tắc nghiêm: **không con số `lookup` nào được dùng trước khi có link nguồn thật.** Đây cũng là ràng buộc nằm trong chính hệ thống — một giả định chỉ được đánh dấu đã kiểm chứng khi có `source_url`. Bịa một nguồn để cho đẹp bảng là cách nhanh nhất làm hỏng toàn bộ giá trị của ngân hàng.
+
+Con số `guess` hoàn toàn được phép dùng, miễn **nói ra là guess**. Một bài sizing dùng ba con số guess và nói rõ cả ba đáng tin hơn nhiều so với bài giấu chúng đi.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('020.03', '020', 3, 'concept', 'Mỗi con số là một khoảng, không phải một điểm', 'Ghi "dân số 100 triệu" là ghi một điểm; ghi "98–101 triệu" là ghi một khoảng. Khoảng có hai tác dụng:
+
+1. **Nó nói cho bạn biết bài sizing của mình rộng cỡ nào.** Nhân ba con số, mỗi con số lệch ±15%, thì kết quả có thể lệch ±50%. Biết trước điều đó thì bạn trình bày kết quả dưới dạng khoảng ngay từ đầu, thay vì bị hỏi vặn rồi mới thừa nhận.
+2. **Nó chống lại độ chính xác giả.** Người ghi "dân số 98.186.856" đang giả vờ chính xác ở một chỗ mà độ chính xác không có ý nghĩa gì với kết quả cuối — đó là **SIZ-05**.
+
+Cách đặt khoảng nhanh: lấy con số bạn tin nhất, rồi hỏi *"tôi sẽ ngạc nhiên nếu nó nhỏ hơn bao nhiêu, và lớn hơn bao nhiêu?"* Hai câu trả lời đó là hai đầu khoảng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('020.04', '020', 4, 'worked_example', 'Tám thẻ đầu tiên trong ngân hàng của bạn', 'Đây là dạng thẻ nên có. Cột nguồn để trống nghĩa là **chưa được dùng như số lookup** cho tới khi bạn điền.
+
+| # | Con số nền | Khoảng | Nhãn | Nguồn / căn cứ |
+|---|---|---|---|---|
+| 1 | Dân số cả nước | 98–101 triệu | lookup | *cần điền link trước khi dùng* |
+| 2 | Quy mô hộ gia đình trung bình | 3,3–3,6 người | lookup | *cần điền link* |
+| 3 | Số hộ gia đình | 28–30 triệu | derived | = (1) ÷ (2) |
+| 4 | Tỷ lệ dân số đô thị | 38–42% | lookup | *cần điền link* |
+| 5 | Số ngày làm việc một năm | 250 | convention | 52 tuần × 5 ngày − nghỉ lễ |
+| 6 | Số ngày mở cửa của quán ăn | 340–360 | convention | Nghỉ vài ngày Tết |
+| 7 | Tỷ lệ người trưởng thành có smartphone | 70–85% | guess | Quan sát, chưa tra |
+| 8 | Chi tiêu ăn uống ngoài / thu nhập hộ đô thị | 10–20% | guess | Quan sát, chưa tra |
+
+**Cách dùng ngân hàng trong một bài sizing thật.** Đề: quy mô thị trường nước giặt cho hộ gia đình đô thị.
+
+```
+Số hộ đô thị = (3) × (4) = 29 triệu × 40% ≈ 11,6 triệu hộ
+Giả định thêm: mỗi hộ dùng 2,5 lít/tháng (guess), giá 60.000đ/lít (B, quan sát)
+Thị trường = 11,6 triệu × 2,5 × 12 × 60.000 ≈ 20.900 tỷ/năm
+```
+
+**Đọc độ rộng của kết quả.** Số hộ 28–30 triệu (±3,4%), tỷ lệ đô thị 38–42% (±5%), lượng dùng 2–3 lít (±20%). Nhân dồn lại: khoảng hợp lý là **khoảng 15.000–27.000 tỷ**, và nhân tử rộng nhất là lượng dùng mỗi hộ — đúng cái đang mang nhãn `guess`.
+
+Câu nói kèm theo khi trình bày: *"Con số trung tâm là khoảng 21 nghìn tỷ, khoảng dao động 15–27 nghìn tỷ. Nhân tử em không chắc nhất là lượng nước giặt mỗi hộ dùng mỗi tháng; nếu anh chị có số thật cho riêng nhân tử đó, khoảng này hẹp lại ngay."*');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('020.05', '020', 5, 'pitfall', 'Bốn lỗi khi lập và dùng ngân hàng', '**SIZ-08 — dùng một con số nền sai lệch lớn mà không nhận ra.** Cách phòng duy nhất là kiểm chéo: mỗi con số quan trọng nên tính được từ hai đường. Số hộ suy từ dân số, rồi đối chiếu với trực giác về khu phố bạn ở.
+
+**SIZ-05 — độ chính xác giả.** Ghi khoảng, không ghi số lẻ. Hai chữ số có nghĩa là đủ cho mọi con số nền.
+
+**SIZ-01 — giả định không nói ra.** Ngân hàng làm việc này dễ hơn: khi bảng tính tham chiếu tới thẻ số 3, bạn chỉ cần dán tên thẻ vào cột căn cứ.
+
+**Bịa nguồn.** Ghi "theo Tổng cục Thống kê" mà chưa mở trang nào là lỗi nặng nhất trong bài này, vì nó biến một con số đáng ngờ thành một con số trông đáng tin. Thà để trống và ghi `guess`.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('020.06', '020', 6, 'checklist', 'Soát trước khi nộp', '- Đủ 30 thẻ, phủ đủ bốn nhóm: dân số và hộ · kinh tế vĩ mô · đơn giá tiêu dùng · quy ước thời gian.
+- Mỗi thẻ có khoảng, không phải một điểm.
+- Mỗi thẻ có nhãn lookup / derived / convention / guess.
+- Thẻ `lookup` nào chưa có link thì đang để trống ô nguồn, không bịa.
+- Thẻ `derived` ghi rõ công thức suy ra từ thẻ nào.
+- Có ít nhất 5 thẻ `guess` được đánh dấu trung thực — nếu không có thẻ guess nào, gần như chắc chắn bạn đang tự lừa mình.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('020.07', '020', 7, 'exercise', 'Bài nộp', 'Lập **30 thẻ** ngân hàng giả định của riêng bạn trong 30 phút, chia bốn nhóm:
+
+- **Dân số và hộ** (6 thẻ): dân số, số hộ, quy mô hộ, tỷ lệ đô thị, số tỉnh, dân số thành phố lớn nhất.
+- **Kinh tế và thu nhập** (8 thẻ): thu nhập bình quân hộ đô thị, tỷ trọng chi ăn uống, tỷ trọng chi đi lại, số lao động, v.v.
+- **Đơn giá tiêu dùng bạn quan sát được** (10 thẻ): ly cà phê, bữa trưa văn phòng, lít xăng, vé xem phim, tháng gửi xe…
+- **Quy ước thời gian và vận hành** (6 thẻ): ngày làm việc/năm, ngày mở cửa quán, giờ cao điểm/ngày, số ca làm việc…
+
+Với mỗi thẻ: khoảng · nhãn · nguồn hoặc căn cứ. Thẻ nhóm 3 phải là số **bạn tự quan sát trong tuần này**, không chép từ đâu.
+
+Output: một sheet 30 dòng (tên · giá trị thấp · giá trị cao · đơn vị · nhãn · nguồn/căn cứ), cộng một ô ghi ba thẻ bạn thấy không chắc nhất và cách bạn sẽ kiểm chứng chúng.');
+DELETE FROM lesson_blocks WHERE lesson_id = '021';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('021.01', '021', 1, 'goal', 'Sau bài này bạn làm được gì', 'Chạy **sáu bài sizing thị trường lạ trong 45 phút** — 7 phút rưỡi mỗi bài — và giữ nguyên chất lượng: chuỗi viết ra trước, ô giả định có nhãn, sanity check, kết quả dạng khoảng.
+
+Bài này không dạy kiến thức mới. Nó rèn thứ khác: **giữ quy trình dưới áp lực thời gian**. Ai cũng làm đúng quy trình khi có 25 phút; điều phân biệt người luyện đủ là làm đúng quy trình khi chỉ còn 7 phút.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('021.02', '021', 2, 'concept', 'Bảy phút rưỡi chia thế nào', '| Thời gian | Việc | Dấu hiệu quá giờ |
+|---|---|---|
+| 0:00–1:00 | Chọn hướng (top-down hay bottom-up) và viết chuỗi nhân tử | Quá 1 phút mà chưa viết được chuỗi → chọn sai hướng, đổi ngay |
+| 1:00–3:00 | Điền ô giả định, gắn nhãn A/B/C | Ngồi cân nhắc một con số quá 20 giây → ghi khoảng rộng, nhãn C, đi tiếp |
+| 3:00–5:00 | Nhân ra kết quả | — |
+| 5:00–6:30 | Ba câu sanity check | Bỏ bước này là mất nhiều điểm nhất |
+| 6:30–7:30 | Khoảng dao động + câu về giả định yếu nhất | — |
+
+Quy tắc cứng: **hết 7 phút rưỡi là chuyển bài**, kể cả khi chưa ưng. Sáu bài gần xong luôn tốt hơn ba bài hoàn hảo và ba bài trống — và cũng giống hệt tình huống thi thật.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('021.03', '021', 3, 'concept', 'Chọn hướng trong 60 giây', 'Đứng trước một thị trường lạ, quyết định top-down hay bottom-up bằng đúng một câu hỏi: **tôi đếm được đơn vị cung không?**
+
+- **Đếm được** (số cửa hàng, số xe, số máy, số nhân viên bán hàng) → bottom-up. Thường chính xác hơn vì bạn quan sát được thật.
+- **Không đếm được** hoặc quá phân mảnh → top-down từ tổng thể sinh ra nhu cầu.
+- **Còn thời gian** → làm cả hai và dùng chênh lệch để nói về độ tin cậy. Trong bài drill 7 phút rưỡi thì không đủ, nên chọn một và nói rõ vì sao chọn.
+
+Câu nói mẫu khi trình bày: *"Em chọn bottom-up vì số tiệm đếm được trên bản đồ, trong khi tỷ lệ người dùng dịch vụ này thì em chỉ đoán được."*');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('021.04', '021', 4, 'worked_example', 'Ba trong sáu bài, làm đúng nhịp', '**Bài 1 — Thị trường thức ăn cho chó mèo ở một thành phố 3 triệu dân (7:30)**
+
+*Chọn hướng:* không đếm được số thú cưng → **top-down**.
+
+```
+Chuỗi = Số hộ × Tỷ lệ hộ nuôi × Số con/hộ × Chi phí thức ăn/con/tháng × 12
+```
+
+| Ô | Giá trị | Nhãn |
+|---|---|---|
+| Số hộ (3 triệu ÷ 3,5) | 860.000 | B |
+| Tỷ lệ hộ nuôi chó/mèo | 20% | C |
+| Số con mỗi hộ nuôi | 1,3 | C |
+| Chi phí thức ăn công nghiệp/con/tháng | 150.000đ | C |
+
+`860.000 × 20% × 1,3 × 150.000 × 12 ≈ 402 tỷ/năm`
+
+*Sanity check:* 402 tỷ ÷ 3 triệu dân = 134.000đ/người/năm — nhưng chỉ 20% hộ nuôi, nên quy về hộ nuôi: khoảng 2,3 triệu/hộ nuôi/năm, tức ~195.000đ/tháng. Hợp lý với giả định 1,3 con.
+
+*Khoảng:* tỷ lệ hộ nuôi 15–25% → **300–500 tỷ**. Giả định yếu nhất: tỷ lệ hộ nuôi.
+
+**Bài 2 — Thị trường thay nhớt xe máy ở một quận (7:30)**
+
+*Chọn hướng:* đếm được tiệm sửa xe → **bottom-up**.
+
+```
+Chuỗi = Số tiệm × Lượt thay nhớt/tiệm/ngày × 340 ngày × Giá mỗi lượt
+```
+
+| Ô | Giá trị | Nhãn |
+|---|---|---|
+| Số tiệm sửa xe trong quận | 120 | B (đếm 15 tiệm trên 3 phố, nhân theo số phố) |
+| Lượt thay nhớt mỗi tiệm mỗi ngày | 6 | C |
+| Ngày mở cửa | 340 | convention |
+| Giá mỗi lượt (nhớt + công) | 120.000đ | A (bảng giá quan sát) |
+
+`120 × 6 × 340 × 120.000 ≈ 29,4 tỷ/năm`
+
+*Sanity check ngược:* quận 300.000 dân, giả sử 150.000 xe máy, mỗi xe thay nhớt 3 lần/năm → 450.000 lượt/năm. Bottom-up cho 120 × 6 × 340 = 244.800 lượt. **Lệch 1,8 lần** — chấp nhận được với sizing, nhưng đáng nói ra: có thể số tiệm đếm thiếu, hoặc nhiều người thay ở hãng.
+
+*Khoảng:* **25–45 tỷ**, giả định yếu nhất là số lượt mỗi tiệm.
+
+**Bài 3 — Thị trường in ấn danh thiếp cho doanh nghiệp tại một thành phố (7:30)**
+
+*Chọn hướng:* tổng thể là **doanh nghiệp**, không phải dân số — tránh **SIZ-07**.
+
+```
+Chuỗi = Số doanh nghiệp × Tỷ lệ còn in danh thiếp × Số hộp/năm × Giá mỗi hộp
+```
+
+| Ô | Giá trị | Nhãn |
+|---|---|---|
+| Số doanh nghiệp đang hoạt động | 40.000 | C |
+| Tỷ lệ còn in danh thiếp | 50% | C |
+| Số hộp mỗi doanh nghiệp mỗi năm | 4 | C |
+| Giá mỗi hộp 100 chiếc | 120.000đ | A |
+
+`40.000 × 50% × 4 × 120.000 ≈ 9,6 tỷ/năm`
+
+*Sanity check:* thị trường nhỏ, đúng như trực giác về một ngành đang co lại. Nếu ra 900 tỷ thì phải quay lại kiểm ngay.
+
+*Khoảng:* **5–15 tỷ**. Ba trong bốn ô là nhãn C — nói thẳng điều đó khi trình bày, vì nó cho biết độ tin cậy của cả bài.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('021.05', '021', 5, 'pitfall', 'Bốn lỗi xuất hiện khi bị ép thời gian', '**SIZ-09 — kết thúc bằng một con số, không nêu khoảng.** Dưới áp lực, người ta bỏ bước cuối trước tiên. Nhưng đó chính là bước tốn ít thời gian nhất và lấy nhiều điểm nhất.
+
+**SIZ-02 — lệch bậc mà không nhận ra.** Sanity check bị cắt để tiết kiệm 60 giây, rồi một kết quả lệch 100 lần đi thẳng vào bài nộp.
+
+**SIZ-07 — mở bằng dân số cho mọi đề.** Bài 3 ở trên là ví dụ: dân số không mua danh thiếp, doanh nghiệp mới mua.
+
+**SIZ-01 — giả định không nói ra.** Vội thì gõ thẳng số vào phép nhân. Bảng có ô giả định tách riêng giúp bạn không rơi vào lỗi này ngay cả khi vội.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('021.06', '021', 6, 'checklist', 'Soát sau mỗi bài (30 giây)', '- Chuỗi nhân tử được viết ra trước khi có số.
+- Mỗi ô giả định có nhãn A/B/C.
+- Có tần suất trong chuỗi nếu là hàng mua lặp lại.
+- Chạy ít nhất một câu sanity check.
+- Kết quả là một khoảng, không phải một điểm.
+- Có một dòng ghi giả định yếu nhất.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('021.07', '021', 7, 'exercise', 'Bài nộp', 'Sáu thị trường, **45 phút**, 7 phút rưỡi mỗi bài, bấm giờ nghiêm:
+
+1. Dịch vụ trông giữ xe theo tháng tại một toà văn phòng 20 tầng.
+2. Thị trường bán lẻ pin tiểu (AA/AAA) trong một thành phố 1 triệu dân.
+3. Dịch vụ dọn nhà theo giờ tại một quận trung tâm.
+4. Thị trường mũ bảo hộ lao động cho các công trường của một tỉnh.
+5. Dịch vụ sửa điều hoà dân dụng trong một mùa hè, một quận.
+6. Thị trường hoa tươi bán vào dịp 20/11 tại một thành phố.
+
+Với mỗi bài, ghi lại **thời gian thực tế** bạn dùng. Bài nào quá giờ thì ghi rõ bước nào làm bạn chậm — đó là thông tin quan trọng nhất của buổi luyện này.
+
+Output: một sheet sáu tab, mỗi tab có chuỗi nhân tử, bảng ô giả định (giá trị · nhãn · căn cứ), kết quả dạng khoảng, sanity check, và ô ghi thời gian thực tế cùng bước gây chậm.');
 DELETE FROM lesson_blocks WHERE lesson_id = '101';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.01', '101', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Đây là **cổng của module A1**: qua bài này thì các module phía sau mở ra, chưa qua thì dừng lại ở đây. Không phải để làm khó — mà vì mọi thứ sau này (issue tree, sizing, khuyến nghị) đều dựng trên câu hỏi bạn đã định khung. Định khung sai thì càng phân tích giỏi càng đi xa khỏi đích.
 
@@ -1409,6 +1673,94 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('1
 Chưa đạt thì bài bị khoá cho tới khi bạn xem lại phần chấm và làm lại drill được giao — thường là bài 015 hoặc 016 lặp hai lượt, tuỳ mã lỗi bạn dính.
 
 Output: bảng 20 phép tính (đề · bước tính · kết quả · đơn vị), cộng ba bản ghi âm "nói trong lúc tính", mỗi bản có đủ: em sẽ tính gì · từng bước · kết quả và câu tự kiểm.');
+DELETE FROM lesson_blocks WHERE lesson_id = '105';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('105.01', '105', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Cổng của module B2. **Ba thị trường lạ trong 30 phút** — 10 phút mỗi bài — mỗi bài nộp: bảng giả định, phép tính, sanity check, và khoảng dao động.
+
+Đây là checkpoint cấp 2 đầu tiên bạn gặp, nên chuẩn cao hơn A1–A3: không chỉ cần chuỗi đúng, mà cần **nói được mình sai bao nhiêu và sai ở đâu**.
+
+Giảng viên chấm. Đạt từ **70** điểm, không tiêu chí nào ở mức 1.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('105.02', '105', 2, 'concept', 'Năm tiêu chí, và chỗ dễ mất điểm nhất', '| Tiêu chí | Trọng số | Mất điểm khi |
+|---|---|---|
+| Cấu trúc sizing hợp lý | 30 | Chọn sai tổng thể xuất phát, thiếu tầng tần suất, chuỗi không kiểm được |
+| Giả định ghi rõ và có cơ sở | 25 | Số nằm thẳng trong phép nhân, không có ô riêng, không có nhãn |
+| Tính toán đúng | 20 | Lệch bậc độ lớn, sai đơn vị |
+| Sanity check | 15 | Không có bước kiểm nào, hoặc kiểm bằng cách lặp lại phép cũ |
+| Nêu được độ nhạy | 10 | Kết quả là một con số, không nói giả định nào yếu nhất |
+
+Để ý: **cấu trúc nặng hơn tính toán** (30 so với 20). Một bài có chuỗi đúng nhưng số hơi lệch vẫn qua; một bài tính chính xác trên một chuỗi sai thì không. Điều này phản ánh đúng thực tế phỏng vấn: người ta thuê bạn vì cách bạn nghĩ, không vì bạn cộng nhanh.
+
+Hai tiêu chí cuối cộng lại 25 điểm và chỉ tốn khoảng 90 giây mỗi bài. Đó là chỗ đổi thời gian lấy điểm tốt nhất trong toàn bộ checkpoint.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('105.03', '105', 3, 'concept', 'Mười phút chia thế nào, và bỏ gì khi hết giờ', '- **0:00–1:30** — chọn hướng (top-down hay bottom-up), viết chuỗi nhân tử ra giấy.
+- **1:30–4:00** — bảng giả định: mỗi ô một dòng, có nhãn A/B/C và một câu căn cứ.
+- **4:00–6:30** — nhân ra kết quả, giữ hai chữ số có nghĩa.
+- **6:30–8:00** — sanity check: bậc độ lớn, chia ngược, quy về đơn vị dễ hình dung.
+- **8:00–10:00** — khoảng dao động và câu về giả định yếu nhất.
+
+**Nếu đến phút 8 mà chưa xong phần tính**, hãy bỏ bớt độ chi tiết của bảng giả định chứ đừng bỏ sanity check và khoảng dao động — hai phần sau rẻ hơn và nặng điểm hơn.
+
+Một mẹo thời gian: viết sẵn ba câu sanity check ở đầu tờ giấy trước khi bắt đầu bài nào. Khi vội, mắt nhìn thấy chúng thì tay sẽ làm.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('105.04', '105', 4, 'worked_example', 'Một bài 10 phút, kèm cách chấm từng tiêu chí', '**Đề:** Ước lượng thị trường dịch vụ rửa xe ô tô tại một thành phố 1,5 triệu dân, một năm.
+
+**1:30 — chọn hướng và viết chuỗi.** Không đếm được số tiệm trong toàn thành phố một cách đáng tin → **top-down từ số xe**, vì nhu cầu sinh ra từ xe chứ không từ người.
+
+```
+Thị trường = Số ô tô cá nhân × Số lần rửa/năm × Giá mỗi lần
+```
+
+**4:00 — bảng giả định:**
+
+| Ô | Giá trị | Nhãn | Căn cứ |
+|---|---|---|---|
+| Dân số thành phố | 1.500.000 | A | Đề cho |
+| Tỷ lệ hộ có ô tô | 12% | C | Đô thị lớn, cao hơn trung bình cả nước |
+| Quy mô hộ | 3,5 người | B | Thẻ ngân hàng giả định |
+| Số ô tô cá nhân | 51.400 | B | = 1.500.000 ÷ 3,5 × 12% |
+| Số lần rửa mỗi năm | 30 | C | Khoảng 2–3 lần/tháng với xe đi hằng ngày |
+| Giá mỗi lần | 70.000đ | A | Bảng giá quan sát được |
+
+**6:30 — tính:**
+
+```
+51.400 × 30 × 70.000 ≈ 108 tỷ đồng/năm
+```
+
+**8:00 — sanity check:**
+
+1. *Bậc độ lớn:* 108 tỷ cho một thành phố 1,5 triệu dân. Quy toàn quốc thô: ×67 ≈ 7.200 tỷ — hợp lý cho một ngành dịch vụ phổ thông.
+2. *Chia ngược:* 108 tỷ ÷ 51.400 xe = 2,1 triệu đồng mỗi xe mỗi năm, tức 175.000đ/tháng. Hợp lý với 2–3 lần rửa/tháng.
+3. *Đơn vị dễ hình dung:* 51.400 xe ÷ 365 ngày × 30 lần = **4.225 lượt rửa mỗi ngày** toàn thành phố. Nếu mỗi tiệm làm 25 lượt/ngày thì cần khoảng 170 tiệm — con số nghe hợp lý cho thành phố cỡ này. Nếu phép kiểm này ra 17.000 tiệm thì phải quay lại.
+
+**10:00 — độ nhạy:** ô yếu nhất là **tỷ lệ hộ có ô tô** (nhãn C). Nếu là 8% thì thị trường còn **72 tỷ**; nếu 16% thì lên **144 tỷ**. Nộp: **72–144 tỷ, điểm giữa 108 tỷ**.
+
+**Cách chấm bài này:**
+
+| Tiêu chí | Mức | Vì sao |
+|---|---|---|
+| Cấu trúc | 4 | Chọn tổng thể là xe chứ không phải người; có tầng tần suất |
+| Giả định | 4 | Mọi ô có nhãn và căn cứ; ô derived ghi công thức |
+| Tính toán | 3 | Đúng, giữ hai chữ số có nghĩa |
+| Sanity check | 4 | Ba cách kiểm độc lập, cách thứ ba suy ra số tiệm |
+| Độ nhạy | 3 | Có khoảng và giả định yếu nhất, chưa nói điều kiện thu hẹp khoảng |');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('105.05', '105', 5, 'pitfall', 'Những gì làm trượt checkpoint này', '**SIZ-07 — mở bằng dân số cho mọi đề.** Với đề rửa xe, dân số không sinh ra nhu cầu; số xe mới. Lỗi này kéo tụt thẳng tiêu chí nặng nhất.
+
+**SIZ-04 — quên tần suất.** Chuỗi "số xe × giá" thiếu hẳn một tầng và cho kết quả lệch 30 lần.
+
+**SIZ-09 — không nêu độ nhạy.** Mất 10 điểm dễ nhất trong bài, chỉ vì một câu không viết.
+
+**SIZ-05 — độ chính xác giả.** Ghi 108.037.142đ trong khi ba ô đầu vào là phỏng đoán.
+
+**Bỏ trống bài thứ ba.** Ba bài × 10 phút nghĩa là quản lý thời gian cũng đang được chấm gián tiếp: bỏ một bài là mức 1 ở mọi tiêu chí của bài đó.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('105.06', '105', 6, 'checklist', 'Soát 60 giây cuối mỗi bài', '- Chuỗi viết ra trước, tổng thể xuất phát đúng là thứ sinh ra nhu cầu.
+- Có tầng tần suất nếu là dịch vụ lặp lại.
+- Mọi ô giả định có nhãn và một câu căn cứ; ô derived ghi công thức.
+- Kết quả hai chữ số có nghĩa.
+- Ít nhất hai cách kiểm độc lập, một trong đó quy về đơn vị dễ hình dung.
+- Có khoảng dao động và câu "giả định yếu nhất là…".');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('105.07', '105', 7, 'exercise', 'Bài nộp', 'Làm checkpoint trong **30 phút liên tục**: ba thị trường lạ do giảng viên phát, 10 phút mỗi bài, không tra cứu, không máy tính ngoài phép tính tay.
+
+Chưa đạt thì bài bị khoá cho tới khi bạn xem lại phần chấm và làm drill được giao — thường là bài 021 (sáu thị trường trong 45 phút) lặp lại, vì lỗi ở đây gần như luôn là lỗi quy trình dưới áp lực chứ không phải thiếu kiến thức.
+
+Output: ba bảng sizing (mỗi bài một tab hoặc một trang), mỗi bảng gồm: chuỗi nhân tử · bảng giả định có nhãn và căn cứ · phép tính · ít nhất hai sanity check · khoảng dao động · một dòng giả định yếu nhất.');
 DELETE FROM panel_questions WHERE case_id = 'C-040';
 DELETE FROM case_answer_frames WHERE case_id = 'C-040';
 DELETE FROM case_traps WHERE case_id = 'C-040';
@@ -1518,3 +1870,24 @@ INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('R
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.4', 2, 'Có nhắc tới việc kiểm nhưng chỉ là lặp lại phép tính cũ, không phải một cách kiểm độc lập.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.4', 3, 'Mỗi bài nói có ít nhất một lần tự kiểm thật: chia ngược, đổi bậc, hoặc quy về đơn vị dễ hình dung.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.4', 4, 'Như mức 3, và từ bước tự kiểm rút ra được một nhận xét có ích — giả định nào đáng ngờ, hoặc kết quả này nói lên điều gì về doanh nghiệp.');
+DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-B2');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.1', 1, 'Không viết được chuỗi nhân tử, hoặc chọn tổng thể xuất phát không sinh ra nhu cầu (dùng dân số cho đề B2B, cho đề về tài sản).');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.1', 2, 'Chuỗi đúng hướng nhưng thiếu một tầng quan trọng, thường là tần suất mua, nên kết quả lệch nhiều lần.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.1', 3, 'Chuỗi được viết ra trước khi điền số, tổng thể xuất phát đúng, có đủ các tầng gồm tần suất; nhân lại ra đúng đại lượng đề hỏi.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.1', 4, 'Như mức 3, và có nói rõ vì sao chọn top-down hay bottom-up cho đề này, hoặc kiểm chéo bằng hướng còn lại.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.2', 1, 'Số nằm thẳng trong phép nhân, không có ô giả định riêng; người đọc không biết con số ở đâu ra.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.2', 2, 'Có liệt kê giả định nhưng không phân biệt cái nào quan sát được, cái nào suy ra, cái nào đoán.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.2', 3, 'Mỗi giả định ở một ô riêng, có nhãn quan sát / suy ra / đoán và một câu căn cứ; ô suy ra ghi công thức.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.2', 4, 'Như mức 3, và các giả định đoán được cho kèm khoảng thay vì một điểm, kèm lý do chọn khoảng đó.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.3', 1, 'Sai bậc độ lớn hoặc sai đơn vị, kết quả lệch từ mười lần trở lên so với chuỗi đã viết.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.3', 2, 'Chuỗi đúng nhưng có lỗi số học làm kết quả lệch quá 20%, hoặc trộn đơn vị tháng với năm.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.3', 3, 'Phép tính khớp với chuỗi, sai số trong khoảng chấp nhận được, kết quả giữ hai chữ số có nghĩa.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.3', 4, 'Như mức 3, và các bước làm tròn đều được nói rõ hướng lệch, nên biết kết quả đang cao hay thấp hơn thực tế.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.4', 1, 'Không có bước kiểm nào; kết quả vô lý vẫn được nộp như bình thường.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.4', 2, 'Có nhắc tới việc kiểm nhưng chỉ lặp lại phép nhân cũ, không phải một đường kiểm độc lập.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.4', 3, 'Có ít nhất một cách kiểm độc lập: chia ngược, đổi bậc, hoặc quy về đơn vị mà con người có trực giác.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.4', 4, 'Như mức 3, với hai cách kiểm trở lên, và khi kiểm ra lệch thì nói rõ lệch bao nhiêu lần cùng khả năng giải thích.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.5', 1, 'Kết quả là một con số duy nhất, không nói gì về mức độ chắc chắn.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.5', 2, 'Có nhắc rằng kết quả chỉ là ước lượng nhưng không chỉ ra giả định nào yếu nhất.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.5', 3, 'Nêu đúng giả định yếu nhất và tính được kết quả thay đổi thế nào khi giả định đó đổi, trình bày dưới dạng khoảng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.5', 4, 'Như mức 3, và nói được cần dữ liệu gì để thu hẹp khoảng, hoặc giả định nào không đáng kiểm vì không đổi kết luận.');
