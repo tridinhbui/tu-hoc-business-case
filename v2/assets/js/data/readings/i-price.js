@@ -726,3 +726,98 @@ Khuyến nghị, rủi ro có số, ngưỡng, cách giảm rủi ro cho phươn
 
 Phần tiếp theo là ứng dụng gọi xe Đi Ngay, với ba đề xuất cùng lúc: tăng giá mạnh trong những ngày mưa lớn, một mã giảm giá sâu cho khách mới, và một cuộc trao đổi về phí với các hãng khác. Hãy đi đúng thứ tự của bài: loại ngay phương án vi phạm pháp luật, đánh dấu phương án cần kiểm tra quy định, rồi quy rủi ro thương hiệu của từng mức tăng giá ra giá trị kỳ vọng trước khi chọn.
 `);
+
+LRD("i-price-9", `
+Phút thứ hai mươi tám của buổi phỏng vấn. Bạn vừa tính xong, giấy nháp đầy số. Người phỏng vấn gấp sổ lại, nhìn lên và nói: "Giám đốc điều hành vừa bước vào thang máy cùng anh. Anh có chín mươi giây. Chúng ta nên làm gì với giá vé?"
+
+Ứng viên thứ nhất bắt đầu từ chỗ mình bắt đầu: "Dạ, đầu tiên em chia lợi nhuận thành doanh thu và chi phí, sau đó em xem giá vé cuối tuần, rồi em tính lãi góp mỗi vé..." Đến giây thứ năm mươi, anh vẫn đang kể lại quá trình, và chưa ai biết anh khuyên gì.
+
+Ứng viên thứ hai nói một câu: "Em đề xuất tăng giá vé cuối tuần 10%, thêm khoảng 7,5 tỷ lãi góp mỗi năm." Rồi dừng một nhịp. Chín mươi giây sau, người phỏng vấn đã biết khuyến nghị, hai lý do có số, rủi ro lớn nhất và việc cần làm tuần tới.
+
+Cả hai người làm bài tính giống nhau. Chỉ một người được nhớ.
+
+## Chín mươi giây là bao nhiêu chữ
+
+Người nói tiếng Việt rõ ràng trong phỏng vấn đi khoảng 150 chữ mỗi phút. Chín mươi giây là **khoảng 225 chữ**, tức bốn đến năm câu lớn. Nếu bản nháp trong đầu bạn dài 340 chữ, bạn phải cắt một phần ba trước khi mở miệng.
+
+Con số này quan trọng vì nó biến "nói ngắn gọn" từ một lời khuyên mơ hồ thành một ràng buộc đếm được. Bốn phần dưới đây vừa đúng ngân sách đó.
+
+## Khuôn bốn phần
+
+**Một: kết luận kèm con số.** Một câu, có động từ hành động và một con số tác động. "Tăng giá vé cuối tuần 10%, thêm khoảng 7,5 tỷ lãi góp mỗi năm." Không mở đầu bằng "theo phân tích của em".
+
+**Hai: hai lý do, mỗi lý do một con số.** Không phải ba, không phải năm. Lý do mạnh nhất trước. "Lãi góp mỗi vé tăng từ 45.000 lên 49.500 đồng, và lượng khách cuối tuần chỉ được phép giảm tới 9% trước khi hoà — dự báo của đội vận hành là 4%."
+
+**Ba: rủi ro lớn nhất kèm cách kiểm chứng.** Một rủi ro thôi, và phải kèm việc cụ thể để giảm rủi ro đó. "Rủi ro là phản ứng của khách quen; em đề xuất thử ở năm rạp trong sáu tuần trước khi áp toàn hệ thống."
+
+**Bốn: bước tiếp theo.** Ai làm gì trong tuần tới. "Nếu anh đồng ý, tuần sau em làm việc với đội vận hành để chọn năm rạp và thống nhất chỉ số theo dõi."
+
+Bốn phần này trả lời đúng bốn câu hỏi mà bất kỳ người ra quyết định nào cũng có: nên làm gì, vì sao tin được, sai thì sao, và bây giờ làm gì.
+
+## Nói số thế nào cho người nghe giữ được
+
+Người nghe không nhớ dãy số. Họ nhớ một con số lớn và một tỷ lệ.
+
+- **Làm tròn và nói "khoảng".** "Khoảng 7,5 tỷ" tốt hơn "7,56 tỷ". Nhưng đừng làm tròn thành một con số đẹp rồi nói như thể chính xác — nếu làm tròn 7,56 thành 8, hãy nói "gần 8 tỷ".
+- **Một con số mỗi câu.** Hai con số trong một câu là lúc người nghe rơi mất.
+- **Luôn kèm mốc so sánh.** "Thêm 7,5 tỷ, tức tăng khoảng 6% lãi góp mảng vé cuối tuần." Con số đứng một mình không có nghĩa.
+- **Ưu tiên con số mỗi đơn vị.** "Mỗi vé để lại thêm 4.500 đồng" dễ hình dung hơn tổng số tỷ.
+- **Nói ngưỡng, đừng nói dự báo suông.** "Khách được phép giảm tới 9%" mạnh hơn "em nghĩ khách sẽ giảm ít thôi", vì nó cho người nghe một mốc để tự kiểm tra.
+
+## Làm mẫu: cắt một bản nháp 340 chữ
+
+Bản nháp đầu tiên của hầu hết người mới đi theo thứ tự làm bài: bối cảnh, phương pháp, các bước tính, kết quả, rồi mới tới khuyến nghị. Nó thường dài khoảng 340 chữ và chôn kết luận ở cuối.
+
+Cắt theo thứ tự này. Bỏ hết phần kể phương pháp, vì người nghe không cần biết bạn chia cây thế nào. Bỏ các con số trung gian, chỉ giữ con số cuối và một con số đơn vị. Bỏ mọi câu bắt đầu bằng "em đã". Gộp các lý do trùng nhau. Sau ba nhát cắt đó, bản nháp thường còn khoảng 225 chữ mà không mất gì quan trọng.
+
+Bản rút gọn cho case rạp phim nghe như sau:
+
+> "Em đề xuất tăng giá vé cuối tuần 10%, lên 99.000 đồng. Việc này thêm khoảng 7,5 tỷ lãi góp mỗi năm, tức tăng khoảng 6% cho mảng vé cuối tuần."
+> "Hai lý do. Thứ nhất, mỗi vé để lại thêm 4.500 đồng, từ 45.000 lên 49.500. Thứ hai, lượng khách cuối tuần được phép giảm tới 9% trước khi việc tăng giá hết lợi, trong khi dự báo chỉ giảm 4% — còn cách ngưỡng 5 điểm."
+> "Rủi ro lớn nhất là khách quen cảm thấy bị tăng giá đột ngột. Em đề xuất thử ở năm rạp trong sáu tuần, theo dõi lượng vé và doanh thu bắp nước, rồi mới nhân rộng."
+> "Nếu anh đồng ý, tuần sau em làm việc với đội vận hành để chọn rạp thử và chốt chỉ số theo dõi."
+
+## Khi bị cắt lời hoặc bị vặn
+
+Người phỏng vấn giỏi sẽ cắt ngang, thường ngay sau câu đầu. Đó không phải dấu hiệu xấu — họ đang kiểm tra xem phần còn lại có chắc không.
+
+Nếu bị hỏi "sao không giảm giá cho đông khách hơn?", đừng kể lại phân tích. Trả lời bằng ngưỡng, theo đúng hướng ngược lại: giảm giá 10% thì lãi góp mỗi vé còn 40.500 đồng, và lượng khách phải tăng hơn 11% mới hoà. Rồi hỏi lại: "Anh thấy một đợt giảm giá kéo thêm được hơn 11% khách cuối tuần không?"
+
+Nếu bị hỏi "con số 7,5 tỷ chắc đến đâu?", hãy nói giả định yếu nhất và độ nhạy của nó: "Giả định yếu nhất là mức giảm 4% lượng khách. Ngay cả khi khách giảm gấp đôi, tới 8%, việc tăng giá vẫn còn lợi."
+
+## Giọng, nhịp và những thứ nhỏ
+
+- **Dừng một nhịp sau câu kết luận.** Khoảng lặng một giây làm câu đó nặng hơn mọi tính từ.
+- **Đánh số ý bằng lời.** "Hai lý do. Thứ nhất... Thứ hai..." giúp người nghe biết mình đang ở đâu.
+- **Nói chậm ở con số, nhanh ở phần nối.** Con số cần thời gian để người nghe ghi lại.
+- **Đừng xin lỗi.** "Em chưa chắc lắm nhưng..." xoá sạch giá trị của câu sau nó.
+- **Kết thúc đúng chỗ.** Khi đã nói xong bước tiếp theo, dừng lại. Im lặng không phải lỗi của bạn.
+
+## Cùng khuôn, tình huống khác
+
+**Email cho ban giám đốc**: dòng tiêu đề là câu kết luận, ba gạch đầu dòng là ba phần còn lại. Ai cũng đọc trên điện thoại.
+
+**Slide một trang**: tiêu đề slide là câu kết luận có số, thân slide là hai lý do, chân slide là rủi ro và bước tiếp theo.
+
+**Họp với khách hàng doanh nghiệp**: giữ nguyên bốn phần, nhưng đổi thước đo sang thứ khách quan tâm — thời gian hoàn vốn, chi phí mỗi đơn vị của họ.
+
+## Bản mẫu rút gọn 30 giây
+
+Đôi khi bạn chỉ có ba mươi giây. Giữ phần một và phần ba, bỏ phần hai:
+
+> "Em đề xuất tăng giá vé cuối tuần 10%, thêm khoảng 7,5 tỷ lãi góp mỗi năm. Rủi ro là phản ứng của khách quen, nên em đề xuất thử ở năm rạp sáu tuần trước khi nhân rộng."
+
+Hai câu này vẫn đủ để người nghe quyết định có muốn nghe tiếp hay không.
+
+## Những lỗi khiến phần chốt bị trừ điểm
+
+- **Kể lại quá trình.** Người nghe cần kết quả, không cần nhật ký làm bài.
+- **Chôn kết luận ở cuối.** Nếu bị cắt lời ở giây thứ ba mươi, phần quan trọng nhất phải đã được nói.
+- **Đọc dãy số.** Ba con số liên tiếp trong một câu là ba con số bị quên.
+- **Nêu năm rủi ro.** Một rủi ro kèm cách kiểm chứng mạnh hơn một danh sách.
+- **Không có bước tiếp theo.** Khuyến nghị không kèm việc cần làm tuần tới nghe như một bài tập, không phải một đề xuất.
+
+## Vào bài tập
+
+Phần tiếp theo là chuỗi trà sữa Mộc Trà đang cân nhắc tăng giá 8%. Bạn sẽ tính con số cho câu mở đầu, tính ngưỡng sản lượng để có câu rủi ro, rồi chọn cách mở đầu chín mươi giây. Hãy tự nói thành tiếng bản của mình và bấm giờ — nếu quá chín mươi giây, cắt theo đúng thứ tự ở phần làm mẫu.
+`);

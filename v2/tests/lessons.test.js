@@ -14,6 +14,10 @@ let n=0; const t=(name,fn)=>{ fn(); n++; console.log("  ✓",name); };
 
 /* đáp án tính lại từ đề — mỗi dòng là một phép tính độc lập với dữ liệu bài */
 const RECOMPUTE = {
+  /* i-price-9 · trà sữa Mộc Trà: 12 triệu ly, giá 35.000đ, biến đổi 14.000đ, tăng giá 8%, sản lượng −5% */
+  "i-price-9": ()=> (12*0.95*(35*1.08 - 14)) - (12*(35 - 14)),
+  "i-price-9#1": ()=> Math.round((1 - (35 - 14)/(35*1.08 - 14))*10000)/100,
+  "i-price-9#2": ()=> Math.round((340 - (150*90/60))/340*1000)/10,
   /* i-price-8 · gọi xe Đi Ngay: 12 ngày mưa, ×2,5 (28 nghìn chuyến, khả năng phản ứng 50%) vs trần ×1,5 (36 nghìn, 10%), thiệt hại 9 tỷ */
   "i-price-8": ()=> (((36*22.5 - 40*15)*12/1000) - (0.1*500*0.03*600/1000)) - (((28*37.5 - 40*15)*12/1000) - (0.5*500*0.03*600/1000)),
   "i-price-8#1": ()=> (60 - (80*(1 - 0.4)))/60*100,
