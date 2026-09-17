@@ -768,12 +768,19 @@ const norm = s => String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/
 const has = (s, ...w) => w.some(x => norm(s).includes(norm(x)));
 const cap = n => Math.max(0, Math.min(100, Math.round(n)));
 
-function scoreRound(cfgR, text){
-  const t = String(text||"");
-  if(!t.trim()) return 0;
+/* điểm một vòng: nửa từ cổng từ khoá + con số then chốt, nửa từ số ý của câu trả lời tốt đạt được
+   (khi có data/interview-detail.js và biết caseId, vòng). Không có chi tiết thì chỉ chấm theo cổng. */
+function gateScore(cfgR, t){
   const kw = has(t, ...cfgR.kw);
   if(cfgR.num == null) return kw ? 100 : 0;
   return (kw ? 50 : 0) + (SCORING.mentionsNumber(t, cfgR.num, cfgR.tol) ? 50 : 0);
+}
+function scoreRound(cfgR, text, caseId, i){
+  const t = String(text||"");
+  if(!t.trim()) return 0;
+  const gate = gateScore(cfgR, t), hits = caseId==null ? [] : checkPoints(caseId, i, t);
+  if(!hits.length) return gate;
+  return Math.round((gate + 100*hits.filter(Boolean).length/hits.length) / 2);
 }
 
 /* vòng mà người phỏng vấn đưa từng exhibit: lần đầu câu hỏi nhắc "Exhibit N" hoặc "Exhibit N–M";
@@ -813,7 +820,7 @@ const FEEDBACK = {
 
 function score(caseId, sess){
   const cfg = CFG[caseId], spec = SCORING.cases[caseId];
-  const per = cfg.rounds.map((r,i) => scoreRound(r, (sess.answers||[])[i]));
+  const per = cfg.rounds.map((r,i) => scoreRound(r, (sess.answers||[])[i], caseId, i));
   const dims = ROUNDS.map((r,i) => [r.n, cap(per[i])]);
   const total = cap(per.reduce((a,b)=>a+b,0) / per.length);
   const v = Object.fromEntries(dims);

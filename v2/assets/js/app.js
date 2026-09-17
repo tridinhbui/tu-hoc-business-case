@@ -238,7 +238,7 @@ const ACT = {
     if(!tx){ toast("Nói ra câu trả lời của bạn trước"); return; }
     const rd=IVIEW.roundOf(IVIEW.get(id)), sess=IVIEW.answer(id, tx, Date.now());
     if(sess.result) toast(`Tổng điểm <b>${sess.result.total}</b>${sess.result.gain?` · <b>+${sess.result.gain} XP</b>`:""}`);
-    else toast(`Vòng ${rd+1}: ${IVIEW.scoreRound(IVIEW.CFG[id].rounds[rd], tx)}/100`);
+    else toast(`Vòng ${rd+1}: ${IVIEW.scoreRound(IVIEW.CFG[id].rounds[rd], tx, id, rd)}/100`);
     render();
   },
   ivReset(id){ if(!confirm("Xoá phiên phỏng vấn này và làm lại từ đầu? Điểm đã ghi vẫn giữ.")) return; IVIEW.reset(id); render(); },
@@ -2148,13 +2148,14 @@ function vInterview(id){
   <div class="card mt"><div class="card-h"><h3>Năm vòng và cách chấm</h3></div><div class="card-b" style="padding-top:4px">
     <div class="pipe">${IVIEW.ROUNDS.map((r,i)=>`<div class="st"><span class="ic">${i+1}</span>
       <div class="bd"><div class="nm">${esc(r.n)}</div><div class="ds">${esc(["Nhắc lại đề trong một câu và hỏi 2–3 câu làm rõ.","Nêu cấu trúc đủ nhánh cho loại case này.","Tính ra con số then chốt, nói cả phép tính.","Đọc exhibit và rút ra câu \"vậy thì sao\".","Khuyến nghị gắn với ràng buộc và con số vừa tính."][i])}</div></div>
-      <span class="due">${esc(["từ khoá","từ khoá","từ khoá + con số","từ khoá + con số","từ khoá"][i])}</span></div>`).join("")}</div>
+      <span class="due">${esc(["từ khoá · 3 ý","từ khoá · 3 ý","từ khoá + con số · 3 ý","từ khoá + con số · 3 ý","từ khoá · 3 ý"][i])}</span></div>`).join("")}</div>
+    <p class="small muted" style="margin:10px 0 0">Điểm mỗi vòng: một nửa từ từ khoá và con số then chốt, một nửa từ số ý của câu trả lời tốt bạn đạt được.</p>
   </div></div></div>`;
 }
 
 /* ghi nhận một vòng đã trả lời: điểm, còn thiếu gì, 3 ý của câu trả lời tốt, bẫy, câu mẫu */
 function ivNote(id, i, r, ans){
-  const d = IVIEW.diagnose(r, ans), sc = IVIEW.scoreRound(r, ans), det = IVIEW.detail(id, i);
+  const d = IVIEW.diagnose(r, ans), sc = IVIEW.scoreRound(r, ans, id, i), det = IVIEW.detail(id, i);
   const miss = [];
   if(!d.kw) miss.push(`<span>ý then chốt</span> (${esc(r.kw.slice(0,3).join(", "))})`);
   if(d.num===false) miss.push(`<span>con số then chốt</span>`);

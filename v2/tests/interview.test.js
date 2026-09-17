@@ -50,7 +50,7 @@ for(const c of ivs){
     const m=model(c.id);   // vòng 3 giữ từ khoá nhưng bỏ hết con số
     const half={answers:m.answers.map((a,i)=>i===2?a.replace(/\d/g,""):a)};
     const r=I.score(c.id,half);
-    assert.equal(r.dims[2][1],50,"đúng từ khoá nhưng thiếu con số → 50");
+    assert.ok(r.dims[2][1]>0 && r.dims[2][1]<60,"đúng từ khoá nhưng thiếu con số → dưới 60: "+r.dims[2][1]);
     assert.ok(r.mistakes.some(x=>x.kind==="calculation"));
   });
 }
@@ -96,7 +96,7 @@ t("chẩn đoán khớp với điểm vòng: thiếu ý, thiếu số, bỏ tr�
     const d=I.diagnose(r,r.model); assert.ok(d.kw,`${c.id} r${i+1} câu mẫu có ý then chốt`);
     assert.equal(d.num, r.num==null?null:true);
     const empty=I.diagnose(r,""); assert.equal(empty.kw,false);
-    const sc=I.scoreRound(r,r.model.replace(/\d/g,""));
+    const sc=I.scoreRound(r,r.model.replace(/\d/g,""));   // không truyền case → chỉ chấm theo cổng
     if(r.num!=null){ assert.equal(I.diagnose(r,r.model.replace(/\d/g,"")).num,false); assert.equal(sc,50); }
   }));
 });
@@ -119,5 +119,16 @@ t("câu mẫu đạt đủ 3 ý ở mọi vòng; bỏ trống không đạt ý n
 t("dùng gợi ý được ghi theo vòng và giữ qua localStorage",()=>{
   S.reset(); I.start("iv-03",0); I.useHint("iv-03"); I.answer("iv-03",I.CFG["iv-03"].rounds[0].model,1); I.useHint("iv-03");
   S._reload(); assert.deepEqual(I.get("iv-03").hints,[true,true]); I.reset("iv-03");
+});
+t("điểm vòng gộp cổng từ khoá/con số với số ý đạt được",()=>{
+  const id="iv-12", r=I.CFG[id].rounds[0];
+  const two="Em xin hỏi mục tiêu là lợi nhuận hay phủ thị trường, và ngân sách tối đa là bao nhiêu?";
+  assert.deepEqual(I.checkPoints(id,0,two),[true,false,true]);
+  assert.equal(I.scoreRound(r,two),100,"chỉ cổng: đủ từ khoá");
+  assert.equal(I.scoreRound(r,two,id,0),83,"cổng 100 + đủ 2/3 ý → 83");
+  ivs.forEach(c=>I.CFG[c.id].rounds.forEach((x,i)=>{
+    assert.equal(I.scoreRound(x,x.model,c.id,i),100); assert.equal(I.scoreRound(x,"",c.id,i),0); }));
+  const math=I.CFG["iv-01"].rounds[2];                     // chỉ nêu nguyên nhân, không có số nào
+  assert.equal(I.scoreRound(math,"Chi phí hạt nhựa tăng mạnh hơn giá bán.","iv-01",2),25);
 });
 console.log(`\n${n} test đạt`);

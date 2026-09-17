@@ -156,7 +156,8 @@ const DICT = {
   "Tính ra con số then chốt, nói cả phép tính.":"Work out the key number and say the calculation.",
   "Đọc exhibit và rút ra câu \"vậy thì sao\".":"Read the exhibit and land the \"so what\".",
   "Khuyến nghị gắn với ràng buộc và con số vừa tính.":"Tie the recommendation to the constraint and the number you just found.",
-  "từ khoá":"keywords", "từ khoá + con số":"keywords + number",
+  "từ khoá":"keywords", "từ khoá + con số":"keywords + number", "3 ý":"3 points",
+  "Điểm mỗi vòng: một nửa từ từ khoá và con số then chốt, một nửa từ số ý của câu trả lời tốt bạn đạt được.":"Each round score: half from the key words and key number, half from how many points of a strong answer you cover.",
 
   /* mistake review */
   "Lỗi đang mở":"Open mistakes", "Đã sửa xong":"Fixed", "Lỗi lặp lại":"Repeated mistakes", "Đến hạn ôn":"Due for review",
