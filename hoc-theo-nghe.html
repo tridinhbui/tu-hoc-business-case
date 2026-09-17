@@ -522,13 +522,35 @@
     /* ════════════ TWO-COLUMN CONTENT LAYOUT ════════════ */
     .career-grid {
       display: grid;
-      grid-template-columns: 1fr 285px;
+      grid-template-columns: minmax(0, 1fr) 255px;
       gap: 14px;
       align-items: start;
     }
 
-    @media (max-width: 1180px) {
+    @media (max-width: 1120px) {
       .career-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Tab Content Panels */
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .tab-panel-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 255px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    @media (max-width: 1120px) {
+      .tab-panel-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -1378,8 +1400,8 @@
       </button>
     </div>
 
-    <!-- Main Grid (Left Map + Right Widgets) -->
-    <div class="career-grid" id="tabContentMap">
+    <!-- Main Grid (Left Map + Right Widgets) - Tab 1: Map -->
+    <div class="career-grid tab-panel active" id="tabContentMap">
       
       <!-- ── LEFT COLUMN (MAP VIEW CANVAS) ── -->
       <div class="left-column">
@@ -1643,6 +1665,133 @@
 
     </div>
 
+    <!-- Tab 2: Tasks & Priorities -->
+    <div class="career-grid tab-panel" id="tabContentTasks">
+      <div class="left-column">
+        <div class="map-card" style="padding: 16px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+            <div>
+              <h2 style="font-size: 15px; font-weight: 800; color: #0f172a;">⚡ Danh sách nhiệm vụ &amp; Ưu tiên hàng đầu</h2>
+              <p style="font-size: 11.5px; color: #64748b;">Học theo thứ tự tối ưu để xây dựng năng lực tài chính vững chắc</p>
+            </div>
+            <span style="background: #e6f7ee; color: #047857; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px;">3 NHIỆM VỤ ĐANG CHỜ</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="width: 28px; height: 28px; border-radius: 50%; background: #059669; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">1</span>
+                <div>
+                  <div style="font-weight: 800; font-size: 12.5px; color: #0f172a;">Chỗ khuất của báo cáo, Bài 1: Tiền vào tài khoản không phải là doanh thu</div>
+                  <div style="font-size: 11px; color: #64748b;">Kế toán viên • 8 phút • Thưởng +25 XP</div>
+                </div>
+              </div>
+              <a href="hoc-bai.html" style="background: #064e3b; color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 11.5px; font-weight: 700; text-decoration: none;">Học ngay →</a>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="width: 28px; height: 28px; border-radius: 50%; background: #f97316; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">2</span>
+                <div>
+                  <div style="font-weight: 800; font-size: 12.5px; color: #0f172a;">Chỗ khuất của báo cáo, Bài 3: Lợi nhuận nằm ở quốc gia nào?</div>
+                  <div style="font-size: 11px; color: #64748b;">Kế toán viên • 9 phút • Thưởng +30 XP</div>
+                </div>
+              </div>
+              <a href="hoc-bai.html" style="background: #f97316; color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 11.5px; font-weight: 700; text-decoration: none;">Học ngay →</a>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="width: 28px; height: 28px; border-radius: 50%; background: #64748b; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px;">3</span>
+                <div>
+                  <div style="font-weight: 800; font-size: 12.5px; color: #0f172a;">Kế toán là ngôn ngữ của kinh doanh</div>
+                  <div style="font-size: 11px; color: #64748b;">Kế toán viên • 5 phút • Thưởng +20 XP</div>
+                </div>
+              </div>
+              <a href="hoc-bai.html" style="background: #f1f5f9; color: #334155; padding: 6px 14px; border-radius: 999px; font-size: 11.5px; font-weight: 700; text-decoration: none;">Bắt đầu →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-column">
+        <div class="widget-card">
+          <div class="widget-header">
+            <span style="font-size: 13px;">🎯</span>
+            <span class="widget-title">TIẾN ĐỘ TUẦN NÀY</span>
+          </div>
+          <div style="font-size: 11.5px; color: #475569; line-height: 1.5;">
+            Hoàn thành ít nhất <strong>5 bài học</strong> trong tuần để nhận rương thưởng Hero Chest &amp; +150 XP!
+          </div>
+          <div style="margin-top: 10px; background: #f1f5f9; height: 6px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #059669; width: 20%; height: 100%;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; color: #64748b; font-weight: 700;">
+            <span>1/5 bài xong</span>
+            <span>20%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Objectives & Skills -->
+    <div class="career-grid tab-panel" id="tabContentSkills">
+      <div class="left-column">
+        <div class="map-card" style="padding: 16px;">
+          <h2 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">🎯 Ma trận Năng lực &amp; Kỹ năng theo nghề</h2>
+          <p style="font-size: 11.5px; color: #64748b; margin-bottom: 14px;">Chuẩn hoá theo khung năng lực CFA, ACCA và thực tiễn doanh nghiệp</p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; background: #fafdfa;">
+              <div style="font-weight: 800; font-size: 12px; color: #047857; margin-bottom: 4px;">📊 Đọc hiểu &amp; Bóc tách BCTC</div>
+              <div style="font-size: 11px; color: #64748b; margin-bottom: 8px;">Cấp độ: Nền tảng (Level 1)</div>
+              <div style="background: #e2e8f0; height: 5px; border-radius: 3px; overflow: hidden;">
+                <div style="background: #059669; width: 35%; height: 100%;"></div>
+              </div>
+            </div>
+
+            <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; background: #fafdfa;">
+              <div style="font-weight: 800; font-size: 12px; color: #047857; margin-bottom: 4px;">🧮 Kế toán Quản trị &amp; Giá thành</div>
+              <div style="font-size: 11px; color: #64748b; margin-bottom: 8px;">Cấp độ: Trung cấp (Level 2)</div>
+              <div style="background: #e2e8f0; height: 5px; border-radius: 3px; overflow: hidden;">
+                <div style="background: #059669; width: 15%; height: 100%;"></div>
+              </div>
+            </div>
+
+            <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; background: #fafdfa;">
+              <div style="font-weight: 800; font-size: 12px; color: #047857; margin-bottom: 4px;">📈 FP&amp;A &amp; Dự phóng Dòng tiền</div>
+              <div style="font-size: 11px; color: #64748b; margin-bottom: 8px;">Cấp độ: Nâng cao (Level 3)</div>
+              <div style="background: #e2e8f0; height: 5px; border-radius: 3px; overflow: hidden;">
+                <div style="background: #059669; width: 8%; height: 100%;"></div>
+              </div>
+            </div>
+
+            <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; background: #fafdfa;">
+              <div style="font-weight: 800; font-size: 12px; color: #047857; margin-bottom: 4px;">🛡️ Kiểm toán &amp; Quản trị Rủi ro</div>
+              <div style="font-size: 11px; color: #64748b; margin-bottom: 8px;">Cấp độ: Chuyên sâu (Level 4)</div>
+              <div style="background: #e2e8f0; height: 5px; border-radius: 3px; overflow: hidden;">
+                <div style="background: #059669; width: 5%; height: 100%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-column">
+        <div class="widget-card">
+          <div class="widget-header">
+            <span style="font-size: 13px;">🏆</span>
+            <span class="widget-title">DANH HIỆU NGHỀ</span>
+          </div>
+          <div style="text-align: center; padding: 8px 0;">
+            <div style="font-size: 32px; margin-bottom: 4px;">🧙‍♂️</div>
+            <div style="font-weight: 800; font-size: 12.5px; color: #0f172a;">Tập sự Tài chính</div>
+            <div style="font-size: 10.5px; color: #64748b; margin-top: 2px;">LVL 2 HERO • 79 XP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- ════════════ MODALS ════════════ -->
@@ -1772,11 +1921,18 @@
   <script>
     function switchTab(tab) {
       document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-      event.target.classList.add("active");
-      if (tab === 'tasks') {
-        window.location.href = 'dashboard.html';
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      if (tab === 'map') {
+        tabBtns[0].classList.add("active");
+        document.getElementById("tabContentMap").classList.add("active");
+      } else if (tab === 'tasks') {
+        tabBtns[1].classList.add("active");
+        document.getElementById("tabContentTasks").classList.add("active");
       } else if (tab === 'skills') {
-        window.location.href = 'thong-ke.html';
+        tabBtns[2].classList.add("active");
+        document.getElementById("tabContentSkills").classList.add("active");
       }
     }
 
