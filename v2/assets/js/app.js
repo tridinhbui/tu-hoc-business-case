@@ -26,6 +26,11 @@ const TRACK_UI = {
 const DAILY_UI = {
   picked: null
 };
+const ROADMAP_UI = {
+  tab: "01", // "01": Chọn hướng, "02": Chọn nhịp, "03": Cách học, "04": Giải đáp
+  track: "consulting", // "consulting" | "finance" | "cfo"
+  pace: "standard"
+};
 
 /* ════════ HÀNH ĐỘNG ════════ */
 const ACT = {
@@ -33,6 +38,10 @@ const ACT = {
           State.seedDemo(); toast("Đã nạp dữ liệu mẫu"); render(); },
   reset(){ if(!confirm("Xoá toàn bộ tiến độ trên trình duyệt này? Không hoàn tác được.")) return;
            State.reset(); toast("Đã xoá tiến độ"); location.hash="#/dashboard"; render(); },
+
+  setRoadmapTab(t){ ROADMAP_UI.tab = t; render(true); },
+  setRoadmapTrack(tr){ ROADMAP_UI.track = tr; toast("Đã chuyển lộ trình học"); render(true); },
+  setRoadmapPace(p){ ROADMAP_UI.pace = p; toast("Đã lưu mục tiêu học tập!"); render(true); },
 
   setTrackTab(tabId){ TRACK_UI.tab = tabId; render(true); },
   setTrackSearch(q){ TRACK_UI.query = q; render(true); },
@@ -236,6 +245,362 @@ const ARENA = {rec:"", start:0, caseId:null, timer:null, usedModel:false, previe
 const LIB = {mode:"all", ind:"", type:"", diff:"", skill:"", status:""};
 const REV = {kind:""};
 
+/* ════════ 0. STRATLAB ILLUSTRATED ROADMAP (ONBOARDING & MAP) ════════ */
+function vRoadmap(){
+  const lv = State.level();
+  const xp = State.xpTotal();
+  const streak = State.data.streak || 0;
+  const casesDone = Object.values(State.data.cases||{}).filter(c=>c.best>0).length;
+  const totalLessons = window.LESSONS.length;
+  const doneLessons = window.LESSONS.filter(l=>State.lessonStatus(l.id)==="done").length;
+  const pct = Math.max(1, Math.round((doneLessons/totalLessons)*100));
+
+  return `<div class="main" style="max-width:1440px;margin:0 auto;padding:0 0 40px">
+    <!-- Top Stats Header Bar -->
+    <div class="stratlab-header-bar" style="margin-bottom:24px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+      <div class="stratlab-header-left">
+        <a class="stratlab-logo-pill" href="#/roadmap">
+          <div class="stratlab-logo-icon">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+              <path d="M4 18L10 12L14 16L20 6M20 6H15M20 6V11" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span style="font-weight:800;color:var(--text);letter-spacing:-.02em">STRATLAB</span>
+          <span style="color:var(--muted);font-weight:500;font-size:12px">| EDTECH THỰC CHIẾN</span>
+        </a>
+        <span class="stratlab-subtag">Roadmap</span>
+      </div>
+
+      <div style="flex:1;max-width:280px">
+        <div style="display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:12px;color:var(--muted)">
+          <span>⌕</span>
+          <span style="flex:1">Tìm kiếm...</span>
+          <kbd style="font-size:10px;padding:1px 5px;background:var(--surface-3);border-radius:4px">Ctrl K</kbd>
+        </div>
+      </div>
+
+      <div class="stratlab-stat-chips">
+        <div class="stratlab-stat-chip"><span>RANK · CẤP BẬC:</span> <b>${lv.title} · Lv. ${lv.lv}</b></div>
+        <div class="stratlab-stat-chip"><span>XP · ĐIỂM:</span> <b>${xp} / 400</b></div>
+        <div class="stratlab-stat-chip"><span>STREAK · CHUỖI:</span> <b>🔥 ${streak} ngày</b></div>
+        <div class="stratlab-stat-chip"><span>CASES · ĐÃ GIẢI:</span> <b>${casesDone}/36</b></div>
+        <div style="width:30px;height:30px;border-radius:50%;background:#059669;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800">TB</div>
+      </div>
+    </div>
+
+    <!-- Hero Title & Progress Card Grid -->
+    <div class="roadmap-hero-grid">
+      <div class="roadmap-hero-left">
+        <h1>Bạn muốn làm chủ tư duy giải Case,<br><span style="color:#059669">hay bước vào nghề Management Consulting?</span></h1>
+        <p>Chọn một hướng để hệ thống sắp xếp hành trình phù hợp. Bạn có thể đổi bất kỳ lúc nào.</p>
+        <div class="roadmap-time-badge">
+          <span>⏱</span> <b>6 – 8 phút mỗi ngày</b> · Mỗi bài học ngắn gọn, có bài tập tư duy thực hành. Không cần hơn.
+        </div>
+      </div>
+
+      <div class="roadmap-progress-darkcard">
+        <div class="progress-card-top">
+          <span class="progress-card-lbl">TIẾN ĐỘ HÀNH TRÌNH</span>
+          <span class="progress-card-tag">1/120 bài đã xong (1%)</span>
+        </div>
+        <div class="progress-card-body">
+          <div class="progress-ring-box">${pct}%</div>
+          <div class="progress-track-info">
+            <div class="progress-track-sub">ĐANG CHỌN: NGHỀ NGHIỆP</div>
+            <div class="progress-track-name">Management Consulting (MBB / Big 4)</div>
+            <div class="progress-track-loc">📍 Đang ở: Tư duy cấu trúc & Khung MECE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Lesson Callout Banner -->
+    <div class="today-lesson-banner">
+      <div class="today-banner-left">
+        <div class="today-play-btn">▶</div>
+        <div>
+          <div class="today-badge-h">HÔM NAY BẠN HỌC BÀI NÀY</div>
+          <div class="today-lesson-name">Kỹ thuật phân nhánh Issue Tree: Bóc tách mọi vấn đề kinh doanh chuẩn MECE</div>
+        </div>
+      </div>
+      <a class="today-open-btn" href="#/lesson/f-sizing">
+        <span>Mở bài học</span> <span>→</span>
+      </a>
+    </div>
+
+    <!-- 4 Onboarding Tabs -->
+    <div class="onboarding-tabs">
+      <button class="onboarding-tab-btn ${ROADMAP_UI.tab==='01'?'active':''}" onclick="ACT.setRoadmapTab('01')">01 Chọn hướng</button>
+      <button class="onboarding-tab-btn ${ROADMAP_UI.tab==='02'?'active':''}" onclick="ACT.setRoadmapTab('02')">02 Chọn nhịp</button>
+      <button class="onboarding-tab-btn ${ROADMAP_UI.tab==='03'?'active':''}" onclick="ACT.setRoadmapTab('03')">03 Cách học</button>
+      <button class="onboarding-tab-btn ${ROADMAP_UI.tab==='04'?'active':''}" onclick="ACT.setRoadmapTab('04')">04 Giải đáp</button>
+    </div>
+
+    <!-- Tab Content 01: Illustrated Learning Map Canvas -->
+    ${ROADMAP_UI.tab === '01' ? `
+      <div class="stratlab-map-container">
+        <!-- SVG Landscape Background (Rolling hills, winding river, trees, bridge) -->
+        <svg viewBox="0 0 1200 480" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="hill1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#DEF7EC"/><stop offset="100%" stop-color="#BCF0DA"/></linearGradient>
+            <linearGradient id="hill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E1F7EB"/><stop offset="100%" stop-color="#C6F6D5"/></linearGradient>
+            <linearGradient id="riverGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#7DD3FC"/></linearGradient>
+          </defs>
+          <!-- Hills -->
+          <path d="M 0 160 Q 300 80 600 180 T 1200 120 L 1200 480 L 0 480 Z" fill="url(#hill1)" opacity="0.6"/>
+          <path d="M 0 280 Q 400 200 800 320 T 1200 240 L 1200 480 L 0 480 Z" fill="url(#hill2)" opacity="0.7"/>
+          <!-- River Meandering -->
+          <path d="M 620 480 Q 640 320 580 240 T 700 80 T 750 0" fill="none" stroke="url(#riverGrad)" stroke-width="32" stroke-linecap="round" opacity="0.85"/>
+          <!-- Wooden Bridge -->
+          <rect x="585" y="240" width="70" height="20" rx="4" fill="#D97706" opacity="0.85" transform="rotate(-15 620 250)"/>
+          <line x1="590" y1="242" x2="650" y2="242" stroke="#78350F" stroke-width="2" transform="rotate(-15 620 250)"/>
+          <line x1="590" y1="254" x2="650" y2="254" stroke="#78350F" stroke-width="2" transform="rotate(-15 620 250)"/>
+          <!-- Winding Road Dashed Path -->
+          <path d="M 80 140 Q 200 180 320 280 T 600 340 T 900 180 T 1120 360" fill="none" stroke="#10B981" stroke-width="5" stroke-dasharray="8 8" opacity="0.75"/>
+          <!-- Trees and Village Details -->
+          <circle cx="180" cy="190" r="14" fill="#059669" opacity="0.5"/>
+          <circle cx="210" cy="200" r="10" fill="#10B981" opacity="0.6"/>
+          <circle cx="480" cy="180" r="16" fill="#047857" opacity="0.5"/>
+          <circle cx="820" cy="280" r="18" fill="#059669" opacity="0.5"/>
+          <circle cx="1020" cy="160" r="14" fill="#10B981" opacity="0.5"/>
+        </svg>
+
+        <!-- Start Flag -->
+        <div style="position:relative;z-index:3;margin-bottom:14px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;font-weight:800;background:#064E3B;color:#FFF;padding:4px 12px;border-radius:999px;letter-spacing:.04em">XUẤT PHÁT</span>
+        </div>
+
+        <!-- 7 Interactive Stations along the Roadmap -->
+        <div class="map-station-grid">
+          <!-- Station 01 (Active) -->
+          <div class="map-station-card active" onclick="location.hash='#/lesson/f-sizing'" style="cursor:pointer">
+            <div class="station-pin-badge">
+              <span>📍</span> <b>BẠN Ở ĐÂY</b>
+            </div>
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+                  <path d="M9 12H15M9 16H13M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:#059669">01</div>
+                <div class="station-title">Tư duy cấu trúc & Khung MECE</div>
+              </div>
+            </div>
+            <div class="station-desc">Khung Minto, cây vấn đề Issue Tree phân tách doanh thu & chi phí toàn diện.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:6%;height:100%;background:#059669;border-radius:999px"></div>
+              </div>
+              <span style="color:#059669;font-weight:800">1/18 bài (6%)</span>
+            </div>
+          </div>
+
+          <!-- Station 02 -->
+          <div class="map-station-card locked" onclick="location.hash='#/lesson/f-profit'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M18 20V10M12 20V4M6 20V14" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">02</div>
+                <div class="station-title">Phân tích Lợi nhuận <span style="font-size:13px">🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Lợi nhuận = P × Q - Chi phí, tìm điểm rò rỉ biên lợi nhuận và dòng tiền.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/16 bài</span>
+            </div>
+          </div>
+
+          <!-- Station 03 -->
+          <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">03</div>
+                <div class="station-title">Thâm nhập thị trường <span style="font-size:13px">🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Market Sizing (TAM/SAM/SOM), rào cản gia nhập & Porter 5 Forces.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/20 bài</span>
+            </div>
+          </div>
+
+          <!-- Station 04 -->
+          <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M12 6.253V20M12 6.253C10.832 5.477 9.246 5 7.5 5C5.754 5 4.168 5.477 3 6.253V20C4.168 19.223 5.754 18.75 7.5 18.75C9.246 18.75 10.832 19.223 12 20M12 6.253C13.168 5.477 14.754 5 16.5 5C18.246 5 19.832 5.477 21 6.253V20C19.832 19.223 18.246 18.75 16.5 18.75C14.754 18.75 13.168 19.223 12 20" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">04</div>
+                <div class="station-title">M&A & Định Giá <span style="font-size:13px">🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Due Diligence, hiệp lực Synergy & mô hình định giá chiết khấu dòng tiền DCF.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/15 bài</span>
+            </div>
+          </div>
+
+          <!-- Station 05 -->
+          <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M19 11H5M19 11C20.1046 11 21 11.8954 21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V13C3 11.8954 3.89543 11 5 11M19 11V9C19 7.89543 18.1046 7 17 7M5 11V9C5 7.89543 5.89543 7 7 7M7 7V5C7 3.89543 7.89543 3 9 3H15C16.1046 3 17 3.89543 17 5V7M7 7H17" stroke="#6B7280" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">05</div>
+                <div class="station-title">Định lượng & Dữ liệu <span style="font-size:13px">🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Thống kê, hồi quy, phân tích độ nhạy & xây dựng mô hình tài chính Excel.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/72 bài</span>
+            </div>
+          </div>
+
+          <!-- Station 06 -->
+          <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M4 5A1 1 0 0 1 5 4H19A1 1 0 0 1 20 5V15A1 1 0 0 1 19 16H5A1 1 0 0 1 4 15V5ZM8 20L12 16L16 20" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">06</div>
+                <div class="station-title">Phân tích Dữ liệu <span style="font-size:13px">🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Làm sạch dữ liệu, trực quan hóa Dashboard & bóc tách insight từ Big Data.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/72 bài</span>
+            </div>
+          </div>
+
+          <!-- Station 07 -->
+          <div class="map-station-card locked" onclick="location.hash='#/career'" style="cursor:pointer">
+            <div class="station-card-top">
+              <div class="station-3d-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11.5px;font-weight:800;color:var(--muted)">07</div>
+                <div class="station-title">Kỹ năng nghề & Case Interview <span style="font-size:13px">🔒</span></div>
+              </div>
+            </div>
+            <div class="station-desc">Viết Executive Memo, bảo vệ luận điểm trước Partner & Mock Interview thực chiến.</div>
+            <div class="station-progress-row">
+              <div style="flex:1;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden;margin-right:12px">
+                <div style="width:0%;height:100%;background:#059669"></div>
+              </div>
+              <span>0/24 bài</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finish Flag -->
+        <div style="position:relative;z-index:3;margin-top:24px;display:flex;justify-content:flex-end">
+          <span style="font-size:12px;font-weight:800;background:#064E3B;color:#FFF;padding:6px 16px;border-radius:999px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px">
+            <span>🏁</span> ĐÍCH ĐẾN: MBB / BIG 4 CONSULTANT
+          </span>
+        </div>
+      </div>
+    ` : ROADMAP_UI.tab === '02' ? `
+      <!-- Tab 02: Chọn nhịp học -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+        <div class="card" style="padding:24px;border:2px solid ${ROADMAP_UI.pace==='relaxed'?'#059669':'var(--border)'};cursor:pointer" onclick="ACT.setRoadmapPace('relaxed')">
+          <div style="font-size:32px;margin-bottom:12px">🌱</div>
+          <h3 style="font-size:18px;margin-bottom:6px">Thảnh thơi</h3>
+          <p class="muted small" style="margin-bottom:16px">1 bài mỗi ngày · 6-8 phút. Phù hợp sinh viên hoặc người đi làm bận rộn tích lũy dần.</p>
+          <div style="font-weight:800;color:#059669">Hoàn thành trong 4 tháng</div>
+        </div>
+        <div class="card" style="padding:24px;border:2px solid ${ROADMAP_UI.pace==='standard'?'#059669':'var(--border)'};background:${ROADMAP_UI.pace==='standard'?'#ECFDF5':'var(--surface)'};cursor:pointer" onclick="ACT.setRoadmapPace('standard')">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div style="font-size:32px;margin-bottom:12px">⚡</div>
+            <span class="tag tag-accent">Khuyên dùng</span>
+          </div>
+          <h3 style="font-size:18px;margin-bottom:6px">Chuẩn mục tiêu</h3>
+          <p class="muted small" style="margin-bottom:16px">2 bài mỗi ngày · 15 phút. Nhịp độ tối ưu nhất để ghi nhớ và thực hành liên tục.</p>
+          <div style="font-weight:800;color:#059669">Hoàn thành trong 2 tháng</div>
+        </div>
+        <div class="card" style="padding:24px;border:2px solid ${ROADMAP_UI.pace==='intensive'?'#059669':'var(--border)'};cursor:pointer" onclick="ACT.setRoadmapPace('intensive')">
+          <div style="font-size:32px;margin-bottom:12px">🚀</div>
+          <h3 style="font-size:18px;margin-bottom:6px">Cấp tốc thi đấu / Phỏng vấn</h3>
+          <p class="muted small" style="margin-bottom:16px">3+ bài mỗi ngày · 30-45 phút. Luyện cấp tốc trước vòng Case Interview & Cuộc thi.</p>
+          <div style="font-weight:800;color:#059669">Hoàn thành trong 3-4 tuần</div>
+        </div>
+      </div>
+    ` : ROADMAP_UI.tab === '03' ? `
+      <!-- Tab 03: Cách học -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <div class="card" style="padding:24px">
+          <div style="font-size:24px;font-weight:800;color:#059669;margin-bottom:8px">BƯỚC 1</div>
+          <h3 style="font-size:16px;margin-bottom:8px">Đọc hiểu 10 mục chuẩn MBB</h3>
+          <p class="muted small">Mỗi bài học được cấu trúc 10 phần rõ ràng: từ bối cảnh kinh doanh thực tế, framework Minto, số liệu ví dụ đến cách trình bày slide.</p>
+        </div>
+        <div class="card" style="padding:24px">
+          <div style="font-size:24px;font-weight:800;color:#059669;margin-bottom:8px">BƯỚC 2</div>
+          <h3 style="font-size:16px;margin-bottom:8px">Thực hành Mini Case & Bài tính</h3>
+          <p class="muted small">Làm quen với việc giải các tình huống phân nhánh, tính toán Margin, Break-even và đưa ra quyết định có số liệu chứng minh.</p>
+        </div>
+        <div class="card" style="padding:24px">
+          <div style="font-size:24px;font-weight:800;color:#059669;margin-bottom:8px">BƯỚC 3</div>
+          <h3 style="font-size:16px;margin-bottom:8px">Đấu trường Case Arena</h3>
+          <p class="muted small">Bước vào phòng thi mô phỏng: xử lý case study hoàn chỉnh dưới áp lực thời gian và nhận feedback chi tiết từ hệ thống.</p>
+        </div>
+      </div>
+    ` : `
+      <!-- Tab 04: Giải đáp -->
+      <div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:14px">
+        <div class="card" style="padding:20px">
+          <h3 style="font-size:15px;margin-bottom:6px">Tôi chưa từng học Case Study thì có theo được không?</h3>
+          <p class="muted small" style="margin:0">Hoàn toàn được. Lộ trình được thiết kế đi từ nền tảng Issue Tree và MECE cơ bản nhất trước khi nâng dần độ khó.</p>
+        </div>
+        <div class="card" style="padding:20px">
+          <h3 style="font-size:15px;margin-bottom:6px">Tôi có thể đổi lộ trình học giữa chừng không?</h3>
+          <p class="muted small" style="margin:0">Có, bạn có thể chuyển đổi giữa Case Consulting và Tài chính chuyên sâu bất kỳ lúc nào tại menu Học bài hoặc Cài đặt.</p>
+        </div>
+        <div class="card" style="padding:20px">
+          <h3 style="font-size:15px;margin-bottom:6px">Sau bao lâu tôi có thể tự tin đi thi Case hoặc phỏng vấn?</h3>
+          <p class="muted small" style="margin:0">Với nhịp Chuẩn (2 bài/ngày), sau 4-6 tuần bạn sẽ làm chủ 90% các dạng case study phổ biến tại MBB và Big 4.</p>
+        </div>
+      </div>
+    `}
+  </div>`;
+}
+
 /* ════════ 1. DASHBOARD & TRACKS (STUDY ECOSYSTEM) ════════ */
 function vDashboard(){
   return vTracks();
@@ -366,10 +731,10 @@ function vTracks(){
           </div>
         </div>
 
-        <!-- Track Tabs (Tài chính cá nhân vs Chuyên ngành) -->
+        <!-- Track Tabs (Tư duy Chiến lược vs Chuyên ngành) -->
         <div class="track-nav-tabs" style="display:flex;gap:10px;margin-bottom:16px">
           <button class="track-nav-tab ${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'active':''}" onclick="ACT.setTrackTab('all')" style="background:${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#064E3B':'var(--surface)'};color:${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#FFF':'var(--text)'};font-weight:800;padding:10px 20px;border-radius:999px;border:1px solid ${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#064E3B':'var(--border)'};cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13.5px">
-            <span>Tài chính cá nhân</span>
+            <span>Tư duy Chiến lược</span>
             <span style="font-size:11.5px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.2)">2/265 bài</span>
           </button>
           <button class="track-nav-tab ${TRACK_UI.tab==='c'?'active':''}" onclick="ACT.setTrackTab('c')" style="background:${TRACK_UI.tab==='c'?'#064E3B':'var(--surface)'};color:${TRACK_UI.tab==='c'?'#FFF':'var(--text-2)'};font-weight:700;padding:10px 20px;border-radius:999px;border:1px solid var(--border);cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13.5px">
@@ -618,11 +983,11 @@ function vTracks(){
           </div>
         </div>
 
-        <!-- Card 3: Thử thách tài chính mỗi ngày (Interactive) -->
+        <!-- Card 3: Thử thách Business Case mỗi ngày (Interactive) -->
         <div class="daily-challenge-box" style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:16px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
           <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px">
             <div style="display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:800;color:#111827">
-              <span style="font-size:16px">📖</span> Thử thách tài chính mỗi ngày
+              <span style="font-size:16px">📖</span> Thử thách Business Case mỗi ngày
             </div>
             <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:#9CA3AF">
               <span style="cursor:pointer">⤢</span>
@@ -1557,9 +1922,34 @@ function vInterview(id){
   </div></div></div>`;
 }
 
+/* ghi nhận một vòng đã trả lời: điểm, còn thiếu gì, câu mẫu để so */
+function ivNote(r, ans){
+  const d = IVIEW.diagnose(r, ans), sc = IVIEW.scoreRound(r, ans);
+  const miss = [];
+  if(!d.kw) miss.push(`<span>ý then chốt</span> (${esc(r.kw.slice(0,3).join(", "))})`);
+  if(d.num===false) miss.push(`<span>con số then chốt</span>`);
+  return `<span class="note"><b>Ghi nhận (${sc}/100):</b> ${esc(r.note)}
+    ${miss.length?`<span class="iv-miss"><b>Còn thiếu:</b> ${miss.join(" · ")}</span>`:""}
+    <details class="iv-model"><summary>Câu mẫu vòng này</summary><div>${esc(r.model)}</div></details></span>`;
+}
+
+const IVT = {timer:null};
+function startIvTimer(id){
+  clearInterval(IVT.timer);
+  const sess = IVIEW.get(id), c = window.CASE_BY_ID[id];
+  if(!sess || !document.getElementById("ivTimer")) return;
+  const tick = () => {
+    const node = document.getElementById("ivTimer"); if(!node){ clearInterval(IVT.timer); return; }
+    const left = c.min*60 - Math.round((Date.now()-sess.start)/1000), a = Math.abs(left);
+    node.textContent = `◷ ${left<0?"+":""}${Math.floor(a/60)}:${String(a%60).padStart(2,"0")}`;
+    node.classList.toggle("over", left<0);
+  };
+  tick(); IVT.timer = setInterval(tick, 1000);
+}
+
 function vIvRoom(id){
   const c=window.CASE_BY_ID[id], spec=SCORING.cases[id], cfg=IVIEW.CFG[id];
-  const sess=IVIEW.get(id), rd=IVIEW.roundOf(sess);
+  const sess=IVIEW.get(id), rd=IVIEW.roundOf(sess), unlock=IVIEW.exhibitRounds(id);
   const left = `<div class="arena-l">
     <div class="lbl">Interview · ${esc(cfg.style)}</div><h1 style="margin-top:3px">${esc(c.t)}</h1>
     <div class="wrap-row mt-s"><span class="tag tag-accent">${esc(c.type)}</span><span class="tag">${c.min} phút</span>${diffBadge(c.diff)}
@@ -1567,25 +1957,35 @@ function vIvRoom(id){
     <div class="brief mt"><div class="lbl mb">Bối cảnh</div>
       <p style="margin:0 0 10px">${esc(spec.brief.context)}</p><p style="margin:0"><b>Nhiệm vụ:</b> ${esc(spec.brief.task)}</p>
       <p class="small muted" style="margin:10px 0 0">Số liệu minh hoạ cho mục đích luyện tập.</p></div>
-    ${spec.exhibits.map(renderExhibit).join("")}
+    ${spec.exhibits.map((ex,i)=>{
+      const at = unlock[i];
+      if(sess && at<=rd) return at===rd && rd<5
+        ? renderExhibit(ex,i).replace(`>Exhibit ${i+1}</span>`, `>Exhibit ${i+1}</span><span class="tag tag-a">Mới</span>`)
+        : renderExhibit(ex,i);
+      return `<div class="databox"><div class="databox-h"><span class="tag tag-neutral">Exhibit ${i+1}</span>
+        <span class="small muted">Người phỏng vấn đưa ở vòng ${at+1} · ${esc(IVIEW.ROUNDS[at].n)}</span></div></div>`;
+    }).join("")}
   </div>`;
 
   if(!sess) return `<div class="main" style="padding-bottom:0"><a class="small muted" href="#/interview">← Danh sách case phỏng vấn</a></div>
   <div class="arena">${left}<div class="arena-r">
     <div class="card"><div class="card-h"><h3>Trước khi bắt đầu</h3></div><div class="card-b">
-      <p class="small" style="margin-top:0">Phiên gồm 5 vòng. Người phỏng vấn hỏi từng vòng; trả lời xong mới hiện vòng tiếp theo và phần ghi nhận.</p>
+      <p class="small" style="margin-top:0">Phiên gồm 5 vòng trong ${c.min} phút. Người phỏng vấn hỏi từng vòng và chỉ đưa exhibit khi tới lượt; trả lời xong mới hiện vòng tiếp theo, phần ghi nhận và câu mẫu của vòng đó.</p>
       <div class="rounds mb">${IVIEW.ROUNDS.map((r,i)=>`<div class="r"><div class="n">Vòng ${i+1}</div><div class="t">${esc(r.n)}</div></div>`).join("")}</div>
       <button class="btn btn-p" style="width:100%" onclick="ACT.ivStart('${id}')">Bắt đầu phỏng vấn</button>
     </div></div></div></div>`;
 
-  const rounds = `<div class="rounds mb">${IVIEW.ROUNDS.map((r,i)=>
+  const clock = rd<5
+    ? `<div class="row" style="justify-content:space-between;margin-bottom:10px"><span class="small muted">Thời lượng gợi ý ${c.min} phút</span><span class="timer" id="ivTimer">◷ ${c.min}:00</span></div>`
+    : "";
+  const rounds = clock + `<div class="rounds mb">${IVIEW.ROUNDS.map((r,i)=>
     `<div class="r ${i<rd?"done":i===rd?"cur":""}"><div class="n">Vòng ${i+1}</div><div class="t">${esc(r.n)}</div></div>`).join("")}</div>`;
 
   const chat = cfg.rounds.slice(0, Math.min(rd+1,5)).map((r,i)=>{
     const ans=(sess.answers||[])[i];
     return `<div class="msg q"><span class="av">PV</span><div class="bb"><div class="who">Người phỏng vấn · vòng ${i+1}</div>${esc(r.q)}</div></div>
       ${ans!=null?`<div class="msg a"><span class="av">BẠN</span><div class="bb"><div class="who">Bạn</div>${esc(ans)}
-        <span class="note"><b>Ghi nhận (${IVIEW.scoreRound(r,ans)}/100):</b> ${esc(r.note)}</span></div></div>`:""}`;
+        ${ivNote(r,ans)}</div></div>`:""}`;
   }).join("");
 
   const form = rd<5 ? `<div class="canvas-field mt">
@@ -1602,6 +2002,7 @@ function vIvRoom(id){
       <div class="card-b" style="padding-top:8px">
         ${R.dims.map(([n,v])=>`<div class="rubric-row"><span class="nm">${esc(n)}</span>${bar(v, v>=80?"":v>=50?"amber":"rose")}<span class="sc num">${v}</span></div>`).join("")}
         <div class="callout ${R.total>=80?"ok":""} mt" style="padding:10px 12px;font-size:12.5px"><b>Nhận xét:</b> ${esc(R.feedback)}</div>
+        ${sess.last?`<p class="small muted" style="margin:8px 0 0">Thời gian: <b class="num">${fmtClock(sess.last-sess.start)}</b> · gợi ý ${c.min} phút</p>`:""}
         <p class="small muted" style="margin:8px 0 0">${R.recorded?`Đã ghi vào tiến độ${R.gain?` · +${R.gain} XP`:""}${R.mistakes?` · ${R.mistakes} lỗi vào <a href="#/review">Mistake Review</a>`:""}.`:"Phiên dùng câu mẫu — chỉ để xem cách chấm, không ghi điểm."}</p>
       </div>
       <div class="card-f row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><a class="btn btn-sm btn-gh" href="#/interview">← Danh sách case</a>
@@ -1753,6 +2154,7 @@ function vSettings(){
 
 /* ════════ ROUTER ════════ */
 const ROUTES = {
+  roadmap:{f:vRoadmap, c:["Học tập","Bắt đầu từ đâu"]},
   dashboard:{f:vDashboard, c:["Dashboard"]},
   tracks:{f:vTracks, c:["Học tập","Lộ trình học"]},
   lesson:{f:vLesson, c:["Học tập","Bài học"]},
@@ -1815,6 +2217,7 @@ function render(keepScroll){
   renderRail();
   if(key==="arena") startArenaTimer(); else clearInterval(ARENA.timer);
   if(key==="competition" && parts[1]) startCompTimer(parts[1]); else clearInterval(COMPUI.timer);
+  if(key==="interview" && parts[1]) startIvTimer(parts[1]); else clearInterval(IVT.timer);
   window.scrollTo(0, keepScroll ? y : 0);
 }
 addEventListener("hashchange", ()=>render());

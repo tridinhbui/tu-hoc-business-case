@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tự Học Tài Chính — Luyện phỏng vấn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f7f5;
+      --sidebar-bg: #ffffff;
+      --sidebar-border: #e8eee8;
+      --card-bg: #ffffff;
+      --border: #e2e8e2;
+      --border-subtle: #edf2ed;
+      
+      --text-main: #14281b;
+      --text-secondary: #526657;
+      --text-muted: #839789;
+      
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-forest: #064e3b;
+      --primary-mint: #e6f7ee;
+      --primary-mint-hover: #d3f3e2;
+      
+      --amber-bg: #fef8eb;
+      --amber-border: #fde68a;
+      --amber-text: #b45309;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-pill: 9999px;
+      
+      --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════ SIDEBAR ════════════ */
+    .sidebar {
+      width: 250px;
+      min-width: 250px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--sidebar-border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+      z-index: 50;
+      user-select: none;
+    }
+
+    .sidebar-header {
+      padding: 20px 18px 12px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .brand-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #064e3b;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    .search-box {
+      margin: 8px 14px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f6faf6;
+      border: 1px solid #e0eae0;
+      border-radius: var(--radius-pill);
+      padding: 7px 12px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .search-box:hover {
+      background: #eff6ef;
+      border-color: #d1e2d1;
+    }
+
+    .search-box kbd {
+      margin-left: auto;
+      font-size: 10px;
+      background: #ffffff;
+      border: 1px solid #dae4da;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 10px 12px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: #e2ebe2;
+      border-radius: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8.5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 2px;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: #f2f7f2;
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background: #e6f7ee;
+      color: #059669;
+      font-weight: 700;
+    }
+
+    .nav-item .icon {
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+    }
+
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #799180;
+      padding: 14px 12px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .nav-section-title .chevron {
+      font-size: 9px;
+      color: #98a99d;
+    }
+
+    .nav-tag {
+      margin-left: auto;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.02em;
+    }
+
+    .tag-new {
+      background: #dcfce7;
+      color: #0f766e;
+    }
+
+    .tag-hot {
+      background: #fef3c7;
+      color: #d97706;
+      font-weight: 800;
+    }
+
+    .tag-checkin {
+      background: #ffedd5;
+      color: #ea580c;
+    }
+
+    .sidebar-footer {
+      padding: 12px 14px;
+      border-top: 1px solid var(--sidebar-border);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .gold-wallet-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gold-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef8eb;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius-pill);
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #92400e;
+    }
+
+    .gold-count {
+      font-weight: 800;
+      color: #b45309;
+    }
+
+    .bell-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f4f7f4;
+      border: 1px solid #e2ebe2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      color: #526657;
+      transition: all 0.2s;
+    }
+
+    .bell-btn:hover {
+      background: #eaf1ea;
+      color: var(--text-main);
+    }
+
+    .bell-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: white;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 999px;
+      border: 2px solid white;
+    }
+
+    .user-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 4px;
+      text-decoration: none;
+      color: inherit;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+
+    .user-profile-card:hover {
+      background: #f6faf6;
+    }
+
+    .user-avatar-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-email {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ════════════ MAIN CONTENT WRAPPER ════════════ */
+    .main-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+      background: #f5f7f5;
+      position: relative;
+    }
+
+    /* ── TOP HEADER / BREADCRUMB ── */
+    .top-breadcrumb-bar {
+      padding: 16px 28px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: rgba(245, 247, 245, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 30;
+    }
+
+    .breadcrumb-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-btn {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .breadcrumb-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .reward-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef9ee;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #b45309;
+      box-shadow: 0 1px 3px rgba(180, 83, 9, 0.05);
+    }
+
+    /* ── TWO-COLUMN GRID ── */
+    .interview-grid-layout {
+      padding: 0 28px 60px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+      max-width: 1440px;
+    }
+
+    /* ════════════ LEFT COLUMN: CONFIGURATION ════════════ */
+    .config-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ── HERO BANNER CARD ── */
+    .hero-banner-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 20px;
+      align-items: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e6f7ee;
+      color: #059669;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .hero-heading {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtext {
+      font-size: 12.5px;
+      color: #64748b;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .hero-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .hero-bar-track {
+      width: 90px;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .hero-bar-fill {
+      width: 21%;
+      height: 100%;
+      background: #064e3b;
+      border-radius: 999px;
+    }
+
+    .hero-mountain-img-box {
+      position: relative;
+      height: 115px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 10px;
+    }
+
+    .hero-mountain-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .btn-hero-start {
+      position: relative;
+      z-index: 2;
+      background: #064e3b;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(6, 78, 59, 0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-hero-start:hover {
+      background: #04392b;
+      transform: translateY(-1px);
+    }
+
+    /* ── STEPPER ROADMAP HEADER ── */
+    .stepper-header-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 12px 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      align-items: center;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-num-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-item.active .step-num-circle {
+      background: #064e3b;
+      color: #ffffff;
+    }
+
+    .step-text-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .step-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .step-sub {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    /* ── SECTION CONFIG SECTIONS ── */
+    .section-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    /* Step 1: Role Selection Grid */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .role-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 78px;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .role-card:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .role-card.selected {
+      background: #064e3b;
+      border-color: #064e3b;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
+    }
+
+    .role-card.selected .role-title {
+      color: #ffffff;
+    }
+
+    .role-card.selected .role-count {
+      color: #a7f3d0;
+    }
+
+    .role-card.main-all {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+    }
+
+    .role-card.main-all .role-big-count {
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .role-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.25;
+    }
+
+    .role-count {
+      font-size: 10px;
+      color: #64748b;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    /* Step 2: Difficulty Grid */
+    .difficulty-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .diff-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 3px;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .diff-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .diff-card.selected {
+      background: #064e3b;
+      border-color: #064e3b;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
+    }
+
+    .diff-card.selected .diff-title {
+      color: #ffffff;
+    }
+
+    .diff-card.selected .diff-sub {
+      color: #a7f3d0;
+    }
+
+    .diff-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .diff-sub {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    /* Step 3: Question Count Grid */
+    .count-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .count-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #1e293b;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .count-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .count-card.selected {
+      background: #064e3b;
+      border-color: #064e3b;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
+    }
+
+    /* Step 4: Topic Grid */
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .topic-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 64px;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .topic-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .topic-card.selected {
+      background: #f0fdf4;
+      border-color: #059669;
+      color: #064e3b;
+    }
+
+    .topic-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.3;
+    }
+
+    .topic-card.selected .topic-title {
+      color: #064e3b;
+      font-weight: 800;
+    }
+
+    .topic-count {
+      font-size: 10.5px;
+      color: #64748b;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    /* ── STICKY BOTTOM BUTTON ── */
+    .start-action-bar {
+      margin-top: 8px;
+    }
+
+    .btn-start-big {
+      width: 100%;
+      background: #064e3b;
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 14px 20px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      box-shadow: 0 6px 18px rgba(6, 78, 59, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-start-big:hover {
+      background: #04392b;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(6, 78, 59, 0.35);
+    }
+
+    .btn-start-main-title {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-start-sub-desc {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #a7f3d0;
+      letter-spacing: 0.04em;
+    }
+
+    /* ════════════ RIGHT COLUMN: WIDGETS ════════════ */
+    .stats-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stat-widget-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .widget-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .widget-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #1e293b;
+      text-transform: uppercase;
+    }
+
+    /* Widget 1: Tiến độ của bạn */
+    .progress-level-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .level-badge-box {
+      background: #064e3b;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .xp-status-text {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .widget-progress-track {
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .widget-progress-fill {
+      width: 56%;
+      height: 100%;
+      background: #059669;
+      border-radius: 999px;
+    }
+
+    .stat-metric-3cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #f1f5f1;
+      text-align: center;
+    }
+
+    .metric-col-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #64748b;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .metric-col-val {
+      font-size: 15px;
+      font-weight: 900;
+      margin-top: 3px;
+    }
+
+    .val-orange { color: #d97706; }
+    .val-dark { color: #0f172a; }
+    .val-green { color: #059669; }
+
+    /* Widget 2: Nhiệm vụ hàng ngày */
+    .quest-timer {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .quest-item {
+      margin-bottom: 12px;
+    }
+
+    .quest-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .quest-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .quest-reward-tag {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #b45309;
+      background: #fef8eb;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .quest-track-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quest-bar {
+      flex: 1;
+      height: 5px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .quest-fill {
+      height: 100%;
+      background: #059669;
+      border-radius: 999px;
+    }
+
+    .quest-count-text {
+      font-size: 10px;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    /* Widget 3: Phần thưởng Rương */
+    .chest-timeline-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 14px;
+      padding: 0 10px;
+    }
+
+    .chest-timeline-row::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+      border-top: 2px dashed #cbd5e1;
+      z-index: 1;
+    }
+
+    .chest-item {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .chest-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .chest-bronze { background: #b45309; color: white; }
+    .chest-emerald { background: #047857; color: white; }
+    .chest-ruby { background: #be123c; color: white; }
+
+    .chest-xp-lbl {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #64748b;
+    }
+
+    /* Widget 4: Motivation Card */
+    .motivation-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .motivation-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    .motivation-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #f0fdf4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    /* ── FLOATING ACTION BUTTON (BOTTOM RIGHT) ── */
+    .fab-menu-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #18181b;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 40;
+      border: 2px solid rgba(255,255,255,0.1);
+      transition: all 0.2s;
+    }
+
+    .fab-menu-btn:hover {
+      transform: scale(1.08);
+      background: #09090b;
+    }
+
+    .fab-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #ef4444;
+      color: white;
+      font-size: 8.5px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 999px;
+      border: 2px solid white;
+    }
+
+    /* ════════════ PRACTICE QUIZ MODAL ════════════ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-dialog {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      width: 90%;
+      max-width: 620px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      border: 1px solid #e2e8f0;
+      position: relative;
+      animation: modal-pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes modal-pop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 18px 24px 14px;
+      border-bottom: 1px solid #edf2f7;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+    }
+
+    .quiz-option-btn {
+      width: 100%;
+      text-align: left;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-option-btn:hover {
+      border-color: #059669;
+      background: #f0fdf4;
+    }
+
+    .modal-footer {
+      padding: 14px 24px 18px;
+      border-top: 1px solid #edf2f7;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════ SIDEBAR ════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="dashboard.html" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-title">
+          TỰ HỌC<br>TÀI CHÍNH
+        </div>
+      </a>
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-box" onclick="alert('Tìm kiếm nhanh câu hỏi phỏng vấn, case study...')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Tìm kiếm...</span>
+      <kbd>⌘K</kbd>
+    </div>
+
+    <!-- Nav List -->
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </span>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="case-social.html" class="nav-item">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span>FinSocial</span>
+      </a>
+
+      <!-- SECTION 1: HỌC TẬP -->
+      <div class="nav-section-title">
+        <span>🎓 HỌC TẬP</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="index.html#/roadmap" class="nav-item">
+        <span class="icon">🧭</span>
+        <span>Bắt đầu từ đâu</span>
+      </a>
+      <a href="hoc-bai.html" class="nav-item">
+        <span class="icon">📖</span>
+        <span>Học bài</span>
+      </a>
+      <a href="hoc-theo-nghe.html" class="nav-item">
+        <span class="icon">🏢</span>
+        <span>Học theo nghề</span>
+      </a>
+      <a href="ho-so.html" class="nav-item">
+        <span class="icon">📜</span>
+        <span>Chứng chỉ</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--text-muted)">›</span>
+      </a>
+
+      <!-- SECTION 2: THỰC HÀNH -->
+      <div class="nav-section-title">
+        <span>⚡ THỰC HÀNH</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="index.html#/learn" class="nav-item">
+        <span class="icon">📝</span>
+        <span>Quiz</span>
+        <span class="nav-tag tag-new">TIN MỚI</span>
+      </a>
+      <a href="thi-vuot-chang.html" class="nav-item">
+        <span class="icon">🏆</span>
+        <span>Thi vượt chặng</span>
+      </a>
+      <a href="game-kingdom.html" class="nav-item">
+        <span class="icon">🎮</span>
+        <span>Game Kingdom</span>
+        <span class="nav-tag tag-hot">HOT</span>
+      </a>
+      <a href="luyen-phong-van.html" class="nav-item active">
+        <span class="icon">💼</span>
+        <span>Luyện phỏng vấn</span>
+      </a>
+
+      <!-- SECTION 3: CỘNG ĐỒNG -->
+      <div class="nav-section-title">
+        <span>👥 CỘNG ĐỒNG</span>
+        <span class="chevron">▼</span>
+      </div>
+      <a href="index.html#/models" class="nav-item">
+        <span class="icon">🏛️</span>
+        <span>Thư viện</span>
+      </a>
+      <a href="hoc-nhom.html" class="nav-item">
+        <span class="icon">🤝</span>
+        <span>Học nhóm</span>
+        <span class="nav-tag tag-checkin">CHECK-IN</span>
+      </a>
+      <a href="thong-ke.html" class="nav-item">
+        <span class="icon">📊</span>
+        <span>Thống kê</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <div class="gold-wallet-row">
+        <div class="gold-pill">
+          <span>🪙</span>
+          <span>Túi vàng</span>
+          <span class="gold-count">60</span>
+        </div>
+        <button class="bell-btn" title="Thông báo" onclick="alert('Bạn có 9+ câu hỏi phỏng vấn mới!')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="bell-badge">9+</span>
+        </button>
+      </div>
+
+      <a href="ho-so.html" class="user-profile-card" title="Tài khoản cá nhân">
+        <div class="user-avatar-circle">
+          <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="18" fill="#d1fae5"/>
+            <circle cx="18" cy="14" r="7" fill="#047857"/>
+            <path d="M6 32c0-6.627 5.373-12 12-12s12 5.373 12 12" fill="#047857"/>
+          </svg>
+        </div>
+        <div class="user-info">
+          <div class="user-name">Đinh Trí Bùi</div>
+          <div class="user-email">tribd.tec@gmail.com</div>
+        </div>
+        <span style="font-size:10px;color:var(--text-muted)">⌄</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ════════════ MAIN INTERVIEW CONTENT VIEWPORT ════════════ -->
+  <main class="main-viewport">
+
+    <!-- ── TOP BREADCRUMB / HEADER ── -->
+    <div class="top-breadcrumb-bar">
+      <div class="breadcrumb-title-group">
+        <a href="dashboard.html" class="back-btn" title="Quay lại">‹</a>
+        <h1 class="breadcrumb-title">Luyện phỏng vấn</h1>
+      </div>
+
+      <div class="reward-pill-badge">
+        <span>⚡</span>
+        <span>Thưởng +6 XP / câu đúng</span>
+      </div>
+    </div>
+
+    <!-- ── TWO-COLUMN GRID ── -->
+    <div class="interview-grid-layout">
+
+      <!-- ════════════ LEFT CONFIGURATION COLUMN ════════════ -->
+      <div class="config-column">
+
+        <!-- HERO BANNER CARD -->
+        <div class="hero-banner-card">
+          <div>
+            <span class="hero-tag">✨ LỘ TRÌNH PHỎNG VẤN</span>
+            <h2 class="hero-heading">Luyện phỏng vấn theo nghề tài chính</h2>
+            <p class="hero-subtext">Luyện tập có lộ trình — Bứt phá tự tin — Chinh phục nhà tuyển dụng</p>
+            <div class="hero-progress-row">
+              <span>Hoàn thành</span>
+              <div class="hero-bar-track">
+                <div class="hero-bar-fill"></div>
+              </div>
+              <span>21% • 1119 điểm kinh nghiệm</span>
+            </div>
+          </div>
+
+          <div class="hero-mountain-img-box">
+            <!-- Mountain Art Illustration -->
+            <svg class="hero-mountain-svg" viewBox="0 0 240 120" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="skyMtn" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#bae6fd"/>
+                  <stop offset="100%" stop-color="#e0f2fe"/>
+                </linearGradient>
+                <linearGradient id="mtnGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#15803d"/>
+                  <stop offset="100%" stop-color="#166534"/>
+                </linearGradient>
+                <linearGradient id="mtnGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#22c55e"/>
+                  <stop offset="100%" stop-color="#15803d"/>
+                </linearGradient>
+              </defs>
+              <rect width="240" height="120" fill="url(#skyMtn)"/>
+              <!-- Mountains -->
+              <polygon points="20,120 90,30 160,120" fill="url(#mtnGrad1)"/>
+              <polygon points="100,120 170,20 240,120" fill="url(#mtnGrad2)"/>
+              <polygon points="-20,120 40,50 110,120" fill="#166534" opacity="0.7"/>
+              <!-- Green flag at peak -->
+              <line x1="170" y1="20" x2="170" y2="8" stroke="#064e3b" stroke-width="2"/>
+              <polygon points="170,8 186,13 170,18" fill="#10b981"/>
+            </svg>
+            <button class="btn-hero-start" onclick="startPractice()">BẮT ĐẦU LUYỆN</button>
+          </div>
+        </div>
+
+        <!-- STEPPER ROADMAP HEADER -->
+        <div class="stepper-header-card">
+          <div class="step-item active">
+            <div class="step-num-circle">01</div>
+            <div class="step-text-wrap">
+              <span class="step-title">Chọn nghề</span>
+              <span class="step-sub">Định hướng đúng</span>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num-circle">02</div>
+            <div class="step-text-wrap">
+              <span class="step-title">Độ khó</span>
+              <span class="step-sub">Chọn thử thách</span>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num-circle">03</div>
+            <div class="step-text-wrap">
+              <span class="step-title">Chủ đề</span>
+              <span class="step-sub">Tập trung trọng tâm</span>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num-circle">04</div>
+            <div class="step-text-wrap">
+              <span class="step-title">Bắt đầu</span>
+              <span class="step-sub">Tự tin chinh phục</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. CHỌN NGHỀ NGHIỆP PHỎNG VẤN -->
+        <div>
+          <h3 class="section-title">1. CHỌN NGHỀ NGHIỆP PHỎNG VẤN</h3>
+          <div class="role-grid">
+            <!-- Selected All Roles -->
+            <div class="role-card selected main-all" onclick="selectRole(this, 'Tất cả', 276)">
+              <span style="font-size:18px">💼</span>
+              <div class="role-big-count">276 câu</div>
+            </div>
+
+            <!-- Role 2 -->
+            <div class="role-card" onclick="selectRole(this, 'Private Equity / VC Analyst', 228)">
+              <div class="role-title">Private Equity / Venture Capital Analyst</div>
+              <div class="role-count"><span>💎</span> 228 câu</div>
+            </div>
+
+            <!-- Role 3 -->
+            <div class="role-card" onclick="selectRole(this, 'Chuyên viên Nghiên cứu Cổ phiếu', 153)">
+              <div class="role-title">Chuyên viên Nghiên cứu Cổ phiếu</div>
+              <div class="role-count"><span>📈</span> 153 câu</div>
+            </div>
+
+            <!-- Role 4 -->
+            <div class="role-card" onclick="selectRole(this, 'Chuyên viên Định giá Tài sản', 153)">
+              <div class="role-title">Chuyên viên Định giá Tài sản</div>
+              <div class="role-count"><span>🔗</span> 153 câu</div>
+            </div>
+
+            <!-- Role 5 -->
+            <div class="role-card" onclick="selectRole(this, 'Chuyên viên Phân tích Tài chính', 129)">
+              <div class="role-title">Chuyên viên Phân tích Tài chính</div>
+              <div class="role-count"><span>📊</span> 129 câu</div>
+            </div>
+
+            <!-- Role 6 -->
+            <div class="role-card" onclick="selectRole(this, 'Chuyên viên Đầu tư (CFA Track)', 95)">
+              <div class="role-title">Chuyên viên Đầu tư (CFA Track)</div>
+              <div class="role-count"><span>🛡️</span> 95 câu</div>
+            </div>
+
+            <!-- Role 7 -->
+            <div class="role-card" style="display:flex;align-items:center;justify-content:center;text-align:center" onclick="alert('Mở thêm hơn 15+ vị trí ngành Quản lý quỹ, Ngân hàng đầu tư, Tư vấn chiến lược...')">
+              <div>
+                <div class="role-title" style="color:#059669">Xem thêm</div>
+                <div class="role-count" style="justify-content:center;color:#059669">+ nghề khác</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. CHỌN ĐỘ KHÓ -->
+        <div>
+          <h3 class="section-title">2. CHỌN ĐỘ KHÓ</h3>
+          <div class="difficulty-grid">
+            <div class="diff-card selected" onclick="selectDiff(this, 'Trọn bộ, trộn đều')">
+              <div class="diff-title"><span>🎲</span> Tất cả</div>
+              <div class="diff-sub">Trọn bộ, trộn đều</div>
+            </div>
+            <div class="diff-card" onclick="selectDiff(this, 'Nền tảng')">
+              <div class="diff-title"><span>🌱</span> Dễ</div>
+              <div class="diff-sub">Nền tảng</div>
+            </div>
+            <div class="diff-card" onclick="selectDiff(this, 'Mức analyst')">
+              <div class="diff-title"><span>⚖️</span> Trung bình</div>
+              <div class="diff-sub">Mức analyst</div>
+            </div>
+            <div class="diff-card" onclick="selectDiff(this, 'Nâng cao')">
+              <div class="diff-title"><span>🚩</span> Khó</div>
+              <div class="diff-sub">Nâng cao</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. CHỌN SỐ LƯỢNG CÂU -->
+        <div>
+          <h3 class="section-title">3. CHỌN SỐ LƯỢNG CÂU</h3>
+          <div class="count-grid">
+            <div class="count-card selected" onclick="selectCount(this, 5)">
+              <span>📝</span> 5 câu
+            </div>
+            <div class="count-card" onclick="selectCount(this, 10)">
+              <span>📝</span> 10 câu
+            </div>
+            <div class="count-card" onclick="selectCount(this, 20)">
+              <span>📝</span> 20 câu
+            </div>
+            <div class="count-card" onclick="selectCount(this, 30)">
+              <span>📝</span> 30 câu
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. CHỌN CHỦ ĐỀ TRỌNG ĐIỂM (TÙY CHỌN) -->
+        <div>
+          <h3 class="section-title">4. CHỌN CHỦ ĐỀ TRỌNG ĐIỂM (TÙY CHỌN)</h3>
+          <div class="topic-grid">
+            <div class="topic-card selected" onclick="toggleTopic(this)">
+              <div class="topic-title">Tái cấu trúc / M&A doanh nghiệp khó khăn</div>
+              <div class="topic-count">40</div>
+            </div>
+            <div class="topic-card" onclick="toggleTopic(this)">
+              <div class="topic-title">Định giá — Cơ bản</div>
+              <div class="topic-count">34</div>
+            </div>
+            <div class="topic-card" onclick="toggleTopic(this)">
+              <div class="topic-title">Kế toán — Cơ bản</div>
+              <div class="topic-count">33</div>
+            </div>
+            <div class="topic-card" onclick="toggleTopic(this)">
+              <div class="topic-title">Chiết khấu dòng tiền — Cơ bản</div>
+              <div class="topic-count">32</div>
+            </div>
+            <div class="topic-card" onclick="toggleTopic(this)">
+              <div class="topic-title">Mô hình sáp nhập — Cơ bản</div>
+              <div class="topic-count">24</div>
+            </div>
+            <div class="topic-card" style="display:flex;align-items:center;justify-content:center;text-align:center" onclick="alert('Mở thêm 9 chủ đề nâng cao: LBO, Thẩm định tín dụng, Risk Hedging...')">
+              <div>
+                <div class="topic-title" style="color:#059669">Xem thêm</div>
+                <div class="topic-count" style="color:#059669">+ 9 chủ đề</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STICKY ACTION BUTTON -->
+        <div class="start-action-bar">
+          <button class="btn-start-big" onclick="startPractice()">
+            <span class="btn-start-main-title">BẮT ĐẦU LUYỆN NGAY</span>
+            <span class="btn-start-sub-desc" id="btnStartSub">5 CÂU HỎI • TẤT CẢ • TRỌN BỘ, TRỘN ĐỀU</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ════════════ RIGHT STATS & QUESTS COLUMN ════════════ -->
+      <div class="stats-column">
+
+        <!-- WIDGET 1: TIẾN ĐỘ CỦA BẠN -->
+        <div class="stat-widget-card">
+          <div class="widget-header-row">
+            <span class="widget-title">TIẾN ĐỘ CỦA BẠN</span>
+            <span style="font-size:16px">🧭</span>
+          </div>
+
+          <div class="progress-level-row">
+            <div class="level-badge-box">LV. 2 →</div>
+            <div style="flex:1">
+              <div class="xp-status-text">1.119 / 2.000 XP</div>
+              <div class="widget-progress-track">
+                <div class="widget-progress-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-metric-3cols">
+            <div>
+              <div class="metric-col-title">CHUỖI NGÀY</div>
+              <div class="metric-col-val val-orange">7 ngày</div>
+            </div>
+            <div>
+              <div class="metric-col-title">TỔNG CÂU TRẢ LỜI</div>
+              <div class="metric-col-val val-dark">86</div>
+            </div>
+            <div>
+              <div class="metric-col-title">TỈ LỆ ĐÚNG</div>
+              <div class="metric-col-val val-green">72%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WIDGET 2: NHIỆM VỤ HÀNG NGÀY -->
+        <div class="stat-widget-card">
+          <div class="widget-header-row">
+            <span class="widget-title">NHIỆM VỤ HÀNG NGÀY</span>
+            <span class="quest-timer">12:34:57</span>
+          </div>
+
+          <!-- Quest 1 -->
+          <div class="quest-item">
+            <div class="quest-row-top">
+              <span>Hoàn thành 1 bài phỏng vấn</span>
+              <span class="quest-reward-tag">+20 XP</span>
+            </div>
+            <div class="quest-track-row">
+              <div class="quest-bar">
+                <div class="quest-fill" style="width:0%"></div>
+              </div>
+              <span class="quest-count-text">0/1</span>
+            </div>
+          </div>
+
+          <!-- Quest 2 -->
+          <div class="quest-item">
+            <div class="quest-row-top">
+              <span>Trả lời đúng 10 câu hỏi</span>
+              <span class="quest-reward-tag">+30 XP</span>
+            </div>
+            <div class="quest-track-row">
+              <div class="quest-bar">
+                <div class="quest-fill" style="width:70%"></div>
+              </div>
+              <span class="quest-count-text">7/10</span>
+            </div>
+          </div>
+
+          <!-- Quest 3 -->
+          <div class="quest-item">
+            <div class="quest-row-top">
+              <span>Học 2 nhóm nghề khác nhau</span>
+              <span class="quest-reward-tag">+25 XP</span>
+            </div>
+            <div class="quest-track-row">
+              <div class="quest-bar">
+                <div class="quest-fill" style="width:50%"></div>
+              </div>
+              <span class="quest-count-text">1/2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- WIDGET 3: PHẦN THƯỞNG -->
+        <div class="stat-widget-card">
+          <div class="widget-header-row">
+            <span class="widget-title">PHẦN THƯỞNG</span>
+            <a href="#" style="font-size:10.5px;font-weight:700;color:#059669;text-decoration:none">Xem tất cả</a>
+          </div>
+          <p style="font-size:10.5px;color:#64748b">Hoàn thành mục tiêu để mở rương</p>
+
+          <div class="chest-timeline-row">
+            <div class="chest-item" onclick="alert('Rương Đồng: +50 XP & 10 Túi Vàng')">
+              <div class="chest-icon-box chest-bronze">🎁</div>
+              <span class="chest-xp-lbl">50 XP</span>
+            </div>
+            <div class="chest-item" onclick="alert('Rương Ngọc: +120 XP & Thẻ bài phân tích DCF')">
+              <div class="chest-icon-box chest-emerald">🎁</div>
+              <span class="chest-xp-lbl">120 XP</span>
+            </div>
+            <div class="chest-item" onclick="alert('Rương Hồng Ngọc: +200 XP & Danh hiệu Phố Wall')">
+              <div class="chest-icon-box chest-ruby">🎁</div>
+              <span class="chest-xp-lbl">200 XP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- WIDGET 4: MOTIVATION -->
+        <div class="motivation-card">
+          <div style="flex:1">
+            <div style="font-size:12px;font-weight:800;color:#064e3b;margin-bottom:2px">BẠN ĐANG LÀM RẤT TỐT!</div>
+            <div class="motivation-text">Mỗi câu hỏi đúng là một bước gần hơn đến công việc mơ ước của bạn.</div>
+          </div>
+          <div class="motivation-thumb">🏔️</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab-menu-btn" onclick="alert('Menu nhanh: Luyện phỏng vấn, Thi vượt chặng, Game Kingdom')" title="Menu nhanh">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <span class="fab-badge">9+</span>
+    </button>
+
+  </main>
+
+  <!-- ════════════ PRACTICE QUIZ MODAL ════════════ -->
+  <div class="modal-backdrop" id="quizModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>💼</span>
+          <span id="quizModalTitle">Luyện phỏng vấn tài chính (Câu 1/5)</span>
+        </div>
+        <button class="modal-close" onclick="closeModal('quizModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="font-size:11px;font-weight:800;color:#059669;margin-bottom:6px">CHỦ ĐỀ: TÁI CẤU TRÚC / M&A DOANH NGHIỆP</div>
+        <p style="font-size:14px;font-weight:700;color:#0f172a;line-height:1.5;margin-bottom:16px">
+          Khi một doanh nghiệp gặp khủng hoảng thanh khoản nghiêm trọng và tỷ lệ Nợ vay / EBITDA vượt quá 8.0x, công cụ nào sau đây thường được ưu tiên thương thảo với chủ nợ trong quá trình tái cấu trúc tài chính ngoài tòa án (Out-of-court workout)?
+        </p>
+
+        <button class="quiz-option-btn" onclick="answerQuestion(true, this)">
+          A. Debt-to-Equity Swap (Chuyển đổi nợ thành cổ phần) kết hợp gia hạn kỳ hạn trái phiếu
+        </button>
+        <button class="quiz-option-btn" onclick="answerQuestion(false, this)">
+          B. Phát hành thêm cổ tức bằng tiền mặt để tăng uy tín với nhà đầu tư
+        </button>
+        <button class="quiz-option-btn" onclick="answerQuestion(false, this)">
+          C. Vay thêm nợ ngắn hạn lãi suất cao để trả toàn bộ nợ dài hạn
+        </button>
+        <button class="quiz-option-btn" onclick="answerQuestion(false, this)">
+          D. Tăng chi tiêu vốn (CapEx) 200% để mở rộng nhà xưởng ngay lập tức
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('quizModal')">Thoát</button>
+        <button class="btn-primary" style="background:#064e3b;color:white;border:none;padding:9px 18px;border-radius:999px;font-weight:800;cursor:pointer" onclick="nextQuestion()">Câu tiếp theo →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ JAVASCRIPT LOGIC ════════════ -->
+  <script>
+    let currentRole = "Tất cả";
+    let currentDiff = "Trọn bộ, trộn đều";
+    let currentCount = 5;
+
+    function updateSummary() {
+      document.getElementById("btnStartSub").textContent = currentCount + " CÂU HỎI • " + currentRole.toUpperCase() + " • " + currentDiff.toUpperCase();
+    }
+
+    function selectRole(el, roleName, count) {
+      document.querySelectorAll(".role-card").forEach(c => c.classList.remove("selected"));
+      el.classList.add("selected");
+      currentRole = roleName;
+      updateSummary();
+    }
+
+    function selectDiff(el, diffName) {
+      document.querySelectorAll(".diff-card").forEach(c => c.classList.remove("selected"));
+      el.classList.add("selected");
+      currentDiff = diffName;
+      updateSummary();
+    }
+
+    function selectCount(el, count) {
+      document.querySelectorAll(".count-card").forEach(c => c.classList.remove("selected"));
+      el.classList.add("selected");
+      currentCount = count;
+      updateSummary();
+    }
+
+    function toggleTopic(el) {
+      el.classList.toggle("selected");
+    }
+
+    function startPractice() {
+      openModal("quizModal");
+    }
+
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add("show");
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("show");
+    }
+
+    function answerQuestion(isCorrect, btn) {
+      if (isCorrect) {
+        btn.style.background = "#dcfce7";
+        btn.style.borderColor = "#059669";
+        btn.style.color = "#047857";
+        alert("🎉 Chính xác! +6 XP vào tiến độ phỏng vấn.");
+      } else {
+        btn.style.background = "#fee2e2";
+        btn.style.borderColor = "#ef4444";
+        btn.style.color = "#b91c1c";
+        alert("❌ Chưa chính xác. Đáp án đúng là A: Debt-to-Equity Swap giúp giảm áp lực đòn bẩy và nợ gốc.");
+      }
+    }
+
+    function nextQuestion() {
+      alert("Đang tải câu hỏi tiếp theo trong bộ 5 câu...");
+      closeModal("quizModal");
+    }
+  </script>
+
+</body>
+</html>

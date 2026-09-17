@@ -81,4 +81,23 @@ t("phiên lưu qua localStorage và làm lại được",()=>{
   S._reload(); assert.equal(I.roundOf(I.get("iv-01")),1);
   I.reset("iv-01"); assert.equal(I.get("iv-01"),null);
 });
+console.log("\nExhibit theo vòng và chẩn đoán câu trả lời");
+t(`${ivs.length} case · exhibit đưa đúng vòng câu hỏi nhắc tới, không exhibit nào đưa sau vòng Chart reading`,()=>{
+  ivs.forEach(c=>{ const at=I.exhibitRounds(c.id), n=W.SCORING.cases[c.id].exhibits.length;
+    assert.equal(at.length,n,c.id); at.forEach((r,k)=>assert.ok(r>=0 && r<=3,`${c.id} exhibit ${k+1} ở vòng ${r+1}`));
+    assert.ok(at.some(r=>r<=2),c.id+": vòng Case math phải có số liệu");
+    I.CFG[c.id].rounds.forEach((r,i)=>{ for(const m of r.q.matchAll(/Exhibit (\d)(?:\s*[–-]\s*(\d))?/g))
+      for(let k=+m[1];k<=+(m[2]||m[1]);k++) assert.ok(at[k-1]<=i,`${c.id} vòng ${i+1} nhắc Exhibit ${k} chưa được đưa`); });
+  });
+  assert.deepEqual(I.exhibitRounds("iv-01"),[2,3,2]);   // Ex.3 hợp đồng không được nhắc → đưa ở vòng Case math
+});
+t("chẩn đoán khớp với điểm vòng: thiếu ý, thiếu số, bỏ trống",()=>{
+  ivs.forEach(c=>I.CFG[c.id].rounds.forEach((r,i)=>{
+    const d=I.diagnose(r,r.model); assert.ok(d.kw,`${c.id} r${i+1} câu mẫu có ý then chốt`);
+    assert.equal(d.num, r.num==null?null:true);
+    const empty=I.diagnose(r,""); assert.equal(empty.kw,false);
+    const sc=I.scoreRound(r,r.model.replace(/\d/g,""));
+    if(r.num!=null){ assert.equal(I.diagnose(r,r.model.replace(/\d/g,"")).num,false); assert.equal(sc,50); }
+  }));
+});
 console.log(`\n${n} test đạt`);

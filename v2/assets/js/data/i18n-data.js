@@ -182,7 +182,7 @@ I18N.add({
   /* nhóm nghề */
   "Tư vấn & Chiến lược":"Consulting & strategy",
   "Giải vấn đề cho khách hàng hoặc cho chính tập đoàn.":"Solve problems for clients, or for your own group.",
-  "Tài chính & Đầu tư":"Finance & investment",
+  "Business Case & Chiến lược":"Finance & investment",
   "Định giá, thẩm định và phân bổ vốn.":"Valuation, due diligence and capital allocation.",
   "Marketing & Tăng trưởng":"Marketing & growth",
   "Tìm khách, giữ khách và tăng doanh thu.":"Find customers, keep them and grow revenue.",
@@ -230,7 +230,7 @@ I18N.add({
   "Kịch bản thoái vốn":"Exit scenarios", "Thẩm định":"Due diligence",
 
   /* Corporate Finance / FP&A */
-  "Tài chính doanh nghiệp":"Corporate finance",
+  "Giải Case Doanh nghiệp":"Corporate finance",
   "Lập kế hoạch, dự báo và giải thích vì sao con số thực khác con số kế hoạch.":"Plan, forecast and explain why the actuals differ from the plan.",
   "Tập đoàn FMCG · Bán lẻ · Sản xuất · Công ty niêm yết":"FMCG groups · Retail · Manufacturing · Listed companies",
   "Giải thích chênh lệch lợi nhuận thực tế và kế hoạch bằng cây biến số, kèm hành động sửa.":"Explain the profit gap between actual and plan with a driver tree, plus the fix.",

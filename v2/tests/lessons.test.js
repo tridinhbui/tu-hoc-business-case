@@ -14,6 +14,10 @@ let n=0; const t=(name,fn)=>{ fn(); n++; console.log("  ✓",name); };
 
 /* đáp án tính lại từ đề — mỗi dòng là một phép tính độc lập với dữ liệu bài */
 const RECOMPUTE = {
+  "k-profit-9": ()=> 0.30*0.60*0.25*100,                 // đường 30% giá vốn × giá vốn 60% giá bán × tăng 25%
+  "k-profit-10": ()=> Math.max(8*9/12, 5*12/12, 15*3/12 - 6),
+  "k-profit-11": ()=> (1180*0.09 + 6 + 5 + 3)/1180*100,
+  "k-profit-12": ()=> 20*1.1/((0.10-0.07)*880)*100,
   "k-profit-5": ()=> (0.12-0.08)*560,
   "k-profit-6": ()=> { const aSieuThi=18, aOnline=-6, bSieuThi=10, bOnline=4;
                        return (aSieuThi+bSieuThi+bOnline) - (aSieuThi+bSieuThi); },   // ngừng ô A-online so với đóng cả kênh online

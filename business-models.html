@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Model Explorer — STRATLAB EdTech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbfdfb;
+      --card-bg: #ffffff;
+      --border: #e6ede6;
+      --border-subtle: #f0f4f0;
+      
+      --text-main: #14281b;
+      --text-secondary: #4b5f50;
+      --text-muted: #829688;
+      
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-forest: #064e3b;
+      --primary-mint: #d1fae5;
+      
+      --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "JetBrains Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background-color: var(--bg); color: var(--text-main); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+    /* ════════════ TOP NAVBAR ════════════ */
+    .stratlab-header-nav {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .header-left-cluster {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stratlab-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #34d399;
+    }
+
+    .brand-name-text {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #0f172a;
+    }
+
+    .badge-edtech-tag {
+      font-size: 10.5px;
+      font-weight: 800;
+      background: #e6f7ee;
+      color: #059669;
+      padding: 3px 9px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .roadmap-link-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .roadmap-link-text small {
+      font-size: 9.5px;
+      color: var(--text-muted);
+    }
+
+    .search-pill-input {
+      background: #f8faf8;
+      border: 1px solid #e0eae0;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .search-pill-input kbd {
+      font-size: 9.5px;
+      background: #ffffff;
+      border: 1px solid #d4e0d4;
+      border-radius: 4px;
+      padding: 1px 4px;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+
+    .header-right-cluster {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .stat-badge-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .stat-badge-unit strong {
+      font-size: 12.5px;
+      color: var(--text-main);
+      font-weight: 800;
+    }
+
+    .stat-badge-unit strong.text-emerald {
+      color: #059669;
+    }
+
+    .avatar-in-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #059669;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* ════════════ MAIN BODY ════════════ */
+    .explorer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 32px 80px;
+    }
+
+    .explorer-hero-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #14281b;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .explorer-hero-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 800px;
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+
+    /* 3-COLUMN GRID OF 12 BUSINESS MODELS */
+    .models-grid-3x4 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .model-box-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 200px;
+    }
+
+    .model-box-card:hover {
+      border-color: #a7f3d0;
+      box-shadow: 0 8px 24px -4px rgba(5, 150, 105, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .card-top-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .model-name-vn-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .model-english-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #14281b;
+      line-height: 1.2;
+    }
+
+    .model-vietnamese-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .tag-xp-gain {
+      font-size: 11px;
+      font-weight: 800;
+      background: #f8faf8;
+      border: 1px solid var(--border);
+      color: #059669;
+      padding: 3px 8px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .model-math-formula {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #059669;
+      background: #f0fdf4;
+      border-radius: 8px;
+      padding: 6px 10px;
+      margin-bottom: 12px;
+      display: inline-block;
+      line-height: 1.3;
+    }
+
+    .model-summary-desc {
+      font-size: 12.5px;
+      color: #4b5f50;
+      line-height: 1.45;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .model-companies-strip {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-top: 1px solid #f2f6f2;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVBAR (EXACT MATCH IMAGE 1) -->
+  <header class="stratlab-header-nav">
+    <div class="header-left-cluster">
+      <a href="dashboard.html" class="stratlab-brand">
+        <div class="brand-icon-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+        </div>
+        <span class="brand-name-text">STRATLAB</span>
+      </a>
+
+      <span class="badge-edtech-tag">EDTECH THỰC CHIẾN</span>
+
+      <a href="hoc-theo-nghe.html" class="roadmap-link-text">
+        <span>Roadmap</span>
+        <small>Lộ trình</small>
+      </a>
+
+      <div class="search-pill-input">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Tìm kiếm</span>
+        <kbd>Ctrl K</kbd>
+      </div>
+    </div>
+
+    <div class="header-right-cluster">
+      <div class="stat-badge-unit">
+        <span>RANK · CẤP BẬC</span>
+        <strong class="text-emerald">Lv. Intern</strong>
+      </div>
+
+      <div class="stat-badge-unit">
+        <span>XP · ĐIỂM</span>
+        <strong>0 / 400</strong>
+      </div>
+
+      <div class="stat-badge-unit">
+        <span>STREAK · CHUỖI</span>
+        <strong style="color: #ea580c; display: flex; align-items: center; gap: 3px;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="#ea580c" stroke="none"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"></path></svg>
+          0 ngày
+        </strong>
+      </div>
+
+      <div class="stat-badge-unit">
+        <span>CASES · ĐÃ GIẢI</span>
+        <strong>0/36</strong>
+      </div>
+
+      <div class="avatar-in-circle">IN</div>
+    </div>
+  </header>
+
+  <!-- MAIN BODY -->
+  <main class="explorer-container">
+    <h1 class="explorer-hero-title">Business Model Explorer</h1>
+    <p class="explorer-hero-subtitle">
+      Mười hai cách kiếm tiền. Mỗi mô hình có một công thức, một bộ chỉ số đơn vị, và một kiểu thất bại riêng. Hiểu mô hình trước, rồi mới hiểu doanh nghiệp.
+    </p>
+
+    <!-- 12 MODEL CARDS (3x4 GRID) -->
+    <div class="models-grid-3x4">
+      <!-- 1. Marketplace -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Marketplace</span>
+            <span class="model-vietnamese-sub">Sàn giao dịch hai chiều</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">GMV × Take rate</div>
+        <p class="model-summary-desc">Kết nối người mua và người bán, không sở hữu hàng hóa. Thu phần trăm trên mỗi giao dịch.</p>
+        <div class="model-companies-strip">Shopee · Grab · Airbnb · TikTok Shop</div>
+      </a>
+
+      <!-- 2. Subscription -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Subscription</span>
+            <span class="model-vietnamese-sub">Thuê bao định kỳ</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">Số thuê bao × ARPU – Churn</div>
+        <p class="model-summary-desc">Thu tiền định kỳ để đổi lấy quyền truy cập liên tục. Giá trị nằm ở việc khách hàng ở lại bao lâu.</p>
+        <div class="model-companies-strip">Netflix · Costco · Spotify · Disney+</div>
+      </a>
+
+      <!-- 3. SaaS -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">SaaS</span>
+            <span class="model-vietnamese-sub">Phần mềm dịch vụ</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">ARR = MRR × 12 · NRR</div>
+        <p class="model-summary-desc">Phần mềm bán theo thuê bao cho doanh nghiệp. Chi phí phục vụ thêm một khách gần bằng không, chi phí bán hàng thì không.</p>
+        <div class="model-companies-strip">FPT · Apple</div>
+      </a>
+
+      <!-- 4. Freemium -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Freemium</span>
+            <span class="model-vietnamese-sub">Miễn phí có bản trả tiền</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">Users × Conversion % × ARPPU</div>
+        <p class="model-summary-desc">Cho phần lớn dùng miễn phí để một tỷ lệ nhỏ trả tiền. Người miễn phí là chi phí, cho tới khi họ trở thành kênh phân phối.</p>
+        <div class="model-companies-strip">Spotify · VNG · MoMo</div>
+      </a>
+
+      <!-- 5. Razor & Blade -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Razor & Blade</span>
+            <span class="model-vietnamese-sub">Bán máy rẻ, bán vật tư đắt</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">Lỗ trên thiết bị + Lãi trên vật tư lặp lại</div>
+        <p class="model-summary-desc">Bán sản phẩm gốc rẻ (hoặc lỗ) để bán vật tư/phụ kiện/dịch vụ đi kèm với biên cao trong nhiều năm.</p>
+        <div class="model-companies-strip">Vietjet Air · Apple · Ryanair</div>
+      </a>
+
+      <!-- 6. Advertising -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Advertising</span>
+            <span class="model-vietnamese-sub">Quảng cáo</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">Người dùng × Thời lượng × eCPM</div>
+        <p class="model-summary-desc">Sản phẩm miễn phí cho người dùng, khách hàng thật là nhà quảng cáo. Đơn vị bán ra là sự chú ý.</p>
+        <div class="model-companies-strip">VNG · Shopee · Netflix</div>
+      </a>
+
+      <!-- 7. Franchise -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Franchise</span>
+            <span class="model-vietnamese-sub">Nhượng quyền</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">Phí nhượng quyền + % doanh thu cửa hàng</div>
+        <p class="model-summary-desc">Người khác bỏ vốn mở cửa hàng, mình bán thương hiệu và quy trình rồi thu phần trăm doanh thu.</p>
+        <div class="model-companies-strip">Highlands Coffee · Starbucks · Golden Gate · FPT Long Châu</div>
+      </a>
+
+      <!-- 8. Direct to Consumer -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Direct to Consumer</span>
+            <span class="model-vietnamese-sub">Bán thẳng tới người tiêu dùng</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">AOV × Tần suất – CAC</div>
+        <p class="model-summary-desc">Bán thẳng cho người tiêu dùng, bỏ qua trung gian để giữ lại biên lợi nhuận và dữ liệu khách hàng.</p>
+        <div class="model-companies-strip">Nike · VinFast · Vinamilk · Tesla</div>
+      </a>
+
+      <!-- 9. Aggregator -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Aggregator</span>
+            <span class="model-vietnamese-sub">Gom nhu cầu</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">Kiểm soát nhu cầu → ép biên nhà cung cấp</div>
+        <p class="model-summary-desc">Tập hợp nhu cầu người dùng ở một nơi, biến nhà cung cấp thành hàng hóa thay thế được cho nhau.</p>
+        <div class="model-companies-strip">Grab · Amazon · Shopee · VNPAY</div>
+      </a>
+
+      <!-- 10. Asset-light -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Asset-light</span>
+            <span class="model-vietnamese-sub">Ít tài sản nặng</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">ROIC cao nhờ vốn đầu tư thấp</div>
+        <p class="model-summary-desc">Đẩy tài sản nặng ra khỏi bảng cân đối kế toán, giữ lại phần tạo giá trị cao: thương hiệu, thiết kế, mạng lưới, dữ liệu.</p>
+        <div class="model-companies-strip">Airbnb · Uber · Apple</div>
+      </a>
+
+      <!-- 11. Platform -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Platform</span>
+            <span class="model-vietnamese-sub">Nền tảng cho bên thứ ba</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">Giá trị = f(Số người tham gia)²</div>
+        <p class="model-summary-desc">Cung cấp nền tảng để bên thứ ba tạo ra giá trị, rồi thu một phần giá trị đó.</p>
+        <div class="model-companies-strip">iOS App Store · Android · Roblox</div>
+      </a>
+
+      <!-- 12. Licensing -->
+      <a href="bai-hoc.html" class="model-box-card">
+        <div class="card-top-head">
+          <div class="model-name-vn-col">
+            <span class="model-english-name">Licensing</span>
+            <span class="model-vietnamese-sub">Cấp phép sở hữu trí tuệ</span>
+          </div>
+          <span class="tag-xp-gain">+40 XP</span>
+        </div>
+        <div class="model-math-formula">Royalty % × Doanh thu của bên được cấp phép</div>
+        <p class="model-summary-desc">Cho người khác dùng tài sản trí tuệ của mình và thu tiền bản quyền, không tự vận hành.</p>
+        <div class="model-companies-strip">ARM · Disney · Sanrio</div>
+      </a>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 /* ===== 30 LỘ TRÌNH NGHỀ (6 nhóm × 5 nghề) ===== */
 window.CAREER_CATS = [
   { id:"consult",  n:"Tư vấn & Chiến lược",      d:"Giải vấn đề cho khách hàng hoặc cho chính tập đoàn." },
-  { id:"finance",  n:"Tài chính & Đầu tư",        d:"Định giá, thẩm định và phân bổ vốn." },
+  { id:"finance",  n:"Business Case & Chiến lược",        d:"Định giá, thẩm định và phân bổ vốn." },
   { id:"marketing",n:"Marketing & Tăng trưởng",   d:"Tìm khách, giữ khách và tăng doanh thu." },
   { id:"product",  n:"Sản phẩm & Dữ liệu",        d:"Quyết định xây gì và đo bằng chỉ số nào." },
   { id:"ops",      n:"Vận hành & Chuỗi cung ứng", d:"Giữ dòng hàng và dòng tiền chạy đúng nhịp." },
@@ -55,7 +55,7 @@ window.CAREERS = [
   steps:[{t:"Nền tảng",d:"Fundamentals"},{t:"Thị trường",d:"Sizing · Entry"},{t:"Thương mại",d:"Pricing · Partnership"},{t:"Case mở rộng",d:"Practice Arena"}],
   gate:"Giải case Market Entry bậc Hard kèm mô hình hợp tác và ngưỡng hoà vốn." },
 
-/* ─── Tài chính & Đầu tư ─── */
+/* ─── Business Case & Chiến lược ─── */
 { id:"ib", cat:"finance", n:"Investment Banking", vi:"Ngân hàng đầu tư", icon:"◆", color:"ink",
   intro:"Tư vấn huy động vốn và mua bán doanh nghiệp, sống bằng mô hình và pitch book.",
   entry:["IB Analyst","M&A Analyst"], firms:"SSI · VCSC · HSC · Ngân hàng đầu tư nước ngoài",
@@ -74,7 +74,7 @@ window.CAREERS = [
   steps:[{t:"Nền tảng",d:"Fundamentals"},{t:"Tài chính",d:"Finance track"},{t:"Thẩm định",d:"Due diligence"},{t:"Investment memo",d:"Competition track"}],
   gate:"Viết investment memo 2 trang: luận điểm đầu tư, ba rủi ro lớn và kịch bản exit." },
 
-{ id:"fpna", cat:"finance", n:"Corporate Finance / FP&A", vi:"Tài chính doanh nghiệp", icon:"▦", color:"emerald",
+{ id:"fpna", cat:"finance", n:"Corporate Finance / FP&A", vi:"Giải Case Doanh nghiệp", icon:"▦", color:"emerald",
   intro:"Lập kế hoạch, dự báo và giải thích vì sao con số thực khác con số kế hoạch.",
   entry:["FP&A Analyst","Finance Associate"], firms:"Tập đoàn FMCG · Bán lẻ · Sản xuất · Công ty niêm yết",
   skills:[{n:"Budgeting & forecast",lv:5},{n:"Variance analysis",lv:5},{n:"Đọc báo cáo tài chính",lv:4},

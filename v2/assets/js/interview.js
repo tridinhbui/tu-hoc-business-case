@@ -776,6 +776,24 @@ function scoreRound(cfgR, text){
   return (kw ? 50 : 0) + (SCORING.mentionsNumber(t, cfgR.num, cfgR.tol) ? 50 : 0);
 }
 
+/* vòng mà người phỏng vấn đưa từng exhibit: lần đầu câu hỏi nhắc "Exhibit N" hoặc "Exhibit N–M";
+   exhibit không được nhắc thì đưa ở vòng Case math (index 2) — lúc bắt đầu cần số liệu */
+function exhibitRounds(caseId){
+  const n = SCORING.cases[caseId].exhibits.length, at = Array(n).fill(null);
+  CFG[caseId].rounds.forEach((r,i) => {
+    for(const m of r.q.matchAll(/Exhibit (\d)(?:\s*[–-]\s*(\d))?/g))
+      for(let k=+m[1]; k<=+(m[2]||m[1]); k++) if(k<=n && at[k-1]==null) at[k-1] = i;
+  });
+  return at.map(x => x==null ? 2 : x);
+}
+
+/* câu trả lời một vòng thiếu gì: ý then chốt (từ khoá) và/hoặc con số */
+function diagnose(cfgR, text){
+  const t = String(text||"");
+  return { kw: !!t.trim() && has(t, ...cfgR.kw),
+           num: cfgR.num == null ? null : SCORING.mentionsNumber(t, cfgR.num, cfgR.tol) };
+}
+
 const FEEDBACK = {
   Clarify:"Nhắc lại đề trong một câu rồi hỏi 2–3 câu làm rõ về mục tiêu và phạm vi.",
   Structure:"Cấu trúc thiếu nhánh quan trọng của loại case này — xem lại khung ở bài học gợi ý.",
@@ -836,5 +854,5 @@ function answer(id, text, now){
 function reset(id){ delete store()[id]; State.save(); }
 function markModel(id){ const s = get(id); if(s){ s.usedModel = true; State.save(); } }
 
-window.IVIEW = { CFG, ROUNDS, score, scoreRound, get, roundOf, start, answer, reset, markModel };
+window.IVIEW = { CFG, ROUNDS, score, scoreRound, diagnose, exhibitRounds, get, roundOf, start, answer, reset, markModel };
 })();
