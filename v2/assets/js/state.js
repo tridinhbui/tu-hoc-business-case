@@ -9,7 +9,7 @@ const LEVELS = [
   [0,"Intern"],[200,"Analyst"],[500,"Associate"],[1000,"Case Challenger"],
   [1800,"Consultant"],[3000,"Senior Consultant"],[4500,"Manager"],[6500,"Partner"]
 ];
-const XP = { lesson:50, quizFirstTry:10, review:15 };
+const XP = { lesson:50, quizFirstTry:10, review:15, drillHit:10, drillNear:5 };
 const REVIEW_GAPS = [1,3,7];           // ngày giãn cách giữa các lần ôn
 const MIST_KIND = {
   framework:"Lỗi framework", calculation:"Lỗi tính toán", logic:"Lỗi lập luận",
@@ -28,7 +28,7 @@ function blank(){
   return { v:2, user:{name:"Học viên", created:today()}, lessons:{}, cases:{},
            mistakes:[], activity:{}, career:null, seq:0, tick:0,
            readerPrefs:{ fontSize:100, theme:"light", bookmarks:[] },
-           notes:{}, dailyChallenge:{} };
+           notes:{}, dailyChallenge:{}, drills:{}, careerQuiz:null };
 }
 
 let S = load();
@@ -361,6 +361,42 @@ function resolveMistake(id){
   gainXP(XP.review, "reviews"); save(); return m;
 }
 
+/* ── Câu mở đầu theo nghề: viết nước đi đầu tiên → so gợi ý → tự chấm ──
+   key = "<careerId>-<i>". XP chỉ tính ở lần chấm đầu tiên; "miss" ghi vào Mistake Review. */
+const DRILL_VERDICTS = ["hit","near","miss"];
+const drillRec = key => (S.drills||{})[key] || null;
+function answerDrill(key, text){
+  const t = String(text||"").trim(); if(!t) return null;
+  if(!S.drills) S.drills = {};
+  const r = S.drills[key] || (S.drills[key] = {attempts:0, rated:false, verdict:null, first:null});
+  Object.assign(r, {answer:t.slice(0,2000), verdict:null, at:today()}); r.attempts += 1;
+  save(); return r;
+}
+function rateDrill(key, verdict, mistake){
+  const r = drillRec(key); if(!r || !r.answer || !DRILL_VERDICTS.includes(verdict)) return null;
+  let gain = 0;
+  if(!r.rated){ r.rated = true; r.first = verdict;
+    gain = verdict==="hit" ? XP.drillHit : verdict==="near" ? XP.drillNear : 0;
+    if(gain) gainXP(gain); }
+  r.verdict = verdict;
+  if(verdict==="miss" && mistake) addMistake(Object.assign({kind:"framework", ref:"drill-"+key}, mistake));
+  save(); return {rec:r, gain};
+}
+function resetDrill(key){ const r = drillRec(key); if(!r) return; r.answer = null; r.verdict = null; save(); }
+function drillStats(keys){
+  const recs = keys.map(drillRec).filter(r=>r && r.verdict);
+  const c = v => recs.filter(r=>r.verdict===v).length;
+  return {done:recs.length, total:keys.length, hit:c("hit"), near:c("near"), miss:c("miss")};
+}
+
+/* ── Trắc nghiệm chọn nghề: chỉ lưu lựa chọn, điểm tính lại từ CAREER_FIT mỗi lần xem ── */
+function answerCareerQuiz(qid, idx){
+  if(typeof qid!=="string" || !Number.isInteger(idx) || idx<0) return null;
+  if(!S.careerQuiz) S.careerQuiz = {answers:{}, at:null};
+  S.careerQuiz.answers[qid] = idx; S.careerQuiz.at = today(); save(); return S.careerQuiz;
+}
+function clearCareerQuiz(){ S.careerQuiz = null; save(); }
+
 function setCareer(id){ S.career = window.CAREER_BY_ID[id] ? id : null; save(); }
 function setName(n){ S.user.name = String(n||"").trim().slice(0,40) || "Học viên"; save(); }
 
@@ -431,6 +467,7 @@ window.State = {
   caseRec, casesSolved, avgScore, openMistakes, mistakesByKind, reviewQueue, dueToday, missions, careerProgress,
   touchLesson, answerQuiz, toggleCheck, completeLesson, recordAttempt, saveDraft, setReadPct, readPct,
   addMistake, reviewMistake, resolveMistake, setCareer, setName,
+  drillRec, answerDrill, rateDrill, resetDrill, drillStats, answerCareerQuiz, clearCareerQuiz,
   getReaderPrefs, setReaderFontSize, setReaderTheme, isBookmarked, toggleBookmark,
   getLessonNote, setLessonNote, getDailyChallenge, answerDailyChallenge,
   exportJSON, importJSON, reset, seedDemo

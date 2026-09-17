@@ -100,4 +100,23 @@ t("cấp độ theo ngưỡng XP",()=>{
   S.reset(); W.LESSONS.slice(0,20).forEach(l=>S.completeLesson(l.id));   // 1000 XP
   assert.equal(S.level().title,"Case Challenger"); assert.equal(S.level().lv,4);
 });
+t("câu mở đầu: XP chỉ ở lần chấm đầu, lệch hướng vào Mistake Review",()=>{
+  S.reset();
+  assert.equal(S.answerDrill("consulting-0","   "),null);
+  assert.equal(S.rateDrill("consulting-0","hit"),null);                 // chưa trả lời thì không chấm
+  S.answerDrill("consulting-0","Tách lợi nhuận thành doanh thu và chi phí");
+  assert.equal(S.rateDrill("consulting-0","hit").gain,10); assert.equal(S.xpTotal(),10);
+  assert.equal(S.rateDrill("consulting-0","hit").gain,0);                // chấm lại không cộng
+  S.resetDrill("consulting-0"); assert.equal(S.drillRec("consulting-0").answer,null);
+  assert.equal(S.rateDrill("consulting-0","hit"),null);
+  S.answerDrill("consulting-1","Nhảy thẳng vào giải pháp giảm giá vé");
+  const m={src:"Câu mở đầu · test", bad:"x", good:"y", why:"z"};
+  assert.equal(S.rateDrill("consulting-1","miss",m).gain,0);
+  assert.equal(S.openMistakes().length,1); assert.equal(S.openMistakes()[0].ref,"drill-consulting-1");
+  S.answerDrill("consulting-1","Lại sai"); S.rateDrill("consulting-1","miss",m);
+  assert.equal(S.openMistakes().length,1); assert.equal(S.openMistakes()[0].count,2);   // gộp lỗi lặp
+  assert.equal(S.rateDrill("consulting-1","bogus"),null);
+  const st=S.drillStats(["consulting-0","consulting-1","consulting-2"]);
+  assert.deepEqual([st.done,st.total,st.hit,st.miss],[1,3,0,1]);
+});
 console.log(`\n${n} test đạt`);

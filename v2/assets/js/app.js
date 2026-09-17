@@ -1772,6 +1772,12 @@ function vCareer(){
   <h1>Career Path</h1>
   <p class="muted" style="max-width:72ch;margin-top:6px">Mỗi nghề có lộ trình track riêng, bộ kỹ năng cần đạt và một tiêu chí tốt nghiệp đo được. Chọn nghề để hệ thống sắp xếp lại thứ tự bài học cho bạn.</p>
 
+  <div class="callout tip mt row" style="justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+    <div><b>Chưa biết chọn nghề nào?</b><div class="small">Trả lời 9 câu trong khoảng 2 phút để thấy 3 nghề hợp với bạn nhất và lý do.</div></div>
+    <div class="row" style="gap:8px"><a class="btn btn-sm" href="#/compare">So sánh nghề</a>
+    <a class="btn btn-sm btn-p" href="#/fit">${State.data.careerQuiz && window.CAREER_FIT && CAREER_FIT.QUESTIONS.every(q=>State.data.careerQuiz.answers[q.id]!=null) ? "Xem lại kết quả trắc nghiệm →" : "Làm trắc nghiệm →"}</a></div>
+  </div>
+
   <div class="chips mt">
     <button class="chip ${filter==="all"?"on":""}" onclick="ACT.careerCat('all')">Tất cả<span class="c">${window.CAREERS.length}</span></button>
     ${cats.map(g=>{const n=window.CAREERS.filter(c=>c.cat===g.id).length;
@@ -1799,6 +1805,7 @@ function vCareerDetail(id){
     <span class="tile tile-lg t-${c.color}">${c.icon}</span>
     <div><div class="lbl">Career path${mine?" · đang theo":""}</div><h1 style="margin-top:2px">${esc(c.n)}</h1></div>
     <div class="row" style="margin-left:auto">
+      <a class="btn" href="#/compare/${c.id}">So sánh với nghề khác</a>
       <button class="btn" onclick="ACT.career('${c.id}')">${mine?"Bỏ chọn":"Chọn lộ trình này"}</button>
       ${first?`<a class="btn btn-p" href="#/lesson/${first.id}">${mine?"Học tiếp":"Bắt đầu"} →</a>`:""}
     </div>
@@ -1874,7 +1881,7 @@ function careerDetailMore(c){
   </div>
 
   <div class="card mt">
-    <div class="card-h"><h3>Câu hỏi case hay gặp</h3></div>
+    <div class="card-h"><h3>Câu hỏi case hay gặp</h3><a class="btn btn-sm btn-p" href="#/drill/${c.id}">Tự trả lời trước →</a></div>
     <div class="card-b" style="padding-top:6px">
       ${c.cases.map((k,i)=>`<details style="border-top:${i?"1px solid var(--border)":"0"};padding:10px 0">
         <summary style="cursor:pointer;font-weight:600">${esc(k.q)}</summary>
@@ -2108,6 +2115,11 @@ function vInterview(id){
     ${metric("Dạng case đã thử", new Set(all.filter(c=>ivState(c.id)==="done").map(c=>c.type)).size+`<span class="muted" style="font-size:15px;font-weight:600">/${types.length}</span>`, "")}
   </div>
 
+  <div class="callout tip mt row" style="justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+    <div><b>Luyện câu mở đầu theo nghề</b><div class="small">Câu hỏi case thật theo từng nghề: viết nước đi đầu tiên, so gợi ý, tự chấm.</div></div>
+    <a class="btn btn-sm btn-p" href="#/drill">Câu mở đầu theo nghề</a>
+  </div>
+
   <div class="grid g2 mt">
     <div class="card"><div class="card-h"><h3>Nên phỏng vấn tiếp</h3></div>
       ${nx?`<div class="card-b">
@@ -2301,7 +2313,7 @@ function vReview(){
         ${Object.entries(State.MIST_KIND).map(([k,n])=>`<button class="chip ${REV.kind===k?"on":""}" onclick="ACT.revKind('${k}')">${esc(n)}<span class="c">${byKind[k]||0}</span></button>`).join("")}
       </div>
       ${shown.length?shown.map(m=>{
-        const retry = window.CASE_BY_ID[m.ref] ? `#/arena/${m.ref}` : window.LESSON_BY_ID[m.ref] ? `#/lesson/${m.ref}` : m.ref.startsWith("iv") ? "#/interview" : "";
+        const retry = window.CASE_BY_ID[m.ref] ? `#/arena/${m.ref}` : window.LESSON_BY_ID[m.ref] ? `#/lesson/${m.ref}` : m.ref.startsWith("iv") ? "#/interview" : m.ref.startsWith("drill-") ? `#/drill/${m.ref.slice(6, m.ref.lastIndexOf("-"))}` : "";
         return `<div class="mist">
         <div class="hd"><span class="tag tag-${KIND_COLOR[m.kind]||"s"}">${esc(State.MIST_KIND[m.kind]||m.kind)}</span>
           <span class="small muted">${esc(m.src)}</span>
@@ -2402,6 +2414,9 @@ const ROUTES = {
   career:{f:vCareer, c:["Phát triển","Career Path"]},
   competition:{f:vCompetition, c:["Luyện tập","Competition"]},
   interview:{f:vInterview, c:["Luyện tập","Interview Mode"]},
+  drill:{f:()=>vDrill(), c:["Luyện tập","Câu mở đầu theo nghề"]},
+  fit:{f:()=>vFit(), c:["Phát triển","Trắc nghiệm chọn nghề"]},
+  compare:{f:()=>vCompare(), c:["Phát triển","So sánh nghề"]},
   review:{f:vReview, c:["Phát triển","Mistake Review"]},
   settings:{f:vSettings, c:["Tài khoản","Dữ liệu & sao lưu"]}
 };
@@ -2431,6 +2446,8 @@ function render(keepScroll){
   else if(key==="arena") html = vArena(parts[1]);
   else if(key==="competition") html = vCompetition(parts[1]);
   else if(key==="interview") html = vInterview(parts[1]);
+  else if(key==="drill") html = vDrill(parts[1]);
+  else if(key==="compare") html = vCompare(parts[1]);
   else html = r.f();
   document.getElementById("view").innerHTML = html;
   document.getElementById("crumbs").innerHTML =
