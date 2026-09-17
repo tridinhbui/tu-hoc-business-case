@@ -408,14 +408,14 @@ function vRoadmap(){
         <div class="map-station-spatial-area">
           
           <!-- Start Flag / Pill (Top-Left) -->
-          <div class="map-spatial-node" style="top:18px;left:28px">
+          <div class="map-spatial-node" style="top:2%;left:3%">
             <span style="font-size:11.5px;font-weight:800;background:#064E3B;color:#FFF;padding:5px 14px;border-radius:999px;letter-spacing:.04em;box-shadow:0 2px 6px rgba(6,78,59,.3);display:inline-flex;align-items:center;gap:6px">
               <span>🚩</span> XUẤT PHÁT
             </span>
           </div>
 
           <!-- Station 01 (Active) -->
-          <div class="map-spatial-node" style="top:90px;left:24px">
+          <div class="map-spatial-node" style="top:9%;left:2%">
             <div class="map-station-card active" onclick="location.hash='#/lesson/f-sizing'" style="cursor:pointer">
               <div class="station-pin-badge">
                 <span>📍</span> <b>BẠN Ở ĐÂY</b>
@@ -458,7 +458,7 @@ function vRoadmap(){
           </div>
 
           <!-- Station 02 (Center) -->
-          <div class="map-spatial-node" style="top:260px;left:340px">
+          <div class="map-spatial-node" style="top:36%;left:27%">
             <div class="map-station-card locked" onclick="location.hash='#/lesson/f-profit'" style="cursor:pointer">
               <div class="station-card-top">
                 <div class="station-isometric-box">
@@ -493,7 +493,7 @@ function vRoadmap(){
           </div>
 
           <!-- Station 03 (Top Right) -->
-          <div class="map-spatial-node" style="top:70px;right:280px">
+          <div class="map-spatial-node" style="top:8%;left:55%">
             <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
               <div class="station-card-top">
                 <div class="station-isometric-box">
@@ -527,7 +527,7 @@ function vRoadmap(){
           </div>
 
           <!-- Station 04 (Far Right) -->
-          <div class="map-spatial-node" style="top:250px;right:20px">
+          <div class="map-spatial-node" style="top:34%;right:2%">
             <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
               <div class="station-card-top">
                 <div class="station-isometric-box">
@@ -557,7 +557,7 @@ function vRoadmap(){
           </div>
 
           <!-- Station 05 (Bottom Right) -->
-          <div class="map-spatial-node" style="bottom:24px;right:160px">
+          <div class="map-spatial-node" style="top:67%;right:12%">
             <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
               <div class="station-card-top">
                 <div class="station-isometric-box">
@@ -587,7 +587,7 @@ function vRoadmap(){
           </div>
 
           <!-- Station 06 (Bottom Center) -->
-          <div class="map-spatial-node" style="bottom:24px;left:380px">
+          <div class="map-spatial-node" style="top:71%;left:34%">
             <div class="map-station-card locked" onclick="location.hash='#/tracks'" style="cursor:pointer">
               <div class="station-card-top">
                 <div class="station-isometric-box">
@@ -618,7 +618,7 @@ function vRoadmap(){
           </div>
 
           <!-- Station 07 (Bottom Left) -->
-          <div class="map-spatial-node" style="bottom:130px;left:70px">
+          <div class="map-spatial-node" style="top:52%;left:5%">
             <div class="map-station-card locked" onclick="location.hash='#/career'" style="cursor:pointer">
               <div class="station-card-top">
                 <div class="station-isometric-box">
@@ -648,7 +648,7 @@ function vRoadmap(){
           </div>
 
           <!-- Terminus Finish Flag (Bottom Far-Left) -->
-          <div class="map-spatial-node map-finish-flag" style="bottom:22px;left:28px">
+          <div class="map-spatial-node map-finish-flag" style="top:86%;left:2%">
             <svg viewBox="0 0 36 54" width="32" height="48" fill="none">
               <ellipse cx="18" cy="48" rx="14" ry="5" fill="#64748B" opacity="0.25"/>
               <ellipse cx="18" cy="46" rx="12" ry="4" fill="#CBD5E1"/>
