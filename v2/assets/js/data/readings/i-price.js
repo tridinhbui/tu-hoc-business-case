@@ -431,3 +431,100 @@ Kết luận, nguyên nhân có số, ngưỡng, phản đề nghị. Người n
 
 Phần tiếp theo đưa bạn tới nhà bao bì Phương Nam, đang nhận một đề nghị rất giống: khách lớn muốn tăng khối lượng, đổi lại chiết khấu cho toàn bộ, giao hàng miễn phí và hạn nợ dài hơn. Hãy làm theo đúng thứ tự của bài: quy từng điều khoản về giá bỏ túi mỗi thùng, so lãi góp bỏ túi của hai phương án, tính ngưỡng bỏ đi, rồi dựng phản đề nghị bậc thang. Chi phí vốn tính trên doanh thu theo số ngày nợ, với năm 360 ngày.
 `);
+
+LRD("i-price-4", `
+Một buổi chiều ở Buôn Ma Thuột. Người sáng lập một startup nông nghiệp đặt lên bàn giám khảo một hộp nhựa nhỏ: bộ cảm biến độ ẩm đất, cắm xuống gốc cà phê, báo lên điện thoại khi nào cần tưới. Anh nói: "Ở Việt Nam chưa ai bán thứ này, nên bọn em không biết định giá bao nhiêu."
+
+Đây là một đề phỏng vấn quen thuộc, và nó thường tách ứng viên thành hai nhóm.
+
+Ứng viên thứ nhất đi từ chi phí. Linh kiện, lắp ráp, vận chuyển mỗi bộ hết 2,5 triệu đồng; cộng biên lợi nhuận 30% theo "thông lệ ngành điện tử", ra khoảng 3,25 triệu. Con số có vẻ an toàn và dễ bảo vệ.
+
+Ứng viên thứ hai hỏi lại: "Hôm nay, khi chưa có cảm biến, nông dân đang quyết định tưới bằng cách nào, và cách đó tốn bao nhiêu?" Câu trả lời là tưới theo lịch cố định, mỗi héc-ta tốn khoảng 6 triệu tiền điện bơm và nước một năm. Từ câu hỏi đó, ứng viên thứ hai đi tới một mức giá gần gấp đôi, và chứng minh được nó bán tốt hơn.
+
+Sản phẩm "chưa có tham chiếu" gần như không bao giờ thực sự không có tham chiếu. Nó chỉ không có **đối thủ trực tiếp**. Còn khách hàng thì lúc nào cũng đang làm một việc gì đó để giải quyết cùng vấn đề, và việc đó có giá.
+
+## Tham chiếu thật là cách khách đang làm hôm nay
+
+Khi không có đối thủ, hãy tìm **phương án tốt nhất tiếp theo** của khách: cách họ đang giải quyết vấn đề mà không cần sản phẩm của bạn. Nó có thể là một sản phẩm khác loại, một cách làm thủ công, thuê người làm, hoặc đơn giản là chấp nhận thiệt hại.
+
+Với nông dân cà phê, đó là tưới theo lịch. Với người mua bộ lọc nước, đó là nước bình. Với phần mềm quản lý, đó là một nhân viên với bảng tính. Giá của phương án đó là điểm xuất phát, vì nó là số tiền khách **đã** sẵn lòng bỏ ra cho vấn đề này.
+
+Định giá từ chi phí bỏ qua hoàn toàn điểm xuất phát này. Nó trả lời câu hỏi "chúng ta cần thu bao nhiêu", không trả lời câu hỏi "khách sẵn lòng trả bao nhiêu". Hai con số có thể cách nhau vài lần.
+
+## Giá trị kinh tế với khách: cộng phần hơn, trừ phần kém
+
+Từ tham chiếu, cộng những gì sản phẩm làm tốt hơn và trừ những gì nó làm kém hơn, tất cả quy ra tiền, trên cùng một khoảng thời gian. Tư vấn gọi tổng này là giá trị kinh tế với khách.
+
+Với một héc-ta cà phê, mỗi năm:
+
+- Tiết kiệm điện bơm và nước: tưới đúng lúc giảm khoảng 30% của 6 triệu, tức **1,8 triệu**
+- Giảm phân bón trôi theo nước tưới thừa: **1,2 triệu**
+- Năng suất tăng khoảng 2% trên doanh thu 200 triệu, tức 4 triệu. Nông dân chỉ tin khi thấy, nên chỉ tính một nửa: **2 triệu**
+- Trừ phần kém hơn: phải học cách dùng, lo thiết bị hỏng giữa mùa khô: **−0,5 triệu**
+- Giá trị kinh tế: **4,5 triệu mỗi năm**
+
+Bộ cảm biến dùng được ba năm, nên tổng giá trị trong vòng đời là **13,5 triệu**. So với mức 3,25 triệu của ứng viên thứ nhất, định giá từ chi phí để lại trên bàn hơn 10 triệu mỗi bộ.
+
+Hai nguyên tắc giữ cho phép tính này đáng tin. Thứ nhất, mỗi khoản phải có nguồn: số liệu thử nghiệm, hoá đơn tiền điện, báo cáo năng suất. Thứ hai, giảm những khoản khách khó tin — như cách tính một nửa năng suất ở trên. Giám khảo sẽ hỏi đúng khoản yếu nhất, nên hãy tự hỏi trước.
+
+## Đừng lấy trọn giá trị
+
+Giá trị kinh tế là **trần**, không phải giá. Nếu bán đúng 13,5 triệu, nông dân không có lý do nào để đổi cách làm quen thuộc lấy một thiết bị chưa ai dùng. Khách cần giữ lại một phần giá trị, và với sản phẩm mới, phần đó phải lớn hơn bình thường, vì ba lẽ.
+
+- **Rủi ro chưa được chứng minh.** Khách trả tiền hôm nay cho lợi ích sẽ đến sau, từ một sản phẩm chưa có ai kiểm chứng.
+- **Chi phí chuyển đổi.** Học cách dùng, thay thói quen, thuyết phục người trong nhà.
+- **Không có mỏ neo giá.** Khách không biết thế nào là đắt hay rẻ, nên họ so với số tiền bỏ ra một lần, không so với lợi ích ba năm.
+
+Vì thế giá sản phẩm mới thường chỉ thu một phần giá trị kinh tế, và phần đó cần được kiểm chứng bằng hành vi mua thật, không bằng lập luận.
+
+## Từ một khoảng giá tới một con số
+
+Khoảng giá hợp lý nằm giữa sàn chi phí 2,5 triệu và trần giá trị 13,5 triệu. Để chọn một điểm trong khoảng đó, cần biết **ở mỗi mức giá bán được bao nhiêu**, rồi nhân lãi góp mỗi bộ với số bộ.
+
+Startup đã bán thử thật ở ba huyện, mỗi huyện một mức giá, mỗi nơi tiếp cận khoảng 1.000 hộ:
+
+- Giá 4 triệu: bán 220 bộ, lãi góp (4 − 2,5) × 220 = **330 triệu**
+- Giá 6 triệu: bán 150 bộ, lãi góp 3,5 × 150 = **525 triệu**
+- Giá 8 triệu: bán 70 bộ, lãi góp 5,5 × 70 = **385 triệu**
+
+Mức 6 triệu cho lãi góp lớn nhất, dù bán ít bộ hơn mức 4 triệu. Nó thu khoảng 44% giá trị ba năm, và nông dân hoàn vốn sau 6 ÷ 4,5 ≈ 1,33 năm, tức khoảng 16 tháng. Đó cũng chính là câu bán hàng: "dưới một mùa rưỡi là thiết bị tự trả tiền cho mình."
+
+Lưu ý cái bẫy của cột sản lượng: mức giá bán được nhiều nhất không phải mức giá tốt nhất. Luôn nhân với lãi góp mỗi đơn vị trước khi kết luận.
+
+## Khảo sát nói một đằng, ví tiền nói một nẻo
+
+Trước khi bán thử, startup đã khảo sát. Ở mức 6 triệu, 45% nông dân nói "chắc chắn sẽ mua". Khi bán thật, chỉ 15% mua. Con số khảo sát cao gấp ba lần hành vi thật.
+
+Đây là quy luật, không phải ngoại lệ. Nói "có" không tốn gì. Vì vậy khi đề chỉ cho số liệu khảo sát, hãy áp một **tỷ lệ chuyển đổi** từ ý định sang mua thật, và nói rõ đó là giả định. Còn một điểm tinh tế hơn: tỷ lệ chuyển đổi thường **không đều** giữa các mức giá. Người nói "sẽ mua" ở mức giá cao do dự nhiều hơn khi phải móc ví. Nếu tỷ lệ ở mức giá cao thấp hơn, mức giá tối ưu có thể dịch xuống.
+
+Đó là lý do nhiều doanh nghiệp bán thử ở hai, ba mức giá thật trước khi chốt, như startup cảm biến đã làm.
+
+## Cùng khung, mô hình kinh doanh khác
+
+**Hàng tiêu dùng mới**: tham chiếu thường là một sản phẩm khác loại khách đang mua đều đặn. Tính theo tháng hoặc theo năm, và lấy thời gian hoàn vốn cho khách làm lập luận chính.
+
+**Dịch vụ theo gói**: giá trị kinh tế tính theo tháng, nên so thẳng với phí gói. Phần giá trị để lại cho khách thể hiện ở tỷ lệ gia hạn.
+
+**Mô hình máy và vật tư**: bán thiết bị rẻ, thu lãi từ vật tư thay thế. Khi đó giá trị kinh tế phải tính trên cả vòng đời, và mức giá máy chỉ là cửa vào.
+
+## Nói trong 60 giây
+
+> "Em đề xuất giá khoảng 6 triệu mỗi bộ, cao gần gấp đôi mức định giá từ chi phí."
+> "Nông dân đang tưới theo lịch, và cảm biến tạo khoảng 4,5 triệu giá trị mỗi năm từ điện bơm, phân bón và năng suất, tức 13,5 triệu trong ba năm."
+> "Trong ba mức bán thử, 6 triệu cho lãi góp lớn nhất, 525 triệu, và nông dân hoàn vốn trong khoảng 16 tháng."
+> "Rủi ro lớn nhất là phần năng suất, em mới tính một nửa; em đề xuất theo dõi năng suất của các vườn thử trước khi tăng giá."
+
+Kết luận, giá trị có số, bằng chứng từ hành vi mua, rủi ro kèm cách kiểm chứng.
+
+## Những lỗi khiến phần định giá sản phẩm mới bị trừ điểm
+
+- **Định giá từ chi phí.** Chi phí chỉ là sàn, không nói gì về mức khách sẵn lòng trả.
+- **Nói "không có tham chiếu".** Luôn có cách khách đang làm hôm nay, và cách đó có giá.
+- **Lấy trọn giá trị kinh tế.** Sản phẩm mới phải để lại cho khách một phần lớn để bù rủi ro và chi phí chuyển đổi.
+- **Chọn mức giá bán được nhiều nhất.** Nhân với lãi góp mỗi đơn vị rồi mới so.
+- **Tin nguyên số liệu khảo sát.** Áp tỷ lệ chuyển đổi, và kiểm tra xem tỷ lệ đó có đổi theo mức giá không.
+
+## Vào bài tập
+
+Phần tiếp theo là bộ lọc nước gắn vòi của Nguồn Sạch, một sản phẩm chưa có đối thủ trực tiếp. Hãy đi đúng thứ tự của bài: tìm cách khách đang làm hôm nay và quy ra tiền mỗi năm, cộng phần hơn và trừ phần kém để có giá trị kinh tế, rồi nhân lãi góp mỗi bộ với số hộ mua ở từng mức giá — nhớ áp tỷ lệ chuyển đổi từ "chắc chắn sẽ mua" sang mua thật trước khi so.
+`);
