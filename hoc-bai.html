@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tự Học Business Case — Dashboard & Học bài</title>
+  <title>Tự Học Tài Chính — Học bài</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -981,7 +981,7 @@
       opacity: 0.85;
     }
 
-    /* Widget 3: Thử thách Business Case mỗi ngày */
+    /* Widget 3: Thử thách tài chính mỗi ngày */
     .drill-header-strip {
       display: flex;
       align-items: center;
@@ -1011,6 +1011,7 @@
       font-size: 13.5px;
       font-weight: 800;
       color: #14281b;
+      line-height: 1.25;
     }
 
     .drill-header-tools {
@@ -1213,11 +1214,11 @@
         <span>Dashboard</span>
       </a>
 
-      <a href="#" class="nav-link-item">
+      <a href="case-social.html" class="nav-link-item">
         <span class="nav-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </span>
-        <span>CaseSocial</span>
+        <span>FinSocial</span>
       </a>
 
       <!-- GROUP: HỌC TẬP -->
@@ -1225,8 +1226,8 @@
         <span>🌱 HỌC TẬP</span>
         <span class="chevron-arrow">▼</span>
       </div>
-      <a href="bat-dau-tu-dau.html" class="nav-link-item">
-        <span class="nav-icon">🧭</span>
+      <a href="index.html#/roadmap" class="nav-link-item">
+        <span class="nav-icon">🎯</span>
         <span>Bắt đầu từ đâu</span>
       </a>
       <a href="hoc-bai.html" class="nav-link-item active">
@@ -1237,23 +1238,24 @@
         <span class="nav-icon">💼</span>
         <span>Học theo nghề</span>
       </a>
-      <a href="thong-ke.html" class="nav-link-item">
+      <a href="tai-lieu.html" class="nav-link-item">
         <span class="nav-icon">📜</span>
         <span>Chứng chỉ</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--text-muted)">›</span>
       </a>
 
       <!-- GROUP: THỰC HÀNH -->
       <div class="nav-group-heading">
-        <span>⚔️ THỰC HÀNH</span>
+        <span>⚡ THỰC HÀNH</span>
         <span class="chevron-arrow">▼</span>
       </div>
-      <a href="tai-lieu.html" class="nav-link-item">
-        <span class="nav-icon">📝</span>
+      <a href="#" class="nav-link-item">
+        <span class="nav-icon">🎯</span>
         <span>Quiz</span>
         <span class="nav-badge-pill badge-tin-moi">TIN MỚI</span>
       </a>
       <a href="thi-vuot-chang.html" class="nav-link-item">
-        <span class="nav-icon">🏆</span>
+        <span class="nav-icon">⏳</span>
         <span>Thi vượt chặng</span>
       </a>
       <a href="game-kingdom.html" class="nav-link-item">
@@ -1261,8 +1263,8 @@
         <span>Game Kingdom</span>
         <span class="nav-badge-pill badge-hot">HOT</span>
       </a>
-      <a href="v2/index.html#/interview" class="nav-link-item">
-        <span class="nav-icon">🎙️</span>
+      <a href="luyen-phong-van.html" class="nav-link-item">
+        <span class="nav-icon">👥</span>
         <span>Luyện phỏng vấn</span>
       </a>
 
@@ -1276,11 +1278,11 @@
         <span>Thư viện</span>
       </a>
       <a href="hoc-nhom.html" class="nav-link-item">
-        <span class="nav-icon">👥</span>
+        <span class="nav-icon">🤝</span>
         <span>Học nhóm</span>
         <span class="nav-badge-pill badge-checkin">CHECK-IN</span>
       </a>
-      <a href="#" class="nav-link-item">
+      <a href="thong-ke.html" class="nav-link-item">
         <span class="nav-icon">📊</span>
         <span>Thống kê</span>
       </a>
@@ -1300,7 +1302,7 @@
         </button>
       </div>
 
-      <a href="login.html" class="user-profile-row" title="Tài khoản">
+      <a href="ho-so.html" class="user-profile-row" title="Tài khoản">
         <div class="user-avatar-round">ĐTB</div>
         <div class="user-text-info">
           <div class="user-text-name">Đinh Trí Bùi</div>
@@ -1330,7 +1332,7 @@
             </span>
           </div>
           <div class="hero-sub-text">Chặng 1 • Bài 1351</div>
-          <h1 class="hero-title-h1">Theo dõi chi tiêu – đo trước khi phân bổ</h1>
+          <h1 class="hero-title-h1">Theo dõi chi tiêu – đo trước<br>khi phân bổ</h1>
           <div class="hero-progress-flex">
             <span>Tiến độ (3/267 bài)</span>
             <div class="hero-bar-container">
@@ -1343,63 +1345,82 @@
 
       <!-- Scenic Mountain Landscape Card Artwork -->
       <div class="hero-mountain-card">
-        <svg viewBox="0 0 400 200" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <svg viewBox="0 0 400 180" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
           <defs>
-            <linearGradient id="skyGradHD" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#fff8e7"/>
-              <stop offset="45%" stop-color="#fef0c7"/>
-              <stop offset="100%" stop-color="#ccfbf1"/>
+            <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#fffdf5"/>
+              <stop offset="45%" stop-color="#fef3c7"/>
+              <stop offset="85%" stop-color="#e0f2fe"/>
+              <stop offset="100%" stop-color="#bbf7d0"/>
             </linearGradient>
-            <linearGradient id="sunGlowHD" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#fef08a" stop-opacity="0.6"/>
+            <radialGradient id="sunGlow" cx="68%" cy="42%" r="55%">
+              <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+              <stop offset="35%" stop-color="#fde047" stop-opacity="0.6"/>
+              <stop offset="70%" stop-color="#facc15" stop-opacity="0.15"/>
               <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
-            </linearGradient>
-            <linearGradient id="hill1GradHD" x1="0" y1="0" x2="0" y2="1">
+            </radialGradient>
+            <linearGradient id="hillBack" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stop-color="#86efac"/>
-              <stop offset="100%" stop-color="#059669"/>
+              <stop offset="100%" stop-color="#15803d"/>
             </linearGradient>
-            <linearGradient id="hill2GradHD" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="hillMid" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stop-color="#4ade80"/>
               <stop offset="100%" stop-color="#047857"/>
             </linearGradient>
-            <linearGradient id="hill3GradHD" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="hillFront" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stop-color="#22c55e"/>
               <stop offset="100%" stop-color="#064e3b"/>
             </linearGradient>
+            <linearGradient id="sunbeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
           </defs>
-          <rect width="400" height="200" fill="url(#skyGradHD)"/>
-          <circle cx="280" cy="85" r="36" fill="#fde047" opacity="0.75"/>
-          <polygon points="280,85 180,0 220,0" fill="url(#sunGlowHD)"/>
-          <polygon points="280,85 260,0 300,0" fill="url(#sunGlowHD)"/>
-          <polygon points="280,85 340,0 380,0" fill="url(#sunGlowHD)"/>
-          <polygon points="280,85 400,20 400,60" fill="url(#sunGlowHD)"/>
           
-          <path d="M220 200 L295 65 L370 200 Z" fill="#6ee7b7" opacity="0.6"/>
-          <line x1="295" y1="65" x2="295" y2="48" stroke="#991b1b" stroke-width="2"/>
-          <polygon points="295,48 312,54 295,60" fill="#ef4444"/>
+          <rect width="400" height="180" fill="url(#skyGrad)"/>
+          
+          <circle cx="270" cy="72" r="50" fill="url(#sunGlow)"/>
+          <circle cx="270" cy="72" r="18" fill="#fef08a" opacity="0.9"/>
+          
+          <polygon points="270,72 160,0 210,0" fill="url(#sunbeamGrad)" opacity="0.4"/>
+          <polygon points="270,72 260,0 310,0" fill="url(#sunbeamGrad)" opacity="0.45"/>
+          <polygon points="270,72 360,0 400,0" fill="url(#sunbeamGrad)" opacity="0.4"/>
+          <polygon points="270,72 400,40 400,90" fill="url(#sunbeamGrad)" opacity="0.35"/>
+          <polygon points="270,72 70,0 120,0" fill="url(#sunbeamGrad)" opacity="0.25"/>
 
-          <path d="M0 140 Q110 100 220 135 T400 120 L400 200 L0 200 Z" fill="url(#hill3GradHD)"/>
-          <path d="M0 160 Q130 120 260 155 T400 145 L400 200 L0 200 Z" fill="url(#hill2GradHD)"/>
+          <!-- Summit with Red Flag -->
+          <path d="M190 180 Q255 45 285 50 Q315 55 380 180 Z" fill="url(#hillBack)"/>
+          <line x1="285" y1="50" x2="285" y2="30" stroke="#78350f" stroke-width="2" stroke-linecap="round"/>
+          <polygon points="285,30 305,37 285,44" fill="#ef4444"/>
           
-          <path d="M50 200 C80 180 130 170 170 155 C210 140 250 135 280 105 L295 65" fill="none" stroke="#fef08a" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="3,3"/>
+          <!-- Mid rolling hill -->
+          <path d="M0 125 Q90 85 190 115 Q290 145 400 100 L400 180 L0 180 Z" fill="url(#hillMid)"/>
           
-          <path d="M0 180 Q150 145 400 170 L400 200 L0 200 Z" fill="url(#hill1GradHD)"/>
-          <circle cx="85" cy="172" r="7" fill="#047857"/>
-          <circle cx="98" cy="175" r="5.5" fill="#065f46"/>
-          <circle cx="175" cy="162" r="6" fill="#047857"/>
-          <circle cx="345" cy="175" r="8" fill="#064e3b"/>
-          <circle cx="358" cy="178" r="6" fill="#047857"/>
+          <!-- Winding Path -->
+          <path d="M30 180 C70 160 110 150 150 135 C190 120 230 110 260 85 Q275 68 285 50" fill="none" stroke="#fef08a" stroke-width="4" stroke-linecap="round" stroke-dasharray="3,3" opacity="0.9"/>
+          
+          <!-- Foreground Hill -->
+          <path d="M0 150 Q120 115 240 145 Q320 165 400 130 L400 180 L0 180 Z" fill="url(#hillFront)"/>
+          
+          <!-- Pine trees -->
+          <path d="M55 145 L62 130 L69 145 Z M60 135 L62 124 L64 135 Z" fill="#064e3b"/>
+          <path d="M72 148 L78 135 L84 148 Z" fill="#047857"/>
+          <path d="M140 135 L146 120 L152 135 Z" fill="#064e3b"/>
+          <path d="M150 138 L155 126 L160 138 Z" fill="#047857"/>
+          <path d="M330 145 L338 128 L346 145 Z M335 133 L338 122 L341 133 Z" fill="#064e3b"/>
+          <path d="M348 150 L354 136 L360 150 Z" fill="#047857"/>
+          <path d="M362 153 L368 140 L374 153 Z" fill="#065f46"/>
         </svg>
       </div>
     </section>
 
     <!-- ── TRACK SWITCHER (2 TABS) ── -->
     <div class="track-switch-row">
-      <button class="track-btn active">
-        <span>Tư duy Chiến lược</span>
+      <button class="track-btn active" id="tabTrack1" onclick="switchTrack('c-ca-nhan')">
+        <span>Tài chính cá nhân</span>
         <span class="track-count-badge">2/265 bài</span>
       </button>
-      <button class="track-btn">
+      <button class="track-btn" id="tabTrack2" onclick="switchTrack('c-chuyen-nganh')">
         <span>Tài chính chuyên ngành</span>
         <span class="track-count-badge">1/525 bài</span>
       </button>
@@ -1635,7 +1656,7 @@
           <div class="drill-header-strip">
             <div class="drill-title-wrap">
               <div class="drill-book-sq">📖</div>
-              <h3 class="drill-heading-title">Thử thách Business Case mỗi ngày</h3>
+              <h3 class="drill-heading-title">Thử thách tài chính<br>mỗi ngày</h3>
             </div>
             <div class="drill-header-tools">
               <span style="color:#10b981; font-size:9px;">●</span>
@@ -1664,7 +1685,7 @@
             </button>
             <button class="drill-choice-card" onclick="selectChoice(this, 2)">
               <span class="drill-choice-letter">C</span>
-              <span>20%, chỉ tính khoản trả góp mới vì đó là nghĩa vụ vừa phát sinh thêm</span>
+              <span>20%, chỉ tính khoản trả góp mới vì đó là phần nghĩa vụ vừa phát sinh thêm</span>
             </button>
             <button class="drill-choice-card" onclick="selectChoice(this, 3)">
               <span class="drill-choice-letter">D</span>
@@ -1697,6 +1718,18 @@
         const isHidden = list.style.display === 'none';
         list.style.display = isHidden ? 'block' : 'none';
         if (chev) chev.textContent = isHidden ? '▲' : '▼';
+      }
+    }
+
+    function switchTrack(trackId) {
+      const btn1 = document.getElementById('tabTrack1');
+      const btn2 = document.getElementById('tabTrack2');
+      if (trackId === 'c-ca-nhan') {
+        btn1.classList.add('active');
+        btn2.classList.remove('active');
+      } else {
+        btn2.classList.add('active');
+        btn1.classList.remove('active');
       }
     }
 
