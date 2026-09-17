@@ -129,6 +129,23 @@ const ACT = {
     if(q.correct) toast(`Chính xác · <b>+${State.XP.quizFirstTry} XP</b>`);
     render(true);
   },
+  /* câu luyện thêm: cùng cách chấm như bài tính, lưu theo khoá d0, d1… */
+  checkDrill(id,i){
+    const C = lessonC(id); const d = C && (C.drills||[])[i]; if(!d) return;
+    const v = SCORING.parseNum((document.getElementById(`drill-${id}-${i}`)||{}).value);
+    if(isNaN(v)){ toast("Nhập một con số"); return; }
+    const ok = Math.abs(v-d.answer) <= d.tol;
+    const q = State.answerQuiz(id,"d"+i,ok);
+    if(q.value==null){ q.value = v; State.save(); }
+    if(!q.correct && !q.logged){
+      q.logged = true; State.save();
+      State.addMistake({kind:"calculation", ref:id, src:"Bài học · "+lessonTitle(id),
+        bad:`${d.q.replace(/\*/g,"")} → bạn trả lời ${viNum(v)} ${d.unit}`,
+        good:d.steps.join(" ").replace(/\*/g,""), why:d.hint||"Làm lại từng bước và kiểm tra đơn vị.", lesson:[id,""]});
+    }
+    if(q.correct) toast(`Chính xác · <b>+${State.XP.quizFirstTry} XP</b>`);
+    render(true);
+  },
 
   arenaRead(){
     const val = id => (document.getElementById(id)||{}).value || "";
@@ -206,6 +223,7 @@ const ACT = {
 
   ivStart(id){ IVIEW.start(id, Date.now()); toast("Bắt đầu phỏng vấn"); render(); },
   ivf(k,v){ IVF[k]=v; render(true); },
+  ivHint(id){ IVIEW.useHint(id); render(true); },
   ivRandom(){
     const todo = ivFiltered().filter(c=>ivState(c.id)==="todo");
     const pool = todo.length ? todo : ivCases().filter(c=>ivState(c.id)==="todo");
@@ -1199,7 +1217,8 @@ function vLesson(id){
   const chkN = C.checklist.filter((_,i)=>rec.chk[i]).length;
   const nextL = State.nextLessonAfter(l.id);
   const qScore = q => !q ? "—" : q.correct ? 100 : 0;
-  const qDone = [qb,qc].filter(Boolean).length;
+  const drills = C.drills||[], qd = drills.map((_,i)=>rec.quiz["d"+i]), qTotal = 2+drills.length;
+  const qDone = [qb,qc,...qd].filter(Boolean).length;
   const arena = C.arena && window.CASE_BY_ID[C.arena];
 
   const readerPrefs = State.getReaderPrefs();
@@ -1253,9 +1272,9 @@ function vLesson(id){
         </span>
         <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--muted)">
           <div style="width:50px;height:5px;background:#D1D5DB;border-radius:999px;overflow:hidden">
-            <div style="width:${done?100:qDone*50}%;height:100%;background:#6B7280;border-radius:999px"></div>
+            <div style="width:${done?100:Math.round(qDone/qTotal*100)}%;height:100%;background:#6B7280;border-radius:999px"></div>
           </div>
-          <span>${qDone}/2</span>
+          <span>${qDone}/${qTotal}</span>
         </div>
         <span class="tag" style="background:#F3F4F6;color:#374151;font-weight:800;font-size:11px;padding:4px 10px;border-radius:6px">CHẶNG ${mIdx+1} • BÀI ${lIdx+1}</span>
       </div>
@@ -1274,9 +1293,9 @@ function vLesson(id){
             <span class="dot-sep">•</span>
             <span>Mini case + bài tính</span>
             <span class="dot-sep">•</span>
-            <span style="color:${done?"var(--emerald)":"var(--muted)"};font-weight:700">${done?"Đã hoàn thành":`${qDone}/2 đã làm`}</span>
+            <span style="color:${done?"var(--emerald)":"var(--muted)"};font-weight:700">${done?"Đã hoàn thành":`${qDone}/${qTotal} đã làm`}</span>
           </div>
-          <div class="bar mb" style="height:4px;background:#E5E7EB">${bar(done?100:qDone*50, 'emerald')}</div>
+          <div class="bar mb" style="height:4px;background:#E5E7EB">${bar(done?100:Math.round(qDone/qTotal*100), 'emerald')}</div>
         </div>
 
         <!-- ĐIỀU KIỆN HOÀN THÀNH — lấy từ trạng thái thật của bài, không tick sẵn -->
@@ -1388,7 +1407,7 @@ function vLesson(id){
           <div class="quick-quiz-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
             <span class="quick-quiz-title" style="font-size:13px;font-weight:800;letter-spacing:.04em;color:#111827">KIỂM TRA NHANH</span>
             <div style="display:flex;align-items:center;gap:8px">
-              <span class="quick-quiz-count" style="font-size:11.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:#F3F4F6;color:#374151">${qDone}/2</span>
+              <span class="quick-quiz-count" style="font-size:11.5px;font-weight:800;padding:2px 8px;border-radius:6px;background:#F3F4F6;color:#374151">${qDone}/${qTotal}</span>
               <span style="font-size:12px;color:#9CA3AF;cursor:pointer">⌃</span>
             </div>
           </div>
@@ -1399,6 +1418,7 @@ function vLesson(id){
               : q.correct?`<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#D1FAE5;color:#059669">Đúng</span>`
               : `<span class="quiz-step-status" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#FEE2E2;color:#DC2626">Chưa đúng</span>`;
             const card=`background:#FFF;border:1.5px solid #E5E7EB;border-radius:12px;padding:16px`;
+            const steps=a=>a&&a.length?`<ol style="margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px">${a.map(x=>`<li>${rich(x)}</li>`).join("")}</ol>`:"";
             const opt=o=>{ const picked=qb&&qb.pick===o[0], right=o[0]===C.mini.correct, show=!!qb;
               const st= show&&right ? "border:1.5px solid #10B981;background:#ECFDF5;color:#065F46"
                       : show&&picked ? "border:1.5px solid #EF4444;background:#FEF2F2;color:#991B1B"
@@ -1411,11 +1431,12 @@ function vLesson(id){
             return `<div class="quiz-dash-bar" style="display:flex;gap:6px;margin-bottom:18px">
               <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:${dash(qb)}"></div>
               <div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:${dash(qc)}"></div>
+              ${qd.map(q=>`<div class="quiz-dash-item" style="height:6px;flex:1;border-radius:999px;background:${dash(q)}"></div>`).join("")}
             </div>
 
             <div class="quiz-step-card" style="${card};margin-bottom:12px">
               <div class="quiz-step-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-                <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU 1 / 2 · MINI CASE</span>${pill(qb)}
+                <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU 1 / ${qTotal} · MINI CASE</span>${pill(qb)}
               </div>
               <div class="quiz-step-q" style="font-size:14px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:14px">${rich(C.mini.q)}</div>
               <div class="quiz-step-options" style="display:flex;flex-direction:column;gap:8px">${C.mini.opts.map(opt).join("")}</div>
@@ -1423,12 +1444,12 @@ function vLesson(id){
 
             <div class="quiz-step-card" style="${card}">
               <div class="quiz-step-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-                <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU 2 / 2 · BÀI TÍNH</span>${pill(qc)}
+                <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU 2 / ${qTotal} · BÀI TÍNH</span>${pill(qc)}
               </div>
               <div class="quiz-step-q" style="font-size:14px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:12px">${rich(C.calc.q)}</div>
               ${qc
                 ? `<div class="small" style="margin-bottom:8px;color:#4B5563">Bạn trả lời: <b>${qc.value!=null?viNum(qc.value):"—"}</b> ${esc(C.calc.unit)}</div>
-                   <div class="callout ${qc.correct?"ok":"warn"}" style="padding:10px 12px;font-size:12.5px"><b>Lời giải:</b> ${rich(C.calc.solution)}</div>`
+                   <div class="callout ${qc.correct?"ok":"warn"}" style="padding:10px 12px;font-size:12.5px"><b>Lời giải:</b> ${rich(C.calc.solution)}${steps(C.calc.steps)}</div>`
                 : `<div style="display:flex;gap:8px;align-items:center">
                      <input class="calc" id="calc-${l.id}" inputmode="decimal" placeholder="Nhập con số" style="flex:1;min-width:0"
                        onkeydown="if(event.key==='Enter')ACT.checkCalc('${l.id}')">
@@ -1436,7 +1457,23 @@ function vLesson(id){
                      <button class="btn btn-sm btn-p" onclick="ACT.checkCalc('${l.id}')">Kiểm tra</button>
                    </div>
                    ${C.calc.hint?`<div class="small muted" style="margin-top:8px">Gợi ý: ${rich(C.calc.hint)}</div>`:""}`}
-            </div>`; })()}
+            </div>
+            ${drills.map((d,i)=>{ const q=qd[i]; return `<div class="quiz-step-card" style="${card};margin-top:12px">
+              <div class="quiz-step-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <span class="quiz-step-num" style="font-size:12px;font-weight:800;color:#6B7280">CÂU ${i+3} / ${qTotal} · LUYỆN THÊM</span>${pill(q)}
+              </div>
+              <div class="quiz-step-q" style="font-size:14px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:12px">${rich(d.q)}</div>
+              ${q
+                ? `<div class="small" style="margin-bottom:8px;color:#4B5563">Bạn trả lời: <b>${q.value!=null?viNum(q.value):"—"}</b> ${esc(d.unit)}</div>
+                   <div class="callout ${q.correct?"ok":"warn"}" style="padding:10px 12px;font-size:12.5px"><b>Lời giải từng bước</b>${steps(d.steps)}</div>`
+                : `<div style="display:flex;gap:8px;align-items:center">
+                     <input class="calc" id="drill-${l.id}-${i}" inputmode="decimal" placeholder="Nhập con số" style="flex:1;min-width:0"
+                       onkeydown="if(event.key==='Enter')ACT.checkDrill('${l.id}',${i})">
+                     <span class="small muted">${esc(d.unit)}</span>
+                     <button class="btn btn-sm btn-p" onclick="ACT.checkDrill('${l.id}',${i})">Kiểm tra</button>
+                   </div>
+                   ${d.hint?`<div class="small muted" style="margin-top:8px">Gợi ý: ${rich(d.hint)}</div>`:""}`}
+            </div>`; }).join("")}`; })()}
 
           <!-- Action buttons -->
           <div style="margin-top:16px">
@@ -1793,7 +1830,74 @@ function vCareerDetail(id){
         <div class="callout ok mt"><b>Tốt nghiệp khi:</b> ${esc(c.gate)}</div>
       </div>
     </div>
-  </div></div>`;
+  </div>
+  ${careerDetailMore(c)}
+  </div>`;
+}
+
+/* phần chi tiết thêm: tuần làm việc, thăng tiến, tuyển dụng, case, lỗi hay mắc, độ phù hợp */
+function careerDetailMore(c){
+  if(!c.week) return "";
+  const li = arr => arr.map(x=>`<li style="margin:0 0 8px">${esc(x)}</li>`).join("");
+  const related = window.CASES.filter(k=>c.types.includes(k.type))
+    .sort((a,b)=>c.types.indexOf(a.type)-c.types.indexOf(b.type) || a.diff-b.diff)
+    .filter((k,i,arr)=>arr.findIndex(x=>x.type===k.type)===i).slice(0,3);
+  const href = k => k.mode==="interview" ? `#/interview/${k.id}` : k.mode==="competition" ? `#/competition/${k.id}` : `#/arena/${k.id}`;
+  return `
+  <div class="grid g2 mt">
+    <div class="card">
+      <div class="card-h"><h3>Một tuần điển hình</h3></div>
+      <div class="card-b" style="padding-top:6px"><ul style="margin:0;padding-left:18px">${li(c.week)}</ul></div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>Lộ trình thăng tiến</h3></div>
+      <div class="card-b" style="padding-top:6px">
+        ${c.ladder.map((l,i)=>`<div class="row" style="gap:12px;align-items:flex-start;margin-bottom:12px">
+          <span class="tile t-${c.color}" style="flex:none">${i+1}</span>
+          <div style="flex:1"><div class="row" style="justify-content:space-between;gap:8px">
+            <b>${esc(l.t)}</b><span class="tag num">${esc(l.y)}</span></div>
+            <div class="small muted" style="margin-top:3px">${esc(l.d)}</div></div>
+        </div>`).join("")}
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt">
+    <div class="card-h"><h3>Quy trình tuyển dụng</h3></div>
+    <div class="card-b" style="padding-top:6px">
+      <div class="grid g4">
+        ${c.hiring.map((h,i)=>`<div><div class="lbl"><span>Vòng</span> ${i+1}</div>
+          <div style="font-weight:600;margin:4px 0">${esc(h.t)}</div>
+          <div class="small muted">${esc(h.d)}</div></div>`).join("")}
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt">
+    <div class="card-h"><h3>Câu hỏi case hay gặp</h3></div>
+    <div class="card-b" style="padding-top:6px">
+      ${c.cases.map((k,i)=>`<details style="border-top:${i?"1px solid var(--border)":"0"};padding:10px 0">
+        <summary style="cursor:pointer;font-weight:600">${esc(k.q)}</summary>
+        <div class="callout tip" style="margin:10px 0 0"><b>Nước đi đầu tiên</b><div>${esc(k.move)}</div></div>
+      </details>`).join("")}
+      <div class="divider"></div>
+      <div class="lbl mb">Luyện với case trong thư viện</div>
+      ${related.length ? `<div class="wrap-row">${related.map(k=>`<a class="btn btn-sm" href="${href(k)}"><span class="tag tag-accent">${esc(k.type)}</span> ${esc(k.t)} →</a>`).join("")}</div>`
+        : `<div class="small muted">Chưa có case cùng dạng trong thư viện.</div>`}
+    </div>
+  </div>
+
+  <div class="grid g2 mt">
+    <div class="card">
+      <div class="card-h"><h3>Hợp với bạn nếu</h3></div>
+      <div class="card-b" style="padding-top:6px"><ul style="margin:0;padding-left:18px">${li(c.fit.yes)}</ul>
+        <div class="lbl mb mt">Cân nhắc lại nếu</div><ul style="margin:0;padding-left:18px">${li(c.fit.no)}</ul></div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>Lỗi ứng viên hay mắc</h3></div>
+      <div class="card-b" style="padding-top:6px">${c.pitfalls.map(p=>`<div class="callout warn" style="margin:0 0 8px">${esc(p)}</div>`).join("")}</div>
+    </div>
+  </div>`;
 }
 
 /* ════════ 7. CASE COMPETITION SIMULATOR ════════ */
@@ -2048,14 +2152,18 @@ function vInterview(id){
   </div></div></div>`;
 }
 
-/* ghi nhận một vòng đã trả lời: điểm, còn thiếu gì, câu mẫu để so */
-function ivNote(r, ans){
-  const d = IVIEW.diagnose(r, ans), sc = IVIEW.scoreRound(r, ans);
+/* ghi nhận một vòng đã trả lời: điểm, còn thiếu gì, 3 ý của câu trả lời tốt, bẫy, câu mẫu */
+function ivNote(id, i, r, ans){
+  const d = IVIEW.diagnose(r, ans), sc = IVIEW.scoreRound(r, ans), det = IVIEW.detail(id, i);
   const miss = [];
   if(!d.kw) miss.push(`<span>ý then chốt</span> (${esc(r.kw.slice(0,3).join(", "))})`);
   if(d.num===false) miss.push(`<span>con số then chốt</span>`);
+  const got = IVIEW.checkPoints(id, i, ans);
   return `<span class="note"><b>Ghi nhận (${sc}/100):</b> ${esc(r.note)}
     ${miss.length?`<span class="iv-miss"><b>Còn thiếu:</b> ${miss.join(" · ")}</span>`:""}
+    ${det?`<span class="iv-check"><b>Câu trả lời tốt có</b><span class="c num">${got.filter(Boolean).length}/${det.points.length}</span></span>
+      <ul class="iv-points">${det.points.map((p,k)=>`<li class="${got[k]?"ok":""}"><i aria-hidden="true">${got[k]?"✓":"○"}</i><span>${esc(p[0])}</span></li>`).join("")}</ul>
+      <span class="iv-trap"><b>Bẫy thường gặp:</b> ${esc(det.trap)}</span>`:""}
     <details class="iv-model"><summary>Câu mẫu vòng này</summary><div>${esc(r.model)}</div></details></span>`;
 }
 
@@ -2111,13 +2219,16 @@ function vIvRoom(id){
     const ans=(sess.answers||[])[i];
     return `<div class="msg q"><span class="av">PV</span><div class="bb"><div class="who">Người phỏng vấn · vòng ${i+1}</div>${esc(r.q)}</div></div>
       ${ans!=null?`<div class="msg a"><span class="av">BẠN</span><div class="bb"><div class="who">Bạn</div>${esc(ans)}
-        ${ivNote(r,ans)}</div></div>`:""}`;
+        ${ivNote(id,i,r,ans)}</div></div>`:""}`;
   }).join("");
 
   const form = rd<5 ? `<div class="canvas-field mt">
       <label class="lbl" for="iv-ans">Câu trả lời của bạn — vòng ${rd+1} · ${esc(IVIEW.ROUNDS[rd].n)}</label>
+      ${(()=>{ const det=IVIEW.detail(id,rd), open=sess.hints&&sess.hints[rd];
+        return det&&open?`<div class="callout iv-hint"><b>Gợi ý:</b> ${esc(det.hint)}</div>`:""; })()}
       <textarea id="iv-ans" rows="3" placeholder="${rd===2||rd===3?"Nói cả phép tính và con số…":"Nói thành lời như đang ngồi trước người phỏng vấn…"}"></textarea>
       <div class="row mt-s"><button class="btn btn-p" onclick="ACT.ivAnswer('${id}')">Trả lời</button>
+        ${IVIEW.detail(id,rd)&&!(sess.hints&&sess.hints[rd])?`<button class="btn btn-gh" onclick="ACT.ivHint('${id}')">Gợi ý</button>`:""}
         <button class="btn btn-gh" onclick="ACT.ivModel('${id}')">Câu mẫu</button>
         <span class="small muted" style="margin-left:auto">Nói to trước rồi mới gõ lại</span></div>
     </div>` : "";
@@ -2129,6 +2240,7 @@ function vIvRoom(id){
         ${R.dims.map(([n,v])=>`<div class="rubric-row"><span class="nm">${esc(n)}</span>${bar(v, v>=80?"":v>=50?"amber":"rose")}<span class="sc num">${v}</span></div>`).join("")}
         <div class="callout ${R.total>=80?"ok":""} mt" style="padding:10px 12px;font-size:12.5px"><b>Nhận xét:</b> ${esc(R.feedback)}</div>
         ${sess.last?`<p class="small muted" style="margin:8px 0 0">Thời gian: <b class="num">${fmtClock(sess.last-sess.start)}</b> · gợi ý ${c.min} phút</p>`:""}
+        ${(sess.hints||[]).filter(Boolean).length?`<p class="small muted" style="margin:4px 0 0">Dùng gợi ý ở ${(sess.hints||[]).filter(Boolean).length} vòng</p>`:""}
         <p class="small muted" style="margin:8px 0 0">${R.recorded?`Đã ghi vào tiến độ${R.gain?` · +${R.gain} XP`:""}${R.mistakes?` · ${R.mistakes} lỗi vào <a href="#/review">Mistake Review</a>`:""}.`:"Phiên dùng câu mẫu — chỉ để xem cách chấm, không ghi điểm."}</p>
       </div>
       <div class="card-f row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><a class="btn btn-sm btn-gh" href="#/interview">← Danh sách case</a>

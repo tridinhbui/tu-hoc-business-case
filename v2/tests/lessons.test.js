@@ -93,6 +93,25 @@ const RECOMPUTE = {
   "f-pricing-8": ()=> ((800000-16*18000) - 16*(49000-18000))/1000,
   "f-pricing-9": ()=> (1 - (43000-18000)/(49000-18000))*100,
   "f-unit-1": ()=> 0.2*150000 + 15000 - 25000 - 8000 - 0.02*150000,
+  /* f-unit-4…9 · Giao Nhanh: doanh thu 45.000đ/đơn, chi phí biến đổi 36.000đ, 5 triệu đơn, cố định 85 tỷ; gói Plus lãi góp 20.000đ/tháng */
+  "f-unit-4": ()=> 85e9/(45000-36000)/1e6,
+  "f-unit-4#1": ()=> 85e9/(45000-(25000+4000+3000))/1e6,
+  "f-unit-4#2": ()=> 85e9/5e6,
+  "f-unit-5": ()=> 45000 - (60000/2 + 8000 + 3000),
+  "f-unit-5#1": ()=> 45000 - (60000/2.5 + 8000 + 3000),
+  "f-unit-5#2": ()=> (5e6*0.9*(9000+0.02*150000) - 5e6*9000)/1e9,
+  "f-unit-6": ()=> (55000+3*15000)/(0.5*2*17000),
+  "f-unit-6#1": ()=> (55000+3*15000)/(0.3*2*17000),
+  "f-unit-6#2": ()=> 8000/(9000+8000)*100,
+  "f-unit-7": ()=> (10000*[1,.7,.6,.55,.52,.5].reduce((a,b)=>a+b)*20000 - 10000*60000)/1e6,
+  "f-unit-7#1": ()=> (10000*[1,.5,.35,.3,.28,.27].reduce((a,b)=>a+b)*20000 - 10000*40000)/1e6,
+  "f-unit-7#2": ()=> { let cum=0; const r=[1,.7,.6,.55,.52,.5]; for(let m=0;m<r.length;m++){ cum+=10000*r[m]*20000; if(cum>=600e6) return m; } },
+  "f-unit-8": ()=> (20000/0.05 - 20000/0.08)/(20000/0.05)*100,
+  "f-unit-8#1": ()=> (20000/0.08)/60000,
+  "f-unit-8#2": ()=> 400000*0.08,
+  "f-unit-9": ()=> 85e9/1e9 - (5e6*0.9*13000 + 20000*20000*12)/1e9,
+  "f-unit-9#1": ()=> (85e9 - (4.5e6*13000 + 20000*20000*12))/13000/1e6,
+  "f-unit-9#2": ()=> (75e9 - (4.5e6*13000 + 20000*20000*12))/13000/1e6,
   "f-unit-2": ()=> (150000*0.7/0.05)/(600e6/1000),
   "f-unit-3": ()=> (600e6/1000)/(150000*0.7),
   "f-segment-1": ()=> 2500*700/(4000*500 + 2500*700 + 3500*400)*100,
@@ -254,6 +273,26 @@ const SIDE = [
       assert.equal(Math.round(620e6/36000/10)*10,17220); assert.equal(3*20000*3000/1e6,180); assert.equal(Math.round((500/450-1)*100),11);
       assert.equal(3000*98000/1e6,294); assert.equal(Math.round(98000/3/100)*100,32700); assert.equal(Math.round(6*500000/16000),188);
       assert.equal(Math.round(500e6/31000/10)*10,16130); }],
+  /* Giao Nhanh · f-unit-4…9 */
+  ["f-unit-4 · 5 triệu × 9.000 = 45 tỷ, lỗ 40; gấp đôi đơn lãi 5 tỷ; bỏ khuyến mãi hoà vốn ở 5 triệu đơn", ()=>{
+      assert.equal(5e6*9000/1e9,45); assert.equal(45-85,-40); assert.equal(10e6*9000/1e9-85,5); assert.equal(5e6*17000/1e9,85);
+      assert.equal(25000+8000+3000,36000); assert.equal(0.2*150000+15000,45000); }],
+  ["f-unit-5 · 50.000 → 60.000đ/giờ; 2,5 × 24.000 = 60.000", ()=>{ assert.equal(2*25000,50000); assert.equal(2*30000,60000); assert.equal(2.5*24000,60000); assert.equal(4.5e6*12000/1e9,54); }],
+  ["f-unit-6 · chi phí có khách 100.000đ; khách ở lại 34.000đ/tháng", ()=>{ assert.equal(55000+3*15000,100000); assert.equal(2*17000,34000); assert.equal(0.3*2*17000,10200); }],
+  ["f-unit-7 · tổng tỷ lệ 3,87 và 2,7; cộng dồn 200 · 340 · 460 · 570 · 674 triệu", ()=>{
+      const r=[1,.7,.6,.55,.52,.5]; assert.equal(Math.round(r.reduce((a,b)=>a+b)*100)/100,3.87);
+      let c=0; assert.deepEqual(r.map(x=>Math.round(c+=10000*x*20000/1e6)).slice(0,5),[200,340,460,570,674]);
+      assert.equal(Math.round([1,.5,.35,.3,.28,.27].reduce((a,b)=>a+b)*100)/100,2.7); assert.equal(Math.round((1-40/60)*100),33); }],
+  ["f-unit-8 · vòng đời 20 và 12,5 tháng; LTV/CAC 6,7 → 4,2; mất 1,5 tỷ mỗi lứa 10.000", ()=>{
+      assert.equal(1/0.05,20); assert.equal(1/0.08,12.5); assert.equal(Math.round(400000/60000*10)/10,6.7); assert.equal(Math.round(250000/60000*10)/10,4.2);
+      assert.equal((400000-250000)*10000/1e9,1.5); assert.equal(Math.round((0.08/0.05-1)*100),60); }],
+  ["f-unit-9 · lãi góp 58,5 + 4,8 = 63,3; thác nước −40 +13,5 +4,8 +10 +11,7 = 0; tổng 6,17 và 5,4 triệu đơn", ()=>{
+      assert.equal(4.5e6*13000/1e9,58.5); assert.equal(20000*20000*12/1e9,4.8); assert.ok(Math.abs(-40+13.5+4.8+10+11.7)<1e-9);
+      assert.equal(Math.round((4.5+21.7e9/13000/1e6)*100)/100,6.17); assert.equal(Math.round((4.5+0.9)/5*100),108); }],
+  ["f-unit bài đọc 4–9 · 4.500đ cần ≈ 19 triệu đơn; cố định 100 tỷ lỗ 10; kênh A hơn B 34 triệu; rời bỏ 12% → 167 nghìn, 2,8 lần; tăng 23% đơn; mất 20% đơn thiếu thêm 6,5 tỷ", ()=>{
+      assert.equal(Math.round(85e9/4500/1e6),19); assert.equal(10e6*9000/1e9-100,-10); assert.equal(174-140,34);
+      assert.equal(Math.round(20000/0.12/1000),167); assert.equal(Math.round(20000/0.12/60000*10)/10,2.8); assert.equal(49000+12000,61000);
+      assert.equal(Math.round((6.17/5-1)*100),23); assert.equal(4e6*13000/1e9,52); assert.equal(58.5-52,6.5); }],
   ["i-profit-1 · phần riêng của hãng ≈ 83% mức giảm", ()=> assert.equal(Math.round(12.5/15*100),83)],
   ["i-profit-2 · số liệu hãng xe khớp bài trước", ()=>{ assert.equal(5e6*100000/1e9,500); assert.equal(4e6*130000/1e9,520);
       assert.equal(520-485,35); assert.equal((4e6-5e6)*100000/1e9,-100); }],
@@ -348,6 +387,21 @@ for(const id of Object.keys(C)){
     const got = f(), c = C[id].calc;
     assert.ok(Math.abs(got-c.answer) <= c.tol, `tính lại ra ${got}, đáp án ghi ${c.answer} ±${c.tol}`);
     assert.ok(c.solution.includes(vi(c.answer)), `lời giải không chứa đáp án "${vi(c.answer)}"`);
+  });
+}
+/* câu luyện thêm: mỗi câu có phép tính lại riêng, khoá "<id>#<số thứ tự>"; lời giải từng bước phải kết thúc bằng đáp án */
+for(const [id,c] of Object.entries(C)){
+  (c.drills||[]).forEach((d,i)=>{
+    const key=`${id}#${i+1}`;
+    t(`${key} · ${d.answer} ${d.unit}`,()=>{
+      const f=RECOMPUTE[key]; assert.ok(f,"thiếu phép tính lại cho "+key);
+      const got=f(); assert.ok(Math.abs(got-d.answer)<=d.tol, `tính lại ra ${got}, đáp án ghi ${d.answer} ±${d.tol}`);
+      assert.ok(d.q && d.unit && d.tol>=0 && Array.isArray(d.steps) && d.steps.length>=3, key+" cần câu hỏi, đơn vị, dung sai và ít nhất 3 bước");
+      assert.ok(d.steps[d.steps.length-1].includes(vi(d.answer)), `bước cuối không chứa đáp án "${vi(d.answer)}"`);
+    });
+  });
+  if(c.calc.steps) t(`${id} · lời giải bài tính có ${c.calc.steps.length} bước`,()=>{
+    assert.ok(c.calc.steps.length>=3); assert.ok(c.calc.steps[c.calc.steps.length-1].includes(vi(c.calc.answer)),"bước cuối không chứa đáp án");
   });
 }
 SIDE.forEach(([name,fn])=>t(name,fn));

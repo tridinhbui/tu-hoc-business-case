@@ -579,7 +579,7 @@ const CFG = {
        note:"Chia 60 phút cho thời gian công đoạn chậm nhất, không lấy trung bình các công đoạn."},
       {q:"Vậy nhà máy đang mất bao nhiêu phần trăm sản lượng, và các công đoạn khác thì sao?",
        kw:["cân bằng chuyền","công đoạn chậm nhất","chờ"], num:28, tol:0.5,
-       model:"343 áo thực tế so với 480 kế hoạch là hụt 28%; các công đoạn khác đều dưới 1 phút nên họ đang chờ chứ không thiếu người — đây là bài toán cân bằng chuyền quanh công đoạn chậm nhất.",
+       model:"344 áo thực tế so với 480 kế hoạch là hụt 28%; các công đoạn khác đều dưới 1 phút nên họ đang chờ chứ không thiếu người — đây là bài toán cân bằng chuyền quanh công đoạn chậm nhất.",
        note:"Chỉ công đoạn vượt nhịp mới là nghẽn, phần còn lại chỉ đang chờ."},
       {q:"Khuyến nghị của bạn?",
        kw:["dồn nguồn lực","thêm máy","tra tay"], num:null,
@@ -794,6 +794,15 @@ function diagnose(cfgR, text){
            num: cfgR.num == null ? null : SCORING.mentionsNumber(t, cfgR.num, cfgR.tol) };
 }
 
+/* chi tiết từng vòng (data/interview-detail.js): gợi ý, 3 ý của câu trả lời tốt, bẫy thường gặp */
+const detail = (caseId, i) => ((window.IV_DETAIL||{})[caseId]||[])[i] || null;
+function checkPoints(caseId, i, text){
+  const d = detail(caseId, i), t = String(text||"");
+  if(!d) return [];
+  return d.points.map(p => !t.trim() ? false
+    : Array.isArray(p[1]) ? has(t, ...p[1]) : SCORING.mentionsNumber(t, p[1], p[2]));
+}
+
 const FEEDBACK = {
   Clarify:"Nhắc lại đề trong một câu rồi hỏi 2–3 câu làm rõ về mục tiêu và phạm vi.",
   Structure:"Cấu trúc thiếu nhánh quan trọng của loại case này — xem lại khung ở bài học gợi ý.",
@@ -852,7 +861,12 @@ function answer(id, text, now){
   State.save(); return sess;
 }
 function reset(id){ delete store()[id]; State.save(); }
+function useHint(id){
+  const sess = get(id), i = roundOf(sess);
+  if(i < 0 || i > 4) return;
+  (sess.hints || (sess.hints = []))[i] = true; State.save();
+}
 function markModel(id){ const s = get(id); if(s){ s.usedModel = true; State.save(); } }
 
-window.IVIEW = { CFG, ROUNDS, score, scoreRound, diagnose, exhibitRounds, get, roundOf, start, answer, reset, markModel };
+window.IVIEW = { CFG, ROUNDS, score, scoreRound, diagnose, exhibitRounds, detail, checkPoints, get, roundOf, start, answer, reset, markModel, useHint };
 })();

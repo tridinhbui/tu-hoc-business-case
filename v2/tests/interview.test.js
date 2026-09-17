@@ -7,7 +7,7 @@ ctx.window.localStorage=ctx.localStorage;
 const dir=__dirname+"/../assets/js/";
 [ "data/curriculum","data/careers","data/library","state","scoring",
   ...fs.readdirSync(dir+"data").filter(x=>/^arena\d*\.js$/.test(x)).map(x=>"data/"+x.replace(/\.js$/,"")),
-  "interview" ].forEach(f=>vm.runInContext(fs.readFileSync(dir+f+".js","utf8"),ctx,{filename:f}));
+  "data/interview-detail","interview" ].forEach(f=>vm.runInContext(fs.readFileSync(dir+f+".js","utf8"),ctx,{filename:f}));
 vm.runInContext("var SCORING=window.SCORING, State=window.State;",ctx);
 const W=ctx.window, I=W.IVIEW, S=W.State;
 let n=0; const t=(name,fn)=>{ fn(); n++; console.log("  ✓",name); };
@@ -99,5 +99,25 @@ t("chẩn đoán khớp với điểm vòng: thiếu ý, thiếu số, bỏ tr�
     const sc=I.scoreRound(r,r.model.replace(/\d/g,""));
     if(r.num!=null){ assert.equal(I.diagnose(r,r.model.replace(/\d/g,"")).num,false); assert.equal(sc,50); }
   }));
+});
+console.log("\nChi tiết từng vòng: gợi ý · 3 ý câu trả lời tốt · bẫy");
+t(`${ivs.length} case × 5 vòng đều có gợi ý, 3 ý và bẫy; gợi ý không lộ con số`,()=>{
+  ivs.forEach(c=>{ const D=W.IV_DETAIL[c.id]; assert.ok(D && D.length===5, "thiếu chi tiết "+c.id);
+    D.forEach((d,i)=>{ const at=`${c.id} vòng ${i+1}`;
+      assert.ok(d.hint && d.trap, at); assert.equal(d.points.length,3,at);
+      assert.ok(!/\d/.test(d.hint.replace(/Exhibit \d(?:\s*[–-]\s*\d)?/g,"")), at+": gợi ý chứa con số");
+      d.points.forEach(p=>assert.ok(typeof p[0]==="string" && (Array.isArray(p[1]) ? p[1].length>0 : typeof p[1]==="number"), at)); }); });
+});
+t("câu mẫu đạt đủ 3 ý ở mọi vòng; bỏ trống không đạt ý nào; bỏ số thì mất ý dạng con số",()=>{
+  ivs.forEach(c=>I.CFG[c.id].rounds.forEach((r,i)=>{ const at=`${c.id} vòng ${i+1}`;
+    assert.deepEqual(I.checkPoints(c.id,i,r.model),[true,true,true],at);
+    assert.deepEqual(I.checkPoints(c.id,i,""),[false,false,false],at);
+    const noNum=I.checkPoints(c.id,i,r.model.replace(/\d/g,""));
+    W.IV_DETAIL[c.id][i].points.forEach((p,k)=>{ if(!Array.isArray(p[1])) assert.equal(noNum[k],false,at+" ý "+(k+1)); });
+  }));
+});
+t("dùng gợi ý được ghi theo vòng và giữ qua localStorage",()=>{
+  S.reset(); I.start("iv-03",0); I.useHint("iv-03"); I.answer("iv-03",I.CFG["iv-03"].rounds[0].model,1); I.useHint("iv-03");
+  S._reload(); assert.deepEqual(I.get("iv-03").hints,[true,true]); I.reset("iv-03");
 });
 console.log(`\n${n} test đạt`);

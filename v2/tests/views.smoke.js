@@ -9,7 +9,7 @@ ctx.window=ctx;
 for(const f of ["data/curriculum","data/careers","data/library","data/lessons/_registry",
   ...fs.readdirSync(__dirname+"/../assets/js/data/lessons").filter(x=>!x.startsWith("_")).map(x=>"data/lessons/"+x.replace(/\.js$/,"")),
   "state","scoring",
-  ...fs.readdirSync(__dirname+"/../assets/js/data").filter(x=>/^arena\d*\.js$/.test(x)).map(x=>"data/"+x.replace(/\.js$/,"")),"competition","interview","app"])
+  ...fs.readdirSync(__dirname+"/../assets/js/data").filter(x=>/^arena\d*\.js$/.test(x)).map(x=>"data/"+x.replace(/\.js$/,"")),"competition","data/interview-detail","interview","app"])
   vm.runInContext(fs.readFileSync(__dirname+"/../assets/js/"+f+".js","utf8"),ctx,{filename:f+".js"});
 const run = src => vm.runInContext(src, ctx);
 let n=0;

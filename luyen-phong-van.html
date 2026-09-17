@@ -609,7 +609,29 @@
       background: #064e3b;
       border-color: #064e3b;
       color: #ffffff;
+      position: relative;
     }
+    .role-card.main-all::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 6px;
+      height: 6px;
+      border-top: 1.5px solid #a7f3d0;
+      border-left: 1.5px solid #a7f3d0;
+    }
+    .role-card.main-all::after {
+      content: "";
+      position: absolute;
+      bottom: 3px;
+      right: 3px;
+      width: 6px;
+      height: 6px;
+      border-bottom: 1.5px solid #a7f3d0;
+      border-right: 1.5px solid #a7f3d0;
+    }
+
 
     .role-card.selected .role-title {
       color: #ffffff;
@@ -862,6 +884,51 @@
     }
 
     /* Widget 1: Tiến độ */
+
+    .center-level-wrap {
+      text-align: center;
+      padding: 6px 0 10px;
+    }
+    .level-circle-badge {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      background: #064e3b;
+      color: #ffffff;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.25);
+      margin-bottom: 6px;
+    }
+    .level-circle-badge .lv-text {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .level-circle-badge .lv-arrow {
+      font-size: 12px;
+      line-height: 1;
+      color: #a7f3d0;
+    }
+    .xp-sub-text {
+      font-size: 11px;
+      font-weight: 800;
+      color: #1e293b;
+    }
+    .compass-icon-box {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #fef8eb;
+      border: 1.5px solid #fde68a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
     .progress-level-row {
       display: flex;
       align-items: center;
@@ -1311,15 +1378,6 @@
         <span>👥 CỘNG ĐỒNG</span>
         <span class="chevron">▼</span>
       </div>
-      <a href="index.html#/models" class="nav-item">
-        <span class="icon">🏛️</span>
-        <span>Thư viện</span>
-      </a>
-      <a href="hoc-nhom.html" class="nav-item">
-        <span class="icon">🤝</span>
-        <span>Học nhóm</span>
-        <span class="nav-tag tag-checkin">CHECK-IN</span>
-      </a>
       <a href="thong-ke.html" class="nav-item">
         <span class="icon">📊</span>
         <span>Thống kê</span>
@@ -1597,16 +1655,17 @@
         <div class="stat-widget-card">
           <div class="widget-header-row">
             <span class="widget-title">TIẾN ĐỘ CỦA BẠN</span>
-            <span style="font-size:16px">🧭</span>
+            <div class="compass-icon-box">🧭</div>
           </div>
 
-          <div class="progress-level-row">
-            <div class="level-badge-box">LV. 2 →</div>
-            <div style="flex:1">
-              <div class="xp-status-text">1.119 / 2.000 XP</div>
-              <div class="widget-progress-track">
-                <div class="widget-progress-fill"></div>
-              </div>
+          <div class="center-level-wrap">
+            <div class="level-circle-badge">
+              <span class="lv-text">LV.2</span>
+              <span class="lv-arrow">→</span>
+            </div>
+            <div class="xp-sub-text">1.119 / 2.000 XP</div>
+            <div class="widget-progress-track" style="max-width: 140px; margin: 6px auto 0;">
+              <div class="widget-progress-fill" style="width: 56%;"></div>
             </div>
           </div>
 

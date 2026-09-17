@@ -1,0 +1,118 @@
+{
+"k-profit-1": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** chữ \"mở rộng\" là từ khoá quen của họ Tăng trưởng. **Vì sao sai:** mở thêm khi chưa biết vì sao 300 cửa hàng hiện tại lỗ là nhân bản đúng thứ đang gây lỗ. **Tín hiệu bị bỏ qua:** \"chưa bao giờ có lãi\" là một biến động đã đo được — dấu hiệu số một của họ Lợi nhuận.",
+    "B": "**Vì sao dễ chọn:** \"có nên\" đúng là dấu hiệu của họ Gia nhập & Đầu tư. **Vì sao chưa đủ:** quyết định đó cần kinh tế một cửa hàng làm đầu vào, mà thứ này chỉ có sau khi chẩn đoán. **Cách sửa:** giữ nhận định họ 3, nhưng xếp nó thành bước hai.",
+    "C": "**Đúng.** Đề ghép hai họ và thứ tự không đảo được: chẩn đoán (họ 1) tạo ra kinh tế một cửa hàng, đó chính là đầu vào của quyết định mở rộng (họ 3). **Câu nói mẫu:** \"Tôi tách làm hai phần — trước hết tìm vì sao cửa hàng hiện tại chưa có lãi, rồi dùng kết quả đó để trả lời có nên mở thêm.\"",
+    "D": "**Vì sao dễ chọn:** mở rộng thường gợi tới quy mô thị trường. **Vì sao sai:** cửa hàng lỗ trong một thị trường lớn vẫn lỗ; quy mô không giải thích được P&L của cửa hàng đang chạy. **Khi nào mới cần:** sau khi đã sửa được kinh tế một cửa hàng và cần tính trần số cửa hàng có thể mở."
+  },
+  "solution": "**Bước 1 · Đặt mốc.** Lấy doanh thu năm trước bằng 100 để khỏi cần số tuyệt đối. **Bước 2 · Lợi nhuận hai kỳ.** Năm trước: 100 × 16% = 16. Năm nay: doanh thu 118, lợi nhuận 118 × 9% = 10,62. **Bước 3 · Mức giảm.** (16 − 10,62) ÷ 16 = 5,38 ÷ 16 = **33,6%**. **Kiểm tra nhanh.** Biên còn 9/16 ≈ 0,56 lần, doanh thu gấp 1,18 lần → lợi nhuận còn ≈ 0,66 lần, tức mất khoảng một phần ba. Khớp. **Ý nghĩa.** Câu mở đầu nên là: doanh thu tăng gần một phần năm mà lợi nhuận mất một phần ba — đây là case chẩn đoán."
+},
+"k-profit-2": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** phần mềm có chi phí lớn nằm ở bán hàng và phát triển. **Vì sao sai:** câu hỏi là vì sao doanh thu đi ngang, mà chi phí không giải thích được doanh thu. **Tín hiệu bị bỏ qua:** \"khách ký mới năm nào cũng tăng\" — đầu vào tăng mà đầu ra đứng yên nghĩa là có rò ở giữa.",
+    "B": "**Đúng.** Doanh thu thuê bao là tổng các lớp khách còn lại sau rời bỏ. Khách mới tăng mà tổng đi ngang nghĩa là các lớp cũ rơi rụng đúng bằng phần thêm vào — chỉ cây theo cohort mới lộ ra. **Bước tiếp theo:** xin tỷ lệ còn lại theo năm ký của từng cohort.",
+    "C": "**Vì sao dễ chọn:** tách theo vùng là phản xạ quen khi thấy một tổng số. **Vì sao sai ở tầng này:** vùng không phải cơ chế tạo ra doanh thu thuê bao. **Khi nào hữu ích:** ở tầng ba, sau khi đã biết cohort nào rời bỏ nhanh, để hỏi rời bỏ tập trung ở đâu.",
+    "D": "**Vì sao dễ chọn:** mất khách hay bị nghĩ ngay là do giá đắt. **Vì sao sai:** đây là bối cảnh cạnh tranh, không phải cấu trúc doanh thu của chính công ty. **Cách sửa:** đo rời bỏ trước; nếu rời bỏ tăng đúng lúc đối thủ giảm giá, lúc đó giá mới trở thành giả thuyết."
+  },
+  "solution": "**Bước 1 · Số khách còn lại.** Hai năm rời bỏ 25% nghĩa là nhân 0,75 hai lần: 12.000 × 0,75 = 9.000 sau năm đầu, × 0,75 = 6.750 sau năm thứ hai. **Bước 2 · Doanh thu năm 2025.** 6.750 × 1,2 triệu = 8.100 triệu = **8,1 tỷ**. **Kiểm tra nhanh.** Năm đầu cohort đóng 14,4 tỷ; 8,1 ÷ 14,4 = 56% — đúng bằng 0,75 × 0,75. **Bẫy thường gặp.** Trừ thẳng 25% × 2 = 50% ra 7,2 tỷ, sai 0,9 tỷ. **Ý nghĩa.** Cohort này mất 44% doanh thu chỉ vì rời bỏ, chưa cần giá giảm đồng nào."
+},
+"k-profit-3": {
+  "calcQ": "Doanh thu năm trước 1.000 tỷ, năm nay 1.200 tỷ. Chi phí thuê chiếm 16% doanh thu năm trước và 22% doanh thu năm nay. Chi phí thuê tăng thêm bao nhiêu tỷ?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** cửa hàng mới yếu thì hỏi khách có hài lòng không nghe rất hợp lý. **Vì sao sai:** không kết quả nào của khảo sát đổi được bước tiếp theo trong hai phút tới. **Phép thử:** nếu hài lòng cao hay thấp mà bạn vẫn đi cùng một hướng, yêu cầu đó là thừa.",
+    "B": "**Đúng.** Chi phí thuê đã lộ ra là khoản phình lớn nhất. Điều khoản quyết định khuyến nghị nào khả thi: còn bao nhiêu năm, có điều khoản thoát không, tăng giá cố định bao nhiêu. **Câu hỏi mẫu:** \"Tôi xin điều khoản thuê của 30 cửa hàng mới, để biết ta được đóng, được đàm phán lại, hay chỉ còn cách nâng doanh thu mỗi điểm bán.\"",
+    "C": "**Vì sao dễ chọn:** so với ngành cho cảm giác có mốc. **Vì sao sai:** nó cho biết đang thua, không cho biết vì sao thua. **Khi nào hữu ích:** sau khi chẩn đoán xong, để đặt mục tiêu biên hợp lý — nhớ điều chỉnh cơ cấu trước khi so.",
+    "D": "**Vì sao dễ chọn:** mở cửa hàng là chủ đề đang nóng. **Vì sao sai ở bước này:** kế hoạch tương lai thuộc phần khuyến nghị. Hỏi nó bây giờ là nhảy bước khi chẩn đoán chưa xong."
+  },
+  "solution": "**Bước 1 · Tiền thuê năm trước.** 1.000 × 16% = 160 tỷ. **Bước 2 · Tiền thuê năm nay.** 1.200 × 22% = 264 tỷ. **Bước 3 · Chênh lệch.** 264 − 160 = **104 tỷ**. **Bẫy thường gặp.** Lấy 6 điểm × 1.200 = 72 tỷ — sai 32 tỷ, vì bỏ quên phần thuê tăng theo chính doanh thu (200 tỷ doanh thu thêm × 16% = 32 tỷ). **Kiểm tra nhanh.** 72 + 32 = 104. Khớp. **Ý nghĩa.** Khoản thuê tăng thêm còn lớn hơn toàn bộ phần lợi nhuận đã mất — đây là nghi phạm chính."
+},
+"k-profit-4": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** vị trí cửa hàng là thông tin thực thi cụ thể. **Vì sao sai ở bước này:** biết tỉnh nào không đổi được con số tiết kiệm. **Khi nào hữu ích:** khi đã chốt đóng và cần lên kế hoạch điều chuyển nhân sự, kho.",
+    "B": "**Đúng — đây là bẫy 3.** Nếu hợp đồng thuê còn hiệu lực, tiền thuê vẫn phải trả sau khi đóng cửa. Con số \"tiết kiệm 12 tỷ\" có thể teo lại chỉ còn một phần tư. **Câu hỏi nối tiếp:** còn bao nhiêu năm, có điều khoản chấm dứt sớm không, phí phạt bao nhiêu, có cho thuê lại được không.",
+    "C": "**Vì sao dễ chọn:** đóng cửa hàng luôn chạm tới con người. **Vì sao chưa phải câu đầu:** đây là câu hỏi thực thi quan trọng nhưng không làm sai lệch con số tiết kiệm. **Cách xếp:** hỏi sau khi đã chứng minh đóng cửa thật sự có lợi về tiền.",
+    "D": "**Vì sao dễ chọn:** rủi ro danh tiếng hay được nhắc trong case. **Vì sao sai ở bước này:** nó không phải điều kiện làm con số tiết kiệm sai. **Khi nào hữu ích:** khi so sánh hai phương án đã có lợi ích tài chính gần bằng nhau."
+  },
+  "solution": "**Bước 1 · Tiết kiệm gộp mỗi cửa hàng.** Đóng cửa bỏ được khoản lỗ đóng góp 1,2 tỷ/năm. **Bước 2 · Trừ phần không thoát được.** Hợp đồng vẫn buộc trả 0,9 tỷ tiền thuê/năm → tiết kiệm thực 1,2 − 0,9 = 0,3 tỷ. **Bước 3 · Nhân số cửa hàng.** 0,3 × 10 = **3 tỷ**/năm. **So với con số ban đầu.** 1,2 × 10 = 12 tỷ — gấp bốn lần thực tế. **Ý nghĩa.** Khi tiết kiệm thực chỉ bằng một phần tư, tái đàm phán mặt bằng (không mất doanh thu) thường đáng làm trước đóng cửa."
+},
+"k-profit-5": {
+  "calcQ": "Doanh thu tăng từ 500 lên 560 tỷ, biên lợi nhuận giảm từ 12% xuống 8%. Phần lợi nhuận mất đi do biên mỏng đi là bao nhiêu tỷ?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** phe kinh doanh đang bị chất vấn, và \"doanh thu chậm lại\" nghe có lý. **Vì sao sai:** phép tách cho thấy doanh thu đóng góp **dương** +7,2 tỷ. **Tín hiệu bị bỏ qua:** doanh thu vẫn tăng 12% — đi sâu vào vế này là tìm vấn đề ở chỗ không có vấn đề.",
+    "B": "**Đúng.** Toàn bộ mức sụt nằm ở biên. **Trong vế này, hỏi theo thứ tự:** giá bán thực sau chiết khấu (chiết khấu cũng làm biên mỏng), giá vốn trên doanh thu, rồi chi phí cửa hàng trên doanh thu. **Lưu ý:** biên mỏng không có nghĩa chắc chắn do chi phí — có thể do giá bán.",
+    "C": "**Vì sao dễ chọn:** so với đối thủ luôn cho cảm giác có thêm thông tin. **Vì sao sai:** thị phần không phân biệt được vế doanh thu với vế biên — đó mới là câu hỏi đang cần trả lời.",
+    "D": "**Vì sao dễ chọn:** đi cả hai vế trông an toàn. **Vì sao sai:** hai phép nhân đã trả lời vế nào; đi đều cả hai tốn gấp đôi thời gian trong một buổi chỉ có 30 phút."
+  },
+  "solution": "**Bước 1 · Lợi nhuận hai kỳ.** 500 × 12% = 60 tỷ; 560 × 8% = 44,8 tỷ; mức giảm 15,2 tỷ. **Bước 2 · Phần do doanh thu.** Mức tăng doanh thu × biên cũ = 60 × 12% = +7,2 tỷ. **Bước 3 · Phần do biên.** Mức giảm biên × doanh thu mới = 4% × 560 = **22,4 tỷ**. **Kiểm tra.** +7,2 − 22,4 = −15,2, đúng bằng 44,8 − 60. **Vì sao dùng doanh thu mới cho phần biên:** để hai phần cộng khớp tổng; dùng doanh thu cũ (4% × 500 = 20) sẽ lệch 2,4 tỷ. **Ý nghĩa.** Biên mỏng đi lấy mất gấp ba phần tăng trưởng đem về."
+},
+"k-profit-6": {
+  "calcQ": "Lãi góp theo ô (tỷ/năm): A-siêu thị +18, A-online −6, B-siêu thị +10, B-online +4. Đóng cả kênh online cho lãi góp tổng thấp hơn bao nhiêu so với chỉ ngừng ô A-online?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** báo cáo theo kênh cho thấy online lỗ 2 tỷ — một con số rõ ràng. **Vì sao sai:** kênh online gồm hai ô: A-online lỗ 6 tỷ và B-online lãi 4 tỷ. Đóng cả kênh là trả 4 tỷ lãi để bỏ 6 tỷ lỗ. **Tín hiệu bị bỏ qua:** tổng một cột âm nhẹ thường che một ô âm lớn.",
+    "B": "**Đúng.** Chỉ bỏ ô đang rò, giữ ô đang lãi, và biến ô âm thành câu hỏi cụ thể. **Câu hỏi nối tiếp cho ô A-online:** phí vận chuyển mỗi đơn, tỷ lệ hoàn hàng, bao bì riêng, hay giá bán online thấp hơn — mỗi nguyên nhân dẫn tới một cách sửa khác nhau.",
+    "C": "**Vì sao dễ chọn:** A là sản phẩm có ô lỗ. **Vì sao sai:** A vẫn lãi 18 tỷ ở siêu thị; ngừng A mất 12 tỷ lãi góp ròng. **Tín hiệu bị bỏ qua:** báo cáo theo sản phẩm đã cho thấy A lãi 12 tỷ tổng.",
+    "D": "**Vì sao dễ chọn:** tổng 26 tỷ vẫn dương nên có vẻ không cần làm gì. **Vì sao sai:** 6 tỷ rò mỗi năm là 23% lãi góp hiện tại — không làm gì cũng là một quyết định, và là quyết định đắt."
+  },
+  "solution": "**Bước 1 · Hiện tại.** 18 − 6 + 10 + 4 = 26 tỷ. **Bước 2 · Đóng cả kênh online.** Mất cả hai ô online: 18 + 10 = 28 tỷ. **Bước 3 · Chỉ ngừng ô A-online.** Giữ B-online: 18 + 10 + 4 = 32 tỷ. **Bước 4 · So hai phương án.** 32 − 28 = **4 tỷ**. **Kiểm tra.** Chênh lệch đúng bằng lãi góp của ô B-online bị cắt oan. **Lưu ý.** Phép so này đúng với lãi góp; nếu dùng lợi nhuận sau phân bổ chi phí chung, ô B-online có thể trông như lỗ và dẫn tới cắt nhầm."
+},
+"k-profit-7": {
+  "calcQ": "Đối thủ có biên 20% ở dòng cao cấp và 8% ở dòng phổ thông. Nhà máy bán 25% cao cấp, 75% phổ thông. Nếu đạt biên từng dòng như đối thủ nhưng giữ cơ cấu của mình, biên bình quân của nhà máy là bao nhiêu phần trăm?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** khoảng cách 5 điểm trong báo cáo ngành trông như một mục tiêu cắt chi phí rõ ràng. **Vì sao sai:** 3 trong 5 điểm đến từ việc bán ít hàng cao cấp — cắt chi phí không lấy lại được phần đó. **Hệ quả:** giao mục tiêu 5 điểm cho vận hành là giao một mục tiêu bất khả.",
+    "B": "**Đúng.** Hai phần dẫn tới hai khuyến nghị khác nhau: 2 điểm vận hành → cải thiện chi phí từng dòng; 3 điểm cơ cấu → câu hỏi chiến lược về danh mục (có nên đẩy dòng cao cấp không, có năng lực không). **Câu nói mẫu:** \"Khoảng cách vận hành thật là 2 điểm; 3 điểm còn lại là lựa chọn danh mục.\"",
+    "C": "**Vì sao dễ chọn:** khi số liệu bất lợi, nghi ngờ nguồn là phản xạ tự vệ. **Vì sao sai:** không có cơ sở, và né câu hỏi thật. Giám khảo sẽ đọc đây là thiếu công cụ phân tích.",
+    "D": "**Vì sao dễ chọn:** phát hiện cơ cấu khác nhau dễ dẫn tới kết luận \"không so được\". **Vì sao sai:** so được, chỉ cần điều chỉnh về cùng cơ cấu. Bỏ mốc so sánh là mất công cụ tách yếu tố ngành khỏi yếu tố nội bộ."
+  },
+  "solution": "**Bước 1 · Lấy biên từng dòng của đối thủ.** Cao cấp 20%, phổ thông 8%. **Bước 2 · Áp cơ cấu của nhà máy.** 25% × 20% = 5 điểm; 75% × 8% = 6 điểm. **Bước 3 · Cộng.** 5 + 6 = **11%**. **Bước 4 · Tách khoảng cách.** Báo cáo ngành 14% − thực tế 9% = 5 điểm. Trong đó vận hành: 11 − 9 = 2 điểm; cơ cấu: 14 − 11 = 3 điểm. **Kiểm tra.** 2 + 3 = 5. Khớp. **Ý nghĩa.** Mục tiêu cắt chi phí hợp lý là 2 điểm, không phải 5."
+},
+"k-profit-8": {
+  "calcQ": "Chuỗi kem có chi phí cố định 30 tỷ mỗi quý và biên đóng góp 40% ổn định cả năm. Doanh thu tối thiểu mỗi quý để không lỗ là bao nhiêu tỷ?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** \"giảm 40%\" là con số gây hoảng. **Vì sao sai:** so quý 3 với quý 2 chỉ đo độ mùa vụ — quý 2 là cao điểm. **Tín hiệu bị bỏ qua:** bảng có sẵn doanh thu quý 3 năm ngoái để so cùng kỳ.",
+    "B": "**Đúng.** Chuyển sự chú ý từ con số gây hoảng sang con số cấu trúc, và có phép tính chứng minh: quý 3 tăng 12,5% so với cùng kỳ; quý 1 doanh thu 50 tỷ dưới ngưỡng hoà vốn 75 tỷ nên lỗ vì cấu trúc. **Bước tiếp theo:** hỏi khoản cố định nào biến được thành theo mùa.",
+    "C": "**Vì sao dễ chọn:** cả năm có lãi nghe như kết luận an toàn. **Vì sao sai:** che mất quý lỗ vì cấu trúc. Doanh nghiệp mùa vụ chết vì thiếu tiền trong quý thấp điểm, không chết vì lợi nhuận cả năm.",
+    "D": "**Vì sao dễ chọn:** xin thêm dữ liệu nghe thận trọng. **Vì sao sai:** đề đã đủ để trả lời bằng hai phép tính — so cùng kỳ và hoà vốn theo quý."
+  },
+  "solution": "**Bước 1 · Viết điều kiện hoà vốn.** Lãi góp = doanh thu × 40% phải bằng chi phí cố định 30 tỷ. **Bước 2 · Giải.** Doanh thu = 30 ÷ 0,4 = **75 tỷ**/quý. **Bước 3 · Đối chiếu bốn quý.** Quý 1: 50 tỷ → lãi góp 20, lỗ 10 tỷ (khớp báo cáo). Quý 3: 90 tỷ → lãi 6 tỷ. Quý 2: 150 tỷ → lãi 30 tỷ. **Kiểm tra.** Quý 1 thiếu 25 tỷ doanh thu × 40% = 10 tỷ lỗ. Khớp. **Ý nghĩa.** Quý 1 lỗ không phải vì vận hành kém mà vì 30 tỷ cố định không co lại theo mùa."
+},
+"k-profit-9": {
+  "calcQ": "Đường chiếm 30% giá vốn, giá vốn bằng 60% giá bán. Giá đường tăng 25%. Cần tăng giá bán bao nhiêu phần trăm để giữ nguyên lãi gộp tuyệt đối trên mỗi đơn vị?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** giữ giá nghe như bảo vệ khách hàng. **Vì sao sai:** cú sốc kéo dài và cả ngành cùng chịu — đối thủ sẽ tăng giá, còn nhà máy mất biên vĩnh viễn. **Tín hiệu bị bỏ qua:** hai câu hỏi đầu (tạm thời hay kéo dài, đối thủ có cùng chịu) đều nghiêng về chuyển giá.",
+    "B": "**Vì sao dễ chọn:** tăng dư cho chắc nghe thận trọng. **Vì sao sai:** 10% cao hơn cả mức giữ biên 7,5%. Khi đối thủ chỉ tăng vừa đủ, khoảng chênh 2,5–5,5% là lời mời họ lấy khách.",
+    "C": "**Đúng.** Mức tăng nằm giữa hai mốc có căn cứ: 4,5% giữ lãi tuyệt đối, 7,5% giữ biên phần trăm. Kết hợp giảm đường ở dòng phổ thông mở thêm một đường chi phí để không phụ thuộc hoàn toàn vào việc khách chấp nhận giá. **Câu nói mẫu:** \"Tăng 5–6% ở dòng cao cấp, thử công thức giảm đường ở dòng phổ thông.\"",
+    "D": "**Vì sao dễ chọn:** đi theo đối thủ tránh được rủi ro đi đầu. **Vì sao chưa đủ:** hợp lý về chiến thuật thời điểm, nhưng vẫn chưa trả lời câu hỏi tăng bao nhiêu — mà đó là câu được hỏi."
+  },
+  "solution": "**Bước 1 · Quy đường về phần trăm giá bán.** 30% giá vốn × 60% giá bán = 18% giá bán. **Bước 2 · Mức tăng chi phí.** 18% × 25% = 4,5% giá bán. **Bước 3 · Giữ lãi tuyệt đối.** Tăng giá đúng bằng phần chi phí tăng: **4,5%**. **Bước 4 · So với giữ biên.** Giá vốn mới 64,5; muốn biên 40% thì giá = 64,5 ÷ 0,6 = 107,5 → tăng 7,5%. **Bẫy thường gặp.** Tăng 25% theo giá đường, hoặc tăng 7,5% mà tưởng là \"vừa đủ bù chi phí\". **Ý nghĩa.** Đề xuất 10% vượt cả hai mốc."
+},
+"k-profit-10": {
+  "calcQ": "Tái đàm phán mặt bằng: 8 tỷ/năm, hiệu lực sau 3 tháng. Tối ưu nguyên liệu: 5 tỷ/năm, hiệu lực ngay. Tự động hoá: 15 tỷ/năm, hiệu lực sau 9 tháng, đầu tư 6 tỷ. Giá trị cao nhất một giải pháp đem lại trong 12 tháng đầu, sau khi trừ đầu tư, là bao nhiêu tỷ?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** 15 tỷ/năm là con số lớn nhất trên bàn. **Vì sao sai:** trong 12 tháng đầu nó chỉ chạy 3 tháng và phải trừ 6 tỷ đầu tư → âm 2,25 tỷ. **Tín hiệu bị bỏ qua:** CEO nói cần kết quả trong năm nay — khung thời gian đã được cho sẵn.",
+    "B": "**Đúng.** Hai giải pháp nhanh (6 và 5 tỷ trong năm đầu) cho kết quả năm nay; tự động hoá khởi động song song để năm sau đem về 15 tỷ trọn năm. **Điều cần nói thêm:** tái đàm phán phụ thuộc chủ nhà — cần phương án dự phòng nếu chủ nhà từ chối.",
+    "C": "**Vì sao dễ chọn:** có hiệu lực ngay trông như lựa chọn chắc ăn nhất. **Vì sao sai:** bỏ qua tái đàm phán — giải pháp có giá trị 12 tháng cao nhất — và bỏ qua tác động dài hạn của tự động hoá.",
+    "D": "**Vì sao dễ chọn:** làm hết nghe tham vọng. **Vì sao sai:** không trả lời câu hỏi thứ tự, và dàn mỏng một đội ngũ vừa phải đàm phán vừa phải triển khai dự án kỹ thuật."
+  },
+  "solution": "**Bước 1 · Số tháng có hiệu lực trong 12 tháng đầu.** Tái đàm phán 9 tháng; nguyên liệu 12 tháng; tự động hoá 3 tháng. **Bước 2 · Giá trị gộp.** 8 × 9/12 = 6; 5 × 12/12 = 5; 15 × 3/12 = 3,75. **Bước 3 · Trừ đầu tư.** Tự động hoá: 3,75 − 6 = −2,25. **Bước 4 · Chọn lớn nhất.** Tái đàm phán: **6 tỷ**. **Kiểm tra năm thứ hai.** Tự động hoá đem 15 tỷ trọn năm, vượt xa hai giải pháp kia — nên phải khởi động ngay chứ không bỏ. **Ý nghĩa.** Thứ tự đúng phụ thuộc khung thời gian, không phụ thuộc con số \"mỗi năm\"."
+},
+"k-profit-11": {
+  "why": {
+    "A": "**Vì sao dễ chọn:** thừa nhận độ phức tạp nghe khiêm tốn và chín chắn. **Vì sao sai:** câu đầu tiên là câu người nghe nhớ nhất, và câu này không có kết luận, không có con số. **Cách sửa:** nói kết luận trước, độ phức tạp để ở phần rủi ro.",
+    "B": "**Đúng.** Trong 5 giây có đủ ba thứ người ra quyết định cần: làm gì (ba hành động), bao lâu (90 ngày), đem lại gì (biên lên 10,2%). **Câu tiếp theo nên là** ba hành động theo thứ tự tác động: mặt bằng 6 tỷ, dừng mở mới 5 tỷ, nhân sự 3 tỷ.",
+    "C": "**Vì sao dễ chọn:** hứa về lại 16% nghe mạnh và trả lời đúng kỳ vọng của CEO. **Vì sao sai:** ba hành động chỉ lấy lại 1,2 trên 7 điểm. Hứa quá mức làm mất tin tưởng vào cả phần phân tích đúng. **Cách sửa:** nói 10,2% và nêu điều kiện để đi tiếp.",
+    "D": "**Vì sao dễ chọn:** tóm tắt trước nghe có cấu trúc. **Vì sao sai:** lãng phí câu quan trọng nhất cho thứ người nghe đã nghe rồi. Khuyến nghị không kể lại quá trình."
+  },
+  "solution": "**Bước 1 · EBITDA hiện tại.** 1.180 × 9% = 106,2 tỷ. **Bước 2 · Cộng tác động ba hành động.** 6 + 5 + 3 = 14 tỷ → 120,2 tỷ. **Bước 3 · Biên mới.** 120,2 ÷ 1.180 = 0,1019 → **10,2%**. **Kiểm tra nhanh.** Mỗi 11,8 tỷ tương đương 1 điểm biên trên doanh thu 1.180 tỷ; 14 tỷ ≈ 1,2 điểm → 9 + 1,2 = 10,2. Khớp. **Khoảng cách còn lại.** 16 − 10,2 = 5,8 điểm. **Ý nghĩa.** Khoảng cách này phải được nói ra trong khuyến nghị, kèm quyết định cần có để lấp nó."
+},
+"k-profit-12": {
+  "calcQ": "Doanh thu tăng từ 800 lên 880 tỷ, biên lợi nhuận giảm từ 10% xuống 7%. 20 cửa hàng mới thiếu tổng cộng 22 tỷ so với ngưỡng hoà vốn. Thiếu hụt này giải thích bao nhiêu phần trăm phần lợi nhuận mất đi do biên?",
+  "why": {
+    "A": "**Vì sao dễ chọn:** câu hỏi về doanh thu theo vùng đã được chuẩn bị sẵn từ trước buổi. **Vì sao sai:** phép tách vế vừa cho thấy doanh thu đóng góp dương. **Bài học:** kết quả của bước trước phải quyết định câu hỏi của bước sau — đây là chỗ vấp phổ biến nhất khi chuyển bước.",
+    "B": "**Đúng.** Câu hỏi nối thẳng từ kết quả tách vế sang giả thuyết cụ thể, và nêu luôn sẽ kết luận gì: nếu phần biên mất đi nằm ở 20 cửa hàng mới thì đây là case chất lượng mở rộng; nếu nằm ở cửa hàng cũ thì là case vận hành.",
+    "C": "**Vì sao dễ chọn:** thị phần là dữ liệu quen trong mọi case. **Vì sao sai:** không phân biệt được nguyên nhân nào trong vế biên — không kết quả nào của nó đổi được bước tiếp theo.",
+    "D": "**Vì sao dễ chọn:** xin trọn bộ cho khỏi thiếu. **Vì sao sai:** quá rộng để người phỏng vấn trả lời, và lộ ra rằng chưa có giả thuyết nào sau 9 phút."
+  },
+  "solution": "**Bước 1 · Phần mất do biên.** (10% − 7%) × 880 = 26,4 tỷ. **Bước 2 · Phần giải thích được.** Thiếu hụt của 20 cửa hàng mới: 22 tỷ. **Bước 3 · Tỷ lệ.** 22 ÷ 26,4 = **83,3%**. **Phần còn lại.** 26,4 − 22 = 4,4 tỷ, tức 16,7% — đáng một câu hỏi nhưng không đổi được khuyến nghị. **Kiểm tra.** Mỗi cửa hàng mới thiếu trung bình 22 ÷ 20 = 1,1 tỷ, đúng bằng ngưỡng được nêu. **Ý nghĩa.** Trên 80% là đủ để kết luận nguyên nhân chính và chuyển sang giải pháp."
+}
+}
