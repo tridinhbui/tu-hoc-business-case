@@ -232,3 +232,103 @@ Nếu giảm giá thua ở mọi kịch bản, A cần một trục cạnh tranh
 
 Phần dưới bắt bạn tính lợi ích của đối thủ ở hai phản ứng rồi kết luận. Module tiếp theo chuyển sang một họ case có cấu trúc rất rõ nhưng nhiều cạm bẫy: mua bán và sáp nhập.
 `);
+
+LRD("i-price-6", `
+Thứ Sáu, phòng họp của một chuỗi bánh mì 40 cửa hàng. Trưởng phòng marketing chiếu lên màn hình một con số in đậm: tuần chạy voucher giảm 15%, cả chuỗi bán được **14.000 ổ** ở nhóm cửa hàng thử nghiệm, so với **10.000 ổ** một tuần bình thường. Doanh số tăng 40%. Cả phòng vỗ tay. Đề xuất tiếp theo đã nằm sẵn trên slide sau: chạy chương trình này cho toàn chuỗi, mỗi tháng một lần.
+
+Giám đốc tài chính không vỗ tay. Chị hỏi một câu: "Trong 14.000 ổ đó, bao nhiêu ổ khách vốn đã mua với giá cũ?"
+
+Không ai trả lời được. Và đó là toàn bộ bài học này.
+
+Khuyến mãi là công cụ dễ đo sai nhất trong kinh doanh, vì cái nhìn thấy được (doanh số tăng) xảy ra ngay, còn cái mất đi (lãi góp trên từng đơn, những đơn khách lẽ ra vẫn mua, tuần ảm đạm sau chương trình) thì phân tán và đến muộn. Trong phòng thi case, giám khảo gần như luôn cài một chương trình khuyến mãi "thành công" vào đề để xem bạn có nhìn qua được con số doanh thu hay không.
+
+## Đừng hỏi "bán thêm được bao nhiêu", hãy hỏi "phải bán thêm bao nhiêu"
+
+Người mới thường bắt đầu từ kết quả: khuyến mãi bán được bao nhiêu, tăng bao nhiêu phần trăm. Người giải case tốt bắt đầu từ ngưỡng: **cần bán thêm bao nhiêu thì mới không lỗ**, rồi mới so kết quả với ngưỡng đó.
+
+Ngưỡng này tính được trước khi chương trình chạy, chỉ với hai con số: biên lãi góp hiện tại và mức giảm giá. Lãi góp là giá bán trừ đi chi phí biến đổi của đúng đơn đó — nguyên liệu, bao bì, phí thanh toán. Chi phí thuê mặt bằng và lương cố định không nằm trong phép tính, vì chúng không đổi dù bạn bán thêm hay không.
+
+Ổ bánh mì của chuỗi trên bán 30 nghìn đồng, chi phí biến đổi 18 nghìn, nên mỗi ổ để lại **12 nghìn** lãi góp, tức biên 40%. Giảm 15% nghĩa là khách trả 25,5 nghìn, còn chi phí vẫn là 18 nghìn. Lãi góp mỗi ổ rơi xuống **7,5 nghìn**.
+
+Muốn giữ nguyên tổng lãi góp 120 triệu của một tuần bình thường, chuỗi phải bán 120.000 ÷ 7,5 = **16.000 ổ**, tức tăng 60%. Công thức rút gọn cho mọi trường hợp:
+
+- Sản lượng phải tăng thêm = mức giảm giá ÷ (biên lãi góp − mức giảm giá)
+- Với biên 40% và giảm 15%: 15 ÷ (40 − 15) = 60%
+- Với biên 40% và giảm 20%: 20 ÷ 20 = 100% — phải bán **gấp đôi**
+- Với biên 40% và giảm 30%: 30 ÷ 10 = 300% — phải bán gấp bốn
+
+Nhìn vào dãy này bạn thấy ngay vì sao khuyến mãi sâu gần như không bao giờ tự trả được tiền cho mình: mẫu số co lại rất nhanh. Khi mức giảm tiến gần biên lãi góp, sản lượng cần thiết tiến tới vô cực.
+
+So với ngưỡng, 14.000 ổ không phải thành công. Nó thiếu 2.000 ổ.
+
+## Bốn khoản chi phí mà báo cáo khuyến mãi không in ra
+
+Ngưỡng hoà vốn ở trên vẫn còn quá lạc quan, vì nó giả định mọi đơn bán trong tuần khuyến mãi đều là đơn mới. Thực tế có bốn khoản bị giấu đi.
+
+**Thứ nhất, phần giảm giá tặng cho khách vốn đã mua.** Đây là khoản lớn nhất và hay bị quên nhất. Trong 14.000 ổ, 10.000 ổ là khách quen — họ vẫn sẽ mua dù không có voucher. Chuỗi đã tặng mỗi người 4,5 nghìn mà không đổi lại được gì. Riêng khoản này là 45 triệu.
+
+**Thứ hai, cầu bị kéo về sớm.** Khách thấy rẻ thì mua tích trữ, hoặc mua tuần này thay cho tuần sau. Tuần ngay sau chương trình, chuỗi chỉ bán được 9.000 ổ. Một nghìn ổ hụt đó là lãi góp 12 nghìn mỗi ổ bị mất hẳn, không phải bị dời đi.
+
+**Thứ ba, chi phí chạy chương trình.** In voucher, quảng cáo, phí nền tảng, giờ làm thêm của nhân viên. Những khoản này thường nằm ở ngân sách marketing nên không ai trừ vào kết quả của chương trình.
+
+**Thứ tư, mỏ neo giá.** Khách đã quen mua với 25,5 nghìn sẽ thấy 30 nghìn là đắt. Khoản này khó định lượng nhất trong phòng thi, nhưng bạn nên gọi tên nó khi khuyến mãi lặp lại đều đặn — "mỗi tháng một lần" là đúng kiểu dạy khách chờ giảm giá.
+
+## Làm mẫu: tách kết quả thật của tuần voucher
+
+Đây là cách trình bày khiến giám đốc tài chính gật đầu. Không tính doanh thu. Tính lãi góp so với kịch bản không chạy, tách thành từng khoản có dấu.
+
+- Khách vốn có: 10.000 ổ × giảm 4,5 nghìn = **−45 triệu**
+- Đơn tăng thêm: 4.000 ổ × lãi góp 7,5 nghìn = **+30 triệu**
+- Tuần sau bị kéo cầu: 1.000 ổ × 12 nghìn = **−12 triệu**
+- In ấn và quảng bá: **−5 triệu**
+- Tổng tác động: **−32 triệu** so với việc không làm gì
+
+Kiểm tra chéo bằng cách tính tổng thẳng: tuần voucher lãi góp 14.000 × 7,5 = 105 triệu, thấp hơn tuần thường 120 triệu đúng 15 triệu, bằng −45 + 30. Cộng thêm −12 và −5, ra −32. Hai cách khớp nhau thì bạn yên tâm trình bày.
+
+Cấu trúc bốn dòng này quan trọng hơn con số cuối. Nó cho người nghe thấy chương trình **thật sự tạo ra 30 triệu** từ khách mua thêm, nhưng phải trả 45 triệu cho khách không cần được thuyết phục. Vấn đề không phải "khuyến mãi dở", mà là **khuyến mãi không nhắm đúng người**.
+
+## Khi nào khuyến mãi vẫn đáng làm
+
+Nếu mọi khuyến mãi đều lỗ, sẽ không doanh nghiệp nào làm. Bạn cần biết bốn tình huống mà câu trả lời đổi chiều, để không bị giám khảo bẻ lại bằng một câu "vậy chẳng lẽ không bao giờ nên giảm giá?".
+
+**Khách mới có giá trị về sau.** Giả sử tuần voucher kéo về 1.500 khách chưa từng mua, và 30% trong số đó quay lại mua 2 ổ mỗi tuần trong 10 tuần với giá gốc. Lãi góp tương lai là 1.500 × 30% × 2 × 10 × 12 nghìn = **108 triệu**, lớn hơn nhiều so với 32 triệu bỏ ra. Nhưng mọi thứ phụ thuộc vào con số 30% — đó là giả định bạn phải xin dữ liệu hoặc nói rõ là giả định.
+
+**Hàng sắp hỏng.** Bánh mì cuối ngày, sữa gần hạn, quần áo hết mùa: chi phí của hàng đã chìm, nên bán được đồng nào hay đồng đó. Phép tính lãi góp ở trên không còn đúng, vì chi phí biến đổi thực của món hàng gần như bằng không.
+
+**Công suất đang bỏ trống.** Rạp phim giữa tuần, khách sạn mùa thấp điểm, lớp học còn ghế. Chi phí phục vụ thêm một khách rất thấp, nên biên lãi góp thực tế cao hơn con số trên báo cáo và ngưỡng hoà vốn thấp hơn nhiều.
+
+**Chặn đối thủ vào thị trường.** Đây là lý do chiến lược, không phải tài chính. Nó hợp lệ, nhưng bạn phải nói thẳng là đang chấp nhận lỗ để mua vị thế, và ước lượng lỗ bao nhiêu.
+
+## Thiết kế lại để giữ phần tốt, bỏ phần đắt
+
+Khi đã tách được bốn khoản, lời khuyên tự hiện ra: giữ dòng "+30 triệu", cắt dòng "−45 triệu". Có ba cách quen thuộc.
+
+- Chỉ phát voucher cho khách mới hoặc khách lâu không quay lại, không giảm giá tại quầy cho tất cả mọi người.
+- Giảm theo điều kiện: mua từ ổ thứ hai, mua combo kèm nước, mua vào khung giờ vắng.
+- Đổi giảm giá thành tặng kèm món có chi phí biến đổi thấp — một ly trà đá tốn 2 nghìn nhưng khách cảm nhận giá trị 10 nghìn.
+
+Mỗi cách đều nhắm vào cùng một điều: để khách vốn đã mua không nhận được phần giảm giá.
+
+## Nói trong 60 giây
+
+Khi người phỏng vấn hỏi "chương trình này có thành công không?", đây là cách trả lời gọn:
+
+> "Doanh số tăng 40% nhưng em nghĩ chương trình đang lỗ, khoảng 32 triệu mỗi tuần so với không làm gì."
+> "Lý do chính là 10.000 trong 14.000 ổ là khách vẫn sẽ mua, nên riêng phần giảm giá cho họ đã mất 45 triệu, trong khi 4.000 ổ tăng thêm chỉ mang về 30 triệu lãi góp."
+> "Cộng thêm tuần sau bán hụt 1.000 ổ và chi phí in ấn, tổng là −32 triệu."
+> "Em không đề xuất bỏ khuyến mãi, mà đề xuất chỉ phát voucher cho khách mới — nếu 30% khách mới quay lại, chương trình có thể tạo ra hơn 100 triệu lãi góp về sau. Em cần dữ liệu tỷ lệ quay lại để chốt."
+
+Bốn câu: kết luận, nguyên nhân có số, tổng, đề xuất kèm điều kiện. Không kể lại quá trình tính.
+
+## Những lỗi khiến phần khuyến mãi bị trừ điểm
+
+- **Đánh giá bằng doanh thu.** Doanh thu tăng trong khi lãi góp giảm là tình huống mặc định của khuyến mãi, không phải ngoại lệ.
+- **Trừ chi phí cố định vào phép tính.** Tiền thuê không đổi dù chạy hay không chạy, nên nó không phải chi phí của chương trình.
+- **Coi mọi đơn là đơn mới.** Luôn hỏi đường cơ sở: nếu không khuyến mãi thì bán được bao nhiêu.
+- **Chỉ nhìn đúng thời gian chạy.** Luôn xin số liệu một đến hai kỳ sau chương trình.
+- **Kết luận "không nên khuyến mãi".** Giám khảo chờ bạn thiết kế lại, không chờ bạn phủ quyết.
+
+## Vào bài tập
+
+Phần tiếp theo đưa bạn vào một chuỗi mỹ phẩm chạy chương trình "giảm 20% toàn bộ" trong hai tuần. Biên lãi góp của họ là 40%, nên hãy tính ngay ngưỡng trước khi đọc bảng số: giảm 20% trên biên 40% nghĩa là phải bán gấp đôi. Sau đó tách kết quả thành bốn dòng có dấu như phần làm mẫu — khách vốn có, đơn tăng thêm, cầu bị kéo sớm, chi phí chương trình — và kiểm tra chéo bằng tổng lãi góp. Khi hai cách khớp nhau, bạn đã có đáp án.
+`);

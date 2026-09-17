@@ -305,7 +305,7 @@ window.MODULES = [
   {id:"i-price-3", t:"Dự đoán phản ứng đối thủ", m:7, lv:3, out:"recommendation"},
   {id:"i-price-4", t:"Định giá sản phẩm mới khi chưa có tham chiếu", m:8, lv:2, out:"calculation", soon:1},
   {id:"i-price-5", t:"Cấu trúc giá theo phân khúc và theo gói", m:8, lv:3, out:"slide", soon:1},
-  {id:"i-price-6", t:"Điểm hoà vốn của một lần giảm giá", m:8, lv:3, out:"calculation", soon:1},
+  {id:"i-price-6", t:"Điểm hoà vốn của một lần giảm giá", m:8, lv:3, out:"calculation"},
   {id:"i-price-7", t:"Giá trong B2B: đàm phán và chiết khấu theo khối lượng", m:8, lv:3, out:"recommendation", soon:1},
   {id:"i-price-8", t:"Rủi ro pháp lý và thương hiệu khi đổi giá", m:7, lv:3, out:"checklist", soon:1},
   {id:"i-price-9", t:"Chốt khuyến nghị giá trong 90 giây", m:7, lv:3, out:"speaking answer", soon:1}]},

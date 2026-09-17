@@ -14,6 +14,10 @@ let n=0; const t=(name,fn)=>{ fn(); n++; console.log("  ✓",name); };
 
 /* đáp án tính lại từ đề — mỗi dòng là một phép tính độc lập với dữ liệu bài */
 const RECOMPUTE = {
+  /* i-price-6 · chuỗi mỹ phẩm giảm 20%: 250.000đ, chi phí biến đổi 150.000đ, 4.000 → 7.000 → 3.200 đơn, quảng bá 60 triệu */
+  "i-price-6": ()=> (8000*0.1) - ((7000*0.05) + (3200*0.1) - 60),
+  "i-price-6#1": ()=> Math.ceil((4000*0.1) / (0.25*0.9 - 0.15)),
+  "i-price-6#2": ()=> ((8000*0.1) - (3200*0.1) + 60) / 0.05,
   "k-profit-9": ()=> 0.30*0.60*0.25*100,                 // đường 30% giá vốn × giá vốn 60% giá bán × tăng 25%
   "k-profit-10": ()=> Math.max(8*9/12, 5*12/12, 15*3/12 - 6),
   "k-profit-11": ()=> (1180*0.09 + 6 + 5 + 3)/1180*100,
