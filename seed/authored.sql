@@ -235,6 +235,221 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('0
 Cách làm: đọc đề, viết problem statement ba dòng, rồi viết năm câu hỏi làm rõ kèm lý do cho từng câu. Dữ liệu của đề chỉ được phát khi bạn hỏi đúng — nên hãy hỏi trước, rồi mới xem phần được phát.
 
 Output: một trang gồm problem statement ba dòng, bảng năm câu hỏi (cột câu hỏi · cột "nếu trả lời khác thì làm khác ở đâu"), và một câu nói rõ bạn đã tái định nghĩa vấn đề ở chỗ nào.');
+DELETE FROM lesson_blocks WHERE lesson_id = '009';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('009.01', '009', 1, 'goal', 'Sau bài này bạn làm được gì', 'Vẽ được **sơ đồ dòng tiền vào – ra** của một doanh nghiệp bất kỳ trong 15 phút: tiền vào từ ai, đi qua những chặng chi phí nào, còn lại bao nhiêu, và **chặng nào ăn mất nhiều nhất**.
+
+Đây là kỹ năng nền của mọi case profitability. Không có nó, bạn chỉ có thể nói "chi phí cao quá" — có nó, bạn nói được "70% chi phí nằm ở giá vốn, và một điểm phần trăm ở đó bằng cả ngân sách marketing một quý".');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('009.02', '009', 2, 'concept', 'Bốn chặng của một đồng doanh thu', 'Mỗi đồng khách trả đi qua bốn chặng, theo đúng thứ tự này. Học thuộc thứ tự quan trọng hơn học thuộc tên gọi kế toán:
+
+1. **Giá vốn (COGS)** — tiền phải bỏ ra để tạo ra chính món đã bán. Nguyên liệu, hàng nhập, lương người trực tiếp làm. Còn lại: **lợi nhuận gộp**.
+2. **Chi phí bán hàng và tiếp thị** — tiền để có được khách đó. Quảng cáo, khuyến mãi, hoa hồng, chiết khấu sàn.
+3. **Chi phí vận hành cố định** — tiền trả dù bán được hay không. Mặt bằng, lương quản lý, phần mềm, khấu hao. Sau chặng này còn lại: **lợi nhuận hoạt động**.
+4. **Lãi vay và thuế** — phần chia cho ngân hàng và nhà nước. Còn lại: **lợi nhuận sau thuế**.
+
+Ba câu hỏi phải trả lời được sau khi vẽ xong:
+
+- **Biên gộp bao nhiêu?** Dưới 20% là mô hình mỏng, mọi biến động nhỏ đều đau. Trên 60% là mô hình có chỗ để chịu đựng.
+- **Chi phí nào là biến đổi, chi phí nào cố định?** Đây là chỗ quyết định doanh nghiệp sống hay chết khi doanh thu tụt 30%.
+- **Hoà vốn ở mức nào?** Cần bán bao nhiêu để phủ hết phần cố định.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('009.03', '009', 3, 'concept', 'Biến đổi hay cố định quan trọng hơn to hay nhỏ', 'Người mới nhìn bảng chi phí và chỉ tay vào dòng lớn nhất. Người có kinh nghiệm hỏi trước: dòng đó **có co lại khi doanh thu co lại không?**
+
+| | Chi phí biến đổi | Chi phí cố định |
+|---|---|---|
+| Ví dụ | Nguyên liệu, chiết khấu sàn, phí giao hàng | Mặt bằng, lương quản lý, khấu hao |
+| Khi doanh thu tăng | Tăng theo, biên gộp gần như giữ nguyên | Không đổi → lợi nhuận bật lên nhanh |
+| Khi doanh thu giảm 30% | Giảm theo, đau vừa phải | Không giảm → lỗ ngay |
+| Đòn bẩy để cải thiện | Giá mua, định lượng, tỷ lệ hao hụt | Công suất sử dụng, đàm phán lại hợp đồng |
+
+Hệ quả thực tế: một doanh nghiệp **nặng chi phí cố định** (phòng gym, rạp chiếu phim, nhà máy) thì câu hỏi trung tâm luôn là *lấp đầy công suất*. Một doanh nghiệp **nặng chi phí biến đổi** (bán lẻ, thương mại điện tử) thì câu hỏi trung tâm là *biên trên mỗi đơn*. Nhận ra doanh nghiệp thuộc loại nào trong 2 phút đầu là bạn đã đi đúng đường.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('009.04', '009', 4, 'worked_example', 'Sơ đồ dòng tiền của một tiệm bánh mì', '**Dữ kiện:** Tiệm bán 300 ổ/ngày, giá 25.000đ/ổ, mở 30 ngày/tháng. Nguyên liệu 9.000đ/ổ. Hai nhân viên làm bánh lương 8 triệu/người/tháng. Mặt bằng 30 triệu/tháng. Điện nước, bao bì, hao hụt khoảng 1.500đ/ổ. Chủ tiệm tự quản lý, không lấy lương. Chạy quảng cáo 5 triệu/tháng.
+
+**Bước 1 — doanh thu tháng:** 300 × 25.000 × 30 = **225 triệu**.
+
+**Bước 2 — giá vốn:** nguyên liệu 9.000 + biến đổi khác 1.500 = 10.500đ/ổ → 300 × 10.500 × 30 = 94,5 triệu. Lương hai thợ làm bánh là chi phí trực tiếp: 16 triệu. Tổng giá vốn **110,5 triệu**.
+
+**Bước 3 — lợi nhuận gộp:** 225 − 110,5 = **114,5 triệu**, biên gộp **50,9%**.
+
+**Bước 4 — marketing và cố định:** quảng cáo 5 triệu + mặt bằng 30 triệu = 35 triệu.
+
+**Bước 5 — lợi nhuận hoạt động:** 114,5 − 35 = **79,5 triệu/tháng**, biên hoạt động **35,3%**.
+
+**Bước 6 — đọc sơ đồ:**
+
+| Chặng | Số tiền (triệu/tháng) | % doanh thu | Loại |
+|---|---|---|---|
+| Doanh thu | 225 | 100% | — |
+| Nguyên liệu + biến đổi khác | 94,5 | 42,0% | biến đổi |
+| Lương thợ | 16 | 7,1% | gần cố định |
+| Mặt bằng | 30 | 13,3% | cố định |
+| Quảng cáo | 5 | 2,2% | tuỳ ý |
+| **Còn lại** | **79,5** | **35,3%** | — |
+
+**Bước 7 — hoà vốn:** phần cố định là 16 + 30 + 5 = 51 triệu/tháng. Lãi gộp mỗi ổ = 25.000 − 10.500 = 14.500đ. Cần 51.000.000 ÷ 14.500 ≈ **3.517 ổ/tháng**, tức khoảng **117 ổ/ngày** — bằng 39% mức hiện tại. Tiệm có đệm an toàn dày.
+
+**Bước 8 — ba đòn bẩy, xếp theo sức nặng:**
+
+1. **Giá nguyên liệu (42% doanh thu).** Giảm 5% giá nhập nguyên liệu (81 triệu/tháng) = tiết kiệm 4,1 triệu/tháng, gần bằng một tháng quảng cáo.
+2. **Sản lượng trên cùng mặt bằng (mặt bằng 13,3% và cố định).** Bán thêm 50 ổ/ngày không tốn thêm tiền thuê: +21,8 triệu lãi gộp/tháng.
+3. **Giá bán.** Tăng 1.000đ/ổ = +9 triệu/tháng nếu lượng không đổi — nhưng đây là đòn bẩy rủi ro nhất vì phải kiểm phản ứng của khách.
+
+Chú ý cách xếp hạng: **theo phần trăm doanh thu nhân với khả năng thay đổi được**, không theo cảm giác. Quảng cáo là dòng dễ cắt nhất nhưng chỉ chiếm 2,2% — cắt sạch cũng không cứu được gì.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('009.05', '009', 5, 'pitfall', 'Bốn lỗi khi đọc dòng tiền', '**BIZ-01 — nhầm doanh thu với lợi nhuận.** "Tiệm này doanh thu 225 triệu, sống tốt" là câu nói không có thông tin. Với biên gộp 20% thì cùng doanh thu ấy có thể đang lỗ. Sửa: mọi câu về sức khoẻ tài chính phải đi kèm một biên.
+
+**FIN-05 — tính biên gộp rồi gọi là lợi nhuận.** Biên gộp 50,9% nghe rất khoẻ, nhưng sau mặt bằng và quảng cáo chỉ còn 35,3%, và nếu chủ tiệm lấy lương thì còn ít hơn. Luôn nói rõ đang ở chặng nào.
+
+**BIZ-03 — bỏ qua chi phí phục vụ khách hàng.** Bao bì, hao hụt, phí giao hàng, chiết khấu sàn hay bị để ngoài vì "nhỏ". Trong ví dụ trên, 1.500đ/ổ tưởng nhỏ nhưng bằng 13,5 triệu/tháng — gấp gần ba lần ngân sách quảng cáo.
+
+**FIN-02 — bỏ qua dòng tiền.** Lợi nhuận và tiền mặt là hai thứ khác nhau: hàng tồn, công nợ và tiền thuê trả trước có thể làm một doanh nghiệp có lãi vẫn hết tiền. Bài này chỉ vẽ lợi nhuận; nhớ rằng đó chưa phải toàn bộ câu chuyện.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('009.06', '009', 6, 'checklist', 'Soát trước khi nộp', '- Sơ đồ có đủ bốn chặng, không nhảy cóc từ doanh thu xuống lợi nhuận.
+- Mỗi dòng chi phí ghi kèm **% doanh thu**, không chỉ số tuyệt đối.
+- Mỗi dòng được gắn nhãn biến đổi / cố định / tuỳ ý.
+- Có tính điểm hoà vốn và so với mức hoạt động hiện tại.
+- Ba đòn bẩy xếp hạng theo độ lớn × khả năng thay đổi, có số đi kèm.
+- Giả định nào do bạn tự đặt đều được ghi rõ là giả định.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('009.07', '009', 7, 'exercise', 'Bài nộp', 'Chọn **một** doanh nghiệp bạn quan sát được trực tiếp (quán ăn quen, tiệm giặt, phòng gym, shop online của bạn bè) và vẽ sơ đồ dòng tiền vào – ra trong 30 phút.
+
+Không có số thật thì tự đặt giả định và ghi rõ nguồn suy ra (quan sát, hỏi chủ quán, hay ước lượng). Mục tiêu là **chuỗi lập luận đúng**, không phải số chính xác.
+
+Output: một sheet gồm bảng bốn chặng (số tiền · % doanh thu · nhãn biến đổi/cố định), ô tính điểm hoà vốn, và ba dòng đòn bẩy xếp hạng kèm ước lượng tác động bằng tiền.');
+DELETE FROM lesson_blocks WHERE lesson_id = '010';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('010.01', '010', 1, 'goal', 'Sau bài này bạn làm được gì', 'Nhận ra **mô hình doanh thu** của một doanh nghiệp trong vòng một câu hỏi, và nói được ba điều đi kèm từng mô hình: tiền vào lúc nào, chỉ số sống còn là gì, và mô hình đó chết vì cái gì.
+
+Giá trị thực tế: khi biết một công ty chạy mô hình đăng ký thuê bao, bạn biết ngay phải hỏi về tỷ lệ rời bỏ và chi phí thu hút khách — không cần ai nhắc. Đó là cách người có kinh nghiệm đặt câu hỏi nhanh hơn người mới.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('010.02', '010', 2, 'concept', 'Bảy mô hình và chỉ số sống còn của từng cái', '| Mô hình | Tiền vào khi nào | Chỉ số sống còn | Chết vì |
+|---|---|---|---|
+| **Bán đứt** (bán lẻ, nhà hàng, sản xuất) | Ngay khi bán | Biên gộp × vòng quay hàng | Tồn kho ế và biên mỏng |
+| **Thuê bao** (phần mềm, phòng gym, học phí tháng) | Đều đặn hàng kỳ | Tỷ lệ rời bỏ và LTV/CAC | Khách rời nhanh hơn tốc độ có khách mới |
+| **Sàn trung gian** (giao đồ ăn, gọi xe, chợ điện tử) | Hoa hồng mỗi giao dịch | Mật độ hai phía và tỷ lệ lấp đơn | Trợ giá mãi không đạt mật độ tự sống |
+| **Quảng cáo** (báo, mạng xã hội, ứng dụng miễn phí) | Khi có lượt xem | Thời lượng dùng × giá mỗi nghìn lượt | Lưu lượng phụ thuộc một nguồn duy nhất |
+| **Nhượng quyền** (chuỗi F&B, giáo dục) | Phí ban đầu + % doanh thu | Số điểm mở mới × tỷ lệ điểm sống sót | Chất lượng điểm nhượng quyền kéo sập thương hiệu |
+| **Dùng bao nhiêu trả bấy nhiêu** (điện nước, đám mây, logistics) | Theo mức dùng | Công suất sử dụng và biên biến đổi | Chi phí cố định lớn mà công suất thấp |
+| **Dao cạo – lưỡi dao** (máy in và mực, máy pha và viên nén) | Ít lúc đầu, nhiều về sau | Tỷ lệ mua lại phần tiêu hao | Hàng tiêu hao bị bên thứ ba thay thế |
+
+Học bảng này không phải để thuộc lòng, mà để **chuyển từ tên mô hình sang câu hỏi cần hỏi**. Nghe "chuỗi phòng gym bán gói năm" là lập tức hỏi: bao nhiêu phần trăm hội viên còn đến sau 3 tháng? Vì ở mô hình thuê bao, người đã trả tiền mà bỏ tập là doanh thu năm nay đẹp và năm sau sụp.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('010.03', '010', 3, 'concept', 'Cùng một sản phẩm, đổi mô hình là đổi cả bài toán', 'Một phòng tập có thể chạy ba mô hình khác nhau trên cùng một cơ sở vật chất:
+
+- **Bán gói năm trả trước** — tiền vào ngay, dòng tiền khoẻ, nhưng doanh thu ghi nhận trước khi phục vụ xong; rủi ro là bán được nhiều mà năm sau không ai gia hạn.
+- **Thu tháng** — dòng tiền mỏng hơn, nhưng mỗi tháng là một lần khách bỏ phiếu bằng tiền, nên chất lượng dịch vụ được kiểm liên tục.
+- **Trả theo buổi** — rủi ro thấp cho khách, doanh thu lên xuống theo mùa, và câu hỏi trung tâm chuyển thành lấp đầy khung giờ thấp điểm.
+
+Cùng một phòng tập, ba mô hình, ba câu hỏi phân tích hoàn toàn khác. Khi đề case nói "doanh thu giảm", câu đầu tiên bạn nên hỏi là **doanh thu theo mô hình nào** — vì cách sửa khác hẳn nhau.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('010.04', '010', 4, 'worked_example', 'Đọc mô hình từ ba mẩu thông tin', '**Tình huống:** Một ứng dụng học tiếng Anh cho biết: tải về miễn phí, 4% người dùng mua gói 299.000đ/năm, phần còn lại xem quảng cáo. Chi phí quảng cáo để có một người tải là 12.000đ. Mỗi người dùng miễn phí mang về khoảng 8.000đ/năm từ quảng cáo. Gói trả phí gia hạn năm thứ hai là 55%.
+
+**Bước 1 — nhận mô hình:** đây là **hai mô hình chồng lên nhau**: thuê bao (4% trả phí) cộng quảng cáo (96% còn lại). Đừng phân tích như một mô hình duy nhất.
+
+**Bước 2 — doanh thu trung bình trên mỗi người tải, năm 1:**
+
+- Từ trả phí: 4% × 299.000 = 11.960đ
+- Từ quảng cáo: 96% × 8.000 = 7.680đ
+- **Tổng: 19.640đ**, so với chi phí thu hút 12.000đ → còn **7.640đ** ngay trong năm đầu.
+
+**Bước 3 — nhìn sang năm 2:** nhóm trả phí gia hạn 55% → 4% × 55% = 2,2% người dùng ban đầu tiếp tục trả, mang về 2,2% × 299.000 = 6.578đ, cộng quảng cáo (giả định giữ nguyên 7.680đ) = **14.258đ**, và lần này **không tốn chi phí thu hút**.
+
+**Bước 4 — kết luận đọc ra được:** mô hình lành, nhưng **chỉ số quyết định là 4%**, không phải giá gói. Tăng tỷ lệ chuyển đổi từ 4% lên 5% thêm 2.990đ/người tải — nhiều hơn cả việc tăng giá gói 10% (thêm 1.196đ) và ít rủi ro hơn.
+
+**Bước 5 — câu hỏi tiếp theo phải hỏi**, đúng theo mô hình:
+
+1. 4% chuyển đổi xảy ra ở thời điểm nào sau khi tải — ngày đầu hay sau 2 tuần dùng?
+2. Người gia hạn khác người không gia hạn ở hành vi nào (số buổi học/tuần)?
+3. Doanh thu quảng cáo 8.000đ/năm đến từ bao nhiêu phiên dùng — nếu người dùng bỏ app sau 1 tháng thì con số đó có còn đúng không?
+
+Chú ý bước 5: câu hỏi không đến từ trí nhớ mà **đến từ mô hình**. Thuê bao → hỏi chuyển đổi và giữ chân. Quảng cáo → hỏi thời lượng dùng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('010.05', '010', 5, 'pitfall', 'Lỗi hay gặp khi phân loại mô hình', '**BIZ-02 — liệt kê canvas mà không rút ra đòn bẩy.** Gọi tên được mô hình là bước một; nếu dừng ở đó thì bạn mới mô tả, chưa phân tích. Mỗi lần gọi tên mô hình, bắt buộc kèm một câu: *"nên chỉ số quyết định ở đây là …"*.
+
+**BIZ-04 — giả định biên lợi nhuận không có cơ sở.** "Phần mềm thì biên 80%" là khuôn mẫu, không phải dữ liệu; một app học tiếng Anh có chi phí nội dung và chi phí máy chủ rất khác nhau tuỳ cách vận hành. Nếu phải giả định, nói rõ đang giả định và neo vào một con số quan sát được.
+
+**FIN-06 — bỏ chi phí thu hút khách ra khỏi mô hình.** Doanh thu 19.640đ/người nghe hay cho tới khi trừ 12.000đ chi phí quảng cáo. Ở mọi mô hình có mua lưu lượng, CAC phải nằm trong phép tính ngay từ đầu chứ không phải một dòng ghi chú cuối trang.
+
+**FIN-07 — chọn đơn vị không khớp cách công ty vận hành.** Với ứng dụng trên, đơn vị đúng là *một người tải*, không phải *một người trả phí* — vì tiền quảng cáo thu từ cả nhóm miễn phí. Chọn sai đơn vị thì mọi phép tính sau đó lệch.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('010.06', '010', 6, 'checklist', 'Soát trước khi nộp', '- Mỗi doanh nghiệp được gán đúng mô hình, và nếu chồng nhiều mô hình thì tách rõ từng phần.
+- Mỗi mô hình kèm chỉ số sống còn tương ứng, không phải chỉ số chung chung.
+- Có ít nhất một ví dụ Việt Nam cho mỗi mô hình, ghi rõ là quan sát hay giả định.
+- Đơn vị phân tích khớp với cách doanh nghiệp thật sự kiếm tiền.
+- Chi phí thu hút khách nằm trong phép tính, không nằm ở chú thích.
+- Mỗi mô hình có một dòng "chết vì cái gì".');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('010.07', '010', 7, 'exercise', 'Bài nộp', 'Lập bảng so sánh **bảy mô hình** với các cột: mô hình · ví dụ Việt Nam bạn quan sát được · tiền vào lúc nào · chỉ số sống còn · chết vì cái gì · một câu hỏi bạn sẽ hỏi đầu tiên nếu gặp case thuộc mô hình này.
+
+Sau bảng, chọn **một** doanh nghiệp chạy **hai mô hình chồng nhau** (ví dụ: quán cà phê vừa bán tại chỗ vừa bán gói thành viên) và viết nửa trang: hai mô hình đó hỗ trợ nhau hay giành nguồn lực của nhau, và đâu là dấu hiệu để biết.
+
+Thời lượng 30 phút. Ví dụ Việt Nam không cần số chính xác, nhưng phải ghi rõ chỗ nào là quan sát và chỗ nào là bạn đoán.
+
+Output: một bảng bảy dòng × sáu cột, kèm nửa trang phân tích trường hợp hai mô hình chồng nhau.');
+DELETE FROM lesson_blocks WHERE lesson_id = '011';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('011.01', '011', 1, 'goal', 'Sau bài này bạn làm được gì', 'Mổ xẻ (*teardown*) một doanh nghiệp bạn chưa từng nghiên cứu, trong 35 phút, và nộp: **canvas một trang** + **ba đòn bẩy lợi nhuận** xếp hạng + **một rủi ro mô hình**.
+
+Teardown là bài tổng hợp của module A3: bài 009 cho bạn dòng tiền, bài 010 cho bạn mô hình doanh thu, bài này bắt bạn dùng cả hai trên một tình huống có **hai mô hình để so sánh** — điểm mạnh của việc so sánh là nó phơi bày ngay cái gì là bản chất, cái gì chỉ là chi tiết.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('011.02', '011', 2, 'concept', 'Canvas một trang, sáu ô, không hơn', 'Canvas đầy đủ có chín ô; trong case bạn chỉ cần sáu ô trả lời được câu "doanh nghiệp này kiếm tiền thế nào":
+
+1. **Khách trả tiền là ai** — và có khác người sử dụng không (báo miễn phí: người đọc dùng, nhà quảng cáo trả).
+2. **Bán cái gì, tính tiền theo đơn vị nào** — mỗi món, mỗi tháng, mỗi giao dịch, mỗi giờ.
+3. **Chi phí tạo ra một đơn vị đó** — phần biến đổi.
+4. **Chi phí phải trả dù không bán được gì** — phần cố định.
+5. **Tiền vào trước hay sau khi phục vụ** — quyết định rủi ro dòng tiền.
+6. **Cái gì chặn người khác làm giống hệt** — thương hiệu, hợp đồng, vị trí, quy mô, hay không có gì.
+
+Ô số 6 là ô hay bị bỏ nhất và cũng là ô nói nhiều nhất về tương lai. Nếu câu trả lời là "không có gì", thì mọi khoản lợi nhuận đang thấy đều tạm thời.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('011.03', '011', 3, 'concept', 'Đòn bẩy phải xếp hạng, không được liệt kê ngang hàng', 'Ba đòn bẩy là kết quả cuối cùng của teardown, và phải xếp theo **tác động × khả năng làm được**:
+
+- **Tác động**: thay đổi một điểm phần trăm ở dòng này thì lợi nhuận đổi bao nhiêu tiền. Dòng chiếm 40% doanh thu luôn mạnh hơn dòng chiếm 3%, dù dòng 3% dễ cắt hơn.
+- **Khả năng làm được**: có nằm trong tay người ra quyết định không, mất bao lâu, có phá thứ khác không (giảm định lượng để tiết kiệm nguyên liệu thì mất khách).
+
+Liệt kê tám đề xuất ngang hàng là **REC-03** — dấu hiệu của người chưa dám chọn. Ba đòn bẩy xếp hạng, có số đi kèm, luôn giá trị hơn tám gạch đầu dòng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('011.04', '011', 4, 'worked_example', 'Hai quán cà phê, một phép so sánh', '**Tình huống:** Quán A do chủ tự vận hành. Quán B nhượng quyền từ một chuỗi. Cùng mặt bằng 40 m², cùng khu, cùng bán khoảng 200 ly/ngày.
+
+| | Quán A — tự vận hành | Quán B — nhượng quyền |
+|---|---|---|
+| Giá trung bình mỗi ly | 35.000đ | 45.000đ |
+| Nguyên liệu mỗi ly | 11.000đ | 13.000đ (mua qua chuỗi) |
+| Phí nhượng quyền | — | 6% doanh thu |
+| Đầu tư ban đầu | 350 triệu | 900 triệu (gồm phí ban đầu 200 triệu) |
+| Mặt bằng + nhân sự + vận hành / tháng | 75 triệu | 95 triệu (theo chuẩn chuỗi) |
+| Marketing | tự làm, ~3 triệu/tháng | chuỗi làm, đã gồm trong phí |
+
+**Bước 1 — doanh thu tháng:** A: 200 × 35.000 × 30 = **210 triệu**. B: 200 × 45.000 × 30 = **270 triệu**.
+
+**Bước 2 — lãi gộp:** A: (35.000 − 11.000) × 200 × 30 = **144 triệu** (biên 68,6%). B: (45.000 − 13.000) × 200 × 30 = **192 triệu** (biên 71,1%).
+
+**Bước 3 — trừ phí nhượng quyền của B:** 6% × 270 = 16,2 triệu → còn **175,8 triệu**.
+
+**Bước 4 — trừ chi phí cố định:** A: 144 − 75 − 3 = **66 triệu/tháng**. B: 175,8 − 95 = **80,8 triệu/tháng**.
+
+**Bước 5 — hoàn vốn:** A: 350 ÷ 66 ≈ **5,3 tháng**. B: 900 ÷ 80,8 ≈ **11,1 tháng**.
+
+**Bước 6 — đọc kết quả, và đây mới là phần có giá trị:**
+
+Quán B kiếm nhiều tiền hơn mỗi tháng (+22%), nhưng **rủi ro cho người bỏ vốn cao hơn hẳn**, vì ba lý do đọc thẳng ra từ bảng:
+
+1. **Vốn ban đầu gấp 2,6 lần** và phần lớn không lấy lại được nếu đóng cửa (phí nhượng quyền 200 triệu là chi phí chìm ngay khi ký).
+2. **Chi phí cố định cao hơn 20 triệu/tháng** theo chuẩn chuỗi, nên khi doanh thu giảm 30%, B lỗ trước A: lãi gộp B còn 123 triệu − 95 = 28 triệu, còn A còn 100,8 − 78 = 22,8 triệu… *trên giấy A thấp hơn, nhưng A cắt được nhân sự và marketing, B thì bị ràng buộc bởi chuẩn chuỗi.* Khả năng co giãn mới là thứ quyết định.
+3. **Phí 6% tính trên doanh thu, không phải lợi nhuận.** Tháng ế vẫn phải trả — đây là điểm khác biệt bản chất giữa hai mô hình.
+
+Đổi lại, B mua được ba thứ A không có: nhận diện thương hiệu (nên bán được giá cao hơn 10.000đ/ly), quy trình sẵn, và marketing tập trung. Câu trả lời đúng cho đề này không phải "chọn A" hay "chọn B" mà là **B đắt hơn để đổi lấy tốc độ và giảm rủi ro vận hành, A rẻ hơn nhưng dồn rủi ro vào năng lực của chính người chủ**.
+
+**Ba đòn bẩy cho quán A**, xếp hạng:
+
+1. **Giá bán (chênh 10.000đ/ly so với B).** Nếu A cải thiện chất lượng và không gian để tăng giá 5.000đ/ly: +30 triệu lãi gộp/tháng — lớn hơn mọi khoản tiết kiệm chi phí khả dĩ.
+2. **Nguyên liệu 31,4% doanh thu.** Giảm 8% giá nhập: +5,3 triệu/tháng.
+3. **Số ly bán ra trên cùng mặt bằng.** Thêm 30 ly/ngày: +21,6 triệu lãi gộp/tháng, không tăng tiền thuê.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('011.05', '011', 5, 'pitfall', 'Bốn lỗi trong một bài teardown', '**BIZ-02 — liệt kê canvas mà không rút ra đòn bẩy.** Sáu ô điền đầy đủ nhưng kết bài bằng "mô hình khá hoàn chỉnh" là bài chưa xong. Canvas là phương tiện; đòn bẩy mới là sản phẩm.
+
+**BIZ-01 — nhầm doanh thu với lợi nhuận.** "B tốt hơn vì doanh thu 270 so với 210" bỏ qua phí nhượng quyền và chi phí cố định cao hơn.
+
+**FIN-08 — đưa chi phí chìm vào quyết định.** Nếu đề hỏi "có nên đóng quán không", thì 200 triệu phí nhượng quyền **đã trả rồi** không được tính vào phép so sánh tương lai. Chi phí chìm chỉ có ý nghĩa khi quyết định *trước* lúc chi.
+
+**REC-03 — liệt kê tám đề xuất ngang hàng.** Chọn ba, xếp hạng, có số. Nếu thấy khó chọn thì đó chính là công việc đang cần làm, không phải lý do để liệt kê tất cả.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('011.06', '011', 6, 'checklist', 'Soát trước khi nộp', '- Canvas đủ sáu ô, ô "cái gì chặn người khác làm giống hệt" không bỏ trống.
+- Có so sánh bằng số giữa hai mô hình, không chỉ mô tả định tính.
+- Có tính hoàn vốn hoặc một thước đo rủi ro vốn tương đương.
+- Ba đòn bẩy xếp hạng, mỗi cái kèm ước lượng tác động bằng tiền.
+- Có nêu ít nhất một rủi ro thuộc về **mô hình**, không phải rủi ro chung chung kiểu "cạnh tranh gay gắt".
+- Không dùng chi phí đã chi để biện minh cho quyết định sắp tới.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('011.07', '011', 7, 'exercise', 'Bài nộp', 'Làm đề **C-011 — Quán cà phê tự vận hành và quán nhượng quyền** trong 35 phút.
+
+Yêu cầu: canvas sáu ô cho **cả hai** mô hình, một bảng so sánh bằng số (doanh thu, lãi gộp, chi phí cố định, lợi nhuận tháng, thời gian hoàn vốn), ba đòn bẩy xếp hạng cho mô hình bạn cho là phù hợp hơn với người bỏ vốn lần đầu, và một rủi ro mô hình kèm dấu hiệu nhận biết sớm.
+
+Số liệu trong đề chỉ được phát khi bạn hỏi đúng thứ — hãy hỏi theo mô hình như bài 010 chỉ ra, đừng hỏi lan man.
+
+Output: canvas một trang (hai cột cho hai mô hình), bảng so sánh số liệu, ba dòng đòn bẩy có ước lượng bằng tiền, và một đoạn ngắn về rủi ro mô hình.');
 DELETE FROM lesson_blocks WHERE lesson_id = '019';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('019.01', '019', 1, 'goal', 'Sau bài này bạn làm được gì', 'Ước lượng quy mô một thị trường **từ dưới lên** — đi từ một đơn vị cung có thật (một cửa hàng, một xe, một nhân viên bán hàng) rồi nhân lên — và nói được vì sao con số của bạn lệch so với cách top-down.
 

@@ -4,7 +4,7 @@ Tình trạng hôm nay (chạy `python3 scripts/authoring-queue.py --all` để 
 
 | | |
 |---|---|
-| Thân bài đã viết | **6 / 122** |
+| Thân bài đã viết | **9 / 122** |
 | Đề case đã đặc tả | **30** (29 từ blueprint + 1 viết tay) |
 | Rubric thiếu mô tả 4 mức | **38 / 40** (RM-A1 đã xong) |
 | Mã lỗi chưa có nguyên nhân gốc | 127 / 136 |
