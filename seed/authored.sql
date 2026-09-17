@@ -807,6 +807,240 @@ Yêu cầu: canvas sáu ô cho **cả hai** mô hình, một bảng so sánh b�
 Số liệu trong đề chỉ được phát khi bạn hỏi đúng thứ — hãy hỏi theo mô hình như bài 010 chỉ ra, đừng hỏi lan man.
 
 Output: canvas một trang (hai cột cho hai mô hình), bảng so sánh số liệu, ba dòng đòn bẩy có ước lượng bằng tiền, và một đoạn ngắn về rủi ro mô hình.');
+DELETE FROM lesson_blocks WHERE lesson_id = '015';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('015.01', '015', 1, 'goal', 'Sau bài này bạn làm được gì', 'Làm tròn số **có kiểm soát** khi tính nhẩm: biết mình vừa làm tròn theo hướng nào, sai số cỡ bao nhiêu, và con số cuối còn dùng để kết luận được hay không.
+
+Kèm theo là ba câu **sanity check** chạy trong 10 giây, để bắt lỗi lệch 10 lần trước khi nó thành câu trả lời nói ra miệng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('015.02', '015', 2, 'concept', 'Làm tròn không phải là cẩu thả, nhưng làm tròn mù thì có', 'Trong case bạn không có máy tính, và người phỏng vấn cũng không cần bốn chữ số thập phân. Nhưng làm tròn có hai cách:
+
+- **Làm tròn mù:** 87 × 46 ≈ 90 × 50 = 4.500. Số thật là 4.002. Sai 12%, và bạn không biết mình sai bao nhiêu.
+- **Làm tròn có kiểm soát:** 87 × 46 ≈ 90 × 46 = 4.140, *"em làm tròn 87 lên 90 nên con số này cao hơn thực tế khoảng 3%"*. Số thật 4.002, chênh 3,4% — và bạn đã nói trước điều đó.
+
+Khác biệt nằm ở một câu nói. Người phỏng vấn không trừ điểm vì bạn làm tròn; họ trừ điểm khi bạn **không biết mình đang sai về phía nào**.
+
+Ba quy tắc giữ sai số nhỏ:
+
+1. **Làm tròn ngược chiều nhau khi nhân.** Một số lên, một số xuống thì sai số triệt tiêu bớt: 87 × 46 → 90 × 45 = 4.050 (chênh 1,2%), tốt hơn 90 × 50 nhiều.
+2. **Đừng làm tròn quá 10% mỗi số.** Vượt ngưỡng đó thì sai số tích lại nhanh hơn bạn tưởng.
+3. **Giữ hai chữ số có nghĩa.** 4.002 → "khoảng 4.000" là đủ. Ghi 4.002,37 khi dữ liệu đầu vào là ước lượng chính là **SIZ-05**.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('015.03', '015', 3, 'concept', 'Ba câu sanity check, chạy trong 10 giây', 'Sau mỗi con số quan trọng, chạy đủ ba câu trước khi nói ra:
+
+1. **Bậc độ lớn có hợp lý không?** Thị trường cà phê một quận ra 500 tỷ hay 500 nghìn tỷ? Con số thứ hai lớn hơn GDP nhiều tỉnh — sai đơn vị ở đâu đó.
+2. **Chia ngược lại có ra dữ kiện ban đầu không?** Ra 4.000 từ 87 × 46 thì thử 4.000 ÷ 46 ≈ 87. Mất 5 giây, bắt được lỗi lệch bậc.
+3. **Quy về một đơn vị người hiểu được.** "252 tỷ/năm cho một quận 300 nghìn dân" → 840 nghìn đồng mỗi người mỗi năm → khoảng 70 nghìn/tháng. Nghe hợp lý cho cà phê mang đi. Nếu ra 700 nghìn/tháng thì có gì đó sai.
+
+Câu thứ ba mạnh nhất và ít người dùng nhất. Nó đổi một con số trừu tượng thành một con số bạn có trực giác, và trực giác bắt lỗi nhanh hơn phép tính.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('015.04', '015', 4, 'worked_example', 'Sáu phép tính, làm tròn và kiểm', '| Phép tính | Cách làm tròn | Kết quả ước lượng | Số thật | Lệch |
+|---|---|---|---|---|
+| 87 × 46 | 90 × 45 (một lên, một xuống) | 4.050 | 4.002 | +1,2% |
+| 1.240 ÷ 31 | 1.240 ÷ 30 = 41,3, biết là hơi cao | 41 | 40 | +2,5% |
+| 18% của 2.350 | 20% của 2.350 = 470, trừ đi 1/10 của nó | 423 | 423 | 0% |
+| 6.800 × 1,15 | 6.800 + 10% (680) + 5% (340) | 7.820 | 7.820 | 0% |
+| 45.000 ÷ 1.200 | 45 ÷ 1,2 = 37,5 | 37,5 | 37,5 | 0% |
+| 3 triệu × 365 | 3 × 365 = 1.095 → 1,095 tỷ | 1,095 tỷ | 1,095 tỷ | 0% |
+
+Hai kỹ thuật đáng học trong bảng:
+
+- **Tách phần trăm thành các mảnh dễ:** 18% = 20% − 2%, mà 2% = 1/10 của 20%. Tính 20% rồi trừ 1/10 nhanh hơn nhân 0,18.
+- **Đổi bậc trước, chia sau:** 45.000 ÷ 1.200 thành 45 ÷ 1,2 — bỏ ba số 0 ở cả hai vế, phép chia gọn hẳn và khó sai bậc.
+
+**Một ví dụ sanity check cứu bài:** Ước lượng doanh thu một chuỗi 8 nhà hàng: 8 nhà hàng × 200 khách/ngày × 150.000đ × 365 = 87,6 tỷ/năm. Kiểm câu 3: mỗi nhà hàng 10,95 tỷ/năm ≈ 912 triệu/tháng ≈ 30 triệu/ngày. Với 200 khách/ngày thì trung bình 150.000đ/khách — khớp đúng giả định đầu vào. Cây số đứng vững.
+
+Nhưng nếu ai đó làm 8 × 200 × 150.000 × 365 và ghi **876 tỷ**, câu 1 bắt ngay: 876 tỷ cho 8 nhà hàng nghĩa là mỗi nhà hàng hơn 100 tỷ/năm — vô lý cho quy mô 200 khách/ngày. Đó là **SIZ-02**, lệch 10 lần, và nó bị bắt trong 5 giây thay vì đi tới cuối bài.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('015.05', '015', 5, 'pitfall', 'Bốn lỗi tính nhẩm hay gặp', '**QNT-03 — làm tròn quá tay rồi kết luận sai.** 87 × 46 → 100 × 50 = 5.000 lệch 25%. Khi kết luận là "có nên đầu tư không" và ngưỡng nằm ở 4.500 thì sai số này lật ngược quyết định. Giới hạn: mỗi số không làm tròn quá 10%.
+
+**QNT-01 — sai đơn vị.** Trộn nghìn với triệu, tháng với năm. Cách phòng: viết đơn vị ngay cạnh mỗi số trong lúc tính, đừng để trong đầu.
+
+**QNT-05 — không sanity check.** Bỏ 10 giây kiểm để tiết kiệm thời gian, rồi mất 5 phút chữa một con số lệch bậc — hoặc tệ hơn, không ai phát hiện và cả khuyến nghị sai theo.
+
+**SIZ-05 — độ chính xác giả.** Đầu vào là ước lượng mà đầu ra ghi 4.002,37. Con số ấy tự nó nói rằng bạn không hiểu mức tin cậy của dữ liệu mình đang dùng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('015.06', '015', 6, 'checklist', 'Soát trước khi nộp', '- Mỗi phép tính có ghi hướng làm tròn (lên hay xuống) và ước lượng sai số.
+- Không số nào bị làm tròn quá 10%.
+- Kết quả giữ hai chữ số có nghĩa, không hơn.
+- Mỗi kết quả quan trọng chạy đủ ba câu sanity check.
+- Đơn vị được viết ra cạnh mỗi con số, không giữ trong đầu.
+- Có ít nhất một chỗ quy con số về đơn vị "người hiểu được".');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('015.07', '015', 7, 'exercise', 'Bài nộp', 'Làm **20 phép tính** dưới đây trong 25 phút, không máy tính. Với mỗi phép: ghi cách làm tròn, kết quả ước lượng, và ước lượng sai số theo hướng nào.
+
+```
+1.  84 × 37          6.  2.400 ÷ 48        11. 18% của 4.500     16. 960 ÷ 12 × 7
+2.  126 × 52         7.  9.600 ÷ 320       12. 35% của 2.800     17. 1,5 tỷ ÷ 365
+3.  7,8 × 4,6        8.  45.000 ÷ 1.800    13. 7% của 62.000     18. 250 × 12 × 0,85
+4.  310 × 29         9.  1.750 ÷ 25        14. 140% của 1.200    19. 88 × 1,25
+5.  1.480 × 6        10. 84.000 ÷ 2.100    15. 12,5% của 6.400   20. 3,2 triệu × 52
+```
+
+Sau đó chọn **ba** kết quả và chạy đủ ba câu sanity check cho từng cái, viết ra thành lời.
+
+Output: một bảng 20 dòng (phép tính · cách làm tròn · kết quả · sai số ước lượng theo hướng nào), cộng ba đoạn sanity check viết thành câu.');
+DELETE FROM lesson_blocks WHERE lesson_id = '016';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('016.01', '016', 1, 'goal', 'Sau bài này bạn làm được gì', 'Phân biệt và tính đúng ba thứ hay bị trộn lẫn: **phần trăm**, **điểm phần trăm**, và **trung bình có trọng số** — rồi **nói bước tính thành tiếng** trong lúc làm, vì trong phỏng vấn im lặng tính là mất điểm dù kết quả đúng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('016.02', '016', 2, 'concept', 'Phần trăm và điểm phần trăm: một chữ khác nhau, kết luận khác hẳn', 'Biên lợi nhuận đi từ **4% lên 6%**. Có hai cách nói, cả hai đều đúng:
+
+- Tăng **2 điểm phần trăm** (6 − 4).
+- Tăng **50 phần trăm** (2 ÷ 4).
+
+Dùng nhầm là **QNT-02**, và nó không phải lỗi chữ nghĩa: nói "biên tăng 50%" với ban giám đốc trong khi ý bạn là 2 điểm phần trăm sẽ làm cả phòng hiểu sai quy mô của việc vừa xảy ra.
+
+Quy tắc dùng:
+
+- **Khi so hai tỷ lệ với nhau** → dùng **điểm phần trăm**. "Tỷ lệ chuyển đổi từ 3% lên 5%: tăng 2 điểm phần trăm."
+- **Khi nói mức độ thay đổi so với chính nó** → dùng **phần trăm**. "Tỷ lệ chuyển đổi tăng 67% so với trước."
+- Nói cả hai khi con số quan trọng: *"từ 3% lên 5%, tức 2 điểm phần trăm, tương đương tăng hai phần ba."*
+
+Một cái bẫy phổ biến: **giảm 20% rồi tăng 20% không quay về chỗ cũ.** 100 → 80 → 96. Mất 4%. Trong case chi phí, bẫy này xuất hiện khi ai đó nói "cắt 20% rồi năm sau tăng lại 20% là hoà".');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('016.03', '016', 3, 'concept', 'Trung bình có trọng số: chỗ trực giác hay sai nhất', 'Một chuỗi có hai cửa hàng. Cửa hàng A biên 10%, cửa hàng B biên 30%. Biên trung bình của chuỗi **không phải 20%**, trừ khi hai cửa hàng doanh thu bằng nhau.
+
+Nếu A doanh thu 900 triệu và B doanh thu 100 triệu:
+
+```
+Biên chuỗi = (900 × 10% + 100 × 30%) ÷ 1.000 = (90 + 30) ÷ 1.000 = 12%
+```
+
+Trung bình đơn giản cho 20%, thực tế là 12% — lệch 8 điểm phần trăm, đủ để lật một kết luận.
+
+Ba chỗ trong case luôn phải dùng trung bình có trọng số:
+
+1. **Biên theo dòng sản phẩm** — mix bán ra quyết định biên chung. Đây chính là **PRF-02**, "bỏ qua mix sản phẩm".
+2. **Giá trung bình khi có nhiều mức giá** — giá vé người lớn và trẻ em, giá theo khung giờ.
+3. **Tỷ lệ tăng trưởng của nhiều mảng** — mảng nhỏ tăng 200% không kéo nổi mảng lớn giảm 5%.
+
+Câu hỏi tự động cần bật lên mỗi lần thấy chữ "trung bình": **trung bình theo trọng số nào?**');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('016.04', '016', 4, 'worked_example', 'Đọc một chuỗi ba cửa hàng', '**Dữ kiện:**
+
+| Cửa hàng | Doanh thu (tỷ) | Biên gộp |
+|---|---|---|
+| A | 6,0 | 45% |
+| B | 3,0 | 30% |
+| C | 1,0 | 12% |
+
+**Câu 1 — biên gộp của cả chuỗi là bao nhiêu?**
+
+Nói thành tiếng trong lúc tính: *"Em tính lãi gộp từng cửa hàng rồi chia cho tổng doanh thu, không lấy trung bình ba con số."*
+
+```
+Lãi gộp = 6,0×45% + 3,0×30% + 1,0×12% = 2,70 + 0,90 + 0,12 = 3,72 tỷ
+Tổng doanh thu = 10 tỷ
+Biên chuỗi = 3,72 ÷ 10 = 37,2%
+```
+
+Trung bình đơn giản là (45 + 30 + 12) ÷ 3 = 29% — thấp hơn thực tế 8,2 điểm phần trăm, vì cửa hàng biên cao nhất cũng là cửa hàng lớn nhất.
+
+**Câu 2 — nếu C đóng cửa, biên chuỗi thành bao nhiêu?**
+
+```
+Lãi gộp còn 3,60 tỷ ÷ doanh thu còn 9 tỷ = 40,0%
+```
+
+Biên **tăng 2,8 điểm phần trăm** trong khi lãi gộp tuyệt đối **giảm 120 triệu**. Đây là nghịch lý quan trọng: đóng cửa hàng biên thấp làm đẹp tỷ lệ nhưng giảm tiền thật. Ai chỉ nhìn biên sẽ khuyến nghị sai — nhất là khi C vẫn đang phủ được phần chi phí cố định của nó.
+
+**Câu 3 — chuỗi muốn biên chạm 40% mà không đóng cửa hàng nào. Cần gì?**
+
+```
+Cần lãi gộp = 40% × 10 tỷ = 4,0 tỷ, tức thêm 0,28 tỷ
+```
+
+Nói thành tiếng: *"280 triệu này lấy ở đâu rẻ nhất? Nếu chỉ nâng biên của C từ 12% lên 40% thì cũng chỉ thêm 280 triệu — vừa đủ, nhưng nâng 28 điểm phần trăm ở một cửa hàng là phi thực tế. Nếu nâng đều cả ba cửa hàng 2,8 điểm phần trăm thì cũng ra đúng 280 triệu, và dễ hơn nhiều."*
+
+Cách nói ấy cho thấy ba thứ cùng lúc: bạn tính đúng, bạn biết quy về tiền, và bạn biết phương án nào khả thi. Đó là toàn bộ mục tiêu của tiêu chí "trình bày bước tính" trong rubric.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('016.05', '016', 5, 'pitfall', 'Bốn lỗi trong case math', '**QNT-02 — nhầm % với điểm %.** Xuất hiện nhiều nhất khi nói về biên, thị phần, tỷ lệ chuyển đổi. Cách phòng: mỗi lần nói "tăng X%", tự hỏi *so với chính nó hay là hiệu hai tỷ lệ?*
+
+**QNT-04 — im lặng khi tính.** Người phỏng vấn không đọc được giấy nháp của bạn. Im lặng 90 giây rồi đưa một con số đúng vẫn bị chấm thấp ở tiêu chí trình bày, vì họ không biết bạn hiểu hay may.
+
+**PRF-02 — bỏ qua mix sản phẩm.** "Biên giảm 3 điểm" có thể xảy ra mà **không** cửa hàng nào giảm biên: chỉ cần mix dịch chuyển sang dòng biên thấp. Luôn tách hai khả năng: biên từng dòng giảm, hay tỷ trọng dòng thay đổi.
+
+**QNT-01 — sai đơn vị.** Nhân tỷ với phần trăm rồi quên chia 100, hoặc trộn tháng với năm. Viết đơn vị cạnh mỗi số.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('016.06', '016', 6, 'checklist', 'Soát trước khi nộp', '- Mỗi chỗ dùng "%" đều rõ là phần trăm hay điểm phần trăm.
+- Mọi trung bình đều nói rõ trọng số là gì.
+- Có ít nhất một chỗ quy tỷ lệ về tiền tuyệt đối.
+- Bước tính được viết ra theo thứ tự, không nhảy cóc.
+- Đơn vị đi kèm từng con số.
+- Có một câu sanity check cho kết quả cuối.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('016.07', '016', 7, 'exercise', 'Bài nộp', 'Làm **30 câu** drill dưới đây trong 25 phút, và **nói thành tiếng** bước tính cho ít nhất 10 câu (ghi âm hoặc viết lại lời nói).
+
+Mẫu dạng câu (bản đầy đủ do giảng viên phát):
+
+1. Biên từ 8% lên 11%: bao nhiêu điểm phần trăm, bao nhiêu phần trăm?
+2. Doanh thu giảm 15% rồi tăng 15%: còn lại bao nhiêu so với ban đầu?
+3. Hai mảng: mảng A 8 tỷ biên 20%, mảng B 2 tỷ biên 45%. Biên chung?
+4. Thị phần từ 12% lên 15% trong khi thị trường tăng 20%: doanh thu của công ty tăng bao nhiêu phần trăm?
+5. Giá tăng 10%, sản lượng giảm 8%: doanh thu đổi bao nhiêu?
+
+Output: bảng 30 câu (đề · bước tính · kết quả · đơn vị), cộng bản ghi hoặc bản chép lời nói cho 10 câu, mỗi câu nói đủ ba phần: em sẽ tính gì · em đang tính · kết quả và nó có hợp lý không.');
+DELETE FROM lesson_blocks WHERE lesson_id = '017';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('017.01', '017', 1, 'goal', 'Sau bài này bạn làm được gì', 'Tính nhẩm hai thứ xuất hiện trong gần như mọi case quyết định: **điểm hoà vốn** (bán bao nhiêu thì đủ bù chi phí cố định) và **tốc độ tăng trưởng** (bao lâu thì gấp đôi, tăng kép mấy năm ra bao nhiêu).
+
+Cả hai đều có mẹo tính nhẩm ra kết quả trong 20 giây với sai số dưới 5% — đủ chính xác để ra quyết định, đủ nhanh để nói ngay trong lúc phỏng vấn.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('017.02', '017', 2, 'concept', 'Hoà vốn là một phép chia, nhưng chia cái gì mới là chỗ khó', '```
+Điểm hoà vốn (số đơn vị) = Chi phí cố định ÷ Lãi gộp mỗi đơn vị
+```
+
+Lãi gộp mỗi đơn vị = giá bán − **chi phí biến đổi** mỗi đơn vị. Sai lầm phổ biến nhất là lấy giá bán trừ *toàn bộ* chi phí trung bình, tức đã trừ phần cố định hai lần.
+
+Ba biến thể hay gặp trong case:
+
+- **Hoà vốn theo doanh thu:** Chi phí cố định ÷ Biên gộp. Ví dụ cố định 51 triệu, biên 58% → 51 ÷ 0,58 ≈ 88 triệu doanh thu.
+- **Hoà vốn cho một khoản đầu tư:** Vốn đầu tư ÷ Lợi nhuận tăng thêm mỗi tháng = số tháng hoàn vốn.
+- **Hoà vốn của một quyết định giảm giá:** giảm giá 10% khi biên đang 40% thì cần bán thêm bao nhiêu để không lỗ hơn? Công thức: sản lượng phải tăng thêm = giảm giá ÷ (biên mới) = 10 ÷ 30 = **33%**. Đây là con số làm nhiều người giật mình, và nó là lập luận mạnh nhất chống lại việc giảm giá bừa.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('017.03', '017', 3, 'concept', 'Hai mẹo tăng trưởng đáng thuộc', '**Quy tắc 72 — bao lâu thì gấp đôi.** Số năm gấp đôi ≈ 72 ÷ tốc độ tăng trưởng (%).
+
+- Tăng 8%/năm → gấp đôi sau ~9 năm (số thật: 9,0).
+- Tăng 12%/năm → ~6 năm (số thật: 6,1).
+- Tăng 24%/năm → ~3 năm (số thật: 3,2).
+
+Dùng ngược cũng được: "muốn gấp đôi trong 4 năm thì cần tăng bao nhiêu mỗi năm?" → 72 ÷ 4 = **18%/năm**.
+
+**Cộng dồn gần đúng cho nhiều năm.** Với tốc độ nhỏ (dưới ~10%) và ít năm (dưới ~5), tăng kép ≈ tốc độ × số năm, cộng thêm một chút:
+
+- 5%/năm trong 3 năm: xấp xỉ 15%, thực tế 15,8%.
+- 7%/năm trong 4 năm: xấp xỉ 28%, thực tế 31,1% — bắt đầu lệch, nên cộng thêm khoảng một phần mười.
+
+Quá 10%/năm hoặc quá 5 năm thì đừng cộng thẳng nữa, dùng quy tắc 72 hoặc nhân từng năm.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('017.04', '017', 4, 'worked_example', 'Ba bài hoà vốn nói thành tiếng', '**Bài 1 — mở thêm một cửa hàng.** Mặt bằng và lương 60 triệu/tháng. Giá trung bình mỗi đơn 120.000đ, chi phí biến đổi 45.000đ.
+
+*Nói trong lúc tính:* "Lãi gộp mỗi đơn là 120 trừ 45, tức 75 nghìn. Chi phí cố định 60 triệu chia 75 nghìn ra 800 đơn một tháng, tức khoảng 27 đơn mỗi ngày. Câu hỏi tiếp theo là khu này có đủ 27 đơn/ngày ngay từ tháng đầu không."
+
+```
+60.000.000 ÷ 75.000 = 800 đơn/tháng ≈ 27 đơn/ngày
+```
+
+**Bài 2 — có nên giảm giá 15% để chạy khuyến mãi?** Biên gộp hiện tại 40%.
+
+*Nói trong lúc tính:* "Giảm 15% thì biên còn 25 điểm. Để giữ nguyên tổng lãi gộp, sản lượng phải tăng 15 chia 25, tức 60%. Tăng 60% sản lượng từ một đợt giảm giá là rất khó, nên em sẽ đề xuất cách khác trước khi động vào giá."
+
+```
+Cần tăng sản lượng = 15 ÷ (40 − 15) = 60%
+```
+
+**Bài 3 — khoản đầu tư máy mới.** Máy 480 triệu, tiết kiệm 12 triệu chi phí/tháng, tuổi thọ 5 năm.
+
+*Nói trong lúc tính:* "480 chia 12 là 40 tháng, tức 3 năm 4 tháng, trong khi máy dùng được 5 năm. Hoàn vốn trước khi hết tuổi thọ nhưng đệm chỉ còn 20 tháng — em muốn biết giả định 12 triệu/tháng chắc tới đâu, vì chỉ cần nó là 9 triệu thì thời gian hoàn vốn thành hơn 4 năm."
+
+```
+480 ÷ 12 = 40 tháng; nếu tiết kiệm chỉ 9 triệu → 480 ÷ 9 ≈ 53 tháng
+```
+
+Điểm chung của ba bài: phép tính chỉ mất 10 giây, **câu nói sau phép tính mới là phần có giá trị** — nó biến một con số thành một câu hỏi tiếp theo.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('017.05', '017', 5, 'pitfall', 'Bốn lỗi hay gặp', '**QNT-04 — im lặng khi tính.** Ba bài trên đều ngắn; cái khiến chúng được điểm cao là lời nói kèm theo. Im lặng rồi đọc kết quả là bỏ mất phần dễ ghi điểm nhất.
+
+**QNT-03 — làm tròn quá tay rồi kết luận sai.** Hoà vốn 800 đơn làm tròn thành "khoảng 1.000" rồi kết luận "khu này không đủ khách" là để sai số quyết định thay mình.
+
+**QNT-05 — không sanity check.** 800 đơn/tháng chia 30 ngày ra 27 đơn/ngày — bước quy đổi này chính là sanity check, và nó thường làm lộ ra con số vô lý.
+
+**PRF-04 — cắt chi phí mà không xét tác động doanh thu.** Hoà vốn cải thiện khi cắt chi phí cố định, nhưng nếu khoản cắt là marketing hay nhân sự phục vụ thì sản lượng tụt theo và điểm hoà vốn mới lại không đạt được.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('017.06', '017', 6, 'checklist', 'Soát trước khi nộp', '- Lãi gộp mỗi đơn vị chỉ trừ chi phí **biến đổi**, không trừ nhầm phần cố định.
+- Kết quả hoà vốn được quy về đơn vị dễ hình dung (đơn/ngày, khách/giờ).
+- Mỗi bài có một câu hỏi tiếp theo rút ra từ con số vừa tính.
+- Bài giảm giá có tính phần trăm sản lượng cần tăng thêm.
+- Dùng quy tắc 72 khi nói về thời gian gấp đôi, và nói rõ đó là ước lượng.
+- Có ghi âm hoặc bản chép lời nói cho phần tính.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('017.07', '017', 7, 'exercise', 'Bài nộp', 'Làm **ba bài hoà vốn** sau trong 25 phút, vừa tính vừa nói thành tiếng (ghi âm lại):
+
+1. Một quán ăn thuê mặt bằng 45 triệu/tháng, lương nhân viên 60 triệu/tháng. Giá trung bình 90.000đ/suất, nguyên liệu 35.000đ/suất. Cần bao nhiêu suất mỗi ngày để hoà vốn? Nếu quán đang bán 60 suất/ngày thì đang lãi hay lỗ, bao nhiêu?
+2. Một cửa hàng đang có biên gộp 35%, muốn chạy chương trình giảm giá 10%. Sản lượng phải tăng bao nhiêu phần trăm để tổng lãi gộp không giảm? Nếu thực tế chỉ tăng được 20% thì lãi gộp thay đổi thế nào?
+3. Một doanh nghiệp tăng trưởng 9%/năm muốn gấp đôi doanh thu. Mất bao nhiêu năm? Nếu muốn rút xuống 5 năm thì cần tăng trưởng bao nhiêu mỗi năm, và mức đó có hợp lý không khi thị trường chỉ tăng 6%/năm?
+
+Output: bản ghi (hoặc bản chép) lời giải thích cho ba bài, kèm một trang tính gồm phép tính từng bước, kết quả quy về đơn vị dễ hình dung, và câu hỏi tiếp theo rút ra từ mỗi kết quả.');
 DELETE FROM lesson_blocks WHERE lesson_id = '019';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('019.01', '019', 1, 'goal', 'Sau bài này bạn làm được gì', 'Ước lượng quy mô một thị trường **từ dưới lên** — đi từ một đơn vị cung có thật (một cửa hàng, một xe, một nhân viên bán hàng) rồi nhân lên — và nói được vì sao con số của bạn lệch so với cách top-down.
 
@@ -1112,6 +1346,69 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('1
 Chưa đạt thì bài bị khoá cho tới khi bạn xem lại phần chấm và viết lại chỗ sai. Mã lỗi dính ở đây quyết định drill được giao, nên hãy đọc kỹ phần gắn mã hơn là nhìn điểm số.
 
 Output: canvas sáu ô, bảng kinh tế một đơn vị (doanh thu · biến đổi · cố định · còn lại · hoà vốn), ba đòn bẩy xếp hạng có ước lượng bằng tiền, và một đoạn ngắn về rủi ro mô hình kèm dấu hiệu nhận biết sớm.');
+DELETE FROM lesson_blocks WHERE lesson_id = '104';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('104.01', '104', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Cổng của module B1. **20 phép tính trong 12 phút, không máy tính, đúng từ 85% trở lên**, cộng ba bài "nói trong lúc tính" — vừa giải vừa giải thích thành tiếng.
+
+Đây là checkpoint duy nhất trong chương trình có ngưỡng đúng/sai rõ ràng như vậy, vì case math là kỹ năng nền: sai số học ở tầng dưới thì mọi phân tích tầng trên đều lung lay. 12 phút cho 20 phép là **36 giây mỗi phép** — đủ cho người đã luyện, chật với người chưa.
+
+Giảng viên chấm. Đạt từ **70** điểm, không tiêu chí nào ở mức 1.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('104.02', '104', 2, 'concept', 'Bốn tiêu chí, và vì sao độ chính xác nặng gấp đôi', '| Tiêu chí | Trọng số | Cách lấy điểm |
+|---|---|---|
+| Độ chính xác | 40 | ≥85% số phép đúng trong dung sai cho phép |
+| Tốc độ | 20 | Làm hết 20 phép trong 12 phút |
+| Trình bày bước tính rõ ràng | 20 | Ba bài nói: nghe là theo được từng bước |
+| Có sanity check | 20 | Mỗi bài nói có ít nhất một lần tự kiểm |
+
+Độ chính xác nặng 40 vì đây là thứ duy nhất không thể bù bằng kỹ năng khác. Nhưng để ý: **60 điểm còn lại đến từ cách bạn làm, không phải kết quả**. Người làm đúng 18/20 mà im lặng suốt sẽ thấp điểm hơn người đúng 17/20 và nói rõ từng bước kèm tự kiểm.
+
+Dung sai: phép nhân chia được chấp nhận lệch **±3%** so với đáp án, vì bài này đo tính nhẩm có kiểm soát chứ không đo máy tính bỏ túi. Phép về phần trăm và điểm phần trăm thì **không có dung sai** — nhầm hai khái niệm đó là sai, không phải là lệch.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('104.03', '104', 3, 'concept', 'Chiến thuật 12 phút', '- **Quét 30 giây đầu.** Đọc lướt cả 20 phép, đánh dấu 3–4 phép nhìn là ra ngay. Làm chúng trước để chắc điểm và lấy nhịp.
+- **Không phép nào quá 60 giây.** Quá thì bỏ qua, đánh dấu, quay lại cuối giờ. Một phép khó ăn mất 3 phút là đã lấy mất cơ hội của năm phép dễ.
+- **Viết đơn vị cạnh mọi con số.** Mất 2 giây, tránh lỗi đắt nhất là **QNT-01**.
+- **Dành 60 giây cuối để kiểm bậc độ lớn** của tất cả kết quả, không kiểm lại phép tính. Lỗi đắt là lỗi lệch 10 lần, không phải lệch 2%.
+
+Về ba bài nói: mỗi bài nói đủ **ba phần** — *em sẽ tính gì · em đang tính (từng bước) · kết quả và nó có hợp lý không*. Phần thứ ba là chỗ lấy trọn 20 điểm sanity check, và nó chỉ mất một câu.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('104.04', '104', 4, 'worked_example', 'Một bài nói mẫu, chấm theo từng tiêu chí', '**Đề:** Một chuỗi có 14 cửa hàng, doanh thu trung bình 850 triệu/cửa hàng/tháng, biên gộp 32%. Chi phí cố định toàn chuỗi 2,4 tỷ/tháng. Chuỗi đang lãi hay lỗ, bao nhiêu một năm?
+
+**Bản nói đạt mức 4:**
+
+> "Em sẽ tính lãi gộp toàn chuỗi trước, rồi trừ chi phí cố định, rồi nhân 12.
+>
+> Doanh thu tháng: 14 nhân 850 triệu. 14 nhân 85 là 1.190, nên là 11,9 tỷ một tháng.
+>
+> Lãi gộp: 32% của 11,9 tỷ. Em lấy 30% là 3,57 tỷ, cộng 2% nữa là 0,238 tỷ, tổng khoảng 3,81 tỷ.
+>
+> Trừ cố định 2,4 tỷ, còn **1,41 tỷ một tháng**, tức khoảng **16,9 tỷ một năm**.
+>
+> Kiểm nhanh: 1,41 trên 11,9 là gần 12% biên hoạt động. Với chuỗi bán lẻ biên gộp 32% thì 12% là cao nhưng không vô lý, và nó phụ thuộc hoàn toàn vào việc chi phí cố định 2,4 tỷ đã gồm những gì — nếu chưa gồm lương quản lý vùng thì con số này lạc quan."
+
+**Chấm:** Độ chính xác — đúng (số thật 16,90 tỷ). Trình bày — theo được từng bước, tách 32% thành 30% + 2%. Sanity check — có, và còn nêu được giả định đáng ngờ. **Mức 4 ở cả ba tiêu chí.**
+
+**Bản nói chỉ đạt mức 2:**
+
+> "Dạ… 14 nhân 850 là… khoảng 12 tỷ. Nhân 32% là… khoảng 3,8. Trừ 2,4 còn 1,4. Một năm khoảng 17 tỷ ạ."
+
+Kết quả gần đúng, nhưng: không nói sẽ tính gì trước, làm tròn 11,9 thành 12 mà không nói là đang làm tròn, và **không có câu kiểm nào**. Mất phần lớn 40 điểm của hai tiêu chí trình bày và sanity check dù con số cuối chấp nhận được.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('104.05', '104', 5, 'pitfall', 'Những gì làm trượt checkpoint này', '**QNT-04 — im lặng khi tính.** Lỗi làm mất nhiều điểm nhất ở đây, và cũng dễ sửa nhất: chỉ cần tập nói ra thành tiếng trong lúc luyện, đừng đợi tới hôm thi.
+
+**QNT-01 — sai đơn vị.** Triệu với tỷ, tháng với năm. Trong 12 phút áp lực, đây là lỗi số một. Viết đơn vị ra giấy.
+
+**QNT-02 — nhầm % với điểm %.** Không có dung sai cho lỗi này.
+
+**QNT-05 — không sanity check.** Bỏ qua để tiết kiệm thời gian, mất trọn 20 điểm trọng số — nhiều hơn số điểm tiết kiệm được từ việc làm nhanh hơn.
+
+**QNT-03 — làm tròn quá tay.** Dung sai ±3% nghĩa là làm tròn 11,9 thành 12 (lệch 0,8%) thì an toàn, còn làm tròn 850 thành 1.000 (lệch 18%) thì hỏng.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('104.06', '104', 6, 'checklist', 'Soát trong 60 giây cuối', '- Đã làm đủ 20 phép, phép bỏ qua có đánh dấu để quay lại.
+- Mọi kết quả có đơn vị.
+- Quét bậc độ lớn: không kết quả nào lệch 10 lần so với trực giác.
+- Ba bài nói đều có đủ ba phần, đặc biệt là phần tự kiểm.
+- Phép nào có làm tròn đều đã nói rõ hướng làm tròn.
+- Câu trả lời cuối của mỗi bài nói được quy về đơn vị dễ hình dung.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('104.07', '104', 7, 'exercise', 'Bài nộp', 'Làm checkpoint trong **12 phút liên tục**, không máy tính, không tra cứu. Ba bài nói làm ngay sau đó, mỗi bài tối đa 2 phút, có ghi âm.
+
+Chưa đạt thì bài bị khoá cho tới khi bạn xem lại phần chấm và làm lại drill được giao — thường là bài 015 hoặc 016 lặp hai lượt, tuỳ mã lỗi bạn dính.
+
+Output: bảng 20 phép tính (đề · bước tính · kết quả · đơn vị), cộng ba bản ghi âm "nói trong lúc tính", mỗi bản có đủ: em sẽ tính gì · từng bước · kết quả và câu tự kiểm.');
 DELETE FROM panel_questions WHERE case_id = 'C-040';
 DELETE FROM case_answer_frames WHERE case_id = 'C-040';
 DELETE FROM case_traps WHERE case_id = 'C-040';
@@ -1204,3 +1501,20 @@ INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('R
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 2, 'Rủi ro có liên quan tới doanh nghiệp này nhưng nằm ở vận hành hằng ngày chứ không nằm trong cách nó kiếm tiền.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 3, 'Rủi ro chỉ đích danh một thành phần của mô hình — rào cản gia nhập, phụ thuộc một nguồn khách, cơ cấu chi phí cố định, thời điểm thu tiền.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-A3.4', 4, 'Như mức 3, và kèm dấu hiệu nhận biết sớm quan sát được, cộng ước lượng hệ quả nếu rủi ro xảy ra.');
+DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-B1');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.1', 1, 'Dưới 60% số phép đúng trong dung sai, hoặc có ít nhất một lỗi lệch bậc độ lớn không được phát hiện.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.1', 2, 'Từ 60% đến dưới 85% đúng; các lỗi chủ yếu là sai đơn vị hoặc nhầm phần trăm với điểm phần trăm.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.1', 3, 'Từ 85% đúng trở lên trong dung sai ±3%, không có lỗi lệch bậc; phép về phần trăm đúng tuyệt đối.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.1', 4, 'Từ 95% đúng trở lên, và những chỗ làm tròn đều được nói rõ hướng lệch nên sai số luôn nằm trong tầm kiểm soát.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.2', 1, 'Làm được dưới 12 trong 20 phép trong thời gian cho phép.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.2', 2, 'Làm được 12 đến 16 phép, hoặc làm đủ nhưng phải kéo dài quá giờ.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.2', 3, 'Làm đủ 20 phép trong 12 phút, có bỏ qua và quay lại những phép khó theo chiến thuật rõ ràng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.2', 4, 'Làm đủ trong thời gian và còn dư ít nhất một phút để soát bậc độ lớn toàn bài.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.3', 1, 'Im lặng trong lúc tính, chỉ đọc kết quả cuối; người nghe không theo được cách ra con số đó.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.3', 2, 'Có nói nhưng rời rạc, bỏ qua bước trung gian hoặc không nói mình đang làm tròn.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.3', 3, 'Nói đủ ba phần cho mỗi bài: sẽ tính gì, từng bước đang tính, kết quả; người nghe theo được không cần hỏi lại.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.3', 4, 'Như mức 3, và có tách phép tính thành mảnh dễ nói (ví dụ 32% = 30% + 2%), giữ nhịp nói đều, không dừng lâu quá vài giây.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.4', 1, 'Không có bước tự kiểm nào; kết quả vô lý cũng được đọc ra như bình thường.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.4', 2, 'Có nhắc tới việc kiểm nhưng chỉ là lặp lại phép tính cũ, không phải một cách kiểm độc lập.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.4', 3, 'Mỗi bài nói có ít nhất một lần tự kiểm thật: chia ngược, đổi bậc, hoặc quy về đơn vị dễ hình dung.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B1.4', 4, 'Như mức 3, và từ bước tự kiểm rút ra được một nhận xét có ích — giả định nào đáng ngờ, hoặc kết quả này nói lên điều gì về doanh nghiệp.');
