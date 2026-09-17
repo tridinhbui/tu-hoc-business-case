@@ -1378,6 +1378,245 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('0
 Với mỗi bài, ghi lại **thời gian thực tế** bạn dùng. Bài nào quá giờ thì ghi rõ bước nào làm bạn chậm — đó là thông tin quan trọng nhất của buổi luyện này.
 
 Output: một sheet sáu tab, mỗi tab có chuỗi nhân tử, bảng ô giả định (giá trị · nhãn · căn cứ), kết quả dạng khoảng, sanity check, và ô ghi thời gian thực tế cùng bước gây chậm.');
+DELETE FROM lesson_blocks WHERE lesson_id = '022';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('022.01', '022', 1, 'goal', 'Sau bài này bạn làm được gì', 'Đọc một chart lạ trong **60 giây** theo quy trình cố định, và nói ra được **ba gạch "so what"** — ba kết luận hành động được, chứ không phải ba câu mô tả lại hình vẽ.
+
+Đây là kỹ năng phân biệt rõ nhất giữa người mới và người có kinh nghiệm trong phòng case. Người mới đọc: *"doanh thu tăng từ 2021 đến 2023"*. Người có kinh nghiệm đọc: *"tăng trưởng đang chậm lại — 18%, rồi 11%, rồi 4% — nên đà tăng này sắp hết, và kế hoạch năm sau không nên dựa vào nó"*.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('022.02', '022', 2, 'concept', 'Sáu bước trong 60 giây', '| Giây | Bước | Câu hỏi tự đặt |
+|---|---|---|
+| 0–5 | **Tiêu đề và đơn vị** | Chart này đo cái gì, đơn vị gì, tỷ hay triệu, tháng hay năm? |
+| 5–15 | **Hai trục** | Trục ngang là thời gian hay hạng mục? Trục dọc có bắt đầu từ 0 không? |
+| 15–25 | **Hình dạng tổng thể** | Đi lên, đi xuống, đi ngang, hay có điểm gãy? |
+| 25–40 | **Điểm bất thường** | Cột nào lệch hẳn? Có đoạn đứt gãy nào? Cái gì không khớp với phần còn lại? |
+| 40–50 | **So sánh trong chart** | Cấu phần nào tăng nhanh hơn tổng? Cái gì đi ngược chiều? |
+| 50–60 | **So what** | Ba kết luận, mỗi cái dẫn tới một việc phải làm hoặc một câu phải hỏi |
+
+Bước hay bị bỏ nhất là bước 1 — đơn vị. Bỏ nó là **CHT-02**, và nó gây ra loại sai lầm tệ nhất: kết luận đúng về mặt logic trên một con số sai bậc.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('022.03', '022', 3, 'concept', '"So what" là gì, và ba cấp độ của nó', 'Cùng một chart doanh thu theo quý, ba mức đọc:
+
+| Cấp | Câu nói | Vấn đề |
+|---|---|---|
+| **Mô tả** | "Doanh thu quý 4 cao nhất năm" | Ai nhìn chart cũng thấy. Không thêm giá trị. Đây là **CHT-01**. |
+| **Diễn giải** | "Doanh thu tăng mạnh quý 4 do mùa lễ, còn ba quý đầu đi ngang" | Đã có thêm một tầng, nhưng chưa dẫn tới việc gì. |
+| **So what** | "Cả năm phụ thuộc vào một quý; nếu quý 4 hụt 20% thì cả năm hụt 8%, nên rủi ro tập trung vào tháng 11–12 — cần biết kế hoạch dự phòng cho mùa đó" | Dẫn tới hành động và tới câu hỏi tiếp theo. |
+
+Một cách kiểm nhanh gạch "so what" của bạn: đọc nó lên rồi hỏi **"thì sao?"**. Nếu trả lời được tiếp thì bạn vẫn đang ở tầng mô tả; nếu câu đó **tự nó** là câu trả lời cho "thì sao" thì bạn đã tới.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('022.04', '022', 4, 'worked_example', 'Đọc một chart trong 60 giây', '**Chart:** Cột chồng, doanh thu theo kênh của một chuỗi bán lẻ, 4 quý gần nhất, đơn vị tỷ đồng.
+
+| Quý | Cửa hàng | Online | Bán sỉ | Tổng |
+|---|---|---|---|---|
+| Q1 | 120 | 30 | 50 | 200 |
+| Q2 | 118 | 38 | 49 | 205 |
+| Q3 | 112 | 47 | 47 | 206 |
+| Q4 | 105 | 58 | 45 | 208 |
+
+**0–5s — đơn vị:** tỷ đồng, theo quý. Không phải lũy kế.
+
+**5–15s — trục:** trục ngang là thời gian, 4 điểm. Cột chồng nên tổng đọc được ở đỉnh.
+
+**15–25s — hình dạng:** tổng gần như đi ngang, tăng từ 200 lên 208, tức **+4% trong cả năm**.
+
+**25–40s — bất thường:** không có cột nào lệch hẳn, nhưng **cấu phần đảo chiều rõ**: cửa hàng giảm đều mỗi quý, online tăng đều.
+
+**40–50s — so sánh cấu phần:** cửa hàng 120 → 105 (**−12,5%**), online 30 → 58 (**+93%**), bán sỉ 50 → 45 (−10%). Tổng đi ngang vì phần online tăng vừa đủ bù phần cửa hàng mất.
+
+**50–60s — ba gạch "so what":**
+
+1. **Tổng đi ngang đang che giấu một cuộc dịch chuyển kênh.** Nếu chỉ nhìn tổng, người ta sẽ kết luận "năm nay ổn định" — trong khi cấu trúc kinh doanh đã đổi hẳn. Đây chính là **CHT-04**, chỉ nhìn tổng mà không nhìn cấu phần.
+2. **Đà dịch chuyển chưa dừng.** Ngoại suy một quý nữa theo cùng nhịp: cửa hàng ~98, online ~70 — online sẽ vượt bán sỉ và tiến sát cửa hàng. Câu hỏi bật ra: hệ thống vận hành và cơ cấu chi phí đã sẵn sàng cho việc online thành kênh lớn nhất chưa?
+3. **Lợi nhuận có thể đang xấu đi dù doanh thu đi ngang.** Biên của ba kênh gần như chắc chắn khác nhau (chi phí giao hàng, chiết khấu sàn). Đây là câu **phải hỏi thêm**: biên theo từng kênh là bao nhiêu?
+
+Gạch thứ ba là gạch đáng giá nhất, vì nó chỉ ra rằng **chart này chưa đủ để kết luận** và nói rõ cần gì thêm. Nói được điều đó tốt hơn nhiều so với cố kết luận từ dữ liệu không đủ.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('022.05', '022', 5, 'pitfall', 'Bốn lỗi đọc chart', '**CHT-01 — mô tả chart thay vì diễn giải.** "Online tăng qua các quý" là đọc lại bảng số. Người phỏng vấn nhìn thấy điều đó rồi; họ đưa chart để xem bạn rút ra được gì.
+
+**CHT-02 — bỏ qua đơn vị.** Triệu với tỷ, tháng với quý, phần trăm tăng trưởng với điểm phần trăm. Đọc đơn vị trong 5 giây đầu là rẻ nhất.
+
+**CHT-04 — chỉ nhìn tổng, không nhìn cấu phần.** Ví dụ trên là mẫu kinh điển: tổng +4% nhưng bên trong một kênh mất 12,5% và một kênh tăng 93%.
+
+**CHT-03 — suy nhân quả từ tương quan.** "Online tăng nên cửa hàng giảm" nghe hợp lý nhưng chưa được chứng minh: có thể cả hai cùng do một nguyên nhân thứ ba (ví dụ chuỗi đóng bớt cửa hàng). Nói *"có thể khách chuyển kênh — cần kiểm bằng dữ liệu khách mua cả hai kênh"* thay vì khẳng định.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('022.06', '022', 6, 'checklist', 'Soát mỗi lần đọc chart', '- Đã đọc tiêu đề và đơn vị trước khi nhìn hình.
+- Đã kiểm trục dọc có bắt đầu từ 0 không.
+- Đã tính ít nhất một tỷ lệ phần trăm thay đổi, không chỉ nhìn hình.
+- Đã so cấu phần với tổng, không chỉ đọc tổng.
+- Ba gạch đều qua được bài kiểm "thì sao?".
+- Có ít nhất một câu hỏi cần hỏi thêm rút ra từ chart.
+- Không có câu nào khẳng định nhân quả khi chỉ có tương quan.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('022.07', '022', 7, 'exercise', 'Bài nộp', 'Với **10 chart** do giảng viên phát, mỗi chart 3 phút: đọc theo quy trình 60 giây, rồi viết **ba gạch "so what"**.
+
+Yêu cầu chặt: mỗi gạch phải qua được bài kiểm "thì sao?", và với ít nhất 4 trong 10 chart, gạch thứ ba phải là **một câu hỏi cần hỏi thêm** kèm lý do vì sao chart hiện tại chưa đủ để kết luận.
+
+Output: một tài liệu 10 mục, mỗi mục gồm: đơn vị và trục (một dòng) · ba gạch "so what" · với 4 chart bắt buộc thì thêm câu hỏi cần hỏi và một dòng nói chart còn thiếu gì.');
+DELETE FROM lesson_blocks WHERE lesson_id = '023';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('023.01', '023', 1, 'goal', 'Sau bài này bạn làm được gì', 'Đọc và viết **action title** cho bốn dạng exhibit hay gặp nhất trong case: **waterfall**, **cohort**, **scatter**, và **bảng chéo** — mỗi dạng có một câu hỏi riêng mà nó sinh ra để trả lời.
+
+Action title là tiêu đề dạng kết luận: không phải "Doanh thu theo quý" mà "Toàn bộ mức giảm đến từ kênh cửa hàng, ba kênh còn lại đi ngang". Một slide có action title tốt thì người đọc hiểu ngay cả khi không nhìn hình.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('023.02', '023', 2, 'concept', 'Bốn dạng, bốn câu hỏi chúng sinh ra để trả lời', '| Dạng | Trả lời câu hỏi | Đọc theo thứ tự | Bẫy riêng của dạng này |
+|---|---|---|---|
+| **Waterfall** (cầu) | Từ A tới B, phần chênh lệch đi đâu? | Cột đầu → từng cột chênh → cột cuối | Các cột chênh không cộng lại đúng tổng (**VAR-01**) |
+| **Cohort** (nhóm theo thời điểm) | Nhóm mới có khác nhóm cũ không? | Đọc theo hàng (một nhóm qua thời gian), rồi theo cột (các nhóm ở cùng độ tuổi) | Nhầm hiệu ứng thời gian với hiệu ứng nhóm |
+| **Scatter** (phân tán) | Hai đại lượng có đi cùng nhau không? | Xu hướng chung → các điểm lệch xa → nhóm tách biệt | Suy nhân quả từ tương quan (**CHT-03**) |
+| **Bảng chéo** | Vấn đề tập trung ở ô nào? | Tổng hàng và tổng cột trước, rồi mới vào ô | Đọc ô mà quên so với tổng của hàng/cột |
+
+Nguyên tắc chung: **đọc cấu trúc trước, đọc con số sau.** Biết dạng exhibit là biết trước nó định trả lời câu gì, nên bạn đọc có định hướng thay vì quét mắt lung tung.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('023.03', '023', 3, 'concept', 'Công thức viết action title', 'Một action title đạt có ba phần, viết trong một câu:
+
+```
+[Chủ thể] + [điều gì đang xảy ra, có số] + [hệ quả hoặc điều cần làm]
+```
+
+Ví dụ, cùng một waterfall:
+
+- **Tiêu đề mô tả (yếu):** "Phân tích chênh lệch lợi nhuận 2024 so với 2023"
+- **Action title (đạt):** "Lợi nhuận giảm 12 tỷ dù doanh thu tăng: toàn bộ mức giảm đến từ giá vốn nguyên liệu (−18 tỷ), các yếu tố khác đóng góp dương"
+
+Ba dấu hiệu của action title yếu: không có số · dùng chữ "phân tích/tổng quan/tình hình" · đọc xong vẫn phải nhìn hình mới hiểu.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('023.04', '023', 4, 'worked_example', 'Bốn exhibit, bốn action title', '**1. Waterfall — chênh lệch lợi nhuận hai năm (tỷ đồng)**
+
+```
+Lợi nhuận 2023: 40
++ Tăng sản lượng:      +9
++ Tăng giá bán:        +6
+− Giá vốn nguyên liệu: −18
+− Chi phí nhân sự:      −5
++ Giảm chi phí khác:   +2
+Lợi nhuận 2024: 34
+```
+
+*Kiểm trước khi kết luận:* 40 + 9 + 6 − 18 − 5 + 2 = **34** ✓. Nếu không khớp thì exhibit thiếu một cột — đó là **VAR-01** và phải hỏi ngay.
+
+*Action title:* "Lợi nhuận giảm 6 tỷ dù cả sản lượng và giá đều tăng: giá vốn nguyên liệu tăng 18 tỷ đã ăn hết phần tăng đó."
+
+*Câu hỏi bật ra:* giá nguyên liệu tăng do thị trường hay do mất hợp đồng nhà cung cấp? Hai nguyên nhân dẫn tới hai hành động khác hẳn.
+
+**2. Cohort — tỷ lệ khách còn dùng sau N tháng**
+
+| Nhóm vào | Tháng 1 | Tháng 3 | Tháng 6 |
+|---|---|---|---|
+| Q1 | 100% | 62% | 48% |
+| Q2 | 100% | 58% | 45% |
+| Q3 | 100% | 51% | — |
+| Q4 | 100% | 44% | — |
+
+*Đọc theo cột tháng 3:* 62 → 58 → 51 → 44. Các nhóm **mới vào đang rời bỏ nhanh hơn** nhóm cũ ở cùng độ tuổi.
+
+*Action title:* "Chất lượng nhóm khách mới đang xấu đi: tỷ lệ giữ chân ở tháng thứ 3 giảm từ 62% xuống 44% qua bốn nhóm, nên tăng trưởng người dùng hiện tại đang mua bằng khách kém bền."
+
+*Bẫy tránh được:* nếu đọc theo hàng sẽ chỉ thấy "ai cũng rời bỏ dần" — đúng nhưng vô nghĩa. Sức mạnh của cohort nằm ở việc **so các nhóm ở cùng độ tuổi**.
+
+**3. Scatter — chi phí marketing và doanh thu của 30 cửa hàng**
+
+Xu hướng chung đi lên, nhưng có **4 cửa hàng chi nhiều mà doanh thu thấp** nằm tách hẳn phía dưới bên phải.
+
+*Action title:* "Marketing và doanh thu đi cùng nhau ở 26/30 cửa hàng, nhưng 4 cửa hàng chi cao nhất lại nằm nhóm doanh thu thấp — cần xem 4 điểm này trước khi kết luận về hiệu quả marketing."
+
+*Không được viết:* "Chi marketing nhiều thì doanh thu cao" — đó là **CHT-03**. Có thể cửa hàng doanh thu cao được cấp ngân sách lớn hơn, tức nhân quả ngược chiều.
+
+**4. Bảng chéo — biên lợi nhuận theo kênh và theo dòng sản phẩm**
+
+| | Cửa hàng | Online | Bán sỉ | Tổng hàng |
+|---|---|---|---|---|
+| Cao cấp | 48% | 44% | 30% | 44% |
+| Phổ thông | 32% | 21% | 24% | 27% |
+| **Tổng cột** | **38%** | **26%** | **26%** | **33%** |
+
+*Đọc tổng trước:* kênh online biên thấp nhất (26%), dòng phổ thông biên thấp nhất (27%).
+
+*Rồi vào ô:* ô thấp nhất là **phổ thông × online = 21%**, và đó cũng là ô đang tăng trưởng nhanh nhất theo bài 022.
+
+*Action title:* "Ô tăng trưởng nhanh nhất lại là ô biên thấp nhất: hàng phổ thông bán online chỉ đạt 21% biên so với 48% của hàng cao cấp tại cửa hàng, nên tăng trưởng doanh thu hiện tại đang kéo biên chung xuống."
+
+Đây là kiểu kết luận mà **chỉ bảng chéo mới cho thấy**: nhìn riêng kênh hay riêng dòng sản phẩm đều không thấy được.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('023.05', '023', 5, 'pitfall', 'Bốn lỗi theo dạng exhibit', '**VAR-01 — bridge không khớp tổng.** Luôn cộng các cột của waterfall trước khi tin nó. Không khớp nghĩa là thiếu cột hoặc có cột trùng.
+
+**CHT-01 — mô tả thay vì diễn giải.** "Bảng cho thấy biên theo kênh và dòng sản phẩm" là chú thích, không phải action title.
+
+**CHT-03 — suy nhân quả từ scatter.** Tương quan gợi ý chỗ đáng đào, không kết luận thay bạn.
+
+**CHT-04 — chỉ nhìn tổng.** Với bảng chéo, tổng hàng và tổng cột chỉ là bước một; ô giao nhau mới là chỗ có phát hiện.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('023.06', '023', 6, 'checklist', 'Soát trước khi nộp', '- Nhận đúng dạng exhibit trước khi đọc số.
+- Với waterfall: đã cộng kiểm và khớp tổng.
+- Với cohort: đã đọc theo cột (cùng độ tuổi), không chỉ theo hàng.
+- Với scatter: đã gọi tên các điểm lệch và không khẳng định nhân quả.
+- Với bảng chéo: đã đọc tổng hàng, tổng cột, rồi mới vào ô.
+- Mỗi action title có số và có hệ quả, không có chữ "phân tích/tổng quan".
+- Mỗi exhibit kèm ít nhất một câu hỏi cần hỏi thêm.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('023.07', '023', 7, 'exercise', 'Bài nộp', 'Viết **action title cho 12 exhibit** do giảng viên phát (3 waterfall, 3 cohort, 3 scatter, 3 bảng chéo), mỗi exhibit 2 phút rưỡi.
+
+Mỗi action title phải: có ít nhất một con số · nói được hệ quả · đọc hiểu được mà không cần nhìn hình. Với waterfall, ghi thêm dòng "đã cộng kiểm: khớp / không khớp".
+
+Output: một tài liệu 12 mục, mỗi mục gồm: dạng exhibit · action title một câu · một câu hỏi cần hỏi thêm · (với waterfall) dòng cộng kiểm.');
+DELETE FROM lesson_blocks WHERE lesson_id = '024';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('024.01', '024', 1, 'goal', 'Sau bài này bạn làm được gì', 'Phát hiện **chart nói dối** — không phải chart sai số liệu, mà chart dùng số liệu đúng để dẫn người đọc tới kết luận sai — và nói ra được chính xác thủ thuật đang được dùng.
+
+Kỹ năng này có hai mặt: nó bảo vệ bạn khi đọc tài liệu của người khác, và nó ngăn bạn vô tình làm điều đó trong deck của chính mình.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('024.02', '024', 2, 'concept', 'Tám thủ thuật hay gặp', '| # | Thủ thuật | Dấu hiệu nhận ra | Nó làm bạn tin điều gì sai |
+|---|---|---|---|
+| 1 | **Trục dọc không bắt đầu từ 0** | Trục bắt đầu ở 95 thay vì 0 | Chênh lệch 3% trông như gấp đôi |
+| 2 | **Đổi thang giữa chừng** | Khoảng cách các mốc trục không đều | Đoạn tăng chậm trông dốc như đoạn tăng nhanh |
+| 3 | **Chọn mốc thời gian có lợi** | Chart bắt đầu đúng ở đáy | Đà tăng trông mạnh hơn thực tế nhiều |
+| 4 | **Trộn số tuyệt đối với phần trăm** | Trục trái là tỷ đồng, trục phải là % | Hai đường "cắt nhau" mà thực ra không so sánh được |
+| 5 | **Tổng che cấu phần** | Chỉ vẽ tổng, không vẽ thành phần | Tưởng ổn định trong khi bên trong đảo chiều |
+| 6 | **Trục ngang không đều** | 2019, 2020, 2022, 2023 — thiếu 2021 | Xu hướng bị bóp méo, năm xấu bị giấu |
+| 7 | **Diện tích thay cho chiều dài** | Hình tròn/hình người to gấp đôi | Gấp 2 chiều cao nhìn như gấp 4 vì diện tích |
+| 8 | **Trung bình che phân bố** | Chỉ có một con số trung bình | Một nhóm rất tốt và một nhóm rất tệ trông như "ổn" |
+
+Bốn thủ thuật đầu là lỗi trình bày; bốn cái sau là **lỗi chọn cách tổng hợp dữ liệu** — khó thấy hơn và hay xuất hiện trong chính bài của người học.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('024.03', '024', 3, 'concept', 'Ba câu hỏi bắt được phần lớn chart nói dối', '1. **Trục dọc bắt đầu từ đâu, và khoảng cách các mốc có đều không?** Bắt được thủ thuật 1, 2, 7.
+2. **Vì sao dữ liệu bắt đầu và kết thúc ở đúng hai mốc này?** Bắt được 3 và 6. Câu hỏi phụ rất mạnh: *"nếu lùi thêm hai năm thì hình có còn như vậy không?"*
+3. **Con số này là tổng hay là trung bình, và bên trong nó có gì?** Bắt được 4, 5, 8.
+
+Ba câu này mất 20 giây và nên chạy trước khi bạn tin bất kỳ chart nào trong đề case — kể cả chart do ban giám khảo phát, vì **đề case cố tình cài exhibit gây nhiễu** (họ E11 trong thư viện đề của chương trình này).');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('024.04', '024', 4, 'worked_example', 'Ba chart cùng một dữ liệu, ba kết luận khác nhau', '**Dữ liệu thật:** doanh thu một công ty, tỷ đồng, 6 năm.
+
+| Năm | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 |
+|---|---|---|---|---|---|---|
+| Doanh thu | 420 | 380 | 300 | 340 | 372 | 395 |
+
+**Chart A — "Tăng trưởng ấn tượng".** Vẽ 2021–2024, trục dọc bắt đầu ở 280.
+
+Người đọc thấy: một đường dốc lên gần như thẳng đứng. Kết luận cảm nhận: "công ty đang bùng nổ".
+
+*Thủ thuật:* số 3 (chọn mốc bắt đầu đúng đáy) + số 1 (trục không từ 0).
+
+*Sự thật:* từ 2021 tới 2024 tăng **31,7%**, nhưng so với 2019 thì vẫn **thấp hơn 6%**. Công ty đang **hồi phục**, chưa phải tăng trưởng.
+
+**Chart B — "Suy giảm nghiêm trọng".** Vẽ 2019–2021, trục dọc từ 0.
+
+Người đọc thấy: giảm liên tục ba năm. Kết luận cảm nhận: "công ty đang chết dần".
+
+*Thủ thuật:* số 3, chọn mốc kết thúc đúng đáy.
+
+*Sự thật:* đúng là giảm 28,6% trong ba năm đó, nhưng bỏ hẳn phần hồi phục sau đó.
+
+**Chart C — bản trung thực.** Vẽ đủ 6 năm, trục từ 0, có ghi chú mốc 2019.
+
+Người đọc thấy: một chữ V — giảm mạnh tới 2021 rồi hồi phục đều, và **vẫn chưa về mức 2019**.
+
+*Action title đúng:* "Doanh thu đã hồi phục 31,7% từ đáy 2021 nhưng vẫn thấp hơn mức 2019 khoảng 6%: đà hồi phục là thật, nhưng chưa đủ để nói công ty đã trở lại."
+
+Ba chart, **không chart nào bịa số**. Khác biệt chỉ nằm ở khoảng thời gian và điểm gốc của trục. Đó là lý do câu hỏi số 2 ở trên đáng giá đến vậy.
+
+**Một ví dụ về thủ thuật số 8 — trung bình che phân bố.** Một chuỗi báo "thời gian chờ trung bình 7 phút". Bên trong: 70% khách chờ 4 phút, 30% khách chờ 14 phút. Trung bình 7 phút nghe ổn; nhưng gần một phần ba khách đang có trải nghiệm rất tệ, và chính nhóm đó quyết định tỷ lệ quay lại. Câu hỏi phải hỏi: **"phân bố thế nào, và phân vị 90 là bao nhiêu?"**');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('024.05', '024', 5, 'pitfall', 'Bốn lỗi khi phản biện chart', '**CHT-02 — bỏ qua đơn vị và điểm gốc.** Đọc hình trước khi đọc trục là cách nhanh nhất để bị dẫn dắt.
+
+**CHT-03 — suy nhân quả từ tương quan.** Phản biện một chart không có nghĩa là thay nó bằng một kết luận khác cũng thiếu căn cứ.
+
+**CHT-04 — chỉ nhìn tổng.** Thủ thuật số 5 và số 8 đều sống nhờ việc người đọc không hỏi "bên trong có gì".
+
+**Phản biện quá tay.** Không phải mọi trục cắt gốc đều là gian lận — với dữ liệu dao động nhỏ quanh một mức cao (ví dụ tỷ lệ lấp đầy 92–96%), cắt trục là hợp lý. Việc của bạn là **nói ra điểm gốc**, không phải kết tội người vẽ.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('024.06', '024', 6, 'checklist', 'Soát khi phản biện một chart', '- Đã nói điểm gốc của trục dọc và khoảng cách các mốc.
+- Đã hỏi vì sao dữ liệu bắt đầu và kết thúc ở hai mốc đó.
+- Đã hỏi con số là tổng hay trung bình, và bên trong có gì.
+- Gọi tên được thủ thuật (một trong tám), không chỉ nói "chart này gây hiểu nhầm".
+- Nêu được bản trình bày trung thực sẽ trông thế nào.
+- Không thay một kết luận thiếu căn cứ bằng một kết luận thiếu căn cứ khác.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('024.07', '024', 7, 'exercise', 'Bài nộp', 'Với **8 chart** do giảng viên phát, mỗi chart 3 phút, trả lời: **"chart này nói dối ở đâu?"**
+
+Mỗi bài cần: gọi tên thủ thuật (theo bảng tám thủ thuật) · giải thích trong một câu vì sao nó dẫn tới kết luận sai · mô tả bản trình bày trung thực thay thế · và một câu hỏi bạn sẽ hỏi người đưa chart.
+
+Lưu ý: trong 8 chart có **ít nhất một chart không có thủ thuật nào**. Nói rằng nó trung thực, và nói vì sao bạn tin như vậy, cũng là một câu trả lời đúng — quan trọng không kém.
+
+Output: một tài liệu 8 mục, mỗi mục gồm: tên thủ thuật (hoặc "không có") · một câu giải thích · mô tả bản trung thực · câu hỏi cần hỏi.');
 DELETE FROM lesson_blocks WHERE lesson_id = '101';
 INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('101.01', '101', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Đây là **cổng của module A1**: qua bài này thì các module phía sau mở ra, chưa qua thì dừng lại ở đây. Không phải để làm khó — mà vì mọi thứ sau này (issue tree, sizing, khuyến nghị) đều dựng trên câu hỏi bạn đã định khung. Định khung sai thì càng phân tích giỏi càng đi xa khỏi đích.
 
@@ -1761,6 +2000,82 @@ INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('1
 Chưa đạt thì bài bị khoá cho tới khi bạn xem lại phần chấm và làm drill được giao — thường là bài 021 (sáu thị trường trong 45 phút) lặp lại, vì lỗi ở đây gần như luôn là lỗi quy trình dưới áp lực chứ không phải thiếu kiến thức.
 
 Output: ba bảng sizing (mỗi bài một tab hoặc một trang), mỗi bảng gồm: chuỗi nhân tử · bảng giả định có nhãn và căn cứ · phép tính · ít nhất hai sanity check · khoảng dao động · một dòng giả định yếu nhất.');
+DELETE FROM lesson_blocks WHERE lesson_id = '106';
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('106.01', '106', 1, 'goal', 'Checkpoint này kiểm tra gì', 'Cổng của module B3. **Năm exhibit lạ trong 20 phút** — 4 phút mỗi cái — mỗi exhibit nộp: **một action title**, **hai gạch "so what"**, và **một câu hỏi cần hỏi thêm**.
+
+Bốn phút là ít, và đó là chủ đích: trong một buổi phỏng vấn hay một vòng chấm case, bạn cũng chỉ có chừng đó thời gian với mỗi exhibit trước khi phải mở miệng.
+
+Giảng viên chấm. Đạt từ **70** điểm, không tiêu chí nào ở mức 1.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('106.02', '106', 2, 'concept', 'Bốn tiêu chí, và vì sao "insight" nặng nhất', '| Tiêu chí | Trọng số | Ranh giới đạt |
+|---|---|---|
+| Đọc đúng dữ liệu | 25 | Đơn vị, trục, phép tính phần trăm đều đúng |
+| Insight thật, không mô tả lại | 35 | Mỗi gạch qua được bài kiểm "thì sao?" |
+| Phát hiện ngoại lệ/mâu thuẫn | 20 | Chỉ ra được điểm lệch hoặc chỗ dữ liệu tự mâu thuẫn |
+| Câu hỏi tiếp theo có giá trị | 20 | Câu hỏi đổi được hướng phân tích, không phải tò mò |
+
+**Insight nặng 35** vì đó là toàn bộ lý do exhibit tồn tại. Đọc đúng dữ liệu chỉ là điều kiện cần — bạn không được điểm cao vì đọc được bảng số, bạn được điểm vì nói ra điều người khác chưa thấy.
+
+Hai tiêu chí giữa và cuối liên quan nhau: **ngoại lệ thường chính là nguồn của câu hỏi hay nhất**. Bốn cửa hàng nằm lệch trong scatter sinh ra câu "bốn cửa hàng này khác gì phần còn lại?" — vừa ghi điểm tiêu chí 3 vừa ghi điểm tiêu chí 4.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('106.03', '106', 3, 'concept', 'Bốn phút chia thế nào', '- **0:00–0:20** — dạng exhibit gì, đơn vị gì, trục dọc bắt đầu từ đâu.
+- **0:20–1:20** — hình dạng tổng thể và **ít nhất một phép tính** (phần trăm thay đổi, tỷ trọng, hoặc cộng kiểm nếu là waterfall).
+- **1:20–2:20** — tìm ngoại lệ: điểm lệch, đoạn gãy, ô bất thường, cấu phần đi ngược tổng.
+- **2:20–3:20** — viết action title, có số, có hệ quả.
+- **3:20–4:00** — hai gạch "so what" và một câu hỏi cần hỏi thêm.
+
+Khi hết giờ mà chưa đủ: **giữ action title và câu hỏi**, bỏ bớt gạch thứ hai. Hai phần đó chạm vào ba trong bốn tiêu chí.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('106.04', '106', 4, 'worked_example', 'Một exhibit 4 phút, chấm theo từng tiêu chí', '**Exhibit:** Bảng doanh số và số nhân viên bán hàng của 6 chi nhánh.
+
+| Chi nhánh | Nhân viên | Doanh số/tháng (triệu) | Doanh số/nhân viên |
+|---|---|---|---|
+| A | 12 | 1.080 | 90 |
+| B | 8 | 760 | 95 |
+| C | 15 | 1.200 | 80 |
+| D | 6 | 660 | 110 |
+| E | 20 | 1.400 | 70 |
+| F | 9 | 855 | 95 |
+
+**0:20 — đơn vị:** triệu đồng mỗi tháng; cột cuối là số dẫn xuất, đã tính sẵn.
+
+**1:20 — phép tính:** tổng 24 nhân viên… không, tổng là **70 nhân viên** và **5.955 triệu**, tức trung bình **85,1 triệu/người**. Chênh lệch giữa chi nhánh cao nhất và thấp nhất: 110 so với 70, **gấp 1,57 lần**.
+
+**2:20 — ngoại lệ:** xu hướng rõ ràng — **chi nhánh càng đông nhân viên, doanh số mỗi người càng thấp**. E có 20 người, thấp nhất (70); D có 6 người, cao nhất (110). Đây là quan hệ nghịch, và nó đi ngược trực giác "chi nhánh lớn mạnh hơn".
+
+**3:20 — action title:**
+
+> "Năng suất giảm dần theo quy mô chi nhánh: chi nhánh 20 người đạt 70 triệu/người trong khi chi nhánh 6 người đạt 110 triệu, nên việc tăng quân số ở chi nhánh lớn đang cho hiệu quả biên rất thấp."
+
+**4:00 — hai gạch "so what" và một câu hỏi:**
+
+1. Nếu hai chi nhánh đang dưới trung bình (C ở 80 và E ở 70) đạt mức 85 triệu/người, tổng doanh số tăng thêm 375 triệu/tháng — khoảng 6,3%, không cần thêm người nào. 
+2. Kế hoạch tuyển thêm nhân sự nên dừng ở các chi nhánh trên 12 người cho tới khi biết nguyên nhân, vì mỗi người thêm vào đó đang tạo ra ít hơn mức trung bình.
+
+*Câu hỏi cần hỏi:* **quy mô thị trường quanh mỗi chi nhánh là bao nhiêu?** Vì nếu chi nhánh E đông người do thị trường lớn nhưng đã bão hoà, đây là câu chuyện thị phần chứ không phải câu chuyện năng suất — và hai cách hiểu đó dẫn tới hai hành động trái ngược.
+
+**Cách chấm bài này:** đọc đúng dữ liệu mức 3 (đúng, có tính trung bình và tỷ số) · insight mức 4 (quan hệ nghịch, quy ra tiền, dẫn tới quyết định tuyển dụng) · ngoại lệ mức 3 (chỉ ra E và D) · câu hỏi mức 4 (câu hỏi có thể lật ngược cách diễn giải).
+
+Chú ý câu hỏi cuối: nó **tự phản biện chính kết luận vừa nêu**. Đó là dấu hiệu của người đọc exhibit giỏi — không phải người chắc chắn nhất, mà người biết kết luận của mình phụ thuộc vào điều gì.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('106.05', '106', 5, 'pitfall', 'Những gì làm trượt checkpoint này', '**CHT-01 — mô tả chart thay vì diễn giải.** "Chi nhánh E có doanh số cao nhất" là đọc lại bảng. Mất phần lớn 35 điểm nặng nhất.
+
+**CHT-02 — bỏ qua đơn vị.** Trong 4 phút vội, đây là lỗi hay gặp và làm hỏng mọi phép tính sau đó.
+
+**CHT-03 — suy nhân quả từ tương quan.** "Đông người nên năng suất thấp" là một giả thuyết; nói như một sự thật là mất điểm ở cả tiêu chí insight lẫn tiêu chí câu hỏi.
+
+**CHT-04 — chỉ nhìn tổng.** Chi nhánh E doanh số tuyệt đối cao nhất — người chỉ nhìn cột đó sẽ khen E, trong khi cột dẫn xuất nói điều ngược lại.
+
+**Câu hỏi vô thưởng vô phạt.** "Chi nhánh E ở đâu?" không đổi được gì. Câu hỏi có giá trị là câu mà **hai câu trả lời khác nhau dẫn tới hai hành động khác nhau**.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('106.06', '106', 6, 'checklist', 'Soát 30 giây mỗi exhibit', '- Đã ghi đơn vị và điểm gốc trục.
+- Có ít nhất một phép tính tự làm, không chỉ đọc số có sẵn.
+- Action title có số và có hệ quả.
+- Hai gạch đều qua được bài kiểm "thì sao?".
+- Đã chỉ ra ít nhất một ngoại lệ hoặc một chỗ mâu thuẫn.
+- Câu hỏi cần hỏi có thể đổi hướng kết luận, và nói rõ đổi thế nào.');
+INSERT INTO lesson_blocks (id, lesson_id, sort, kind, title, body_md) VALUES ('106.07', '106', 7, 'exercise', 'Bài nộp', 'Làm checkpoint trong **20 phút liên tục**: năm exhibit lạ do giảng viên phát, 4 phút mỗi cái. Không tra cứu.
+
+Trong năm exhibit sẽ có ít nhất một cái **gây nhiễu** — không mang thông điệp nào dẫn tới kết luận. Nhận ra và nói thẳng "exhibit này không đủ để kết luận, cần thêm X" là một câu trả lời đúng, không phải câu trả lời né tránh.
+
+Chưa đạt thì bài bị khoá cho tới khi bạn xem lại phần chấm và làm drill được giao — thường là bài 022 hoặc 024 tuỳ mã lỗi CHT bạn dính.
+
+Output: một tài liệu năm mục, mỗi mục gồm: dạng exhibit và đơn vị · action title một câu · hai gạch "so what" · một câu hỏi cần hỏi thêm kèm lý do câu hỏi đó đổi được gì.');
 DELETE FROM panel_questions WHERE case_id = 'C-040';
 DELETE FROM case_answer_frames WHERE case_id = 'C-040';
 DELETE FROM case_traps WHERE case_id = 'C-040';
@@ -1891,3 +2206,20 @@ INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('R
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.5', 2, 'Có nhắc rằng kết quả chỉ là ước lượng nhưng không chỉ ra giả định nào yếu nhất.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.5', 3, 'Nêu đúng giả định yếu nhất và tính được kết quả thay đổi thế nào khi giả định đó đổi, trình bày dưới dạng khoảng.');
 INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B2.5', 4, 'Như mức 3, và nói được cần dữ liệu gì để thu hẹp khoảng, hoặc giả định nào không đáng kiểm vì không đổi kết luận.');
+DELETE FROM rubric_criterion_levels WHERE criterion_id IN (SELECT id FROM rubric_criteria WHERE rubric_id = 'RM-B3');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.1', 1, 'Đọc sai đơn vị hoặc sai trục, dẫn tới con số lệch bậc; hoặc nhầm số tuyệt đối với phần trăm.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.1', 2, 'Đọc đúng số nhưng không tự tính gì thêm, chỉ nhắc lại giá trị đã in sẵn trên exhibit.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.1', 3, 'Ghi rõ đơn vị và điểm gốc trục, tự tính ít nhất một đại lượng dẫn xuất (phần trăm thay đổi, tỷ trọng, cộng kiểm) và tính đúng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.1', 4, 'Như mức 3, và có kiểm tính nhất quán nội bộ của exhibit — các cấu phần cộng lại đúng tổng, hoặc chỉ ra chỗ không khớp.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.2', 1, 'Chỉ mô tả hình vẽ hoặc đọc lại bảng số; không câu nào qua được bài kiểm "thì sao?".');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.2', 2, 'Có diễn giải nhưng dừng ở mức nhận xét chung, chưa dẫn tới hành động hay hệ quả nào.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.2', 3, 'Mỗi gạch nêu một điều không đọc thẳng ra được từ hình, có số kèm theo, và dẫn tới một việc phải làm hoặc một quyết định.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.2', 4, 'Như mức 3, và ít nhất một gạch quy được phát hiện ra thành tiền hoặc thành quy mô tác động, hoặc chỉ ra điều ngược với trực giác ban đầu.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.3', 1, 'Không chỉ ra được điểm lệch nào, kể cả khi exhibit có ngoại lệ rõ ràng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.3', 2, 'Có nhắc tới một điểm khác thường nhưng không nói vì sao nó đáng chú ý.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.3', 3, 'Chỉ ra được ngoại lệ, đoạn gãy, hoặc cấu phần đi ngược tổng, kèm một câu vì sao nó quan trọng.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.3', 4, 'Như mức 3, và phân biệt được đâu là ngoại lệ thật cần đào, đâu là biến động bình thường; hoặc phát hiện exhibit tự mâu thuẫn với dữ kiện khác trong đề.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.4', 1, 'Không có câu hỏi, hoặc hỏi thứ đã có sẵn trên exhibit.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.4', 2, 'Câu hỏi hợp lý nhưng là tò mò: hai câu trả lời khác nhau cũng dẫn tới cùng một hành động.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.4', 3, 'Câu hỏi nhắm vào chỗ dữ liệu còn thiếu để kết luận, và nói được câu trả lời sẽ đổi hướng phân tích thế nào.');
+INSERT INTO rubric_criterion_levels (criterion_id, level, descriptor) VALUES ('RM-B3.4', 4, 'Như mức 3, và câu hỏi có khả năng lật ngược cách diễn giải vừa đưa ra — tức người học tự chỉ ra kết luận của mình đang phụ thuộc vào giả định nào.');
