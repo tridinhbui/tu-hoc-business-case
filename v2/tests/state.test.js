@@ -119,4 +119,20 @@ t("câu mở đầu: XP chỉ ở lần chấm đầu, lệch hướng vào Mist
   const st=S.drillStats(["consulting-0","consulting-1","consulting-2"]);
   assert.deepEqual([st.done,st.total,st.hit,st.miss],[1,3,0,1]);
 });
+t("trackStats tách bài đã có nội dung khỏi bài đang soạn",()=>{
+  S.reset();
+  const st=S.trackStats("fundamentals");
+  assert.equal(st.ready+st.soon, st.total);
+  assert.ok(st.ready>0);
+  const ls=W.LESSONS.filter(l=>l.track==="fundamentals" && !l.soon);
+  ls.forEach(l=>S.completeLesson(l.id));
+  const after=S.trackStats("fundamentals");
+  assert.equal(after.readyPct,100);                       // học hết bài có nội dung là 100%
+  assert.equal(after.pct, Math.round(100*after.done/after.total));
+});
+t("chặng lộ trình nghề tính theo bài đã có nội dung",()=>{
+  S.reset(); assert.equal(S.careerProgress("consulting"),0);
+  W.LESSONS.filter(l=>l.track==="fundamentals" && !l.soon).forEach(l=>S.completeLesson(l.id));
+  assert.equal(S.careerProgress("consulting"),1);         // trước đây kẹt ở 0 vì track còn bài đang soạn
+});
 console.log(`\n${n} test đạt`);

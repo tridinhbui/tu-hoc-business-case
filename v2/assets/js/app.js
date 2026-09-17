@@ -1834,7 +1834,7 @@ function vCareerDetail(id){
   <div class="grid g4 mt">
     <div class="card metric"><div class="k">Vị trí khởi điểm</div><div class="v" style="font-size:15px;line-height:1.4">${c.entry.map(esc).join("<br>")}</div></div>
     <div class="card metric"><div class="k">Track cần học</div><div class="v num">${tracks.length}</div><div class="n">${tracks.map(t=>esc(t.n)).join(" · ")}</div></div>
-    <div class="card metric"><div class="k">Bài đã xong</div><div class="v num">${tracks.reduce((a,t)=>a+State.trackStats(t.id).done,0)}/${tracks.reduce((a,t)=>a+State.trackStats(t.id).total,0)}</div><div class="n">trong các track của lộ trình</div></div>
+    <div class="card metric"><div class="k">Bài đã xong</div><div class="v num">${tracks.reduce((a,t)=>a+State.trackStats(t.id).done,0)}/${tracks.reduce((a,t)=>a+State.trackStats(t.id).ready,0)}</div><div class="n">bài đã có nội dung trong lộ trình</div></div>
     <div class="card metric"><div class="k">Nơi tuyển</div><div class="v" style="font-size:13px;line-height:1.5">${esc(c.firms)}</div></div>
   </div>
 
@@ -1851,8 +1851,8 @@ function vCareerDetail(id){
       <div class="card-b" style="padding-top:6px">
         ${tracks.map(t=>{ const s=State.trackStats(t.id); return `<div class="trackrow" style="box-shadow:none;margin-bottom:8px" onclick="location.hash='#/tracks'">
           <span class="tile t-${t.color}">${t.icon}</span>
-          <div class="body"><div class="nm">${esc(t.n)}</div><div class="vi">${s.done}/${s.total} bài · ${esc(t.lvl)}</div></div>
-          <div style="width:84px">${bar(s.pct)}</div><div class="pct num">${s.pct}%</div></div>`;}).join("")}
+          <div class="body"><div class="nm">${esc(t.n)}</div><div class="vi">${s.done}/${s.ready} bài · ${esc(t.lvl)}</div></div>
+          <div style="width:84px">${bar(s.readyPct)}</div><div class="pct num">${s.readyPct}%</div></div>`;}).join("")}
         <div class="callout ok mt"><b>Tốt nghiệp khi:</b> ${esc(c.gate)}</div>
       </div>
     </div>

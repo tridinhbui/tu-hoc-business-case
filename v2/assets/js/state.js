@@ -210,7 +210,12 @@ const lessonRec = id => S.lessons[id] || {};
 function trackStats(trackId){
   const ls = window.LESSONS.filter(l=>l.track===trackId);
   const done = ls.filter(l=>lessonStatus(l.id)==="done").length;
-  return { done, total:ls.length, pct: ls.length?Math.round(done/ls.length*100):0 };
+  /* ready = bài đã có nội dung. Tiến độ nghề đo theo ready, nếu không sẽ không bao giờ tới 100%
+     khi giáo trình còn bài đang soạn (cờ soon). */
+  const ready = ls.filter(l=>!l.soon).length;
+  return { done, total:ls.length, ready, soon: ls.length-ready,
+           pct: ls.length?Math.round(done/ls.length*100):0,
+           readyPct: ready?Math.round(done/ready*100):0 };
 }
 function moduleStats(moduleId){
   const ls = window.MODULE_BY_ID[moduleId].lessons;
@@ -280,7 +285,7 @@ function careerProgress(careerId){
   let done = 0;
   for(let i=0;i<c.steps.length;i++){
     const t = c.tracks[i];
-    const ok = t ? trackStats(t).pct===100
+    const ok = t ? (trackStats(t).ready>0 && trackStats(t).readyPct>=100)
                  : casesSolved().some(r=>(window.CASE_BY_ID[r.id]||{}).mode==="interview");
     if(!ok) break; done++;
   }

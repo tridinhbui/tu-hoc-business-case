@@ -18,7 +18,7 @@ function careerWidgetData(){
   const S = window.State, id = S.data.career, c = id && window.CAREER_BY_ID[id];
   if(!c) return {chosen:false, top:quizTop()};
   const tracks = c.tracks.map(t=>S.trackStats(t));
-  const done = tracks.reduce((a,t)=>a+t.done,0), total = tracks.reduce((a,t)=>a+t.total,0);
+  const done = tracks.reduce((a,t)=>a+t.done,0), total = tracks.reduce((a,t)=>a+t.ready,0);   // chỉ tính bài đã có nội dung
   const next = window.LESSONS.find(l=>c.tracks.includes(l.track) && !l.soon && S.lessonStatus(l.id)!=="done") || null;
   const keys = (c.cases||[]).map((_,i)=>`${c.id}-${i}`);
   const drill = keys.length ? S.drillStats(keys) : null;
@@ -88,6 +88,7 @@ if(window.I18N) I18N.add({
     "Pick a career so lesson order, practice and suggestions follow your goal.",
   "Làm trắc nghiệm 2 phút":"Take the 2-minute quiz", "Xem 30 nghề":"Browse 30 careers",
   "bài trong lộ trình":"lessons in your path", "Học tiếp":"Up next",
+  "bài đã có nội dung trong lộ trình":"lessons with content in your path",
   "Câu mở đầu":"Opening moves", "Đã tự chấm cả 3 câu":"All 3 questions graded",
   "câu mở đầu lệch hướng cần ôn":"off-track opening moves to review"
 });

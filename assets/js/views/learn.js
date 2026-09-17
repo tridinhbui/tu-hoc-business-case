@@ -32,72 +32,7 @@ window.VIEWS.learn = function() {
 
       <!-- Scenic Mountain Landscape Card Artwork -->
       <div class="hero-mountain-card">
-        <svg viewBox="0 0 400 180" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#fffef6"/>
-              <stop offset="45%" stop-color="#fef3c7"/>
-              <stop offset="85%" stop-color="#e0f2fe"/>
-              <stop offset="100%" stop-color="#bbf7d0"/>
-            </linearGradient>
-            <radialGradient id="sunGlow" cx="68%" cy="42%" r="55%">
-              <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
-              <stop offset="35%" stop-color="#fde047" stop-opacity="0.6"/>
-              <stop offset="70%" stop-color="#facc15" stop-opacity="0.15"/>
-              <stop offset="100%" stop-color="#fef08a" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="hillBack" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#86efac"/>
-              <stop offset="100%" stop-color="#15803d"/>
-            </linearGradient>
-            <linearGradient id="hillMid" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#4ade80"/>
-              <stop offset="100%" stop-color="#047857"/>
-            </linearGradient>
-            <linearGradient id="hillFront" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#22c55e"/>
-              <stop offset="100%" stop-color="#064e3b"/>
-            </linearGradient>
-            <linearGradient id="sunbeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
-              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          
-          <rect width="400" height="180" fill="url(#skyGrad)"/>
-          
-          <circle cx="270" cy="72" r="50" fill="url(#sunGlow)"/>
-          <circle cx="270" cy="72" r="18" fill="#fef08a" opacity="0.9"/>
-          
-          <polygon points="270,72 160,0 210,0" fill="url(#sunbeamGrad)" opacity="0.4"/>
-          <polygon points="270,72 260,0 310,0" fill="url(#sunbeamGrad)" opacity="0.45"/>
-          <polygon points="270,72 360,0 400,0" fill="url(#sunbeamGrad)" opacity="0.4"/>
-          <polygon points="270,72 400,40 400,90" fill="url(#sunbeamGrad)" opacity="0.35"/>
-          <polygon points="270,72 70,0 120,0" fill="url(#sunbeamGrad)" opacity="0.25"/>
-
-          <!-- Summit with Red Flag -->
-          <path d="M190 180 Q255 45 285 50 Q315 55 380 180 Z" fill="url(#hillBack)"/>
-          <line x1="285" y1="50" x2="285" y2="30" stroke="#78350f" stroke-width="2" stroke-linecap="round"/>
-          <polygon points="285,30 305,37 285,44" fill="#ef4444"/>
-          
-          <!-- Mid rolling hill -->
-          <path d="M0 125 Q90 85 190 115 Q290 145 400 100 L400 180 L0 180 Z" fill="url(#hillMid)"/>
-          
-          <!-- Winding Path -->
-          <path d="M30 180 C70 160 110 150 150 135 C190 120 230 110 260 85 Q275 68 285 50" fill="none" stroke="#fef08a" stroke-width="4" stroke-linecap="round" stroke-dasharray="3,3" opacity="0.9"/>
-          
-          <!-- Foreground Hill -->
-          <path d="M0 150 Q120 115 240 145 Q320 165 400 130 L400 180 L0 180 Z" fill="url(#hillFront)"/>
-          
-          <!-- Pine trees -->
-          <path d="M55 145 L62 130 L69 145 Z M60 135 L62 124 L64 135 Z" fill="#064e3b"/>
-          <path d="M72 148 L78 135 L84 148 Z" fill="#047857"/>
-          <path d="M140 135 L146 120 L152 135 Z" fill="#064e3b"/>
-          <path d="M150 138 L155 126 L160 138 Z" fill="#047857"/>
-          <path d="M330 145 L338 128 L346 145 Z M335 133 L338 122 L341 133 Z" fill="#064e3b"/>
-          <path d="M348 150 L354 136 L360 150 Z" fill="#047857"/>
-          <path d="M362 153 L368 140 L374 153 Z" fill="#065f46"/>
-        </svg>
+        <img src="assets/img/hero_mountain.png" alt="Mountain Landscape">
       </div>
     </section>
 
@@ -294,26 +229,9 @@ window.VIEWS.learn = function() {
               </a>
             </div>
 
-            <!-- Realistic Illustrated Open Vintage Book -->
+            <!-- Authentic Vintage Book Image -->
             <div class="notebook-art-container">
-              <svg width="84" height="60" viewBox="0 0 120 80" fill="none">
-                <ellipse cx="60" cy="72" rx="50" ry="6" fill="#000" opacity="0.08"/>
-                <path d="M12 20 Q60 28 60 70 Q60 28 108 20 L110 65 Q60 73 60 73 Q60 73 10 65 Z" fill="#b08968" stroke="#8d6e63" stroke-width="1.5"/>
-                <path d="M14 18 Q58 24 58 66 L12 62 Z" fill="#fdfbf7" stroke="#d7ccc8" stroke-width="1"/>
-                <path d="M16 16 Q58 22 58 64 L14 60 Z" fill="#ffffff" stroke="#d7ccc8" stroke-width="1"/>
-                <path d="M106 18 Q62 24 62 66 L108 62 Z" fill="#fdfbf7" stroke="#d7ccc8" stroke-width="1"/>
-                <path d="M104 16 Q62 22 62 64 L106 60 Z" fill="#ffffff" stroke="#d7ccc8" stroke-width="1"/>
-                <path d="M58 20 L62 20 L62 68 L58 68 Z" fill="#efebe9"/>
-                <line x1="22" y1="26" x2="52" y2="28" stroke="#cfd8dc" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="22" y1="33" x2="52" y2="35" stroke="#cfd8dc" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="22" y1="40" x2="48" y2="42" stroke="#cfd8dc" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="22" y1="47" x2="50" y2="49" stroke="#cfd8dc" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="68" y1="28" x2="98" y2="26" stroke="#cfd8dc" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="68" y1="35" x2="98" y2="33" stroke="#cfd8dc" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="68" y1="42" x2="92" y2="40" stroke="#cfd8dc" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="68" y1="49" x2="96" y2="47" stroke="#cfd8dc" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M60 14 Q66 38 72 70" stroke="#059669" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              </svg>
+              <img src="assets/img/widget_notebook.png" alt="Sổ tay của bạn">
             </div>
           </div>
         </div>

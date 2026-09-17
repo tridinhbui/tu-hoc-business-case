@@ -59,6 +59,12 @@ run("IVIEW.CFG['iv-01'].rounds.forEach(r=>IVIEW.answer('iv-01',r.model,Date.now(
 const ivres=run("vInterview('iv-01')");
 assert.ok(ivres.includes("Kết quả phỏng vấn") && !/undefined|NaN/.test(ivres.replace(/<[^>]*>/g," ")));
 assert.ok(run("vInterview()").includes("Đã xong"));
+/* lịch sử các lần: chỉ hiện từ lần thứ hai, kèm mức chênh so với lần trước */
+assert.ok(!run("vInterview('iv-01')").includes("Các lần phỏng vấn"), "một lần thì chưa có lịch sử");
+run("IVIEW.reset('iv-01'); IVIEW.start('iv-01',Date.now()); IVIEW.CFG['iv-01'].rounds.forEach((r,i)=>IVIEW.answer('iv-01', i?r.model:'qua loa', Date.now()))");
+const ivhist=run("vInterview('iv-01')");
+assert.ok(ivhist.includes("Các lần phỏng vấn") && /Lần 2 · \d+/.test(ivhist), "lịch sử hai lần");
+assert.ok(run("vInterview()").includes("2 lần"), "thẻ case hiện số lần");
 assert.ok(run("vInterview('iv-01')").includes("iv-probe"), "câu hỏi vặn hiện sau khi xong phiên");
 run("IVIEW.probeAnswer('iv-01', IVIEW.probe('iv-01').model)");
 const ivpr=run("vInterview('iv-01')"); assert.ok(ivpr.includes("Câu hỏi vặn") && !ivpr.includes("iv-probe") && ivpr.includes("3/3"));
