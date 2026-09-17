@@ -35,7 +35,7 @@ window.VIEWS.learn = function() {
         <svg viewBox="0 0 400 180" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
           <defs>
             <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#fffdf5"/>
+              <stop offset="0%" stop-color="#fffef6"/>
               <stop offset="45%" stop-color="#fef3c7"/>
               <stop offset="85%" stop-color="#e0f2fe"/>
               <stop offset="100%" stop-color="#bbf7d0"/>
