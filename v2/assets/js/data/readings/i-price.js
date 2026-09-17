@@ -332,3 +332,102 @@ Bốn câu: kết luận, nguyên nhân có số, tổng, đề xuất kèm đi�
 
 Phần tiếp theo đưa bạn vào một chuỗi mỹ phẩm chạy chương trình "giảm 20% toàn bộ" trong hai tuần. Biên lãi góp của họ là 40%, nên hãy tính ngay ngưỡng trước khi đọc bảng số: giảm 20% trên biên 40% nghĩa là phải bán gấp đôi. Sau đó tách kết quả thành bốn dòng có dấu như phần làm mẫu — khách vốn có, đơn tăng thêm, cầu bị kéo sớm, chi phí chương trình — và kiểm tra chéo bằng tổng lãi góp. Khi hai cách khớp nhau, bạn đã có đáp án.
 `);
+
+LRD("i-price-7", `
+Phòng họp tầng mười của một chuỗi siêu thị. Giám đốc mua hàng đẩy sang phía nhà sản xuất sữa chua Đồng Xanh một tờ giấy chỉ có ba dòng: năm tới chuỗi sẽ lấy **1,4 triệu hộp** thay vì 1 triệu, với điều kiện giảm **10%** trên giá niêm yết 8.000đ. Kèm theo là những điều khoản "như mọi năm": thưởng doanh số cuối năm 2%, thanh toán sau 60 ngày, và phí trưng bày đầu kệ 140 triệu.
+
+Giám đốc kinh doanh của Đồng Xanh nhẩm rất nhanh: biên lãi góp 35%, giảm 10% vẫn còn lãi, sản lượng lại tăng 40%. Anh gần như gật đầu ngay tại bàn.
+
+Đề này xuất hiện trong phòng phỏng vấn gần như nguyên vẹn. Ứng viên thứ nhất lặp lại phép nhẩm của giám đốc kinh doanh và kết luận nên nhận. Ứng viên thứ hai hỏi lại hai câu: "Hạn thanh toán hiện tại là bao nhiêu ngày, và thưởng doanh số tính trên giá nào?" Chỉ hai câu hỏi đó đã đủ để lật ngược kết luận.
+
+Khác biệt giữa hai người không phải là kỹ năng tính toán. Người thứ hai biết rằng trong bán hàng cho doanh nghiệp, **con số trên hoá đơn chỉ là điểm bắt đầu** của một chuỗi khoản trừ mà người bán hay quên.
+
+## Giá trên hoá đơn không phải giá bạn giữ lại
+
+Tư vấn định giá gọi chuỗi khoản trừ này là thác giá bỏ túi. Bắt đầu từ giá niêm yết, trừ dần từng thứ bạn nhượng cho khách, đến khi còn lại đúng số tiền thực sự vào túi trên mỗi đơn vị.
+
+Với đề nghị của chuỗi siêu thị, thác giá của Đồng Xanh trông như sau:
+
+- Giá niêm yết: 8.000đ
+- Chiết khấu 10% trên hoá đơn: còn 7.200đ
+- Thưởng doanh số 2% tính trên giá hoá đơn: trừ 144đ
+- Chi phí vốn của 60 ngày nợ, với lãi vốn 12% một năm: 7.200 × 60 ÷ 360 × 12% = 144đ
+- Phí trưng bày 140 triệu chia cho 1,4 triệu hộp: trừ 100đ
+- Giá bỏ túi: **6.812đ**, tức giảm thực **14,85%**, không phải 10%
+
+Ba khoản sau cùng không bao giờ nằm trên hoá đơn. Chúng nằm ở phòng kế toán, ở bộ phận trade marketing, ở dòng tiền. Vì thế người đàm phán thường không thấy, và khách hàng lớn biết rất rõ điều đó.
+
+Bây giờ so hai phương án bằng cùng một thước đo. Hiện tại Đồng Xanh bán 1 triệu hộp giá niêm yết, khách trả sau 30 ngày: giá bỏ túi 8.000 − 80 = 7.920đ, trừ chi phí biến đổi 5.200đ, còn **2.720 triệu** lãi góp bỏ túi. Theo đề nghị mới: (6.812 − 5.200) × 1,4 triệu hộp = **2.256,8 triệu**. Bán thêm 40% sản lượng mà giữ lại ít hơn **463,2 triệu**.
+
+## Tính ngưỡng bỏ đi trước khi ngồi vào bàn
+
+Người đàm phán giỏi không quyết định tại bàn. Họ mang theo một con số tính sẵn: **mức nhượng bộ tối đa mà thương vụ vẫn tốt hơn không ký**. Trong sách đàm phán, đó là điểm bỏ đi.
+
+Giữ nguyên các điều khoản đi kèm — thưởng 2%, nợ 60 ngày, phí trưng bày 140 triệu — và hỏi: chiết khấu trên hoá đơn được phép tối đa bao nhiêu để 1,4 triệu hộp vẫn mang về ít nhất 2.720 triệu?
+
+Mỗi hộp phải để lại 2.720 ÷ 1,4 ≈ 1.943đ lãi góp bỏ túi. Cộng chi phí biến đổi 5.200đ và phí trưng bày 100đ, giá sau thưởng và chi phí vốn phải đạt khoảng 7.243đ. Vì thưởng và chi phí vốn cùng lấy đi 4% giá hoá đơn, giá hoá đơn cần tối thiểu 7.243 ÷ 0,96 ≈ 7.545đ. Mức chiết khấu tối đa là khoảng **5,7%**.
+
+Chuỗi siêu thị đòi 10%. Khoảng cách giữa 5,7% và 10% chính là không gian đàm phán — và nó âm. Biết điều này trước khi vào phòng, giám đốc kinh doanh sẽ không bao giờ gật đầu tại bàn.
+
+## Đừng tặng chiết khấu cho khối lượng khách vốn đã mua
+
+Chỗ rò rỉ lớn nhất trong đề nghị không phải thưởng doanh số hay hạn nợ. Đó là việc mức giảm 10% áp cho **toàn bộ** 1,4 triệu hộp, trong khi 1 triệu hộp đầu tiên chuỗi siêu thị vốn đã mua với giá niêm yết. Khách lấy thêm 400.000 hộp, nhưng được giảm giá trên cả 1,4 triệu.
+
+Phản đề nghị hiển nhiên là chiết khấu bậc thang: giữ giá niêm yết cho 1 triệu hộp đầu, giảm 10% chỉ cho phần vượt. Đồng thời đổi những thứ khác lấy nhượng bộ đó: bỏ thưởng doanh số, đưa hạn nợ về 30 ngày, giữ phí trưng bày 140 triệu để đổi lấy vị trí đầu kệ.
+
+- Lãi góp 1 triệu hộp đầu: 1 triệu × 2.800đ = 2.800 triệu
+- Lãi góp 400.000 hộp vượt với giá 7.200đ: 400.000 × 2.000đ = 800 triệu
+- Chi phí vốn 30 ngày trên doanh thu 10.880 triệu: 108,8 triệu
+- Phí trưng bày: 140 triệu
+- Lãi góp bỏ túi: **3.351,2 triệu**, cao hơn hiện tại **631,2 triệu**
+
+Chuỗi siêu thị vẫn có một câu chuyện tốt để báo cáo lên trên: khối lượng tăng 40%, giá bình quân giảm khoảng 2,9%, vị trí trưng bày được giữ. Hai bên đều có lợi, và điều đó chỉ xảy ra khi bạn tách khối lượng cũ khỏi khối lượng mới.
+
+## Cho gì, nhận gì
+
+Nguyên tắc vận hành của đàm phán B2B rất đơn giản: **không nhượng bộ miễn phí**. Mỗi thứ bạn cho đi phải đổi lấy một thứ có giá trị đo được.
+
+- Chiết khấu đổi lấy khối lượng cam kết tối thiểu, không phải khối lượng dự kiến
+- Hạn nợ dài hơn đổi lấy giá cao hơn, hoặc ngược lại chiết khấu nhỏ cho thanh toán sớm
+- Phí trưng bày đổi lấy vị trí và thời gian cụ thể, ghi trong hợp đồng
+- Hợp đồng dài hơn đổi lấy một điều khoản điều chỉnh giá theo chi phí nguyên liệu
+
+Khi ứng viên nói "đề xuất nhận nhưng xin giảm ít hơn", giám khảo sẽ hỏi tiếp: đổi lại bạn nhận được gì? Hãy trả lời trước câu đó.
+
+## Cái giá của tiền lệ
+
+Còn một khoản mà không bảng tính hợp đồng nào ghi: các khách hàng khác sẽ biết. Ngành bán lẻ nhỏ hơn bạn nghĩ, và người mua hàng chuyển việc giữa các chuỗi. Nếu ba chuỗi còn lại, tổng cộng 3 triệu hộp một năm, đòi cùng mức 10%, Đồng Xanh mất thêm 3 triệu × 800đ = **2.400 triệu**, gấp năm lần khoản thiệt của chính hợp đồng này.
+
+Chiết khấu bậc thang ít bị sao chép hơn vì nó gắn với mức tăng trưởng của từng khách. Một chuỗi không tăng khối lượng thì không có gì để đòi.
+
+## Cùng khung, mô hình kinh doanh khác
+
+Ngưỡng sản lượng cần tăng khi giảm giá vẫn là mức giảm ÷ (biên lãi góp − mức giảm), như bài trước. Biên càng mỏng, mọi nhượng bộ càng đắt.
+
+**Phần mềm bán cho doanh nghiệp**, biên lãi góp khoảng 80%: giảm 10% chỉ cần tăng khoảng 14,3% khối lượng. Nhượng bộ giá tương đối rẻ, nên người bán phần mềm thường chấp nhận chiết khấu lớn để đổi lấy hợp đồng nhiều năm.
+
+**Nhà phân phối**, biên lãi góp khoảng 8%: giảm 5% phải tăng khoảng 167% khối lượng. Gần như không thể. Ở đây đừng đàm phán giá — hãy đàm phán dịch vụ: tần suất giao hàng, đơn tối thiểu, hạn nợ.
+
+**Nhà sản xuất còn dư công suất** như Đồng Xanh ở giữa: chi phí biến đổi thấp hơn giá khá xa, nên khối lượng tăng thêm có giá trị thật — miễn là nhượng bộ chỉ áp lên đúng phần tăng thêm.
+
+## Nói trong 60 giây
+
+> "Em đề xuất không nhận nguyên đề nghị, vì nó làm Đồng Xanh mất khoảng 463 triệu lãi góp bỏ túi dù bán thêm 40%."
+> "Lý do là giảm 10% áp cho cả 1 triệu hộp khách vốn đã mua, cộng thưởng doanh số, 60 ngày nợ và phí trưng bày, nên giá bỏ túi thực giảm gần 15%."
+> "Ngưỡng bỏ đi với các điều khoản này là khoảng 5,7%, thấp hơn nhiều so với 10%."
+> "Em đề xuất phản đề nghị bậc thang: giảm 10% chỉ cho phần vượt 1 triệu hộp, bỏ thưởng doanh số, nợ 30 ngày — Đồng Xanh thêm khoảng 631 triệu, chuỗi vẫn được giảm bình quân gần 3%."
+
+Kết luận, nguyên nhân có số, ngưỡng, phản đề nghị. Người nghe không cần biết bạn đã tính thác giá theo thứ tự nào.
+
+## Những lỗi khiến phần định giá B2B bị trừ điểm
+
+- **Đàm phán trên giá hoá đơn.** Mọi điều khoản đi kèm phải được quy về giá bỏ túi mỗi đơn vị.
+- **So biên lãi góp với mức giảm.** "Biên 35%, giảm 10% vẫn lãi" chỉ nói từng hộp còn lãi, không nói tổng lãi góp tăng hay giảm.
+- **Để chiết khấu phủ lên khối lượng cũ.** Đây thường là khoản tiền lớn nhất bị tặng không.
+- **Không có ngưỡng bỏ đi.** Không có mốc thì con số nào của khách cũng có vẻ hợp lý.
+- **Chỉ trả lời có hoặc không.** Giám khảo chờ một phản đề nghị có cho và có nhận.
+
+## Vào bài tập
+
+Phần tiếp theo đưa bạn tới nhà bao bì Phương Nam, đang nhận một đề nghị rất giống: khách lớn muốn tăng khối lượng, đổi lại chiết khấu cho toàn bộ, giao hàng miễn phí và hạn nợ dài hơn. Hãy làm theo đúng thứ tự của bài: quy từng điều khoản về giá bỏ túi mỗi thùng, so lãi góp bỏ túi của hai phương án, tính ngưỡng bỏ đi, rồi dựng phản đề nghị bậc thang. Chi phí vốn tính trên doanh thu theo số ngày nợ, với năm 360 ngày.
+`);

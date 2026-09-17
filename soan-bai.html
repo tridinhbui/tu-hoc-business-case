@@ -1317,14 +1317,19 @@
         var last = i === live.length - 1;
         var v = c.ok ? viNum(c.value) : '?';
         return (filled(c.label) ? c.label.trim() + ': ' : '') + prettyExpr(c.expr, vals) + ' = ' +
-          (last ? '**' + v + (filled(unit) ? ' ' + unit.trim() : '') + '**' : v) +
+          (last ? '**' + v + unitSuffix(unit) + '**' : v) +
           (last && filled(note) ? ' — ' + note.trim().replace(/[.\s]+$/, '') : '') + '.';
       });
     }
 
+    function unitSuffix(unit) {
+      var u = String(unit || '').trim();
+      return !u ? '' : /^%/.test(u) ? u : ' ' + u;
+    }
+
     function buildSolution(d) {
       var L = d.lesson, ans = toNum(L.calc.answer);
-      var res = isNaN(ans) ? '' : 'Kết quả: **' + viNum(ans) + (filled(L.calc.unit) ? ' ' + L.calc.unit.trim() : '') + '**.';
+      var res = isNaN(ans) ? '' : 'Kết quả: **' + viNum(ans) + unitSuffix(L.calc.unit) + '**.';
       return (res + (filled(d.conclusion) ? ' ' + d.conclusion.trim() : '')).trim();
     }
 
