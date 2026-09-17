@@ -628,3 +628,101 @@ Kết luận, lý do từ bảng sẵn lòng trả, con số so với hai phươ
 
 Phần tiếp theo là chuỗi phòng tập Năng Động, bán phòng tập và lớp nhóm cho ba nhóm khách đánh giá hai dịch vụ rất khác nhau. Làm đúng thứ tự của bài: dựng bảng sẵn lòng trả, cho từng nhóm chọn phương án có phần dư lớn nhất trong mỗi cấu trúc, cộng lãi góp, rồi kiểm tra tự chọn tầng và hàng rào trước khi viết tiêu đề slide.
 `);
+
+LRD("i-price-8", `
+Giá đường tăng, và một hãng nước giải khát mất 500đ lãi góp trên mỗi lon. Trong cuộc họp khẩn, trưởng nhóm sản phẩm đưa ra một đề xuất mà cả phòng thấy khéo: không tăng giá 10.000đ quen thuộc, chỉ giảm dung tích lon từ 330ml xuống 300ml. "Khách nhìn giá, không ai đo từng mililit."
+
+Trên giấy, đề xuất này còn tốt hơn tăng giá một chút. Ban giám đốc gần như đã đồng ý.
+
+Giám khảo phỏng vấn đưa đúng tình huống này cho hai ứng viên. Người thứ nhất so hai con số lãi góp, thấy giảm dung tích hơn 0,2 tỷ, và khuyến nghị giảm dung tích. Người thứ hai hỏi thêm ba câu: nhãn lon có ghi đúng dung tích mới không, quảng cáo có còn câu "giá không đổi" không, và **nếu người tiêu dùng phát hiện thì mất bao nhiêu**. Chỉ câu hỏi cuối đã đủ đảo ngược khuyến nghị.
+
+Bài học này không dạy bạn trở thành luật sư. Nó dạy bạn nhận ra khi nào một quyết định giá có rủi ro không nằm trong bảng tính, và làm thế nào đưa rủi ro đó **vào** bảng tính.
+
+## Đổi giá có ba loại rủi ro, không phải một
+
+Khi giám khảo hỏi "có rủi ro gì không", câu trả lời "khách có thể phản ứng" là quá mỏng. Hãy tách ra ba loại, vì mỗi loại xử lý khác nhau.
+
+- **Rủi ro pháp lý**: một số cách đổi giá bị cấm hoặc bị giới hạn. Loại này không đem ra cân nhắc lợi hại — sai là phải bỏ hoặc sửa.
+- **Rủi ro thương hiệu**: cách đổi giá làm khách thấy bị lừa hoặc bị lợi dụng. Loại này cân được bằng tiền, với một xác suất.
+- **Rủi ro quan hệ kênh**: đại lý, nhà phân phối, đối tác mất biên hoặc bị bất ngờ. Loại này thường bị quên nhất, và nó quay lại dưới dạng đại lý ngừng đẩy hàng.
+
+Thứ tự cũng quan trọng: loại pháp lý trước, vì nó có thể loại bỏ cả phương án mà không cần tính tiếp.
+
+## Những việc không đem ra cân nhắc
+
+Có vài vùng mà một ứng viên case nên nhận ra ngay, dù không thuộc điều luật. Lưu ý: đây là khung nhận diện rủi ro cho phỏng vấn, không thay cho ý kiến của bộ phận pháp chế, và văn bản pháp luật có thể được sửa đổi — luôn đối chiếu bản hiện hành trước khi áp dụng.
+
+**Thống nhất giá với đối thủ.** Luật Cạnh tranh 2018 cấm các doanh nghiệp trên cùng thị trường liên quan thoả thuận ấn định giá, dù trực tiếp hay gián tiếp. Một cuộc gọi "để cả ngành cùng tăng cho đỡ thiệt" là đủ để trở thành vấn đề. Trong phỏng vấn, đề xuất "phối hợp với đối thủ cùng tăng giá" là một câu trả lời sai tuyệt đối, bất kể con số đẹp đến đâu.
+
+**Thông tin giá sai lệch.** Luật Bảo vệ quyền lợi người tiêu dùng 2023 cấm cung cấp thông tin không đầy đủ, không chính xác về hàng hoá, dịch vụ. Nâng giá niêm yết trước rồi quảng cáo "giảm 40%", hay giảm dung tích mà vẫn nói "giá không đổi", đều rơi vào vùng này. Nhãn phải ghi đúng định lượng thực tế.
+
+**Khuyến mại vượt giới hạn.** Quy định về khuyến mại đặt giới hạn cho hình thức giảm giá — ví dụ Nghị định 81/2018/NĐ-CP quy định mức giảm tối đa 50% so với giá ngay trước khuyến mại, có ngoại lệ cho các đợt khuyến mại tập trung. Khi đề bài có một chương trình "giảm 60%", điều bạn cần nói là: phải kiểm tra với quy định hiện hành, và nhiều khả năng phải đổi sang hình thức khác.
+
+Giám khảo không chấm bạn thuộc số điều. Họ chấm bạn có **dừng lại đúng chỗ** hay không.
+
+## Quy rủi ro thương hiệu ra tiền
+
+Giảm dung tích không vi phạm luật nếu nhãn ghi đúng và không quảng cáo sai. Vậy nó trở thành bài toán thương hiệu, và bài toán đó có lời giải bằng số.
+
+Hãng nước giải khát bán 100 triệu lon mỗi năm. Sau khi giá đường tăng, nếu không làm gì, mỗi lon chỉ còn 1.500đ lãi góp, cả năm 150 tỷ.
+
+- **Tăng giá lên 11.000đ**: lãi góp mỗi lon 2.500đ, sản lượng giảm 6% còn 94 triệu lon. Lãi góp: **235 tỷ**.
+- **Giảm dung tích xuống 300ml**: giá mỗi mililit thực chất tăng 10%, nhưng khách ít nhận ra nên sản lượng chỉ giảm 2%. Nhóm tài chính ước lãi góp mỗi lon 2.400đ. Lãi góp: 98 triệu × 2.400đ = **235,2 tỷ**.
+
+Trên giấy, giảm dung tích hơn 0,2 tỷ. Bây giờ thêm rủi ro. Đội truyền thông ước có **40%** khả năng một bài so sánh lon cũ và lon mới lan truyền trong năm. Nếu xảy ra, hãng mất thêm 10% sản lượng của phương án giảm dung tích, tức 9,8 triệu lon × 2.400đ = **23,52 tỷ**.
+
+Giá trị kỳ vọng của giảm dung tích: 235,2 − 40% × 23,52 = **225,8 tỷ**. Tăng giá công khai giờ hơn khoảng **9,2 tỷ**.
+
+Hai con số cần nhớ từ phép tính này. Xác suất nhân thiệt hại cho **thiệt hại kỳ vọng**, đem trừ thẳng vào lợi ích. Và vì thiệt hại khi lộ lớn gấp hơn trăm lần phần lợi trên giấy, giảm dung tích chỉ đáng làm khi xác suất bị phát hiện dưới 0,2 ÷ 23,52 ≈ **0,85%**. Không ai tin nổi con số đó.
+
+## Ngưỡng xác suất: khi không ai đồng ý một con số
+
+Ngoài đời, "40% khả năng lan truyền" là một ước lượng cảm tính. Hai người trong phòng sẽ nói hai con số khác nhau, và cuộc tranh luận không bao giờ kết thúc.
+
+Cách thoát là đảo câu hỏi: **xác suất phải thấp đến mức nào thì phương án rủi ro mới còn đáng?** Lấy phần lợi thêm chia cho thiệt hại nếu rủi ro xảy ra. Nếu ngưỡng rất thấp như 0,85%, không cần tranh luận nữa. Nếu ngưỡng cao, ví dụ 60%, thì phương án rủi ro có thể chấp nhận được, và cuộc thảo luận chuyển sang cách giảm xác suất.
+
+## Giá động và những thời điểm nhạy cảm
+
+Giá thay đổi theo cung cầu — vé máy bay, phòng khách sạn, xe công nghệ giờ cao điểm — là hợp lệ và khách đã quen. Rủi ro thương hiệu bùng lên ở những **thời điểm nhạy cảm**: thiên tai, dịch bệnh, sự cố, khi khách không có lựa chọn và cảm thấy bị lợi dụng.
+
+Nhiều doanh nghiệp tự đặt trần hệ số tăng giá trong những thời điểm đó, dù không bị bắt buộc. Họ đánh đổi một phần doanh thu ngắn hạn lấy xác suất khủng hoảng truyền thông thấp hơn. Đây chính xác là loại quyết định cần phép tính kỳ vọng ở trên: so lợi thêm của hệ số cao với thiệt hại kỳ vọng, cho từng mức trần.
+
+## Đổi giá sao cho ít rủi ro
+
+- **Nói rõ và nói trước.** Thông báo tăng giá kèm lý do có số, như giá nguyên liệu tăng bao nhiêu phần trăm.
+- **Không che giấu.** Mọi thay đổi định lượng, phí, điều kiện phải hiển thị rõ như thay đổi giá.
+- **Bảo vệ khách thân thiết.** Giữ giá cũ cho khách thường xuyên thêm một thời gian, hoặc áp giá mới cho khách mới trước.
+- **Báo kênh phân phối trước khách.** Cho đại lý thời gian bán hết tồn kho giá cũ.
+- **Đặt trần cho giá động** ở những thời điểm dễ bị xem là lợi dụng.
+
+## Bảy câu hỏi trước khi đổi giá
+
+- Cách đổi giá này có cần trao đổi, phối hợp với đối thủ không? Nếu có, dừng lại.
+- Thông tin giá, nhãn, quảng cáo có phản ánh đúng thay đổi thực tế không?
+- Chương trình khuyến mại có nằm trong giới hạn của quy định hiện hành không?
+- Nếu khách biết toàn bộ sự thật, họ có thấy bị lừa hoặc bị lợi dụng không?
+- Thiệt hại nếu rủi ro thương hiệu xảy ra là bao nhiêu, và xác suất ngưỡng là bao nhiêu?
+- Đại lý và đối tác mất gì, và họ biết trước bao lâu?
+- Có cách đạt cùng mục tiêu với ít rủi ro hơn không?
+
+## Nói trong 60 giây
+
+> "Em không đề xuất giảm dung tích, dù trên giấy nó hơn tăng giá khoảng 0,2 tỷ."
+> "Nếu một bài so sánh lon cũ và lon mới lan truyền, hãng mất khoảng 23,5 tỷ; với khả năng 40%, giá trị kỳ vọng của giảm dung tích thấp hơn tăng giá công khai khoảng 9,2 tỷ."
+> "Giảm dung tích chỉ đáng khi khả năng bị phát hiện dưới 1%, điều không thực tế."
+> "Em đề xuất tăng giá lên 11.000đ, thông báo lý do giá đường, và giữ giá cũ ba tháng cho kênh đại lý để bán hết tồn kho."
+
+Khuyến nghị, rủi ro có số, ngưỡng, cách giảm rủi ro cho phương án được chọn.
+
+## Những lỗi khiến phần rủi ro bị trừ điểm
+
+- **Nói "có rủi ro thương hiệu" mà không có số.** Giám khảo sẽ hỏi: bao nhiêu, và khả năng bao nhiêu?
+- **Đem vi phạm pháp luật ra cân lợi hại.** Thoả thuận giá với đối thủ không phải một phương án có rủi ro — nó là phương án bị loại.
+- **Chỉ tính thiệt hại, quên xác suất.** Thiệt hại lớn nhưng xác suất rất thấp có thể vẫn chấp nhận được.
+- **Tranh luận mãi về một xác suất.** Tính xác suất ngưỡng rồi hỏi con số thật có gần ngưỡng không.
+- **Quên kênh phân phối.** Đại lý bị bất ngờ sẽ phản ứng bằng tồn kho và thứ tự ưu tiên trên kệ.
+
+## Vào bài tập
+
+Phần tiếp theo là ứng dụng gọi xe Đi Ngay, với ba đề xuất cùng lúc: tăng giá mạnh trong những ngày mưa lớn, một mã giảm giá sâu cho khách mới, và một cuộc trao đổi về phí với các hãng khác. Hãy đi đúng thứ tự của bài: loại ngay phương án vi phạm pháp luật, đánh dấu phương án cần kiểm tra quy định, rồi quy rủi ro thương hiệu của từng mức tăng giá ra giá trị kỳ vọng trước khi chọn.
+`);
