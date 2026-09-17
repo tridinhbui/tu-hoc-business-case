@@ -802,6 +802,38 @@
       .rep-row.c4 > :nth-child(2), .rep-row.c4 > :nth-child(3), .rep-row.c4 > :nth-child(4) { grid-column: 1 / 2; }
       .rep-head { display: none; }
     }
+    .guide { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 16px; }
+    .guide > div { border-radius: var(--radius-md); padding: 11px 13px; font-size: 12px; line-height: 1.6; }
+    .guide .weak { background: #fdf3f5; border: 1px solid #f6d5dd; color: #7a2940; }
+    .guide .strong { background: #f2faf5; border: 1px solid #cfe9d9; color: #1f5a3c; }
+    .guide .gh { display: block; font-size: 10px; font-weight: 800; letter-spacing: .07em; margin-bottom: 4px; }
+    .rep-row.c3 { grid-template-columns: 26px minmax(0,1.3fr) minmax(0,1fr) 96px 30px; }
+    .step-no {
+      width: 26px; height: 34px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: var(--text-muted);
+    }
+    .step-val {
+      height: 34px; display: flex; align-items: center; justify-content: flex-end;
+      font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums; padding-right: 4px;
+      color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .step-val.err { color: var(--pink-text); font-size: 11px; }
+    .builder { border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 13px 14px; margin: 4px 0 14px; background: #fff; }
+    .builder .vt { font-size: 11px; font-weight: 800; letter-spacing: .05em; color: #3f7a5c; margin-bottom: 4px; }
+    .builder .bh { font-size: 11.5px; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; line-height: 1.55; }
+    .builder .bh code { background: var(--surface-subtle); border: 1px solid var(--border-light); border-radius: 4px; padding: 0 5px; font-size: 11px; }
+    .b-acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .err-sel { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .err-sel span { font-size: 10.5px; font-weight: 800; letter-spacing: .05em; color: var(--text-muted); white-space: nowrap; }
+    .err-sel select {
+      flex: 1; min-width: 0; font-family: var(--font); font-size: 12px; font-weight: 700; color: var(--text-main);
+      border: 1px solid var(--border-color); background: var(--surface-subtle); border-radius: var(--radius-sm); padding: 7px 9px;
+    }
+    @media (max-width: 900px) {
+      .guide { grid-template-columns: 1fr; }
+      .rep-row.c3 { grid-template-columns: 26px minmax(0,1fr) 30px; }
+      .rep-row.c3 > :nth-child(3), .rep-row.c3 > :nth-child(4) { grid-column: 2 / 3; }
+    }
     .modal .scrim { z-index: 0; }
     .modal-box { z-index: 1; }
   </style>
@@ -956,7 +988,7 @@
     var DATA = 'v2/assets/js/data/';
 
     /* Bài mẫu: mã xuất từ xưởng đã qua tests/lessons.test.js và tests/readings.test.js trên bản sao repo */
-    var SAMPLE = {"i-price-6":{"lesson":{"why":"Gần như mọi case bán lẻ đều cài sẵn một chương trình khuyến mãi \"thành công\" với doanh số tăng vọt. Giám khảo chấm bạn ở chỗ có nhìn qua được con số doanh thu để thấy **lãi góp đã mất bao nhiêu** hay không.","outcome":"tính được ngưỡng sản lượng cần thiết trước khi giảm giá, và tách tác động thật của một chương trình khuyến mãi thành các khoản có dấu so với kịch bản không chạy.","scenario":{"text":"Một chuỗi mỹ phẩm chạy \"giảm 20% toàn bộ\" trong 2 tuần. Số đơn tăng từ 4.000 lên 7.000, doanh thu tăng 40%. Giám đốc marketing muốn lặp lại chương trình mỗi quý.","ask":"Trước khi đồng ý, bạn cần so doanh số khuyến mãi với con số nào?"},"fw":{"title":"Sản lượng phải tăng = mức giảm giá ÷ (biên lãi góp − mức giảm giá)","rows":[["Lãi góp mỗi đơn","Giá bán − chi phí biến đổi của đúng đơn đó; chi phí cố định không tham gia"],["Ngưỡng hoà vốn","Biên 40%, giảm 20% → 20 ÷ 20 = phải bán **gấp đôi** để giữ nguyên lãi góp"],["Khách vốn có","Đơn khách vẫn sẽ mua dù không giảm giá — phần giảm cho họ là chi phí thuần"],["Cầu bị kéo sớm","Khách mua tích trữ, kỳ sau bán hụt — phải xin số liệu sau chương trình"],["Chi phí chương trình","Quảng bá, in ấn, phí nền tảng — thường nằm ở ngân sách khác nên bị bỏ sót"]],"warn":"Luôn so với kịch bản **không chạy khuyến mãi**, không so với kỳ trước."},"ex":{"label":"Chuỗi mỹ phẩm · giá bán TB 250.000đ · chi phí biến đổi 150.000đ/đơn","rows":[["Đơn 2 tuần bình thường","4.000"],["Đơn 2 tuần khuyến mãi","7.000","+75%","up"],["Giá bán TB khi giảm 20%","200.000đ","−50.000đ","down"],["Đơn 2 tuần sau khuyến mãi","3.200","−20%","down"],["Chi phí quảng bá chương trình","60 triệu"],["Doanh thu 2 tuần khuyến mãi","1.400 triệu","+40%","up"]],"read":"Đơn tăng 75% nghe lớn, nhưng ngưỡng hoà vốn của mức giảm 20% trên biên 40% là +100%. Chương trình chưa chạm ngưỡng ngay cả trước khi tính 2 tuần hụt đơn phía sau và 60 triệu quảng bá."},"mini":{"q":"Doanh thu 2 tuần khuyến mãi đạt 1.400 triệu, so với 1.000 triệu bình thường. Chỉ số nào nói đúng nhất kết quả trong 2 tuần đó?","opts":[["A","Doanh thu tăng 40% — chương trình thành công","Doanh thu không trừ phần giảm giá trên từng đơn, nên không cho biết chuỗi giữ lại được bao nhiêu."],["B","Số đơn tăng 75%, vượt mục tiêu 50%","Mục tiêu 50% được đặt mà không tính ngưỡng hoà vốn. Với mức giảm 20% trên biên 40%, ngưỡng là +100%."],["C","Lãi góp giảm từ 400 xuống 350 triệu","Đúng. 4.000 × 100.000đ = 400 triệu so với 7.000 × 50.000đ = 350 triệu. Bán nhiều hơn mà giữ lại ít hơn."],["D","Lượng khách mới tăng mạnh","Có thể đúng nhưng đề chưa cho số khách mới — đây là giả định cần xin dữ liệu, chưa phải kết luận."]],"correct":"C","kind":"calculation"},"calc":{"q":"Tính cả 2 tuần khuyến mãi, 2 tuần sau đó và chi phí quảng bá: chương trình làm tổng lãi góp 4 tuần thấp hơn kịch bản không chạy bao nhiêu?","unit":"triệu VND","answer":190,"tol":0.5,"solution":"Không chạy: 8.000 đơn × 0,1 = 800 triệu. Có chạy: 7.000 × 0,05 + 3.200 × 0,1 − 60 = 350 + 320 − 60 = 610 triệu. Chênh lệch **190 triệu**. Tách theo khoản: khách vốn có 4.000 × 0,05 = −200 · đơn tăng thêm 3.000 × 0,05 = +150 · cầu bị kéo sớm 800 × 0,1 = −80 · quảng bá −60.","hint":"Đổi lãi góp mỗi đơn ra triệu: 100.000đ = 0,1 triệu, khi giảm giá còn 0,05 triệu. So 4 tuần có chạy với 4 tuần không chạy."},"slide":{"headline":"Giảm 20% tăng doanh thu 40% nhưng làm mất 190 triệu lãi góp trong 4 tuần","left":"Cầu thang (waterfall) 4 khoản: khách vốn có −200 · đơn tăng thêm +150 · cầu kéo sớm −80 · quảng bá −60","right":"3 ý: ngưỡng hoà vốn là +100% đơn, thực tế +75% · 4.000 đơn khách vốn có nhận giảm giá không cần thiết · đề xuất voucher chỉ cho khách mới","rule":"Khi doanh thu và lãi góp đi ngược chiều, dùng waterfall để người nghe thấy khoản nào ăn mất lợi nhuận."},"mistakes":[["Đánh giá bằng doanh thu","Khuyến mãi gần như luôn làm doanh thu tăng và lãi góp mỗi đơn giảm — doanh thu tăng không chứng minh gì."],["Coi mọi đơn là đơn mới","4.000 đơn vốn đã có cũng nhận giảm giá. Luôn hỏi đường cơ sở: không khuyến mãi thì bán được bao nhiêu."],["Trừ chi phí cố định vào kết quả","Tiền thuê và lương cố định không đổi dù chạy hay không, nên không phải chi phí của chương trình."],["Chỉ nhìn thời gian chạy","Khách mua tích trữ làm kỳ sau hụt đơn. Xin số liệu ít nhất một kỳ sau chương trình."],["Kết luận bỏ hẳn khuyến mãi","Giám khảo chờ bạn thiết kế lại — nhắm đúng khách mới — không chờ bạn phủ quyết."]],"checklist":["Tính ngưỡng sản lượng từ biên lãi góp và mức giảm giá","Xác định đường cơ sở nếu không chạy khuyến mãi","Tách tác động thành khách vốn có, đơn tăng thêm, cầu kéo sớm, chi phí chương trình","Kiểm tra chéo bằng tổng lãi góp hai kịch bản","Đề xuất thiết kế lại chương trình kèm giả định cần kiểm chứng"]},"reading":"Thứ Sáu, phòng họp của một chuỗi bánh mì 40 cửa hàng. Trưởng phòng marketing chiếu lên màn hình một con số in đậm: tuần chạy voucher giảm 15%, cả chuỗi bán được **14.000 ổ** ở nhóm cửa hàng thử nghiệm, so với **10.000 ổ** một tuần bình thường. Doanh số tăng 40%. Cả phòng vỗ tay. Đề xuất tiếp theo đã nằm sẵn trên slide sau: chạy chương trình này cho toàn chuỗi, mỗi tháng một lần.\n\nGiám đốc tài chính không vỗ tay. Chị hỏi một câu: \"Trong 14.000 ổ đó, bao nhiêu ổ khách vốn đã mua với giá cũ?\"\n\nKhông ai trả lời được. Và đó là toàn bộ bài học này.\n\nKhuyến mãi là công cụ dễ đo sai nhất trong kinh doanh, vì cái nhìn thấy được (doanh số tăng) xảy ra ngay, còn cái mất đi (lãi góp trên từng đơn, những đơn khách lẽ ra vẫn mua, tuần ảm đạm sau chương trình) thì phân tán và đến muộn. Trong phòng thi case, giám khảo gần như luôn cài một chương trình khuyến mãi \"thành công\" vào đề để xem bạn có nhìn qua được con số doanh thu hay không.\n\n## Đừng hỏi \"bán thêm được bao nhiêu\", hãy hỏi \"phải bán thêm bao nhiêu\"\n\nNgười mới thường bắt đầu từ kết quả: khuyến mãi bán được bao nhiêu, tăng bao nhiêu phần trăm. Người giải case tốt bắt đầu từ ngưỡng: **cần bán thêm bao nhiêu thì mới không lỗ**, rồi mới so kết quả với ngưỡng đó.\n\nNgưỡng này tính được trước khi chương trình chạy, chỉ với hai con số: biên lãi góp hiện tại và mức giảm giá. Lãi góp là giá bán trừ đi chi phí biến đổi của đúng đơn đó — nguyên liệu, bao bì, phí thanh toán. Chi phí thuê mặt bằng và lương cố định không nằm trong phép tính, vì chúng không đổi dù bạn bán thêm hay không.\n\nỔ bánh mì của chuỗi trên bán 30 nghìn đồng, chi phí biến đổi 18 nghìn, nên mỗi ổ để lại **12 nghìn** lãi góp, tức biên 40%. Giảm 15% nghĩa là khách trả 25,5 nghìn, còn chi phí vẫn là 18 nghìn. Lãi góp mỗi ổ rơi xuống **7,5 nghìn**.\n\nMuốn giữ nguyên tổng lãi góp 120 triệu của một tuần bình thường, chuỗi phải bán 120.000 ÷ 7,5 = **16.000 ổ**, tức tăng 60%. Công thức rút gọn cho mọi trường hợp:\n\n- Sản lượng phải tăng thêm = mức giảm giá ÷ (biên lãi góp − mức giảm giá)\n- Với biên 40% và giảm 15%: 15 ÷ (40 − 15) = 60%\n- Với biên 40% và giảm 20%: 20 ÷ 20 = 100% — phải bán **gấp đôi**\n- Với biên 40% và giảm 30%: 30 ÷ 10 = 300% — phải bán gấp bốn\n\nNhìn vào dãy này bạn thấy ngay vì sao khuyến mãi sâu gần như không bao giờ tự trả được tiền cho mình: mẫu số co lại rất nhanh. Khi mức giảm tiến gần biên lãi góp, sản lượng cần thiết tiến tới vô cực.\n\nSo với ngưỡng, 14.000 ổ không phải thành công. Nó thiếu 2.000 ổ.\n\n## Bốn khoản chi phí mà báo cáo khuyến mãi không in ra\n\nNgưỡng hoà vốn ở trên vẫn còn quá lạc quan, vì nó giả định mọi đơn bán trong tuần khuyến mãi đều là đơn mới. Thực tế có bốn khoản bị giấu đi.\n\n**Thứ nhất, phần giảm giá tặng cho khách vốn đã mua.** Đây là khoản lớn nhất và hay bị quên nhất. Trong 14.000 ổ, 10.000 ổ là khách quen — họ vẫn sẽ mua dù không có voucher. Chuỗi đã tặng mỗi người 4,5 nghìn mà không đổi lại được gì. Riêng khoản này là 45 triệu.\n\n**Thứ hai, cầu bị kéo về sớm.** Khách thấy rẻ thì mua tích trữ, hoặc mua tuần này thay cho tuần sau. Tuần ngay sau chương trình, chuỗi chỉ bán được 9.000 ổ. Một nghìn ổ hụt đó là lãi góp 12 nghìn mỗi ổ bị mất hẳn, không phải bị dời đi.\n\n**Thứ ba, chi phí chạy chương trình.** In voucher, quảng cáo, phí nền tảng, giờ làm thêm của nhân viên. Những khoản này thường nằm ở ngân sách marketing nên không ai trừ vào kết quả của chương trình.\n\n**Thứ tư, mỏ neo giá.** Khách đã quen mua với 25,5 nghìn sẽ thấy 30 nghìn là đắt. Khoản này khó định lượng nhất trong phòng thi, nhưng bạn nên gọi tên nó khi khuyến mãi lặp lại đều đặn — \"mỗi tháng một lần\" là đúng kiểu dạy khách chờ giảm giá.\n\n## Làm mẫu: tách kết quả thật của tuần voucher\n\nĐây là cách trình bày khiến giám đốc tài chính gật đầu. Không tính doanh thu. Tính lãi góp so với kịch bản không chạy, tách thành từng khoản có dấu.\n\n- Khách vốn có: 10.000 ổ × giảm 4,5 nghìn = **−45 triệu**\n- Đơn tăng thêm: 4.000 ổ × lãi góp 7,5 nghìn = **+30 triệu**\n- Tuần sau bị kéo cầu: 1.000 ổ × 12 nghìn = **−12 triệu**\n- In ấn và quảng bá: **−5 triệu**\n- Tổng tác động: **−32 triệu** so với việc không làm gì\n\nKiểm tra chéo bằng cách tính tổng thẳng: tuần voucher lãi góp 14.000 × 7,5 = 105 triệu, thấp hơn tuần thường 120 triệu đúng 15 triệu, bằng −45 + 30. Cộng thêm −12 và −5, ra −32. Hai cách khớp nhau thì bạn yên tâm trình bày.\n\nCấu trúc bốn dòng này quan trọng hơn con số cuối. Nó cho người nghe thấy chương trình **thật sự tạo ra 30 triệu** từ khách mua thêm, nhưng phải trả 45 triệu cho khách không cần được thuyết phục. Vấn đề không phải \"khuyến mãi dở\", mà là **khuyến mãi không nhắm đúng người**.\n\n## Khi nào khuyến mãi vẫn đáng làm\n\nNếu mọi khuyến mãi đều lỗ, sẽ không doanh nghiệp nào làm. Bạn cần biết bốn tình huống mà câu trả lời đổi chiều, để không bị giám khảo bẻ lại bằng một câu \"vậy chẳng lẽ không bao giờ nên giảm giá?\".\n\n**Khách mới có giá trị về sau.** Giả sử tuần voucher kéo về 1.500 khách chưa từng mua, và 30% trong số đó quay lại mua 2 ổ mỗi tuần trong 10 tuần với giá gốc. Lãi góp tương lai là 1.500 × 30% × 2 × 10 × 12 nghìn = **108 triệu**, lớn hơn nhiều so với 32 triệu bỏ ra. Nhưng mọi thứ phụ thuộc vào con số 30% — đó là giả định bạn phải xin dữ liệu hoặc nói rõ là giả định.\n\n**Hàng sắp hỏng.** Bánh mì cuối ngày, sữa gần hạn, quần áo hết mùa: chi phí của hàng đã chìm, nên bán được đồng nào hay đồng đó. Phép tính lãi góp ở trên không còn đúng, vì chi phí biến đổi thực của món hàng gần như bằng không.\n\n**Công suất đang bỏ trống.** Rạp phim giữa tuần, khách sạn mùa thấp điểm, lớp học còn ghế. Chi phí phục vụ thêm một khách rất thấp, nên biên lãi góp thực tế cao hơn con số trên báo cáo và ngưỡng hoà vốn thấp hơn nhiều.\n\n**Chặn đối thủ vào thị trường.** Đây là lý do chiến lược, không phải tài chính. Nó hợp lệ, nhưng bạn phải nói thẳng là đang chấp nhận lỗ để mua vị thế, và ước lượng lỗ bao nhiêu.\n\n## Thiết kế lại để giữ phần tốt, bỏ phần đắt\n\nKhi đã tách được bốn khoản, lời khuyên tự hiện ra: giữ dòng \"+30 triệu\", cắt dòng \"−45 triệu\". Có ba cách quen thuộc.\n\n- Chỉ phát voucher cho khách mới hoặc khách lâu không quay lại, không giảm giá tại quầy cho tất cả mọi người.\n- Giảm theo điều kiện: mua từ ổ thứ hai, mua combo kèm nước, mua vào khung giờ vắng.\n- Đổi giảm giá thành tặng kèm món có chi phí biến đổi thấp — một ly trà đá tốn 2 nghìn nhưng khách cảm nhận giá trị 10 nghìn.\n\nMỗi cách đều nhắm vào cùng một điều: để khách vốn đã mua không nhận được phần giảm giá.\n\n## Nói trong 60 giây\n\nKhi người phỏng vấn hỏi \"chương trình này có thành công không?\", đây là cách trả lời gọn:\n\n> \"Doanh số tăng 40% nhưng em nghĩ chương trình đang lỗ, khoảng 32 triệu mỗi tuần so với không làm gì.\"\n> \"Lý do chính là 10.000 trong 14.000 ổ là khách vẫn sẽ mua, nên riêng phần giảm giá cho họ đã mất 45 triệu, trong khi 4.000 ổ tăng thêm chỉ mang về 30 triệu lãi góp.\"\n> \"Cộng thêm tuần sau bán hụt 1.000 ổ và chi phí in ấn, tổng là −32 triệu.\"\n> \"Em không đề xuất bỏ khuyến mãi, mà đề xuất chỉ phát voucher cho khách mới — nếu 30% khách mới quay lại, chương trình có thể tạo ra hơn 100 triệu lãi góp về sau. Em cần dữ liệu tỷ lệ quay lại để chốt.\"\n\nBốn câu: kết luận, nguyên nhân có số, tổng, đề xuất kèm điều kiện. Không kể lại quá trình tính.\n\n## Những lỗi khiến phần khuyến mãi bị trừ điểm\n\n- **Đánh giá bằng doanh thu.** Doanh thu tăng trong khi lãi góp giảm là tình huống mặc định của khuyến mãi, không phải ngoại lệ.\n- **Trừ chi phí cố định vào phép tính.** Tiền thuê không đổi dù chạy hay không chạy, nên nó không phải chi phí của chương trình.\n- **Coi mọi đơn là đơn mới.** Luôn hỏi đường cơ sở: nếu không khuyến mãi thì bán được bao nhiêu.\n- **Chỉ nhìn đúng thời gian chạy.** Luôn xin số liệu một đến hai kỳ sau chương trình.\n- **Kết luận \"không nên khuyến mãi\".** Giám khảo chờ bạn thiết kế lại, không chờ bạn phủ quyết.\n\n## Vào bài tập\n\nPhần tiếp theo đưa bạn vào một chuỗi mỹ phẩm chạy chương trình \"giảm 20% toàn bộ\" trong hai tuần. Biên lãi góp của họ là 40%, nên hãy tính ngay ngưỡng trước khi đọc bảng số: giảm 20% trên biên 40% nghĩa là phải bán gấp đôi. Sau đó tách kết quả thành bốn dòng có dấu như phần làm mẫu — khách vốn có, đơn tăng thêm, cầu bị kéo sớm, chi phí chương trình — và kiểm tra chéo bằng tổng lãi góp. Khi hai cách khớp nhau, bạn đã có đáp án.","formula":"8000*0.1 - (7000*0.05 + 3200*0.1 - 60)"}};
+    var SAMPLE = {"i-price-6":{"lesson":{"why":"Gần như mọi case bán lẻ đều cài sẵn một chương trình khuyến mãi \"thành công\" với doanh số tăng vọt. Giám khảo chấm bạn ở chỗ có nhìn qua được con số doanh thu để thấy **lãi góp đã mất bao nhiêu** hay không.","outcome":"tính được ngưỡng sản lượng cần thiết trước khi giảm giá, và tách tác động thật của một chương trình khuyến mãi thành các khoản có dấu so với kịch bản không chạy.","scenario":{"text":"Một chuỗi mỹ phẩm chạy \"giảm 20% toàn bộ\" trong 2 tuần. Số đơn tăng từ 4.000 lên 7.000, doanh thu tăng 40%. Giám đốc marketing muốn lặp lại chương trình mỗi quý.","ask":"Trước khi đồng ý, bạn cần so doanh số khuyến mãi với con số nào?"},"fw":{"title":"Sản lượng phải tăng = mức giảm giá ÷ (biên lãi góp − mức giảm giá)","rows":[["Lãi góp mỗi đơn","Giá bán − chi phí biến đổi của đúng đơn đó; chi phí cố định không tham gia"],["Ngưỡng hoà vốn","Biên 40%, giảm 20% → 20 ÷ 20 = phải bán **gấp đôi** để giữ nguyên lãi góp"],["Khách vốn có","Đơn khách vẫn sẽ mua dù không giảm giá — phần giảm cho họ là chi phí thuần"],["Cầu bị kéo sớm","Khách mua tích trữ, kỳ sau bán hụt — phải xin số liệu sau chương trình"],["Chi phí chương trình","Quảng bá, in ấn, phí nền tảng — thường nằm ở ngân sách khác nên bị bỏ sót"]],"warn":"Luôn so với kịch bản **không chạy khuyến mãi**, không so với kỳ trước."},"ex":{"label":"Chuỗi mỹ phẩm · giá bán TB 250.000đ · chi phí biến đổi 150.000đ/đơn","rows":[["Đơn 2 tuần bình thường","4.000"],["Đơn 2 tuần khuyến mãi","7.000","+75%","up"],["Giá bán TB khi giảm 20%","200.000đ","−50.000đ","down"],["Đơn 2 tuần sau khuyến mãi","3.200","−20%","down"],["Chi phí quảng bá chương trình","60 triệu"],["Doanh thu 2 tuần khuyến mãi","1.400 triệu","+40%","up"]],"read":"Đơn tăng 75% nghe lớn, nhưng ngưỡng hoà vốn của mức giảm 20% trên biên 40% là +100%. Chương trình chưa chạm ngưỡng ngay cả trước khi tính 2 tuần hụt đơn phía sau và 60 triệu quảng bá."},"mini":{"q":"Trong 2 tuần khuyến mãi, chuỗi bán 7.000 đơn với giá trung bình 200.000đ, doanh thu 1.400 triệu so với 1.000 triệu của 2 tuần bình thường (4.000 đơn × 250.000đ). Chi phí biến đổi vẫn là 150.000đ mỗi đơn. Chỉ số nào nói đúng nhất kết quả tài chính của riêng 2 tuần đó?","opts":[["A","Doanh thu tăng 40% — chương trình thành công","Sai vì nhìn doanh thu. 1.400 triệu doanh thu chưa trừ 7.000 × 150.000đ = 1.050 triệu chi phí biến đổi. Doanh thu tăng không cho biết chuỗi giữ lại được nhiều hơn hay ít hơn."],["B","Số đơn tăng 75%, vượt mục tiêu tăng 50% đã đặt","Sai vì mục tiêu 50% không có cơ sở. Với biên lãi góp 40% và giảm giá 20%, ngưỡng hoà vốn là 20 ÷ (40 − 20) = +100%, tức phải bán 8.000 đơn. Bán 7.000 đơn là vẫn thiếu 1.000 đơn."],["C","Lãi góp giảm từ 400 xuống 350 triệu","Đúng. Bình thường 4.000 × (250.000 − 150.000) = 400 triệu. Khuyến mãi 7.000 × (200.000 − 150.000) = 350 triệu. Chuỗi bán thêm 3.000 đơn nhưng giữ lại ít hơn 50 triệu, chưa tính quảng bá và những tuần sau."],["D","Chương trình kéo về rất nhiều khách mới","Sai vì kết luận vượt dữ liệu. Đề không cho số khách mới. Có thể phần lớn 7.000 đơn là khách quen mua sớm hơn. Muốn nói vậy phải xin tỷ lệ khách mới và tỷ lệ quay lại."]],"correct":"C","kind":"calculation"},"calc":{"q":"Tính trong 4 tuần: 2 tuần khuyến mãi và 2 tuần ngay sau đó, đã trừ 60 triệu chi phí quảng bá. So với 4 tuần không chạy chương trình (mỗi 2 tuần 4.000 đơn giá gốc), tổng lãi góp thấp hơn bao nhiêu triệu đồng?","unit":"triệu VND","answer":190,"tol":0.5,"solution":"**Bước 1.** Lãi góp 4 tuần nếu không chạy: 8.000 × 0,1 = 800. **Bước 2.** Lãi góp 2 tuần khuyến mãi: 7.000 × 0,05 = 350. **Bước 3.** Lãi góp 2 tuần ngay sau chương trình: 3.200 × 0,1 = 320. **Bước 4.** Có chạy, trừ 60 triệu quảng bá: 350 + 320 − 60 = 610. **Bước 5.** Chênh lệch so với không chạy: 800 − 610 = 190. Kết quả: **190 triệu VND**. Tách theo khoản để thấy tiền mất ở đâu: giảm giá cho 4.000 đơn khách vẫn sẽ mua 4.000 × 0,05 = −200 · 3.000 đơn tăng thêm 3.000 × 0,05 = +150 · 800 đơn bị kéo sớm 800 × 0,1 = −80 · quảng bá −60. Doanh thu tăng 40% nhưng phần lớn tiền giảm giá rơi vào khách không cần được thuyết phục.","hint":"Đổi lãi góp mỗi đơn ra triệu trước: 250.000 − 150.000 = 100.000đ = 0,1 triệu, khi giảm 20% còn 0,05 triệu. Tính riêng kịch bản không chạy, rồi cộng từng khoảng thời gian của kịch bản có chạy trước khi trừ quảng bá."},"slide":{"headline":"Giảm 20% tăng doanh thu 40% nhưng làm mất 190 triệu lãi góp trong 4 tuần","left":"Cầu thang (waterfall) 4 khoản: khách vốn có −200 · đơn tăng thêm +150 · cầu kéo sớm −80 · quảng bá −60","right":"3 ý: ngưỡng hoà vốn là +100% đơn, thực tế +75% · 4.000 đơn khách vốn có nhận giảm giá không cần thiết · đề xuất voucher chỉ cho khách mới","rule":"Khi doanh thu và lãi góp đi ngược chiều, dùng waterfall để người nghe thấy khoản nào ăn mất lợi nhuận."},"mistakes":[["Đánh giá bằng doanh thu","Khuyến mãi gần như luôn làm doanh thu tăng và lãi góp mỗi đơn giảm — doanh thu tăng không chứng minh gì."],["Coi mọi đơn là đơn mới","4.000 đơn vốn đã có cũng nhận giảm giá. Luôn hỏi đường cơ sở: không khuyến mãi thì bán được bao nhiêu."],["Trừ chi phí cố định vào kết quả","Tiền thuê và lương cố định không đổi dù chạy hay không, nên không phải chi phí của chương trình."],["Chỉ nhìn thời gian chạy","Khách mua tích trữ làm kỳ sau hụt đơn. Xin số liệu ít nhất một kỳ sau chương trình."],["Kết luận bỏ hẳn khuyến mãi","Giám khảo chờ bạn thiết kế lại — nhắm đúng khách mới — không chờ bạn phủ quyết."]],"checklist":["Tính ngưỡng sản lượng từ biên lãi góp và mức giảm giá","Xác định đường cơ sở nếu không chạy khuyến mãi","Tách tác động thành khách vốn có, đơn tăng thêm, cầu kéo sớm, chi phí chương trình","Kiểm tra chéo bằng tổng lãi góp hai kịch bản","Đề xuất thiết kế lại chương trình kèm giả định cần kiểm chứng"]},"reading":"Thứ Sáu, phòng họp của một chuỗi bánh mì 40 cửa hàng. Trưởng phòng marketing chiếu lên màn hình một con số in đậm: tuần chạy voucher giảm 15%, cả chuỗi bán được **14.000 ổ** ở nhóm cửa hàng thử nghiệm, so với **10.000 ổ** một tuần bình thường. Doanh số tăng 40%. Cả phòng vỗ tay. Đề xuất tiếp theo đã nằm sẵn trên slide sau: chạy chương trình này cho toàn chuỗi, mỗi tháng một lần.\n\nGiám đốc tài chính không vỗ tay. Chị hỏi một câu: \"Trong 14.000 ổ đó, bao nhiêu ổ khách vốn đã mua với giá cũ?\"\n\nKhông ai trả lời được. Và đó là toàn bộ bài học này.\n\nKhuyến mãi là công cụ dễ đo sai nhất trong kinh doanh, vì cái nhìn thấy được (doanh số tăng) xảy ra ngay, còn cái mất đi (lãi góp trên từng đơn, những đơn khách lẽ ra vẫn mua, tuần ảm đạm sau chương trình) thì phân tán và đến muộn. Trong phòng thi case, giám khảo gần như luôn cài một chương trình khuyến mãi \"thành công\" vào đề để xem bạn có nhìn qua được con số doanh thu hay không.\n\n## Đừng hỏi \"bán thêm được bao nhiêu\", hãy hỏi \"phải bán thêm bao nhiêu\"\n\nNgười mới thường bắt đầu từ kết quả: khuyến mãi bán được bao nhiêu, tăng bao nhiêu phần trăm. Người giải case tốt bắt đầu từ ngưỡng: **cần bán thêm bao nhiêu thì mới không lỗ**, rồi mới so kết quả với ngưỡng đó.\n\nNgưỡng này tính được trước khi chương trình chạy, chỉ với hai con số: biên lãi góp hiện tại và mức giảm giá. Lãi góp là giá bán trừ đi chi phí biến đổi của đúng đơn đó — nguyên liệu, bao bì, phí thanh toán. Chi phí thuê mặt bằng và lương cố định không nằm trong phép tính, vì chúng không đổi dù bạn bán thêm hay không.\n\nỔ bánh mì của chuỗi trên bán 30 nghìn đồng, chi phí biến đổi 18 nghìn, nên mỗi ổ để lại **12 nghìn** lãi góp, tức biên 40%. Giảm 15% nghĩa là khách trả 25,5 nghìn, còn chi phí vẫn là 18 nghìn. Lãi góp mỗi ổ rơi xuống **7,5 nghìn**.\n\nMuốn giữ nguyên tổng lãi góp 120 triệu của một tuần bình thường, chuỗi phải bán 120.000 ÷ 7,5 = **16.000 ổ**, tức tăng 60%. Công thức rút gọn cho mọi trường hợp:\n\n- Sản lượng phải tăng thêm = mức giảm giá ÷ (biên lãi góp − mức giảm giá)\n- Với biên 40% và giảm 15%: 15 ÷ (40 − 15) = 60%\n- Với biên 40% và giảm 20%: 20 ÷ 20 = 100% — phải bán **gấp đôi**\n- Với biên 40% và giảm 30%: 30 ÷ 10 = 300% — phải bán gấp bốn\n\nNhìn vào dãy này bạn thấy ngay vì sao khuyến mãi sâu gần như không bao giờ tự trả được tiền cho mình: mẫu số co lại rất nhanh. Khi mức giảm tiến gần biên lãi góp, sản lượng cần thiết tiến tới vô cực.\n\nSo với ngưỡng, 14.000 ổ không phải thành công. Nó thiếu 2.000 ổ.\n\n## Bốn khoản chi phí mà báo cáo khuyến mãi không in ra\n\nNgưỡng hoà vốn ở trên vẫn còn quá lạc quan, vì nó giả định mọi đơn bán trong tuần khuyến mãi đều là đơn mới. Thực tế có bốn khoản bị giấu đi.\n\n**Thứ nhất, phần giảm giá tặng cho khách vốn đã mua.** Đây là khoản lớn nhất và hay bị quên nhất. Trong 14.000 ổ, 10.000 ổ là khách quen — họ vẫn sẽ mua dù không có voucher. Chuỗi đã tặng mỗi người 4,5 nghìn mà không đổi lại được gì. Riêng khoản này là 45 triệu.\n\n**Thứ hai, cầu bị kéo về sớm.** Khách thấy rẻ thì mua tích trữ, hoặc mua tuần này thay cho tuần sau. Tuần ngay sau chương trình, chuỗi chỉ bán được 9.000 ổ. Một nghìn ổ hụt đó là lãi góp 12 nghìn mỗi ổ bị mất hẳn, không phải bị dời đi.\n\n**Thứ ba, chi phí chạy chương trình.** In voucher, quảng cáo, phí nền tảng, giờ làm thêm của nhân viên. Những khoản này thường nằm ở ngân sách marketing nên không ai trừ vào kết quả của chương trình.\n\n**Thứ tư, mỏ neo giá.** Khách đã quen mua với 25,5 nghìn sẽ thấy 30 nghìn là đắt. Khoản này khó định lượng nhất trong phòng thi, nhưng bạn nên gọi tên nó khi khuyến mãi lặp lại đều đặn — \"mỗi tháng một lần\" là đúng kiểu dạy khách chờ giảm giá.\n\n## Làm mẫu: tách kết quả thật của tuần voucher\n\nĐây là cách trình bày khiến giám đốc tài chính gật đầu. Không tính doanh thu. Tính lãi góp so với kịch bản không chạy, tách thành từng khoản có dấu.\n\n- Khách vốn có: 10.000 ổ × giảm 4,5 nghìn = **−45 triệu**\n- Đơn tăng thêm: 4.000 ổ × lãi góp 7,5 nghìn = **+30 triệu**\n- Tuần sau bị kéo cầu: 1.000 ổ × 12 nghìn = **−12 triệu**\n- In ấn và quảng bá: **−5 triệu**\n- Tổng tác động: **−32 triệu** so với việc không làm gì\n\nKiểm tra chéo bằng cách tính tổng thẳng: tuần voucher lãi góp 14.000 × 7,5 = 105 triệu, thấp hơn tuần thường 120 triệu đúng 15 triệu, bằng −45 + 30. Cộng thêm −12 và −5, ra −32. Hai cách khớp nhau thì bạn yên tâm trình bày.\n\nCấu trúc bốn dòng này quan trọng hơn con số cuối. Nó cho người nghe thấy chương trình **thật sự tạo ra 30 triệu** từ khách mua thêm, nhưng phải trả 45 triệu cho khách không cần được thuyết phục. Vấn đề không phải \"khuyến mãi dở\", mà là **khuyến mãi không nhắm đúng người**.\n\n## Khi nào khuyến mãi vẫn đáng làm\n\nNếu mọi khuyến mãi đều lỗ, sẽ không doanh nghiệp nào làm. Bạn cần biết bốn tình huống mà câu trả lời đổi chiều, để không bị giám khảo bẻ lại bằng một câu \"vậy chẳng lẽ không bao giờ nên giảm giá?\".\n\n**Khách mới có giá trị về sau.** Giả sử tuần voucher kéo về 1.500 khách chưa từng mua, và 30% trong số đó quay lại mua 2 ổ mỗi tuần trong 10 tuần với giá gốc. Lãi góp tương lai là 1.500 × 30% × 2 × 10 × 12 nghìn = **108 triệu**, lớn hơn nhiều so với 32 triệu bỏ ra. Nhưng mọi thứ phụ thuộc vào con số 30% — đó là giả định bạn phải xin dữ liệu hoặc nói rõ là giả định.\n\n**Hàng sắp hỏng.** Bánh mì cuối ngày, sữa gần hạn, quần áo hết mùa: chi phí của hàng đã chìm, nên bán được đồng nào hay đồng đó. Phép tính lãi góp ở trên không còn đúng, vì chi phí biến đổi thực của món hàng gần như bằng không.\n\n**Công suất đang bỏ trống.** Rạp phim giữa tuần, khách sạn mùa thấp điểm, lớp học còn ghế. Chi phí phục vụ thêm một khách rất thấp, nên biên lãi góp thực tế cao hơn con số trên báo cáo và ngưỡng hoà vốn thấp hơn nhiều.\n\n**Chặn đối thủ vào thị trường.** Đây là lý do chiến lược, không phải tài chính. Nó hợp lệ, nhưng bạn phải nói thẳng là đang chấp nhận lỗ để mua vị thế, và ước lượng lỗ bao nhiêu.\n\n## Thiết kế lại để giữ phần tốt, bỏ phần đắt\n\nKhi đã tách được bốn khoản, lời khuyên tự hiện ra: giữ dòng \"+30 triệu\", cắt dòng \"−45 triệu\". Có ba cách quen thuộc.\n\n- Chỉ phát voucher cho khách mới hoặc khách lâu không quay lại, không giảm giá tại quầy cho tất cả mọi người.\n- Giảm theo điều kiện: mua từ ổ thứ hai, mua combo kèm nước, mua vào khung giờ vắng.\n- Đổi giảm giá thành tặng kèm món có chi phí biến đổi thấp — một ly trà đá tốn 2 nghìn nhưng khách cảm nhận giá trị 10 nghìn.\n\nMỗi cách đều nhắm vào cùng một điều: để khách vốn đã mua không nhận được phần giảm giá.\n\n## Nói trong 60 giây\n\nKhi người phỏng vấn hỏi \"chương trình này có thành công không?\", đây là cách trả lời gọn:\n\n> \"Doanh số tăng 40% nhưng em nghĩ chương trình đang lỗ, khoảng 32 triệu mỗi tuần so với không làm gì.\"\n> \"Lý do chính là 10.000 trong 14.000 ổ là khách vẫn sẽ mua, nên riêng phần giảm giá cho họ đã mất 45 triệu, trong khi 4.000 ổ tăng thêm chỉ mang về 30 triệu lãi góp.\"\n> \"Cộng thêm tuần sau bán hụt 1.000 ổ và chi phí in ấn, tổng là −32 triệu.\"\n> \"Em không đề xuất bỏ khuyến mãi, mà đề xuất chỉ phát voucher cho khách mới — nếu 30% khách mới quay lại, chương trình có thể tạo ra hơn 100 triệu lãi góp về sau. Em cần dữ liệu tỷ lệ quay lại để chốt.\"\n\nBốn câu: kết luận, nguyên nhân có số, tổng, đề xuất kèm điều kiện. Không kể lại quá trình tính.\n\n## Những lỗi khiến phần khuyến mãi bị trừ điểm\n\n- **Đánh giá bằng doanh thu.** Doanh thu tăng trong khi lãi góp giảm là tình huống mặc định của khuyến mãi, không phải ngoại lệ.\n- **Trừ chi phí cố định vào phép tính.** Tiền thuê không đổi dù chạy hay không chạy, nên nó không phải chi phí của chương trình.\n- **Coi mọi đơn là đơn mới.** Luôn hỏi đường cơ sở: nếu không khuyến mãi thì bán được bao nhiêu.\n- **Chỉ nhìn đúng thời gian chạy.** Luôn xin số liệu một đến hai kỳ sau chương trình.\n- **Kết luận \"không nên khuyến mãi\".** Giám khảo chờ bạn thiết kế lại, không chờ bạn phủ quyết.\n\n## Vào bài tập\n\nPhần tiếp theo đưa bạn vào một chuỗi mỹ phẩm chạy chương trình \"giảm 20% toàn bộ\" trong hai tuần. Biên lãi góp của họ là 40%, nên hãy tính ngay ngưỡng trước khi đọc bảng số: giảm 20% trên biên 40% nghĩa là phải bán gấp đôi. Sau đó tách kết quả thành bốn dòng có dấu như phần làm mẫu — khách vốn có, đơn tăng thêm, cầu bị kéo sớm, chi phí chương trình — và kiểm tra chéo bằng tổng lãi góp. Khi hai cách khớp nhau, bạn đã có đáp án.","formula":"(8000*0.1) - ((7000*0.05) + (3200*0.1) - 60)","errTypes":{"A":"rev","B":"thres","D":"over"},"steps":[["Lãi góp 4 tuần nếu không chạy","8000*0.1"],["Lãi góp 2 tuần khuyến mãi","7000*0.05"],["Lãi góp 2 tuần ngay sau chương trình","3200*0.1"],["Có chạy, trừ 60 triệu quảng bá","s2 + s3 - 60"],["Chênh lệch so với không chạy","s1 - s4"]],"conclusion":"Tách theo khoản để thấy tiền mất ở đâu: giảm giá cho 4.000 đơn khách vẫn sẽ mua 4.000 × 0,05 = −200 · 3.000 đơn tăng thêm 3.000 × 0,05 = +150 · 800 đơn bị kéo sớm 800 × 0,1 = −80 · quảng bá −60. Doanh thu tăng 40% nhưng phần lớn tiền giảm giá rơi vào khách không cần được thuyết phục."}};
 
     /* ═══════════ TIỆN ÍCH ═══════════ */
     function esc(s) {
@@ -1149,7 +1181,8 @@
       L.calc.answer = String(L.calc.answer);
       L.calc.tol = String(L.calc.tol);
       L.arena = L.arena || '';
-      return { id: id, lesson: L, reading: sm.reading, formula: sm.formula, updatedAt: Date.now(), fromSample: true };
+      return normalize({ id: id, lesson: L, reading: sm.reading, formula: sm.formula, steps: clone(sm.steps || []),
+               conclusion: sm.conclusion || '', errTypes: clone(sm.errTypes || {}), updatedAt: Date.now(), fromSample: true });
     }
 
     var cur = null, step = 'A', mode = 'edit';
@@ -1162,7 +1195,7 @@
           ? fromSample(id)
           : { id: id, lesson: blankLesson(), reading: '', formula: '', updatedAt: Date.now() };
       }
-      cur = DRAFTS[id];
+      cur = normalize(DRAFTS[id]);
       step = 'A';
       mode = 'edit';
       try { history.replaceState(null, '', '#' + id); } catch (e) { /* bỏ qua */ }
@@ -1199,21 +1232,112 @@
     }
 
     /* ═══════════ TÍNH LẠI ĐÁP ÁN ═══════════ */
-    function evalFormula(expr) {
+    function evalFormula(expr, scope) {
       var src = String(expr || '').trim();
       if (!src) return { ok: false, msg: 'Chưa có công thức' };
+      scope = scope || [];
       var stripped = src.replace(/Math\.(round|floor|ceil|min|max|abs|pow|sqrt|log|exp)/g, '');
+      var refs = stripped.match(/\bs([1-9])\b/g) || [];
+      for (var r = 0; r < refs.length; r++) {
+        var k = Number(refs[r].slice(1));
+        if (k > scope.length || scope[k - 1] == null) return { ok: false, msg: refs[r] + ' chưa có giá trị — chỉ dùng kết quả của bước trước' };
+      }
+      stripped = stripped.replace(/\bs[1-9]\b/g, '');
       if (!/^[\d\s+\-*/().,e]*$/i.test(stripped)) {
         return { ok: false, msg: 'Chỉ dùng số, + − × ÷, ngoặc và Math.round/min/max/abs/pow/sqrt' };
       }
       if (/\d,\d/.test(stripped)) return { ok: false, msg: 'Dùng dấu chấm cho số thập phân (0.05, không phải 0,05)' };
       try {
-        var v = Function('"use strict";return (' + src + ');')();
+        var v = Function('s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', '"use strict";return (' + src + ');')
+          .apply(null, scope.concat([null, null, null, null, null, null, null, null, null]).slice(0, 9));
         if (typeof v !== 'number' || !isFinite(v)) return { ok: false, msg: 'Công thức không ra một số hữu hạn' };
         return { ok: true, value: v };
       } catch (e) {
         return { ok: false, msg: 'Công thức lỗi cú pháp' };
       }
+    }
+
+    /* ═══════════ LỜI GIẢI TỪNG BƯỚC ═══════════ */
+    function r6(v) { return +v.toFixed(6); }
+
+    function computeSteps(d) {
+      var vals = [], out = [];
+      (d.steps || []).forEach(function (st) {
+        if (!filled(st[1])) { out.push({ label: st[0], expr: st[1], empty: true }); vals.push(null); return; }
+        var fr = evalFormula(st[1], vals);
+        out.push({ label: st[0], expr: st[1], ok: fr.ok, value: fr.ok ? r6(fr.value) : null, msg: fr.msg });
+        vals.push(fr.ok ? r6(fr.value) : null);
+      });
+      return out;
+    }
+
+    function prettyExpr(expr, vals) {
+      var toks = String(expr).match(/Math\.\w+|s[1-9]|\d*\.?\d+(?:e-?\d+)?|[()+\-*/,]/gi) || [];
+      return toks.map(function (t) {
+        if (/^s[1-9]$/.test(t)) { var v = vals[Number(t.slice(1)) - 1]; return v == null ? t : viNum(v); }
+        if (/^\d*\.?\d+(e-?\d+)?$/i.test(t)) return viNum(r6(parseFloat(t)));
+        if (t === '*') return ' × ';
+        if (t === '/') return ' ÷ ';
+        if (t === '-') return ' − ';
+        if (t === '+') return ' + ';
+        if (t === ',') return ', ';
+        if (/^Math\./.test(t)) return { 'Math.round': 'làm tròn', 'Math.abs': '|x|', 'Math.min': 'min', 'Math.max': 'max', 'Math.sqrt': '√', 'Math.pow': 'lũy thừa' }[t] || t.slice(5);
+        return t;
+      }).join('').replace(/\s+/g, ' ').replace(/\( /g, '(').replace(/ \)/g, ')').trim();
+    }
+
+    /* thay s1…s9 bằng biểu thức gốc để công thức kiểm chứng đứng độc lập được trong test */
+    function inlineFormula(d, idx) {
+      var steps = d.steps || [];
+      var expand = function (i, depth) {
+        if (depth > 9) return 'NaN';
+        return String(steps[i][1]).replace(/\bs([1-9])\b/g, function (_, k) {
+          var j = Number(k) - 1;
+          return steps[j] ? '(' + expand(j, depth + 1) + ')' : 'NaN';
+        });
+      };
+      return expand(idx, 0).trim();
+    }
+
+    function buildSolution(d) {
+      var L = d.lesson, cs = computeSteps(d), vals = cs.map(function (c) { return c.value; });
+      var ans = toNum(L.calc.answer), n = 0;
+      var parts = cs.filter(function (c) { return !c.empty; }).map(function (c) {
+        n++;
+        return '**Bước ' + n + '.** ' + (filled(c.label) ? c.label.trim() + ': ' : '') +
+          prettyExpr(c.expr, vals) + ' = ' + (c.ok ? viNum(c.value) : '?') + '.';
+      });
+      var res = isNaN(ans) ? '' : ' Kết quả: **' + viNum(ans) + (filled(L.calc.unit) ? ' ' + L.calc.unit.trim() : '') + '**.';
+      return (parts.join(' ') + res + (filled(d.conclusion) ? ' ' + d.conclusion.trim() : '')).trim();
+    }
+
+    var ERR_TYPES = [
+      ['', '— chọn lỗi mà phương án này bắt —'],
+      ['rev', 'Nhìn doanh thu thay vì lợi nhuận / lãi góp'],
+      ['base', 'Quên đường cơ sở, so sai kỳ'],
+      ['omit', 'Bỏ sót một khoản chi phí hoặc tác động'],
+      ['unit', 'Sai đơn vị hoặc sai quy đổi'],
+      ['calc', 'Sai thứ tự hoặc sai phép tính'],
+      ['thres', 'Dùng ngưỡng / mục tiêu không có cơ sở'],
+      ['metric', 'Chọn chỉ số không trả lời câu hỏi'],
+      ['over', 'Kết luận vượt quá dữ liệu đề cho']
+    ];
+    var ERR_STUB = {
+      rev: 'Doanh thu chưa trừ chi phí nên không cho biết doanh nghiệp giữ lại được bao nhiêu. ',
+      base: 'Phải so với kịch bản không có thay đổi, không phải với một kỳ bất kỳ. ',
+      omit: 'Phương án này bỏ qua ',
+      unit: 'Con số đúng nhưng sai đơn vị: ',
+      calc: 'Làm sai thứ tự phép tính: ',
+      thres: 'Mức này không đến từ số liệu nào trong đề. ',
+      metric: 'Chỉ số này có thể đúng nhưng không trả lời câu hỏi tài chính được hỏi. ',
+      over: 'Đề chưa cho số liệu để kết luận điều này — đây là giả định cần kiểm chứng. '
+    };
+
+    function normalize(d) {
+      if (!Array.isArray(d.steps)) d.steps = [['', ''], ['', ''], ['', '']];
+      if (typeof d.conclusion !== 'string') d.conclusion = '';
+      if (!d.errTypes || typeof d.errTypes !== 'object') d.errTypes = {};
+      return d;
     }
 
     /* ═══════════ CỔNG KIỂM TRA — bám tests/lessons.test.js & tests/readings.test.js ═══════════ */
@@ -1294,6 +1418,58 @@
         add('Đáp án', '5', 'Lời giải chứa "' + needle + '"', L.calc.solution.indexOf(needle) > -1 ? 'ok' : 'fail',
           ans < 0 ? 'Số âm phải viết bằng dấu gạch "-" — tốt hơn là hỏi "giảm bao nhiêu" để đáp án dương' : '');
       }
+
+      /* độ chi tiết của câu hỏi — không có trong test repo, nên chỉ cảnh báo (trừ bước tính lỗi/lệch) */
+      normalize(d);
+      var G = 'Độ chi tiết câu hỏi';
+      var hasDigit = function (t) { return /\d/.test(t || ''); };
+      add(G, '1', 'Câu hỏi tình huống kết thúc bằng dấu hỏi', /\?\s*$/.test(L.scenario.ask) ? 'ok' : 'warn');
+
+      add(G, '4', 'Đề mini case nêu bối cảnh có số', L.mini.q.trim().length >= 80 && hasDigit(L.mini.q) ? 'ok' : 'warn',
+        'Nên ≥ 80 ký tự và dẫn số liệu cụ thể, để người học phải đọc số chứ không đoán chữ');
+      var shortWhy = L.mini.opts.filter(function (o) { return o[2].trim().length < 60; }).length;
+      add(G, '4', shortWhy ? shortWhy + ' lời giải thích lựa chọn còn ngắn' : 'Mỗi lựa chọn đều có giải thích đầy đủ', shortWhy ? 'warn' : 'ok',
+        shortWhy ? 'Mỗi giải thích nên ≥ 60 ký tự: nói rõ sai ở đâu, đúng thì đúng vì con số nào' : '');
+      var right = L.mini.opts.filter(function (o) { return o[0] === L.mini.correct; })[0];
+      if (right && (L.mini.kind === 'calculation' || L.mini.kind === 'exhibit')) {
+        add(G, '4', 'Giải thích đáp án đúng có dẫn con số', hasDigit(right[2]) ? 'ok' : 'warn', 'Câu dạng tính toán / exhibit phải cho thấy phép tính');
+      }
+      var wrongs = L.mini.opts.filter(function (o) { return o[0] !== L.mini.correct; });
+      var untyped = wrongs.filter(function (o) { return !d.errTypes[o[0]]; }).length;
+      var types = wrongs.map(function (o) { return d.errTypes[o[0]]; }).filter(Boolean);
+      var dup = types.length !== types.filter(function (t, i) { return types.indexOf(t) === i; }).length;
+      if (L.mini.correct) {
+        add(G, '4', untyped ? untyped + ' phương án nhiễu chưa gắn kiểu lỗi' : dup ? 'Hai phương án nhiễu bắt cùng một lỗi' : 'Mỗi phương án nhiễu bắt một lỗi khác nhau',
+          untyped || dup ? 'warn' : 'ok', 'Phương án nhiễu tốt mô phỏng một lỗi thật người học hay mắc');
+      }
+      if (L.mini.opts.some(function (o) { return /tất cả|đều đúng|đều sai|không có đáp án|cả [abcd] và/i.test(o[1]); })) {
+        add(G, '4', 'Tránh lựa chọn kiểu "tất cả đều đúng"', 'warn');
+      }
+
+      add(G, '5', 'Đề bài tính đủ bối cảnh và kết thúc bằng dấu hỏi', L.calc.q.trim().length >= 80 && /\?\s*$/.test(L.calc.q) ? 'ok' : 'warn',
+        'Nói rõ phạm vi thời gian, khoản nào được tính, đơn vị trả lời');
+      var cs = computeSteps(d), live = cs.filter(function (c) { return !c.empty; });
+      var bad = live.filter(function (c) { return !c.ok; });
+      if (bad.length) add(G, '5', bad.length + ' bước tính bị lỗi', 'fail', bad[0].msg);
+      add(G, '5', live.length ? 'Lời giải có ' + live.length + ' bước tính' : 'Chưa dựng lời giải từng bước', live.length >= 3 ? 'ok' : 'warn',
+        live.length >= 3 ? '' : 'Nên có ≥ 3 bước để người học sai ở đâu thì thấy ở đó');
+      if (live.length && !bad.length && !isNaN(ans)) {
+        var lastV = live[live.length - 1].value;
+        add(G, '5', 'Bước cuối ra ' + viNum(lastV) + (Math.abs(lastV - ans) <= tol ? ' — khớp đáp án' : ' — lệch đáp án'),
+          Math.abs(lastV - ans) <= tol ? 'ok' : 'fail');
+        if (buildSolution(d) !== L.calc.solution.trim()) {
+          add(G, '5', 'Lời giải khác bản ghép từ các bước', 'warn', 'Bấm "Ghép thành lời giải" nếu các bước vừa được sửa');
+        }
+      }
+      if (!isNaN(ans)) {
+        var at = L.calc.solution.lastIndexOf(viNum(ans));
+        var after = at > -1 ? L.calc.solution.slice(at + viNum(ans).length).replace(/\*|[.\s]|triệu|tỷ|VND|đồng|%/gi, '') : '';
+        add(G, '5', 'Lời giải nói con số nghĩa là gì', after.length >= 30 ? 'ok' : 'warn', 'Sau kết quả, thêm 1–2 câu diễn giải cho quyết định');
+        add(G, '5', 'Gợi ý không lộ đáp án', L.calc.hint.indexOf(viNum(ans)) > -1 ? 'warn' : 'ok');
+        if (ans !== 0 && tol > Math.abs(ans) * 0.05) add(G, '5', 'Sai số ±' + viNum(tol) + ' rộng hơn 5% đáp án', 'warn');
+      }
+      add(G, '5', 'Gợi ý đủ cụ thể để gỡ bí', L.calc.hint.trim().length >= 50 ? 'ok' : 'warn', 'Chỉ ra bước đầu tiên hoặc cách quy đổi, không đưa kết quả');
+      add(G, '6', 'Tiêu đề slide là kết luận có số', hasDigit(L.slide.headline) ? 'ok' : 'warn');
       return R;
     }
 
@@ -1433,8 +1609,10 @@
           row('ĐỌC BẢNG NHƯ THẾ NÀO', area('lesson.ex.read', 'Doanh thu tăng nhưng…'));
       }
       if (st === '4') {
-        h += '<p class="ed-lead">Bốn lựa chọn, một đáp án. Mỗi lựa chọn sai cần giải thích <b>vì sao sai</b> — đó là chỗ người học học được nhiều nhất.</p>' +
-          row('CÂU HỎI', area('lesson.mini.q', 'Chỉ số nào nói đúng nhất…')) +
+        h += '<p class="ed-lead">Bốn lựa chọn, một đáp án. Mỗi phương án nhiễu nên <b>mô phỏng một lỗi thật</b> người học hay mắc, và lời giải thích phải chỉ ra sai ở con số nào.</p>' +
+          '<div class="guide"><div class="weak"><span class="gh">✕ CÂU HỎI MỎNG</span>“Chương trình khuyến mãi có hiệu quả không?” · A. Có · B. Không · C. Tuỳ · D. Tất cả đều đúng</div>' +
+          '<div class="strong"><span class="gh">✓ CÂU HỎI CHI TIẾT</span>“Doanh thu 2 tuần đạt 1.400 triệu so với 1.000 triệu, chi phí biến đổi 150.000đ/đơn. Chỉ số nào nói đúng nhất kết quả tài chính?” — mỗi phương án sai bắt một lỗi: nhìn doanh thu, dùng mục tiêu không có cơ sở, kết luận vượt dữ liệu.</div></div>' +
+          row('CÂU HỎI', area('lesson.mini.q', 'Nêu bối cảnh có số, rồi hỏi một điều duy nhất…')) +
           '<div class="grid-2f">' + row('DẠNG CÂU HỎI', '<select data-bind="lesson.mini.kind">' + KINDS.map(function (k) {
             return '<option value="' + k + '"' + (L.mini.kind === k ? ' selected' : '') + '>' + { framework: 'Framework', calculation: 'Tính toán', logic: 'Lập luận', exhibit: 'Đọc exhibit', presentation: 'Trình bày' }[k] + '</option>';
           }).join('') + '</select>') + '<div></div></div>' +
@@ -1442,27 +1620,55 @@
             var p = 'lesson.mini.opts.' + i;
             return '<div class="opt-card' + (L.mini.correct === o[0] ? ' correct' : '') + '"><div class="opt-top"><span class="opt-key">' + o[0] + '</span>' +
               '<label><input type="radio" name="correct" data-correct="' + o[0] + '"' + (L.mini.correct === o[0] ? ' checked' : '') + '> Đáp án đúng</label></div>' +
+              (o[0] === L.mini.correct ? '' :
+                '<div class="err-sel"><span>BẮT LỖI</span><select data-err="' + o[0] + '">' + ERR_TYPES.map(function (t) {
+                  return '<option value="' + t[0] + '"' + ((cur.errTypes[o[0]] || '') === t[0] ? ' selected' : '') + '>' + t[1] + '</option>';
+                }).join('') + '</select></div>') +
               '<div class="form-row" style="margin-bottom:8px">' + inp(p + '.1', 'Nội dung lựa chọn ' + o[0]) + '</div>' +
               '<div class="form-row" style="margin-bottom:0">' + area(p + '.2', o[0] === L.mini.correct ? 'Vì sao đúng…' : 'Vì sao sai…') + '</div></div>';
           }).join('');
       }
       if (st === '5') {
         var fr = evalFormula(cur.formula), ans = toNum(L.calc.answer), tol = toNum(L.calc.tol);
-        h += '<p class="ed-lead">Đáp án phải <b>tính lại được từ số liệu trong đề</b>. Viết công thức kiểm chứng bằng số của exhibit — xưởng sẽ chạy nó và so với đáp án, đúng như <b>tests/lessons.test.js</b>.</p>' +
-          row('ĐỀ BÀI TÍNH', area('lesson.calc.q', 'Dùng số liệu phần 4: lợi nhuận tháng này là bao nhiêu?')) +
+        var cs5 = computeSteps(cur), vals5 = cs5.map(function (c) { return c.value; });
+        h += '<p class="ed-lead">Đáp án phải <b>tính lại được từ số liệu trong đề</b>. Dựng lời giải thành từng bước có số — xưởng tính từng bước, ghép thành lời giải và tạo luôn công thức kiểm chứng cho <b>tests/lessons.test.js</b>.</p>' +
+          '<div class="guide"><div class="weak"><span class="gh">✕ LỜI GIẢI MỎNG</span>“Chênh lệch là **190 triệu**.” — người học sai ở bước nào cũng không biết mình sai ở đâu.</div>' +
+          '<div class="strong"><span class="gh">✓ LỜI GIẢI CHI TIẾT</span>Bước 1 không chạy: 8.000 × 0,1 = 800 · Bước 2 khuyến mãi: 7.000 × 0,05 = 350 · … · Kết quả **190 triệu** · rồi một câu nói con số nghĩa là gì.</div></div>' +
+          row('ĐỀ BÀI TÍNH', area('lesson.calc.q', 'Nêu phạm vi thời gian, khoản nào được tính và hỏi đúng một con số?')) +
           '<div class="grid-4f">' +
             row('ĐƠN VỊ', inp('lesson.calc.unit', 'triệu VND')) +
             row('ĐÁP ÁN', inp('lesson.calc.answer', '51', ' inputmode="decimal"')) +
             row('SAI SỐ ±', inp('lesson.calc.tol', '0.5', ' inputmode="decimal"')) +
             '<div></div>' +
           '</div>' +
+          '<div class="builder"><div class="vt">🪜 LỜI GIẢI TỪNG BƯỚC</div>' +
+            '<div class="bh">Mỗi bước là một phép tính bằng số trong đề. Dùng <code>s1</code>, <code>s2</code>… để lấy kết quả bước trước, ví dụ <code>s1 - s2</code>.</div>' +
+            '<div class="rep-head rep-row c3"><span></span><span>DIỄN GIẢI BƯỚC</span><span>PHÉP TÍNH</span><span style="text-align:right">KẾT QUẢ</span><span></span></div><div class="rep" id="stepRows">' +
+            cur.steps.map(function (st, i) {
+              var c = cs5[i];
+              return '<div class="rep-row c3"><span class="step-no">s' + (i + 1) + '</span>' +
+                inp('steps.' + i + '.0', i === 0 ? 'Lãi góp nếu không chạy' : 'Diễn giải bước ' + (i + 1)) +
+                inp('steps.' + i + '.1', i === 0 ? '8000*0.1' : i === 1 ? '7000*0.05' : 's1 - s2', ' spellcheck="false" style="font-family:ui-monospace,Menlo,monospace"') +
+                '<span class="step-val' + (c && !c.empty && !c.ok ? ' err' : '') + '" id="stepVal' + i + '" title="' + esc(c && !c.empty && !c.ok ? c.msg : '') + '">' +
+                  (!c || c.empty ? '—' : c.ok ? '= ' + viNum(c.value) : 'lỗi') + '</span>' +
+                '<button class="rep-del" data-del="steps" data-i="' + i + '" title="Xoá bước">✕</button></div>';
+            }).join('') +
+            '</div>' +
+            (cur.steps.length < 9 ? '<button class="btn sm" data-add="steps" data-shape="2">＋ Thêm bước</button>' : '') +
+            '<div class="form-row" style="margin:12px 0 0"><label>DIỄN GIẢI SAU KẾT QUẢ</label>' +
+              area('conclusion', 'Con số này nghĩa là gì cho quyết định? Có thể tách theo khoản để thấy tiền mất ở đâu.') + '</div>' +
+            '<div class="b-acts">' +
+              '<button class="btn sm primary" data-build>↻ Ghép thành lời giải</button>' +
+              '<button class="btn sm" data-fromsteps>⇢ Dùng bước cuối làm công thức kiểm chứng</button>' +
+            '</div>' +
+          '</div>' +
           '<div class="verify"><div class="vt">🧮 CÔNG THỨC KIỂM CHỨNG</div>' +
             '<div class="form-row" style="margin-bottom:0">' + inp('formula', '300 - 300*0.38 - 60 - 45 - 30', ' spellcheck="false"') +
             '<span class="hint">Dùng dấu chấm thập phân. Được dùng + - * / ( ) và Math.round, min, max, abs, pow, sqrt.</span></div>' +
             '<div class="v-res" id="verifyRes">' + verifyPills(fr, ans, tol) + '</div>' +
           '</div>' +
-          row('LỜI GIẢI', area('lesson.calc.solution', '300 − 300×38% − 60 − 45 − 30 = **51 triệu**'), 'Phải chứa đáp án viết kiểu Việt Nam, ví dụ 1.500 hoặc 17,25') +
-          row('GỢI Ý', inp('lesson.calc.hint', 'Giá vốn tính theo % doanh thu tháng này…'));
+          row('LỜI GIẢI (HIỂN THỊ CHO NGƯỜI HỌC)', area('lesson.calc.solution', 'Bấm “Ghép thành lời giải” hoặc tự viết', '', ' style="min-height:120px"'), 'Phải chứa đáp án viết kiểu Việt Nam, ví dụ 1.500 hoặc 17,25') +
+          row('GỢI Ý', area('lesson.calc.hint', 'Chỉ ra bước đầu tiên hoặc cách quy đổi đơn vị — không đưa kết quả'));
       }
       if (st === '6') {
         h += '<p class="ed-lead">Gợi ý slide: tiêu đề là <b>kết luận</b>, không phải chủ đề. Hai bên là biểu đồ và các ý chính.</p>' +
@@ -1582,6 +1788,7 @@
       setPath(cur, path, t.value);
       touch();
       if (path === 'reading') updateReadingStats();
+      if (/^steps\./.test(path)) updateStepVals();
       if (path === 'formula' || path === 'lesson.calc.answer' || path === 'lesson.calc.tol') {
         var r = $('verifyRes');
         if (r) r.innerHTML = verifyPills(evalFormula(cur.formula), toNum(cur.lesson.calc.answer), toNum(cur.lesson.calc.tol));
@@ -1591,6 +1798,20 @@
 
     editor.addEventListener('change', function (e) {
       var t = e.target;
+      if (t.dataset && t.dataset.err && cur) {
+        var key = t.dataset.err, idx = ['A', 'B', 'C', 'D'].indexOf(key);
+        cur.errTypes[key] = t.value;
+        var why = cur.lesson.mini.opts[idx][2];
+        if (!filled(why) && ERR_STUB[t.value]) {
+          cur.lesson.mini.opts[idx][2] = ERR_STUB[t.value];
+          touch(); renderEditor();
+          var box = editor.querySelector('[data-bind="lesson.mini.opts.' + idx + '.2"]');
+          if (box) { box.focus(); box.selectionStart = box.selectionEnd = box.value.length; }
+          return;
+        }
+        touch(); renderGate();
+        return;
+      }
       if (t.dataset && t.dataset.correct && cur) {
         cur.lesson.mini.correct = t.dataset.correct;
         touch();
@@ -1601,6 +1822,16 @@
         renderGate();
       }
     });
+
+    function updateStepVals() {
+      computeSteps(cur).forEach(function (c, i) {
+        var el = $('stepVal' + i);
+        if (!el) return;
+        el.textContent = c.empty ? '—' : c.ok ? '= ' + viNum(c.value) : 'lỗi';
+        el.className = 'step-val' + (!c.empty && !c.ok ? ' err' : '');
+        el.title = !c.empty && !c.ok ? c.msg : '';
+      });
+    }
 
     function updateReadingStats() {
       var rs = readingStats(cur.reading);
@@ -1639,6 +1870,27 @@
         var list = getPath(cur, b.dataset.del);
         list.splice(Number(b.dataset.i), 1);
         touch(); renderEditor();
+        return;
+      }
+      if ((b = e.target.closest('[data-build]'))) {
+        var cs = computeSteps(cur).filter(function (c) { return !c.empty; });
+        if (!cs.length) { toast('Chưa có bước tính nào'); return; }
+        if (cs.some(function (c) { return !c.ok; })) { toast('Còn bước tính bị lỗi — sửa trước khi ghép'); return; }
+        if (isNaN(toNum(cur.lesson.calc.answer))) cur.lesson.calc.answer = String(cs[cs.length - 1].value);
+        cur.lesson.calc.solution = buildSolution(cur);
+        touch(); renderEditor();
+        toast('Đã ghép ' + cs.length + ' bước thành lời giải');
+        return;
+      }
+      if ((b = e.target.closest('[data-fromsteps]'))) {
+        var lastIdx = -1;
+        cur.steps.forEach(function (st, i) { if (filled(st[1])) lastIdx = i; });
+        if (lastIdx < 0) { toast('Chưa có bước tính nào'); return; }
+        var f = inlineFormula(cur, lastIdx), fr = evalFormula(f);
+        if (!fr.ok) { toast('Không dựng được công thức: ' + fr.msg); return; }
+        cur.formula = f;
+        touch(); renderEditor();
+        toast('Công thức kiểm chứng = ' + viNum(r6(fr.value)));
         return;
       }
       if ((b = e.target.closest('[data-useval]'))) {
