@@ -80,6 +80,14 @@ def sql_str(value) -> str:
     return "'" + str(value).replace("'", "''") + "'"
 
 
+def blueprint_rubrics(sql: str) -> set[str]:
+    """Rubrics the generated curriculum already ships descriptors for — authoring overrides these."""
+    return {
+        criterion.rsplit(".", 1)[0]
+        for criterion in re.findall(r"INSERT INTO rubric_criterion_levels \([^)]*\) VALUES \('([^']+)'", sql)
+    }
+
+
 def known_ids() -> tuple[set[str], set[str], dict[str, set[str]]]:
     """Lesson ids, mistake codes and rubric criteria the generated curriculum already defines."""
     if not CURRICULUM.exists():
@@ -87,6 +95,7 @@ def known_ids() -> tuple[set[str], set[str], dict[str, set[str]]]:
     sql = CURRICULUM.read_text(encoding="utf-8")
     lessons = set(re.findall(r"INSERT INTO lessons \([^)]*\) VALUES \('(\d{3})'", sql))
     codes = set(re.findall(r"INSERT INTO mistake_codes \([^)]*\) VALUES \('([A-Z]{3}-\d{2})'", sql))
+    globals()["_BLUEPRINT_RUBRICS"] = blueprint_rubrics(sql)
     criteria: dict[str, set[str]] = {}
     for criterion_id, rubric_id in re.findall(
         r"INSERT INTO rubric_criteria \([^)]*\) VALUES \('([^']+)', '([^']+)'", sql
@@ -300,6 +309,9 @@ def build_rubric(path: Path, criteria: dict[str, set[str]]) -> list[str]:
     known = criteria.get(rubric_id)
     if not known:
         raise Problem(f"{path.name}: rubric {rubric_id!r} is not in the generated curriculum")
+
+    if rubric_id in globals().get("_BLUEPRINT_RUBRICS", set()):
+        print(f"  note {path.name}: replacing the descriptors content-source already generates for {rubric_id}")
 
     statements: list[str] = []
     seen: set[str] = set()

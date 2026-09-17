@@ -25,6 +25,8 @@ Hai chuẩn mượn từ [HUONG-DAN-VIET-CASE.md](https://github.com/tridinhbui/
 - **`insight:` trong frontmatter** — một câu, điều đi ngược trực giác mà case dạy. Người đọc gật đầu ngay thì insight chưa đủ mạnh.
 - **`## frame.check`** — mỗi dòng `tên con số = biểu thức`, tham chiếu số khác bằng `[tên]`. Bộ kiểm tra tính lại và chặn nếu lệch quá 8%.
 
+`seed/authored.sql` chạy **sau** `seed/curriculum.sql`, nên nội dung viết tay ở đây **ghi đè** phần sinh từ `content-source/`. Với rubric, bộ dựng in dòng `note …: replacing the descriptors content-source already generates` để bạn biết mình đang thay chứ không phải đang bổ sung.
+
 ## Lệnh
 
 ```bash
