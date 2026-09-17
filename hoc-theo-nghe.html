@@ -16,9 +16,9 @@
       --border: #e2e8e2;
       --border-subtle: #edf2ed;
       
-      --text-main: #14281b;
-      --text-secondary: #4d6353;
-      --text-muted: #829688;
+      --text-main: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
       
       --primary: #059669;
       --primary-dark: #047857;
@@ -360,10 +360,10 @@
       text-overflow: ellipsis;
     }
 
-    /* ════════════ MAIN CONTAINER ════════════ */
+    /* ════════════ MAIN CONTENT CONTAINER ════════════ */
     .main-container {
       flex: 1;
-      padding: 16px 28px 48px;
+      padding: 14px 24px 40px;
       max-width: 1400px;
       margin: 0 auto;
       width: 100%;
@@ -372,11 +372,10 @@
 
     /* ── TOP EYEBROW & HEADER ROW ── */
     .top-category-track {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #059669;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 700;
+      color: #047857;
+      letter-spacing: 0.03em;
       margin-bottom: 4px;
     }
 
@@ -385,31 +384,32 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
     }
 
     .header-left {
       flex: 1;
-      min-width: 260px;
+      min-width: 250px;
     }
 
     .page-title-row {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
 
     .page-title {
-      font-size: 21px;
+      font-size: 22px;
       font-weight: 800;
-      color: var(--text-main);
-      letter-spacing: -0.02em;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
     }
 
     .info-btn {
-      width: 17px;
-      height: 17px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       border: 1px solid #cbd5e1;
       background: transparent;
@@ -430,8 +430,8 @@
 
     .page-subtitle {
       font-size: 12px;
-      color: #52665a;
-      margin-top: 2px;
+      color: #64748b;
+      margin-top: 3px;
       font-weight: 500;
     }
 
@@ -445,8 +445,8 @@
     .header-pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 4px 10px;
+      gap: 4px;
+      padding: 3.5px 10px;
       border-radius: var(--radius-pill);
       font-size: 10.5px;
       font-weight: 800;
@@ -459,7 +459,7 @@
     }
 
     .pill-hero {
-      background: #fef9c3;
+      background: #fffbeb;
       color: #92400e;
       border: 1px solid #fef08a;
     }
@@ -487,27 +487,27 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .tab-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6.5px 15px;
+      padding: 6px 14px;
       border-radius: var(--radius-pill);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s;
-      border: 1px solid #dce4dc;
+      border: 1px solid #e2e8f0;
       background: #ffffff;
-      color: #374151;
+      color: #334155;
       font-family: inherit;
     }
 
     .tab-btn:hover {
-      background: #f3f7f3;
+      background: #f8fafc;
       border-color: #cbd5e1;
     }
 
@@ -516,14 +516,14 @@
       color: #ffffff;
       border-color: #064e3b;
       font-weight: 800;
-      box-shadow: 0 2px 6px rgba(6, 78, 59, 0.2);
+      box-shadow: 0 2px 4px rgba(6, 78, 59, 0.18);
     }
 
     /* ════════════ TWO-COLUMN CONTENT LAYOUT ════════════ */
     .career-grid {
       display: grid;
-      grid-template-columns: 1fr 315px;
-      gap: 16px;
+      grid-template-columns: 1fr 300px;
+      gap: 14px;
       align-items: start;
     }
 
@@ -537,7 +537,7 @@
     .left-column {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
       min-width: 0;
     }
 
@@ -546,7 +546,7 @@
       border: 1px solid #e2e8e2;
       border-radius: var(--radius-2xl);
       padding: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -556,7 +556,7 @@
     .map-viewport-container {
       position: relative;
       width: 100%;
-      height: 490px;
+      height: 480px;
       border-radius: var(--radius-xl);
       overflow: hidden;
       background: #ebdabc;
@@ -573,7 +573,7 @@
       user-select: none;
     }
 
-    /* Floating Region Badge Header */
+    /* Floating Top Center Region Badge */
     .floating-map-header {
       position: absolute;
       top: 14px;
@@ -599,8 +599,8 @@
     }
 
     .floating-pin-icon {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: #e6f7ee;
       border: 1px solid #bbf7d0;
@@ -608,7 +608,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .floating-header-texts {
@@ -628,7 +628,7 @@
     .floating-header-title {
       font-size: 13px;
       font-weight: 800;
-      color: #14281b;
+      color: #0f172a;
     }
 
     .floating-header-detail {
@@ -675,20 +675,20 @@
     }
 
     .node-pin-circle {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: linear-gradient(135deg, #f97316, #ea580c);
       border: 2.5px solid #ffffff;
       color: #ffffff;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 10px rgba(234, 88, 12, 0.45);
       position: relative;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .node-pin-circle::after {
@@ -709,9 +709,9 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: var(--radius-md);
-      padding: 6px 9px;
+      padding: 5px 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      width: 135px;
+      width: 125px;
       text-align: left;
       transition: border-color 0.15s, box-shadow 0.15s;
     }
@@ -722,16 +722,16 @@
     }
 
     .node-quest-tag {
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 800;
       color: #64748b;
       margin-bottom: 1px;
     }
 
     .node-role-name {
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
-      color: #0f291e;
+      color: #0f172a;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -742,12 +742,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 4px;
-      gap: 5px;
+      margin-top: 3px;
+      gap: 4px;
     }
 
     .node-progress-txt {
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 700;
       color: #64748b;
       white-space: nowrap;
@@ -768,12 +768,12 @@
     }
 
     .node-progress-percent {
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 800;
       color: #059669;
     }
 
-    /* Node Coordinates */
+    /* Exact Node Coordinates */
     #node-1 { left: 16.2%; top: 45.1%; }
     #node-2 { left: 36.1%; top: 56.9%; }
     #node-3 { left: 57.9%; top: 45.0%; }
@@ -795,7 +795,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
       color: #64748b;
     }
@@ -818,12 +818,11 @@
 
     .btn-view-all-regions {
       background: transparent;
-      border: 1px solid #d1d5db;
-      padding: 4.5px 12px;
-      border-radius: var(--radius-pill);
+      border: none;
+      padding: 4px 8px;
       font-size: 10.5px;
-      font-weight: 700;
-      color: #064e3b;
+      font-weight: 800;
+      color: #047857;
       display: inline-flex;
       align-items: center;
       gap: 4px;
@@ -833,8 +832,7 @@
     }
 
     .btn-view-all-regions:hover {
-      background: #f1f5f9;
-      border-color: #9ca3af;
+      text-decoration: underline;
       transform: translateX(2px);
     }
 
@@ -842,28 +840,28 @@
     .right-column {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .widget-card {
       background: #ffffff;
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
-      padding: 14px 16px;
+      padding: 12px 14px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
     }
 
     .widget-header {
       display: flex;
       align-items: center;
-      gap: 7px;
-      margin-bottom: 12px;
+      gap: 6px;
+      margin-bottom: 10px;
     }
 
     .widget-title {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
-      color: var(--text-main);
+      color: #1e293b;
       letter-spacing: 0.03em;
       text-transform: uppercase;
       flex: 1;
@@ -872,9 +870,9 @@
     .widget-counter-badge {
       background: #fef3c7;
       color: #b45309;
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
-      padding: 1px 6px;
+      padding: 1px 5px;
       border-radius: var(--radius-pill);
     }
 
@@ -882,33 +880,33 @@
     .priority-task-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 9px 10px;
+      gap: 9px;
+      padding: 7px 9px;
       border-radius: var(--radius-md);
-      border: 1px solid #edf2ed;
+      border: 1px solid #f1f5f9;
       text-decoration: none;
       color: inherit;
       transition: all 0.15s;
       background: #ffffff;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .priority-task-item:hover {
       border-color: #bbf7d0;
-      background: #f7faf7;
+      background: #f8faf8;
       transform: translateX(2px);
     }
 
     .task-icon-box {
-      width: 30px;
-      height: 30px;
-      border-radius: var(--radius-sm);
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
       background: #e6f7ee;
       border: 1px solid #bbf7d0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12px;
       flex-shrink: 0;
       color: #059669;
     }
@@ -921,16 +919,16 @@
     .task-badge-row {
       display: flex;
       align-items: center;
-      gap: 5px;
-      margin-bottom: 2px;
+      gap: 4px;
+      margin-bottom: 1px;
     }
 
     .task-quest-pill {
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 800;
       background: #dcfce7;
       color: #047857;
-      padding: 1px 5px;
+      padding: 1px 4px;
       border-radius: 3px;
       text-transform: uppercase;
     }
@@ -946,9 +944,9 @@
     }
 
     .task-title {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
-      color: #14281b;
+      color: #0f172a;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -956,30 +954,30 @@
     }
 
     .task-sub {
-      font-size: 10px;
-      color: var(--text-muted);
+      font-size: 9.5px;
+      color: #64748b;
       margin-top: 1px;
     }
 
     .task-arrow {
       color: #cbd5e1;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       flex-shrink: 0;
     }
 
     .widget-link-footer {
       text-align: center;
-      margin-top: 10px;
-      font-size: 11px;
+      margin-top: 8px;
+      font-size: 10.5px;
       font-weight: 700;
-      color: #059669;
+      color: #0f172a;
       cursor: pointer;
       transition: color 0.15s;
     }
 
     .widget-link-footer:hover {
-      color: #064e3b;
+      color: #047857;
       text-decoration: underline;
     }
 
@@ -987,22 +985,22 @@
     .overview-content-row {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 4px 0 8px;
+      gap: 14px;
+      padding: 2px 0 6px;
     }
 
     .overview-donut-box {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       flex-shrink: 0;
     }
 
     .circle-donut-wrap {
       position: relative;
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1010,8 +1008,8 @@
 
     .circle-donut-wrap svg {
       transform: rotate(-90deg);
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
     }
 
     .circle-donut-bg {
@@ -1031,13 +1029,13 @@
 
     .circle-donut-txt {
       position: absolute;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
-      color: #14281b;
+      color: #0f172a;
     }
 
     .overview-donut-label {
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 700;
       color: var(--text-muted);
     }
@@ -1045,17 +1043,17 @@
     .overview-stats-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
       flex: 1;
     }
 
     .overview-stat-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 10.5px;
+      gap: 5px;
+      font-size: 10px;
       font-weight: 700;
-      color: #334155;
+      color: #1e293b;
     }
 
     /* Widget 3: Daily Tip Banner */
@@ -1063,16 +1061,16 @@
       background: #fefcf3;
       border: 1px solid #fef08a;
       border-radius: var(--radius-xl);
-      padding: 12px 14px;
+      padding: 10px 12px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
     }
 
     .tip-header {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       color: #9a3412;
-      letter-spacing: 0.04em;
-      margin-bottom: 4px;
+      letter-spacing: 0.03em;
+      margin-bottom: 3px;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -1082,21 +1080,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
     }
 
     .tip-text {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       color: #78350f;
-      line-height: 1.45;
+      line-height: 1.4;
       flex: 1;
     }
 
     .tip-thumb {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
+      width: 46px;
+      height: 34px;
+      border-radius: 6px;
       overflow: hidden;
       flex-shrink: 0;
       border: 1px solid #fed7aa;
@@ -1249,7 +1247,7 @@
         <span>🌱 HỌC TẬP</span>
         <span class="chevron">▼</span>
       </div>
-      <a href="bat-dau-tu-dau.html" class="nav-item">
+      <a href="dashboard.html" class="nav-item">
         <span class="icon">🧭</span>
         <span>Bắt đầu từ đâu</span>
       </a>
@@ -1390,7 +1388,7 @@
           
           <div class="map-viewport-container">
             <!-- Background 3D Isometric Map Image -->
-            <img src="assets/img/career-map-isometric.jpg" alt="Career World Map" class="map-bg-img" id="mapBg">
+            <img src="assets/img/career-map-sample.png" alt="Career World Map" class="map-bg-img" id="mapBg">
 
             <!-- Floating Top Center Region Badge -->
             <div class="floating-map-header" onclick="openRegionModal()">
@@ -1529,7 +1527,7 @@
         <!-- Card 1: Top Priority Quests -->
         <div class="widget-card">
           <div class="widget-header">
-            <span style="font-size: 13.5px;">📄</span>
+            <span style="font-size: 13px;">📄</span>
             <span class="widget-title">NHIỆM VỤ ƯU TIÊN HÀNG ĐẦU</span>
             <span class="widget-counter-badge">3</span>
           </div>
@@ -1589,7 +1587,7 @@
         <!-- Card 2: Region Overview Stats -->
         <div class="widget-card">
           <div class="widget-header">
-            <span style="font-size: 13.5px;">🌿</span>
+            <span style="font-size: 13px;">🌿</span>
             <span class="widget-title">TỔNG QUAN VÙNG NGHỀ</span>
           </div>
 
@@ -1607,7 +1605,7 @@
 
             <div class="overview-stats-list">
               <div class="overview-stat-row">
-                <span style="color: #059669; font-size: 10.5px;">●</span>
+                <span style="color: #059669; font-size: 10px;">●</span>
                 <span>1/195 BÀI XONG</span>
               </div>
               <div class="overview-stat-row">
