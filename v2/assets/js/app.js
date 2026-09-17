@@ -1055,6 +1055,7 @@ function vTracks(){
 
       <!-- RIGHT SIDEBAR: Notebook + Mistakes Review + Daily Challenge -->
       <div class="curr-side">
+        ${window.careerWidget ? careerWidget() : ""}
         <!-- Card 1: GHI CHÉP: Sổ tay của bạn -->
         <div class="notebook-widget-card" style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:16px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:14px">
           <div style="flex:1;min-width:0">
