@@ -55,7 +55,7 @@ Một thân bài xong khi `npm run content:check` xanh, nghĩa là có đủ:
 
 Một đề case xong khi có: bối cảnh, câu hỏi, **ít nhất 3 mẩu dữ liệu giữ lại** (chỉ phát khi được hỏi), **ít nhất 1 bẫy gắn mã lỗi**, khung trả lời với các con số then chốt, và hướng dẫn chấm nhanh trong 3 phút. Bộ kiểm tra bắt đủ những thứ này.
 
-Hai chuẩn mượn từ tài liệu viết case của STRATLAB (nhánh `main` cùng repo): mỗi case phải có **một insight đi ngược trực giác** và **số liệu tự khớp** — `## frame.check` tính lại từng con số và chặn nếu lệch quá 8%. Nhờ vậy case viết ở đây đạt luôn chuẩn của bên kia.
+Hai chuẩn mượn từ tài liệu viết case trên nhánh `main` cùng repo: mỗi case phải có **một insight đi ngược trực giác** và **số liệu tự khớp** — `## frame.check` tính lại từng con số và chặn nếu lệch quá 8%. Nhờ vậy case viết ở đây đạt luôn chuẩn của bên kia.
 
 Và một điều kiện không nằm trong script: **tự giải đề của mình trước khi đưa cho ai.** Nếu bạn giải không ra trong đúng thời lượng ghi trên đề thì người học cũng vậy.
 

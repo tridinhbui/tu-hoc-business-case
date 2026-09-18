@@ -29,7 +29,7 @@ PANEL_CATEGORIES = ["numbers", "feasibility", "challenge"]
 MISTAKE_RE = re.compile(r"\b[A-Z]{3}-\d{2}\b")
 TODO_RE = re.compile(r"\b(TODO|TBD|XXX|\.\.\.\?)\b")
 
-# Tolerance band for the arithmetic self-check, following the STRATLAB authoring guide:
+# Tolerance band for the arithmetic self-check, following the case-writing guide on the main branch:
 # wide enough for honest rounding, narrow enough that a wrong answer still fails.
 CHECK_TOLERANCE = 0.08
 

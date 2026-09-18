@@ -25,7 +25,7 @@ export function LandingPage() {
   return (
     <div className="landing">
       <header className="lp-top">
-        <span className="brand">Business Case</span>
+        <span className="brand">Tự học Business Case</span>
         <Link to="/login" className="btn-small">Đăng nhập</Link>
       </header>
 
@@ -157,7 +157,7 @@ export function LandingPage() {
       </section>
 
       <footer className="wrap lp-foot muted small">
-        Business Case · chạy hoàn toàn trên Cloudflare Workers
+        Tự học Business Case · chạy hoàn toàn trên Cloudflare Workers
       </footer>
     </div>
   );

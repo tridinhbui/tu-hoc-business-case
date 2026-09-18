@@ -93,7 +93,7 @@ Brief để một agent khác viết cùng: [authoring/AGENT-BRIEF.md](authoring
 Dự án này sống ở nhánh **`cloudflare-platform`** và deploy vào Worker **`tu-hoc-business-case-app`**
 (https://tu-hoc-business-case-app.tridinhbui0901.workers.dev).
 
-Nhánh `main` của repo là một dự án khác (STRATLAB) và Workers Builds đang deploy nhánh đó vào Worker
+Nhánh `main` của repo là bản giao diện khác của Tự học Business Case và Workers Builds đang deploy nhánh đó vào Worker
 `tu-hoc-business-case`. Hai Worker khác tên nên không còn ghi đè nhau. Đổi lại, nhánh này **không**
 tự deploy: sau khi push phải chạy
 

@@ -56,7 +56,7 @@ export function App() {
     <>
       <header className="topbar">
         <div className="topbar-inner">
-          <Link to="/" className="brand">Business Case</Link>
+          <Link to="/" className="brand">Tự học Business Case</Link>
           <nav aria-label="Chính">
             {nav("/", "Lộ trình", path === "/" || path.startsWith("/lessons") || path.startsWith("/attempts"))}
             {nav("/plan", "Kế hoạch", path === "/plan")}

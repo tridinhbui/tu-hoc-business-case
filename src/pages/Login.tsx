@@ -101,7 +101,7 @@ export function LoginPage() {
   return (
     <main className="login">
       <div className="login-card">
-        <p className="eyebrow"><Link to="/">Business Case</Link></p>
+        <p className="eyebrow"><Link to="/">Tự học Business Case</Link></p>
         <h1>Học case bằng cách làm case</h1>
         {loginError && <p className="notice warn" role="alert">{loginError}</p>}
         {config.loading && !config.data ? (

@@ -20,7 +20,7 @@ Khối của rubric: mỗi khối là một tiêu chí (`## RM-A1.1 · Tên tiê
 
 Khối của case: `context`, `question`, `reveal · <trigger>`, `trap · <MÃ LỖI>`, `frame.structure`, `frame.numbers`, `frame.check`, `frame.scoring`, `panel.numbers|feasibility|challenge`.
 
-Hai chuẩn mượn từ [HUONG-DAN-VIET-CASE.md](https://github.com/tridinhbui/tu-hoc-business-case/blob/main/HUONG-DAN-VIET-CASE.md) của STRATLAB, để case viết một lần dùng được cho cả hai sản phẩm:
+Hai chuẩn mượn từ [HUONG-DAN-VIET-CASE.md](https://github.com/tridinhbui/tu-hoc-business-case/blob/main/HUONG-DAN-VIET-CASE.md), để case viết một lần dùng được cho cả hai sản phẩm:
 
 - **`insight:` trong frontmatter** — một câu, điều đi ngược trực giác mà case dạy. Người đọc gật đầu ngay thì insight chưa đủ mạnh.
 - **`## frame.check`** — mỗi dòng `tên con số = biểu thức`, tham chiếu số khác bằng `[tên]`. Bộ kiểm tra tính lại và chặn nếu lệch quá 8%.

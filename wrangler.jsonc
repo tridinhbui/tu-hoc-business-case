@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  // Its own Worker: the repo's main branch now holds a different project (STRATLAB) that deploys
+  // Its own Worker: the repo's main branch now holds a different build of Tự học Business Case that deploys
   // to "tu-hoc-business-case". Sharing that name meant each push replaced the other product.
   "name": "tu-hoc-business-case-app",
   "main": "./worker/index.ts",

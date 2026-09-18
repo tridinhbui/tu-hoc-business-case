@@ -23,7 +23,7 @@ npm run content:check
 1. **Không bịa nguồn, không bịa số liệu thật.** Case là hư cấu (`is_fictional: true`) — mọi con số trong case do bạn tự đặt, tự nhất quán, và phải tự giải ra được. Còn số liệu về thế giới thật (dân số, quy mô ngành, giá thị trường) thì chỉ được nêu khi có link nguồn thật; không có thì viết dưới dạng giả định và nói rõ đó là giả định.
 2. **Mã lỗi phải có thật.** Mỗi khối `pitfall` và mỗi `trap` phải gọi tên mã lỗi đang tồn tại trong `seed/curriculum.sql` (ví dụ SIZ-06, FRM-04). Bộ kiểm tra sẽ chặn mã không tồn tại. Đừng đặt mã mới.
 3. **Mỗi bài phải kết thúc bằng một output cụ thể.** Dòng `Output:` phải nói được người học nộp *file gì, gồm những gì*. "Hiểu về market sizing" không phải output.
-4. **Mỗi case đúng một insight đi ngược trực giác** (`insight:` ở frontmatter) và **số phải tự khớp** (`## frame.check`). Hai quy tắc này lấy từ chuẩn viết case của STRATLAB trên nhánh `main`, để nội dung dùng được cho cả hai sản phẩm.
+4. **Mỗi case đúng một insight đi ngược trực giác** (`insight:` ở frontmatter) và **số phải tự khớp** (`## frame.check`). Hai quy tắc này lấy từ chuẩn viết case trên nhánh `main`, để nội dung dùng được cho cả hai sản phẩm.
 5. **Tự giải bài tập và đề case của mình** trong đúng thời lượng ghi trên bài. Số trong khung trả lời phải nhân ra đúng — kiểm bằng máy tính, đừng ước lượng.
 6. **Viết tiếng Việt cho người học Việt Nam**, thuật ngữ tiếng Anh giữ nguyên khi đó là cách người trong ngành thật sự gọi (issue tree, top-down, unit economics). Không dịch cưỡng ép.
 7. **Không sửa file trong `seed/`.** Chúng được sinh ra từ script. Sửa ở `authoring/` rồi chạy lại.
