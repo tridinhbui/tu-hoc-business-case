@@ -63,7 +63,7 @@ Sai lầm phổ biến nhất của edutech Việt Nam là nhắm "ai cũng họ
 
 ### Câu định vị đề xuất
 
-> **STRATLAB — luyện case phỏng vấn bằng doanh nghiệp Việt Nam bạn đã biết.**
+> **Tự học Business Case — luyện case phỏng vấn bằng doanh nghiệp Việt Nam bạn đã biết.**
 > 12 giờ nội dung có cấu trúc, 30 case thực chiến, chấm điểm theo đúng năm tiêu chí mà nhà tuyển dụng dùng.
 
 Điểm khác biệt phòng thủ được: **case về Vinamilk, MoMo, Vietjet, Techcombank** — thứ mà giáo trình Victor Cheng hay CaseCoach không có, và thứ mà hội đồng phỏng vấn Việt Nam thật sự hỏi.

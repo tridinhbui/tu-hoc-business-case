@@ -1,4 +1,4 @@
-/* ═══ CASELAB · Competition engine ═══
+/* ═══ Tự học Business Case · Competition engine ═══
    Phòng thi 3 deliverable có hạn chót, chấm theo 7 tiêu chí của ban giám khảo.
      1 · Phân tích & governing thought  → chấm bằng spec Arena của case (SCORING)
      2 · Slide outline 6–8 headline     → số trang, headline có số + đủ dài, trang 1 nói đúng khuyến nghị

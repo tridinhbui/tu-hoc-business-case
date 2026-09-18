@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   STRATLAB — Consulting Roadmap & Stepping Islands Landscape View
+   Tự học Business Case — Consulting Roadmap & Stepping Islands Landscape View
    (Phong cách Illustrated Landscape Roadmap cho Management Consulting)
    ══════════════════════════════════════════════════════════════════ */
 window.VIEWS = window.VIEWS || {};

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tự Học Business Case — Bảng quản trị</title>
+  <title>Tự học Business Case — Bảng quản trị</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -864,7 +864,7 @@
             <button data-scope="server">Tất cả người học · máy chủ</button>
           </div>
           <p id="mScopeNote">Số liệu ghi từ app học viên (<b>v2/</b>) trên <b>trình duyệt này</b>. Tự cập nhật khi app ở tab khác ghi dữ liệu mới.</p>
-          <div class="src-row"><code>caselab.v2 · tiến độ</code><code>caselab.metrics.v1 · thời gian &amp; phiên</code><span class="pill" id="mUpdated">—</span></div>
+          <div class="src-row"><code>tu-hoc-business-case.v2 · tiến độ</code><code>tu-hoc-business-case.metrics.v1 · thời gian &amp; phiên</code><span class="pill" id="mUpdated">—</span></div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <a class="btn" href="v2/index.html" target="_blank" rel="noopener" style="text-decoration:none">↗ Mở app học viên</a>
@@ -1908,11 +1908,13 @@
     });
 
     /* ═══════════ ĐO LƯỜNG THẬT — đọc từ app học viên (cùng origin) ═══════════ */
-    var PROG_KEY = 'caselab.v2', MET_KEY = 'caselab.metrics.v1';
+    var PROG_KEY = 'tu-hoc-business-case.v2', MET_KEY = 'tu-hoc-business-case.metrics.v1';
+    // Tên cũ trước khi đổi thương hiệu; chỉ dùng để đọc khi chưa có bản mới.
+    var LEGACY_KEYS = { 'tu-hoc-business-case.v2': 'caselab.v2', 'tu-hoc-business-case.metrics.v1': 'caselab.metrics.v1' };
     var mLessonFilter = 'done';
 
     function readStore(key) {
-      try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { return null; }
+      try { return JSON.parse(localStorage.getItem(key) || localStorage.getItem(LEGACY_KEYS[key]) || 'null'); } catch (e) { return null; }
     }
     function fmtDur(sec) {
       sec = Math.round(sec || 0);
@@ -2070,14 +2072,14 @@
 
     function renderCoverage() {
       var COV = [
-        ['Số bài học hoàn thành', 'caselab.v2 · lessons[].status, doneAt', 'ok', 'Đo từ trước; nay hiện ở trang này'],
-        ['Thời gian học chủ động (tổng, theo ngày)', 'caselab.metrics.v1 · days', 'ok', 'Mới — chỉ tính khi tab đang mở và có thao tác trong 60 giây gần nhất'],
-        ['Thời gian học mỗi bài, thời gian tới khi hoàn thành', 'caselab.metrics.v1 · lessons', 'ok', 'Mới — bài xong trước khi bật đo không có số giờ'],
-        ['Phiên học, thời gian mỗi phiên', 'caselab.metrics.v1 · sessions', 'ok', 'Mới — nghỉ quá 30 phút tính phiên mới'],
-        ['Thời gian theo khu vực (bài học, Arena, phỏng vấn…)', 'caselab.metrics.v1 · routes', 'ok', 'Mới'],
-        ['% đọc bài đọc', 'caselab.v2 · lessons[].readPct', 'ok', 'Có sẵn'],
-        ['Đúng/sai quiz lần đầu', 'caselab.v2 · lessons[].quiz', 'ok', 'Có sẵn; sự kiện có giờ là mới'],
-        ['Case Arena: số lần nộp, điểm, thời gian làm', 'caselab.v2 · cases', 'ok', 'Có sẵn'],
+        ['Số bài học hoàn thành', 'tu-hoc-business-case.v2 · lessons[].status, doneAt', 'ok', 'Đo từ trước; nay hiện ở trang này'],
+        ['Thời gian học chủ động (tổng, theo ngày)', 'tu-hoc-business-case.metrics.v1 · days', 'ok', 'Mới — chỉ tính khi tab đang mở và có thao tác trong 60 giây gần nhất'],
+        ['Thời gian học mỗi bài, thời gian tới khi hoàn thành', 'tu-hoc-business-case.metrics.v1 · lessons', 'ok', 'Mới — bài xong trước khi bật đo không có số giờ'],
+        ['Phiên học, thời gian mỗi phiên', 'tu-hoc-business-case.metrics.v1 · sessions', 'ok', 'Mới — nghỉ quá 30 phút tính phiên mới'],
+        ['Thời gian theo khu vực (bài học, Arena, phỏng vấn…)', 'tu-hoc-business-case.metrics.v1 · routes', 'ok', 'Mới'],
+        ['% đọc bài đọc', 'tu-hoc-business-case.v2 · lessons[].readPct', 'ok', 'Có sẵn'],
+        ['Đúng/sai quiz lần đầu', 'tu-hoc-business-case.v2 · lessons[].quiz', 'ok', 'Có sẵn; sự kiện có giờ là mới'],
+        ['Case Arena: số lần nộp, điểm, thời gian làm', 'tu-hoc-business-case.v2 · cases', 'ok', 'Có sẵn'],
         ['Bỏ dở ở phần nào trong bài', 'readPct + quiz từng câu', 'part', 'Biết đọc tới đâu và làm câu nào; chưa ghi thời gian ở từng phần 1–10'],
         ['Người dùng hoạt động (ngày/tuần/tháng), quay lại, phễu nhiều người', '/api/metrics · Durable Object SQLite', 'ok', 'Mới — xem ở chế độ "Tất cả người học"; ẩn danh theo thiết bị, chưa gộp được một người dùng nhiều máy'],
         ['Đăng ký, doanh thu, gói trả phí', '—', 'no', 'Chưa có tài khoản và thanh toán thật; tab Doanh thu là dữ liệu mẫu']
@@ -2102,7 +2104,7 @@
         ? 'Số tổng hợp từ <b>mọi thiết bị</b> đã gửi số liệu về máy chủ. Mỗi thiết bị là một mã ngẫu nhiên — không có tên hay email.'
         : 'Số liệu ghi từ app học viên (<b>v2/</b>) trên <b>trình duyệt này</b>. Tự cập nhật khi app ở tab khác ghi dữ liệu mới.';
       if (server) {
-        try { $('mToken').value = sessionStorage.getItem('stratlab-admin-token') || $('mToken').value; } catch (e) { /* bỏ qua */ }
+        try { $('mToken').value = sessionStorage.getItem('tu-hoc-business-case-admin-token') || $('mToken').value; } catch (e) { /* bỏ qua */ }
         if ($('mToken').value) loadServer();
       }
     }
@@ -2117,7 +2119,7 @@
     function loadServer() {
       var token = $('mToken').value.trim();
       if (!token) { serverStatus('Nhập token trước', 'amber'); return; }
-      try { sessionStorage.setItem('stratlab-admin-token', token); } catch (e) { /* bỏ qua */ }
+      try { sessionStorage.setItem('tu-hoc-business-case-admin-token', token); } catch (e) { /* bỏ qua */ }
       serverStatus('Đang tải…');
       var today = isoDay(new Date());
       fetch('/api/metrics/summary?days=' + $('mSpan').value + '&today=' + today, { headers: { Authorization: 'Bearer ' + token }, cache: 'no-store' })
@@ -2205,7 +2207,7 @@
       try {
         var a = document.createElement('a');
         a.href = URL.createObjectURL(new Blob([data], { type: 'application/json' }));
-        a.download = 'caselab-do-luong-' + isoDay(new Date()) + '.json';
+        a.download = 'tu-hoc-business-case-do-luong-' + isoDay(new Date()) + '.json';
         document.body.appendChild(a); a.click();
         setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 800);
       } catch (e) { /* môi trường chặn tải xuống */ }

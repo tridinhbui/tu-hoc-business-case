@@ -11,14 +11,14 @@
 <script>
 /* Theme boot — chạy trước khi paint để không nháy trắng.
    Không đặt data-theme nếu người dùng chưa chọn: khi đó prefers-color-scheme quyết định. */
-(function(){try{var t=localStorage.getItem("caselab.theme");
+(function(){try{var t=(localStorage.getItem("tu-hoc-business-case.theme")||localStorage.getItem("caselab.theme"));
 if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
 function toggleTheme(){
   var r=document.documentElement,cur=r.getAttribute("data-theme");
   if(!cur)cur=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
   var next=cur==="dark"?"light":"dark";
   r.setAttribute("data-theme",next);
-  try{localStorage.setItem("caselab.theme",next);}catch(e){}
+  try{localStorage.setItem("tu-hoc-business-case.theme",next);}catch(e){}
   paintThemeBtn();
 }
 function paintThemeBtn(){
@@ -66,6 +66,7 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
       <a href="#/roadmap"><span class="ic">🧭</span>Bắt đầu từ đâu</a>
       <a href="#/tracks"><span class="ic">📖</span>Học bài</a>
       <a href="#/career"><span class="ic">💼</span>Học theo nghề</a>
+      <a href="#/notebook"><span class="ic">📝</span>Sổ tay</a>
       <a href="#/fit"><span class="ic">🧪</span>Trắc nghiệm chọn nghề</a>
     </nav>
 

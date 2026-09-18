@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   STRATLAB — Design System Showcase View
+   Tự học Business Case — Design System Showcase View
    ══════════════════════════════════════════════════════════════════ */
 window.VIEWS = window.VIEWS || {};
 

@@ -1,4 +1,4 @@
-/* ═══ CASELAB · router + views ═══
+/* ═══ Tự học Business Case · router + views ═══
    Mọi con số tiến độ đọc từ State (assets/js/state.js). Mọi thao tác gọi ACT.*, ghi State rồi vẽ lại. */
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const DIFF = {1:"Beginner",2:"Intermediate",3:"Advanced",4:"Competition"};
@@ -266,7 +266,7 @@ const ACT = {
   exportData(){
     const blob = new Blob([State.exportJSON()],{type:"application/json"});
     const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
-    a.download = `caselab-backup-${State.today()}.json`; a.click();
+    a.download = `tu-hoc-business-case-backup-${State.today()}.json`; a.click();
     setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
   },
   importData(input){
@@ -281,7 +281,7 @@ const ARENA = {rec:"", start:0, caseId:null, timer:null, usedModel:false, previe
 const LIB = {mode:"all", ind:"", type:"", diff:"", skill:"", status:""};
 const REV = {kind:""};
 
-/* ════════ 0. STRATLAB ILLUSTRATED ROADMAP (ONBOARDING & MAP) ════════ */
+/* ════════ 0. Tự học Business Case ILLUSTRATED ROADMAP (ONBOARDING & MAP) ════════ */
 function vRoadmap(){
   const lv = State.level();
   const xp = State.xpTotal();
@@ -293,18 +293,18 @@ function vRoadmap(){
 
   return `<div class="main" style="max-width:1440px;margin:0 auto;padding:0 0 40px">
     <!-- Top Stats Header Bar -->
-    <div class="stratlab-header-bar" style="margin-bottom:24px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-      <div class="stratlab-header-left">
-        <a class="stratlab-logo-pill" href="#/roadmap">
-          <div class="stratlab-logo-icon">
+    <div class="thbc-header-bar" style="margin-bottom:24px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+      <div class="thbc-header-left">
+        <a class="thbc-logo-pill" href="#/roadmap">
+          <div class="thbc-logo-icon">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
               <path d="M4 18L10 12L14 16L20 6M20 6H15M20 6V11" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span style="font-weight:800;color:var(--text);letter-spacing:-.02em">STRATLAB</span>
-          <span style="color:var(--muted);font-weight:500;font-size:12px">| EDTECH THỰC CHIẾN</span>
+          <span style="font-weight:800;color:var(--text);letter-spacing:-.02em">Tự học Business Case</span>
+          <span style="color:var(--muted);font-weight:500;font-size:12px">| Học case bằng cách làm case</span>
         </a>
-        <span class="stratlab-subtag">Roadmap</span>
+        <span class="thbc-subtag">Roadmap</span>
       </div>
 
       <div style="flex:1;max-width:280px">
@@ -315,11 +315,11 @@ function vRoadmap(){
         </div>
       </div>
 
-      <div class="stratlab-stat-chips">
-        <div class="stratlab-stat-chip"><span>RANK · CẤP BẬC:</span> <b>${lv.title} · Lv. ${lv.lv}</b></div>
-        <div class="stratlab-stat-chip"><span>XP · ĐIỂM:</span> <b>${xp} / 400</b></div>
-        <div class="stratlab-stat-chip"><span>STREAK · CHUỖI:</span> <b>🔥 ${streak} ngày</b></div>
-        <div class="stratlab-stat-chip"><span>CASES · ĐÃ GIẢI:</span> <b>${casesDone}/36</b></div>
+      <div class="thbc-stat-chips">
+        <div class="thbc-stat-chip"><span>RANK · CẤP BẬC:</span> <b>${lv.title} · Lv. ${lv.lv}</b></div>
+        <div class="thbc-stat-chip"><span>XP · ĐIỂM:</span> <b>${xp} / 400</b></div>
+        <div class="thbc-stat-chip"><span>STREAK · CHUỖI:</span> <b>🔥 ${streak} ngày</b></div>
+        <div class="thbc-stat-chip"><span>CASES · ĐÃ GIẢI:</span> <b>${casesDone}/36</b></div>
         <div style="width:30px;height:30px;border-radius:50%;background:#059669;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800">TB</div>
       </div>
     </div>
@@ -374,7 +374,7 @@ function vRoadmap(){
 
     <!-- Tab Content 01: Illustrated Learning Map Canvas -->
     ${ROADMAP_UI.tab === '01' ? `
-      <div class="stratlab-map-container">
+      <div class="thbc-map-container">
         <!-- SVG Landscape Background (Isometric hills, winding sand road, river, bridge, trees) -->
         <svg class="map-canvas-backdrop" viewBox="0 0 1200 700" preserveAspectRatio="none">
           <defs>
@@ -980,7 +980,7 @@ function vTracks(){
             </div>
             <div style="font-size:15px;font-weight:800;color:#111827;margin-bottom:3px">Sổ tay của bạn</div>
             <div style="font-size:12px;color:#6B7280;line-height:1.4;margin-bottom:10px">Ghi lại điều vừa hiểu, trước khi quên.</div>
-            <a href="#/settings" style="display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;color:#059669;text-decoration:none">
+            <a href="#/notebook" style="display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;color:#059669;text-decoration:none">
               Mở sổ tay › <span style="font-size:13px">→</span>
             </a>
           </div>
@@ -2445,6 +2445,38 @@ function vSettings(){
   </div></div>`;
 }
 
+/* ════════ SỔ TAY ════════
+   Gom mọi ghi chú người học đã viết trong từng bài (State.notes) về một chỗ,
+   cộng một trang ghi chú chung. Dữ liệu vẫn nằm trong State nên đi theo file sao lưu. */
+const NOTE_GENERAL = "_general";
+function vNotebook(){
+  const notes = State.data.notes || {};
+  const ids = Object.keys(notes).filter(id => id !== NOTE_GENERAL && String(notes[id]).trim());
+  ids.sort((a,b) => lessonTitle(a).localeCompare(lessonTitle(b), "vi"));
+  const card = id => `<div class="card nb-card" data-text="${esc((lessonTitle(id)+" "+notes[id]).toLowerCase())}">
+      <div class="card-h"><h3><a href="#/lesson/${esc(id)}">${esc(lessonTitle(id))}</a></h3></div>
+      <div class="card-b"><textarea rows="5" style="width:100%" aria-label="Ghi chú cho ${esc(lessonTitle(id))}"
+        oninput="ACT.saveLessonNote('${esc(id)}', this.value)">${esc(notes[id])}</textarea></div>
+    </div>`;
+  return `<div class="main">
+  <h1>Sổ tay</h1>
+  <p class="muted" style="max-width:70ch;margin-top:6px">Mọi ghi chú bạn viết trong bài học được gom về đây. Sửa ở đây hay trong bài đều lưu ngay, và đi theo file sao lưu ở trang Dữ liệu.</p>
+  <div class="card mt">
+    <div class="card-h"><h3>Ghi chú chung</h3></div>
+    <div class="card-b"><textarea rows="6" style="width:100%" placeholder="Công thức hay dùng, câu hỏi muốn hỏi giảng viên, case muốn làm lại…"
+      oninput="ACT.saveLessonNote('${NOTE_GENERAL}', this.value)">${esc(notes[NOTE_GENERAL]||"")}</textarea></div>
+  </div>
+  <div class="row mt" style="align-items:center;gap:12px">
+    <h2 style="margin:0">Ghi chú theo bài · ${ids.length}</h2>
+    ${ids.length ? `<input type="search" placeholder="Tìm trong sổ tay…" style="flex:1;max-width:320px"
+      oninput="const q=this.value.trim().toLowerCase();document.querySelectorAll('.nb-card').forEach(c=>c.hidden=!!q&&!c.dataset.text.includes(q))">` : ""}
+  </div>
+  ${ids.length ? `<div class="grid g2 mt">${ids.map(card).join("")}</div>`
+    : `<div class="card mt"><div class="card-b muted">Chưa có ghi chú nào. Mở một bài học và viết vào ô ghi chú ở cuối bài — nó sẽ hiện ở đây.
+       <div class="mt"><a class="btn btn-p" href="#/tracks">Mở danh sách bài học</a></div></div></div>`}
+  </div>`;
+}
+
 /* ════════ ROUTER ════════ */
 const ROUTES = {
   roadmap:{f:vRoadmap, c:["Học tập","Bắt đầu từ đâu"]},
@@ -2460,6 +2492,7 @@ const ROUTES = {
   fit:{f:()=>vFit(), c:["Phát triển","Trắc nghiệm chọn nghề"]},
   compare:{f:()=>vCompare(), c:["Phát triển","So sánh nghề"]},
   review:{f:vReview, c:["Phát triển","Mistake Review"]},
+  notebook:{f:vNotebook, c:["Học tập","Sổ tay"]},
   settings:{f:vSettings, c:["Tài khoản","Dữ liệu & sao lưu"]}
 };
 

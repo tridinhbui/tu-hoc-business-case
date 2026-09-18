@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   STRATLAB — Editorial Contemporary & Gamified Simulation Components
+   Tự học Business Case — Editorial Contemporary & Gamified Simulation Components
    ══════════════════════════════════════════════════════════════════ */
 (function(){
 window.LANDING = window.LANDING || {};

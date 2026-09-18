@@ -1,6 +1,8 @@
-/* ===== STRATLAB — player state ===== */
+/* ===== Tự học Business Case — player state ===== */
 (function(){
-const KEY = "stratlab.v1";
+const KEY = "tu-hoc-business-case.v1";
+// Đổi tên từ "stratlab.v1": chép dữ liệu cũ sang một lần để người học không mất tiến độ.
+try{ if(localStorage.getItem(KEY)===null && localStorage.getItem("stratlab.v1")!==null) localStorage.setItem(KEY, localStorage.getItem("stratlab.v1")); }catch(e){}
 
 const LEVELS = [
   {n:"Intern", vi:"Thực tập sinh",           xp:0,     note:"Bắt đầu đọc số"},

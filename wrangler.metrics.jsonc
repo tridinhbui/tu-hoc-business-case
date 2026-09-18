@@ -2,7 +2,7 @@
 // (chưa đọc được log). Đổi lại thành wrangler.jsonc khi đã sửa xong để bật /api/metrics.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  // Worker của nhánh main (STRATLAB). Nền tảng ở nhánh cloudflare-platform dùng Worker riêng
+  // Worker của nhánh main (Tự học Business Case). Nền tảng ở nhánh cloudflare-platform dùng Worker riêng
   // "tu-hoc-business-case-app", nên hai bên không ghi đè nhau.
   "name": "tu-hoc-business-case",
   "main": "./worker/index.js",

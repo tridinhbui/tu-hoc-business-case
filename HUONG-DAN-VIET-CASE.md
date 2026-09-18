@@ -1,4 +1,4 @@
-# Hướng dẫn viết case cho STRATLAB
+# Hướng dẫn viết case cho Tự học Business Case
 
 > Tài liệu này tồn tại vì một lý do: **để người thứ hai viết được case mà không cần hỏi người thứ nhất.**
 > Nếu bạn đọc xong mà vẫn phải hỏi "case thế nào là đạt", tài liệu này chưa làm xong việc của nó — hãy báo.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CASELAB — Hệ thiết kế</title>
+<title>Tự học Business Case — Hệ thiết kế</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
@@ -22,14 +22,14 @@
   .ds-sec{padding:40px 0}
 </style>
 <script>
-(function(){try{var t=localStorage.getItem("caselab.theme");
+(function(){try{var t=(localStorage.getItem("tu-hoc-business-case.theme")||localStorage.getItem("caselab.theme"));
 if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
 function toggleTheme(){
   var r=document.documentElement,cur=r.getAttribute("data-theme");
   if(!cur)cur=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
   var next=cur==="dark"?"light":"dark";
   r.setAttribute("data-theme",next);
-  try{localStorage.setItem("caselab.theme",next);}catch(e){}
+  try{localStorage.setItem("tu-hoc-business-case.theme",next);}catch(e){}
   paintThemeBtn();
 }
 function paintThemeBtn(){
@@ -46,7 +46,7 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
 <header class="ds-top"><div class="ds in">
   <a class="brand row" href="landing.html" style="gap:10px">
     <span class="rail-mark">CL</span>
-    <span><span class="rail-name">CASELAB</span><span class="rail-sub">hệ thiết kế</span></span>
+    <span><span class="rail-name">Tự học Business Case</span><span class="rail-sub">hệ thiết kế</span></span>
   </a>
   <span style="flex:1"></span>
   <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Đổi nền sáng/tối">☾</button>
@@ -223,7 +223,7 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
 </div></section>
 
 <section class="band band-bleed band-paper"><div class="ds" style="padding:26px 28px 44px">
-  <span class="small muted">CASELAB · hệ thiết kế · sửa token tại assets/css/app.css</span>
+  <span class="small muted">Tự học Business Case · hệ thiết kế · sửa token tại assets/css/app.css</span>
 </div></section>
 
 </main>

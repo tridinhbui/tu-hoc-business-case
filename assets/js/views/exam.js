@@ -222,7 +222,7 @@ window.VIEWS.certificate = function(track){
     <section class="sec">
       <div class="panel" style="border:1px solid var(--brass);background:linear-gradient(180deg,var(--panel-2),var(--panel))">
         <div class="panel-b" style="padding:38px 34px;text-align:center">
-          <div class="mono" style="font-size:10px;letter-spacing:.28em;color:var(--dim-2);text-transform:uppercase">Stratlab · Certificate of Completion</div>
+          <div class="mono" style="font-size:10px;letter-spacing:.28em;color:var(--dim-2);text-transform:uppercase">Tự học Business Case · Certificate of Completion</div>
           <div style="width:40px;height:1px;background:var(--brass);margin:18px auto"></div>
           <div class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin-bottom:10px">Chứng nhận</div>
           <div style="font-family:var(--head);font-size:34px;letter-spacing:.03em;color:var(--ink);text-transform:uppercase">
@@ -247,7 +247,7 @@ window.VIEWS.certificate = function(track){
 
           <div style="width:100%;height:1px;background:var(--line);margin:24px 0 14px"></div>
           <div class="mono" style="font-size:10.5px;color:var(--dim-2);line-height:1.7">
-            Chứng chỉ này ghi nhận kết quả học tập trên STRATLAB.<br>
+            Chứng chỉ này ghi nhận kết quả học tập trên Tự học Business Case.<br>
             Đây là sản phẩm luyện tập, không phải chứng chỉ nghề nghiệp được công nhận chính thức.
           </div>
         </div>

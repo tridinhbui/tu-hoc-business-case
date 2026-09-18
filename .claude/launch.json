@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "stratlab",
+      "name": "tu-hoc-business-case",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
         "-m",
@@ -12,7 +12,7 @@
       "port": 4477
     },
     {
-      "name": "caselab",
+      "name": "tu-hoc-business-case-v1",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
         "-m",
@@ -22,7 +22,7 @@
       "port": 4488
     },
     {
-      "name": "caselab-v2",
+      "name": "tu-hoc-business-case-v2",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
         "-m",
@@ -32,7 +32,7 @@
       "port": 4499
     },
     {
-      "name": "caselab-v2-alt",
+      "name": "tu-hoc-business-case-v2-alt",
       "runtimeExecutable": "python3",
       "runtimeArgs": [
         "-m",

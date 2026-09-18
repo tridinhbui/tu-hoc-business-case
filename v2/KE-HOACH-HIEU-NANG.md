@@ -42,7 +42,7 @@ thật có nén hay không — đây là việc phải xác minh đầu tiên.
 | Chọn đáp án / kiểm tra bài tính | vẽ lại cả trang ~4 ms | ổn |
 | Listener cuộn, chuột (`metrics.js`) | `passive`, chỉ ghi dấu thời gian | ổn |
 | Timer Arena / Competition / Interview | được `clearInterval` khi rời trang | ổn |
-| State người học (`caselab.v2`) | 12 KB sau dữ liệu mẫu, ~48 KB khi xong 365 bài | ổn |
+| State người học (`tu-hoc-business-case.v2`) | 12 KB sau dữ liệu mẫu, ~48 KB khi xong 365 bài | ổn |
 | Ảnh, asset base64 | không có | ổn |
 
 ### Ước tính thời gian tải JS (mô hình, chưa đo thật)
@@ -99,7 +99,7 @@ Chrome DevTools hoặc Lighthouse với **Fast 4G + CPU chậm 4 lần**, cửa 
 
 ### Tầng 3 · Hiện trường, liên tục
 
-`metrics.js` đã ghi hành vi học vào `caselab.metrics.v1`. Mở rộng nó ghi thêm
+`metrics.js` đã ghi hành vi học vào `tu-hoc-business-case.metrics.v1`. Mở rộng nó ghi thêm
 `navigation timing` và `view-ready` của mỗi lần mở trang, để `admin.html` hiện
 phân vị p50/p75 thật theo thiết bị của người dùng — con số duy nhất không phải
 ước tính.

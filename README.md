@@ -1,4 +1,4 @@
-# STRATLAB — Business Case Simulation World
+# Tự học Business Case — luyện giải case
 
 Website gamified để **luyện giải business case thực chiến** và **hiểu mô hình kinh doanh của doanh nghiệp thật** (ưu tiên Việt Nam, có benchmark quốc tế).
 
