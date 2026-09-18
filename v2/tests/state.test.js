@@ -135,4 +135,60 @@ t("chặng lộ trình nghề tính theo bài đã có nội dung",()=>{
   W.LESSONS.filter(l=>l.track==="fundamentals" && !l.soon).forEach(l=>S.completeLesson(l.id));
   assert.equal(S.careerProgress("consulting"),1);         // trước đây kẹt ở 0 vì track còn bài đang soạn
 });
+t("vàng = XP đã kiếm trừ phần đã tiêu; tiêu vàng không làm giảm XP hay cấp",()=>{
+  S.reset(); S._setToday("2026-09-13");
+  assert.equal(S.gold(),0);
+  assert.match(S.buy("freeze"), /Cần 150 vàng/);                        // không đủ vàng thì không mua được
+  W.LESSONS.slice(0,4).forEach(l=>S.completeLesson(l.id));              // 200 XP
+  const xp=S.xpTotal(), lv=S.level().lv;
+  assert.equal(S.buy("freeze"),null);
+  assert.equal(S.gold(), xp-150); assert.equal(S.xpTotal(), xp); assert.equal(S.level().lv, lv);
+  assert.equal(S.inv().freeze,1);
+  assert.equal(S.buy("khong-co"),"Không có món này.");
+});
+t("thẻ giữ chuỗi: giới hạn số thẻ, và chỉ dùng khi có chuỗi thật để giữ",()=>{
+  S.reset(); S._setToday("2026-09-10");
+  W.LESSONS.slice(0,8).forEach(l=>S.completeLesson(l.id));              // 400 XP, học ngày 10
+  assert.equal(S.buy("freeze"),null); assert.equal(S.buy("freeze"),null);
+  assert.match(S.buy("freeze"), /tối đa 2/);
+  S._setToday("2026-09-11"); assert.equal(S.applyStreakFreeze(),null);   // hôm qua (10) có học: không tiêu thẻ
+  S._setToday("2026-09-12");                                            // bỏ ngày 11
+  assert.equal(S.applyStreakFreeze(),"2026-09-11");
+  assert.equal(S.inv().freeze,1); assert.equal(S.streak(),2);           // ngày 10 + ngày 11 đã được giữ
+  S._setToday("2026-09-20"); assert.equal(S.applyStreakFreeze(),null);   // chuỗi đã đứt từ lâu: không phí thẻ
+  assert.equal(S.inv().freeze,1);
+  S._setToday("2026-09-13");
+});
+t("giao diện mua một lần, bật tắt được, không mua lại được",()=>{
+  S.reset(); W.LESSONS.slice(0,8).forEach(l=>S.completeLesson(l.id));
+  assert.equal(S.buy("theme-ocean"),null); assert.equal(S.inv().theme,"theme-ocean");
+  assert.equal(S.buy("theme-ocean"),"Bạn đã có món này.");
+  S.equip("theme-ocean"); assert.equal(S.inv().theme,null);
+  S.equip("theme-ocean"); assert.equal(S.inv().theme,"theme-ocean");
+  S.equip("theme-plum"); assert.equal(S.inv().theme,"theme-ocean");      // chưa mua thì không dùng được
+});
+t("bộ thẻ suy ra từ tiến độ: có thẻ khi có bằng chứng, mất khi bằng chứng mất",()=>{
+  S.reset();
+  const has = id => S.cards().find(c=>c.id===id).owned;
+  assert.equal(has("case-1"),false);
+  S.recordAttempt("cl-01",{scores:{},total:92,answers:{}});
+  assert.equal(has("case-1"),true); assert.equal(has("case-90"),true);
+  S.addMistake({kind:"calculation",ref:"cl-01",src:"x",bad:"1",good:"2",why:"",lesson:["f-unit-1",""]});
+  assert.equal(has("fix-calculation"),false);                           // đang mở thì chưa có thẻ
+  const id=S.openMistakes()[0].id; S.reviewMistake(id); S.reviewMistake(id); S.reviewMistake(id);
+  assert.equal(has("fix-calculation"),true);
+  S.reset(); assert.equal(has("case-1"),false);                         // xoá tiến độ thì thẻ cũng không còn
+});
+t("thông báo chỉ gồm việc thật, và 'đã xem' reset theo ngày",()=>{
+  S.reset(); S._setToday("2026-09-13");
+  assert.ok(S.notifications().every(n=>!/lỗi sai tới hạn|Chuỗi/.test(n.text)));   // chưa có gì thì không báo lỗi hay chuỗi
+  W.LESSONS.slice(0,1).forEach(l=>S.completeLesson(l.id));
+  S._setToday("2026-09-14");
+  assert.ok(S.notifications().some(n=>/Chuỗi 1 ngày sẽ đứt/.test(n.text)));
+  const before=S.unreadCount(); assert.ok(before>0);
+  S.markNotifsSeen(); assert.equal(S.unreadCount(),0);
+  S._setToday("2026-09-15");                                            // hôm sau, việc còn chờ thì báo lại
+  assert.ok(S.unreadCount()>0 || S.notifications().length===0);
+  S._setToday("2026-09-13");
+});
 console.log(`\n${n} test đạt`);

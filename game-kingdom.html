@@ -854,7 +854,7 @@
   <script>(function(){var n=document.getElementById('sbNav');if(!n)return;try{var y=sessionStorage.getItem('sb-scroll');if(y)n.scrollTop=+y;}catch(e){}var a=n.querySelector('.sb-on');if(a){var r=a.getBoundingClientRect(),b=n.getBoundingClientRect();if(r.top<b.top||r.bottom>b.bottom)n.scrollTop+=r.top-b.top-(b.height-r.height)/2;}addEventListener('pagehide',function(){try{sessionStorage.setItem('sb-scroll',n.scrollTop);}catch(e){}});})();</script>
   <div class="sb-foot">
     <div class="sb-wallet">
-      <a href="cua-hang-rpg.html" class="sb-gold" title="Túi vàng — đổi quà ở cửa hàng"><span aria-hidden="true">🪙</span><span>Túi vàng</span><span class="sb-gold-n" id="goldSidebarCount">60</span></a>
+      <a href="/v2/#/shop" class="sb-gold" title="Túi vàng — đổi quà ở cửa hàng"><span aria-hidden="true">🪙</span><span>Túi vàng</span><span class="sb-gold-n" id="goldSidebarCount">60</span></a>
       <button type="button" class="sb-bell" title="Thông báo" aria-label="Thông báo, 9+ mới"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><b>9+</b></button>
     </div>
     <a href="ho-so.html" class="sb-user" title="Hồ sơ cá nhân">
@@ -902,16 +902,16 @@
         <button class="tab-btn active">
           🏰 Bản đồ thế giới & Boss
         </button>
-        <button class="tab-btn" onclick="openShopModal()">
+        <button class="tab-btn" onclick="location.href='/v2/#/shop'">
           🎒 Tiệm đồ & Trang bị
         </button>
-        <button class="tab-btn" onclick="openCardsModal()">
+        <button class="tab-btn" onclick="location.href='/v2/#/cards'">
           🎴 Thẻ bài chiến thuật
         </button>
       </div>
 
       <div class="tabs-right-actions">
-        <button class="btn-action-pill" onclick="openShopModal()">
+        <button class="btn-action-pill" onclick="location.href='/v2/#/shop'">
           <span>🎒 Mở kho đồ</span>
         </button>
         <button class="btn-action-pill" onclick="resetCanvasView()">
@@ -1075,7 +1075,7 @@
                 <div style="font-size:10px; color:#64748b;">Không bị mất chuỗi Streak nếu nghỉ 1 ngày</div>
               </div>
             </div>
-            <button class="btn-primary" onclick="alert('Cửa hàng chưa mở — chưa có vật phẩm nào được mua và vàng của bạn không bị trừ.')">20 🪙</button>
+            <button class="btn-primary" onclick="location.href='/v2/#/shop'">20 🪙</button>
           </div>
 
           <div style="display:flex; align-items:center; justify-content:space-between; padding:10px; border:1px solid #e2e8f0; border-radius:10px;">
@@ -1086,7 +1086,7 @@
                 <div style="font-size:10px; color:#64748b;">Hồi phục 100% năng lượng đấu Boss</div>
               </div>
             </div>
-            <button class="btn-primary" onclick="alert('Cửa hàng chưa mở — chưa có vật phẩm nào được mua và vàng của bạn không bị trừ.')">15 🪙</button>
+            <button class="btn-primary" onclick="location.href='/v2/#/shop'">15 🪙</button>
           </div>
         </div>
       </div>
@@ -1155,7 +1155,7 @@
     }
 
     function investNode() {
-      alert('Nâng cấp cơ sở chưa mở — vàng của bạn không bị trừ. Hãy hạ boss bằng cách làm case trong Practice Arena.');location.href='/v2/#/arena';
+      location.href='/v2/#/arena';
       closeModal('nodeModal');
     }
 
@@ -1176,7 +1176,7 @@
       openModal('shopModal');
     }
     function openCardsModal() {
-      alert('Bộ thẻ bài chưa mở. Bạn chưa có thẻ nào.');
+      location.href='/v2/#/cards';
     }
   </script>
 </body>

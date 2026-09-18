@@ -14,7 +14,7 @@ for(const f of ["data/curriculum","data/careers","data/library","data/lessons/_r
 const run = src => vm.runInContext(src, ctx);
 let n=0;
 function screens(label){
-  const calls = ["vDashboard()","vTracks()","vLibrary()","vCareer()","vCompetition()","vInterview()","vReview()","vSettings()",
+  const calls = ["vDashboard()","vTracks()","vLibrary()","vCareer()","vCompetition()","vInterview()","vReview()","vSettings()","vNotebook()","vShop()","vCards()","vNotifications()",
     "vArena()","vArena('cl-05')","vArena('khong-co')",
     "vCompetition()","vCompetition('cc-01')","vCompetition('khong-co')",
     "vInterview()","vInterview('iv-01')","vInterview('khong-co')",

@@ -92,17 +92,19 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
         <span class="nav-tag-pill yellow" id="revBadge" hidden>0</span>
       </a>
       <a href="#/compare"><span class="ic">⚖️</span>So sánh nghề</a>
+      <a href="#/cards"><span class="ic">🃏</span>Bộ thẻ</a>
+      <a href="#/shop"><span class="ic">🪙</span>Cửa hàng</a>
     </nav>
 
     <div class="rail-foot" style="margin-top:auto;border-top:1px solid var(--border);padding:12px 14px">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+      <a href="#/shop" title="Mở cửa hàng" style="text-decoration:none;color:inherit;display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
         <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--text)">
-          <span>✨</span><span>Điểm XP</span>
+          <span>🪙</span><span>Vàng</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px">
           <span style="font-weight:800;font-size:13px;color:#D97706" id="goldCounter">0</span>
         </div>
-      </div>
+      </a>
 
       <a class="rail-user-profile" href="#/settings" style="display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:10px;text-decoration:none;color:inherit;background:transparent;transition:background .15s ease">
         <div class="user-av-pic" style="width:34px;height:34px;border-radius:50%;background:#064E3B;color:#ECFDF5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none">TB</div>
@@ -123,6 +125,8 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
           <span>⌕</span><span>Tìm case, bài học…</span><kbd>⌘K</kbd>
         </div>
         <span id="langBox"></span>
+        <a class="icon-btn" href="#/notifications" aria-label="Thông báo" style="position:relative;text-decoration:none">🔔<span id="notifBadge" hidden
+          style="position:absolute;top:-4px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:99px;background:#DC2626;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">0</span></a>
         <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Đổi nền sáng/tối">☾</button>
       </div>
     </header>

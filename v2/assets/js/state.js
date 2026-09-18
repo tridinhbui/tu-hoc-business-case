@@ -30,7 +30,9 @@ function blank(){
   return { v:2, user:{name:"Học viên", created:today()}, lessons:{}, cases:{},
            mistakes:[], activity:{}, career:null, seq:0, tick:0,
            readerPrefs:{ fontSize:100, theme:"light", bookmarks:[] },
-           notes:{}, dailyChallenge:{}, drills:{}, careerQuiz:null };
+           notes:{}, dailyChallenge:{}, drills:{}, careerQuiz:null,
+           wallet:{spent:0, log:[]}, inventory:{freeze:0, themes:[], theme:null, frame:null},
+           frozenDays:[], notifSeen:{} };
 }
 
 let S = load();
@@ -183,7 +185,7 @@ function level(){
            next: next?next[0]:null, nextTitle: next?next[1]:null };
 }
 
-const active = iso => (S.activity[iso]||{}).xp > 0;
+const active = iso => (S.activity[iso]||{}).xp > 0 || (S.frozenDays||[]).includes(iso);
 function streak(){
   let d = today();
   if(!active(d)) d = addDays(d,-1);        // hôm nay chưa học vẫn giữ chuỗi tới hết ngày
@@ -292,6 +294,115 @@ function careerProgress(careerId){
     if(!ok) break; done++;
   }
   return done;
+}
+
+/* ════════ VÍ VÀNG · CỬA HÀNG ════════
+   Vàng = tổng XP đã kiếm trừ đi phần đã tiêu. Tiêu vàng KHÔNG làm giảm XP hay cấp độ:
+   tiến độ học không bao giờ đi lùi vì mua sắm. Cửa hàng chỉ bán thứ không đi tắt qua việc học. */
+const SHOP = [
+  {id:"freeze", kind:"freeze", name:"Thẻ giữ chuỗi", price:150, max:2,
+   desc:"Tự dùng khi bạn lỡ một ngày: chuỗi ngày học không bị đứt. Giữ tối đa 2 thẻ."},
+  {id:"theme-amber",  kind:"theme", name:"Giao diện Hổ phách", price:300, color:"#B45309", desc:"Đổi màu nhấn của toàn bộ ứng dụng."},
+  {id:"theme-ocean",  kind:"theme", name:"Giao diện Đại dương", price:300, color:"#1D4E89", desc:"Đổi màu nhấn của toàn bộ ứng dụng."},
+  {id:"theme-plum",   kind:"theme", name:"Giao diện Mận chín",  price:300, color:"#7E2F6B", desc:"Đổi màu nhấn của toàn bộ ứng dụng."},
+  {id:"frame-gold",   kind:"frame", name:"Khung ảnh Vàng",      price:200, color:"#D97706", desc:"Viền quanh ảnh đại diện ở thanh bên."},
+  {id:"frame-jade",   kind:"frame", name:"Khung ảnh Ngọc",      price:200, color:"#059669", desc:"Viền quanh ảnh đại diện ở thanh bên."}
+];
+const SHOP_BY_ID = Object.fromEntries(SHOP.map(i=>[i.id,i]));
+function wallet(){ if(!S.wallet) S.wallet = {spent:0, log:[]}; return S.wallet; }
+function inv(){ if(!S.inventory) S.inventory = {freeze:0, themes:[], theme:null, frame:null}; return S.inventory; }
+const gold = () => Math.max(0, xpTotal() - wallet().spent);
+function owns(id){
+  const it = SHOP_BY_ID[id], I = inv();
+  if(!it) return false;
+  if(it.kind==="theme") return I.themes.includes(id);
+  if(it.kind==="frame") return (I.frames||[]).includes(id);
+  return false;
+}
+/* trả về chuỗi lỗi (để hiện cho người học) hoặc null nếu mua được */
+function buy(id){
+  const it = SHOP_BY_ID[id], I = inv(), W = wallet();
+  if(!it) return "Không có món này.";
+  if(it.kind==="freeze" && I.freeze >= it.max) return `Bạn đã giữ tối đa ${it.max} thẻ.`;
+  if(it.kind!=="freeze" && owns(id)) return "Bạn đã có món này.";
+  if(gold() < it.price) return `Cần ${it.price} vàng, bạn đang có ${gold()}.`;
+  W.spent += it.price; W.log.unshift({id, price:it.price, at:today()}); W.log = W.log.slice(0,50);
+  if(it.kind==="freeze") I.freeze += 1;
+  if(it.kind==="theme"){ I.themes.push(id); I.theme = id; }
+  if(it.kind==="frame"){ (I.frames = I.frames||[]).push(id); I.frame = id; }
+  save(); return null;
+}
+function equip(id){
+  const it = SHOP_BY_ID[id], I = inv();
+  if(id===null){ I.theme = null; save(); return; }
+  if(!it || !owns(id)) return;
+  if(it.kind==="theme") I.theme = (I.theme===id ? null : id);
+  if(it.kind==="frame") I.frame = (I.frame===id ? null : id);
+  save();
+}
+/* Gọi một lần khi mở ứng dụng: nếu hôm qua không học mà còn thẻ giữ chuỗi, dùng một thẻ cho hôm qua.
+   Chỉ dùng khi chuỗi trước đó thực sự tồn tại — không tiêu thẻ để "giữ" một chuỗi bằng 0. */
+function applyStreakFreeze(){
+  const I = inv(), y = addDays(today(),-1), before = addDays(today(),-2);
+  if(I.freeze<=0 || active(y) || !active(before)) return null;
+  (S.frozenDays = S.frozenDays||[]).push(y); I.freeze -= 1; save();
+  return y;
+}
+
+/* ════════ BỘ THẺ ════════
+   Mỗi thẻ gắn với một việc đã làm được. Suy ra hoàn toàn từ tiến độ, nên không thể có thẻ
+   mà không có bằng chứng tương ứng. */
+function cards(){
+  const out = [];
+  const add = (id, group, name, desc, owned, progress) => out.push({id, group, name, desc, owned:!!owned, progress:progress||""});
+  (window.TRACKS||[]).forEach(t=>{
+    const st = trackStats(t.id);
+    if(st.ready) add("track-"+t.id, "Chặng học", t.vi || t.n || t.id, "Hoàn thành mọi bài đã có nội dung của chặng này.", st.readyPct>=100, `${st.done}/${st.ready} bài`);
+  });
+  Object.keys(MIST_KIND).forEach(k=>{
+    const all = S.mistakes.filter(m=>m.kind===k), open = all.filter(m=>!m.resolved).length, fixed = all.filter(m=>m.resolved).length;
+    add("fix-"+k, "Lỗi đã trị", `Đã trị: ${MIST_KIND[k]}`, "Từng mắc loại lỗi này, và giờ không còn lỗi nào đang mở.", fixed>0 && open===0,
+        all.length ? `${fixed} đã sửa · ${open} đang mở` : "chưa mắc lỗi loại này");
+  });
+  const solved = casesSolved(), best = solved.reduce((a,r)=>Math.max(a,r.best||0),0);
+  add("case-1",  "Case", "Case đầu tiên", "Nộp bài giải một case trong Arena.", solved.length>=1, `${solved.length} case đã giải`);
+  add("case-10", "Case", "Mười case", "Giải 10 case khác nhau.", solved.length>=10, `${solved.length}/10`);
+  add("case-90", "Case", "Bài xuất sắc", "Đạt từ 90 điểm ở một case.", best>=90, `cao nhất ${best}`);
+  const bs = bestStreak();
+  add("streak-7",  "Chuỗi ngày", "Một tuần liền", "Học 7 ngày liên tiếp.", bs>=7, `dài nhất ${bs} ngày`);
+  add("streak-30", "Chuỗi ngày", "Một tháng liền", "Học 30 ngày liên tiếp.", bs>=30, `dài nhất ${bs} ngày`);
+  const lv = level();
+  LEVELS.forEach(([floor,title],i)=>{ if(i>0) add("lv-"+(i+1), "Cấp độ", title, `Đạt cấp ${i+1} (${floor} XP).`, lv.lv>=i+1, `${lv.xp}/${floor} XP`); });
+  return out;
+}
+
+/* ════════ THÔNG BÁO ════════
+   Không có thông báo nào bịa ra: mỗi mục là một việc thật đang chờ người học,
+   tính lại mỗi lần mở. "Đã xem" chỉ lưu theo ngày để mục quan trọng xuất hiện lại hôm sau. */
+function notifications(){
+  const t = today(), out = [];
+  const due = dueToday();
+  if(due) out.push({id:"due-"+t, icon:"🔁", text:`${due} lỗi sai tới hạn ôn hôm nay`, href:"#/review", urgent:true});
+  const st = streak(), learnedToday = (S.activity[t]||{}).xp > 0;
+  if(st>0 && !learnedToday) out.push({id:"streak-"+t, icon:"🔥", text:`Chuỗi ${st} ngày sẽ đứt nếu hôm nay bạn chưa học`, href:"#/dashboard", urgent:true});
+  if((S.frozenDays||[]).includes(addDays(t,-1))) out.push({id:"frozen-"+t, icon:"🧊", text:"Hôm qua bạn lỡ học — một thẻ giữ chuỗi đã được dùng", href:"#/shop"});
+  const n = nextLesson();
+  if(n) out.push({id:"next-"+n.id, icon:"📖", text:`Bài tiếp theo: ${n.t}`, href:"#/lesson/"+n.id});
+  const seenCards = (S.notifSeen||{}).cards || [];
+  cards().filter(c=>c.owned && !seenCards.includes(c.id)).forEach(c=>out.push({id:"card-"+c.id, icon:"🃏", text:`Thẻ mới: ${c.name}`, href:"#/cards", card:c.id}));
+  if(st>=3 && inv().freeze===0 && gold()>=SHOP_BY_ID.freeze.price)
+    out.push({id:"freeze-"+t, icon:"🧊", text:`Bạn đủ vàng mua thẻ giữ chuỗi để bảo vệ chuỗi ${st} ngày`, href:"#/shop"});
+  const seen = ((S.notifSeen||{})[t]) || [];
+  return out.map(n=>Object.assign(n, {seen: seen.includes(n.id)}));
+}
+const unreadCount = () => notifications().filter(n=>!n.seen).length;
+function markNotifsSeen(){
+  const t = today(), list = notifications();
+  S.notifSeen = S.notifSeen || {};
+  /* chỉ giữ ngày hôm nay và danh sách thẻ đã báo, để dữ liệu không phình ra theo thời gian */
+  const cardsSeen = (S.notifSeen.cards||[]).concat(list.filter(n=>n.card).map(n=>n.card));
+  S.notifSeen = { [t]: list.map(n=>n.id), cards: Array.from(new Set(cardsSeen)) };
+  save();
 }
 
 /* ════════ GHI ════════ */
@@ -477,6 +588,7 @@ window.State = {
   drillRec, answerDrill, rateDrill, resetDrill, drillStats, answerCareerQuiz, clearCareerQuiz,
   getReaderPrefs, setReaderFontSize, setReaderTheme, isBookmarked, toggleBookmark,
   getLessonNote, setLessonNote, getDailyChallenge, answerDailyChallenge,
+  SHOP, SHOP_BY_ID, gold, wallet, inv, owns, buy, equip, applyStreakFreeze, cards, notifications, unreadCount, markNotifsSeen,
   exportJSON, importJSON, reset, seedDemo
 };
 })();

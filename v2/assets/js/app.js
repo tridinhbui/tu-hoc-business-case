@@ -263,6 +263,14 @@ const ACT = {
 
 
   saveName(){ State.setName(document.getElementById("set-name").value); toast("Đã lưu tên"); render(true); },
+  buy(id){
+    const it = State.SHOP_BY_ID[id];
+    if(!confirm(`Mua ${it.name} với ${it.price} vàng?`)) return;
+    const err = State.buy(id);
+    if(err){ toast(esc(err)); return; }
+    toast(`Đã mua ${esc(it.name)}`); applyLook(); render(true);
+  },
+  equip(id){ State.equip(id); applyLook(); render(true); },
   exportData(){
     const blob = new Blob([State.exportJSON()],{type:"application/json"});
     const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
@@ -2477,6 +2485,83 @@ function vNotebook(){
   </div>`;
 }
 
+/* ════════ CỬA HÀNG ════════ */
+function applyLook(){
+  const I = State.inv(), root = document.documentElement.style;
+  const theme = I.theme && State.SHOP_BY_ID[I.theme];
+  if(theme) root.setProperty("--primary", theme.color); else root.removeProperty("--primary");
+  const frame = I.frame && State.SHOP_BY_ID[I.frame];
+  document.querySelectorAll(".user-av-pic, .rail-av").forEach(el=>{ el.style.boxShadow = frame ? `0 0 0 3px ${frame.color}` : ""; });
+}
+function vShop(){
+  const I = State.inv(), g = State.gold(), log = State.wallet().log;
+  const item = it => {
+    const owned = State.owns(it.id), equipped = I.theme===it.id || I.frame===it.id;
+    const action = it.kind==="freeze"
+      ? `<button class="btn btn-p" ${I.freeze>=it.max||g<it.price?"disabled":""} onclick="ACT.buy('${it.id}')">Mua · ${it.price} vàng</button>
+         <span class="muted small">Đang giữ ${I.freeze}/${it.max}</span>`
+      : owned
+        ? `<button class="btn" onclick="ACT.equip('${it.id}')">${equipped?"Đang dùng · bấm để bỏ":"Dùng"}</button>`
+        : `<button class="btn btn-p" ${g<it.price?"disabled":""} onclick="ACT.buy('${it.id}')">Mua · ${it.price} vàng</button>`;
+    const swatch = it.color ? `<span style="display:inline-block;width:14px;height:14px;border-radius:4px;background:${it.color};vertical-align:-2px;margin-right:6px"></span>` : "🧊 ";
+    return `<div class="card"><div class="card-b">
+      <div style="font-weight:800">${swatch}${esc(it.name)}</div>
+      <p class="muted small" style="margin:6px 0 12px">${esc(it.desc)}</p>
+      <div class="row" style="gap:10px;align-items:center;flex-wrap:wrap">${action}</div>
+    </div></div>`;
+  };
+  return `<div class="main">
+  <h1>Cửa hàng</h1>
+  <p class="muted" style="max-width:72ch;margin-top:6px">Vàng là XP bạn đã kiếm. Tiêu vàng không làm giảm XP hay cấp độ — tiến độ học không bao giờ đi lùi vì mua sắm.
+  Cửa hàng không bán gợi ý, đáp án hay quyền bỏ qua bài: những thứ đó đi tắt qua đúng phần bạn đang tập.</p>
+  <div class="card mt"><div class="card-b row" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div><div class="muted small">Vàng hiện có</div><div style="font-size:28px;font-weight:800;color:#D97706">${fmtN(g)}</div></div>
+    <div class="muted small">Đã kiếm ${fmtN(State.xpTotal())} · đã tiêu ${fmtN(State.wallet().spent)}</div>
+  </div></div>
+  <h2 class="mt">Giữ chuỗi</h2>
+  <div class="grid g2 mt">${State.SHOP.filter(i=>i.kind==="freeze").map(item).join("")}</div>
+  <h2 class="mt">Giao diện</h2>
+  <div class="grid g2 mt">${State.SHOP.filter(i=>i.kind==="theme").map(item).join("")}</div>
+  <h2 class="mt">Khung ảnh đại diện</h2>
+  <div class="grid g2 mt">${State.SHOP.filter(i=>i.kind==="frame").map(item).join("")}</div>
+  ${log.length ? `<h2 class="mt">Lịch sử mua</h2><div class="card mt"><div class="card-b"><dl class="kv">
+    ${log.slice(0,10).map(e=>`<dt>${esc(e.at)}</dt><dd>${esc((State.SHOP_BY_ID[e.id]||{}).name||e.id)} · −${e.price} vàng</dd>`).join("")}
+  </dl></div></div>` : ""}
+  </div>`;
+}
+
+/* ════════ BỘ THẺ ════════ */
+function vCards(){
+  const all = State.cards(), owned = all.filter(c=>c.owned).length;
+  const groups = [...new Set(all.map(c=>c.group))];
+  const card = c => `<div class="card" style="${c.owned?"":"opacity:.55;filter:grayscale(1)"}"><div class="card-b">
+      <div style="font-size:22px">${c.owned?"🃏":"🔒"}</div>
+      <div style="font-weight:800;margin-top:6px">${esc(c.name)}</div>
+      <p class="muted small" style="margin:6px 0">${esc(c.desc)}</p>
+      <div class="small" style="color:${c.owned?"var(--primary)":"var(--muted)"}">${c.owned?"Đã có":esc(c.progress)}</div>
+    </div></div>`;
+  return `<div class="main">
+  <h1>Bộ thẻ · ${owned}/${all.length}</h1>
+  <p class="muted" style="max-width:72ch;margin-top:6px">Mỗi thẻ gắn với một việc bạn đã làm được — hoàn thành một chặng, trị dứt một loại lỗi, giải được case khó.
+  Không có thẻ nào mua được bằng vàng, và thẻ tự mất nếu bằng chứng của nó không còn.</p>
+  ${groups.map(g=>`<h2 class="mt">${esc(g)}</h2><div class="grid g3 mt">${all.filter(c=>c.group===g).map(card).join("")}</div>`).join("")}
+  </div>`;
+}
+
+/* ════════ THÔNG BÁO ════════ */
+function vNotifications(){
+  const list = State.notifications();
+  const html = `<div class="main">
+  <h1>Thông báo</h1>
+  <p class="muted" style="max-width:72ch;margin-top:6px">Chỉ những việc thật đang chờ bạn, tính lại mỗi lần mở — không có thông báo nào được bịa ra để kéo bạn quay lại.</p>
+  ${list.length ? `<div class="card mt"><div class="card-b" style="display:grid;gap:4px">
+    ${list.map(n=>`<a href="${esc(n.href)}" style="display:flex;gap:12px;align-items:center;padding:10px 8px;border-radius:8px;text-decoration:none;color:inherit;${n.urgent?"background:#FEF3C7":""}">
+      <span style="font-size:18px">${n.icon}</span><span style="flex:1${n.seen?";color:var(--muted)":";font-weight:700"}">${esc(n.text)}</span><span class="muted">›</span></a>`).join("")}
+  </div></div>` : `<div class="card mt"><div class="card-b muted">Không có việc gì đang chờ. Bạn đã làm hết phần của hôm nay.</div></div>`}
+  </div>`;
+  return html;
+}
+
 /* ════════ ROUTER ════════ */
 const ROUTES = {
   roadmap:{f:vRoadmap, c:["Học tập","Bắt đầu từ đâu"]},
@@ -2493,6 +2578,9 @@ const ROUTES = {
   compare:{f:()=>vCompare(), c:["Phát triển","So sánh nghề"]},
   review:{f:vReview, c:["Phát triển","Mistake Review"]},
   notebook:{f:vNotebook, c:["Học tập","Sổ tay"]},
+  shop:{f:vShop, c:["Tài khoản","Cửa hàng"]},
+  cards:{f:vCards, c:["Phát triển","Bộ thẻ"]},
+  notifications:{f:vNotifications, c:["Tài khoản","Thông báo"]},
   settings:{f:vSettings, c:["Tài khoản","Dữ liệu & sao lưu"]}
 };
 
@@ -2503,9 +2591,11 @@ function renderRail(){
   set(".rail-av", ini); set(".user-av-pic", ini); set(".rail-nm", name); set(".rail-lv", `${lv.title} · Lv ${lv.lv}`);
   const gold = document.getElementById("goldCounter");
   if(gold){
-    const totalXP = State.xpTotal();
-    gold.textContent = totalXP.toLocaleString("vi-VN");
+    gold.textContent = State.gold().toLocaleString("vi-VN");
   }
+  const bell = document.getElementById("notifBadge"), unread = State.unreadCount();
+  if(bell){ bell.textContent = unread; bell.hidden = !unread; }
+  applyLook();
   const badge = document.getElementById("revBadge"), due = State.dueToday();
   if(badge){ badge.textContent = due; badge.hidden = !due; }
 }
@@ -2525,6 +2615,8 @@ function render(keepScroll){
   else if(key==="compare") html = vCompare(parts[1]);
   else html = r.f();
   document.getElementById("view").innerHTML = html;
+  /* mở trang thông báo nghĩa là đã xem: ghi sau khi vẽ, để trang vẫn hiện đậm những mục mới */
+  if(key==="notifications"){ State.markNotifsSeen(); renderRail(); }
   document.getElementById("crumbs").innerHTML =
     r.c.map((x,i,a)=> i===a.length-1?`<b>${esc(x)}</b>`:`${esc(x)} <span>›</span>`).join(" ");
   document.querySelectorAll(".rail a").forEach(a=>{
@@ -2553,4 +2645,9 @@ function render(keepScroll){
   window.scrollTo(0, keepScroll ? y : 0);
 }
 addEventListener("hashchange", ()=>render());
-addEventListener("DOMContentLoaded", ()=>{ if(!location.hash) location.hash="#/dashboard"; render(); });
+addEventListener("DOMContentLoaded", ()=>{
+  const frozen = State.applyStreakFreeze();
+  if(!location.hash) location.hash="#/dashboard";
+  render();
+  if(frozen) toast("Hôm qua bạn lỡ học — đã dùng một thẻ giữ chuỗi");
+});
