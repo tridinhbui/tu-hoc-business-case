@@ -1,9 +1,9 @@
-/* ═══ CASELAB · song ngữ VI / EN ═══
+/* ═══ Tự học Business Case · song ngữ VI / EN ═══
    Giao diện có hai chế độ. Tiếng Việt là bản gốc; bản tiếng Anh được dịch khi hiển thị:
      · DICT  — chuỗi cố định (nav, nút, nhãn, tiêu chí chấm, trạng thái)
      · RULES — chuỗi có số ("14/22 bài · Beginner", "Vòng 3", "hạn phút 45"…)
    Nội dung bài học và đề case hiện chỉ có tiếng Việt — ở chế độ EN có ghi chú rõ.
-   Lựa chọn lưu ở localStorage("caselab.lang"). */
+   Lựa chọn lưu ở localStorage("tu-hoc-business-case.lang"). */
 (function(){
 const DICT = {
   /* tên công ty ẩn danh trong đề */
@@ -302,7 +302,7 @@ const RULES = [
 const CONTENT_NOTE = "Lesson and case content is currently Vietnamese only — the interface is in English.";
 
 let lang = "vi";
-try{ lang = localStorage.getItem("caselab.lang") || "vi"; }catch(e){}
+try{ lang = localStorage.getItem("tu-hoc-business-case.lang") || localStorage.getItem("caselab.lang") || "vi"; }catch(e){}
 
 function tr(s){
   if(lang !== "en") return s;          // chế độ tiếng Việt: giữ nguyên bản gốc
@@ -331,7 +331,7 @@ function apply(root){
 
 function set(l){
   lang = l === "en" ? "en" : "vi";
-  try{ localStorage.setItem("caselab.lang", lang); }catch(e){}
+  try{ localStorage.setItem("tu-hoc-business-case.lang", lang); }catch(e){}
 }
 const toggle = () => `<div class="seg lang">
   <button class="${lang==="vi"?"on":""}" onclick="I18N.pick('vi')">VI</button>

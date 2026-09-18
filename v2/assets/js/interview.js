@@ -1,4 +1,4 @@
-/* ═══ CASELAB · Interview engine ═══
+/* ═══ Tự học Business Case · Interview engine ═══
    Phiên phỏng vấn 5 vòng: Clarify → Structure → Case math → Chart reading → Recommendation.
    Mỗi vòng chấm bằng từ khoá + con số tính lại được từ đề (dùng chung spec Arena của case).
    Phiên lưu ở State.data.iv[caseId]. Hàm score() thuần — tests/interview.test.js chạy bằng node. */

@@ -1,9 +1,11 @@
-/* ═══ CASELAB · State store ═══
-   Một nguồn sự thật cho tiến độ người học, lưu ở localStorage("caselab.v2").
+/* ═══ Tự học Business Case · State store ═══
+   Một nguồn sự thật cho tiến độ người học, lưu ở localStorage("tu-hoc-business-case.v2").
    Mọi view đọc qua State.*, mọi thay đổi đi qua các hàm ghi ở đây rồi save().
    Hình dạng dữ liệu khớp mục 4.3 của KIEN-TRUC-SAN-PHAM.md. */
 (function(){
-const KEY = "caselab.v2";
+const KEY = "tu-hoc-business-case.v2";
+// Đổi tên từ "caselab.v2": chép dữ liệu cũ sang một lần để người học không mất tiến độ.
+try{ if(localStorage.getItem(KEY)===null && localStorage.getItem("caselab.v2")!==null) localStorage.setItem(KEY, localStorage.getItem("caselab.v2")); }catch(e){}
 
 const LEVELS = [
   [0,"Intern"],[200,"Analyst"],[500,"Associate"],[1000,"Case Challenger"],
@@ -410,7 +412,7 @@ const exportJSON = () => JSON.stringify(S, null, 2);
 function importJSON(text){
   const d = JSON.parse(text);
   if(!d || d.v!==2 || typeof d.lessons!=="object" || !Array.isArray(d.mistakes))
-    throw new Error("File không đúng định dạng CASELAB v2");
+    throw new Error("File không đúng định dạng Tự học Business Case v2");
   S = Object.assign(blank(), d); save();
 }
 function reset(){ S = blank(); save(); }

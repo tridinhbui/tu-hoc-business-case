@@ -3,7 +3,9 @@
    là mất hết, nên người học cần một đường xuất ra file và nạp lại. */
 (function(){
 const B = {};
-const KEY = "stratlab.v1";
+const KEY = "tu-hoc-business-case.v1";
+// Đổi tên từ "stratlab.v1": chép dữ liệu cũ sang một lần để người học không mất tiến độ.
+try{ if(localStorage.getItem(KEY)===null && localStorage.getItem("stratlab.v1")!==null) localStorage.setItem(KEY, localStorage.getItem("stratlab.v1")); }catch(e){}
 
 function stamp(){
   const d = new Date();
@@ -29,13 +31,13 @@ B.summary = function(){
 
 B.export_ = function(){
   const payload = {
-    app:"stratlab", format:1, exportedAt:new Date().toISOString(),
+    app:"tu-hoc-business-case", format:1, exportedAt:new Date().toISOString(),
     summary: B.summary(), state: State.get()
   };
   const blob = new Blob([JSON.stringify(payload,null,2)], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; a.download = "stratlab-progress-"+stamp()+".json";
+  a.href = url; a.download = "tu-hoc-business-case-progress-"+stamp()+".json";
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(url), 2000);
   UI.toast("ĐÃ TẢI XUỐNG", a.download);
@@ -44,7 +46,8 @@ B.export_ = function(){
 /* Kiểm tra file trước khi nạp — không tin dữ liệu bên ngoài */
 B.validate = function(obj){
   if(!obj || typeof obj!=="object") return "File không phải JSON hợp lệ.";
-  if(obj.app !== "stratlab") return "File này không phải bản sao lưu của STRATLAB.";
+  // Bản sao lưu cũ mang tên "stratlab" vẫn nhập được.
+  if(obj.app !== "tu-hoc-business-case" && obj.app !== "stratlab") return "File này không phải bản sao lưu của Tự học Business Case.";
   if(!obj.state || typeof obj.state!=="object") return "File thiếu phần dữ liệu tiến độ.";
   const s = obj.state;
   if(typeof s.xp !== "number") return "Dữ liệu tiến độ bị hỏng (thiếu XP).";

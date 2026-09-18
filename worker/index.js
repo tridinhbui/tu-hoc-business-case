@@ -1,4 +1,4 @@
-/* ═══ STRATLAB · máy chủ thu số liệu học tập ═══
+/* ═══ Tự học Business Case · máy chủ thu số liệu học tập ═══
    Worker phục vụ site tĩnh như trước (ASSETS); chỉ /api/* chạy qua code này.
 
    POST /api/metrics/ingest   app học viên gửi ảnh chụp số liệu ẩn danh (mã thiết bị ngẫu nhiên,

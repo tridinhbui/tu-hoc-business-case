@@ -1,4 +1,4 @@
-/* ===== STRATLAB — UI helpers ===== */
+/* ===== Tự học Business Case — UI helpers ===== */
 (function(){
 const UI = {};
 

@@ -1,4 +1,4 @@
-/* ═══ CASELAB · Scoring engine ═══
+/* ═══ Tự học Business Case · Scoring engine ═══
    Chấm answer canvas theo 6 tiêu chí từ một "spec" dữ liệu của từng case (assets/js/data/arena.js).
    Bản prototype chấm bằng tín hiệu từ khoá + con số then chốt — đủ phân biệt bài có/không nắm
    cấu trúc, chưa thay được người chấm. Tách khỏi app.js để tests/scoring.test.js chạy bằng node.

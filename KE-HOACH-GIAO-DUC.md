@@ -2,7 +2,7 @@
 
 ## 1. Vấn đề hiện tại
 
-STRATLAB hôm nay dạy bằng cách **ném người học vào case**. Cách này hiệu quả với người đã có nền, nhưng người mới gặp ba rào cản:
+Tự học Business Case hôm nay dạy bằng cách **ném người học vào case**. Cách này hiệu quả với người đã có nền, nhưng người mới gặp ba rào cản:
 
 | Rào cản | Biểu hiện thật trên site |
 |---|---|

@@ -1,5 +1,5 @@
-/* ═══ CASELAB · Đo lường hành vi học ═══
-   Ghi thời gian học CHỦ ĐỘNG và các sự kiện học tập vào localStorage("caselab.metrics.v1").
+/* ═══ Tự học Business Case · Đo lường hành vi học ═══
+   Ghi thời gian học CHỦ ĐỘNG và các sự kiện học tập vào localStorage("tu-hoc-business-case.metrics.v1").
    - Thời gian chủ động: chỉ đếm khi tab đang hiển thị VÀ có thao tác (chuột, phím, cuộn, chạm)
      trong IDLE_MS gần nhất — để tab mở rồi bỏ đi không bị tính là học.
    - Phiên học: nghỉ quá SESSION_GAP_MS thì lần hoạt động tiếp theo mở phiên mới.
@@ -12,7 +12,8 @@
 (function(){
 if(!window.State) return;
 
-const KEY = "caselab.metrics.v1";
+const KEY = "tu-hoc-business-case.metrics.v1";
+try{ if(localStorage.getItem(KEY)===null && localStorage.getItem("caselab.metrics.v1")!==null) localStorage.setItem(KEY, localStorage.getItem("caselab.metrics.v1")); }catch(e){}
 const TICK_MS = 5000;               // chu kỳ cộng dồn thời gian
 const IDLE_MS = 60000;              // quá 60 giây không thao tác thì coi là rời máy
 const SESSION_GAP_MS = 30 * 60000;  // nghỉ quá 30 phút thì mở phiên mới
@@ -141,12 +142,12 @@ wrap("answerDrill", { fn(r, [key]){ if(r) { logEvent("speak", { id:key }); save(
 wrap("reset", { fn(){ M = blank(); save(true); } });
 
 /* ── đồng bộ lên máy chủ ── */
-const DEVICE_KEY = "caselab.device", SYNC_URL = "/api/metrics/ingest", SYNC_EVERY_MS = 60000, SYNC_DAYS = 45;
+const DEVICE_KEY = "tu-hoc-business-case.device", SYNC_URL = "/api/metrics/ingest", SYNC_EVERY_MS = 60000, SYNC_DAYS = 45;
 let lastSyncSig = "", lastSyncAt = 0;
 
 function deviceId(){
   try{
-    let id = localStorage.getItem(DEVICE_KEY);
+    let id = localStorage.getItem(DEVICE_KEY) || localStorage.getItem("caselab.device");
     if(!id || !/^[a-z0-9-]{8,48}$/.test(id)){
       id = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + "-" + Math.random().toString(36).slice(2)).toLowerCase();
       localStorage.setItem(DEVICE_KEY, id);

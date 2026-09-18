@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   CASELAB — Design System
+   Tự học Business Case — Design System
    Hướng: giấy · phòng học · sổ tay tư vấn.
    Không phải dashboard SaaS xanh dương. Nền là GIẤY, không phải màn hình.
 
@@ -1188,28 +1188,28 @@ input.calc:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-
   font-size:9.5px;font-weight:800;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0;padding:1px 5px;border-radius:4px;margin-left:4px;
 }
 
-/* ── 3. STRATLAB ILLUSTRATED ROADMAP & MAP CANVAS ── */
-.stratlab-header-bar{
+/* ── 3. Tự học Business Case ILLUSTRATED ROADMAP & MAP CANVAS ── */
+.thbc-header-bar{
   background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px 24px;
   display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);
 }
-.stratlab-header-left{display:flex;align-items:center;gap:12px}
-.stratlab-logo-pill{
+.thbc-header-left{display:flex;align-items:center;gap:12px}
+.thbc-logo-pill{
   display:flex;align-items:center;gap:8px;font-weight:800;font-size:14.5px;color:var(--text);text-decoration:none;
 }
-.stratlab-logo-icon{
+.thbc-logo-icon{
   width:32px;height:32px;border-radius:8px;background:#18181B;color:#10B981;display:flex;align-items:center;justify-content:center;
   box-shadow:0 2px 6px rgba(0,0,0,.15);flex:none;
 }
-.stratlab-subtag{
+.thbc-subtag{
   font-size:11px;font-weight:800;color:#059669;background:#ECFDF5;padding:3px 8px;border-radius:6px;border:1px solid #A7F3D0;
 }
-.stratlab-stat-chips{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.stratlab-stat-chip{
+.thbc-stat-chips{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.thbc-stat-chip{
   font-size:11.5px;font-weight:700;color:var(--text-2);background:var(--surface-2);border:1px solid var(--border);
   padding:5px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;
 }
-.stratlab-stat-chip b{color:var(--text)}
+.thbc-stat-chip b{color:var(--text)}
 
 /* Roadmap Hero Grid */
 .roadmap-hero-grid{
@@ -1278,7 +1278,7 @@ input.calc:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-
 }
 
 /* Illustrated Map Canvas Container */
-.stratlab-map-container{
+.thbc-map-container{
   background:#FAF8F2;
   background:radial-gradient(ellipse at 50% 25%, #FFFDF8 0%, #F3EFE4 100%);
   border:1px solid #E2DEC9;border-radius:24px;padding:24px 20px;position:relative;overflow:hidden;
@@ -1353,7 +1353,7 @@ input.calc:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-
 
 @media(max-width:1160px){
   .roadmap-hero-grid{grid-template-columns:1fr}
-  .stratlab-map-container{min-height:auto;padding:20px 14px}
+  .thbc-map-container{min-height:auto;padding:20px 14px}
   .map-station-spatial-area{
     display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;min-height:auto;
   }

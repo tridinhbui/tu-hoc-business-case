@@ -1,4 +1,4 @@
-/* ===== CASELAB · Chi tiết từng vòng phỏng vấn =====
+/* ===== Tự học Business Case · Chi tiết từng vòng phỏng vấn =====
    Mỗi case có 5 vòng, mỗi vòng:
      hint    gợi ý trước khi trả lời — chỉ hướng tư duy, không chứa con số
      points  3 ý một câu trả lời tốt phải có: [mô tả, [từ khoá…]] hoặc [mô tả, con số, sai số]

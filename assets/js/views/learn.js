@@ -1,4 +1,4 @@
-/* STRATLAB / TU HOC TAI CHINH — LEARN VIEW */
+/* Tự học Business Case — LEARN VIEW */
 window.VIEWS = window.VIEWS || {};
 
 window.VIEWS.learn = function() {

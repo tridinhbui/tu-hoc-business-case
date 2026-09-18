@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bắt đầu từ đâu — STRATLAB Roadmap</title>
+<title>Bắt đầu từ đâu — Tự học Business Case</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/shared/sidebar.css?v=c46a124a">
 <link rel="stylesheet" href="v2/assets/css/app.css?v=40">
 <script>
-(function(){try{var t=localStorage.getItem('caselab.theme');
+(function(){try{var t=(localStorage.getItem('tu-hoc-business-case.theme')||localStorage.getItem('caselab.theme'));
 if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 function toggleTheme(){
   var r=document.documentElement,cur=r.getAttribute('data-theme');
   if(!cur)cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
   var next=cur==='dark'?'light':'dark';
   r.setAttribute('data-theme',next);
-  try{localStorage.setItem('caselab.theme',next);}catch(e){}
+  try{localStorage.setItem('tu-hoc-business-case.theme',next);}catch(e){}
   paintThemeBtn();
 }
 function paintThemeBtn(){
@@ -46,15 +46,15 @@ addEventListener('DOMContentLoaded',paintThemeBtn);
       <a href="bat-dau-tu-dau.html" class="sb-link sb-on" aria-current="page"><span class="sb-ic" aria-hidden="true">🧭</span><span>Bắt đầu từ đâu</span></a>
       <a href="hoc-bai.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📖</span><span>Học bài</span></a>
       <a href="hoc-theo-nghe.html" class="sb-link"><span class="sb-ic" aria-hidden="true">💼</span><span>Học theo nghề</span></a>
-      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📜</span><span>Chứng chỉ</span><span class="sb-more" aria-hidden="true">›</span></a>
+      <a href="/#/exam" class="sb-link"><span class="sb-ic" aria-hidden="true">📜</span><span>Chứng chỉ</span><span class="sb-more" aria-hidden="true">›</span></a>
     </div>
     <div class="sb-group"><span>⚡ THỰC HÀNH</span><i aria-hidden="true">▾</i></div>
-      <a href="bai-hoc.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎯</span><span>Quiz</span><span class="sb-badge sb-new">TIN MỚI</span></a>
+      <a href="/v2/#/arena" class="sb-link"><span class="sb-ic" aria-hidden="true">🎯</span><span>Quiz</span><span class="sb-badge sb-new">TIN MỚI</span></a>
       <a href="thi-vuot-chang.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏆</span><span>Thi vượt chặng</span></a>
       <a href="game-kingdom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎮</span><span>Game Kingdom</span><span class="sb-badge sb-hot">HOT</span></a>
-      <a href="luyen-phong-van.html" class="sb-link"><span class="sb-ic" aria-hidden="true">👥</span><span>Luyện phỏng vấn</span></a>
+      <a href="/v2/#/interview" class="sb-link"><span class="sb-ic" aria-hidden="true">👥</span><span>Luyện phỏng vấn</span></a>
     <div class="sb-group"><span>👥 CỘNG ĐỒNG</span><i aria-hidden="true">▾</i></div>
-      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏛️</span><span>Thư viện</span></a>
+      <a href="/v2/#/library" class="sb-link"><span class="sb-ic" aria-hidden="true">🏛️</span><span>Thư viện</span></a>
       <a href="hoc-nhom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🤝</span><span>Học nhóm</span><span class="sb-badge sb-check">CHECK-IN</span></a>
       <a href="thong-ke.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📊</span><span>Thống kê</span></a>
   </nav>
@@ -76,18 +76,18 @@ addEventListener('DOMContentLoaded',paintThemeBtn);
   <div style="padding:20px 24px;overflow-y:auto;flex:1">
     <div class="main" style="max-width:1440px;margin:0 auto;padding:0 0 40px">
       <!-- Top Stats Header Bar -->
-      <div class="stratlab-header-bar" style="margin-bottom:24px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-        <div class="stratlab-header-left">
-          <a class="stratlab-logo-pill" href="bat-dau-tu-dau.html">
-            <div class="stratlab-logo-icon">
+      <div class="thbc-header-bar" style="margin-bottom:24px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+        <div class="thbc-header-left">
+          <a class="thbc-logo-pill" href="bat-dau-tu-dau.html">
+            <div class="thbc-logo-icon">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
                 <path d="M4 18L10 12L14 16L20 6M20 6H15M20 6V11" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <span style="font-weight:800;color:var(--text);letter-spacing:-.02em">STRATLAB</span>
-            <span style="color:var(--muted);font-weight:500;font-size:12px">| EDTECH THỰC CHIẾN</span>
+            <span style="font-weight:800;color:var(--text);letter-spacing:-.02em">Tự học Business Case</span>
+            <span style="color:var(--muted);font-weight:500;font-size:12px">| Học case bằng cách làm case</span>
           </a>
-          <span class="stratlab-subtag">Roadmap</span>
+          <span class="thbc-subtag">Roadmap</span>
         </div>
 
         <div style="flex:1;max-width:280px">
@@ -98,11 +98,11 @@ addEventListener('DOMContentLoaded',paintThemeBtn);
           </div>
         </div>
 
-        <div class="stratlab-stat-chips">
-          <div class="stratlab-stat-chip"><span>RANK · CẤP BẬC:</span> <b>Intern · Lv. 1</b></div>
-          <div class="stratlab-stat-chip"><span>XP · ĐIỂM:</span> <b>0 / 400</b></div>
-          <div class="stratlab-stat-chip"><span>STREAK · CHUỖI:</span> <b>🔥 0 ngày</b></div>
-          <div class="stratlab-stat-chip"><span>CASES · ĐÃ GIẢI:</span> <b>0/36</b></div>
+        <div class="thbc-stat-chips">
+          <div class="thbc-stat-chip"><span>RANK · CẤP BẬC:</span> <b>Intern · Lv. 1</b></div>
+          <div class="thbc-stat-chip"><span>XP · ĐIỂM:</span> <b>0 / 400</b></div>
+          <div class="thbc-stat-chip"><span>STREAK · CHUỖI:</span> <b>🔥 0 ngày</b></div>
+          <div class="thbc-stat-chip"><span>CASES · ĐÃ GIẢI:</span> <b>0/36</b></div>
           <div style="width:30px;height:30px;border-radius:50%;background:#059669;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800">TB</div>
         </div>
       </div>
@@ -157,7 +157,7 @@ addEventListener('DOMContentLoaded',paintThemeBtn);
 
       <!-- Tab Content 01: Illustrated Learning Map Canvas -->
       <div id="tabContent01" class="tab-panel active">
-        <div class="stratlab-map-container">
+        <div class="thbc-map-container">
           <!-- SVG Landscape Background (Isometric hills, winding sand road, river, bridge, trees) -->
           <svg class="map-canvas-backdrop" viewBox="0 0 1200 700" preserveAspectRatio="none">
             <defs>

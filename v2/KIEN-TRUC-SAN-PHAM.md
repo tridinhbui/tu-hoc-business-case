@@ -1,5 +1,5 @@
-# CASELAB — Kiến trúc sản phẩm
-**Business Case Training Studio** · kiến trúc · sitemap · trang chính · database · component UI
+# Tự học Business Case — Kiến trúc sản phẩm
+**Tự học Business Case** · kiến trúc · sitemap · trang chính · database · component UI
 Cập nhật: 2026-09-14 · Trạng thái: v2 — 9/9 màn đã dựng, 100/100 bài và 17/17 case có nội dung, tiến độ lưu thật qua State store
 
 ---
@@ -152,7 +152,7 @@ index.html#/dashboard              Vào ứng dụng học
 
 ## 4. Cấu trúc database
 
-Prototype chạy trên **localStorage** (`caselab.v2`). Schema dưới đây viết dạng quan hệ để chuyển thẳng sang Postgres/Supabase khi lên server. Phần *Nội dung* là read-only (seed từ file JS), phần *Người dùng* là read-write.
+Prototype chạy trên **localStorage** (`tu-hoc-business-case.v2`). Schema dưới đây viết dạng quan hệ để chuyển thẳng sang Postgres/Supabase khi lên server. Phần *Nội dung* là read-only (seed từ file JS), phần *Người dùng* là read-write.
 
 ### 4.1 Nội dung (seed, read-only)
 
@@ -290,7 +290,7 @@ career_goal
 ### 4.3 Hình dạng localStorage (prototype)
 
 ```jsonc
-// key: "caselab.v2"
+// key: "tu-hoc-business-case.v2"
 {
   "v": 2,
   "user":     { "name":"Tri Bùi", "lv":3, "xp":1240, "rank":"Case Challenger" },
@@ -305,7 +305,7 @@ career_goal
   "career":   "consulting",
   "badges":   ["first-case","streak-7"]
 }
-// key: "caselab.theme"  →  "light" | "dark"
+// key: "tu-hoc-business-case.theme"  →  "light" | "dark"
 ```
 
 > **Quy tắc bất biến:** bảng tra cứu (`LESSON_BY_ID`, `CASE_BY_ID`, `MODULE_BY_ID`, `TRACK_BY_ID`) **luôn đặt ở cuối file dữ liệu**, sau mọi khối `concat`. Đặt ở giữa file thì mọi nội dung thêm sau đó sẽ vô hình với router — lỗi này đã xảy ra hai lần ở v1.
@@ -424,10 +424,10 @@ calculation 32 · slide 28 · recommendation 16 · chart insight 13 · speaking 
 
 | File | Vai trò |
 |---|---|
-| `assets/js/state.js` | Nguồn sự thật duy nhất: đọc/ghi `localStorage("caselab.v2")`, tính XP, cấp độ, streak, nhiệm vụ ngày, tiến độ track/nghề, lịch ôn lỗi |
+| `assets/js/state.js` | Nguồn sự thật duy nhất: đọc/ghi `localStorage("tu-hoc-business-case.v2")`, tính XP, cấp độ, streak, nhiệm vụ ngày, tiến độ track/nghề, lịch ôn lỗi |
 | `assets/js/scoring.js` | Engine chấm answer canvas 6 tiêu chí + sinh lỗi phân loại cho Mistake Review, đọc từ spec dữ liệu |
 | `assets/js/data/lessons/*.js` | Nội dung bài học theo module: tình huống, framework, ví dụ số, mini case, bài tính, khung slide (hoặc câu trả lời nói mẫu với `slide.speak`), lỗi thường gặp, checklist, case gợi ý |
-| `assets/js/i18n.js` | Hai chế độ ngôn ngữ VI/EN. Tiếng Việt là bản gốc; bản tiếng Anh dịch khi hiển thị bằng từ điển (290 cặp) + quy tắc cho chuỗi có số. Nội dung bài học có bản tiếng Anh riêng (`data/lessons-en/`); đề case chỉ có tiếng Việt — ở chế độ EN màn Arena/Competition/Interview hiện ghi chú. Lưu lựa chọn ở `localStorage("caselab.lang")` |
+| `assets/js/i18n.js` | Hai chế độ ngôn ngữ VI/EN. Tiếng Việt là bản gốc; bản tiếng Anh dịch khi hiển thị bằng từ điển (290 cặp) + quy tắc cho chuỗi có số. Nội dung bài học có bản tiếng Anh riêng (`data/lessons-en/`); đề case chỉ có tiếng Việt — ở chế độ EN màn Arena/Competition/Interview hiện ghi chú. Lưu lựa chọn ở `localStorage("tu-hoc-business-case.lang")` |
 | `assets/js/data/i18n-data.js` · `i18n-lessons.js` | Bản tiếng Anh cho lớp dữ liệu: 6 track, 44 module, 17 case (tên + câu mồi), 30 lộ trình nghề, 100 tiêu đề bài học |
 | `assets/js/data/lessons-en/*.js` | Nội dung 10 phần bản tiếng Anh cho 100 bài (`LCEN(id,{...})` → `window.LESSON_CONTENT_EN`). Đáp án `mini.correct`, `calc.answer`, `calc.tol` phải trùng bản tiếng Việt — `tests/i18n.test.js` kiểm tra |
 | `assets/js/data/readings/*.js` | Bài đọc văn xuôi (~900–1.900 chữ) đứng trước 10 phần bài tập: `LRD(id, text)` → `window.READING`. Cú pháp rút gọn `## ` tiêu đề · `> ` đoạn thoại · `- ` gạch đầu dòng, render bằng `readingHTML()` trong app.js. Có bài đọc thì mục **A · Bài đọc** hiện phía trên phần 1 |
