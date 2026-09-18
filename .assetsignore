@@ -1,0 +1,9 @@
+# Không phát hành mã máy chủ, cấu hình và bí mật như file tĩnh.
+.git
+.claude
+.wrangler
+.dev.vars
+node_modules
+worker
+wrangler.jsonc
+.assetsignore

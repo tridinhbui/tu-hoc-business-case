@@ -5,7 +5,10 @@
    - Phiên học: nghỉ quá SESSION_GAP_MS thì lần hoạt động tiếp theo mở phiên mới.
    - Sự kiện: bọc các hàm ghi của State (hoàn thành bài, trả lời quiz, nộp case, luyện nói)
      nên không phải sửa app.js. Phải nạp SAU state.js.
-   Trang admin.html đọc cùng khoá này (cùng origin) để hiện số liệu thật. */
+   Trang admin.html đọc cùng khoá này (cùng origin) để hiện số liệu thật.
+   Đồng bộ máy chủ: khi chạy trên http(s), gửi ảnh chụp LUỸ KẾ ẩn danh tới /api/metrics/ingest
+   (mã thiết bị ngẫu nhiên, không tên, không email) mỗi phút nếu có thay đổi và khi rời trang.
+   Máy chủ không có (chạy file:// hoặc máy chủ tĩnh) thì lặng lẽ bỏ qua. */
 (function(){
 if(!window.State) return;
 
@@ -137,10 +140,66 @@ wrap("recordAttempt", { fn(res, [caseId, info]){
 wrap("answerDrill", { fn(r, [key]){ if(r) { logEvent("speak", { id:key }); save(); } }});
 wrap("reset", { fn(){ M = blank(); save(true); } });
 
+/* ── đồng bộ lên máy chủ ── */
+const DEVICE_KEY = "caselab.device", SYNC_URL = "/api/metrics/ingest", SYNC_EVERY_MS = 60000, SYNC_DAYS = 45;
+let lastSyncSig = "", lastSyncAt = 0;
+
+function deviceId(){
+  try{
+    let id = localStorage.getItem(DEVICE_KEY);
+    if(!id || !/^[a-z0-9-]{8,48}$/.test(id)){
+      id = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + "-" + Math.random().toString(36).slice(2)).toLowerCase();
+      localStorage.setItem(DEVICE_KEY, id);
+    }
+    return id;
+  }catch(e){ return null; }
+}
+
+function snapshot(){
+  const days = Object.keys(M.days).sort().slice(-SYNC_DAYS).map(day => {
+    const d = M.days[day];
+    return { day, sec:Math.round(d.sec), sessions:d.sessions, views:d.views, lessonsDone:d.lessonsDone,
+             quiz:d.quiz, quizRight:d.quizRight, cases:d.cases };
+  });
+  const prog = (State.data && State.data.lessons) || {};
+  const ids = new Set(Object.keys(M.lessons).concat(Object.keys(prog)));
+  const lessons = [];
+  ids.forEach(id => {
+    const m = M.lessons[id] || {}, r = prog[id] || {};
+    if(!/^[a-z0-9-]{2,48}$/.test(id)) return;
+    lessons.push({ id, sec:Math.round(m.sec || 0), views:m.views || 0,
+                   doneDay: r.status === "done" ? (r.doneAt || null) : null,
+                   secToDone: m.secToDone == null ? null : m.secToDone, readPct: r.readPct || 0 });
+  });
+  return { device:deviceId(), days, lessons };
+}
+
+function sync(force){
+  if(!/^https?:$/.test(location.protocol)) return;
+  const now = Date.now();
+  if(!force && now - lastSyncAt < SYNC_EVERY_MS) return;
+  const snap = snapshot();
+  if(!snap.device) return;
+  const body = JSON.stringify(snap);
+  if(body === lastSyncSig) return;                          // không có gì mới
+  lastSyncAt = now;
+  try{
+    if(navigator.sendBeacon && navigator.sendBeacon(SYNC_URL, new Blob([body], { type:"text/plain" }))){ lastSyncSig = body; return; }
+    fetch(SYNC_URL, { method:"POST", body, keepalive:true, headers:{ "content-type":"text/plain" } })
+      .then(r => { if(r.ok) lastSyncSig = body; }).catch(() => {});
+  }catch(e){}
+}
+setInterval(() => sync(false), SYNC_EVERY_MS);
+document.addEventListener("visibilitychange", () => { if(document.visibilityState === "hidden") sync(true); });
+window.addEventListener("pagehide", () => sync(true));
+setTimeout(() => sync(true), 5000);
+
 window.Metrics = {
   KEY, IDLE_MS, SESSION_GAP_MS,
   get data(){ return M; },
   flush(){ tick(); save(true); },
+  sync(){ sync(true); },
+  snapshot,
   exportJSON(){ return JSON.stringify(M); },
   _reload(){ M = load(); }
 };

@@ -859,13 +859,48 @@
       <div class="page-head">
         <div>
           <h1>Đo lường thật</h1>
-          <p>Số liệu ghi từ app học viên (<b>v2/</b>) trên <b>trình duyệt này</b>. Tự cập nhật khi app ở tab khác ghi dữ liệu mới.</p>
+          <div class="seg" id="mScope" style="display:inline-flex;margin:8px 0 6px">
+            <button class="on" data-scope="local">Trình duyệt này</button>
+            <button data-scope="server">Tất cả người học · máy chủ</button>
+          </div>
+          <p id="mScopeNote">Số liệu ghi từ app học viên (<b>v2/</b>) trên <b>trình duyệt này</b>. Tự cập nhật khi app ở tab khác ghi dữ liệu mới.</p>
           <div class="src-row"><code>caselab.v2 · tiến độ</code><code>caselab.metrics.v1 · thời gian &amp; phiên</code><span class="pill" id="mUpdated">—</span></div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <a class="btn" href="v2/index.html" target="_blank" rel="noopener" style="text-decoration:none">↗ Mở app học viên</a>
           <button class="btn" id="btnMetricsExport">⬇ Xuất JSON</button>
           <button class="btn primary" id="btnMetricsRefresh">⟳ Làm mới</button>
+        </div>
+      </div>
+
+      <div id="mServer" hidden>
+        <section class="card" style="margin-bottom:18px">
+          <div class="card-body" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <div class="field" style="flex:1;min-width:220px">
+              <span style="font-size:11px;font-weight:800;color:var(--text-muted)">TOKEN</span>
+              <input id="mToken" type="password" placeholder="ADMIN_TOKEN đã đặt trên Cloudflare" autocomplete="off" style="width:100%">
+            </div>
+            <div class="field"><select id="mSpan"><option value="7">7 ngày</option><option value="30" selected>30 ngày</option><option value="90">90 ngày</option></select></div>
+            <button class="btn primary" id="btnServerLoad">Tải số liệu</button>
+            <span class="pill" id="mServerStatus">Chưa kết nối</span>
+          </div>
+        </section>
+        <div id="mServerBody" hidden>
+          <div class="kpi-row" id="sKpi"></div>
+          <div class="grid-2">
+            <section class="card">
+              <div class="card-head"><div><h2>Người học hoạt động mỗi ngày</h2><div class="sub">Hoạt động = học ≥ 30 giây, hoặc trả lời quiz, hoặc hoàn thành bài</div></div></div>
+              <div class="card-body"><div class="m-bars" id="sDays"></div></div>
+            </section>
+            <section class="card">
+              <div class="card-head"><div><h2>Phễu học tập</h2><div class="sub">Theo thiết bị đã gửi số liệu</div></div></div>
+              <div class="card-body" id="sFunnel"></div>
+            </section>
+          </div>
+          <section class="card" style="margin-bottom:18px">
+            <div class="card-head"><div><h2>Bài học theo số người hoàn thành</h2><div class="sub">25 bài đầu · thời gian là thời gian học chủ động trung bình tới khi xong</div></div></div>
+            <div class="tbl-wrap"><table class="tbl" id="sLessons"><thead><tr><th>Bài</th><th class="num" style="text-align:right">Đã mở</th><th class="num" style="text-align:right">Hoàn thành</th><th class="num" style="text-align:right">Tỷ lệ xong</th><th class="num" style="text-align:right">TB tới khi xong</th><th class="num" style="text-align:right">% đọc TB</th></tr></thead><tbody></tbody></table></div>
+          </section>
         </div>
       </div>
 
@@ -1911,8 +1946,9 @@
       var P = readStore(PROG_KEY), M = readStore(MET_KEY);
       var lessons = (P && P.lessons) || {}, ml = (M && M.lessons) || {}, days = (M && M.days) || {};
       var hasAny = !!(M && (M.sessions || []).length) || Object.keys(lessons).length > 0;
-      $('mEmpty').hidden = hasAny;
-      $('mBody').hidden = !hasAny;
+      $('mBody').dataset.empty = hasAny ? '0' : '1';
+      $('mEmpty').hidden = hasAny || mScope === 'server';
+      $('mBody').hidden = !hasAny || mScope === 'server';
       $('mUpdated').textContent = M && M.updated ? 'Cập nhật ' + fmtTime(Date.parse(M.updated)) : 'Chưa có dữ liệu đo thời gian';
 
       var ids = Object.keys(lessons);
@@ -2043,7 +2079,7 @@
         ['Đúng/sai quiz lần đầu', 'caselab.v2 · lessons[].quiz', 'ok', 'Có sẵn; sự kiện có giờ là mới'],
         ['Case Arena: số lần nộp, điểm, thời gian làm', 'caselab.v2 · cases', 'ok', 'Có sẵn'],
         ['Bỏ dở ở phần nào trong bài', 'readPct + quiz từng câu', 'part', 'Biết đọc tới đâu và làm câu nào; chưa ghi thời gian ở từng phần 1–10'],
-        ['Người dùng hoạt động (ngày/tuần), giữ chân, phễu nhiều người', '—', 'no', 'Cần máy chủ thu dữ liệu: hiện mỗi trình duyệt chỉ thấy số của chính nó'],
+        ['Người dùng hoạt động (ngày/tuần/tháng), quay lại, phễu nhiều người', '/api/metrics · Durable Object SQLite', 'ok', 'Mới — xem ở chế độ "Tất cả người học"; ẩn danh theo thiết bị, chưa gộp được một người dùng nhiều máy'],
         ['Đăng ký, doanh thu, gói trả phí', '—', 'no', 'Chưa có tài khoản và thanh toán thật; tab Doanh thu là dữ liệu mẫu']
       ];
       document.querySelector('#mCoverage tbody').innerHTML = COV.map(function (c) {
@@ -2051,6 +2087,108 @@
         return '<tr><td><span class="nm">' + esc(c[0]) + '</span></td><td><span class="em">' + esc(c[1]) + '</span></td>' +
           '<td><span class="cov-st ' + st[0] + '">' + st[1] + '</span></td><td>' + esc(c[3]) + '</td></tr>';
       }).join('');
+    }
+
+    /* ── chế độ máy chủ: tổng hợp mọi người học ── */
+    var mScope = 'local';
+    function setScope(sc) {
+      mScope = sc;
+      $('mScope').querySelectorAll('button').forEach(function (b) { b.classList.toggle('on', b.dataset.scope === sc); });
+      var server = sc === 'server';
+      $('mServer').hidden = !server;
+      $('mBody').hidden = server || $('mBody').dataset.empty === '1';
+      $('mEmpty').hidden = server || $('mBody').dataset.empty !== '1';
+      $('mScopeNote').innerHTML = server
+        ? 'Số tổng hợp từ <b>mọi thiết bị</b> đã gửi số liệu về máy chủ. Mỗi thiết bị là một mã ngẫu nhiên — không có tên hay email.'
+        : 'Số liệu ghi từ app học viên (<b>v2/</b>) trên <b>trình duyệt này</b>. Tự cập nhật khi app ở tab khác ghi dữ liệu mới.';
+      if (server) {
+        try { $('mToken').value = sessionStorage.getItem('stratlab-admin-token') || $('mToken').value; } catch (e) { /* bỏ qua */ }
+        if ($('mToken').value) loadServer();
+      }
+    }
+    $('mScope').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setScope(b.dataset.scope); });
+
+    function serverStatus(text, kind) {
+      var el = $('mServerStatus');
+      el.textContent = text;
+      el.className = 'pill' + (kind ? ' ' + kind : '');
+    }
+
+    function loadServer() {
+      var token = $('mToken').value.trim();
+      if (!token) { serverStatus('Nhập token trước', 'amber'); return; }
+      try { sessionStorage.setItem('stratlab-admin-token', token); } catch (e) { /* bỏ qua */ }
+      serverStatus('Đang tải…');
+      var today = isoDay(new Date());
+      fetch('/api/metrics/summary?days=' + $('mSpan').value + '&today=' + today, { headers: { Authorization: 'Bearer ' + token }, cache: 'no-store' })
+        .then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; });
+        })
+        .then(function (res) {
+          if (res.status === 200) { renderServer(res.body); serverStatus('Cập nhật ' + fmtTime(Date.parse(res.body.generatedAt)), 'green'); return; }
+          $('mServerBody').hidden = true;
+          if (res.status === 401) serverStatus('Sai token', 'pink');
+          else if (res.status === 503) serverStatus('Máy chủ chưa đặt ADMIN_TOKEN', 'amber');
+          else if (res.status === 404) serverStatus('Không có API ở địa chỉ này — cần mở admin trên bản đã deploy', 'amber');
+          else serverStatus('Lỗi ' + res.status + (res.body && res.body.error ? ': ' + res.body.error : ''), 'pink');
+        })
+        .catch(function () { serverStatus('Không kết nối được máy chủ', 'pink'); });
+    }
+    $('btnServerLoad').addEventListener('click', loadServer);
+    $('mToken').addEventListener('keydown', function (e) { if (e.key === 'Enter') loadServer(); });
+    $('mSpan').addEventListener('change', function () { if ($('mToken').value) loadServer(); });
+
+    function pct(a, b) { return b ? Math.round(a / b * 100) + '%' : '—'; }
+
+    function renderServer(d) {
+      $('mServerBody').hidden = false;
+      var t = d.totals || {}, r = d.retention || {}, a = d.active || {};
+      var kpis = [
+        ['Thiết bị đã ghi nhận', num(d.devicesTotal), 'tổng từ trước tới nay'],
+        ['Hoạt động hôm nay', num(a.today || 0), '7 ngày: ' + num(a.d7 || 0) + ' · 30 ngày: ' + num(a.d30 || 0)],
+        ['Phút học TB mỗi người mỗi ngày', t.activeDeviceDays ? (t.sec / 60 / t.activeDeviceDays).toFixed(1).replace('.', ',') : '—', 'tính trên ngày có hoạt động · ' + d.span + ' ngày'],
+        ['Tổng giờ học', fmtDur(t.sec || 0), d.span + ' ngày gần nhất'],
+        ['Bài hoàn thành', num(t.lessonsDone || 0), d.span + ' ngày · toàn thời gian: ' + num(d.lessonsDoneAllTime || 0)],
+        ['TB tới khi xong một bài', d.avgSecToDone == null ? '—' : fmtDur(d.avgSecToDone), 'trên ' + num(d.timedLessons || 0) + ' lượt hoàn thành có đo giờ'],
+        ['Quiz đúng lần đầu', pct(t.quizRight || 0, t.quiz || 0), num(t.quizRight || 0) + ' / ' + num(t.quiz || 0) + ' câu'],
+        ['Quay lại hôm sau', pct(r.d1Back, r.d1Base), 'trong 7 ngày: ' + pct(r.w1Back, r.w1Base)]
+      ];
+      $('sKpi').innerHTML = kpis.map(function (k) {
+        return '<section class="card kpi"><div class="k">' + k[0] + '</div><div class="v" style="font-size:22px">' + esc(String(k[1])) + '</div>' +
+          '<div class="foot"><span class="note">' + esc(k[2]) + '</span></div></section>';
+      }).join('');
+
+      var byDay = {}; (d.perDay || []).forEach(function (x) { byDay[x.day] = x; });
+      var cols = [], maxA = 1, n = Math.min(d.span, 30);
+      for (var i = n - 1; i >= 0; i--) {
+        var dt = new Date(); dt.setDate(dt.getDate() - i);
+        var key = isoDay(dt), x = byDay[key] || {};
+        cols.push({ key: key, active: x.active || 0, sec: x.sec || 0, done: x.done || 0 });
+        maxA = Math.max(maxA, x.active || 0);
+      }
+      $('sDays').innerHTML = cols.map(function (c) {
+        var h = c.active ? Math.max(3, Math.round(c.active / maxA * 100)) : 2;
+        return '<div class="m-col" title="' + fmtDay(c.key) + ': ' + c.active + ' người · ' + fmtDur(c.sec) + ' · ' + c.done + ' bài xong">' +
+          (c.done ? '<span class="m-done">' + c.done + '</span>' : '') +
+          '<span class="vl">' + (c.active || '') + '</span>' +
+          '<span class="m-bar' + (c.active ? '' : ' zero') + '" style="height:' + h + '%"></span>' +
+          '<span class="lb">' + (n > 14 ? fmtDay(c.key).slice(0, 2) : fmtDay(c.key)) + '</span></div>';
+      }).join('');
+
+      var f = d.funnel || {}, top = f.devices || 1;
+      var steps = [['Đã gửi số liệu', f.devices], ['Đã mở một bài học', f.opened], ['Đã trả lời quiz', f.quizzed], ['Hoàn thành ≥ 1 bài', f.done1], ['Hoàn thành ≥ 5 bài', f.done5]];
+      $('sFunnel').innerHTML = steps.map(function (s) {
+        var p = Math.round((s[1] || 0) / top * 100);
+        return '<div class="funnel-row"><span class="funnel-label">' + s[0] + '</span>' +
+          '<span class="funnel-bar"><i class="funnel-fill" style="display:block;width:' + p + '%"></i></span>' +
+          '<span class="funnel-val">' + num(s[1] || 0) + '<span class="pc">' + p + '%</span></span></div>';
+      }).join('');
+
+      document.querySelector('#sLessons tbody').innerHTML = (d.lessons || []).length ? d.lessons.map(function (l) {
+        return '<tr><td><span class="nm">' + esc(lessonTitle(l.lesson)) + '</span><br><span class="em">' + esc(l.lesson) + '</span></td>' +
+          '<td class="num">' + num(l.started) + '</td><td class="num">' + num(l.done) + '</td><td class="num">' + pct(l.done, l.started) + '</td>' +
+          '<td class="num">' + (l.avg_sec_to_done == null ? '—' : fmtDur(l.avg_sec_to_done)) + '</td><td class="num">' + Math.round(l.avg_read || 0) + '%</td></tr>';
+      }).join('') : '<tr><td colspan="6"><div class="empty" style="padding:24px"><div class="s">Chưa có người học nào gửi số liệu.</div></div></td></tr>';
     }
 
     $('mLessonSeg').addEventListener('click', function (e) {
