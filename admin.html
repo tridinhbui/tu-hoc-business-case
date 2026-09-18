@@ -539,6 +539,31 @@
 
     tr.suspended td { opacity: .62; }
 
+    /* ── đo lường thật ── */
+    .demo-tag {
+      display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; vertical-align: middle;
+      font-size: 10.5px; font-weight: 800; letter-spacing: .04em; padding: 3px 10px;
+      border-radius: var(--radius-pill); background: var(--amber-pill); color: var(--amber-text);
+      text-decoration: none;
+    }
+    .demo-tag:hover { background: #fdeccd; }
+    .src-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
+    .src-row code {
+      font-size: 11px; background: var(--surface-subtle); border: 1px solid var(--border-light);
+      border-radius: 6px; padding: 2px 8px; color: var(--text-secondary);
+    }
+    .m-bars { display: flex; align-items: flex-end; gap: 6px; height: 170px; padding-top: 8px; }
+    .m-col { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 5px; height: 100%; }
+    .m-bar { width: 100%; max-width: 30px; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg,#34d399,#059669); min-height: 2px; }
+    .m-bar.zero { background: #e6ede8; }
+    .m-col .lb { font-size: 10px; font-weight: 800; color: var(--text-muted); white-space: nowrap; }
+    .m-col .vl { font-size: 10px; font-weight: 800; color: var(--text-main); white-space: nowrap; }
+    .m-done { font-size: 10px; font-weight: 800; color: #fff; background: var(--ink); border-radius: 999px; padding: 1px 6px; }
+    .cov-st { font-weight: 800; white-space: nowrap; }
+    .cov-st.ok { color: var(--primary); }
+    .cov-st.part { color: var(--amber-text); }
+    .cov-st.no { color: var(--pink-text); }
+
     /* ── responsive ── */
     @media (max-width: 1080px) {
       .grid-2, .grid-2.even { grid-template-columns: minmax(0,1fr); }
@@ -579,6 +604,7 @@
     <nav class="sb-nav">
       <div class="sb-sec">VẬN HÀNH</div>
       <button class="sb-item active" data-view="overview"><span class="ic">📊</span>Tổng quan</button>
+      <button class="sb-item" data-view="metrics"><span class="ic">📏</span>Đo lường thật<span class="sb-count" id="cntMetrics">—</span></button>
       <button class="sb-item" data-view="learners"><span class="ic">👥</span>Người học<span class="sb-count" id="cntLearners">0</span></button>
       <button class="sb-item" data-view="moderation"><span class="ic">🛡️</span>Kiểm duyệt<span class="sb-count warn" id="cntMod">0</span></button>
 
@@ -630,7 +656,7 @@
     <section class="view on" id="view-overview">
       <div class="page-head">
         <div>
-          <h1>Tổng quan hôm nay</h1>
+          <h1>Tổng quan hôm nay<a class="demo-tag" href="#metrics" title="Số trên trang này là dữ liệu mẫu">DỮ LIỆU MẪU · xem số thật →</a></h1>
           <p>Số liệu tính đến 16/09/2026 · cập nhật mỗi 15 phút</p>
         </div>
         <div class="seg" id="segRange">
@@ -686,7 +712,7 @@
     <section class="view" id="view-learners">
       <div class="page-head">
         <div>
-          <h1>Người học</h1>
+          <h1>Người học<a class="demo-tag" href="#metrics" title="Số trên trang này là dữ liệu mẫu">DỮ LIỆU MẪU · xem số thật →</a></h1>
           <p>Nhấn vào một dòng để xem hồ sơ học tập chi tiết</p>
         </div>
         <button class="btn primary" id="btnExport">⬇ Xuất CSV</button>
@@ -829,10 +855,70 @@
     </section>
 
     <!-- ══ DOANH THU ══ -->
+    <section class="view" id="view-metrics">
+      <div class="page-head">
+        <div>
+          <h1>Đo lường thật</h1>
+          <p>Số liệu ghi từ app học viên (<b>v2/</b>) trên <b>trình duyệt này</b>. Tự cập nhật khi app ở tab khác ghi dữ liệu mới.</p>
+          <div class="src-row"><code>caselab.v2 · tiến độ</code><code>caselab.metrics.v1 · thời gian &amp; phiên</code><span class="pill" id="mUpdated">—</span></div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <a class="btn" href="v2/index.html" target="_blank" rel="noopener" style="text-decoration:none">↗ Mở app học viên</a>
+          <button class="btn" id="btnMetricsExport">⬇ Xuất JSON</button>
+          <button class="btn primary" id="btnMetricsRefresh">⟳ Làm mới</button>
+        </div>
+      </div>
+
+      <div id="mEmpty" class="card" style="margin-bottom:18px" hidden>
+        <div class="empty" style="padding:48px 24px">
+          <div class="e">📭</div>
+          <div class="t">Chưa có dữ liệu học tập trên trình duyệt này</div>
+          <div class="s">Mở app học viên ở cùng địa chỉ (cùng máy chủ hoặc cùng thư mục), học một bài, rồi quay lại — trang này tự cập nhật.</div>
+        </div>
+      </div>
+
+      <div id="mBody">
+        <div class="kpi-row" id="mKpi"></div>
+
+        <div class="grid-2">
+          <section class="card">
+            <div class="card-head"><div><h2>Thời gian học chủ động mỗi ngày</h2><div class="sub">14 ngày gần nhất · nhãn đen là số bài hoàn thành trong ngày</div></div></div>
+            <div class="card-body"><div class="m-bars" id="mDays"></div></div>
+          </section>
+          <section class="card">
+            <div class="card-head"><div><h2>Thời gian theo khu vực</h2><div class="sub">Người học dành thời gian ở đâu trong app</div></div></div>
+            <div class="card-body" id="mAreas"></div>
+          </section>
+        </div>
+
+        <section class="card" style="margin-bottom:18px">
+          <div class="card-head"><div><h2>Bài học</h2><div class="sub">Thời gian là thời gian học chủ động trong bài</div></div>
+            <div class="seg" id="mLessonSeg"><button class="on" data-f="done">Đã hoàn thành</button><button data-f="doing">Đang dở</button></div></div>
+          <div class="tbl-wrap"><table class="tbl" id="mLessons"><thead></thead><tbody></tbody></table></div>
+        </section>
+
+        <div class="grid-2 even">
+          <section class="card">
+            <div class="card-head"><div><h2>Phiên học gần nhất</h2><div class="sub">Nghỉ quá 30 phút thì tính là phiên mới</div></div></div>
+            <div class="card-body" id="mSessions"></div>
+          </section>
+          <section class="card">
+            <div class="card-head"><div><h2>Sự kiện gần nhất</h2><div class="sub">Hoàn thành bài, trả lời quiz, nộp case, luyện nói</div></div></div>
+            <div class="card-body" id="mEvents"></div>
+          </section>
+        </div>
+      </div>
+
+      <section class="card">
+        <div class="card-head"><div><h2>Đang đo gì, chưa đo gì</h2><div class="sub">Độ phủ đo lường hiện tại của sản phẩm</div></div></div>
+        <div class="tbl-wrap"><table class="tbl" id="mCoverage"><thead><tr><th>Chỉ số</th><th>Nguồn</th><th>Trạng thái</th><th>Ghi chú</th></tr></thead><tbody></tbody></table></div>
+      </section>
+    </section>
+
     <section class="view" id="view-revenue">
       <div class="page-head">
         <div>
-          <h1>Doanh thu &amp; gói</h1>
+          <h1>Doanh thu &amp; gói<a class="demo-tag" href="#metrics" title="Số trên trang này là dữ liệu mẫu">DỮ LIỆU MẪU · xem số thật →</a></h1>
           <p>Doanh thu ghi nhận theo tháng, đơn vị: triệu đồng</p>
         </div>
       </div>
@@ -883,6 +969,7 @@
   </aside>
 
   <div class="toast" id="toast"></div>
+  <script src="v2/assets/js/data/curriculum.js"></script>
   <script>
   (function () {
     'use strict';
@@ -1081,7 +1168,7 @@
 
     /* ═══════════ ĐIỀU HƯỚNG ═══════════ */
     var currentView = 'overview';
-    var TITLES = { overview: 'Tổng quan', learners: 'Người học', moderation: 'Kiểm duyệt', content: 'Bài học & case', revenue: 'Doanh thu', logs: 'Nhật ký' };
+    var TITLES = { overview: 'Tổng quan', metrics: 'Đo lường thật', learners: 'Người học', moderation: 'Kiểm duyệt', content: 'Bài học & case', revenue: 'Doanh thu', logs: 'Nhật ký' };
 
     function switchView(v) {
       currentView = v;
@@ -1095,6 +1182,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (v === 'moderation') renderMod();
       if (v === 'logs') renderLogs();
+      if (v === 'metrics') renderMetrics();
     }
 
     document.querySelectorAll('.sb-item[data-view]').forEach(function (b) {
@@ -1784,6 +1872,218 @@
       toast('Đã xoá nhật ký khỏi màn hình');
     });
 
+    /* ═══════════ ĐO LƯỜNG THẬT — đọc từ app học viên (cùng origin) ═══════════ */
+    var PROG_KEY = 'caselab.v2', MET_KEY = 'caselab.metrics.v1';
+    var mLessonFilter = 'done';
+
+    function readStore(key) {
+      try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { return null; }
+    }
+    function fmtDur(sec) {
+      sec = Math.round(sec || 0);
+      if (sec < 60) return sec + ' giây';
+      if (sec < 600) { var mi = Math.floor(sec / 60), se = sec % 60; return mi + ' phút' + (se ? ' ' + se + ' giây' : ''); }
+      var m = Math.round(sec / 60);
+      if (m < 60) return m + ' phút';
+      var h = Math.floor(m / 60), mm = m % 60;
+      return h + ' giờ' + (mm ? ' ' + mm + ' phút' : '');
+    }
+    function lessonTitle(id) {
+      var l = window.LESSON_BY_ID && window.LESSON_BY_ID[id];
+      return l ? l.t : id;
+    }
+    function isoDay(d) {
+      var p = function (n) { return String(n).padStart(2, '0'); };
+      return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+    }
+    function fmtDay(iso) { var a = String(iso || '').split('-'); return a.length === 3 ? a[2] + '/' + a[1] : iso; }
+    function fmtTime(ms) {
+      if (!ms) return '—';
+      var d = new Date(ms);
+      return d.toLocaleDateString('vi-VN') + ' ' + d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    var AREA = { lesson: 'Bài học', arena: 'Case Arena', interview: 'Phỏng vấn', dashboard: 'Dashboard', roadmap: 'Lộ trình',
+                 tracks: 'Danh sách track', track: 'Track', career: 'Học theo nghề', review: 'Ôn lỗi sai', library: 'Thư viện',
+                 profile: 'Hồ sơ', settings: 'Cài đặt', drill: 'Luyện nói', compare: 'So sánh nghề' };
+
+    function renderMetrics() {
+      var P = readStore(PROG_KEY), M = readStore(MET_KEY);
+      var lessons = (P && P.lessons) || {}, ml = (M && M.lessons) || {}, days = (M && M.days) || {};
+      var hasAny = !!(M && (M.sessions || []).length) || Object.keys(lessons).length > 0;
+      $('mEmpty').hidden = hasAny;
+      $('mBody').hidden = !hasAny;
+      $('mUpdated').textContent = M && M.updated ? 'Cập nhật ' + fmtTime(Date.parse(M.updated)) : 'Chưa có dữ liệu đo thời gian';
+
+      var ids = Object.keys(lessons);
+      var done = ids.filter(function (id) { return lessons[id].status === 'done'; });
+      var doing = ids.filter(function (id) { return lessons[id].status === 'in_progress'; });
+      var published = (window.LESSONS || []).filter(function (l) { return !l.soon; }).length;
+      $('cntMetrics').textContent = done.length;
+      renderCoverage();
+      if (!hasAny) return;
+
+      var todayIso = isoDay(new Date());
+      var totalSec = Object.keys(days).reduce(function (s, k) { return s + (days[k].sec || 0); }, 0);
+      var weekSec = 0;
+      for (var i = 0; i < 7; i++) { var dd = new Date(); dd.setDate(dd.getDate() - i); var r = days[isoDay(dd)]; if (r) weekSec += r.sec || 0; }
+      var sessions = (M && M.sessions) || [];
+      var sesSec = sessions.reduce(function (s, x) { return s + (x.sec || 0); }, 0);
+      var timed = done.filter(function (id) { return ml[id] && ml[id].secToDone != null; });
+      var avgDone = timed.length ? timed.reduce(function (s, id) { return s + ml[id].secToDone; }, 0) / timed.length : null;
+      var qTotal = 0, qRight = 0;
+      ids.forEach(function (id) {
+        var q = lessons[id].quiz || {};
+        Object.keys(q).forEach(function (k) { qTotal++; if (q[k].correct) qRight++; });
+      });
+      var cases = (P && P.cases) ? Object.keys(P.cases).map(function (k) { return P.cases[k]; }).filter(function (c) { return c.attempts > 0; }) : [];
+      var caseAvg = cases.length ? Math.round(cases.reduce(function (s, c) { return s + (c.best || 0); }, 0) / cases.length) : null;
+      var doneToday = done.filter(function (id) { return lessons[id].doneAt === todayIso; }).length;
+      var activeDays = Object.keys(days).filter(function (k) { return (days[k].sec || 0) >= 60; }).length;
+
+      var kpis = [
+        ['Bài học hoàn thành', done.length + (published ? ' / ' + published : ''), doneToday ? '+' + doneToday + ' hôm nay' : doing.length + ' bài đang dở'],
+        ['Thời gian học chủ động', fmtDur(totalSec), '7 ngày qua: ' + fmtDur(weekSec)],
+        ['TB mỗi bài hoàn thành', avgDone == null ? '—' : fmtDur(avgDone), timed.length ? 'đo được ' + timed.length + '/' + done.length + ' bài' : 'bài xong trước khi bật đo lường chưa có giờ'],
+        ['Phiên học', String(sessions.length), sessions.length ? 'TB ' + fmtDur(sesSec / sessions.length) + ' mỗi phiên' : 'chưa có phiên'],
+        ['Quiz đúng lần đầu', qTotal ? Math.round(qRight / qTotal * 100) + '%' : '—', qRight + ' / ' + qTotal + ' câu'],
+        ['Case Arena đã nộp', String(cases.length), caseAvg == null ? 'chưa nộp case nào' : 'điểm cao nhất TB ' + caseAvg],
+        ['Ngày có học (≥ 1 phút)', String(activeDays), 'kể từ ' + (M && M.created ? new Date(M.created).toLocaleDateString('vi-VN') : '—')]
+      ];
+      $('mKpi').innerHTML = kpis.map(function (k) {
+        return '<section class="card kpi"><div class="k">' + k[0] + '</div><div class="v" style="font-size:22px">' + esc(k[1]) + '</div>' +
+          '<div class="foot"><span class="note">' + esc(k[2]) + '</span></div></section>';
+      }).join('');
+
+      /* 14 ngày */
+      var cols = [], maxSec = 1;
+      for (var j = 13; j >= 0; j--) {
+        var d = new Date(); d.setDate(d.getDate() - j);
+        var key = isoDay(d), rec = days[key] || {};
+        var nDone = done.filter(function (id) { return lessons[id].doneAt === key; }).length;
+        cols.push({ key: key, sec: rec.sec || 0, done: nDone });
+        maxSec = Math.max(maxSec, rec.sec || 0);
+      }
+      $('mDays').innerHTML = cols.map(function (c) {
+        var h = c.sec ? Math.max(3, Math.round(c.sec / maxSec * 100)) : 2;
+        return '<div class="m-col" title="' + fmtDay(c.key) + ': ' + fmtDur(c.sec) + ', ' + c.done + ' bài xong">' +
+          (c.done ? '<span class="m-done">' + c.done + '</span>' : '') +
+          '<span class="vl">' + (c.sec ? Math.round(c.sec / 60) + 'p' : '') + '</span>' +
+          '<span class="m-bar' + (c.sec ? '' : ' zero') + '" style="height:' + h + '%"></span>' +
+          '<span class="lb">' + fmtDay(c.key) + '</span></div>';
+      }).join('');
+
+      /* khu vực */
+      var areas = {};
+      Object.keys((M && M.routes) || {}).forEach(function (r) {
+        var a = AREA[r.split('/')[0]] || r.split('/')[0];
+        areas[a] = (areas[a] || 0) + (M.routes[r].sec || 0);
+      });
+      var areaList = Object.keys(areas).map(function (a) { return [a, areas[a]]; })
+        .filter(function (a) { return a[1] >= 1; }).sort(function (x, y) { return y[1] - x[1]; });
+      var areaTot = areaList.reduce(function (s, a) { return s + a[1]; }, 0) || 1;
+      $('mAreas').innerHTML = areaList.length ? areaList.slice(0, 7).map(function (a) {
+        var pc = Math.round(a[1] / areaTot * 100);
+        return '<div class="funnel-row"><span class="funnel-label">' + esc(a[0]) + '</span>' +
+          '<span class="funnel-bar"><i class="funnel-fill" style="display:block;width:' + pc + '%"></i></span>' +
+          '<span class="funnel-val">' + fmtDur(a[1]) + '<span class="pc">' + pc + '%</span></span></div>';
+      }).join('') : '<div class="empty" style="padding:20px"><div class="s">Chưa có thời gian được ghi.</div></div>';
+
+      renderMetricLessons(lessons, ml);
+
+      /* phiên */
+      $('mSessions').innerHTML = sessions.length ? sessions.slice(-6).reverse().map(function (x) {
+        return '<div class="log-row"><span class="log-ic">⏱️</span><span style="flex:1"><span class="log-t">' + fmtDur(x.sec) +
+          ' học chủ động · ' + x.views + ' màn hình</span><span class="log-m">' + fmtTime(x.start) + ' → ' +
+          new Date(x.end).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + '</span></span></div>';
+      }).join('') : '<div class="empty" style="padding:20px"><div class="s">Chưa có phiên học nào được ghi.</div></div>';
+
+      /* sự kiện */
+      var EV = { lesson_done: ['✅', 'Hoàn thành bài'], quiz: ['❓', 'Trả lời quiz'], 'case': ['🧩', 'Nộp case'], speak: ['🎤', 'Luyện nói'] };
+      var evs = ((M && M.events) || []).slice(-8).reverse();
+      $('mEvents').innerHTML = evs.length ? evs.map(function (e) {
+        var t = EV[e.type] || ['•', e.type];
+        var extra = e.type === 'lesson_done' ? ' · ' + fmtDur(e.sec) :
+                    e.type === 'quiz' ? (e.ok ? ' · đúng' : ' · sai') :
+                    e.type === 'case' ? ' · ' + (e.total != null ? e.total + ' điểm' : '') + (e.sec ? ' · ' + fmtDur(e.sec) : '') : '';
+        return '<div class="log-row"><span class="log-ic">' + t[0] + '</span><span style="flex:1"><span class="log-t">' + t[1] + ' <b>' +
+          esc(e.type === 'lesson_done' || e.type === 'quiz' ? lessonTitle(e.id) : e.id) + '</b>' + esc(extra) + '</span>' +
+          '<span class="log-m">' + fmtTime(e.t) + '</span></span></div>';
+      }).join('') : '<div class="empty" style="padding:20px"><div class="s">Chưa có sự kiện nào.</div></div>';
+    }
+
+    function renderMetricLessons(lessons, ml) {
+      var ids = Object.keys(lessons).filter(function (id) {
+        return mLessonFilter === 'done' ? lessons[id].status === 'done' : lessons[id].status === 'in_progress';
+      }).sort(function (a, b) { return String(lessons[b].doneAt || lessons[b].updated || '').localeCompare(String(lessons[a].doneAt || lessons[a].updated || '')); });
+      var head = mLessonFilter === 'done'
+        ? '<tr><th>Bài</th><th>Hoàn thành</th><th class="num" style="text-align:right">Thời gian tới khi xong</th><th class="num" style="text-align:right">Lượt mở</th><th class="num" style="text-align:right">% đọc</th><th class="num" style="text-align:right">Quiz đúng</th></tr>'
+        : '<tr><th>Bài</th><th>Lần cuối</th><th class="num" style="text-align:right">Thời gian đã học</th><th class="num" style="text-align:right">Lượt mở</th><th class="num" style="text-align:right">% đọc</th><th class="num" style="text-align:right">Quiz đúng</th></tr>';
+      document.querySelector('#mLessons thead').innerHTML = head;
+      document.querySelector('#mLessons tbody').innerHTML = ids.length ? ids.map(function (id) {
+        var r = lessons[id], m = ml[id] || {};
+        var q = r.quiz || {}, qk = Object.keys(q), qr = qk.filter(function (k) { return q[k].correct; }).length;
+        var t = mLessonFilter === 'done' ? (m.secToDone != null ? fmtDur(m.secToDone) : '<span class="em">trước khi bật đo</span>') : fmtDur(m.sec);
+        var when = mLessonFilter === 'done' ? fmtDay(r.doneAt) + (r.doneAt ? '/' + String(r.doneAt).slice(0, 4) : '') : (r.updated ? fmtTime(Date.parse(r.updated)) : '—');
+        return '<tr><td><span class="nm">' + esc(lessonTitle(id)) + '</span><br><span class="em">' + esc(id) + '</span></td>' +
+          '<td>' + esc(when) + '</td><td class="num">' + t + '</td><td class="num">' + (m.views || 0) + '</td>' +
+          '<td class="num">' + (r.readPct || 0) + '%</td><td class="num">' + (qk.length ? qr + '/' + qk.length : '—') + '</td></tr>';
+      }).join('') : '<tr><td colspan="6"><div class="empty" style="padding:24px"><div class="s">' +
+        (mLessonFilter === 'done' ? 'Chưa hoàn thành bài nào.' : 'Không có bài đang dở.') + '</div></div></td></tr>';
+    }
+
+    function renderCoverage() {
+      var COV = [
+        ['Số bài học hoàn thành', 'caselab.v2 · lessons[].status, doneAt', 'ok', 'Đo từ trước; nay hiện ở trang này'],
+        ['Thời gian học chủ động (tổng, theo ngày)', 'caselab.metrics.v1 · days', 'ok', 'Mới — chỉ tính khi tab đang mở và có thao tác trong 60 giây gần nhất'],
+        ['Thời gian học mỗi bài, thời gian tới khi hoàn thành', 'caselab.metrics.v1 · lessons', 'ok', 'Mới — bài xong trước khi bật đo không có số giờ'],
+        ['Phiên học, thời gian mỗi phiên', 'caselab.metrics.v1 · sessions', 'ok', 'Mới — nghỉ quá 30 phút tính phiên mới'],
+        ['Thời gian theo khu vực (bài học, Arena, phỏng vấn…)', 'caselab.metrics.v1 · routes', 'ok', 'Mới'],
+        ['% đọc bài đọc', 'caselab.v2 · lessons[].readPct', 'ok', 'Có sẵn'],
+        ['Đúng/sai quiz lần đầu', 'caselab.v2 · lessons[].quiz', 'ok', 'Có sẵn; sự kiện có giờ là mới'],
+        ['Case Arena: số lần nộp, điểm, thời gian làm', 'caselab.v2 · cases', 'ok', 'Có sẵn'],
+        ['Bỏ dở ở phần nào trong bài', 'readPct + quiz từng câu', 'part', 'Biết đọc tới đâu và làm câu nào; chưa ghi thời gian ở từng phần 1–10'],
+        ['Người dùng hoạt động (ngày/tuần), giữ chân, phễu nhiều người', '—', 'no', 'Cần máy chủ thu dữ liệu: hiện mỗi trình duyệt chỉ thấy số của chính nó'],
+        ['Đăng ký, doanh thu, gói trả phí', '—', 'no', 'Chưa có tài khoản và thanh toán thật; tab Doanh thu là dữ liệu mẫu']
+      ];
+      document.querySelector('#mCoverage tbody').innerHTML = COV.map(function (c) {
+        var st = { ok: ['ok', '✓ Đang đo'], part: ['part', '◐ Một phần'], no: ['no', '✕ Chưa đo'] }[c[2]];
+        return '<tr><td><span class="nm">' + esc(c[0]) + '</span></td><td><span class="em">' + esc(c[1]) + '</span></td>' +
+          '<td><span class="cov-st ' + st[0] + '">' + st[1] + '</span></td><td>' + esc(c[3]) + '</td></tr>';
+      }).join('');
+    }
+
+    $('mLessonSeg').addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      mLessonFilter = b.dataset.f;
+      $('mLessonSeg').querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
+      var P = readStore(PROG_KEY), M = readStore(MET_KEY);
+      renderMetricLessons((P && P.lessons) || {}, (M && M.lessons) || {});
+    });
+    $('btnMetricsRefresh').addEventListener('click', function () { renderMetrics(); toast('Đã đọc lại số liệu từ app học viên'); });
+    $('btnMetricsExport').addEventListener('click', function () {
+      var data = JSON.stringify({ exportedAt: new Date().toISOString(), progress: readStore(PROG_KEY), metrics: readStore(MET_KEY) }, null, 2);
+      try {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([data], { type: 'application/json' }));
+        a.download = 'caselab-do-luong-' + isoDay(new Date()) + '.json';
+        document.body.appendChild(a); a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+      } catch (e) { /* môi trường chặn tải xuống */ }
+      toast('Đã xuất số liệu đo lường ra JSON');
+    });
+    document.querySelectorAll('.demo-tag').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); switchView('metrics'); });
+    });
+    /* app học viên ở tab khác ghi localStorage → trang này nhận sự kiện storage */
+    window.addEventListener('storage', function (e) {
+      if (e.key === PROG_KEY || e.key === MET_KEY) {
+        if (currentView === 'metrics') renderMetrics();
+        else { var P = readStore(PROG_KEY); $('cntMetrics').textContent = P ? Object.keys(P.lessons || {}).filter(function (k) { return P.lessons[k].status === 'done'; }).length : '—'; }
+      }
+    });
+
     /* ═══════════ TOPBAR ═══════════ */
     $('globalSearch').addEventListener('keydown', function (e) {
       if (e.key !== 'Enter') return;
@@ -1879,7 +2179,7 @@
     });
 
     /* ── Phím tắt ── */
-    var VIEW_KEYS = { '1': 'overview', '2': 'learners', '3': 'moderation', '4': 'content', '5': 'revenue', '6': 'logs' };
+    var VIEW_KEYS = { '1': 'overview', '2': 'learners', '3': 'moderation', '4': 'content', '5': 'revenue', '6': 'logs', '7': 'metrics' };
     document.addEventListener('keydown', function (e) {
       var typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -1929,6 +2229,7 @@
     })();
     renderKpi(7); renderChart(7); renderFunnel(); renderTodo(); renderHardCases();
     renderLearners(); renderContent(); renderMod(); renderRevenue(); renderLogs(); renderBell();
+    renderMetrics();
     updateCounts();
     var startView = location.hash.slice(1);
     if (TITLES[startView] && startView !== 'overview') switchView(startView);
