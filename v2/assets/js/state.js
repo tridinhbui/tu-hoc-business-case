@@ -90,13 +90,13 @@ function setLessonNote(lessonId, text){
 const DAILY_CHALLENGES = [
   {
     id: "dc-0",
-    tag: "TÍNH NHANH",
-    q: "Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu. Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?",
+    tag: "HOÀ VỐN",
+    q: "Một quán cà phê có định phí 60 triệu/tháng, bán 40.000đ/ly, chi phí biến đổi 16.000đ/ly. Mỗi tháng cần bán bao nhiêu ly để hoà vốn?",
     opts: [
-      ["A", "64%, vượt xa ngưỡng an toàn thường được khuyến nghị là dưới 40% thu nhập", "Tổng nghĩa vụ nợ 16 triệu / 25 triệu = 64%, vượt quá ngưỡng an toàn tài chính cá nhân."],
-      ["B", "44%, chỉ tính khoản vay cũ nên khoản trả góp mới chưa được cộng vào mẫu", "Chưa cộng thêm khoản nghĩa vụ nợ mới."],
-      ["C", "20%, chỉ tính khoản trả góp mới vì đó là phần nghĩa vụ vừa phát sinh thêm", "Chỉ tính khoản nợ mới mà bỏ quên khoản nợ cũ đang trả."],
-      ["D", "16 triệu, lấy tổng số tiền phải trả mỗi tháng thay cho một tỷ lệ phần trăm", "Số tuyệt đối chứ không phải tỷ lệ phần trăm (DTI)."]
+      ["A", "2.500 ly", "Lãi góp mỗi ly = 40.000 − 16.000 = 24.000đ → 60.000.000 / 24.000 = 2.500 ly."],
+      ["B", "1.500 ly", "Chia định phí cho giá bán (60 triệu / 40.000) — quên trừ chi phí biến đổi của mỗi ly."],
+      ["C", "3.750 ly", "Chia định phí cho chi phí biến đổi (60 triệu / 16.000) — nhầm vai trò hai con số."],
+      ["D", "1.072 ly", "Chia cho giá bán cộng chi phí biến đổi (56.000đ) — lãi góp là hiệu, không phải tổng."]
     ],
     correct: "A"
   },

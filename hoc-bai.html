@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tự Học Tài Chính — Học bài</title>
+  <title>Tự Học Business Case — Học bài</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared/sidebar.css?v=c46a124a">
   <style>
     :root {
       --bg: #f8faf8;
@@ -946,7 +947,7 @@
       object-fit: cover;
     }
 
-    /* Widget 2: Câu sai cần ôn tập */
+    /* Widget 2: Lỗi cần ôn tập */
     .widget-mistake-interactive {
       display: flex;
       align-items: center;
@@ -1013,7 +1014,7 @@
       opacity: 0.85;
     }
 
-    /* Widget 3: Thử thách tài chính mỗi ngày */
+    /* Widget 3: Thử thách Business Case mỗi ngày */
     .drill-header-strip {
       display: flex;
       align-items: center;
@@ -1213,141 +1214,45 @@
 <body>
 
   <!-- ════════════ SIDEBAR (LEFT) ════════════ -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <a href="dashboard.html" class="brand-logo">
-        <div class="brand-icon-wrap">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22v-9" />
-            <path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.25" />
-            <path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.35" />
-          </svg>
-        </div>
-        <div class="brand-title-box">
-          <span class="brand-title-sub">TỰ HỌC</span>
-          <span class="brand-title-main">TÀI CHÍNH</span>
-        </div>
-      </a>
+  <!-- SIDEBAR:START · tự sinh bởi tools/sync-sidebar.py — đừng sửa tay -->
+<aside class="sb" aria-label="Điều hướng chính">
+  <div class="sb-head"><a href="dashboard.html" class="sb-brand" aria-label="Tự học Business Case — về Dashboard">
+    <span class="sb-brand-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-9"/><path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.25"/><path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.35"/></svg></span>
+    <span class="sb-brand-text"><span class="sb-brand-sub">TỰ HỌC</span><span class="sb-brand-main">BUSINESS CASE</span></span></a></div>
+  <label class="sb-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="searchInput" type="search" placeholder="Tìm kiếm…" autocomplete="off" aria-label="Tìm kiếm"><kbd>⌘K</kbd></label>
+  <nav class="sb-nav" id="sbNav">
+      <a href="dashboard.html" class="sb-link"><span class="sb-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span>Dashboard</span></a>
+      <a href="case-social.html" class="sb-link"><span class="sb-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>CaseSocial</span></a>
+    <div class="sb-group"><span>🌱 HỌC TẬP</span><i aria-hidden="true">▾</i></div>
+    <div class="sb-card">
+      <a href="bat-dau-tu-dau.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🧭</span><span>Bắt đầu từ đâu</span></a>
+      <a href="hoc-bai.html" class="sb-link sb-on" aria-current="page"><span class="sb-ic" aria-hidden="true">📖</span><span>Học bài</span></a>
+      <a href="hoc-theo-nghe.html" class="sb-link"><span class="sb-ic" aria-hidden="true">💼</span><span>Học theo nghề</span></a>
+      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📜</span><span>Chứng chỉ</span><span class="sb-more" aria-hidden="true">›</span></a>
     </div>
-
-    <!-- Search Input -->
-    <div class="search-input-pill">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span>Tìm kiếm...</span>
-      <kbd>⌘K</kbd>
+    <div class="sb-group"><span>⚡ THỰC HÀNH</span><i aria-hidden="true">▾</i></div>
+      <a href="bai-hoc.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎯</span><span>Quiz</span><span class="sb-badge sb-new">TIN MỚI</span></a>
+      <a href="thi-vuot-chang.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏆</span><span>Thi vượt chặng</span></a>
+      <a href="game-kingdom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎮</span><span>Game Kingdom</span><span class="sb-badge sb-hot">HOT</span></a>
+      <a href="luyen-phong-van.html" class="sb-link"><span class="sb-ic" aria-hidden="true">👥</span><span>Luyện phỏng vấn</span></a>
+    <div class="sb-group"><span>👥 CỘNG ĐỒNG</span><i aria-hidden="true">▾</i></div>
+      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏛️</span><span>Thư viện</span></a>
+      <a href="hoc-nhom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🤝</span><span>Học nhóm</span><span class="sb-badge sb-check">CHECK-IN</span></a>
+      <a href="thong-ke.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📊</span><span>Thống kê</span></a>
+  </nav>
+  <script>(function(){var n=document.getElementById('sbNav');if(!n)return;try{var y=sessionStorage.getItem('sb-scroll');if(y)n.scrollTop=+y;}catch(e){}var a=n.querySelector('.sb-on');if(a){var r=a.getBoundingClientRect(),b=n.getBoundingClientRect();if(r.top<b.top||r.bottom>b.bottom)n.scrollTop+=r.top-b.top-(b.height-r.height)/2;}addEventListener('pagehide',function(){try{sessionStorage.setItem('sb-scroll',n.scrollTop);}catch(e){}});})();</script>
+  <div class="sb-foot">
+    <div class="sb-wallet">
+      <a href="cua-hang-rpg.html" class="sb-gold" title="Túi vàng — đổi quà ở cửa hàng"><span aria-hidden="true">🪙</span><span>Túi vàng</span><span class="sb-gold-n" id="goldSidebarCount">60</span></a>
+      <button type="button" class="sb-bell" title="Thông báo" aria-label="Thông báo, 9+ mới"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><b>9+</b></button>
     </div>
-
-    <!-- Navigation Menu -->
-    <nav class="sidebar-nav-scroll">
-      <a href="dashboard.html" class="nav-link-item">
-        <span class="nav-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-        </span>
-        <span>Dashboard</span>
-      </a>
-
-      <a href="case-social.html" class="nav-link-item">
-        <span class="nav-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </span>
-        <span>FinSocial</span>
-      </a>
-
-      <!-- GROUP: HỌC TẬP -->
-      <div class="nav-group-heading">
-        <span>🌱 HỌC TẬP</span>
-        <span class="chevron-arrow">▾</span>
-      </div>
-      <div class="nav-group-card-box">
-        <a href="index.html#/roadmap" class="nav-link-item">
-          <span class="nav-icon">🧭</span>
-          <span>Bắt đầu từ đâu</span>
-        </a>
-        <a href="hoc-bai.html" class="nav-link-item active">
-          <span class="nav-icon">📖</span>
-          <span>Học bài</span>
-        </a>
-        <a href="hoc-theo-nghe.html" class="nav-link-item">
-          <span class="nav-icon">💼</span>
-          <span>Học theo nghề</span>
-        </a>
-        <a href="tai-lieu.html" class="nav-link-item">
-          <span class="nav-icon">📜</span>
-          <span>Chứng chỉ</span>
-          <span style="margin-left:auto;font-size:11px;color:var(--text-muted)">›</span>
-        </a>
-      </div>
-
-      <!-- GROUP: THỰC HÀNH -->
-      <div class="nav-group-heading">
-        <span>⚡ THỰC HÀNH</span>
-        <span class="chevron-arrow">▾</span>
-      </div>
-      <a href="#" class="nav-link-item">
-        <span class="nav-icon">🎯</span>
-        <span>Quiz</span>
-        <span class="nav-badge-pill badge-tin-moi">TIN MỚI</span>
-      </a>
-      <a href="thi-vuot-chang.html" class="nav-link-item">
-        <span class="nav-icon">🏆</span>
-        <span>Thi vượt chặng</span>
-      </a>
-      <a href="game-kingdom.html" class="nav-link-item">
-        <span class="nav-icon">🎮</span>
-        <span>Game Kingdom</span>
-        <span class="nav-badge-pill badge-hot">HOT</span>
-      </a>
-      <a href="luyen-phong-van.html" class="nav-link-item">
-        <span class="nav-icon">👥</span>
-        <span>Luyện phỏng vấn</span>
-      </a>
-
-      <!-- GROUP: CỘNG ĐỒNG -->
-      <div class="nav-group-heading">
-        <span>👥 CỘNG ĐỒNG</span>
-        <span class="chevron-arrow">▾</span>
-      </div>
-      <a href="tai-lieu.html" class="nav-link-item">
-        <span class="nav-icon">🏛️</span>
-        <span>Thư viện</span>
-      </a>
-      <a href="hoc-nhom.html" class="nav-link-item">
-        <span class="nav-icon">🤝</span>
-        <span>Học nhóm</span>
-        <span class="nav-badge-pill badge-checkin">CHECK-IN</span>
-      </a>
-      <a href="thong-ke.html" class="nav-link-item">
-        <span class="nav-icon">📊</span>
-        <span>Thống kê</span>
-      </a>
-    </nav>
-
-    <!-- Sidebar Footer (Wallet & User) -->
-    <div class="sidebar-footer-box">
-      <div class="gold-wallet-bar">
-        <div class="gold-capsule">
-          <span>🪙</span>
-          <span>Túi vàng</span>
-          <span class="gold-count-num">60</span>
-        </div>
-        <button class="bell-icon-btn" title="Thông báo">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span class="bell-red-badge">9+</span>
-        </button>
-      </div>
-
-      <a href="ho-so.html" class="user-profile-row" title="Tài khoản">
-        <div class="user-avatar-round">
-          <img src="assets/img/user_avatar.png" alt="Avatar" onerror="this.parentNode.textContent='ĐTB'">
-        </div>
-        <div class="user-text-info">
-          <div class="user-text-name">Đinh Trí Bùi</div>
-          <div class="user-text-email">tribd.tec@gmail.com</div>
-        </div>
-        <span style="font-size:10px; color:#9ca3af; margin-left:auto;">▾</span>
-      </a>
-    </div>
-  </aside>
+    <a href="ho-so.html" class="sb-user" title="Hồ sơ cá nhân">
+      <span class="sb-av"><img src="assets/img/user_avatar.png" alt="" onerror="this.parentNode.textContent='ĐTB'"></span>
+      <span class="sb-user-text"><span class="sb-user-name">Đinh Trí Bùi</span><span class="sb-user-mail">tribd.tec@gmail.com</span></span>
+      <span class="sb-caret" aria-hidden="true">▾</span></a>
+  </div>
+</aside>
+<!-- SIDEBAR:END -->
 
   <!-- ════════════ MAIN BODY CONTENT (RIGHT) ════════════ -->
   <main class="main-body-content">
@@ -1368,10 +1273,10 @@
               ★ +15 XP khi hoàn thành
             </span>
           </div>
-          <div class="hero-sub-text">Chặng 1 • Bài 1351</div>
-          <h1 class="hero-title-h1">Theo dõi chi tiêu – đo trước<br>khi phân bổ</h1>
+          <div class="hero-sub-text">Chặng 1 • Bài 1</div>
+          <h1 class="hero-title-h1">Vì sao mọi case đều bắt đầu<br>bằng một con số</h1>
           <div class="hero-progress-flex">
-            <span>Tiến độ (3/267 bài)</span>
+            <span>Tiến độ (3/213 bài)</span>
             <div class="hero-bar-container">
               <div class="hero-bar-inner"></div>
             </div>
@@ -1389,12 +1294,12 @@
     <!-- ── TRACK SWITCHER (2 TABS) ── -->
     <div class="track-switch-row">
       <button class="track-btn active" id="tabTrack1" onclick="switchTrack('c-ca-nhan')">
-        <span>Tài chính cá nhân</span>
-        <span class="track-count-badge">2/265 bài</span>
+        <span>Nền tảng giải case</span>
+        <span class="track-count-badge">2/66 bài</span>
       </button>
       <button class="track-btn" id="tabTrack2" onclick="switchTrack('c-chuyen-nganh')">
-        <span>Tài chính chuyên ngành</span>
-        <span class="track-count-badge">1/525 bài</span>
+        <span>Kỹ thuật &amp; phỏng vấn case</span>
+        <span class="track-count-badge">1/111 bài</span>
       </button>
     </div>
 
@@ -1423,7 +1328,7 @@
               <div class="stage-icon-square icon-amber-flag">🚩</div>
               <div>
                 <div style="font-size:10.5px; font-weight:800; color:#b45309; text-transform:uppercase; letter-spacing:0.04em;">CHẶNG 1</div>
-                <div class="stage-heading-text">Biết mình trước khi học: audit, ngân sách, qu...</div>
+                <div class="stage-heading-text">Ước lượng quy mô thị trường</div>
               </div>
             </div>
             <div class="stage-right-metrics">
@@ -1434,7 +1339,7 @@
               <div class="stage-progress-track">
                 <div class="stage-progress-fill" style="width: 11%;"></div>
               </div>
-              <span class="stage-count-label">1/9</span>
+              <span class="stage-count-label">1/12</span>
               <span class="stage-chevron" id="chev-st-1">▲</span>
             </div>
           </div>
@@ -1444,7 +1349,7 @@
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <button class="btn-circle-play-black" onclick="location.href='bai-hoc.html'">▶</button>
-                <span class="lesson-item-title">Đo trước: theo dõi chi tiêu</span>
+                <span class="lesson-item-title">Vì sao mọi case đều bắt đầu bằng một con số</span>
               </div>
               <div class="lesson-item-right">
                 <span class="lesson-pill-tag">Bài 1-1</span>
@@ -1456,7 +1361,7 @@
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Audit tài chính và khẩu vị rủi ro</span>
+                <span class="lesson-item-title">Top-down và bottom-up: chọn đường nào</span>
               </div>
               <div class="lesson-item-right">
                 <span class="lesson-pill-tag">Bài 2-3</span>
@@ -1468,7 +1373,7 @@
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Ngân sách, quỹ khẩn cấp, trả nợ và mục tiêu</span>
+                <span class="lesson-item-title">Chọn đơn vị tiêu dùng đúng</span>
               </div>
               <div class="lesson-item-right">
                 <span class="lesson-pill-tag">Bài 4-7</span>
@@ -1480,7 +1385,7 @@
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Giữ kế hoạch sống sót: tự động hóa và bảo hiểm</span>
+                <span class="lesson-item-title">Giả định nào đáng tranh luận</span>
               </div>
               <div class="lesson-item-right">
                 <span class="lesson-pill-tag">Bài 8-9</span>
@@ -1499,7 +1404,7 @@
               <div style="display:flex; align-items:center; gap:6px;">
                 <span style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">CHẶNG 2</span>
                 <span class="badge-tag-moi">MỚI</span>
-                <span class="stage-heading-text">Thuế TNCN &amp; Lương thực nhận</span>
+                <span class="stage-heading-text">Lợi nhuận: tìm chỗ rò trong P&amp;L</span>
               </div>
             </div>
             <div class="stage-right-metrics">
@@ -1510,7 +1415,7 @@
               <div class="stage-progress-track">
                 <div class="stage-progress-fill" style="width: 0%;"></div>
               </div>
-              <span class="stage-count-label">0/8</span>
+              <span class="stage-count-label">0/12</span>
               <span class="stage-chevron" id="chev-st-2">▼</span>
             </div>
           </div>
@@ -1518,7 +1423,7 @@
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Lương Gross vs Net: Bóc tách BHXH, BHYT &amp; Giảm trừ gia cảnh</span>
+                <span class="lesson-item-title">Doanh thu không phải lợi nhuận: cây lợi nhuận và ba biến thể</span>
               </div>
               <div class="lesson-item-right"><span class="lesson-pill-tag">Bài 1-3</span><span class="lesson-ratio-label">0/3</span></div>
             </div>
@@ -1529,11 +1434,11 @@
         <div class="stage-card-wrap">
           <div class="stage-card-header-bar" onclick="toggleStageAccordion('st-3')">
             <div class="stage-left-box">
-              <div class="stage-icon-square icon-green-box">💳</div>
+              <div class="stage-icon-square icon-green-box">₫</div>
               <div style="display:flex; align-items:center; gap:6px;">
                 <span style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">CHẶNG 3</span>
                 <span class="badge-tag-moi">MỚI</span>
-                <span class="stage-heading-text">Tín dụng cá nhân &amp; CIC</span>
+                <span class="stage-heading-text">Định giá: chi phí, đối thủ, giá trị</span>
               </div>
             </div>
             <div class="stage-right-metrics">
@@ -1544,7 +1449,7 @@
               <div class="stage-progress-track">
                 <div class="stage-progress-fill" style="width: 0%;"></div>
               </div>
-              <span class="stage-count-label">0/8</span>
+              <span class="stage-count-label">0/9</span>
               <span class="stage-chevron" id="chev-st-3">▼</span>
             </div>
           </div>
@@ -1552,7 +1457,7 @@
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Thẻ tín dụng &amp; Quản trị điểm tín dụng CIC chuẩn ngân hàng</span>
+                <span class="lesson-item-title">Độ co giãn, và vì sao giảm giá thường thua</span>
               </div>
               <div class="lesson-item-right"><span class="lesson-pill-tag">Bài 1-4</span><span class="lesson-ratio-label">0/4</span></div>
             </div>
@@ -1591,10 +1496,10 @@
           <div class="mistake-circle-orange">!</div>
           <div class="mistake-info-col">
             <div class="mistake-header-line">
-              <h3 class="mistake-heading-txt">Câu sai cần ôn tập</h3>
-              <span class="mistake-count-pill">40 câu</span>
+              <h3 class="mistake-heading-txt">Lỗi cần ôn tập</h3>
+              <span class="mistake-count-pill">12 lỗi</span>
             </div>
-            <p class="mistake-desc-small">Bạn có 40 câu hỏi trắc nghiệm đã làm sai cần ôn lại để củng cố kiến thức.</p>
+            <p class="mistake-desc-small">Lỗi từ bài tập, case và phỏng vấn đang chờ ôn. Ôn đúng lịch để không lặp lại cùng một kiểu sai.</p>
           </div>
           <span style="color:#d97706; font-size:15px; font-weight:800;">→</span>
 
@@ -1606,12 +1511,12 @@
           </svg>
         </div>
 
-        <!-- WIDGET 3: THỬ THÁCH TÀI CHÍNH MỖI NGÀY -->
+        <!-- WIDGET 3: THỬ THÁCH BUSINESS CASE MỖI NGÀY -->
         <div class="widget-box-card">
           <div class="drill-header-strip">
             <div class="drill-title-wrap">
               <div class="drill-book-sq">📖</div>
-              <h3 class="drill-heading-title">Thử thách tài chính<br>mỗi ngày</h3>
+              <h3 class="drill-heading-title">Thử thách Business Case<br>mỗi ngày</h3>
             </div>
             <div class="drill-header-tools">
               <span style="color:#10b981; font-size:9px;">●</span>
@@ -1623,28 +1528,28 @@
           <span class="drill-pill-tag-action">TÍNH NHANH</span>
 
           <div class="drill-prompt-primary">
-            Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu
+            Quán cà phê: định phí 60 triệu/tháng, giá 40.000đ/ly, chi phí biến đổi 16.000đ/ly
           </div>
           <div class="drill-prompt-secondary">
-            Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?
+            Mỗi tháng cần bán bao nhiêu ly để hoà vốn?
           </div>
 
           <div class="drill-options-stack">
             <button class="drill-choice-card" onclick="selectChoice(this, 0)">
               <span class="drill-choice-letter">A</span>
-              <span>64%, vượt xa ngưỡng an toàn thường được khuyến nghị là dưới 40% thu nhập</span>
+              <span>2.500 ly — lãi góp 24.000đ/ly, 60 triệu ÷ 24.000đ</span>
             </button>
             <button class="drill-choice-card" onclick="selectChoice(this, 1)">
               <span class="drill-choice-letter">B</span>
-              <span>44%, chỉ tính khoản vay cũ nên khoản trả góp mới chưa được cộng vào mẫu</span>
+              <span>1.500 ly — chia định phí cho giá bán</span>
             </button>
             <button class="drill-choice-card" onclick="selectChoice(this, 2)">
               <span class="drill-choice-letter">C</span>
-              <span>20%, chỉ tính khoản trả góp mới vì đó là phần nghĩa vụ vừa phát sinh thêm</span>
+              <span>3.750 ly — chia định phí cho chi phí biến đổi</span>
             </button>
             <button class="drill-choice-card" onclick="selectChoice(this, 3)">
               <span class="drill-choice-letter">D</span>
-              <span>16 triệu, lấy tổng số tiền phải trả mỗi tháng thay cho một tỷ lệ phần trăm</span>
+              <span>1.072 ly — chia cho giá bán cộng chi phí biến đổi</span>
             </button>
           </div>
 
@@ -1704,12 +1609,12 @@
         btn.textContent = '✓ CHÍNH XÁC (+15 XP)';
         btn.style.background = '#059669';
         btn.style.color = '#ffffff';
-        alert('🎉 Chính xác! Tỷ lệ nợ / Thu nhập = (11tr + 5tr) / 25tr = 64% (Vượt xa ngưỡng an toàn 40%).');
+        alert('🎉 Chính xác! Lãi góp mỗi ly = 40.000 − 16.000 = 24.000đ → 60.000.000 ÷ 24.000 = 2.500 ly.');
       } else {
         btn.textContent = '✕ ĐÁP ÁN ĐÚNG LÀ A';
         btn.style.background = '#e11d48';
         btn.style.color = '#ffffff';
-        alert('Giải thích: Tỷ lệ DTI = Tổng nợ hàng tháng / Tổng thu nhập = 16tr / 25tr = 64%.');
+        alert('Giải thích: hoà vốn = định phí ÷ lãi góp mỗi ly = 60.000.000 ÷ (40.000 − 16.000) = 2.500 ly.');
       }
     }
   </script>

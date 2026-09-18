@@ -18,6 +18,10 @@ const RECOMPUTE = {
   "i-price-9": ()=> (12*0.95*(35*1.08 - 14)) - (12*(35 - 14)),
   "i-price-9#1": ()=> Math.round((1 - (35 - 14)/(35*1.08 - 14))*10000)/100,
   "i-price-9#2": ()=> Math.round((340 - (150*90/60))/340*1000)/10,
+  "k-entry-5": ()=> { const cau=100*Math.pow(1.08,3); return (135-cau)/cau*100; },
+  "k-entry-6": ()=> 90/(30-12) + 1,            // năm hai đường luỹ kế bằng nhau, rồi năm kế tiếp mới vượt
+  "k-entry-7": ()=> 20*0.5 + 10*0.5*0.6 - 12,
+  "k-entry-8": ()=> 4.8*0.85 - 4.8*0.75,
   /* i-price-8 · gọi xe Đi Ngay: 12 ngày mưa, ×2,5 (28 nghìn chuyến, khả năng phản ứng 50%) vs trần ×1,5 (36 nghìn, 10%), thiệt hại 9 tỷ */
   "i-price-8": ()=> (((36*22.5 - 40*15)*12/1000) - (0.1*500*0.03*600/1000)) - (((28*37.5 - 40*15)*12/1000) - (0.5*500*0.03*600/1000)),
   "i-price-8#1": ()=> (60 - (80*(1 - 0.4)))/60*100,
@@ -272,10 +276,47 @@ const RECOMPUTE = {
   "c-frame-9#2": ()=> 2.5e9/150000*0.05*0.8 - 3e9/150000*0.05*0.4,
   "c-frame-2": ()=> 20000*(0.06-0.04),
   "c-frame-3": ()=> 1500*0.2 - (1400*0.08 + (220-100)),
-  "c-tree-1": ()=> [40*0.3, 60*0.5, 25*0.8].sort((a,b)=>b-a)[1],
+  /* c-tree-4…9 · Biển Đông: EBITDA giảm 60 tỷ; nhánh giá 21,6 · sản lượng 18 · nguyên liệu 12 · vận chuyển 5 · khác 3,4 */
+  "c-tree-4": ()=> (21.6+18+12+5+8+3.4) - 60,
+  "c-tree-4#1": ()=> 3.4/60*100,
+  "c-tree-4#2": ()=> (60-54)/60*100,
+  "c-tree-5": ()=> 12*0.9/4,
+  "c-tree-5#1": ()=> 12*0.9 + 21.6*0.6 + 18*0.7,
+  "c-tree-5#2": ()=> 60 - (21.6+18+12),
+  "c-tree-6": ()=> 12*0.5 + 20*0.3 + 5*0.9 + 8*0.6,
+  "c-tree-6#1": ()=> (12*0.5 + 20*0.3 + 5*0.9 + 8*0.6)/60*100,
+  "c-tree-6#2": ()=> 12*0.75 + 20*0.3 + 5*0.9 + 8*0.6,
+  "c-tree-7": ()=> 4*3 - 5,
+  "c-tree-7#1": ()=> 5*2,
+  "c-tree-7#2": ()=> (21.6+18)/60*100,
+  "c-tree-8": ()=> 1200*18e6/1e9,
+  "c-tree-8#1": ()=> 1200*20e6/1e9,
+  "c-tree-8#2": ()=> 12e9/18e6,
+  "c-tree-9": ()=> (4+6+8)/4,
+  "c-tree-9#1": ()=> (4+6+8)/3,
+  "c-tree-9#2": ()=> (4+6+8) - 3*4.5,  "c-tree-1": ()=> [40*0.3, 60*0.5, 25*0.8].sort((a,b)=>b-a)[1],
   "c-tree-2": ()=> 200000*6*600000/1e9,
   "c-tree-3": ()=> { const h=[3,6,2,8,4]; return h.reduce((a,b)=>a+b) - Math.max(...h); },
   "c-insight-1": ()=> 42/50*100,
+  /* c-insight-4…9 · Lá Trà: 60 cửa hàng, quý trước 400 tỷ, giảm 50 tỷ; 15 cửa hàng gần trường 120 tỷ, 45 cửa hàng khác 280 tỷ */
+  "c-insight-4": ()=> 1.2e9/45/1e6,
+  "c-insight-4#1": ()=> ((1.2e9/45)/(1.8e9/90) - 1)*100,
+  "c-insight-4#2": ()=> 1.2e9/45/60/1000,
+  "c-insight-5": ()=> 50/400*100,
+  "c-insight-5#1": ()=> 400*(50/400 - 0.05),
+  "c-insight-5#2": ()=> 400*(50/400 - 0.03),
+  "c-insight-6": ()=> 35*(0.20-0.15),
+  "c-insight-6#1": ()=> 35*(0.20-0.15)*0.6,
+  "c-insight-6#2": ()=> (35*0.20*0.6 - 0.8) - (35*0.05*0.6 - 0.8),
+  "c-insight-7": ()=> 120*0.30/50*100,
+  "c-insight-7#1": ()=> 120*0.30/15,
+  "c-insight-7#2": ()=> 280*0.05/400*100,
+  "c-insight-8": ()=> (36+8+4)/50*100,
+  "c-insight-8#1": ()=> 2/50*100,
+  "c-insight-8#2": ()=> 9*36/(36+8+4),
+  "c-insight-9": ()=> 36e9/45000,
+  "c-insight-9#1": ()=> 800000*0.5*(25000-10000)/1e9,
+  "c-insight-9#2": ()=> 200000*10000/(25000-10000),
   "c-insight-2": ()=> 20000*(0.08-0.03),
   "c-insight-3": ()=> (1.55-1.48)/1.48*100,
   "c-deck-1": ()=> 15*0.45,
@@ -491,6 +532,32 @@ const SIDE = [
   ["c-frame bài đọc 4–9 · 10% ba năm là 33,1% không phải 30%; 6 lượt/giờ hơn 4 lượt 50%; tính biên trên doanh thu cũ thiếu ≈ 4,8 tỷ; kịch bản 6% thấp hơn ≈ 50 tỷ doanh thu; dư địa công suất ≈ 10 tỷ", ()=>{
       assert.equal(Math.round((Math.pow(1.1,3)-1)*1000)/10,33.1); assert.equal(6/4-1,0.5); assert.equal(Math.round((19.1664-360*0.04)*10)/10,4.8);
       assert.equal(Math.round(360*(Math.pow(1.1,3)-Math.pow(1.06,3))),50); assert.equal(Math.round(30-19.1664),11); assert.ok(30-19.1664>6.05); }],
+  /* Biển Đông · c-tree-4…9 */
+  ["c-tree-4 · sáu nhánh cộng 68; năm nhánh cộng đúng 60", ()=>{ assert.equal(21.6+18+12+5+8+3.4,68); assert.equal(Math.round((21.6+18+12+5+3.4)*10)/10,60); }],
+  ["c-tree-5 · giá trị kỳ vọng 12,96 · 12,6 · 10,8 · 4; giá trị mỗi giờ 2,16 · 1,58 · 2,7 · 1,33; ba nhánh phủ 51,6 tỷ", ()=>{
+      assert.deepEqual([21.6*0.6,18*0.7,12*0.9,5*0.8].map(x=>Math.round(x*100)/100),[12.96,12.6,10.8,4]);
+      assert.deepEqual([12.96/6,12.6/8,10.8/4,4/3].map(x=>Math.round(x*100)/100),[2.16,1.58,2.7,1.33]);
+      assert.equal(Math.round((21.6+18+12)*10)/10,51.6); assert.equal(4+6+8,18); }],
+  ["c-tree-6 · tác động thô 45 tỷ; nâng khả năng thêm 3 tỷ; nhóm khả thi ≥60% là 9,3 tỷ", ()=>{
+      assert.equal(12+20+5+8,45); assert.equal(12*0.75-12*0.5,3); assert.equal(Math.round((5*0.9+8*0.6)*10)/10,9.3); }],
+  ["c-tree-7 · 12 yêu cầu, 5 suất hỏi; hai nhánh lớn 39,6 tỷ", ()=>{ assert.equal(4*3,12); assert.equal(Math.round((21.6+18)*10)/10,39.6); }],
+  ["c-tree-8 · chênh mốc sản lượng 2,4 tỷ; 667đ ≈ 7,4% lãi góp", ()=>{ assert.equal(Math.round((24-21.6)*10)/10,2.4); assert.equal(Math.round(12e9/18e6/9000*1000)/10,7.4); }],
+  ["c-tree-9 · quỹ ba người 13,5 giờ-người", ()=>{ assert.equal(3*4.5,13.5); assert.equal(18-13.5,4.5); }],
+  ["c-tree bài đọc 4–9 · bốn nhánh cần 21 giờ; xác suất cả bốn thành công ≈ 8%; 2 triệu lít = 80 tỷ doanh thu; dùng nhầm mốc ra tổng 62,4 tỷ", ()=>{
+      assert.equal(6+8+4+3,21); assert.equal(Math.round(0.5*0.3*0.9*0.6*100),8); assert.equal(2e6*40000/1e9,80);
+      assert.equal(Math.round((24+18+12+5+3.4)*10)/10,62.4); assert.equal(Math.round(21.3/45*100),47); }],
+  /* Lá Trà · c-insight-4…9 */
+  ["c-insight-4 · A 20 triệu/ngày; mỗi m² A 200 nghìn, B hơn gấp đôi", ()=>{ assert.equal(1.8e9/90/1e6,20); assert.equal(20e6/100/1000,200); assert.ok(444.4/200>2); }],
+  ["c-insight-5 · thời tiết tối đa 20 tỷ; phần của Lá Trà 60% mức giảm; gấp 2,5 lần thị trường", ()=>{ assert.equal(400*0.05,20); assert.equal(30/50,0.6); assert.equal(12.5/5,2.5); }],
+  ["c-insight-6 · tăng quan sát 7 tỷ, mùa vụ 5,25 tỷ; ba phần tư do mùa; phóng đại gần 14 lần", ()=>{
+      assert.equal(Math.round(35*0.2*100)/100,7); assert.equal(Math.round(35*0.15*100)/100,5.25); assert.equal(Math.round(0.15/0.2*100),75);
+      assert.equal(Math.round((35*0.2*0.6-0.8)*10)/10,3.4); assert.equal(Math.round(3.4/0.25*10)/10,13.6); }],
+  ["c-insight-7 · hai nhóm cộng đúng 50 tỷ; nhóm khác mất ≈ 0,31 tỷ mỗi cửa hàng", ()=>{ assert.equal(Math.round(120*0.3+280*0.05),50); assert.equal(Math.round(14/45*100)/100,0.31); }],
+  ["c-insight-8 · độ phủ cộng dồn 72 · 88 · 96 · 100%", ()=>{ let c=0; assert.deepEqual([36,8,4,2].map(x=>Math.round((c+=x)/50*100)),[72,88,96,100]); assert.equal(9-6.75,2.25); }],
+  ["c-insight-9 · 400.000 đơn lấy lại; ròng 4 tỷ; hoà vốn ≈ 17% số đơn mất", ()=>{ assert.equal(800000*0.5,400000); assert.equal(6-2,4); assert.equal(Math.round(133333/800000*100),17); }],
+  ["c-insight bài đọc 4–9 · 50 ÷ 350 ≈ 14,3%; 36 ÷ 400 = 9%; lãi hơn bốn lần chi phí; gần tám lần mỗi cửa hàng; ròng thấp hơn một phần ba", ()=>{
+      assert.equal(Math.round(50/350*1000)/10,14.3); assert.equal(36/400*100,9); assert.ok(3.4/0.8>4); assert.equal(Math.round(2.4/(14/45)),8);
+      assert.equal(Math.round((1-4/6)*100),33); assert.equal((15+14+16)/3,15); }],
   ["i-profit-1 · phần riêng của hãng ≈ 83% mức giảm", ()=> assert.equal(Math.round(12.5/15*100),83)],
   ["i-profit-2 · số liệu hãng xe khớp bài trước", ()=>{ assert.equal(5e6*100000/1e9,500); assert.equal(4e6*130000/1e9,520);
       assert.equal(520-485,35); assert.equal((4e6-5e6)*100000/1e9,-100); }],

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CASELAB — Business Case Training Studio</title>
+<title>Tự học Business Case — luyện giải case</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
@@ -41,13 +41,13 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
         </svg>
       </div>
       <div style="display:flex;flex-direction:column;line-height:1.15">
-        <span style="font-weight:800;font-size:14px;color:var(--text);letter-spacing:-.02em">STRATLAB</span>
-        <span style="font-weight:700;font-size:9.5px;color:#059669;letter-spacing:.04em">EDTECH THỰC CHIẾN</span>
+        <span style="font-weight:800;font-size:14px;color:var(--text);letter-spacing:-.02em">TỰ HỌC</span>
+        <span style="font-weight:700;font-size:9.5px;color:#059669;letter-spacing:.04em">BUSINESS CASE</span>
       </div>
     </a>
     
     <div style="padding:0 14px 10px">
-      <div class="sidebar-search-box" onclick="location.hash='#/tracks'" style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);padding:7px 12px;cursor:pointer">
+      <div class="sidebar-search-box" onclick="location.hash='#/library'" style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);padding:7px 12px;cursor:pointer">
         <span style="color:var(--muted);font-size:13px">⌕</span>
         <span style="color:var(--muted);font-size:12.5px;flex:1">Tìm kiếm...</span>
         <kbd style="font-size:10px;padding:2px 5px;background:var(--surface-3);border-radius:4px;color:var(--muted);font-family:inherit">⌘K</kbd>
@@ -56,7 +56,6 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
 
     <nav id="nav-top" style="margin-bottom:6px">
       <a href="#/dashboard"><span class="ic">📊</span>Dashboard</a>
-      <a href="#/casesocial"><span class="ic">🌐</span>CaseSocial</a>
     </nav>
 
     <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
@@ -67,61 +66,48 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
       <a href="#/roadmap"><span class="ic">🧭</span>Bắt đầu từ đâu</a>
       <a href="#/tracks"><span class="ic">📖</span>Học bài</a>
       <a href="#/career"><span class="ic">💼</span>Học theo nghề</a>
-      <a href="#/review" style="display:flex;align-items:center;justify-content:space-between">
-        <span style="display:flex;align-items:center;gap:10px"><span class="ic">📜</span>Chứng chỉ</span>
-        <span style="font-size:11px;opacity:.5">›</span>
-      </a>
+      <a href="#/fit"><span class="ic">🧪</span>Trắc nghiệm chọn nghề</a>
     </nav>
 
     <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
-      <span>THỰC HÀNH</span>
+      <span>LUYỆN CASE</span>
       <span style="font-size:10px;opacity:.6">⌵</span>
     </div>
     <nav id="nav2">
-      <a href="#/arena" style="display:flex;align-items:center;justify-content:space-between">
-        <span style="display:flex;align-items:center;gap:10px"><span class="ic">📝</span>Quiz</span>
-        <span class="nav-tag-pill green">TIN MỚI</span>
-      </a>
-      <a href="#/competition"><span class="ic">🏆</span>Thi vượt chặng</a>
-      <a href="#/arena" style="display:flex;align-items:center;justify-content:space-between">
-        <span style="display:flex;align-items:center;gap:10px"><span class="ic">🎮</span>Game Kingdom</span>
-        <span class="nav-tag-pill orange">HOT</span>
-      </a>
+      <a href="#/arena"><span class="ic">🎯</span>Practice Arena</a>
+      <a href="#/library"><span class="ic">📂</span>Thư viện case</a>
+      <a href="#/competition"><span class="ic">🏆</span>Thi case</a>
       <a href="#/interview"><span class="ic">🎙️</span>Luyện phỏng vấn</a>
+      <a href="#/drill"><span class="ic">⏱️</span>Câu mở đầu theo nghề</a>
     </nav>
 
     <div class="rail-sec" style="display:flex;align-items:center;justify-content:space-between">
-      <span>CỘNG ĐỒNG</span>
+      <span>PHÁT TRIỂN</span>
       <span style="font-size:10px;opacity:.6">⌵</span>
     </div>
     <nav id="nav3">
-      <a href="#/library"><span class="ic">🏛️</span>Thư viện</a>
-      <a href="#/arena" style="display:flex;align-items:center;justify-content:space-between">
-        <span style="display:flex;align-items:center;gap:10px"><span class="ic">👥</span>Học nhóm</span>
-        <span class="nav-tag-pill yellow">CHECK-IN</span>
+      <a href="#/review" style="display:flex;align-items:center;justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:10px"><span class="ic">🔁</span>Ôn lỗi sai</span>
+        <span class="nav-tag-pill yellow" id="revBadge" hidden>0</span>
       </a>
-      <a href="#/review"><span class="ic">📈</span>Thống kê</a>
+      <a href="#/compare"><span class="ic">⚖️</span>So sánh nghề</a>
     </nav>
 
     <div class="rail-foot" style="margin-top:auto;border-top:1px solid var(--border);padding:12px 14px">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
         <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--text)">
-          <span>🪙</span><span>Túi vàng</span>
+          <span>✨</span><span>Điểm XP</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-weight:800;font-size:13px;color:#D97706" id="goldCounter">60</span>
-          <div style="position:relative;cursor:pointer">
-            <span style="font-size:14px">🔔</span>
-            <span style="position:absolute;top:-5px;right:-7px;background:#EF4444;color:#FFF;font-size:9px;font-weight:800;border-radius:999px;padding:1px 4px">9+</span>
-          </div>
+          <span style="font-weight:800;font-size:13px;color:#D97706" id="goldCounter">0</span>
         </div>
       </div>
 
       <a class="rail-user-profile" href="#/settings" style="display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:10px;text-decoration:none;color:inherit;background:transparent;transition:background .15s ease">
         <div class="user-av-pic" style="width:34px;height:34px;border-radius:50%;background:#064E3B;color:#ECFDF5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none">TB</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" class="rail-nm">Đinh Trí Bùi</div>
-          <div style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">tribd.tec@gmail.com</div>
+          <div style="font-size:13px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" class="rail-nm">Bạn</div>
+          <div style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" class="rail-lv">Tiến độ lưu trên trình duyệt</div>
         </div>
         <span style="font-size:11px;color:var(--muted);flex:none">⌵</span>
       </a>
@@ -132,7 +118,7 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
     <header class="top">
       <div class="top-in">
         <div class="crumbs" id="crumbs"></div>
-        <div class="searchbox" onclick="alert('Tìm kiếm toàn cục — prototype')">
+        <div class="searchbox" onclick="location.hash='#/library'">
           <span>⌕</span><span>Tìm case, bài học…</span><kbd>⌘K</kbd>
         </div>
         <span id="langBox"></span>
@@ -143,7 +129,7 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
   </div>
 </div>
 
-<script src="assets/js/data/curriculum.js?v=42h"></script>
+<script src="assets/js/data/curriculum.js?v=42i"></script>
 <script src="assets/js/data/lessons/_registry.js?v=47"></script>
 <script src="assets/js/data/readings/_registry.js?v=47"></script>
 <script src="assets/js/data/readings/f-profit.js?v=47"></script>
@@ -184,6 +170,7 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
 <script src="assets/js/data/readings/c-present.deep.js?v=47"></script>
 <script src="assets/js/data/readings/f-moat-model.deep.js?v=47"></script>
 <script src="assets/js/data/readings/i-core.deep.js?v=47"></script>
+<script src="assets/js/data/readings/i-adv.deep.js?v=47"></script>
 <script src="assets/js/data/readings/k-size.js?v=47"></script>
 <script src="assets/js/data/readings/k-live.js?v=47"></script>
 <script src="assets/js/data/readings/m-4p.js?v=47"></script>
@@ -254,7 +241,7 @@ addEventListener("DOMContentLoaded",paintThemeBtn);
 <script src="assets/js/data/lessons-en/s-service.js?v=47"></script>
 <script src="assets/js/data/lessons/k-profit.js?v=42e"></script>
 <script src="assets/js/data/lessons/k-growth.js?v=45h"></script>
-<script src="assets/js/data/lessons/k-entry.js?v=45e"></script>
+<script src="assets/js/data/lessons/k-entry.js?v=45i"></script>
 <script src="assets/js/data/lessons/k-price.js?v=45f"></script>
 <script src="assets/js/data/lessons/k-size.js?v=45f"></script>
 <script src="assets/js/data/lessons/k-live.js?v=45f"></script>

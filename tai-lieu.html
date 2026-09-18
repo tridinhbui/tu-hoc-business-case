@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kho Tài liệu Miễn phí — Tự Học Tài Chính</title>
+  <title>Kho Tài liệu Miễn phí — Tự Học Business Case</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared/sidebar.css?v=c46a124a">
   <style>
     :root {
       --bg: #ffffff;
@@ -1436,279 +1437,45 @@
 <body>
 
   <!-- ════════════ SIDEBAR ════════════ -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <a href="dashboard.html" class="brand-logo">
-        <div class="brand-icon">
-          <!-- Sprout heart logo matching Image 2 -->
-          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-            <path d="M16 28V14" stroke="#059669" stroke-width="3" stroke-linecap="round"/>
-            <path d="M16 14C16 14 12 7 6 9C0 11 4 20 16 24C28 20 32 11 26 9C20 7 16 14 16 14Z" fill="#10B981" fill-opacity="0.2" stroke="#059669" stroke-width="2.5" stroke-linejoin="round"/>
-            <circle cx="16" cy="11" r="2.5" fill="#059669"/>
-          </svg>
-        </div>
-        <div class="brand-title">
-          <span class="top-word">TỰ HỌC</span>
-          <span class="bottom-word">TÀI CHÍNH</span>
-        </div>
-      </a>
+  <!-- SIDEBAR:START · tự sinh bởi tools/sync-sidebar.py — đừng sửa tay -->
+<aside class="sb" aria-label="Điều hướng chính">
+  <div class="sb-head"><a href="dashboard.html" class="sb-brand" aria-label="Tự học Business Case — về Dashboard">
+    <span class="sb-brand-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-9"/><path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.25"/><path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.35"/></svg></span>
+    <span class="sb-brand-text"><span class="sb-brand-sub">TỰ HỌC</span><span class="sb-brand-main">BUSINESS CASE</span></span></a></div>
+  <label class="sb-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="searchInput" type="search" placeholder="Tìm kiếm…" autocomplete="off" aria-label="Tìm kiếm"><kbd>⌘K</kbd></label>
+  <nav class="sb-nav" id="sbNav">
+      <a href="dashboard.html" class="sb-link"><span class="sb-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span>Dashboard</span></a>
+      <a href="case-social.html" class="sb-link"><span class="sb-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>CaseSocial</span></a>
+    <div class="sb-group"><span>🌱 HỌC TẬP</span><i aria-hidden="true">▾</i></div>
+    <div class="sb-card">
+      <a href="bat-dau-tu-dau.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🧭</span><span>Bắt đầu từ đâu</span></a>
+      <a href="hoc-bai.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📖</span><span>Học bài</span></a>
+      <a href="hoc-theo-nghe.html" class="sb-link"><span class="sb-ic" aria-hidden="true">💼</span><span>Học theo nghề</span></a>
+      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📜</span><span>Chứng chỉ</span><span class="sb-more" aria-hidden="true">›</span></a>
     </div>
-
-    <!-- Quick Search -->
-    <div class="search-box" onclick="focusSearch()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span>Tìm kiếm...</span>
-      <kbd>⌘K</kbd>
+    <div class="sb-group"><span>⚡ THỰC HÀNH</span><i aria-hidden="true">▾</i></div>
+      <a href="bai-hoc.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎯</span><span>Quiz</span><span class="sb-badge sb-new">TIN MỚI</span></a>
+      <a href="thi-vuot-chang.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏆</span><span>Thi vượt chặng</span></a>
+      <a href="game-kingdom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎮</span><span>Game Kingdom</span><span class="sb-badge sb-hot">HOT</span></a>
+      <a href="luyen-phong-van.html" class="sb-link"><span class="sb-ic" aria-hidden="true">👥</span><span>Luyện phỏng vấn</span></a>
+    <div class="sb-group"><span>👥 CỘNG ĐỒNG</span><i aria-hidden="true">▾</i></div>
+      <a href="tai-lieu.html" class="sb-link sb-on" aria-current="page"><span class="sb-ic" aria-hidden="true">🏛️</span><span>Thư viện</span></a>
+      <a href="hoc-nhom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🤝</span><span>Học nhóm</span><span class="sb-badge sb-check">CHECK-IN</span></a>
+      <a href="thong-ke.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📊</span><span>Thống kê</span></a>
+  </nav>
+  <script>(function(){var n=document.getElementById('sbNav');if(!n)return;try{var y=sessionStorage.getItem('sb-scroll');if(y)n.scrollTop=+y;}catch(e){}var a=n.querySelector('.sb-on');if(a){var r=a.getBoundingClientRect(),b=n.getBoundingClientRect();if(r.top<b.top||r.bottom>b.bottom)n.scrollTop+=r.top-b.top-(b.height-r.height)/2;}addEventListener('pagehide',function(){try{sessionStorage.setItem('sb-scroll',n.scrollTop);}catch(e){}});})();</script>
+  <div class="sb-foot">
+    <div class="sb-wallet">
+      <a href="cua-hang-rpg.html" class="sb-gold" title="Túi vàng — đổi quà ở cửa hàng"><span aria-hidden="true">🪙</span><span>Túi vàng</span><span class="sb-gold-n" id="goldSidebarCount">60</span></a>
+      <button type="button" class="sb-bell" title="Thông báo" aria-label="Thông báo, 9+ mới"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><b>9+</b></button>
     </div>
-
-    <!-- Sidebar Navigation -->
-    <nav class="sidebar-nav">
-      <!-- Dashboard -->
-      <a href="dashboard.html" class="nav-item">
-        <span class="nav-svg-icon">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="#334155"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        </span>
-        <span>Dashboard</span>
-      </a>
-
-      <!-- FinSocial -->
-      <a href="case-social.html" class="nav-item">
-        <span class="nav-svg-icon">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </span>
-        <span>FinSocial</span>
-      </a>
-
-      <!-- SECTION 1: HỌC TẬP -->
-      <div class="nav-section-title">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2"><path d="M12 22v-9"/><path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.3"/></svg>
-        <span>HỌC TẬP</span>
-        <span class="sec-arrow">▼</span>
-      </div>
-      <a href="dashboard.html" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Target Dartboard -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2.2"/>
-            <circle cx="12" cy="12" r="6.5" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
-            <circle cx="12" cy="12" r="3" fill="#fee2e2"/>
-            <circle cx="12" cy="12" r="1.2" fill="#ef4444"/>
-            <path d="M17 7l4.5-4.5m0 0h-3.5m3.5 0v3.5" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span>Bắt đầu từ đâu</span>
-      </a>
-      <a href="hoc-bai.html" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Open Book -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z" fill="#38bdf8" fill-opacity="0.2" stroke="#0284c7" stroke-width="2"/>
-            <path d="M6 2v20" stroke="#0284c7" stroke-width="2"/>
-            <path d="M9 7h8M9 11h8M9 15h5" stroke="#0284c7" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span>Học bài</span>
-      </a>
-      <a href="#" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Leather Briefcase -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="7" width="20" height="14" rx="3" fill="#b45309" fill-opacity="0.2" stroke="#b45309" stroke-width="2"/>
-            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="#b45309" stroke-width="2"/>
-            <circle cx="12" cy="13" r="1.5" fill="#b45309"/>
-          </svg>
-        </span>
-        <span>Học theo nghề</span>
-      </a>
-      <a href="#" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Parchment Scroll -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" fill="#f59e0b" fill-opacity="0.2" stroke="#d97706" stroke-width="2"/>
-            <path d="M8 8h8M8 12h5" stroke="#d97706" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span>Chứng chỉ</span>
-        <span class="chevron-right">›</span>
-      </a>
-
-      <!-- SECTION 2: THỰC HÀNH -->
-      <div class="nav-section-title">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="#eab308"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        <span>THỰC HÀNH</span>
-        <span class="sec-arrow">▼</span>
-      </div>
-      <a href="#" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- Target Quiz -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2.2"/>
-            <circle cx="12" cy="12" r="6.5" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
-            <circle cx="12" cy="12" r="2" fill="#fee2e2"/>
-          </svg>
-        </span>
-        <span>Quiz</span>
-        <span class="nav-tag tag-new">TIN MỚI</span>
-      </a>
-      <a href="thi-vuot-chang.html" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Hourglass -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M5 2h14M5 22h14M6 2v6l6 4-6 4v6M18 2v6l-6 4 6 4v6" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 18h6" stroke="#d97706" stroke-width="2"/>
-          </svg>
-        </span>
-        <span>Thi vượt chặng</span>
-      </a>
-      <a href="#" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Gamepad Controller -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="6" width="20" height="12" rx="6" fill="#334155" fill-opacity="0.2" stroke="#334155" stroke-width="2"/>
-            <path d="M6 12h4M8 10v4" stroke="#334155" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="15" cy="11" r="1" fill="#ef4444"/>
-            <circle cx="17" cy="13" r="1" fill="#3b82f6"/>
-          </svg>
-        </span>
-        <span>Game Kingdom</span>
-        <span class="nav-tag tag-hot">HOT</span>
-      </a>
-      <a href="#" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Two People Silhouettes -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="#3b82f6" stroke-width="2"/>
-            <circle cx="9" cy="7" r="4" stroke="#3b82f6" stroke-width="2" fill="#93c5fd" fill-opacity="0.3"/>
-            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#3b82f6" stroke-width="2"/>
-          </svg>
-        </span>
-        <span>Luyện phỏng vấn</span>
-      </a>
-
-      <!-- SECTION 3: CỘNG ĐỒNG -->
-      <div class="nav-section-title">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>CỘNG ĐỒNG</span>
-        <span class="sec-arrow">▼</span>
-      </div>
-      <a href="#" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Greek Temple Columns -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M3 21h18M3 10h18M4 10v11M8 10v11M12 10v11M16 10v11M20 10v11M12 3l9 7H3l9-7z" stroke="#78716c" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span>Thư viện</span>
-      </a>
-      <a href="hoc-nhom.html" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Golden Handshake -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M18 11l-5-5a2 2 0 0 0-2.8 0L2 14.2a2 2 0 0 0 0 2.8l1 1a2 2 0 0 0 2.8 0l3-3M22 14.2a2 2 0 0 0 0-2.8l-5-5" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
-            <path d="M11 15l2 2a2 2 0 0 0 2.8 0l6.2-6.2" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span>Học nhóm</span>
-        <span class="nav-tag tag-checkin">CHECK-IN</span>
-      </a>
-      <a href="thong-ke.html" class="nav-item">
-        <span class="nav-svg-icon">
-          <!-- 3D Multi-color Bar Chart -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="12" width="4" height="9" rx="1" fill="#10b981"/>
-            <rect x="10" y="7" width="4" height="14" rx="1" fill="#3b82f6"/>
-            <rect x="17" y="3" width="4" height="18" rx="1" fill="#ef4444"/>
-          </svg>
-        </span>
-        <span>Thống kê</span>
-      </a>
-      <a href="tai-lieu.html" class="nav-item active">
-        <span class="nav-svg-icon">
-          <!-- Vector Document Outline -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
-            <polyline points="10 9 9 9 8 9"/>
-          </svg>
-        </span>
-        <span>Tài liệu Miễn phí</span>
-      </a>
-    </nav>
-
-    <!-- Sidebar Footer (Exact match Image 2) -->
-    <div class="sidebar-footer">
-      <!-- Popover Menu -->
-      <div class="user-popover-menu" id="userPopover">
-        <a href="ho-so.html" class="menu-item">
-          <span class="nav-svg-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-          <span>Hồ sơ cá nhân</span>
-        </a>
-        <a href="#" class="menu-item">
-          <span class="nav-svg-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-          <span>Bạn bè & Kết nối</span>
-        </a>
-        <a href="cua-hang-rpg.html" class="menu-item">
-          <span class="nav-svg-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
-          <span>Cửa hàng RPG</span>
-        </a>
-        <a href="#" class="menu-item">
-          <span class="nav-svg-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
-          <span>Cài đặt tài khoản</span>
-        </a>
-
-        <div class="menu-row-toggle">
-          <span style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Ngôn ngữ
-          </span>
-          <div class="menu-toggle-group">
-            <button class="toggle-btn active" id="langViBtn" onclick="setLang('vi')">VI</button>
-            <button class="toggle-btn" id="langEnBtn" onclick="setLang('en')">EN</button>
-          </div>
-        </div>
-
-        <div class="menu-row-toggle">
-          <span style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg> Giao diện
-          </span>
-          <div class="menu-toggle-group">
-            <button class="toggle-btn active" id="themeLightBtn" onclick="setTheme('light')">☀️ SÁNG</button>
-            <button class="toggle-btn" id="themeDarkBtn" onclick="setTheme('dark')">🌙 TỐI</button>
-          </div>
-        </div>
-
-        <a href="login.html" class="menu-item" style="color:#ef4444;">
-          <span class="nav-svg-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
-          <span>Đăng xuất</span>
-        </a>
-      </div>
-
-      <div class="gold-wallet-row">
-        <div class="gold-pill">
-          <div class="coin-icon-img">$</div>
-          <span>Túi vàng</span>
-          <span class="gold-count" id="walletCount">60</span>
-        </div>
-        <button class="bell-btn" title="Thông báo" onclick="showToast('Bạn có 9 thông báo mới chưa đọc!')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span class="bell-badge">9+</span>
-        </button>
-      </div>
-
-      <div class="user-profile-card" onclick="toggleUserPopover()" id="userCardBtn" title="Menu tài khoản">
-        <div class="user-avatar-small">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Đinh Trí Bùi" class="user-avatar-img" onerror="this.style.display='none'">
-          <span style="position:absolute;z-index:1;display:none;" id="avatarFallback">ĐTB</span>
-        </div>
-        <div class="user-info-text">
-          <div class="user-info-name">Đinh Trí Bùi</div>
-          <div class="user-info-email">tribd.tec@gmail.com</div>
-        </div>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted);"><path d="M6 9l6 6 6-6"/></svg>
-      </div>
-    </div>
-  </aside>
+    <a href="ho-so.html" class="sb-user" title="Hồ sơ cá nhân">
+      <span class="sb-av"><img src="assets/img/user_avatar.png" alt="" onerror="this.parentNode.textContent='ĐTB'"></span>
+      <span class="sb-user-text"><span class="sb-user-name">Đinh Trí Bùi</span><span class="sb-user-mail">tribd.tec@gmail.com</span></span>
+      <span class="sb-caret" aria-hidden="true">▾</span></a>
+  </div>
+</aside>
+<!-- SIDEBAR:END -->
 
   <!-- ════════════ MAIN CONTENT ════════════ -->
   <main class="main-wrapper">
@@ -1723,7 +1490,7 @@
           </div>
           <h1 class="hero-title">Kho Tài liệu Miễn phí</h1>
           <p class="hero-subtitle">
-            Mẫu biểu, ebook, checklist và công cụ hỗ trợ hành trình học tài chính của bạn – tải về hoàn toàn miễn phí không giới hạn. Đóng góp tài liệu của riêng bạn để chia sẻ cho cộng đồng nhé!
+            Mẫu biểu, ebook, checklist và công cụ hỗ trợ hành trình học giải case của bạn – tải về hoàn toàn miễn phí không giới hạn. Đóng góp tài liệu của riêng bạn để chia sẻ cho cộng đồng nhé!
           </p>
 
           <div class="hero-subcard">
@@ -1788,7 +1555,7 @@
         <div class="ticker-left">
           <div class="pulse-dot"></div>
           <span class="ticker-label">ĐANG CẬP NHẬT:</span>
-          <span class="ticker-typing" id="tickerText">File Excel báo cáo lưu chuyển tiền tệ</span><span class="ticker-cursor"></span>
+          <span class="ticker-typing" id="tickerText">Bảng tính hoà vốn cho case math</span><span class="ticker-cursor"></span>
         </div>
         <div class="ticker-right-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg>
@@ -1820,7 +1587,7 @@
 
       <!-- DOCUMENT CARDS GRID (100% IDENTICAL TO SCREENSHOT) -->
       <div class="doc-grid" id="docGrid">
-        <!-- Card 1: Valuation Model – CCC -->
+        <!-- Card 1: Case Math Sheet -->
         <div class="doc-card">
           <div class="doc-thumb">
             <span class="badge-cat-top-left">CÔNG CỤ (EXCEL/SHEET)</span>
@@ -1888,7 +1655,7 @@
             </div>
           </div>
           <div class="doc-card-body">
-            <h3 class="doc-card-title">Valuation Model – CCC</h3>
+            <h3 class="doc-card-title">Case Math Sheet – hoà vốn & lãi góp</h3>
           </div>
           <div class="doc-card-footer">
             <span class="doc-card-size">2.5 MB</span>
@@ -1899,7 +1666,7 @@
           </div>
         </div>
 
-        <!-- Card 2: Valuation Model – CCC -->
+        <!-- Card 2: Market Sizing Template -->
         <div class="doc-card">
           <div class="doc-thumb">
             <span class="badge-cat-top-left">CÔNG CỤ (EXCEL/SHEET)</span>
@@ -1964,7 +1731,7 @@
             </div>
           </div>
           <div class="doc-card-body">
-            <h3 class="doc-card-title">Valuation Model – CCC</h3>
+            <h3 class="doc-card-title">Market Sizing Template – top-down & bottom-up</h3>
           </div>
           <div class="doc-card-footer">
             <span class="doc-card-size">2.5 MB</span>
@@ -1975,7 +1742,7 @@
           </div>
         </div>
 
-        <!-- Card 3: Working Capital Model – Vốn lưu động -->
+        <!-- Card 3: Cây vấn đề 8 dạng case -->
         <div class="doc-card">
           <div class="doc-thumb">
             <span class="badge-cat-top-left">KHÁC</span>
@@ -1993,7 +1760,7 @@
             </div>
           </div>
           <div class="doc-card-body">
-            <h3 class="doc-card-title">Working Capital Model – Vốn lưu động</h3>
+            <h3 class="doc-card-title">Bộ cây vấn đề cho 8 dạng case</h3>
           </div>
           <div class="doc-card-footer">
             <span class="doc-card-size">44 KB</span>
@@ -2004,7 +1771,7 @@
           </div>
         </div>
 
-        <!-- Card 4: Financial Modeling 3-Statement -->
+        <!-- Card 4: Profitability Case Model -->
         <div class="doc-card">
           <div class="doc-thumb">
             <span class="badge-cat-top-left">CÔNG CỤ (EXCEL/SHEET)</span>
@@ -2053,7 +1820,7 @@
             </div>
           </div>
           <div class="doc-card-body">
-            <h3 class="doc-card-title">Financial Modeling 3-Statement Model (P&L, BS, CFS)</h3>
+            <h3 class="doc-card-title">Profitability Case Model – cây lợi nhuận</h3>
           </div>
           <div class="doc-card-footer">
             <span class="doc-card-size">3.8 MB</span>
@@ -2064,7 +1831,7 @@
           </div>
         </div>
 
-        <!-- Card 5: Checklist Thẩm định Tín dụng SME -->
+        <!-- Card 5: Checklist 60 giây đầu -->
         <div class="doc-card">
           <div class="doc-thumb">
             <span class="badge-cat-top-left">CHECKLIST</span>
@@ -2077,7 +1844,7 @@
             </div>
           </div>
           <div class="doc-card-body">
-            <h3 class="doc-card-title">Checklist Thẩm định Tín dụng & Đánh giá Rủi ro SME</h3>
+            <h3 class="doc-card-title">Checklist 60 giây đầu của case interview</h3>
           </div>
           <div class="doc-card-footer">
             <span class="doc-card-size">680 KB</span>
@@ -2106,7 +1873,7 @@
             </div>
           </div>
           <div class="doc-card-body">
-            <h3 class="doc-card-title">Ebook Cẩm nang Phân tích Báo cáo Tài chính Toàn diện</h3>
+            <h3 class="doc-card-title">Ebook Giải case từ đề tới khuyến nghị</h3>
           </div>
           <div class="doc-card-footer">
             <span class="doc-card-size">14.5 MB</span>
@@ -2136,7 +1903,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </span>
           <div>
-            <h3 class="modal-title" id="modalDocTitle">Valuation Model – CCC</h3>
+            <h3 class="modal-title" id="modalDocTitle">Case Math Sheet – hoà vốn &amp; lãi góp</h3>
             <span style="font-size:12px;color:var(--text-muted);" id="modalDocMeta">Công cụ Excel · 2.5 MB · .xlsx</span>
           </div>
         </div>
@@ -2146,8 +1913,7 @@
         <div style="background:var(--surface-subtle);border:1px solid var(--border-color);border-radius:12px;padding:14px;margin-bottom:16px;">
           <h4 style="font-size:12.5px;font-weight:700;color:var(--primary);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.03em;">Mô tả chi tiết</h4>
           <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;" id="modalDocDesc">
-            Mô hình phân tích và định giá toàn diện bao gồm chu kỳ chuyển đổi tiền mặt (Cash Conversion Cycle - CCC), dự phóng dòng tiền chiết khấu (DCF) và phân tích độ nhạy.
-          </p>
+            Bảng tính mẫu cho các phép tính hay gặp trong case: lãi góp, điểm hoà vốn, biên an toàn và độ nhạy theo giá.</p>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-bottom:18px;">
@@ -2190,7 +1956,7 @@
         <form id="shareDocForm" onsubmit="handleShareSubmit(event)">
           <div class="form-group">
             <label class="form-label">Tên tài liệu / Mẫu biểu *</label>
-            <input type="text" class="form-input" required placeholder="Ví dụ: Mô hình DCF 3 Báo cáo Tài chính...">
+            <input type="text" class="form-input" required placeholder="Ví dụ: Cây vấn đề cho case market entry...">
           </div>
 
           <div class="form-group">
@@ -2238,12 +2004,12 @@
   <!-- ════════════ JAVASCRIPT LOGIC ════════════ -->
   <script>
     const DOC_DATABASE = [
-      { id: 1, title: "Valuation Model – CCC", category: "cong-cu", size: "2.5 MB", ext: ".xlsx", downloads: "1,840", rating: "4.9", desc: "Mô hình tính toán Chu kỳ chuyển đổi tiền mặt kết hợp định giá chiết khấu dòng tiền DCF." },
-      { id: 2, title: "Valuation Model – CCC", category: "cong-cu", size: "2.5 MB", ext: ".xlsx", downloads: "1,210", rating: "4.8", desc: "File Excel chuẩn định giá doanh nghiệp với phân tích độ nhạy WACC và tăng trưởng vĩnh viễn." },
-      { id: 3, title: "Working Capital Model – Vốn lưu động", category: "khac", size: "44 KB", ext: ".xlsx", downloads: "950", rating: "4.9", desc: "Mô hình tối ưu hóa dòng tiền vốn lưu động cho doanh nghiệp bán lẻ và sản xuất." },
-      { id: 4, title: "Financial Modeling 3-Statement Model (P&L, BS, CFS)", category: "cong-cu", size: "3.8 MB", ext: ".xlsx", downloads: "2,350", rating: "5.0", desc: "Mô hình liên kết 3 báo cáo tài chính chuẩn mực phố Wall." },
-      { id: 5, title: "Checklist Thẩm định Tín dụng & Đánh giá Rủi ro SME", category: "checklist", size: "680 KB", ext: ".pdf", downloads: "890", rating: "4.7", desc: "Checklist 45 tiêu chí chấm điểm rủi ro tài chính và thẩm định hồ sơ vay vốn." },
-      { id: 6, title: "Ebook Cẩm nang Phân tích Báo cáo Tài chính Toàn diện", category: "ebook", size: "14.5 MB", ext: ".pdf", downloads: "3,400", rating: "4.9", desc: "Giáo trình hướng dẫn bóc tách báo cáo tài chính từ căn bản đến nâng cao." }
+      { id: 1, title: "Case Math Sheet – hoà vốn & lãi góp", category: "cong-cu", size: "2.5 MB", ext: ".xlsx", downloads: "1,840", rating: "4.9", desc: "Bảng tính mẫu cho các phép tính hay gặp trong case: lãi góp, điểm hoà vốn, biên an toàn và độ nhạy theo giá." },
+      { id: 2, title: "Market Sizing Template – top-down & bottom-up", category: "cong-cu", size: "2.5 MB", ext: ".xlsx", downloads: "1,210", rating: "4.8", desc: "File Excel dựng cây ước lượng 4–5 bước, ghi giả định cạnh từng con số và so kết quả hai cách tính." },
+      { id: 3, title: "Bộ cây vấn đề cho 8 dạng case", category: "khac", size: "44 KB", ext: ".xlsx", downloads: "950", rating: "4.9", desc: "Cây vấn đề mẫu cho Profitability, Market Entry, Pricing, Market Sizing, Operations, Growth, M&A và Product Launch." },
+      { id: 4, title: "Profitability Case Model – cây lợi nhuận", category: "cong-cu", size: "3.8 MB", ext: ".xlsx", downloads: "2,350", rating: "5.0", desc: "Mô hình tách lợi nhuận theo giá, sản lượng, cơ cấu sản phẩm và chi phí để tìm đúng chỗ rò trong P&L." },
+      { id: 5, title: "Checklist 60 giây đầu của case interview", category: "checklist", size: "680 KB", ext: ".pdf", downloads: "890", rating: "4.7", desc: "Checklist làm rõ đề, chốt mục tiêu bằng một con số và dựng cấu trúc trước khi xin dữ liệu." },
+      { id: 6, title: "Ebook Giải case từ đề tới khuyến nghị", category: "ebook", size: "14.5 MB", ext: ".pdf", downloads: "3,400", rating: "4.9", desc: "Quy trình 5 bước: đọc đề, cấu trúc, tính toán, đọc exhibit, chốt khuyến nghị — kèm case mẫu có lời giải." }
     ];
 
     let activeDoc = null;
@@ -2310,9 +2076,8 @@
       closeModal('viewModal');
       showToast(`Đang tải xuống "${activeDoc ? activeDoc.title : 'Tài liệu'}"...`);
       setTimeout(() => {
-        const wallet = document.getElementById('walletCount');
-        const currentGold = parseInt(wallet.textContent, 10) || 60;
-        wallet.textContent = currentGold + 5;
+        const wallet = document.getElementById('goldSidebarCount');   // số vàng ở sidebar dùng chung
+        if (wallet) wallet.textContent = (parseInt(wallet.textContent, 10) || 60) + 5;
         showToast(`Tải thành công! Bạn nhận được +5 Túi vàng học tập.`);
       }, 1000);
     }
@@ -2349,10 +2114,10 @@
 
     // Ticker Typing Animation
     const tickerItems = [
-      "File Excel báo cáo lưu chuyển tiền tệ",
-      "Mô hình DCF Valuation 3-Statement",
-      "Checklist thẩm định tài chính M&A",
-      "Bộ câu hỏi phỏng vấn Investment Banking"
+      "Bảng tính hoà vốn cho case math",
+      "Cây vấn đề cho 8 dạng case",
+      "Checklist 60 giây đầu của case interview",
+      "Bộ câu hỏi phỏng vấn case theo nghề"
     ];
     let tickerIdx = 0, charIdx = 0, isDeleting = false;
 
@@ -2381,7 +2146,7 @@
     }
 
     function toggleUserPopover() {
-      document.getElementById('userPopover').classList.toggle('show');
+      document.getElementById('userPopover')?.classList.toggle('show');
     }
 
     document.addEventListener('click', (e) => {
@@ -2394,14 +2159,13 @@
 
     function setTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
-      document.getElementById('themeLightBtn').classList.toggle('active', theme === 'light');
-      document.getElementById('themeDarkBtn').classList.toggle('active', theme === 'dark');
-      localStorage.setItem('app-theme', theme);
+      document.getElementById('themeLightBtn')?.classList.toggle('active', theme === 'light');
+      document.getElementById('themeDarkBtn')?.classList.toggle('active', theme === 'dark');
     }
 
     function setLang(lang) {
-      document.getElementById('langViBtn').classList.toggle('active', lang === 'vi');
-      document.getElementById('langEnBtn').classList.toggle('active', lang === 'en');
+      document.getElementById('langViBtn')?.classList.toggle('active', lang === 'vi');
+      document.getElementById('langEnBtn')?.classList.toggle('active', lang === 'en');
       showToast(lang === 'vi' ? 'Đã đổi sang Tiếng Việt' : 'Switched to English');
     }
 
@@ -2413,8 +2177,10 @@
     });
 
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('app-theme') || 'light';
-      setTheme(savedTheme);
+      /* Nút sáng/tối nằm trong sidebar cũ và chỉ trang này có nền tối — sang trang khác là đổi giao diện.
+         Sidebar dùng chung chỉ có nền sáng: xoá lựa chọn cũ để không kẹt ở nền tối mà không có nút đổi lại. */
+      try { localStorage.removeItem('app-theme'); } catch (e) {}
+      setTheme('light');
       setTimeout(typeTicker, 600);
     });
   </script>

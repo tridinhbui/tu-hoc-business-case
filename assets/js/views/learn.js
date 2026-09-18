@@ -18,10 +18,10 @@ window.VIEWS.learn = function() {
               ★ +15 XP khi hoàn thành
             </span>
           </div>
-          <div class="hero-sub-text">Chặng 1 • Bài 1351</div>
-          <h1 class="hero-title-h1">Theo dõi chi tiêu – đo trước<br>khi phân bổ</h1>
+          <div class="hero-sub-text">Chặng 1 • Bài 1</div>
+          <h1 class="hero-title-h1">Vì sao mọi case đều bắt đầu<br>bằng một con số</h1>
           <div class="hero-progress-flex">
-            <span>Tiến độ (3/267 bài)</span>
+            <span>Tiến độ (3/213 bài)</span>
             <div class="hero-bar-container">
               <div class="hero-bar-inner"></div>
             </div>
@@ -39,12 +39,12 @@ window.VIEWS.learn = function() {
     <!-- ── TRACK SWITCHER (2 TABS) ── -->
     <div class="track-switch-row">
       <button class="track-btn active" id="tabTrack1" onclick="switchTrack('c-ca-nhan')">
-        <span>Tài chính cá nhân</span>
-        <span class="track-count-badge">2/265 bài</span>
+        <span>Nền tảng giải case</span>
+        <span class="track-count-badge">2/66 bài</span>
       </button>
       <button class="track-btn" id="tabTrack2" onclick="switchTrack('c-chuyen-nganh')">
-        <span>Tài chính chuyên ngành</span>
-        <span class="track-count-badge">1/525 bài</span>
+        <span>Kỹ thuật &amp; phỏng vấn case</span>
+        <span class="track-count-badge">1/111 bài</span>
       </button>
     </div>
 
@@ -73,7 +73,7 @@ window.VIEWS.learn = function() {
               <div class="stage-icon-square icon-amber-flag">🚩</div>
               <div>
                 <div style="font-size:10.5px; font-weight:800; color:#b45309; text-transform:uppercase; letter-spacing:0.04em;">CHẶNG 1</div>
-                <div class="stage-heading-text">Biết mình trước khi học: audit, ngân sách, qu...</div>
+                <div class="stage-heading-text">Ước lượng quy mô thị trường</div>
               </div>
             </div>
             <div class="stage-right-metrics">
@@ -84,7 +84,7 @@ window.VIEWS.learn = function() {
               <div class="stage-progress-track">
                 <div class="stage-progress-fill" style="width: 11%;"></div>
               </div>
-              <span class="stage-count-label">1/9</span>
+              <span class="stage-count-label">1/12</span>
               <span class="stage-chevron" id="chev-st-1">▲</span>
             </div>
           </div>
@@ -94,7 +94,7 @@ window.VIEWS.learn = function() {
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <button class="btn-circle-play-black" onclick="location.href='bai-hoc.html'">▶</button>
-                <span class="lesson-item-title">Đo trước: theo dõi chi tiêu</span>
+                <span class="lesson-item-title">Vì sao mọi case đều bắt đầu bằng một con số</span>
               </div>
               <div class="lesson-item-right">
                 <span class="lesson-pill-tag">Bài 1-1</span>
@@ -106,7 +106,7 @@ window.VIEWS.learn = function() {
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Audit tài chính và khẩu vị rủi ro</span>
+                <span class="lesson-item-title">Top-down và bottom-up: chọn đường nào</span>
               </div>
               <div class="lesson-item-right">
                 <span class="lesson-pill-tag">Bài 2-3</span>
@@ -118,7 +118,7 @@ window.VIEWS.learn = function() {
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Ngân sách, quỹ khẩn cấp, trả nợ và mục tiêu</span>
+                <span class="lesson-item-title">Chọn đơn vị tiêu dùng đúng</span>
               </div>
               <div class="lesson-item-right">
                 <span class="lesson-pill-tag">Bài 4-7</span>
@@ -130,7 +130,7 @@ window.VIEWS.learn = function() {
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Giữ kế hoạch sống sót: tự động hóa và bảo hiểm</span>
+                <span class="lesson-item-title">Giả định nào đáng tranh luận</span>
               </div>
               <div class="lesson-item-right">
                 <span class="lesson-pill-tag">Bài 8-9</span>
@@ -149,7 +149,7 @@ window.VIEWS.learn = function() {
               <div style="display:flex; align-items:center; gap:6px;">
                 <span style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">CHẶNG 2</span>
                 <span class="badge-tag-moi">MỚI</span>
-                <span class="stage-heading-text">Thuế TNCN &amp; Lương thực nhận</span>
+                <span class="stage-heading-text">Lợi nhuận: tìm chỗ rò trong P&amp;L</span>
               </div>
             </div>
             <div class="stage-right-metrics">
@@ -160,7 +160,7 @@ window.VIEWS.learn = function() {
               <div class="stage-progress-track">
                 <div class="stage-progress-fill" style="width: 0%;"></div>
               </div>
-              <span class="stage-count-label">0/8</span>
+              <span class="stage-count-label">0/12</span>
               <span class="stage-chevron" id="chev-st-2">▼</span>
             </div>
           </div>
@@ -168,7 +168,7 @@ window.VIEWS.learn = function() {
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Lương Gross vs Net: Bóc tách BHXH, BHYT &amp; Giảm trừ gia cảnh</span>
+                <span class="lesson-item-title">Doanh thu không phải lợi nhuận: cây lợi nhuận và ba biến thể</span>
               </div>
               <div class="lesson-item-right"><span class="lesson-pill-tag">Bài 1-3</span><span class="lesson-ratio-label">0/3</span></div>
             </div>
@@ -179,11 +179,11 @@ window.VIEWS.learn = function() {
         <div class="stage-card-wrap">
           <div class="stage-card-header-bar" onclick="toggleStageAccordion('st-3')">
             <div class="stage-left-box">
-              <div class="stage-icon-square icon-green-box">💳</div>
+              <div class="stage-icon-square icon-green-box">₫</div>
               <div style="display:flex; align-items:center; gap:6px;">
                 <span style="font-size:10.5px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">CHẶNG 3</span>
                 <span class="badge-tag-moi">MỚI</span>
-                <span class="stage-heading-text">Tín dụng cá nhân &amp; CIC</span>
+                <span class="stage-heading-text">Định giá: chi phí, đối thủ, giá trị</span>
               </div>
             </div>
             <div class="stage-right-metrics">
@@ -194,7 +194,7 @@ window.VIEWS.learn = function() {
               <div class="stage-progress-track">
                 <div class="stage-progress-fill" style="width: 0%;"></div>
               </div>
-              <span class="stage-count-label">0/8</span>
+              <span class="stage-count-label">0/9</span>
               <span class="stage-chevron" id="chev-st-3">▼</span>
             </div>
           </div>
@@ -202,7 +202,7 @@ window.VIEWS.learn = function() {
             <div class="lesson-item-row">
               <div class="lesson-item-left">
                 <div class="btn-circle-lock-gray">🔒</div>
-                <span class="lesson-item-title">Thẻ tín dụng &amp; Quản trị điểm tín dụng CIC chuẩn ngân hàng</span>
+                <span class="lesson-item-title">Độ co giãn, và vì sao giảm giá thường thua</span>
               </div>
               <div class="lesson-item-right"><span class="lesson-pill-tag">Bài 1-4</span><span class="lesson-ratio-label">0/4</span></div>
             </div>
@@ -241,10 +241,10 @@ window.VIEWS.learn = function() {
           <div class="mistake-circle-orange">!</div>
           <div class="mistake-info-col">
             <div class="mistake-header-line">
-              <h3 class="mistake-heading-txt">Câu sai cần ôn tập</h3>
-              <span class="mistake-count-pill">40 câu</span>
+              <h3 class="mistake-heading-txt">Lỗi cần ôn tập</h3>
+              <span class="mistake-count-pill">12 lỗi</span>
             </div>
-            <p class="mistake-desc-small">Bạn có 40 câu hỏi trắc nghiệm đã làm sai cần ôn lại để củng cố kiến thức.</p>
+            <p class="mistake-desc-small">Lỗi từ bài tập, case và phỏng vấn đang chờ ôn. Ôn đúng lịch để không lặp lại cùng một kiểu sai.</p>
           </div>
           <span style="color:#d97706; font-size:15px; font-weight:800;">→</span>
 
@@ -261,7 +261,7 @@ window.VIEWS.learn = function() {
           <div class="drill-header-strip">
             <div class="drill-title-wrap">
               <div class="drill-book-sq">📖</div>
-              <h3 class="drill-heading-title">Thử thách tài chính<br>mỗi ngày</h3>
+              <h3 class="drill-heading-title">Thử thách Business Case<br>mỗi ngày</h3>
             </div>
             <div class="drill-header-tools">
               <span style="color:#10b981; font-size:9px;">●</span>
@@ -273,28 +273,28 @@ window.VIEWS.learn = function() {
           <span class="drill-pill-tag-action">TÍNH NHANH</span>
 
           <div class="drill-prompt-primary">
-            Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu
+            Quán cà phê: định phí 60 triệu/tháng, giá 40.000đ/ly, chi phí biến đổi 16.000đ/ly
           </div>
           <div class="drill-prompt-secondary">
-            Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?
+            Mỗi tháng cần bán bao nhiêu ly để hoà vốn?
           </div>
 
           <div class="drill-options-stack">
             <button class="drill-choice-card" onclick="selectChoice(this, 0)">
               <span class="drill-choice-letter">A</span>
-              <span>64%, vượt xa ngưỡng an toàn thường được khuyến nghị là dưới 40% thu nhập</span>
+              <span>2.500 ly — lãi góp 24.000đ/ly, 60 triệu ÷ 24.000đ</span>
             </button>
             <button class="drill-choice-card" onclick="selectChoice(this, 1)">
               <span class="drill-choice-letter">B</span>
-              <span>44%, chỉ tính khoản vay cũ nên khoản trả góp mới chưa được cộng vào mẫu</span>
+              <span>1.500 ly — chia định phí cho giá bán</span>
             </button>
             <button class="drill-choice-card" onclick="selectChoice(this, 2)">
               <span class="drill-choice-letter">C</span>
-              <span>20%, chỉ tính khoản trả góp mới vì đó là phần nghĩa vụ vừa phát sinh thêm</span>
+              <span>3.750 ly — chia định phí cho chi phí biến đổi</span>
             </button>
             <button class="drill-choice-card" onclick="selectChoice(this, 3)">
               <span class="drill-choice-letter">D</span>
-              <span>16 triệu, lấy tổng số tiền phải trả mỗi tháng thay cho một tỷ lệ phần trăm</span>
+              <span>1.072 ly — chia cho giá bán cộng chi phí biến đổi</span>
             </button>
           </div>
 

@@ -6,7 +6,8 @@
   <title>Cửa hàng RPG & Đổi Túi Vàng — Tự Học Business Case</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared/sidebar.css?v=c46a124a">
   <style>
     :root {
       --bg: #f8faf8;
@@ -107,82 +108,45 @@
   </style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <a href="dashboard.html" class="brand-logo">
-        <div class="brand-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </div>
-        <div class="brand-title">TỰ HỌC<br>TÀI CHÍNH</div>
-      </a>
+  <!-- SIDEBAR:START · tự sinh bởi tools/sync-sidebar.py — đừng sửa tay -->
+<aside class="sb" aria-label="Điều hướng chính">
+  <div class="sb-head"><a href="dashboard.html" class="sb-brand" aria-label="Tự học Business Case — về Dashboard">
+    <span class="sb-brand-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-9"/><path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.25"/><path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.35"/></svg></span>
+    <span class="sb-brand-text"><span class="sb-brand-sub">TỰ HỌC</span><span class="sb-brand-main">BUSINESS CASE</span></span></a></div>
+  <label class="sb-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="searchInput" type="search" placeholder="Tìm kiếm…" autocomplete="off" aria-label="Tìm kiếm"><kbd>⌘K</kbd></label>
+  <nav class="sb-nav" id="sbNav">
+      <a href="dashboard.html" class="sb-link"><span class="sb-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span>Dashboard</span></a>
+      <a href="case-social.html" class="sb-link"><span class="sb-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>CaseSocial</span></a>
+    <div class="sb-group"><span>🌱 HỌC TẬP</span><i aria-hidden="true">▾</i></div>
+    <div class="sb-card">
+      <a href="bat-dau-tu-dau.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🧭</span><span>Bắt đầu từ đâu</span></a>
+      <a href="hoc-bai.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📖</span><span>Học bài</span></a>
+      <a href="hoc-theo-nghe.html" class="sb-link"><span class="sb-ic" aria-hidden="true">💼</span><span>Học theo nghề</span></a>
+      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📜</span><span>Chứng chỉ</span><span class="sb-more" aria-hidden="true">›</span></a>
     </div>
-
-    <div class="search-box">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <span>Tìm kiếm...</span>
-      <kbd>⌘K</kbd>
+    <div class="sb-group"><span>⚡ THỰC HÀNH</span><i aria-hidden="true">▾</i></div>
+      <a href="bai-hoc.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎯</span><span>Quiz</span><span class="sb-badge sb-new">TIN MỚI</span></a>
+      <a href="thi-vuot-chang.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏆</span><span>Thi vượt chặng</span></a>
+      <a href="game-kingdom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎮</span><span>Game Kingdom</span><span class="sb-badge sb-hot">HOT</span></a>
+      <a href="luyen-phong-van.html" class="sb-link"><span class="sb-ic" aria-hidden="true">👥</span><span>Luyện phỏng vấn</span></a>
+    <div class="sb-group"><span>👥 CỘNG ĐỒNG</span><i aria-hidden="true">▾</i></div>
+      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏛️</span><span>Thư viện</span></a>
+      <a href="hoc-nhom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🤝</span><span>Học nhóm</span><span class="sb-badge sb-check">CHECK-IN</span></a>
+      <a href="thong-ke.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📊</span><span>Thống kê</span></a>
+  </nav>
+  <script>(function(){var n=document.getElementById('sbNav');if(!n)return;try{var y=sessionStorage.getItem('sb-scroll');if(y)n.scrollTop=+y;}catch(e){}var a=n.querySelector('.sb-on');if(a){var r=a.getBoundingClientRect(),b=n.getBoundingClientRect();if(r.top<b.top||r.bottom>b.bottom)n.scrollTop+=r.top-b.top-(b.height-r.height)/2;}addEventListener('pagehide',function(){try{sessionStorage.setItem('sb-scroll',n.scrollTop);}catch(e){}});})();</script>
+  <div class="sb-foot">
+    <div class="sb-wallet">
+      <a href="cua-hang-rpg.html" class="sb-gold sb-on" title="Túi vàng — đổi quà ở cửa hàng"><span aria-hidden="true">🪙</span><span>Túi vàng</span><span class="sb-gold-n" id="goldSidebarCount">60</span></a>
+      <button type="button" class="sb-bell" title="Thông báo" aria-label="Thông báo, 9+ mới"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><b>9+</b></button>
     </div>
-
-    <nav class="sidebar-nav">
-      <a href="#" class="nav-item"><span class="icon">📰</span><span>CaseSocial</span></a>
-      <div class="nav-section-title"><span>🌱 HỌC TẬP</span><span>▼</span></div>
-      <a href="dashboard.html" class="nav-item"><span class="icon">🧭</span><span>Bắt đầu từ đầu</span></a>
-      <a href="bai-hoc.html" class="nav-item"><span class="icon">📖</span><span>Học bài</span></a>
-      <a href="hoc-theo-nghe.html" class="nav-item"><span class="icon">💼</span><span>Học theo nghề</span></a>
-      <a href="#" class="nav-item"><span class="icon">🎓</span><span>Chứng chỉ</span><span style="margin-left:auto;font-size:12px;color:var(--text-muted)">›</span></a>
-
-      <div class="nav-section-title"><span>⚡ THỰC HÀNH</span><span>▼</span></div>
-      <a href="#" class="nav-item"><span class="icon">📝</span><span>Quiz</span><span class="nav-tag tag-new">TIN MỚI</span></a>
-      <a href="thi-vuot-chang.html" class="nav-item"><span class="icon">🏆</span><span>Thi vượt chặng</span></a>
-      <a href="game-kingdom.html" class="nav-item"><span class="icon">🎮</span><span>Game Kingdom</span><span class="nav-tag tag-hot">HOT</span></a>
-      <a href="luyen-phong-van.html" class="nav-item"><span class="icon">💼</span><span>Luyện phỏng vấn</span></a>
-
-      <div class="nav-section-title"><span>👥 CỘNG ĐỒNG</span><span>▼</span></div>
-      <a href="thong-ke.html" class="nav-item"><span class="icon">📊</span><span>Thống kê</span></a>
-      <a href="tai-lieu.html" class="nav-item"><span class="icon">📄</span><span>Tài liệu Miễn phí</span></a>
-    </nav>
-
-    <div class="sidebar-footer">
-      <div class="user-popover-menu" id="userPopover">
-        <a href="ho-so.html" class="menu-item"><span class="menu-ic">👤</span><span>Hồ sơ cá nhân</span></a>
-        <a href="#" class="menu-item"><span class="menu-ic">👥</span><span>Bạn bè & Kết nối</span></a>
-        <a href="cua-hang-rpg.html" class="menu-item"><span class="menu-ic">🛍️</span><span>Cửa hàng RPG</span></a>
-        <a href="#" class="menu-item"><span class="menu-ic">⚙️</span><span>Cài đặt tài khoản</span></a>
-
-        <div class="menu-row-toggle">
-          <span style="font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;color:#1e293b;"><span style="color:#64748b">🌐</span> Ngôn ngữ</span>
-          <div class="menu-toggle-group">
-            <button class="toggle-btn active" id="langViBtn" onclick="setLang('vi')">VI</button>
-            <button class="toggle-btn" id="langEnBtn" onclick="setLang('en')">EN</button>
-          </div>
-        </div>
-
-        <div class="menu-row-toggle">
-          <span style="font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;color:#1e293b;"><span style="color:#64748b">🌗</span> Giao diện</span>
-          <div class="menu-toggle-group">
-            <button class="toggle-btn active" id="themeLightBtn" onclick="setTheme('light')">☀️ SÁNG</button>
-            <button class="toggle-btn" id="themeDarkBtn" onclick="setTheme('dark')">🌙 TỐI</button>
-          </div>
-        </div>
-
-        <a href="login.html" class="menu-item logout"><span class="menu-ic">🚪</span><span>Đăng xuất</span></a>
-      </div>
-
-      <div class="gold-wallet-row">
-        <div class="gold-pill"><span>🪙</span><span>Túi vàng</span><span class="gold-count" id="goldSidebarCount">60</span></div>
-        <button class="bell-btn" title="Thông báo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-badge">9+</span></button>
-      </div>
-
-      <div class="user-profile-card" onclick="toggleUserPopover()" id="userCardBtn" title="Menu tài khoản">
-        <div class="user-avatar-small"><svg viewBox="0 0 120 120" width="100%" height="100%" style="display:block;"><defs><linearGradient id="wallGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f1f5f9"/><stop offset="50%" stop-color="#cbd5e1"/><stop offset="100%" stop-color="#94a3b8"/></linearGradient><linearGradient id="coatGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e293b"/><stop offset="70%" stop-color="#0f172a"/><stop offset="100%" stop-color="#020617"/></linearGradient><linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffedd5"/><stop offset="100%" stop-color="#fed7aa"/></linearGradient><linearGradient id="hairGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#27272a"/><stop offset="100%" stop-color="#09090b"/></linearGradient></defs><rect width="120" height="120" fill="url(#wallGrad)"/><path d="M15 120 V50 A45 45 0 0 1 105 50 V120 Z" fill="#e2e8f0" opacity="0.7"/><path d="M28 120 V55 A32 32 0 0 1 92 55 V120 Z" fill="#cbd5e1" opacity="0.6"/><path d="M10 120 Q60 70 110 120 Z" fill="url(#coatGrad)"/><path d="M35 120 L52 82 L42 120 Z" fill="#1e293b"/><path d="M85 120 L68 82 L78 120 Z" fill="#1e293b"/><polygon points="60,78 48,94 60,104 72,94" fill="#ffffff"/><polygon points="60,88 56,120 64,120" fill="#0369a1"/><path d="M52 74 H68 V86 H52 Z" fill="url(#skinGrad)"/><ellipse cx="60" cy="52" rx="20" ry="24" fill="url(#skinGrad)"/><path d="M44 50 Q48 72 60 74 Q72 72 76 50 Z" fill="#fdba74" opacity="0.3"/><path d="M38 48 C36 28 84 22 86 44 C80 34 62 30 46 40 Z" fill="url(#hairGrad)"/><path d="M40 45 C40 32 76 26 80 40 C70 32 50 34 40 45 Z" fill="#18181b"/><ellipse cx="40" cy="52" rx="3.5" ry="5" fill="#fbcfe8"/><ellipse cx="80" cy="52" rx="3.5" ry="5" fill="#fbcfe8"/></svg></div>
-        <div class="user-info">
-          <div class="user-name">Đình Trí Bùi</div>
-          <div class="user-email">tribd.tec@gmail.com</div>
-        </div>
-        <span class="user-chevron">▼</span>
-      </div>
-    </div>
-  </aside>
+    <a href="ho-so.html" class="sb-user" title="Hồ sơ cá nhân">
+      <span class="sb-av"><img src="assets/img/user_avatar.png" alt="" onerror="this.parentNode.textContent='ĐTB'"></span>
+      <span class="sb-user-text"><span class="sb-user-name">Đinh Trí Bùi</span><span class="sb-user-mail">tribd.tec@gmail.com</span></span>
+      <span class="sb-caret" aria-hidden="true">▾</span></a>
+  </div>
+</aside>
+<!-- SIDEBAR:END -->
 
   <main class="main-container">
     <div class="shop-header-row">
@@ -258,7 +222,7 @@
       if (currentGold >= price) {
         currentGold -= price;
         document.getElementById("goldSidebarCount").textContent = currentGold;
-        document.getElementById("goldWalletDisplay").textContent = currentGold + " Vàng";
+        const gw=document.getElementById("goldWalletDisplay"); if(gw) gw.textContent = currentGold + " Vàng";
         alert("🎉 Mua thành công vật phẩm: " + name + "! Số dư còn: " + currentGold + " Vàng.");
       } else {
         alert("⚠️ Bạn không đủ Vàng! Hãy hoàn thành thêm bài học để tích lũy Túi Vàng.");
@@ -266,8 +230,7 @@
     }
 
     function toggleUserPopover() {
-      const p = document.getElementById("userPopover");
-      p.classList.toggle("open");
+      document.getElementById("userPopover")?.classList.toggle("open");
     }
 
     document.addEventListener("click", function(e) {
@@ -280,8 +243,8 @@
 
     function setTheme(mode) {
       document.documentElement.setAttribute("data-theme", mode);
-      document.getElementById("themeLightBtn").classList.toggle("active", mode === "light");
-      document.getElementById("themeDarkBtn").classList.toggle("active", mode === "dark");
+      document.getElementById("themeLightBtn")?.classList.toggle("active", mode === "light");
+      document.getElementById("themeDarkBtn")?.classList.toggle("active", mode === "dark");
     }
 
     function setLang(lang) {

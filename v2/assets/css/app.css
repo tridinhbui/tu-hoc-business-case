@@ -688,6 +688,9 @@ table.tb .r{text-align:right}
 .iv-hint{margin-bottom:10px;padding:9px 12px;font-size:12.5px}
 .iv-kbd{font:inherit;font-size:10.5px;padding:1px 5px;border:1px solid var(--border);border-radius:4px;background:var(--surface-2)}
 @media(pointer:coarse){.iv-kbd{display:none}}
+.iv-hist{margin-top:11px;padding-top:10px;border-top:1px dashed var(--border)}
+.iv-hist .tag b{font-weight:800;margin-left:2px}
+.iv-hist .tag b.up{color:var(--primary)} .iv-hist .tag b.down{color:var(--rose)}
 .iv-mic{display:inline-flex;align-items:center;gap:6px}
 .iv-mic i{font-style:normal}
 .iv-mic.on{border-color:var(--rose);color:var(--rose);background:var(--rose-soft)}

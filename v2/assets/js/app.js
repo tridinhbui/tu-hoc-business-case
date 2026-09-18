@@ -752,7 +752,7 @@ function vRoadmap(){
         </div>
         <div class="card" style="padding:20px">
           <h3 style="font-size:15px;margin-bottom:6px">Tôi có thể đổi lộ trình học giữa chừng không?</h3>
-          <p class="muted small" style="margin:0">Có, bạn có thể chuyển đổi giữa Case Consulting và Tài chính chuyên sâu bất kỳ lúc nào tại menu Học bài hoặc Cài đặt.</p>
+          <p class="muted small" style="margin:0">Có, bạn có thể đổi nghề mục tiêu bất kỳ lúc nào ở Career Path; thứ tự bài học tự sắp lại. Tất cả vẫn nằm trong menu Học bài hoặc Cài đặt.</p>
         </div>
         <div class="card" style="padding:20px">
           <h3 style="font-size:15px;margin-bottom:6px">Sau bao lâu tôi có thể tự tin đi thi Case hoặc phỏng vấn?</h3>
@@ -796,12 +796,17 @@ function vTracks(){
   const totalCount = allLessons.length;
   const overallPct = totalCount ? Math.round(doneCount/totalCount*100) : 0;
 
-  // Tìm bài học đang học dở hoặc bài chưa học tiếp theo
+  // Tìm bài học đang học dở hoặc bài đã có nội dung chưa học tiếp theo
+  const readyLessons = allLessons.filter(l=>!l.soon);
+  const readyDone = readyLessons.filter(l=>State.lessonStatus(l.id)==="done").length;
+  const readyPct = readyLessons.length ? Math.round(readyDone/readyLessons.length*100) : 0;
   const curLesson = allLessons.find(l=>State.lessonStatus(l.id)==="in_progress")
-                 || allLessons.find(l=>State.lessonStatus(l.id)!=="done")
+                 || readyLessons.find(l=>State.lessonStatus(l.id)!=="done")
                  || allLessons[0];
   const curMod = window.MODULE_BY_ID[curLesson.module] || window.MODULES[0];
   const curModIdx = window.MODULES.findIndex(m=>m.id===curMod.id) + 1;
+  const curLessonIdx = curMod.lessons.findIndex(l=>l.id===curLesson.id) + 1;
+  if(!TRACK_UI.openStages.some(id=>window.MODULE_BY_ID[id])) TRACK_UI.openStages = [curMod.id];
 
   // Lọc theo Track Tab & Search
   let visibleModules = window.MODULES;
@@ -809,9 +814,9 @@ function vTracks(){
     visibleModules = visibleModules.filter(m=>m.track===TRACK_UI.tab);
   }
   if(TRACK_UI.query.trim()){
-    const q = TRACK_UI.query.toLowerCase().trim();
+    const q = TRACK_UI.query.normalize("NFC").toLowerCase().trim();   // gõ tiếng Việt có thể ra dạng dấu tách rời
     visibleModules = visibleModules.filter(m=>{
-      const matchMod = m.n.toLowerCase().includes(q);
+      const matchMod = m.n.toLowerCase().includes(q) || (m.vi||"").toLowerCase().includes(q);
       const matchL = m.lessons.some(l=>l.t.toLowerCase().includes(q) || (l.out||"").toLowerCase().includes(q));
       return matchMod || matchL;
     });
@@ -822,7 +827,7 @@ function vTracks(){
 
   // Daily Challenge data
   const { challenge: dc, state: dcState } = State.getDailyChallenge();
-  const openMistakesCount = State.openMistakes().length || 40;
+  const openMistakesCount = State.openMistakes().length;
 
   return `<div class="main" style="max-width:1440px;margin:0 auto;padding:20px 24px">
     <!-- 2 COLUMNS LAYOUT: MAIN STUDY HUB + RIGHT WIDGETS -->
@@ -843,16 +848,16 @@ function vTracks(){
                     ✨ +15 XP khi hoàn thành
                   </span>
                 </div>
-                <div style="font-size:12px;color:#6B7280;font-weight:600;margin-bottom:3px">Chặng 1 • Bài 1351</div>
+                <div style="font-size:12px;color:#6B7280;font-weight:600;margin-bottom:3px"><span>Chặng</span> ${curModIdx} · ${esc(curMod.vi||curMod.n)} · <span>Bài</span> ${curLessonIdx}/${curMod.lessons.length}</div>
                 <h2 style="font-size:22px;font-weight:800;color:#111827;letter-spacing:-.02em;line-height:1.28;margin:0 0 10px">
-                  <a href="#/lesson/${curLesson.id}" style="color:inherit;text-decoration:none">${esc(curLesson.t || "Theo dõi chi tiêu – đo trước khi phân bổ")}</a>
+                  <a href="#/lesson/${curLesson.id}" style="color:inherit;text-decoration:none">${esc(curLesson.t)}</a>
                 </h2>
                 <div style="display:flex;align-items:center;gap:12px;font-size:12px;font-weight:600;color:#6B7280">
-                  <span>Tiến độ (3/267 bài)</span>
+                  <span><span>Tiến độ</span> <span class="num">${readyDone}/${readyLessons.length}</span> <span>bài</span></span>
                   <div class="bar" style="flex:1;max-width:220px;height:6px;background:#E5E7EB;border-radius:999px;overflow:hidden">
-                    <div style="width:${Math.max(overallPct, 1)}%;height:100%;background:#059669;border-radius:999px"></div>
+                    <div style="width:${Math.max(readyPct, 1)}%;height:100%;background:#059669;border-radius:999px"></div>
                   </div>
-                  <span style="font-weight:800;color:#059669">${Math.max(overallPct, 1)}%</span>
+                  <span style="font-weight:800;color:#059669">${readyPct}%</span>
                 </div>
               </div>
             </div>
@@ -893,16 +898,15 @@ function vTracks(){
           </div>
         </div>
 
-        <!-- Track Tabs (Tư duy Chiến lược vs Chuyên ngành) -->
-        <div class="track-nav-tabs" style="display:flex;gap:10px;margin-bottom:16px">
-          <button class="track-nav-tab ${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'active':''}" onclick="ACT.setTrackTab('all')" style="background:${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#064E3B':'var(--surface)'};color:${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#FFF':'var(--text)'};font-weight:800;padding:10px 20px;border-radius:999px;border:1px solid ${TRACK_UI.tab==='all'||TRACK_UI.tab==='f'?'#064E3B':'var(--border)'};cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13.5px">
-            <span>Tư duy Chiến lược</span>
-            <span style="font-size:11.5px;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.2)">2/265 bài</span>
-          </button>
-          <button class="track-nav-tab ${TRACK_UI.tab==='c'?'active':''}" onclick="ACT.setTrackTab('c')" style="background:${TRACK_UI.tab==='c'?'#064E3B':'var(--surface)'};color:${TRACK_UI.tab==='c'?'#FFF':'var(--text-2)'};font-weight:700;padding:10px 20px;border-radius:999px;border:1px solid var(--border);cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13.5px">
-            <span>Tài chính chuyên ngành</span>
-            <span style="font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">1/525 bài</span>
-          </button>
+        <!-- Track Tabs: một tab mỗi track trong giáo trình -->
+        <div class="track-nav-tabs" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+          ${[{id:"all", n:"Tất cả"}, ...window.TRACKS.map(t=>({id:t.id, n:t.vi||t.n}))].map(t=>{
+            const ls = t.id==="all" ? readyLessons : readyLessons.filter(l=>l.track===t.id);
+            const dn = ls.filter(l=>State.lessonStatus(l.id)==="done").length, on = TRACK_UI.tab===t.id;
+            return `<button class="track-nav-tab ${on?"active":""}" onclick="ACT.setTrackTab('${t.id}')" style="background:${on?"#064E3B":"var(--surface)"};color:${on?"#FFF":"var(--text-2)"};font-weight:${on?800:700};padding:8px 16px;border-radius:999px;border:1px solid ${on?"#064E3B":"var(--border)"};cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13px">
+              <span>${esc(t.n)}</span>
+              <span class="num" style="font-size:11px;padding:2px 8px;border-radius:999px;background:${on?"rgba(255,255,255,.2)":"var(--surface-3)"};color:${on?"#FFF":"var(--muted)"}">${dn}/${ls.length}</span>
+            </button>`; }).join("")}
         </div>
 
         <!-- Search & Filter Controls -->
@@ -913,161 +917,54 @@ function vTracks(){
               oninput="ACT.setTrackSearch(this.value)" style="border:none;background:transparent;outline:none;font-size:13.5px;color:var(--text);width:100%;font-family:inherit">
           </div>
           <button class="curr-filter-btn" onclick="ACT.toggleOnlyUnfinished()" style="background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 18px;font-size:12.5px;font-weight:700;color:var(--text-2);cursor:pointer;white-space:nowrap">
-            ${TRACK_UI.filterOnlyUnfinished ? "✓ Đang lọc: Chưa học" : "Đánh dấu đã học (?)"}
+            ${TRACK_UI.filterOnlyUnfinished ? "✓ Đang lọc: chặng chưa xong" : "Chỉ hiện chặng chưa xong"}
           </button>
         </div>
 
-        <!-- Stages / Modules Accordion -->
+        <!-- Stages: mỗi module của giáo trình là một chặng -->
         <div class="stages-list">
-          <!-- Stage 1 -->
-          <div class="stage-acc-card ${TRACK_UI.openStages.includes('f-foundations') || TRACK_UI.openStages.length===0 ? 'open' : ''}">
-            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('f-foundations')">
-              <div style="width:36px;height:36px;border-radius:10px;background:#FEF08A;color:#B45309;display:flex;align-items:center;justify-content:center;font-size:16px;flex:none">🚩</div>
-              <span style="font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--surface-3);color:var(--text-2);text-transform:uppercase;flex:none">CHẶNG 1</span>
-              <div class="stage-acc-title">
-                <span class="title-text" style="font-weight:800;color:var(--text);font-size:15px">Biết mình trước khi học: audit, ngân sách, qu...</span>
-              </div>
-              <div class="stage-acc-learners">
-                <span class="avatar-dots"><i class="dot-av" style="background:#6EE7B7"></i><i class="dot-av" style="background:#FCD34D"></i></span>
-                <span style="font-size:12px;color:var(--muted)">21 người vừa học chặng này</span>
-              </div>
+          ${visibleModules.length ? visibleModules.map(m=>{
+            const mIdx = window.MODULES.findIndex(x=>x.id===m.id) + 1, tr = window.TRACK_BY_ID[m.track] || {};
+            const ready = m.lessons.filter(l=>!l.soon), done = ready.filter(l=>State.lessonStatus(l.id)==="done").length;
+            const pct = ready.length ? Math.round(done/ready.length*100) : 0, open = TRACK_UI.openStages.includes(m.id);
+            let rows = m.lessons;
+            if(TRACK_UI.query.trim()){ const q = TRACK_UI.query.normalize("NFC").toLowerCase().trim();
+              if(!m.n.toLowerCase().includes(q) && !(m.vi||"").toLowerCase().includes(q))
+                rows = rows.filter(l=>l.t.toLowerCase().includes(q) || (l.out||"").toLowerCase().includes(q)); }
+            return `<div class="stage-acc-card ${open?"open":""}">
+            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('${m.id}')">
+              <span class="tile t-${tr.color||"ink"}" style="flex:none">${tr.icon||"▤"}</span>
+              <span style="font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--surface-3);color:var(--text-2);text-transform:uppercase;flex:none"><span>Chặng</span> ${mIdx}</span>
+              <div class="stage-acc-title"><span class="title-text" style="font-weight:800;color:var(--text);font-size:15px">${esc(m.vi||m.n)}</span></div>
+              <div class="stage-acc-learners"><span style="font-size:12px;color:var(--muted)">${esc(tr.vi||tr.n||"")}</span></div>
               <div class="stage-acc-progress" style="display:flex;align-items:center;gap:8px">
                 <div class="bar" style="width:48px;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden">
-                  <div style="width:11%;height:100%;background:#059669;border-radius:999px"></div>
+                  <div style="width:${pct}%;height:100%;background:#059669;border-radius:999px"></div>
                 </div>
-                <span class="num" style="font-size:12px;font-weight:700;color:var(--text-2)">1/9</span>
+                <span class="num" style="font-size:12px;font-weight:700;color:var(--text-2)">${done}/${ready.length}</span>
               </div>
               <span class="stage-acc-chevron" style="font-size:12px;color:var(--muted)">⌃</span>
             </div>
             <div class="stage-acc-body">
-              <a class="stage-lesson-row is-current" href="#/lesson/f-sizing" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
-                <div style="width:32px;height:32px;border-radius:50%;background:#064E3B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex:none">▶</div>
+              ${rows.map(l=>{
+                const lIdx = m.lessons.indexOf(l) + 1, st = State.lessonStatus(l.id), cur = l.id===curLesson.id;
+                const icon = st==="done" ? "✓" : cur ? "▶" : l.soon ? "…" : lIdx;
+                const iconStyle = st==="done" ? "background:var(--emerald-soft);color:var(--emerald)"
+                                : cur ? "background:#064E3B;color:#FFF" : "background:var(--surface-3);color:var(--muted)";
+                return `<a class="stage-lesson-row ${cur?"is-current":""} ${st==="done"?"is-done":""}" href="#/lesson/${l.id}" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
+                <div style="width:32px;height:32px;border-radius:50%;${iconStyle};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex:none">${icon}</div>
                 <div class="stage-lesson-info" style="flex:1;min-width:0">
-                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>Đo trước: theo dõi chi tiêu</span></div>
-                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">Phương pháp bóc tách dòng tiền và nhật ký thu chi cá nhân</div>
+                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:${l.soon?"var(--muted)":"var(--text)"}"><span>${esc(l.t)}</span></div>
+                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)"><span class="num">${l.m}</span> <span>phút</span> · <span>output:</span> <span>${esc(l.out||"")}</span></div>
                 </div>
                 <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
-                  <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 1-1</span>
-                  <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/1</span>
-                  <span style="font-size:11px;color:var(--muted)">⌵</span>
+                  ${l.soon?`<span class="stage-lesson-tag">Đang biên soạn</span>`:""}
+                  <span class="stage-lesson-tag num">${mIdx}.${lIdx}</span>
                 </div>
-              </a>
-              <a class="stage-lesson-row" href="#/lesson/f-profit" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
-                <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
-                <div class="stage-lesson-info" style="flex:1;min-width:0">
-                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>Audit tài chính và khẩu vị rủi ro</span></div>
-                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">Đánh giá sức khỏe bảng cân đối tài sản và xác định Risk Profile</div>
-                </div>
-                <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
-                  <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 2-3</span>
-                  <span class="stage-lesson-badge-sub" style="color:var(--emerald);font-weight:800;font-size:12px">1/2</span>
-                  <span style="font-size:11px;color:var(--muted)">⌵</span>
-                </div>
-              </a>
-              <a class="stage-lesson-row" href="#/lesson/f-pricing" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
-                <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
-                <div class="stage-lesson-info" style="flex:1;min-width:0">
-                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>Ngân sách, quỹ khẩn cấp, trả nợ và mục tiêu</span></div>
-                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">Nguyên tắc 50/30/20, quỹ 6 tháng sinh hoạt và chiến lược Avalanche</div>
-                </div>
-                <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
-                  <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 4-7</span>
-                  <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/4</span>
-                  <span style="font-size:11px;color:var(--muted)">⌵</span>
-                </div>
-              </a>
-              <a class="stage-lesson-row" href="#/lesson/f-unit" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:none;text-decoration:none;color:inherit">
-                <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
-                <div class="stage-lesson-info" style="flex:1;min-width:0">
-                  <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>Giữ kế hoạch sống sót: tự động hóa và bảo hiểm</span></div>
-                  <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">Thiết lập hệ thống chuyển tiền tự động và rào chắn rủi ro sức khỏe</div>
-                </div>
-                <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
-                  <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 8-9</span>
-                  <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/2</span>
-                  <span style="font-size:11px;color:var(--muted)">⌵</span>
-                </div>
-              </a>
+              </a>`; }).join("")}
             </div>
-          </div>
-
-          <!-- Stage 2 -->
-          <div class="stage-acc-card ${TRACK_UI.openStages.includes('c-structure') ? 'open' : ''}">
-            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('c-structure')">
-              <div style="width:36px;height:36px;border-radius:10px;background:#064E3B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex:none">%</div>
-              <span style="font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--surface-3);color:var(--text-2);text-transform:uppercase;flex:none">CHẶNG 2</span>
-              <span style="font-size:9.5px;font-weight:800;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0;padding:1px 5px;border-radius:4px">MỚI</span>
-              <div class="stage-acc-title">
-                <span class="title-text" style="font-weight:800;color:var(--text);font-size:15px">Thuế TNCN & Lương thực nhận</span>
-              </div>
-              <div class="stage-acc-learners">
-                <span class="avatar-dots"><i class="dot-av" style="background:#6EE7B7"></i><i class="dot-av" style="background:#FCD34D"></i></span>
-                <span style="font-size:12px;color:var(--muted)">6 người vừa học chặng này</span>
-              </div>
-              <div class="stage-acc-progress" style="display:flex;align-items:center;gap:8px">
-                <div class="bar" style="width:48px;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden">
-                  <div style="width:0%;height:100%;background:#059669;border-radius:999px"></div>
-                </div>
-                <span class="num muted" style="font-size:12px;font-weight:700;color:var(--muted)">0/8</span>
-              </div>
-              <span class="stage-acc-chevron" style="font-size:12px;color:var(--muted)">⌵</span>
-            </div>
-            <div class="stage-acc-body">
-              ${(window.MODULE_BY_ID['c-structure']||window.MODULES[1]).lessons.map((l, lIdx)=>`
-                <a class="stage-lesson-row" href="#/lesson/${l.id}" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
-                  <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
-                  <div class="stage-lesson-info" style="flex:1;min-width:0">
-                    <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>${esc(l.t)}</span></div>
-                    <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">${esc(l.out || "Bảo hiểm xã hội, biểu thuế lũy tiến & tối ưu giảm trừ")}</div>
-                  </div>
-                  <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
-                    <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 2-${lIdx+1}</span>
-                    <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/2</span>
-                    <span style="font-size:11px;color:var(--muted)">⌵</span>
-                  </div>
-                </a>
-              `).join("")}
-            </div>
-          </div>
-
-          <!-- Stage 3 -->
-          <div class="stage-acc-card ${TRACK_UI.openStages.includes('i-financial') ? 'open' : ''}">
-            <div class="stage-acc-header" onclick="ACT.toggleStageAcc('i-financial')">
-              <div style="width:36px;height:36px;border-radius:10px;background:#064E3B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex:none">💳</div>
-              <span style="font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--surface-3);color:var(--text-2);text-transform:uppercase;flex:none">CHẶNG 3</span>
-              <span style="font-size:9.5px;font-weight:800;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0;padding:1px 5px;border-radius:4px">MỚI</span>
-              <div class="stage-acc-title">
-                <span class="title-text" style="font-weight:800;color:var(--text);font-size:15px">Tín dụng cá nhân & CIC</span>
-              </div>
-              <div class="stage-acc-learners">
-                <span class="avatar-dots"><i class="dot-av" style="background:#6EE7B7"></i><i class="dot-av" style="background:#FCD34D"></i></span>
-                <span style="font-size:12px;color:var(--muted)">10 người vừa học chặng này</span>
-              </div>
-              <div class="stage-acc-progress" style="display:flex;align-items:center;gap:8px">
-                <div class="bar" style="width:48px;height:5px;background:#E5E7EB;border-radius:999px;overflow:hidden">
-                  <div style="width:0%;height:100%;background:#059669;border-radius:999px"></div>
-                </div>
-                <span class="num muted" style="font-size:12px;font-weight:700;color:var(--muted)">0/8</span>
-              </div>
-              <span class="stage-acc-chevron" style="font-size:12px;color:var(--muted)">⌵</span>
-            </div>
-            <div class="stage-acc-body">
-              ${(window.MODULE_BY_ID['i-financial']||window.MODULES[2]).lessons.map((l, lIdx)=>`
-                <a class="stage-lesson-row" href="#/lesson/${l.id}" style="display:flex;align-items:center;gap:14px;padding:12px 20px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
-                  <div style="width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">🔒</div>
-                  <div class="stage-lesson-info" style="flex:1;min-width:0">
-                    <div class="stage-lesson-name" style="font-size:14px;font-weight:700;color:var(--text)"><span>${esc(l.t)}</span></div>
-                    <div class="stage-lesson-sub" style="font-size:12px;color:var(--muted)">${esc(l.out || "Thẻ tín dụng, điểm tín dụng CIC & kiểm soát đòn bẩy")}</div>
-                  </div>
-                  <div class="stage-lesson-meta" style="display:flex;align-items:center;gap:10px;flex:none">
-                    <span class="stage-lesson-tag" style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)">Bài 3-${lIdx+1}</span>
-                    <span class="stage-lesson-badge-sub" style="color:var(--muted);font-size:12px;font-weight:700">0/2</span>
-                    <span style="font-size:11px;color:var(--muted)">⌵</span>
-                  </div>
-                </a>
-              `).join("")}
-            </div>
-          </div>
+          </div>`; }).join("")
+          : `<div class="card"><div class="card-b"><p class="small muted" style="margin:0">Không có chặng nào khớp bộ lọc.</p></div></div>`}
         </div>
       </div>
 
@@ -1124,17 +1021,17 @@ function vTracks(){
           </div>
         </div>
 
-        <!-- Card 2: Câu sai cần ôn tập (40 câu) -->
+        <!-- Card 2: Lỗi cần ôn tập (số thật từ Mistake Review) -->
         <div class="mistake-widget-card" style="background:#FFF;border:1px solid #FED7AA;border-radius:16px;padding:16px 20px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:14px;position:relative;overflow:hidden">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
             <div style="display:flex;align-items:center;gap:10px">
               <div style="width:28px;height:28px;border-radius:50%;background:#EA580C;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex:none">!</div>
-              <div style="font-size:14.5px;font-weight:800;color:#111827">Câu sai cần ôn tập</div>
+              <div style="font-size:14.5px;font-weight:800;color:#111827">Lỗi cần ôn tập</div>
             </div>
-            <span style="font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;background:#FEF3C7;color:#B45309">40 câu</span>
+            <span style="font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;background:#FEF3C7;color:#B45309"><span class="num">${openMistakesCount}</span> <span>lỗi</span></span>
           </div>
           <div style="font-size:12px;color:#4B5563;line-height:1.45;margin-bottom:10px;padding-right:30px">
-            Bạn có 40 câu hỏi trắc nghiệm đã làm sai cần ôn lại để củng cố kiến thức.
+            ${openMistakesCount ? "Lỗi từ bài tập, case và phỏng vấn đang chờ ôn. Ôn đúng lịch để không lặp lại cùng một kiểu sai." : "Chưa có lỗi nào cần ôn. Lỗi từ bài tập, case và phỏng vấn sẽ tự vào đây."}
           </div>
           <div style="display:flex;align-items:center;justify-content:space-between">
             <a href="#/review" style="font-size:15px;font-weight:800;color:#EA580C;text-decoration:none">→</a>
@@ -1161,10 +1058,10 @@ function vTracks(){
             <span class="daily-q-tag" style="background:#ECFDF5;color:#059669;font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:4px;letter-spacing:.04em">${esc(dc.tag || "TÍNH NHANH")}</span>
           </div>
           <div class="daily-q-text" style="font-size:13.5px;font-weight:800;color:#111827;line-height:1.45;margin-bottom:4px">
-            ${esc(dc.q || "Thu nhập 25 triệu một tháng, đang trả nợ vay 11 triệu")}
+            ${esc(dc.q)}
           </div>
           <div style="font-size:12.5px;color:#4B5563;line-height:1.4;margin-bottom:14px">
-            Tỷ lệ nợ trên thu nhập sau khi vay thêm rơi vào vùng nào?
+            Tính nhẩm, chọn một đáp án rồi gửi — lời giải hiện ngay sau đó.
           </div>
 
           <div class="daily-opt-list" style="display:flex;flex-direction:column;gap:8px">
@@ -1249,16 +1146,16 @@ function vLesson(id){
     <div class="lesson-milestone-dock">
       <div class="milestone-dock-flag">⚑</div>
       <div class="milestone-dock-toast" id="milestoneToast">
-        <div class="dock-toast-h"><span style="font-size:14px">✨</span> <b>Chúc mừng!</b> Bạn đã đọc 25%</div>
-        <div class="dock-toast-sub">Hãy tiếp tục - bạn đang làm rất tốt!</div>
+        <div class="dock-toast-h"><span style="font-size:14px">✨</span> <b>Tiến độ bài này:</b> ${qDone}/${qTotal} câu đã làm</div>
+        <div class="dock-toast-sub">${qDone>=qTotal ? (arena ? "Xong phần bài tập — thử luôn case " + esc(arena.t) + "." : "Xong phần bài tập — bấm hoàn thành bài ở cuối trang.") : "Đọc xong bài đọc rồi làm các câu bên dưới."}</div>
         <button class="dock-toast-close" onclick="document.getElementById('milestoneToast').style.display='none'">ĐÓNG</button>
       </div>
     </div>
 
     <!-- FLOATING FAB (BOTTOM RIGHT) -->
-    <div class="floating-fab-btn" onclick="location.hash='#/arena'">
-      <span>☰</span>
-      <span class="fab-badge">9+</span>
+    <div class="floating-fab-btn" onclick="location.hash='#/review'" title="Ôn lỗi sai">
+      <span>🔁</span>
+      ${(n => n ? `<span class="fab-badge">${n > 9 ? "9+" : n}</span>` : "")(State.openMistakes().length)}
     </div>
 
     <!-- STICKY TOPBAR -->
@@ -1328,12 +1225,12 @@ function vLesson(id){
             <span style="color:${ok?"#059669":"#9CA3AF"};font-weight:800">${ok?"✓":"○"}</span><span>${txt}</span></div>`).join("")}
         </div>`; })()}
 
-        <!-- AI CASE COACH CALLOUT (Tài Tài - Exact Replica) -->
+        <!-- Mẹo của bài: lấy từ cảnh báo trong framework hoặc lỗi hay gặp đầu tiên -->
         <div class="ai-coach-box" style="background:#18181B;color:#FFF;border-radius:12px;padding:16px 20px;margin-bottom:24px;border:none;box-shadow:0 4px 12px rgba(0,0,0,.15)">
-          <div class="ai-coach-av" style="background:#27272A;color:#FFF">🤖</div>
+          <div class="ai-coach-av" style="background:#27272A;color:#FFF">💡</div>
           <div class="ai-coach-content">
             <div class="ai-coach-header">
-              <span class="ai-coach-name" style="color:#FAFAFA;font-weight:800">Tài Tài · <span style="font-weight:500;color:#A1A1AA">mẹo tự động cho bài này</span></span>
+              <span class="ai-coach-name" style="color:#FAFAFA;font-weight:800">Mẹo của bài · <span style="font-weight:500;color:#A1A1AA">chỗ hay trượt nhất</span></span>
               <span class="ai-coach-tag" style="background:#27272A;color:#A1A1AA;font-size:10px">TỰ ĐỘNG</span>
             </div>
             <p class="ai-coach-text" style="color:#E4E4E7;font-size:13.5px;margin:0">${rich(C.fw.warn || (C.mistakes[0]||["",""])[1])}</p>
@@ -2105,7 +2002,7 @@ function ivCard(c){
       <div class="wrap-row"><span class="tag tag-accent">${esc(c.type)}</span><span class="tag tag-neutral">${esc(ind)}</span><span class="tag">${c.min} phút</span>${diffBadge(c.diff)}</div>
     </div>
     <div class="card-f row" style="justify-content:space-between">
-      <span class="small muted">${r&&r.attempts?`Điểm cao nhất ${r.best}`:"Chưa có điểm"}</span>
+      <span class="small muted">${r&&r.attempts?(r.attempts>1?`Điểm cao nhất ${r.best} · ${r.attempts} lần`:`Điểm cao nhất ${r.best}`):"Chưa có điểm"}</span>
       <span class="btn btn-sm btn-p">${rd<0?"Bắt đầu phỏng vấn":rd<5?"Tiếp tục":"Xem kết quả"} →</span>
     </div></div>`;
 }
@@ -2373,6 +2270,13 @@ function vIvRoom(id){
         <div class="callout ${R.total>=80?"ok":""} mt" style="padding:10px 12px;font-size:12.5px"><b>Nhận xét:</b> ${esc(R.feedback)}</div>
         ${sess.last?`<p class="small muted" style="margin:8px 0 0">Thời gian: <b class="num">${fmtClock(sess.last-sess.start)}</b> · gợi ý ${c.min} phút</p>`:""}
         ${(sess.hints||[]).filter(Boolean).length?`<p class="small muted" style="margin:4px 0 0">Dùng gợi ý ở ${(sess.hints||[]).filter(Boolean).length} vòng</p>`:""}
+        ${(()=>{ const h=(State.caseRec(id)||{}).history||[];
+          if(h.length<2) return "";
+          const show=h.slice(-5), from=h.length-show.length;
+          return `<div class="iv-hist"><div class="lbl mb">Các lần phỏng vấn case này</div><div class="wrap-row">
+            ${show.map((x,k)=>{ const prev=k?show[k-1].total:(from?h[from-1].total:null), d=prev==null?null:x.total-prev;
+              return `<span class="tag ${x.total>=80?"tag-e":"tag-a"}">Lần ${from+k+1} · ${x.total}${d!=null&&d!==0?` <b class="${d>0?"up":"down"}">${d>0?"+":"−"}${Math.abs(d)}</b>`:""}</span>`; }).join("")}
+          </div></div>`; })()}
         <p class="small muted" style="margin:8px 0 0">${R.recorded?`Đã ghi vào tiến độ${R.gain?` · +${R.gain} XP`:""}${R.mistakes?` · ${R.mistakes} lỗi vào <a href="#/review">Mistake Review</a>`:""}.`:"Phiên dùng câu mẫu — chỉ để xem cách chấm, không ghi điểm."}</p>
       </div>
       <div class="card-f row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><a class="btn btn-sm btn-gh" href="#/interview">← Danh sách case</a>
@@ -2560,14 +2464,14 @@ const ROUTES = {
 };
 
 function renderRail(){
-  const lv = State.level(), name = State.data.user.name || "Đinh Trí Bùi";
-  const ini = name.split(/\s+/).filter(Boolean).map(w=>w[0]).slice(-2).join("").toUpperCase() || "TB";
+  const lv = State.level(), name = State.data.user.name || "Bạn";
+  const ini = name.split(/\s+/).filter(Boolean).map(w=>w[0]).slice(-2).join("").toUpperCase() || "B";
   const set = (sel,v) => { const el=document.querySelector(sel); if(el) el.textContent=v; };
   set(".rail-av", ini); set(".user-av-pic", ini); set(".rail-nm", name); set(".rail-lv", `${lv.title} · Lv ${lv.lv}`);
   const gold = document.getElementById("goldCounter");
   if(gold){
     const totalXP = State.xpTotal();
-    gold.textContent = totalXP ? Math.max(60, totalXP) : 60;
+    gold.textContent = totalXP.toLocaleString("vi-VN");
   }
   const badge = document.getElementById("revBadge"), due = State.dueToday();
   if(badge){ badge.textContent = due; badge.hidden = !due; }

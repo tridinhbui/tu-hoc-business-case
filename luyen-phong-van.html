@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tự Học Tài Chính — Luyện phỏng vấn</title>
+  <title>Tự Học Business Case — Luyện phỏng vấn</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared/sidebar.css?v=c46a124a">
   <style>
     :root {
       --bg: #f8faf8;
@@ -1278,140 +1279,45 @@
 <body>
 
   <!-- ════════════ SIDEBAR ════════════ -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <a href="dashboard.html" class="brand-logo">
-        <div class="brand-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
-        </div>
-        <div class="brand-title">
-          TỰ HỌC<br>TÀI CHÍNH
-        </div>
-      </a>
+  <!-- SIDEBAR:START · tự sinh bởi tools/sync-sidebar.py — đừng sửa tay -->
+<aside class="sb" aria-label="Điều hướng chính">
+  <div class="sb-head"><a href="dashboard.html" class="sb-brand" aria-label="Tự học Business Case — về Dashboard">
+    <span class="sb-brand-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-9"/><path d="M12 13a5 5 0 0 0 5-5c0-4-5-6-5-6s-5 2-5 6a5 5 0 0 0 5 5z" fill="#10b981" fill-opacity="0.25"/><path d="M7 11a4 4 0 0 0-4-4c0-3 4-4 4-4s4 1 4 4a4 4 0 0 0-4 4z" fill="#10b981" fill-opacity="0.35"/></svg></span>
+    <span class="sb-brand-text"><span class="sb-brand-sub">TỰ HỌC</span><span class="sb-brand-main">BUSINESS CASE</span></span></a></div>
+  <label class="sb-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="searchInput" type="search" placeholder="Tìm kiếm…" autocomplete="off" aria-label="Tìm kiếm"><kbd>⌘K</kbd></label>
+  <nav class="sb-nav" id="sbNav">
+      <a href="dashboard.html" class="sb-link"><span class="sb-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span>Dashboard</span></a>
+      <a href="case-social.html" class="sb-link"><span class="sb-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>CaseSocial</span></a>
+    <div class="sb-group"><span>🌱 HỌC TẬP</span><i aria-hidden="true">▾</i></div>
+    <div class="sb-card">
+      <a href="bat-dau-tu-dau.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🧭</span><span>Bắt đầu từ đâu</span></a>
+      <a href="hoc-bai.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📖</span><span>Học bài</span></a>
+      <a href="hoc-theo-nghe.html" class="sb-link"><span class="sb-ic" aria-hidden="true">💼</span><span>Học theo nghề</span></a>
+      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📜</span><span>Chứng chỉ</span><span class="sb-more" aria-hidden="true">›</span></a>
     </div>
-
-    <!-- Search Box -->
-    <div class="search-box" onclick="alert('Tìm kiếm nhanh câu hỏi phỏng vấn, case study...')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span>Tìm kiếm...</span>
-      <kbd>⌘K</kbd>
+    <div class="sb-group"><span>⚡ THỰC HÀNH</span><i aria-hidden="true">▾</i></div>
+      <a href="bai-hoc.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎯</span><span>Quiz</span><span class="sb-badge sb-new">TIN MỚI</span></a>
+      <a href="thi-vuot-chang.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏆</span><span>Thi vượt chặng</span></a>
+      <a href="game-kingdom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🎮</span><span>Game Kingdom</span><span class="sb-badge sb-hot">HOT</span></a>
+      <a href="luyen-phong-van.html" class="sb-link sb-on" aria-current="page"><span class="sb-ic" aria-hidden="true">👥</span><span>Luyện phỏng vấn</span></a>
+    <div class="sb-group"><span>👥 CỘNG ĐỒNG</span><i aria-hidden="true">▾</i></div>
+      <a href="tai-lieu.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🏛️</span><span>Thư viện</span></a>
+      <a href="hoc-nhom.html" class="sb-link"><span class="sb-ic" aria-hidden="true">🤝</span><span>Học nhóm</span><span class="sb-badge sb-check">CHECK-IN</span></a>
+      <a href="thong-ke.html" class="sb-link"><span class="sb-ic" aria-hidden="true">📊</span><span>Thống kê</span></a>
+  </nav>
+  <script>(function(){var n=document.getElementById('sbNav');if(!n)return;try{var y=sessionStorage.getItem('sb-scroll');if(y)n.scrollTop=+y;}catch(e){}var a=n.querySelector('.sb-on');if(a){var r=a.getBoundingClientRect(),b=n.getBoundingClientRect();if(r.top<b.top||r.bottom>b.bottom)n.scrollTop+=r.top-b.top-(b.height-r.height)/2;}addEventListener('pagehide',function(){try{sessionStorage.setItem('sb-scroll',n.scrollTop);}catch(e){}});})();</script>
+  <div class="sb-foot">
+    <div class="sb-wallet">
+      <a href="cua-hang-rpg.html" class="sb-gold" title="Túi vàng — đổi quà ở cửa hàng"><span aria-hidden="true">🪙</span><span>Túi vàng</span><span class="sb-gold-n" id="goldSidebarCount">60</span></a>
+      <button type="button" class="sb-bell" title="Thông báo" aria-label="Thông báo, 9+ mới"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><b>9+</b></button>
     </div>
-
-    <!-- Nav List -->
-    <nav class="sidebar-nav">
-      <a href="dashboard.html" class="nav-item">
-        <span class="icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        </span>
-        <span>Dashboard</span>
-      </a>
-
-      <a href="case-social.html" class="nav-item">
-        <span class="icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </span>
-        <span>FinSocial</span>
-      </a>
-
-      <!-- SECTION 1: HỌC TẬP -->
-      <div class="nav-section-title">
-        <span>🎓 HỌC TẬP</span>
-        <span class="chevron">▼</span>
-      </div>
-      <a href="bat-dau-tu-dau.html" class="nav-item">
-        <span class="icon">🧭</span>
-        <span>Bắt đầu từ đâu</span>
-      </a>
-      <a href="hoc-bai.html" class="nav-item">
-        <span class="icon">📖</span>
-        <span>Học bài</span>
-      </a>
-      <a href="hoc-theo-nghe.html" class="nav-item">
-        <span class="icon">🏢</span>
-        <span>Học theo nghề</span>
-      </a>
-      <a href="ho-so.html" class="nav-item">
-        <span class="icon">📜</span>
-        <span>Chứng chỉ</span>
-        <span style="margin-left:auto;font-size:11px;color:var(--text-muted)">›</span>
-      </a>
-
-      <!-- SECTION 2: THỰC HÀNH -->
-      <div class="nav-section-title">
-        <span>⚡ THỰC HÀNH</span>
-        <span class="chevron">▼</span>
-      </div>
-      <a href="index.html#/learn" class="nav-item">
-        <span class="icon">📝</span>
-        <span>Quiz</span>
-        <span class="nav-tag tag-new">TIN MỚI</span>
-      </a>
-      <a href="thi-vuot-chang.html" class="nav-item">
-        <span class="icon">🏆</span>
-        <span>Thi vượt chặng</span>
-      </a>
-      <a href="game-kingdom.html" class="nav-item">
-        <span class="icon">🎮</span>
-        <span>Game Kingdom</span>
-        <span class="nav-tag tag-hot">HOT</span>
-      </a>
-      <a href="luyen-phong-van.html" class="nav-item active">
-        <span class="icon">💼</span>
-        <span>Luyện phỏng vấn</span>
-      </a>
-
-      <!-- SECTION 3: CỘNG ĐỒNG -->
-      <div class="nav-section-title">
-        <span>👥 CỘNG ĐỒNG</span>
-        <span class="chevron">▼</span>
-      </div>
-      <a href="tai-lieu.html" class="nav-item">
-        <span class="icon">🏛️</span>
-        <span>Thư viện</span>
-      </a>
-      <a href="hoc-nhom.html" class="nav-item">
-        <span class="icon">🤝</span>
-        <span>Học nhóm</span>
-        <span class="nav-tag tag-checkin">CHECK-IN</span>
-      </a>
-      <a href="thong-ke.html" class="nav-item">
-        <span class="icon">📊</span>
-        <span>Thống kê</span>
-      </a>
-    </nav>
-
-    <!-- Sidebar Footer -->
-    <div class="sidebar-footer">
-      <div class="gold-wallet-row">
-        <div class="gold-pill">
-          <span>🪙</span>
-          <span>Túi vàng</span>
-          <span class="gold-count">60</span>
-        </div>
-        <button class="bell-btn" title="Thông báo" onclick="alert('Bạn có 9+ câu hỏi phỏng vấn mới!')">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span class="bell-badge">9+</span>
-        </button>
-      </div>
-
-      <a href="ho-so.html" class="user-profile-card" title="Tài khoản cá nhân">
-        <div class="user-avatar-circle">
-          <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
-            <circle cx="18" cy="18" r="18" fill="#d1fae5"/>
-            <circle cx="18" cy="14" r="7" fill="#047857"/>
-            <path d="M6 32c0-6.627 5.373-12 12-12s12 5.373 12 12" fill="#047857"/>
-          </svg>
-        </div>
-        <div class="user-info">
-          <div class="user-name">Đinh Trí Bùi</div>
-          <div class="user-email">tribd.tec@gmail.com</div>
-        </div>
-        <span style="font-size:10px;color:var(--text-muted)">⌄</span>
-      </a>
-    </div>
-  </aside>
+    <a href="ho-so.html" class="sb-user" title="Hồ sơ cá nhân">
+      <span class="sb-av"><img src="assets/img/user_avatar.png" alt="" onerror="this.parentNode.textContent='ĐTB'"></span>
+      <span class="sb-user-text"><span class="sb-user-name">Đinh Trí Bùi</span><span class="sb-user-mail">tribd.tec@gmail.com</span></span>
+      <span class="sb-caret" aria-hidden="true">▾</span></a>
+  </div>
+</aside>
+<!-- SIDEBAR:END -->
 
   <!-- ════════════ MAIN INTERVIEW CONTENT VIEWPORT ════════════ -->
   <main class="main-viewport">
@@ -1439,7 +1345,7 @@
         <div class="hero-banner-card">
           <div>
             <span class="hero-tag">✦ LỘ TRÌNH PHỎNG VẤN</span>
-            <h2 class="hero-heading">Luyện phỏng vấn theo nghề tài chính</h2>
+            <h2 class="hero-heading">Luyện phỏng vấn case theo nghề</h2>
             <p class="hero-subtext">Luyện tập có lộ trình — Bứt phá tự tin — Chinh phục nhà tuyển dụng</p>
             <div class="hero-progress-row">
               <span>Hoàn thành</span>
@@ -1536,39 +1442,39 @@
           <h3 class="section-title">1. CHỌN NGHỀ NGHIỆP PHỎNG VẤN</h3>
           <div class="role-grid">
             <!-- Selected All Roles -->
-            <div class="role-card selected main-all" onclick="selectRole(this, 'Tất cả', 276)">
+            <div class="role-card selected main-all" onclick="selectRole(this, 'Tất cả', 240)">
               <span style="font-size:16px">💼</span>
-              <div class="role-big-count">276 câu</div>
+              <div class="role-big-count">240 câu</div>
             </div>
 
             <!-- Role 2 -->
-            <div class="role-card" onclick="selectRole(this, 'Private Equity / VC Analyst', 228)">
-              <div class="role-title">Private Equity / Venture Capital Analyst</div>
-              <div class="role-count"><span>💎</span> 228 câu</div>
+            <div class="role-card" onclick="selectRole(this, 'Management Consulting', 60)">
+              <div class="role-title">Management Consulting</div>
+              <div class="role-count"><span>◎</span> 60 câu</div>
             </div>
 
             <!-- Role 3 -->
-            <div class="role-card" onclick="selectRole(this, 'Chuyên viên Nghiên cứu Cổ phiếu', 153)">
-              <div class="role-title">Chuyên viên Nghiên cứu Cổ phiếu</div>
-              <div class="role-count"><span>📈</span> 153 câu</div>
+            <div class="role-card" onclick="selectRole(this, 'Corporate Strategy', 45)">
+              <div class="role-title">Corporate Strategy</div>
+              <div class="role-count"><span>📈</span> 45 câu</div>
             </div>
 
             <!-- Role 4 -->
-            <div class="role-card" onclick="selectRole(this, 'Chuyên viên Định giá Tài sản', 153)">
-              <div class="role-title">Chuyên viên Định giá Tài sản</div>
-              <div class="role-count"><span>🔗</span> 153 câu</div>
+            <div class="role-card" onclick="selectRole(this, 'Marketing Strategy', 45)">
+              <div class="role-title">Marketing Strategy</div>
+              <div class="role-count"><span>🔗</span> 45 câu</div>
             </div>
 
             <!-- Role 5 -->
-            <div class="role-card" onclick="selectRole(this, 'Chuyên viên Phân tích Tài chính', 129)">
-              <div class="role-title">Chuyên viên Phân tích Tài chính</div>
-              <div class="role-count"><span>📊</span> 129 câu</div>
+            <div class="role-card" onclick="selectRole(this, 'Product Management', 45)">
+              <div class="role-title">Product Management</div>
+              <div class="role-count"><span>📊</span> 45 câu</div>
             </div>
 
             <!-- Role 6 -->
-            <div class="role-card" onclick="selectRole(this, 'Chuyên viên Đầu tư (CFA Track)', 95)">
-              <div class="role-title">Chuyên viên Đầu tư (CFA Track)</div>
-              <div class="role-count"><span>🛡️</span> 95 câu</div>
+            <div class="role-card" onclick="selectRole(this, 'Business Analyst', 45)">
+              <div class="role-title">Business Analyst</div>
+              <div class="role-count"><span>🛡️</span> 45 câu</div>
             </div>
 
             <!-- Role 7 -->
@@ -1628,29 +1534,29 @@
           <h3 class="section-title">4. CHỌN CHỦ ĐỀ TRỌNG ĐIỂM (TÙY CHỌN)</h3>
           <div class="topic-grid">
             <div class="topic-card selected" onclick="toggleTopic(this)">
-              <div class="topic-title">Tái cấu trúc / M&A doanh nghiệp khó khăn</div>
+              <div class="topic-title">Profitability — lợi nhuận giảm</div>
               <div class="topic-count">40</div>
             </div>
             <div class="topic-card" onclick="toggleTopic(this)">
-              <div class="topic-title">Định giá — Cơ bản</div>
+              <div class="topic-title">Market Entry — gia nhập thị trường</div>
               <div class="topic-count">34</div>
             </div>
             <div class="topic-card" onclick="toggleTopic(this)">
-              <div class="topic-title">Kế toán — Cơ bản</div>
+              <div class="topic-title">Market Sizing — ước lượng</div>
               <div class="topic-count">33</div>
             </div>
             <div class="topic-card" onclick="toggleTopic(this)">
-              <div class="topic-title">Chiết khấu dòng tiền — Cơ bản</div>
+              <div class="topic-title">Pricing — định giá</div>
               <div class="topic-count">32</div>
             </div>
             <div class="topic-card" onclick="toggleTopic(this)">
-              <div class="topic-title">Mô hình sáp nhập — Cơ bản</div>
+              <div class="topic-title">M&A — mua bán sáp nhập</div>
               <div class="topic-count">24</div>
             </div>
             <div class="topic-card" style="display:flex;align-items:center;justify-content:center;text-align:center" onclick="alert('Mở thêm các chủ đề khác...')">
               <div>
                 <div class="topic-title" style="color:#059669">Xem thêm</div>
-                <div class="topic-count" style="color:#059669">+ 9 chủ đề</div>
+                <div class="topic-count" style="color:#059669">+ 3 dạng case</div>
               </div>
             </div>
           </div>
@@ -1829,27 +1735,26 @@
       <div class="modal-header">
         <div class="modal-title">
           <span>💼</span>
-          <span id="quizModalTitle">Luyện phỏng vấn tài chính (Câu 1/5)</span>
+          <span id="quizModalTitle">Luyện phỏng vấn case (Câu 1/5)</span>
         </div>
         <button class="modal-close" onclick="closeModal('quizModal')">✕</button>
       </div>
       <div class="modal-body">
-        <div style="font-size:11px;font-weight:800;color:#059669;margin-bottom:6px">CHỦ ĐỀ: TÁI CẤU TRÚC / M&A DOANH NGHIỆP</div>
+        <div style="font-size:11px;font-weight:800;color:#059669;margin-bottom:6px">DẠNG CASE: PROFITABILITY</div>
         <p style="font-size:13.5px;font-weight:700;color:#0f172a;line-height:1.5;margin-bottom:16px">
-          Khi một doanh nghiệp gặp khủng hoảng thanh khoản nghiêm trọng và tỷ lệ Nợ vay / EBITDA vượt quá 8.0x, công cụ nào sau đây thường được ưu tiên thương thảo với chủ nợ trong quá trình tái cấu trúc tài chính ngoài tòa án (Out-of-court workout)?
-        </p>
+          Chuỗi cà phê tăng doanh thu 18% trong năm nhưng EBITDA margin giảm từ 16% xuống 9%. Người phỏng vấn hỏi: bạn làm gì đầu tiên?</p>
 
         <button class="quiz-option-btn" onclick="answerQuestion(true, this)">
-          A. Debt-to-Equity Swap (Chuyển đổi nợ thành cổ phần) kết hợp gia hạn kỳ hạn trái phiếu
+          A. Tách lợi nhuận thành doanh thu và chi phí, tìm dòng chi phí tăng nhanh hơn doanh thu, xét riêng nhóm cửa hàng mới mở
         </button>
         <button class="quiz-option-btn" onclick="answerQuestion(false, this)">
-          B. Phát hành thêm cổ tức bằng tiền mặt để tăng uy tín với nhà đầu tư
+          B. Đề xuất tăng giá bán 10% để kéo biên lợi nhuận về lại 16%
         </button>
         <button class="quiz-option-btn" onclick="answerQuestion(false, this)">
-          C. Vay thêm nợ ngắn hạn lãi suất cao để trả toàn bộ nợ dài hạn
+          C. Cắt ngân sách marketing vì đó là khoản dễ cắt nhất
         </button>
         <button class="quiz-option-btn" onclick="answerQuestion(false, this)">
-          D. Tăng chi tiêu vốn (CapEx) 200% để mở rộng nhà xưởng ngay lập tức
+          D. Đóng ngay các cửa hàng có doanh thu thấp nhất chuỗi
         </button>
       </div>
       <div class="modal-footer">
@@ -1918,7 +1823,7 @@
         btn.style.background = "#fee2e2";
         btn.style.borderColor = "#ef4444";
         btn.style.color = "#b91c1c";
-        alert("❌ Chưa chính xác. Đáp án đúng là A: Debt-to-Equity Swap giúp giảm áp lực đòn bẩy và nợ gốc.");
+        alert("❌ Chưa chính xác. Đáp án đúng là A: chưa biết chỗ rò thì chưa được đề xuất giải pháp — tách lợi nhuận trước, rồi mới tìm nguyên nhân.");
       }
     }
 
