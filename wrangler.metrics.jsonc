@@ -1,3 +1,5 @@
+// TẠM TẮT: đổi tên từ wrangler.jsonc vì bản build đầu tiên trên Workers Builds thất bại
+// (chưa đọc được log). Đổi lại thành wrangler.jsonc khi đã sửa xong để bật /api/metrics.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   // Worker của nhánh main (STRATLAB). Nền tảng ở nhánh cloudflare-platform dùng Worker riêng
